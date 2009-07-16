@@ -8,10 +8,10 @@
   <name>MoTeCH Mobile</name>
   <url>https://motech.rcg.usm.maine.edu/redmine</url>
   <modules>
-      <module>motech-mobile-commons</module>
+      <!--<module>motech-mobile-commons</module>-->
       <module>motech-mobile-omp</module>
-      <module>motech-mobile-omi</module>
-      <module>motech-mobile-imp</module>
+      <!--<module>motech-mobile-omi</module>
+      <module>motech-mobile-imp</module>-->
       <module>motech-mobile-core</module>
       <module>motech-mobile-webapp</module>
   </modules>
