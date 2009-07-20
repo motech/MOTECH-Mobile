@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omp.caching.services;
+package com.dreamoval.motech.omp.cache;
 
-import com.dreamoval.motech.omp.cache.SMSCacheImpl;
 import com.dreamoval.motech.core.DataAccess.DAO.Impl.MessageDetailsDAOImpl;
 import com.dreamoval.motech.core.DataAccess.DAO.MessageDetailsDAO;
 import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
@@ -16,10 +15,10 @@ import junit.framework.TestCase;
  *
  * @author Yoofi
  */
-public class SMSCacheServiceImplTest extends TestCase {
+public class SMSCacheImplTest extends TestCase {
     MessageDetails messageDetails;
 
-    public SMSCacheServiceImplTest(String testName) {
+    public SMSCacheImplTest(String testName) {
         super(testName);
     }
 

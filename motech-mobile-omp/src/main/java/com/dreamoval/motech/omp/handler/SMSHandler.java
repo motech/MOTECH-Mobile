@@ -13,5 +13,5 @@ import com.dreamoval.motech.core.DataAccess.Domain.ResponseDetails;
  */
 public interface SMSHandler {
     public MessageDetails prepareMessage(String message);
-    public ResponseDetails parseResponse(String[] gatewayResponse);
+    public ResponseDetails parseResponse(String gatewayResponse);
 }

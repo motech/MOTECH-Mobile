@@ -16,11 +16,13 @@ import com.dreamoval.motech.omp.handler.SMSHandler;
 public class ORServeSMSHandler implements SMSHandler {
 
     public MessageDetails prepareMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println(message);
+        return null;
     }
 
-    public ResponseDetails parseResponse(String[] gatewayResponse) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ResponseDetails parseResponse(String gatewayResponse) {
+        System.out.println(gatewayResponse);
+        return null;
     }
 
 }

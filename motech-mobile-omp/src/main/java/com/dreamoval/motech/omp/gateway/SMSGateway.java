@@ -11,6 +11,6 @@ import com.dreamoval.motech.core.DataAccess.Domain.ResponseDetails;
  *
  * @author Yoofi
  */
-public interface SMSGatewayService {
+public interface SMSGateway extends MessageGateway {
     public ResponseDetails send(MessageDetails messageDetails);
 }
