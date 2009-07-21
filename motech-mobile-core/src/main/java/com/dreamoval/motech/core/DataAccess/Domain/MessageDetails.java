@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.DataAccess.Domain;
+package com.dreamoval.motech.core.dataaccess.domain;
 
 import java.util.Date;
 import java.util.Set;
@@ -22,15 +22,17 @@ public class MessageDetails {
     private String messageType;
     private int numberOfPages;
     private String messageText;
+    private String recipientsNumbers;
     private String globalStatus;
     private Set responseDetails;
 
-    public MessageDetails(String messageType, int numberOfPages, String messageText, String globalStatus, Date dateSent) {
+    public MessageDetails(String messageType, int numberOfPages, String messageText, String recipientsNumbers, String globalStatus, Date dateSent) {
         this.messageType = messageType;
         this.numberOfPages = numberOfPages;
         this.messageText = messageText;
         this.globalStatus = globalStatus;
         this.dateSent = dateSent;
+        this.recipientsNumbers = recipientsNumbers;
     }
     private Date dateSent;
 
@@ -133,4 +135,19 @@ public class MessageDetails {
         this.dateSent = dateSent;
     }
 
+    /**
+     * @return the recipientsNumbers
+     */
+    public String getRecipientsNumbers() {
+        return recipientsNumbers;
+    }
+
+    /**
+     * @param recipientsNumbers the recipientsNumbers to set
+     */
+    public void setRecipientsNumbers(String recipientsNumbers) {
+        this.recipientsNumbers = recipientsNumbers;
+    }
+
+   
 }

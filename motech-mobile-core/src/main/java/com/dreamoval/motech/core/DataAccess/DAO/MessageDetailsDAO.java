@@ -3,9 +3,10 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.DataAccess.DAO;
+package com.dreamoval.motech.core.dataaccess.dao;
 
-import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
+import com.dreamoval.motech.core.dataaccess.domain.MessageDetails;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,10 @@ import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
  */
 public interface MessageDetailsDAO {
     public boolean StoreMessage(MessageDetails messageDetails);
+//    public boolean StoreMessageAndResponse(MessageDetails messageDetails, ResponseDetails[] responseDetails);
+    public boolean DeleteMessageById(Long id);
+    public boolean Delete(MessageDetails messageDetails);
+    public List<MessageDetails> GetAllByStatus(String status);
+
 
 }

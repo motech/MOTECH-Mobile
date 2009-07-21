@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.DataAccess.Util;
+package com.dreamoval.motech.core.dataaccess.util;
 
 import org.hibernate.Session;
 
@@ -15,6 +15,6 @@ import org.hibernate.Session;
  */
 public interface ISessionManager {
 
-   public Session ResquestSession();
+   public Session RequestSession();
 
 }

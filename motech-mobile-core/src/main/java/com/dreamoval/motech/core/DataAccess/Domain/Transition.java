@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.DataAccess.Domain;
+package com.dreamoval.motech.core.dataaccess.domain;
 
 import java.util.Date;
 

@@ -8,6 +8,7 @@
     <property name="messageType"/>
     <property name="numberOfPages"/>
     <property name="messageText"/>
+    <property name="recipientsNumbers"/>
     <property name="globalStatus"/>
     <property name="dateSent" type="timestamp"/>
     <set name="responseDetails">

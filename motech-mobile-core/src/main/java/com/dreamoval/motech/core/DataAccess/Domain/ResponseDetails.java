@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.DataAccess.Domain;
+package com.dreamoval.motech.core.dataaccess.domain;
 
 import java.util.Set;
 
@@ -18,6 +18,12 @@ public class ResponseDetails {
 private Long responseId;
 private MessageDetails messageId;
 private String gatewayMessageId;
+
+    public ResponseDetails(String gatewayMessageId, String recipientNumber, String messageStatus) {
+        this.gatewayMessageId = gatewayMessageId;
+        this.recipientNumber = recipientNumber;
+        this.messageStatus = messageStatus;
+    }
 private String recipientNumber;
 private String messageStatus;
 private Set transitions;
