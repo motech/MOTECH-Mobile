@@ -3,51 +3,46 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omp.handler.orserve;
+package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
 import com.dreamoval.motech.core.DataAccess.Domain.ResponseDetails;
-import junit.framework.TestCase;
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 /**
  *
  * @author Yoofi
  */
-public class ORServeSMSHandlerTest extends TestCase {
+public class ORServeGatewayMessageHandlerImplTest extends AbstractDependencyInjectionSpringContextTests {
     
-    public ORServeSMSHandlerTest(String testName) {
+    public ORServeGatewayMessageHandlerImplTest(String testName) {
         super(testName);
     }
 
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    protected String[] getConfigLocations(){
+        return new String[]{"file:src/main/resources/motech-omp.xml"};
     }
 
     /**
-     * Test of prepareMessage method, of class ORServeSMSHandler.
+     * Test of prepareMessage method, of class ORServeGatewayMessageHandler.
      */
     public void testPrepareMessage() {
         System.out.println("prepareMessage");
         String message = "A sample message";
-        ORServeSMSHandler instance = new ORServeSMSHandler();
+        ORServeGatewayMessageHandlerImpl instance = new ORServeGatewayMessageHandlerImpl();
         MessageDetails expResult = null;
         MessageDetails result = instance.prepareMessage(message);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of parseResponse method, of class ORServeSMSHandler.
+     * Test of parseResponse method, of class ORServeGatewayMessageHandler.
      */
     public void testParseResponse() {
         System.out.println("parseResponse");
         String gatewayResponse = "A sample gateway response";
-        ORServeSMSHandler instance = new ORServeSMSHandler();
+        ORServeGatewayMessageHandlerImpl instance = new ORServeGatewayMessageHandlerImpl();
         ResponseDetails expResult = null;
         ResponseDetails result = instance.parseResponse(gatewayResponse);
         assertEquals(expResult, result);

@@ -3,14 +3,14 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omp.cache;
+package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
 /**
  *
  * @author Yoofi
  */
-public interface SMSCache {
+public interface SMSCacheService {
     public boolean saveMessage(MessageDetails messageDetails);
     public boolean updateMessage(MessageDetails messageDetails);
 }

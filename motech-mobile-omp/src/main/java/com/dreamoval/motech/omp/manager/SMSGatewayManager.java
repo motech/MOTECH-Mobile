@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omp.handler;
+package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
 import com.dreamoval.motech.core.DataAccess.Domain.ResponseDetails;
@@ -11,7 +11,6 @@ import com.dreamoval.motech.core.DataAccess.Domain.ResponseDetails;
  *
  * @author Yoofi
  */
-public interface SMSHandler {
-    public MessageDetails prepareMessage(String message);
-    public ResponseDetails parseResponse(String gatewayResponse);
+public interface SMSGatewayManager extends MessageGatewayManager {
+    public ResponseDetails send(MessageDetails messageDetails);
 }

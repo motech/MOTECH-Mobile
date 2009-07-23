@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omp.cache;
+package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.DataAccess.DAO.MessageDetailsDAO;
 import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
@@ -12,7 +12,7 @@ import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
  *
  * @author Yoofi
  */
-public class SMSCacheImpl implements SMSCache {
+public class SMSCacheServiceImpl implements SMSCacheService {
 
     private MessageDetailsDAO messageDetailsDao;
 

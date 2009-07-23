@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omp.messaging.services;
+package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
 /**

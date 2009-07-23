@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omp.gateway;
+package com.dreamoval.motech.omp.manager;
 
 /**
  *
  * @author Yoofi
  */
-public interface MessageGateway {
+public interface MessageGatewayManager {
 
 }

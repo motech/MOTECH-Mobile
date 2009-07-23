@@ -3,17 +3,17 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omp.handler.orserve;
+package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
 import com.dreamoval.motech.core.DataAccess.Domain.ResponseDetails;
-import com.dreamoval.motech.omp.handler.SMSHandler;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 
 /**
  *
  * @author Yoofi
  */
-public class ORServeSMSHandler implements SMSHandler {
+public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
 
     public MessageDetails prepareMessage(String message) {
         System.out.println(message);
