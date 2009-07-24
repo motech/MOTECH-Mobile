@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.dataaccess.dao.impl;
+package com.dreamoval.motech.core.model.dao.hibernate;
 
-import com.dreamoval.motech.core.dataaccess.dao.ResponseDetailsDAO;
-import com.dreamoval.motech.core.dataaccess.domain.ResponseDetails;
-import com.dreamoval.motech.core.dataaccess.util.ISessionManager;
-import com.dreamoval.motech.core.dataaccess.util.SessionManager;
+import com.dreamoval.motech.core.model.dao.ResponseDetailsDAO;
+import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.dao.hibernate.util.ISessionManager;
+import com.dreamoval.motech.core.model.dao.hibernate.util.SessionManager;
 import org.hibernate.Session;
 
 /**
@@ -17,7 +17,6 @@ import org.hibernate.Session;
  */
 public class ResponseDetailsDAOImpl implements ResponseDetailsDAO {
 
-    @Override
     public boolean StoreResponse(ResponseDetails responseDetails) {
 
         try

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.dataaccess.domain;
+package com.dreamoval.motech.core.model;
 
 import java.util.Set;
 

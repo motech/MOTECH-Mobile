@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.dataaccess.util;
+package com.dreamoval.motech.core.model.dao.hibernate.util;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,15 +17,12 @@ public class SessionManager  implements ISessionManager{
     private final SessionFactory sessionFactory;
     private Session session;
 
-    public SessionManager()
-    {
-          this.sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+    public SessionManager() {
+        this.sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
     }
     
-    public SessionManager(SessionFactory sessionFactory)
-    {
-        this.sessionFactory = sessionFactory;
-      
+    public SessionManager(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;      
     }
 
 

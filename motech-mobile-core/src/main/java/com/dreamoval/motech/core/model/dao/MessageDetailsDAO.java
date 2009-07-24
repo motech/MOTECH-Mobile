@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.dataaccess.dao;
+package com.dreamoval.motech.core.model.dao;
 
-import com.dreamoval.motech.core.dataaccess.domain.MessageDetails;
+import com.dreamoval.motech.core.model.MessageDetails;
 import java.util.List;
 
 /**
