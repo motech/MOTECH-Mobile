@@ -32,20 +32,20 @@
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>com.dreamoval.motech.core.DataAccess.Domain.MessageDetails</value>
-                <value>com.dreamoval.motech.core.DataAccess.Domain.ResponseDetails</value>
-                <value>com.dreamoval.motech.core.DataAccess.Domain.Transition</value>
+                <value>com.dreamoval.motech.core.model.MessageDetails</value>
+                <value>com.dreamoval.motech.core.model.ResponseDetails</value>
+                <value>com.dreamoval.motech.core.model.Transition</value>
             </list>
         </property>
     </bean>
 
-    <bean id="sessionManager" class="com.dreamoval.motech.core.DataAccess.Util.SessionManager">
+    <bean id="sessionManager" class="com.dreamoval.motech.core.model.dao.hibernate.util.SessionManager">
         <constructor-arg ref="sessionFactory" />
     </bean>
 
     <bean id="date" class="java.util.Date" />
 
-    <bean id="messageDetails" class="com.dreamoval.motech.core.DataAccess.Domain.MessageDetails">
+    <bean id="messageDetails" class="com.dreamoval.motech.core.model.MessageDetails">
         <property name="messageType" value="text" />
         <property name="numberOfPages" value="1" />
         <property name="messageText" value="Welcome to MoTeCH Mobile" />
@@ -53,7 +53,7 @@
         <property name="dateSent" ref="date" />
     </bean>
 
-    <bean id="messageDetailsDao" class="com.dreamoval.motech.core.DataAccess.DAO.Impl.MessageDetailsDAOImpl" />
+    <bean id="messageDetailsDao" class="com.dreamoval.motech.core.model.dao.hibernate.MessageDetailsDAOImpl" />
 
     <!--<bean id="responseDetailsDao" class="com.dreamoval.motech.core.DataAccess.DAO.Impl.ResponseDetailsDao">
         <constructor-arg ref="sessionManager" />

@@ -5,7 +5,7 @@
 
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
+import com.dreamoval.motech.core.model.MessageDetails;
 
 /**
  *

@@ -5,8 +5,8 @@
 
 package com.dreamoval.motech.omp.manager;
 
-import com.dreamoval.motech.core.DataAccess.Domain.MessageDetails;
-import com.dreamoval.motech.core.DataAccess.Domain.ResponseDetails;
+import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.ResponseDetails;
 /**
  *
  * @author Yoofi
