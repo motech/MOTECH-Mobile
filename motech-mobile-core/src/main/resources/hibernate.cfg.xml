@@ -9,7 +9,7 @@
     <property name="hibernate.connection.password">admin</property>
     <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
     <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.hbm2ddl.auto">create</property>
+    <!--<property name="hibernate.hbm2ddl.auto">create</property>-->
     <mapping resource="Transition.hbm.xml"/>
     <mapping resource="MessageDetails.hbm.xml"/>
     <mapping resource="ResponseDetails.hbm.xml"/>
