@@ -3,13 +3,13 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.model.dao.hibernate;
+package com.dreamoval.motech.core.model.dao;
 
 import com.dreamoval.motech.core.model.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.core.model.dao.hibernate.util.ISessionManager;
-import com.dreamoval.motech.core.model.dao.hibernate.util.SessionManager;
+import com.dreamoval.motech.core.model.dao.hibernate.ISessionManager;
+import com.dreamoval.motech.core.model.dao.hibernate.SessionManager;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;

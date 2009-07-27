@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.model.dao.hibernate;
+package com.dreamoval.motech.core.model.dao;
 
 import com.dreamoval.motech.core.model.dao.ResponseDetailsDAO;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.core.model.dao.hibernate.util.ISessionManager;
-import com.dreamoval.motech.core.model.dao.hibernate.util.SessionManager;
+import com.dreamoval.motech.core.model.dao.hibernate.ISessionManager;
+import com.dreamoval.motech.core.model.dao.hibernate.SessionManager;
 import org.hibernate.Session;
 
 /**

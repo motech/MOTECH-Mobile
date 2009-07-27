@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.model.dao.hibernate.util;
+package com.dreamoval.motech.core.model.dao.hibernate;
 
 import org.hibernate.Session;
 

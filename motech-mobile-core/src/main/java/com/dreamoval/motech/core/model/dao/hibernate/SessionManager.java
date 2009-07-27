@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.model.dao.hibernate.util;
+package com.dreamoval.motech.core.model.dao.hibernate;
 
+import com.dreamoval.motech.core.model.dao.hibernate.ISessionManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
