@@ -5,17 +5,20 @@
 
 package com.dreamoval.motech.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  *
  * @author Jojo
  */
-public class MessageDetails {
+public class MessageDetails implements Serializable{
 
     public MessageDetails(){}
 
+    private static final long serialVersionUID = 1L;
+    private String gid;
 
     private Long messageId;
 
@@ -24,7 +27,7 @@ public class MessageDetails {
     private String messageText;
     private String recipientsNumbers;
     private String globalStatus;
-    private Set responseDetails;
+    private List<ResponseDetails> responseDetails;
 
     public MessageDetails(String messageType, int numberOfPages, String messageText, String recipientsNumbers, String globalStatus, Date dateSent) {
         this.messageType = messageType;
@@ -96,14 +99,14 @@ public class MessageDetails {
     /**
      * @return the responseDetails
      */
-    public Set getResponseDetails() {
+    public List<ResponseDetails> getResponseDetails() {
         return responseDetails;
     }
 
     /**
      * @param responseDetails the responseDetails to set
      */
-    public void setResponseDetails(Set responseDetails) {
+    public void setResponseDetails(List<ResponseDetails> responseDetails) {
         this.responseDetails = responseDetails;
     }
 
@@ -147,6 +150,20 @@ public class MessageDetails {
      */
     public void setRecipientsNumbers(String recipientsNumbers) {
         this.recipientsNumbers = recipientsNumbers;
+    }
+
+    /**
+     * @return the gid
+     */
+    public String getGid() {
+        return gid;
+    }
+
+    /**
+     * @param gid the gid to set
+     */
+    public void setGid(String gid) {
+        this.gid = gid;
     }
 
    

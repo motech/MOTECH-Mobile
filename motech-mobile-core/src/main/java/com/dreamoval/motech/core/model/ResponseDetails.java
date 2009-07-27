@@ -5,6 +5,7 @@
 
 package com.dreamoval.motech.core.model;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,20 +14,24 @@ import java.util.Set;
  */
 public class ResponseDetails {
 
+    private static final long serialVersionUID = 1L;
+    private String gid;
+
+    private Long responseId;
+    private MessageDetails messageId;
+    private String gatewayMessageId;
+    private String recipientNumber;
+    private String messageStatus;
+    private List transitions;
+
     public ResponseDetails(){}
 
-private Long responseId;
-private MessageDetails messageId;
-private String gatewayMessageId;
 
     public ResponseDetails(String gatewayMessageId, String recipientNumber, String messageStatus) {
         this.gatewayMessageId = gatewayMessageId;
         this.recipientNumber = recipientNumber;
         this.messageStatus = messageStatus;
     }
-private String recipientNumber;
-private String messageStatus;
-private Set transitions;
 
     /**
      * @return the responseId
@@ -101,15 +106,29 @@ private Set transitions;
     /**
      * @return the transitions
      */
-    public Set getTransitions() {
+    public List getTransitions() {
         return transitions;
     }
 
     /**
      * @param transitions the transitions to set
      */
-    public void setTransitions(Set transitions) {
+    public void setTransitions(List transitions) {
         this.transitions = transitions;
+    }
+
+    /**
+     * @return the gid
+     */
+    public String getGid() {
+        return gid;
+    }
+
+    /**
+     * @param gid the gid to set
+     */
+    public void setGid(String gid) {
+        this.gid = gid;
     }
 
   
