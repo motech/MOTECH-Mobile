@@ -8,7 +8,7 @@ package com.dreamoval.motech.core.dao.hibernate;
 import com.dreamoval.motech.core.dao.ResponseDetailsDAO;
 import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.core.dao.SessionContainer;
-import com.dreamoval.motech.core.dao.hibernate.SessionManagerImpl;
+import com.dreamoval.motech.core.dao.hibernate.HibernateUtils;
 import org.hibernate.Session;
 
 /**
@@ -21,7 +21,7 @@ public class ResponseDetailsDAOImpl implements ResponseDetailsDAO {
 
         try
         {
-            SessionContainer sessionManager = new SessionManagerImpl();
+            SessionContainer sessionManager = new HibernateUtils();
             Session session = sessionManager.requestSession();
             session.beginTransaction();
             session.saveOrUpdate(responseDetails);

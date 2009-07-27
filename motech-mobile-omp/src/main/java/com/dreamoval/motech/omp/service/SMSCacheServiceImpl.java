@@ -5,7 +5,7 @@
 
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.model.dao.MessageDetailsDAO;
+import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
 
 /**

@@ -9,7 +9,7 @@ import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.core.dao.SessionContainer;
-import com.dreamoval.motech.core.dao.hibernate.SessionManagerImpl;
+import com.dreamoval.motech.core.dao.hibernate.HibernateUtils;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -24,14 +24,14 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
 
   public MessageDetailsDAOImpl(){}
 
-  public MessageDetailsDAOImpl(SessionManagerImpl sessionManager){
+  public MessageDetailsDAOImpl(HibernateUtils sessionManager){
     this.sessionManager = sessionManager;
   }
 
     public boolean StoreMessage(MessageDetails messageDetails) {
         try
         {
-            sessionManager = new SessionManagerImpl();
+            sessionManager = new HibernateUtils();
             Session session = sessionManager.requestSession();
             session.beginTransaction();
             session.save(messageDetails);
@@ -50,7 +50,7 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
 //    public boolean StoreMessageAndResponse(MessageDetails messageDetails, ResponseDetails[] responseDetails) {
 //         try
 //         {
-//           SessionContainer sessionManager = new SessionManagerImpl();
+//           SessionContainer sessionManager = new HibernateUtils();
 //        Session session = sessionManager.ResquestSession();
 //        session.beginTransaction();
 //        session.save(messageDetails);
@@ -76,7 +76,7 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
     public boolean DeleteMessageById(Long id) {
         try
         {
-             sessionManager = new SessionManagerImpl();
+             sessionManager = new HibernateUtils();
              Session session = sessionManager.requestSession();
              session.beginTransaction();
              MessageDetails todelete = (MessageDetails) session.get(MessageDetails.class, id);
@@ -98,7 +98,7 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
     public boolean Delete(MessageDetails messageDetails) {
         try
         {
-           sessionManager = new SessionManagerImpl();
+           sessionManager = new HibernateUtils();
            Session session = sessionManager.requestSession();
 
            session.beginTransaction();
@@ -116,7 +116,7 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
     public List<MessageDetails> GetAllByStatus(String status) {
         try
         {
-            sessionManager = new SessionManagerImpl();
+            sessionManager = new HibernateUtils();
             Session session = sessionManager.requestSession();
             return (List<MessageDetails>) session.createCriteria(MessageDetails.class)
                     .add(Restrictions.eq("globalStatus", status)).list();

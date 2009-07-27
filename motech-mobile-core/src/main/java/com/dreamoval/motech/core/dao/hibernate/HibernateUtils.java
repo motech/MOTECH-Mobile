@@ -13,16 +13,16 @@ import org.hibernate.cfg.AnnotationConfiguration;
  *
  * @author Jojo
  */
-public class SessionManagerImpl implements SessionContainer {
+public class HibernateUtils implements SessionContainer {
 
     private final SessionFactory sessionFactory;
     private Session session;
 
-    public SessionManagerImpl() {
+    public HibernateUtils() {
         this.sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
     }
 
-    public SessionManagerImpl(SessionFactory sessionFactory) {
+    public HibernateUtils(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
