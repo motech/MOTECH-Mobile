@@ -13,8 +13,8 @@ import org.hibernate.Session;
  *
  * @author Jojo
  */
-public interface ISessionManager {
+public interface SessionManager {
 
-   public Session RequestSession();
+   public Session requestSession();
 
 }

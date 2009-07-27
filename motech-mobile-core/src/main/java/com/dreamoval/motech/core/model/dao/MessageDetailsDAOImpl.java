@@ -8,8 +8,8 @@ package com.dreamoval.motech.core.model.dao;
 import com.dreamoval.motech.core.model.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.core.model.dao.hibernate.ISessionManager;
 import com.dreamoval.motech.core.model.dao.hibernate.SessionManager;
+import com.dreamoval.motech.core.model.dao.hibernate.SessionManagerImpl;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -20,19 +20,19 @@ import org.hibernate.criterion.Restrictions;
  */
 public class MessageDetailsDAOImpl implements MessageDetailsDAO {
 
-  ISessionManager sessionManager;
+  SessionManager sessionManager;
 
   public MessageDetailsDAOImpl(){}
 
-  public MessageDetailsDAOImpl(SessionManager sessionManager){
+  public MessageDetailsDAOImpl(SessionManagerImpl sessionManager){
     this.sessionManager = sessionManager;
   }
 
     public boolean StoreMessage(MessageDetails messageDetails) {
         try
         {
-            sessionManager = new SessionManager();
-            Session session = sessionManager.RequestSession();
+            sessionManager = new SessionManagerImpl();
+            Session session = sessionManager.requestSession();
             session.beginTransaction();
             session.save(messageDetails);
             session.getTransaction().commit();
@@ -50,7 +50,7 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
 //    public boolean StoreMessageAndResponse(MessageDetails messageDetails, ResponseDetails[] responseDetails) {
 //         try
 //         {
-//           ISessionManager sessionManager = new SessionManager();
+//           SessionManager sessionManager = new SessionManagerImpl();
 //        Session session = sessionManager.ResquestSession();
 //        session.beginTransaction();
 //        session.save(messageDetails);
@@ -76,8 +76,8 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
     public boolean DeleteMessageById(Long id) {
         try
         {
-             sessionManager = new SessionManager();
-             Session session = sessionManager.RequestSession();
+             sessionManager = new SessionManagerImpl();
+             Session session = sessionManager.requestSession();
              session.beginTransaction();
              MessageDetails todelete = (MessageDetails) session.get(MessageDetails.class, id);
              session.delete(todelete);
@@ -98,8 +98,8 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
     public boolean Delete(MessageDetails messageDetails) {
         try
         {
-           sessionManager = new SessionManager();
-           Session session = sessionManager.RequestSession();
+           sessionManager = new SessionManagerImpl();
+           Session session = sessionManager.requestSession();
 
            session.beginTransaction();
            session.delete(messageDetails);
@@ -116,8 +116,8 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
     public List<MessageDetails> GetAllByStatus(String status) {
         try
         {
-            sessionManager = new SessionManager();
-            Session session = sessionManager.RequestSession();
+            sessionManager = new SessionManagerImpl();
+            Session session = sessionManager.requestSession();
             return (List<MessageDetails>) session.createCriteria(MessageDetails.class)
                     .add(Restrictions.eq("globalStatus", status)).list();
         }
