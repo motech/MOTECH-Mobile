@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.model.dao;
+package com.dreamoval.motech.core.dao;
 
 import com.dreamoval.motech.core.model.ResponseDetails;
 

@@ -3,13 +3,13 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.model.dao;
+package com.dreamoval.motech.core.dao.hibernate;
 
-import com.dreamoval.motech.core.model.dao.MessageDetailsDAO;
+import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.core.model.dao.hibernate.SessionManager;
-import com.dreamoval.motech.core.model.dao.hibernate.SessionManagerImpl;
+import com.dreamoval.motech.core.dao.SessionContainer;
+import com.dreamoval.motech.core.dao.hibernate.SessionManagerImpl;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -20,7 +20,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class MessageDetailsDAOImpl implements MessageDetailsDAO {
 
-  SessionManager sessionManager;
+  SessionContainer sessionManager;
 
   public MessageDetailsDAOImpl(){}
 
@@ -50,7 +50,7 @@ public class MessageDetailsDAOImpl implements MessageDetailsDAO {
 //    public boolean StoreMessageAndResponse(MessageDetails messageDetails, ResponseDetails[] responseDetails) {
 //         try
 //         {
-//           SessionManager sessionManager = new SessionManagerImpl();
+//           SessionContainer sessionManager = new SessionManagerImpl();
 //        Session session = sessionManager.ResquestSession();
 //        session.beginTransaction();
 //        session.save(messageDetails);

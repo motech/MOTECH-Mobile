@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.model.dao;
+package com.dreamoval.motech.core.dao.hibernate;
 
-import com.dreamoval.motech.core.model.dao.ResponseDetailsDAO;
+import com.dreamoval.motech.core.dao.ResponseDetailsDAO;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.core.model.dao.hibernate.SessionManager;
-import com.dreamoval.motech.core.model.dao.hibernate.SessionManagerImpl;
+import com.dreamoval.motech.core.dao.SessionContainer;
+import com.dreamoval.motech.core.dao.hibernate.SessionManagerImpl;
 import org.hibernate.Session;
 
 /**
@@ -21,7 +21,7 @@ public class ResponseDetailsDAOImpl implements ResponseDetailsDAO {
 
         try
         {
-            SessionManager sessionManager = new SessionManagerImpl();
+            SessionContainer sessionManager = new SessionManagerImpl();
             Session session = sessionManager.requestSession();
             session.beginTransaction();
             session.saveOrUpdate(responseDetails);

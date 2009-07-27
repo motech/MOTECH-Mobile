@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.core.model.dao.hibernate;
+package com.dreamoval.motech.core.dao;
 
 import org.hibernate.Session;
 
@@ -13,7 +13,7 @@ import org.hibernate.Session;
  *
  * @author Jojo
  */
-public interface SessionManager {
+public interface SessionContainer {
 
    public Session requestSession();
 
