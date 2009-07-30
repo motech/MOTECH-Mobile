@@ -5,38 +5,63 @@
 
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.omp.manager.MessageDetailsManager;
 
 /**
  *
- * @author Yoofi
+ * @author Kofi A. Asamoah
+ * @email yoofi@dreamoval.com
+ * @date 15-JUL-2009
  */
 public class SMSCacheServiceImpl implements SMSCacheService {
 
-    private MessageDetailsDAO messageDetailsDao;
+    private MessageDetailsManager messageManager;
 
+    /**
+     *
+     * @see SMSCacheService.saveMessage
+     */
     public boolean saveMessage(MessageDetails messageDetails) {
-        this.messageDetailsDao.StoreMessage(messageDetails);
-        return true;
+        return messageManager.saveMessage(messageDetails);
     }
 
+    /**
+     *
+     * @see SMSCacheService.saveMessage
+     */
+    public boolean saveMessage(String messageDetails) {
+        return messageManager.saveMessage(messageDetails);
+    }
+
+    /**
+     *
+     * @see SMSCacheService.updateMessage
+     */
     public boolean updateMessage(MessageDetails messageDetails) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
-     * @return the messageDetailsDao
+     *
+     * @see SMSCacheService.updateMessage
      */
-    public MessageDetailsDAO getMessageDetailsDao() {
-        return messageDetailsDao;
+    public boolean updateMessage(String messageDetails) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
-     * @param messageDetailsDao the messageDetailsDao to set
+     * @return the messageManager
      */
-    public void setMessageDetailsDao(MessageDetailsDAO messageDetailsDao) {
-        this.messageDetailsDao = messageDetailsDao;
+    public MessageDetailsManager getMessageManager() {
+        return messageManager;
+    }
+
+    /**
+     * @param messageManager the messageManager to set
+     */
+    public void setMessageManager(MessageDetailsManager messageManager) {
+        this.messageManager = messageManager;
     }
 
 }

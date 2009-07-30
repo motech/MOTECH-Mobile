@@ -21,7 +21,7 @@ public class ORServeGatewayMessageHandlerImplTest extends AbstractDependencyInje
 
     @Override
     protected String[] getConfigLocations(){
-        return new String[]{"file:src/main/resources/motech-omp.xml"};
+        return new String[]{"file:src/main/resources/omp-config.xml"};
     }
 
     /**

@@ -2,19 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jms="http://www.springframework.org/schema/jms"
-       xmlns:lang="http://www.springframework.org/schema/lang"
-       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
-       http://www.springframework.org/schema/jee
-       http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
@@ -53,26 +52,30 @@
         <property name="dateSent" ref="date" />
     </bean>
 
-    <bean id="messageDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl" />
-
-    <!--<bean id="responseDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDao">
+    <bean id="messageDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl">
         <constructor-arg ref="sessionManager" />
     </bean>
 
-    <bean id="transitionDao" class="com.dreamoval.motech.core.dao.hibernate.TransitionDao">
-        <constructor-arg ref="sessionManager" />,12069795389
-    </bean>-->
-
     <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" />
 
-    <bean id="smsGateway" class="com.dreamoval.motech.omp.manager.orserve.ORServeSMSGatewayManagerImpl">
-        <property name="productCode" value="NU-OB-DEMO" />
+    <bean id="messageManager" class="com.dreamoval.motech.omp.manager.MessageDetailsManagerImpl">
+        <property name="messageDetailsDao" ref="messageDetailsDao" />
+        <property name="handler" ref="messageHandler" />
+    </bean>
+
+    <bean id="orserveManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeSMSGatewayManagerImpl">
+        <property name="productCode" value="101" />
         <property name="recipients" value="233244733999" />
         <property name="senderId" value="MoTeCH" />
         <property name="handler" ref="messageHandler" />
     </bean>
 
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
-        <property name="messageDetailsDao" ref="messageDetailsDao" />
+        <property name="messageManager" ref="messageManager" />
+    </bean>
+
+    <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSServiceImpl">
+        <property name="cache" ref="smsCache" />
+        <property name="gatewayManager" ref="orserveManager" />
     </bean>
 </beans>

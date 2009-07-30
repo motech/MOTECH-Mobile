@@ -5,8 +5,8 @@
 
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.omp.manager.MessageDetailsManager;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 
@@ -19,46 +19,44 @@ public class SMSCacheServiceImplTest extends AbstractDependencyInjectionSpringCo
 
     @Override
     protected String[] getConfigLocations(){
-        return new String[]{"file:src/main/resources/motech-omp.xml"};
+        return new String[]{"file:src/main/resources/omp-config.xml"};
     }
 
     public SMSCacheServiceImplTest(String testName) {
         super(testName);
     }
-    
 
     /**
      * Test of getMessageDetailsDao method, of class SMSCacheImpl.
      */
-    public void testGetMessageDetailsDao() {
-        System.out.println("getMessageDetailsDao");
-        SMSCacheServiceImpl instance = new SMSCacheServiceImpl();
-        MessageDetailsDAO expResult = null;
-        MessageDetailsDAO result = instance.getMessageDetailsDao();
+    public void testGetMessageDetailsManager() {
+        System.out.println("getMessageDetailsManager");
+        SMSCacheServiceImpl instance = (SMSCacheServiceImpl)applicationContext.getBean("smsCache");
+        MessageDetailsManager expResult = (MessageDetailsManager)applicationContext.getBean("messageManager");
+        MessageDetailsManager result = instance.getMessageManager();
         assertEquals(expResult, result);
     }
 
     /**
      * Test of setMessageDetailsDao method, of class SMSCacheImpl.
      */
-    public void testSetMessageDetailsDao() {
-        System.out.println("setMessageDetailsDao");
-        MessageDetailsDAO messageDetailsDao = null;
-        SMSCacheServiceImpl instance = new SMSCacheServiceImpl();
-        instance.setMessageDetailsDao(messageDetailsDao);
-        assertEquals(instance.getMessageDetailsDao(), null);
+    public void testSetMessageDetailsManager() {
+        System.out.println("setMessageDetailsManager");
+        MessageDetailsManager messageManager = null;
+        SMSCacheServiceImpl instance = (SMSCacheServiceImpl)applicationContext.getBean("smsCache");
+        instance.setMessageManager(messageManager);
+        assertEquals(instance.getMessageManager(), messageManager);
     }
-
 
     /**
      * Test of saveMessage method, of class SMSCacheImpl.
      */
     public void testSaveMessage() {
         System.out.println("saveMessage");
-        SMSCacheServiceImpl instance = new SMSCacheServiceImpl();
-        //instance.setMessageDetailsDao(new MessageDetailsDAOImpl());
-        instance.setMessageDetailsDao((MessageDetailsDAO)applicationContext.getBean("messageDetailsDao"));
+
         boolean expResult = true;
+        SMSCacheServiceImpl instance = (SMSCacheServiceImpl)applicationContext.getBean("smsCache");
+        instance.setMessageManager((MessageDetailsManager)applicationContext.getBean("messageManager"));
         boolean result = instance.saveMessage((MessageDetails)applicationContext.getBean("messageDetails"));
         assertEquals(expResult, result);        
     }

@@ -21,7 +21,7 @@ public class ORServeSMSGatewayImplTest extends AbstractDependencyInjectionSpring
 
     @Override
     protected String[] getConfigLocations(){
-        return new String[]{"file:src/main/resources/motech-omp.xml"};
+        return new String[]{"file:src/main/resources/omp-config.xml"};
     }
 
     /**
@@ -30,7 +30,7 @@ public class ORServeSMSGatewayImplTest extends AbstractDependencyInjectionSpring
     public void testSend() {
         System.out.println("send");
 
-        ORServeSMSGatewayManagerImpl instance = (ORServeSMSGatewayManagerImpl)applicationContext.getBean("smsGateway");//new ORServeSMSGatewayManagerImpl();
+        ORServeSMSGatewayManagerImpl instance = (ORServeSMSGatewayManagerImpl)applicationContext.getBean("orserveManager");//new ORServeSMSGatewayManagerImpl();
         ResponseDetails expResult = null;
         ResponseDetails result = instance.send((MessageDetails)applicationContext.getBean("messageDetails"));
         assertEquals(expResult, result);

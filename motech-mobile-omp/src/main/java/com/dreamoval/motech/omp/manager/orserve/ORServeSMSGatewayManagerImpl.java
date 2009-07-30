@@ -7,20 +7,28 @@ package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.omp.manager.SMSGatewayManager;
+import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.outreachcity.orserve.messaging.SMSMessenger;
 import com.outreachcity.orserve.messaging.SMSMessengerSoap;
 
 /**
  *
- * @author Yoofi
+ * @author Kofi A. Asamoah
+ * @email yoofi@dreamoval.com
+ * @date 15-JUL-2009
+ *
+ * <p>Handles all interactions with the OutReach Server message gateway</p>
  */
-public class ORServeSMSGatewayManagerImpl implements SMSGatewayManager {
+public class ORServeSMSGatewayManagerImpl implements GatewayManager {
     private String productCode;
     private String recipients;
     private String senderId;
     private ORServeGatewayMessageHandlerImpl handler;
 
+    /**
+     *
+     * @see GatewayManager.send
+     */
     public ResponseDetails send(MessageDetails messageDetails) {
         if(messageDetails == null)
             return null;
@@ -29,6 +37,14 @@ public class ORServeSMSGatewayManagerImpl implements SMSGatewayManager {
         SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
         String gatewayResponse = soap.sendMessage(messageDetails.getMessageText(), getRecipients(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
         return getHandler().parseResponse(gatewayResponse);
+    }
+
+    /**
+     *
+     * @see GatewayManager.send
+     */
+    public ResponseDetails send(String messageDetails) {
+        return this.send(handler.prepareMessage(messageDetails));
     }
 
     /**
