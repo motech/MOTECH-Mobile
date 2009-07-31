@@ -13,4 +13,36 @@
        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
     
+    <import resource="classpath:META-INF/main/resources/omp-config.xml" />
+    <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
+        <property name="messageManager" ref="messageManager" />
+    </bean>
+
+    <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSServiceImpl">
+        <property name="cache" ref="smsCache" />
+        <property name="gatewayManager" ref="dummyGateway" />
+    </bean>
+
+    <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManager">
+        <property name="smsService" ref="smsService" />
+        <property name="cacheService" ref="smsCache" />
+    </bean>
+
+    <bean name="storeManager" class="com.dreamoval.motech.omi.manager.MessageStoreManagerImpl">
+        <property name="messageStore">
+            <map key-type="java.lang.String">
+                <entry key="patient" value="This is a sample patient message for testing purposes" />
+                <entry key="worker" value="This is a sample CHPS worker message for testing purposes" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="messageService" class="com.dreamoval.motech.omi.service.MessageServiceImpl">
+        <property name="ompManager" ref="ompManager" />
+        <property name="storeManager" ref="storeManager" />
+    </bean>
+
+    <bean name="omiManager" class="com.dreamoval.motech.omi.manager.OMIManager">
+        <property name="messageService" ref="messageService" />
+    </bean>
 </beans>

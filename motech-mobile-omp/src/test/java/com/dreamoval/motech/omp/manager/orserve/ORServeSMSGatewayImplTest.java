@@ -6,7 +6,9 @@
 package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.MessageDetailsImpl;
 import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.omp.manager.GatewayManager;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 /**
@@ -30,7 +32,7 @@ public class ORServeSMSGatewayImplTest extends AbstractDependencyInjectionSpring
     public void testSend() {
         System.out.println("send");
 
-        ORServeSMSGatewayManagerImpl instance = (ORServeSMSGatewayManagerImpl)applicationContext.getBean("orserveManager");//new ORServeSMSGatewayManagerImpl();
+        GatewayManager instance = (GatewayManager)applicationContext.getBean("orserveManager");
         ResponseDetails expResult = null;
         ResponseDetails result = instance.send((MessageDetails)applicationContext.getBean("messageDetails"));
         assertEquals(expResult, result);

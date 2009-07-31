@@ -21,7 +21,7 @@
         <property name="username" value="root" />
         <property name="password" value="admin" />
     </bean>
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
@@ -29,11 +29,11 @@
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
-        <property name="mappingResources">
+        <property name="annotatedClasses">
             <list>
-                <value>com/dreamoval/motech/core/model/MessageDetails.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/ResponseDetails.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/Transition.hbm.xml</value>
+                <value>com.dreamoval.motech.core.model.MessageDetails</value>
+                <value>com.dreamoval.motech.core.model.ResponseDetails</value>
+                <value>com.dreamoval.motech.core.model.Transition</value>
             </list>
         </property>
     </bean>
@@ -44,10 +44,12 @@
 
     <bean id="date" class="java.util.Date" />
 
-    <bean id="messageDetails" class="com.dreamoval.motech.core.model.MessageDetails">
+    <bean id="messageDetails" class="com.dreamoval.motech.core.model.MessageDetailsImpl">
+        <property name="messageId" value="0" />
         <property name="messageType" value="text" />
-        <property name="numberOfPages" value="1" />
         <property name="messageText" value="Welcome to MoTeCH Mobile" />
+        <property name="numberOfPages" value="1" />
+        <property name="recipientsNumbers" value="000000000000" />
         <property name="globalStatus" value="pending" />
         <property name="dateSent" ref="date" />
     </bean>
@@ -64,10 +66,15 @@
     </bean>
 
     <bean id="orserveManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeSMSGatewayManagerImpl">
-        <property name="productCode" value="101" />
-        <property name="recipients" value="233244733999" />
+        <property name="productCode" value="testcode" />
         <property name="senderId" value="MoTeCH" />
         <property name="handler" ref="messageHandler" />
+    </bean>
+
+    <bean name="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl" />
+
+    <bean name="dummyGateway" class="com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl">
+        <property name="handler" ref="dummyHandler" />
     </bean>
 
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
@@ -76,6 +83,11 @@
 
     <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSServiceImpl">
         <property name="cache" ref="smsCache" />
-        <property name="gatewayManager" ref="orserveManager" />
+        <property name="gatewayManager" ref="dummyGateway" />
+    </bean>
+
+    <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManager">
+        <property name="smsService" ref="smsService" />
+        <property name="cacheService" ref="smsCache" />
     </bean>
 </beans>

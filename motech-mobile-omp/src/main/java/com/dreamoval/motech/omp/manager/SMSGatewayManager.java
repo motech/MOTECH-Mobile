@@ -5,6 +5,8 @@
 
 package com.dreamoval.motech.omp.manager;
 
+import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.ResponseDetails;
 /**
  *
  * @author Kofi A. Asamoah
@@ -14,5 +16,5 @@ package com.dreamoval.motech.omp.manager;
  * <p>Handles all interactions with a remote sms gateway</p>
  */
 public interface SMSGatewayManager extends GatewayManager {
-    
+    public ResponseDetails send(MessageDetails messageDetails);
 }

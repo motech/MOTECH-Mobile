@@ -31,4 +31,16 @@ public interface GatewayManager {
      * @see send(MessageDetails messageDetails)
      */
     public ResponseDetails send(String messageDetails);
+
+
+
+    /**
+     * @return the handler
+     */
+    public GatewayMessageHandler getHandler();
+
+    /**
+     * @param handler the handler to set
+     */
+    public void setHandler(GatewayMessageHandler handler);
 }

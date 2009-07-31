@@ -7,9 +7,9 @@
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.ResponseDetailsDAO;
-import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.hibernate.HibernateUtils;
+import com.dreamoval.motech.core.model.ResponseDetails;
 import org.hibernate.Session;
 
 /**
@@ -18,7 +18,7 @@ import org.hibernate.Session;
  */
 public class ResponseDetailsDAOImpl extends GenericDAOImpl <ResponseDetails, Long> implements ResponseDetailsDAO {
 
-    public boolean StoreResponse(ResponseDetails responseDetails) {
+    public boolean storeResponse(ResponseDetails responseDetails) {
 
         try
         {

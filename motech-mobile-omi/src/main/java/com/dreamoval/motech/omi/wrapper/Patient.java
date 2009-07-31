@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.omi.service;
+package com.dreamoval.motech.omi.wrapper;
 
 import java.io.Serializable;
 

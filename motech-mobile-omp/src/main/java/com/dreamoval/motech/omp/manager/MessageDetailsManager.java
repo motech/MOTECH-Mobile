@@ -30,13 +30,13 @@ public interface MessageDetailsManager {
      *
      * @see MessageDetailsManager.saveMessage
      */
-    boolean saveMessage(MessageDetails messageDetails);
+    void saveMessage(MessageDetails messageDetails);
 
     /**
      *
      * @see MessageDetailsManager.saveMessage
      */
-    boolean saveMessage(String messageDetails);
+    void saveMessage(String messageDetails);
 
     /**
      * @param handler the handler to set

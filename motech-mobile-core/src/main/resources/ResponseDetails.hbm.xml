@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="com.dreamoval.motech.core.model.ResponseDetails">
+  <class name="com.dreamoval.motech.core.model.ResponseDetailsImpl">
     <id name="responseId">
-      <generator class="identity"/>
+      <generator class="assigned"/>
     </id>
     <property name="gatewayMessageId"/>
     <property name="recipientNumber"/>
     <property name="messageStatus"/>
-    <many-to-one class="com.dreamoval.motech.core.model.MessageDetails" name="messageId"/>
+    <many-to-one class="com.dreamoval.motech.core.model.MessageDetailsImpl" name="messageId"/>
     <set name="transitions">
       <key column="responseId"/>
-      <one-to-many class="com.dreamoval.motech.core.model.Transition"/>
+      <one-to-many class="com.dreamoval.motech.core.model.TransitionImpl"/>
     </set>
   </class>
 </hibernate-mapping>

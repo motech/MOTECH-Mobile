@@ -1,0 +1,41 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.dreamoval.motech.core.service;
+
+import com.dreamoval.motech.core.dao.DBSession;
+import java.io.Serializable;
+
+/**
+ *
+ * This defines a motech specific context which acts more or less as
+ * a container for carrying objects that need to exist throughout
+ * requests and over conversations/
+ *
+ * @author Henry Sampson
+ * Date Created 31-07-2009
+ */
+public interface MotechContext extends Serializable{
+
+    /**
+     * Sets the DB Session for the context
+     *
+     * @param session The DB session
+     */
+    public void setDBSession(DBSession<?, ?> session);
+
+    /**
+     *
+     * Returns the current context DB session
+     *
+     * @return
+     */
+    public DBSession<?, ?> getDBSession();
+
+    /**
+     * Cleans up context for destruction
+     */
+    public void cleanup();
+}

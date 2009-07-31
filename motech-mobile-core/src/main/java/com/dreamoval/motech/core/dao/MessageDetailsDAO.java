@@ -5,6 +5,7 @@
 package com.dreamoval.motech.core.dao;
 
 import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.MessageDetailsImpl;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface MessageDetailsDAO extends GenericDAO<MessageDetails, Long> {
    
-    public List<MessageDetails> GetAllByStatus(String status);
+    public List<MessageDetails> getAllByStatus(String status);
 
 
 }

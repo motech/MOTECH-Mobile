@@ -31,7 +31,7 @@ public class SMSServiceImplTest extends AbstractDependencyInjectionSpringContext
         System.out.println("sendTextMessage");
         MessageDetails messageDetails = (MessageDetails)applicationContext.getBean("messageDetails");
         SMSServiceImpl instance = (SMSServiceImpl)applicationContext.getBean("smsService");
-        String expResult = "sent";
+        instance.setGatewayManager((GatewayManager)applicationContext.getBean("dummyGateway"));
         Long result = instance.sendTextMessage(messageDetails);
         assertNotNull(result);
     }

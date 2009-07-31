@@ -22,16 +22,16 @@ public class SMSCacheServiceImpl implements SMSCacheService {
      *
      * @see SMSCacheService.saveMessage
      */
-    public boolean saveMessage(MessageDetails messageDetails) {
-        return messageManager.saveMessage(messageDetails);
+    public void saveMessage(MessageDetails messageDetails) {
+        messageManager.saveMessage(messageDetails);
     }
 
     /**
      *
      * @see SMSCacheService.saveMessage
      */
-    public boolean saveMessage(String messageDetails) {
-        return messageManager.saveMessage(messageDetails);
+    public void saveMessage(String messageDetails) {
+        messageManager.saveMessage(messageDetails);
     }
 
     /**

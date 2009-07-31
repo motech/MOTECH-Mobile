@@ -24,16 +24,16 @@ public class MessageDetailsManagerImpl implements MessageDetailsManager {
      *
      * @see MessageDetailsManager.saveMessage
      */
-    public boolean saveMessage(MessageDetails messageDetails) {
-        return this.messageDetailsDao.StoreMessage(messageDetails);
+    public void saveMessage(MessageDetails messageDetails) {
+        this.messageDetailsDao.makePersistent(messageDetails);
     }
 
     /**
      *
      * @see MessageDetailsManager.saveMessage
      */
-    public boolean saveMessage(String messageDetails) {
-        return saveMessage((handler.prepareMessage(messageDetails)));
+    public void saveMessage(String messageDetails) {
+        saveMessage((handler.prepareMessage(messageDetails)));
     }
 
     /**

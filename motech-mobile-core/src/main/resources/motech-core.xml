@@ -38,9 +38,9 @@
         </property>
         <property name="mappingResources">
             <list>
-                <value>com/dreamoval/motech/core/model/MessageDetails.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/ResponseDetails.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/Transition.hbm.xml</value>
+                <value>MessageDetails.hbm.xml</value>
+                <value>ResponseDetails.hbm.xml</value>
+                <value>Transition.hbm.xml</value>
             </list>
         </property>
     </bean>

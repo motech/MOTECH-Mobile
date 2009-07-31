@@ -5,6 +5,7 @@
 package com.dreamoval.motech.core.dao;
 
 import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.ResponseDetailsImpl;
 
 /**
  * Date: 
@@ -13,7 +14,7 @@ import com.dreamoval.motech.core.model.ResponseDetails;
  */
 public interface ResponseDetailsDAO extends GenericDAO<ResponseDetails, Long>{
 
-    public boolean StoreResponse(ResponseDetails responseDetails);
+    public boolean storeResponse(ResponseDetails responseDetails);
 
 
 }

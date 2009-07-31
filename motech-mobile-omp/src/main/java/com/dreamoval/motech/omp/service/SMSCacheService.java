@@ -21,14 +21,14 @@ public interface SMSCacheService {
      * @param messageDetails MessageDetails object to be saved to the cache
      * @return value indicating success. True for success, false for failure
      */
-    public boolean saveMessage(MessageDetails messageDetails);
+    public void saveMessage(MessageDetails messageDetails);
 
     /**
      *
      * @param messageDetails a string representation of the MessageDetails object to be saved
      * @see saveMessage(MessageDetails messageDetails)
      */
-    public boolean saveMessage(String messageDetails);
+    public void saveMessage(String messageDetails);
 
     /**
      * updates a message in the cache

@@ -13,84 +13,55 @@ import java.util.Date;
  * Email: joseph@dreamoval.com
  */
 //TODO eventualy refactor Transition class to logs
-public class Transition {
-    public Transition(){}
-
-    private Long transitionId;
-    private ResponseDetails responseId;
-    private String transactionType;
-    private String transactionDescription;
-    private Date transactionDate;
-
-    
+public interface Transition {
     /**
      * @return the responseId
      */
-    public ResponseDetails getResponseId() {
-        return responseId;
-    }
-
-    /**
-     * @param responseId the responseId to set
-     */
-    public void setResponseId(ResponseDetails responseId) {
-        this.responseId = responseId;
-    }
-
-    /**
-     * @return the transactionType
-     */
-    public String getTransactionType() {
-        return transactionType;
-    }
-
-    /**
-     * @param transactionType the transactionType to set
-     */
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
-    }
-
-    /**
-     * @return the transactionDescription
-     */
-    public String getTransactionDescription() {
-        return transactionDescription;
-    }
-
-    /**
-     * @param transactionDescription the transactionDescription to set
-     */
-    public void setTransactionDescription(String transactionDescription) {
-        this.transactionDescription = transactionDescription;
-    }
+    ResponseDetails getResponseId();
 
     /**
      * @return the transactionDate
      */
-    public Date getTransactionDate() {
-        return transactionDate;
-    }
+    Date getTransactionDate();
 
     /**
-     * @param transactionDate the transactionDate to set
+     * @return the transactionDescription
      */
-    public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
-    }
+    String getTransactionDescription();
+
+    /**
+     * @return the transactionType
+     */
+    String getTransactionType();
 
     /**
      * @return the transitionId
      */
-    public Long getTransitionId() {
-        return transitionId;
-    }
+    Long getTransitionId();
+
+    /**
+     * @param responseId the responseId to set
+     */
+    void setResponseId(ResponseDetails responseId);
+
+    /**
+     * @param transactionDate the transactionDate to set
+     */
+    void setTransactionDate(Date transactionDate);
+
+    /**
+     * @param transactionDescription the transactionDescription to set
+     */
+    void setTransactionDescription(String transactionDescription);
+
+    /**
+     * @param transactionType the transactionType to set
+     */
+    void setTransactionType(String transactionType);
 
     /**
      * @param transitionId the transitionId to set
      */
-    public void setTransitionId(Long transitionId) {
-        this.transitionId = transitionId;
-    }
+    void setTransitionId(Long transitionId);
 
 }

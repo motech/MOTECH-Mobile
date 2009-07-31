@@ -8,6 +8,7 @@ package com.dreamoval.motech.omp.manager.orserve;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.outreachcity.orserve.messaging.SMSMessenger;
 import com.outreachcity.orserve.messaging.SMSMessengerSoap;
 
@@ -21,9 +22,8 @@ import com.outreachcity.orserve.messaging.SMSMessengerSoap;
  */
 public class ORServeSMSGatewayManagerImpl implements GatewayManager {
     private String productCode;
-    private String recipients;
     private String senderId;
-    private ORServeGatewayMessageHandlerImpl handler;
+    private GatewayMessageHandler handler;
 
     /**
      *
@@ -35,7 +35,7 @@ public class ORServeSMSGatewayManagerImpl implements GatewayManager {
         
         SMSMessenger messenger = new SMSMessenger();
         SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
-        String gatewayResponse = soap.sendMessage(messageDetails.getMessageText(), getRecipients(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
+        String gatewayResponse = soap.sendMessage(messageDetails.getMessageText(), messageDetails.getRecipientsNumbers(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
         return getHandler().parseResponse(gatewayResponse);
     }
 
@@ -62,20 +62,6 @@ public class ORServeSMSGatewayManagerImpl implements GatewayManager {
     }
 
     /**
-     * @return the recipients
-     */
-    public String getRecipients() {
-        return recipients;
-    }
-
-    /**
-     * @param recipients the recipients to set
-     */
-    public void setRecipients(String recipients) {
-        this.recipients = recipients;
-    }
-
-    /**
      * @return the senderId
      */
     public String getSenderId() {
@@ -92,14 +78,14 @@ public class ORServeSMSGatewayManagerImpl implements GatewayManager {
     /**
      * @return the handler
      */
-    public ORServeGatewayMessageHandlerImpl getHandler() {
+    public GatewayMessageHandler getHandler() {
         return handler;
     }
 
     /**
      * @param handler the handler to set
      */
-    public void setHandler(ORServeGatewayMessageHandlerImpl handler) {
+    public void setHandler(GatewayMessageHandler handler) {
         this.handler = handler;
     }
 }

@@ -7,6 +7,7 @@ package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 /**
@@ -30,7 +31,7 @@ public class ORServeGatewayMessageHandlerImplTest extends AbstractDependencyInje
     public void testPrepareMessage() {
         System.out.println("prepareMessage");
         String message = "A sample message";
-        ORServeGatewayMessageHandlerImpl instance = new ORServeGatewayMessageHandlerImpl();
+        GatewayMessageHandler instance = (GatewayMessageHandler)applicationContext.getBean("messageHandler");
         MessageDetails expResult = null;
         MessageDetails result = instance.prepareMessage(message);
         assertEquals(expResult, result);
@@ -42,7 +43,7 @@ public class ORServeGatewayMessageHandlerImplTest extends AbstractDependencyInje
     public void testParseResponse() {
         System.out.println("parseResponse");
         String gatewayResponse = "A sample gateway response";
-        ORServeGatewayMessageHandlerImpl instance = new ORServeGatewayMessageHandlerImpl();
+        GatewayMessageHandler instance = (GatewayMessageHandler)applicationContext.getBean("messageHandler");
         ResponseDetails expResult = null;
         ResponseDetails result = instance.parseResponse(gatewayResponse);
         assertEquals(expResult, result);
