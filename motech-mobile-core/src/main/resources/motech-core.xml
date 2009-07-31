@@ -28,7 +28,7 @@
         <property name="password" value="admin" />
     </bean>
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
@@ -49,10 +49,10 @@
         <constructor-arg ref="sessionFactory" />
     </bean>
 
-    <bean id="messageDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl">
-        <!--<constructor-arg ref="sessionManager"/>-->
+    <!--<bean id="messageDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl">
+        <constructor-arg ref="sessionManager"/>
         <property name="session" ref="motechSession"/>
-        </bean>
+        </bean>-->
     <!--<bean id="genericDAOimpl" class="com.dreamoval.motech.core.dao.hibernate.GenericDAOImpl">
         <property name="session" ref="motechSession"/>
         </bean>-->
