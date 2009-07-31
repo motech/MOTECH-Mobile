@@ -13,8 +13,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
- *
- * @author Joseph Djomeda <joseph@dreamoval.com>
+ *Date :
+ * @author Joseph Djomeda
+ * Email: joseph@dreamoval.com
  */
 public class HibernateUtils implements SessionContainer {
 
@@ -22,14 +23,15 @@ public class HibernateUtils implements SessionContainer {
     private Session session;
 
     /**
-     *
+     *This constructor is initially created to work without any kind of dependency injection
+     * Thus meant for early functional testing.Might be removed from this class
      */
     public HibernateUtils() {
         this.sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
     }
 
     /**
-     *
+     * This constructor has to be injected the sessionFactory dependency to work with this class
      * @param sessionFactory
      */
     public HibernateUtils(SessionFactory sessionFactory) {
@@ -37,16 +39,12 @@ public class HibernateUtils implements SessionContainer {
     }
 
     /**
-     *
-     * @return
+     * Opens a session and return it to the client
+     * @return Hibernate Session
      */
     public Session requestSession() {
-        if (session != null || session.isOpen()) {
-            return session;
-        } else {
+      
             session = sessionFactory.openSession();
-
-        }
-        return session;
+              return session;
     }
 }

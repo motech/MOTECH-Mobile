@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Transition class is a POJO to hold log infomation about various state of a message sent.
+ * State meaning its status for example whether still pending ,delivered or failed.
  */
 
 package com.dreamoval.motech.core.model;
@@ -8,9 +8,11 @@ package com.dreamoval.motech.core.model;
 import java.util.Date;
 
 /**
- *
- * @author Jojo
+ * Date : 
+ * @author Joseph
+ * Email: joseph@dreamoval.com
  */
+//TODO eventualy refactor Transition class to logs
 public class Transition {
     public Transition(){}
 

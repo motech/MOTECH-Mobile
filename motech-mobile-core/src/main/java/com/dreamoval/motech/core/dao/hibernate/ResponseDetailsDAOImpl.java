@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * ResponseDetailsImpl is the implementation class of the ResponseDetails interface.
+ * This Class implements only MessageDetailsDAO specific persistent operation to the MessageDetails model.
+ * 
  */
 
 package com.dreamoval.motech.core.dao.hibernate;
@@ -15,7 +16,7 @@ import org.hibernate.Session;
  *
  * @author Jojo
  */
-public class ResponseDetailsDAOImpl implements ResponseDetailsDAO {
+public class ResponseDetailsDAOImpl extends GenericDAOImpl <ResponseDetails, Long> implements ResponseDetailsDAO {
 
     public boolean StoreResponse(ResponseDetails responseDetails) {
 

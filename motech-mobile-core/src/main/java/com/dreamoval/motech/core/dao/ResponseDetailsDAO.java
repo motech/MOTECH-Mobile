@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * ResponseDetailsDAO is an interface that defines only methods and attributes that are specific to ResponseDetails entity
  */
 
 package com.dreamoval.motech.core.dao;
@@ -8,10 +7,11 @@ package com.dreamoval.motech.core.dao;
 import com.dreamoval.motech.core.model.ResponseDetails;
 
 /**
- *
- * @author Jojo
+ * Date: 
+ * @author Joseph Djomeda
+ * Email: joseph@dreamoval.com
  */
-public interface ResponseDetailsDAO {
+public interface ResponseDetailsDAO extends GenericDAO<ResponseDetails, Long>{
 
     public boolean StoreResponse(ResponseDetails responseDetails);
 

@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * MessageDetails class is a POJO to hold MessageDetails information for data storage and manipulation
+ * It has properties for example the text message itself or the numberofpages of that sms text in case it's
+ * sms send
  */
 
 package com.dreamoval.motech.core.model;
@@ -10,8 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author Jojo
+ * Date: 
+ * @author Joseph Djomeda
+ * Email : joseph@dreamoval.com
  */
 public class MessageDetails implements Serializable{
 

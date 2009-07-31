@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * MessageDetailsDao is an interface that defines only methods and attributes that are specific to MessageDetails entity
  */
 
 package com.dreamoval.motech.core.dao;
@@ -9,14 +8,12 @@ import com.dreamoval.motech.core.model.MessageDetails;
 import java.util.List;
 
 /**
- *
- * @author Jojo
+ * Date: 
+ * @author Joseoh Djomeda
+ * Email: joseph@dreamoval.com
  */
-public interface MessageDetailsDAO {
-    public boolean StoreMessage(MessageDetails messageDetails);
-//    public boolean StoreMessageAndResponse(MessageDetails messageDetails, ResponseDetails[] responseDetails);
-    public boolean DeleteMessageById(Long id);
-    public boolean Delete(MessageDetails messageDetails);
+public interface MessageDetailsDAO extends GenericDAO<MessageDetails, Long> {
+   
     public List<MessageDetails> GetAllByStatus(String status);
 
 
