@@ -25,14 +25,14 @@ public class SMSServiceImpl implements SMSService {
     public Long sendTextMessage(MessageDetails messageDetails) {
         this.cache.saveMessage(messageDetails);
         this.gatewayManager.send(messageDetails);
-        return messageDetails.getMessageId();
+        return messageDetails.getId();
     }
 
     /**
      * @see SMSService.sendTextMessage(string messageDetails)
      */
     public Long sendTextMessage(String messageDetails) {
-        return this.gatewayManager.send(messageDetails).getMessageId().getMessageId();
+        return this.gatewayManager.send(messageDetails).getMessageId().getId();
     }
 
     /**

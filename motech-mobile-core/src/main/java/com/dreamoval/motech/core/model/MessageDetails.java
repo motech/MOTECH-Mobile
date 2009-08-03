@@ -20,21 +20,11 @@ public interface MessageDetails extends MotechEntity {
      * @return the dateSent
      */
     Date getDateSent();
-
-    /**
-     * @return the gid
-     */
-    String getGid();
-
+    
     /**
      * @return the globalStatus
      */
     String getGlobalStatus();
-
-    /**
-     * @return the messageId
-     */
-    Long getMessageId();
 
     /**
      * @return the messageText
@@ -67,19 +57,9 @@ public interface MessageDetails extends MotechEntity {
     void setDateSent(Date dateSent);
 
     /**
-     * @param gid the gid to set
-     */
-    void setGid(String gid);
-
-    /**
      * @param globalStatus the globalStatus to set
      */
     void setGlobalStatus(String globalStatus);
-
-    /**
-     * @param messageId the messageId to set
-     */
-    void setMessageId(Long messageId);
 
     /**
      * @param messageText the messageText to set

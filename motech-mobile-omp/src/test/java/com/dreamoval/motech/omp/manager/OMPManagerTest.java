@@ -55,7 +55,7 @@ public class OMPManagerTest extends AbstractDependencyInjectionSpringContextTest
     public void testSaveMessage_MessageDetails() {
         System.out.println("saveMessage");
         MessageDetails messageDetails = (MessageDetails)applicationContext.getBean("messageDetails");
-        messageDetails.setMessageId(1L);
+        messageDetails.setId(1L);
         OMPManager instance = (OMPManager)applicationContext.getBean("ompManager");
         //boolean expResult = true;
         instance.saveMessage(messageDetails);

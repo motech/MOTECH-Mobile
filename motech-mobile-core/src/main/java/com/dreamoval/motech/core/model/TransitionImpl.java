@@ -12,15 +12,14 @@ import java.util.Date;
  * @author Jojo
  */
 public class TransitionImpl extends MotechEntityImpl implements Transition{
-    public TransitionImpl(){}
-
-    private Long transitionId;
+    
     private ResponseDetails responseId;
     private String transactionType;
     private String transactionDescription;
     private Date transactionDate;
 
-    
+    public TransitionImpl(){}
+
     /**
      * @return the responseId
      */
@@ -76,19 +75,4 @@ public class TransitionImpl extends MotechEntityImpl implements Transition{
     public void setTransactionDate(Date transactionDate) {
         this.transactionDate = transactionDate;
     }
-
-    /**
-     * @return the transitionId
-     */
-    public Long getTransitionId() {
-        return transitionId;
-    }
-
-    /**
-     * @param transitionId the transitionId to set
-     */
-    public void setTransitionId(Long transitionId) {
-        this.transitionId = transitionId;
-    }
-
 }

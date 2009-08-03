@@ -1,12 +1,13 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.dreamoval</groupId>
-  <artifactId>motech</artifactId>
-  <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>MoTeCH Mobile</name>
-  <url>https://motech.rcg.usm.maine.edu/redmine</url>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.dreamoval</groupId>
+    <artifactId>motech</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>MoTeCH Mobile</name>
+    <url>https://motech.rcg.usm.maine.edu/redmine</url>
     <build>
         <plugins>
             <plugin>
@@ -28,17 +29,85 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+            <testResource>
+                <directory>${basedir}/src/test</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
     </build>
     <modules>
-      <module>motech-mobile-core</module>
+        <module>motech-mobile-core</module>
       <!--<module>motech-mobile-imp</module>-->
-      <module>motech-mobile-omi</module>
-      <module>motech-mobile-omp</module>
-      <module>motech-mobile-webapp</module>
-  </modules>
+        <module>motech-mobile-omi</module>
+        <module>motech-mobile-omp</module>
+        <module>motech-mobile-webapp</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <profiles>
+        <profile>
+            <id>test</id>
+            <activation>
+                <property>
+                    <name>maven.test.skip</name>
+                    <value>false</value>
+                </property>
+            </activation>
+            <properties>
+                <maven.test.skip>false</maven.test.skip>
+            </properties>
+        </profile>
+    <!--<profile>
+        <id>continuous-build</id>
+        <activation>
+            <property>
+                <name>maven.test.skip</name>
+                <value>true</value>
+            </property>
+        </activation>
+        <properties>
+            <maven.test.skip>false</maven.test.skip>
+            <com.dreamoval.motech.env.defaultGoal>deploy</com.dreamoval.motech.env.defaultGoal>
+        </properties>
+    </profile> -->
+        <!-- Non test profile -->
+        <profile>
+            <id>development</id>
+            <activation>
+                <property>
+                    <name>maven.test.skip</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+    </profiles>
 </project>
 
 

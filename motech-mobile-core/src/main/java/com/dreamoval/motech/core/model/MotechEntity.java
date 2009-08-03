@@ -8,9 +8,22 @@ package com.dreamoval.motech.core.model;
 import java.io.Serializable;
 
 /**
+ * <p>This represents the ancestor of all domain classes.
+ * Conceptually will hold the uniqueness of all domain
+ * classes</p>
  *
- * @author administrator
+ * @author Henry Sampson
+ * Date Created: 31-07-2009
  */
 public interface MotechEntity extends Serializable {
 
+     /**
+     * @return the id
+     */
+    public Long getId();
+
+     /**
+     * @param id the id to set
+     */
+    public void setId(Long id);
 }

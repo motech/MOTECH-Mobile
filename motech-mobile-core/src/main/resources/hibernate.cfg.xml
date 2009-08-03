@@ -13,5 +13,6 @@
     <mapping resource="ResponseDetails.hbm.xml"/>
     <mapping resource="MessageDetails.hbm.xml"/>
     <mapping resource="Transition.hbm.xml"/>
+    <mapping resource="MotechEntityImpl.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

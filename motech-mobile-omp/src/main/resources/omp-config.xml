@@ -44,20 +44,6 @@
 
     <bean id="date" class="java.util.Date" />
 
-    <bean id="messageDetails" class="com.dreamoval.motech.core.model.MessageDetailsImpl">
-        <property name="messageId" value="0" />
-        <property name="messageType" value="text" />
-        <property name="messageText" value="Welcome to MoTeCH Mobile" />
-        <property name="numberOfPages" value="1" />
-        <property name="recipientsNumbers" value="000000000000" />
-        <property name="globalStatus" value="pending" />
-        <property name="dateSent" ref="date" />
-    </bean>
-
-    <bean id="messageDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl">
-        <constructor-arg ref="sessionManager" />
-    </bean>
-
     <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" />
 
     <bean id="messageManager" class="com.dreamoval.motech.omp.manager.MessageDetailsManagerImpl">

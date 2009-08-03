@@ -35,11 +35,6 @@ public interface Transition {
     String getTransactionType();
 
     /**
-     * @return the transitionId
-     */
-    Long getTransitionId();
-
-    /**
      * @param responseId the responseId to set
      */
     void setResponseId(ResponseDetails responseId);
@@ -58,10 +53,4 @@ public interface Transition {
      * @param transactionType the transactionType to set
      */
     void setTransactionType(String transactionType);
-
-    /**
-     * @param transitionId the transitionId to set
-     */
-    void setTransitionId(Long transitionId);
-
 }

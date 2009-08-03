@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-  <class name="com.dreamoval.motech.core.model.TransitionImpl">
-    <id name="transitionId">
-      <generator class="assigned"/>
-    </id>
+<hibernate-mapping package="com.dreamoval.motech.core.model">
+  <union-subclass extends="MotechEntityImpl" name="TransitionImpl">
     <property name="transactionType"/>
     <property name="transactionDate" type="timestamp"/>
     <property name="transactionDescription"/>
-    <many-to-one class="com.dreamoval.motech.core.model.TransitionImpl" name="responseId"/>
-  </class>
+    <many-to-one class="TransitionImpl" name="responseId"/>
+  </union-subclass>
 </hibernate-mapping>

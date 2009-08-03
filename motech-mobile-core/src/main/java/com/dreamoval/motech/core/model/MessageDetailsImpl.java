@@ -14,20 +14,16 @@ import java.util.List;
  * @author Jojo
  */
 public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetails{
-
-    public MessageDetailsImpl(){}
-
-    private static final long serialVersionUID = 1L;
-    private String gid;
-
-    private Long messageId;
-
+    
     private String messageType;
     private int numberOfPages;
     private String messageText;
     private String recipientsNumbers;
     private String globalStatus;
     private List<ResponseDetailsImpl> responseDetails;
+    private Date dateSent;
+
+    public MessageDetailsImpl(){}
 
     public MessageDetailsImpl(String messageType, int numberOfPages, String messageText, String recipientsNumbers, String globalStatus, Date dateSent) {
         this.messageType = messageType;
@@ -36,8 +32,7 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
         this.globalStatus = globalStatus;
         this.dateSent = dateSent;
         this.recipientsNumbers = recipientsNumbers;
-    }
-    private Date dateSent;
+    }    
 
     /**
      * @return the messageType
@@ -111,20 +106,6 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
     }
 
     /**
-     * @return the messageId
-     */
-    public Long getMessageId() {
-        return messageId;
-    }
-
-    /**
-     * @param messageId the messageId to set
-     */
-    public void setMessageId(Long messageId) {
-        this.messageId = messageId;
-    }
-
-    /**
      * @return the dateSent
      */
     public Date getDateSent() {
@@ -151,20 +132,4 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
     public void setRecipientsNumbers(String recipientsNumbers) {
         this.recipientsNumbers = recipientsNumbers;
     }
-
-    /**
-     * @return the gid
-     */
-    public String getGid() {
-        return gid;
-    }
-
-    /**
-     * @param gid the gid to set
-     */
-    public void setGid(String gid) {
-        this.gid = gid;
-    }
-
-   
 }

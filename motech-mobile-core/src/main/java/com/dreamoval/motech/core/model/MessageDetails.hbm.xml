@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-  <class name="com.dreamoval.motech.core.model.MessageDetailsImpl">
-    <id name="messageId">
-      <generator class="assigned"/>
-    </id>
+<hibernate-mapping package="com.dreamoval.motech.core.model">
+  <union-subclass extends="MotechEntityImpl" name="MessageDetailsImpl">
     <property name="messageType"/>
     <property name="numberOfPages"/>
     <property name="messageText"/>
@@ -13,7 +10,7 @@
     <property name="dateSent" type="timestamp"/>
     <set name="responseDetails">
       <key column="messageId"/>
-      <one-to-many class="com.dreamoval.motech.core.model.ResponseDetailsImpl"/>
+      <one-to-many class="ResponseDetailsImpl"/>
     </set>
-  </class>
+  </union-subclass>
 </hibernate-mapping>

@@ -7,33 +7,12 @@
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.ResponseDetailsDAO;
-import com.dreamoval.motech.core.dao.SessionContainer;
-import com.dreamoval.motech.core.dao.hibernate.HibernateUtils;
-import com.dreamoval.motech.core.model.ResponseDetails;
-import org.hibernate.Session;
+import com.dreamoval.motech.core.model.ResponseDetailsImpl;
 
 /**
  *
- * @author Jojo
+ * @author Joseph Djomeda (jojo@dreamoval.com)
+ * @author Henry Sampson (henry@dreamoval.com)
  */
-public class ResponseDetailsDAOImpl extends GenericDAOImpl <ResponseDetails, Long> implements ResponseDetailsDAO {
-
-    public boolean storeResponse(ResponseDetails responseDetails) {
-
-        try
-        {
-            SessionContainer sessionManager = new HibernateUtils();
-            Session session = sessionManager.requestSession();
-            session.beginTransaction();
-            session.saveOrUpdate(responseDetails);
-            session.getTransaction().commit();
-            return true;
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
+public class ResponseDetailsDAOImpl extends HibernateGenericDAOImpl <ResponseDetailsImpl> implements ResponseDetailsDAO<ResponseDetailsImpl> {
 }

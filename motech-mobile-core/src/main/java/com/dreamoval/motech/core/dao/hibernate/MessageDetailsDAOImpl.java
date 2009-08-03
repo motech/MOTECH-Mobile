@@ -8,34 +8,30 @@ package com.dreamoval.motech.core.dao.hibernate;
 import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.MessageDetailsImpl;
-import com.dreamoval.motech.core.model.ResponseDetailsImpl;
-import com.dreamoval.motech.core.dao.SessionContainer;
-import com.dreamoval.motech.core.dao.hibernate.HibernateUtils;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 /**
  *
- * @author Jojo
+ * @author Joseph Djomeda (jojo@dreamoval.com)
+ * @author Henry Sampson (henry@dreamoval.com)
  */
-public class MessageDetailsDAOImpl extends GenericDAOImpl<MessageDetails, Long> implements MessageDetailsDAO {
+public class MessageDetailsDAOImpl extends HibernateGenericDAOImpl<MessageDetailsImpl> implements MessageDetailsDAO<MessageDetailsImpl> {
 
-  SessionContainer sessionManager;
 
   public MessageDetailsDAOImpl(){}
 
-  public MessageDetailsDAOImpl(HibernateUtils sessionManager){
-    this.sessionManager = sessionManager;
-  }
-
-
-    public List<MessageDetails> getAllByStatus(String status) {
+  /**
+   * Searches for all messages with status: <code>status</code>
+   *
+   * @param status The status to use as criteria for the search
+   * @return The list of MessageDetails object with status: <code>status</code>
+   */
+    public List<MessageDetails> getByStatus(String status) {
         try
         {
-            sessionManager = new HibernateUtils();
-            Session session = sessionManager.requestSession();
-            return (List<MessageDetails>) session.createCriteria(MessageDetailsImpl.class)
+            return (List<MessageDetails>) getDBSession().getSession().createCriteria(getPersistentClass())
                     .add(Restrictions.eq("globalStatus", status)).list();
         }
         catch(Exception ex)
@@ -44,9 +40,4 @@ public class MessageDetailsDAOImpl extends GenericDAOImpl<MessageDetails, Long> 
             return null;
         }
     }
-
-    public boolean StoreMessage(MessageDetails messageDetails) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }

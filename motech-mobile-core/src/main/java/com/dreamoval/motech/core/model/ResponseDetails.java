@@ -20,11 +20,6 @@ public interface ResponseDetails extends MotechEntity {
     String getGatewayMessageId();
 
     /**
-     * @return the gid
-     */
-    String getGid();
-
-    /**
      * @return the messageId
      */
     MessageDetailsImpl getMessageId();
@@ -40,11 +35,6 @@ public interface ResponseDetails extends MotechEntity {
     String getRecipientNumber();
 
     /**
-     * @return the responseId
-     */
-    Long getResponseId();
-
-    /**
      * @return the transitions
      */
     List getTransitions();
@@ -53,11 +43,6 @@ public interface ResponseDetails extends MotechEntity {
      * @param gatewayMessageId the gatewayMessageId to set
      */
     void setGatewayMessageId(String gatewayMessageId);
-
-    /**
-     * @param gid the gid to set
-     */
-    void setGid(String gid);
 
     /**
      * @param messageId the messageId to set
@@ -73,11 +58,6 @@ public interface ResponseDetails extends MotechEntity {
      * @param recipientNumber the recipientNumber to set
      */
     void setRecipientNumber(String recipientNumber);
-
-    /**
-     * @param responseId the responseId to set
-     */
-    void setResponseId(Long responseId);
 
     /**
      * @param transitions the transitions to set

@@ -43,8 +43,6 @@ public class HibernateUtils implements SessionContainer {
      * @return Hibernate Session
      */
     public Session requestSession() {
-      
-            session = sessionFactory.openSession();
-              return session;
+        return sessionFactory.openSession();
     }
 }

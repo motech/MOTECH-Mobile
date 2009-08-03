@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
      */
     public Long sendPatientMessage(Long messageId, String clinic, Date serviceDate, String patientNumber, ContactNumberType patientNumberType, MessageType messageType){
         MessageDetails messageDetails = new MessageDetailsImpl();
-        messageDetails.setMessageId(messageId);
+        messageDetails.setId(messageId);
         messageDetails.setMessageType(messageType.toString());
         messageDetails.setNumberOfPages(1);
         messageDetails.setRecipientsNumbers(patientNumber);
@@ -48,7 +48,7 @@ public class MessageServiceImpl implements MessageService {
      */
     public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<Patient> patientList){
         MessageDetails messageDetails = new MessageDetailsImpl();
-        messageDetails.setMessageId(messageId);
+        messageDetails.setId(messageId);
         messageDetails.setMessageType(MessageType.TEXT.toString());
         messageDetails.setNumberOfPages(1);
         messageDetails.setRecipientsNumbers(workerNumber);

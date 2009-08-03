@@ -15,9 +15,7 @@ import java.util.Set;
 public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDetails{
 
     private static final long serialVersionUID = 1L;
-    private String gid;
-
-    private Long responseId;
+    
     private MessageDetailsImpl messageId;
     private String gatewayMessageId;
     private String recipientNumber;
@@ -32,21 +30,7 @@ public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDet
         this.recipientNumber = recipientNumber;
         this.messageStatus = messageStatus;
     }
-
-    /**
-     * @return the responseId
-     */
-    public Long getResponseId() {
-        return responseId;
-    }
-
-    /**
-     * @param responseId the responseId to set
-     */
-    public void setResponseId(Long responseId) {
-        this.responseId = responseId;
-    }
-
+    
     /**
      * @return the messageId
      */
@@ -116,20 +100,4 @@ public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDet
     public void setTransitions(List transitions) {
         this.transitions = transitions;
     }
-
-    /**
-     * @return the gid
-     */
-    public String getGid() {
-        return gid;
-    }
-
-    /**
-     * @param gid the gid to set
-     */
-    public void setGid(String gid) {
-        this.gid = gid;
-    }
-
-  
 }

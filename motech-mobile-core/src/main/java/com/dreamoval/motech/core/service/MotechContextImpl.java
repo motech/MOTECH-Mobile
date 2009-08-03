@@ -16,27 +16,30 @@ import org.hibernate.Session;
  * @author Henry Sampson
  * Date Created @date
  */
-public class MotechContextImpl implements MotechContext {
+public class MotechContextImpl implements MotechContext<Session, Transaction> {
     
+    DBSession<Session, Transaction> dBsession;
+
     /**
      * @see com.dreamoval.motech.core.service.MotechContext#getDBSession() 
      */
     public DBSession<Session, Transaction> getDBSession() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return dBsession;
     }
 
     /**
-     * @see com.dreamoval.motech.core.service.MotechContext#cleanup()
+     * @see com.dreamoval.motech.core.service.MotechContext#cleanUp()
      */
-    public void cleanup() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void cleanUp() {
+        dBsession.getSession().flush();
+        dBsession.getSession().close();
     }
 
      /**
      * @see com.dreamoval.motech.core.service.MotechContext#setDBSession()
      */
-    public void setDBSession(DBSession<?, ?> session) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setDBSession(DBSession<Session, Transaction> session) {
+        this.dBsession = (DBSession<Session, Transaction>)session;
     }
 
 }

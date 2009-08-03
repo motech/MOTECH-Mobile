@@ -17,14 +17,14 @@ import java.io.Serializable;
  * @author Henry Sampson
  * Date Created 31-07-2009
  */
-public interface MotechContext extends Serializable{
+public interface MotechContext<S, TX> extends Serializable{
 
     /**
      * Sets the DB Session for the context
      *
      * @param session The DB session
      */
-    public void setDBSession(DBSession<?, ?> session);
+    public void setDBSession(DBSession<S, TX> session);
 
     /**
      *
@@ -32,10 +32,10 @@ public interface MotechContext extends Serializable{
      *
      * @return
      */
-    public DBSession<?, ?> getDBSession();
+    public DBSession<S, TX> getDBSession();
 
     /**
      * Cleans up context for destruction
      */
-    public void cleanup();
+    public void cleanUp();
 }

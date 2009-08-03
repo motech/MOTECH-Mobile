@@ -35,4 +35,11 @@ public interface DBSession<S, TX> extends Serializable {
      * @return The wrapped session
      */
     public S getSession();
+
+    /**
+     * Sets the session parameter
+     *
+     * @param session The session to set
+     */
+    void setSession(S session);
 }

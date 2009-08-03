@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  - //TODO: Add name of creator of file
+  - author Henry Sampson (henry@dreamoval.com)
+
+
+-->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
@@ -21,49 +27,83 @@
        http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
-           <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+    <context:annotation-config />
+    <tx:annotation-driven /> 
+
+    <!-- Model -->
+
+    <bean id="sessionContainer" class="com.dreamoval.motech.core.dao.hibernate.HibernateUtils">
+        <constructor-arg ref="sessionFactory" />
+    </bean>
+
+    <bean id="messageDetails" class="com.dreamoval.motech.core.model.MessageDetailsImpl" scope="prototype">
+    </bean>
+
+    <bean id="responseDetails" class="com.dreamoval.motech.core.model.ResponseDetailsImpl" scope="prototype">
+    </bean>
+
+    <bean id="transition" class="com.dreamoval.motech.core.model.TransitionImpl" scope="prototype">
+    </bean>
+
+    <!-- End of Model-->
+
+    <!-- Data Access -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
         <property name="url" value="jdbc:derby://localhost:1527/motechmobil" />
         <property name="username" value="root" />
         <property name="password" value="admin" />
     </bean>
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
             </props>
         </property>
         <property name="mappingResources">
             <list>
-                <value>MessageDetails.hbm.xml</value>
-                <value>ResponseDetails.hbm.xml</value>
-                <value>Transition.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/MotechEntityImpl.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/MessageDetails.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/ResponseDetails.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/Transition.hbm.xml</value>
             </list>
         </property>
     </bean>
 
-    <bean id="sessionManager" class="com.dreamoval.motech.core.dao.hibernate.HibernateUtils">
-        <constructor-arg ref="sessionFactory" />
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
     </bean>
 
-    <!--<bean id="messageDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl">
-        <constructor-arg ref="sessionManager"/>
-        <property name="session" ref="motechSession"/>
-        </bean>-->
-    <!--<bean id="genericDAOimpl" class="com.dreamoval.motech.core.dao.hibernate.GenericDAOImpl">
-        <property name="session" ref="motechSession"/>
-        </bean>-->
-        <bean id="hibutils" class="com.dreamoval.motech.core.dao.hibernate.HibernateUtils"/>
-        <bean id="motechSession" factory-bean="hibutils" factory-method="requestSession"/>
-    <!--<bean id="responseDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDao">
-        <constructor-arg ref="sessionManager" />
+    <bean id="dBSession" class="com.dreamoval.motech.core.dao.HibernateDBSessionImpl" scope="prototype">
     </bean>
 
-    <bean id="transitionDao" class="com.dreamoval.motech.core.dao.hibernate.TransitionDao">
-        <constructor-arg ref="sessionManager" />,12069795389
-    </bean>-->
-    
+    <bean id="messageDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl" scope="prototype">
+    </bean>
+
+    <bean id="responseDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDAOImpl" scope="prototype">
+    </bean>
+
+    <!-- End of Data Access-->
+
+    <!-- Services -->
+
+    <bean id="motechContext" class="com.dreamoval.motech.core.service.MotechContextImpl" destroy-method="cleanUp" scope="prototype">
+        <property name="DBSession" ref="dBSession"/>
+    </bean>
+
+    <!-- End of Services -->
+
+    <!-- Managers -->
+
+    <bean id="coreManager" class="com.dreamoval.motech.core.manager.CoreManagerImpl">
+        <property name="sessionContainer" ref="sessionContainer"/>
+    </bean>
+    <!-- End of Managers -->
 </beans>
