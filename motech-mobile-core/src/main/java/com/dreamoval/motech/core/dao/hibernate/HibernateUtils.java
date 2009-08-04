@@ -13,9 +13,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
- *Date :
- * @author Joseph Djomeda
- * Email: joseph@dreamoval.com
+ *Date :Jul 24, 2009
+ * @author Joseph Djomedd  (joseph@dreamoval.com)
  */
 public class HibernateUtils implements SessionContainer {
 

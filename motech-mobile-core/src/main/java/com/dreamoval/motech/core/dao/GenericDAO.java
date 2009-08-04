@@ -1,9 +1,9 @@
-/*
- * This GenericDAO is an interface that defines all the basic CRUD operation
- * It's should be implemented by an Generic abstract class that in turn various
- * Dao implementation should inherits from to have access.
+/**
+ * GenericDAO interface provides common persistence methods contracts.
+ * It's implemented by an abstract class that all the implementations of
+ * various domain should extend.
+ * It's should be also extended by domains DAO interfaces.
  */
-
 package com.dreamoval.motech.core.dao;
 
 

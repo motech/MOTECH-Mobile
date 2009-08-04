@@ -8,8 +8,8 @@ package com.dreamoval.motech.core.model;
 import java.util.Date;
 
 /**
- *
- * @author Jojo
+ * Date :Aug 4, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public class TransitionImpl extends MotechEntityImpl implements Transition{
     

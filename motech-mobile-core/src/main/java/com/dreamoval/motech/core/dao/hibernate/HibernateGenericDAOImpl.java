@@ -1,6 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * HibernateGenericDAOImpl is the hibernate implementation of the genericDAO interface
+ * that defines the contract of common persistence methods.
+ * This class should be extended by  implementation of every domain DAO
  */
 package com.dreamoval.motech.core.dao.hibernate;
 
@@ -18,8 +19,7 @@ import org.hibernate.criterion.Example;
 
 /**
  *  Date : Jul 31, 2009
- * @author joseph Djomeda
- *  Email : joseph@dreamoval.com
+ * @author joseph Djomeda (joseph@dreamoval.com)
  */
 public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
 

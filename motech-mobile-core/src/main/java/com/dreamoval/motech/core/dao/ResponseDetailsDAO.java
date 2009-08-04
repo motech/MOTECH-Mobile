@@ -7,9 +7,8 @@ package com.dreamoval.motech.core.dao;
 import com.dreamoval.motech.core.model.ResponseDetails;
 
 /**
- * Date: 
- * @author Joseph Djomeda
- * Email: joseph@dreamoval.com
+ * Date: Jul 29, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface ResponseDetailsDAO<T extends ResponseDetails> extends GenericDAO<T>{
 

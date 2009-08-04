@@ -8,8 +8,11 @@ package com.dreamoval.motech.core.manager;
 import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.dao.ResponseDetailsDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
+import com.dreamoval.motech.core.dao.TransitionDAO;
+import com.dreamoval.motech.core.dao.TransitionDAO;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 
 import org.hibernate.Session;
@@ -21,6 +24,7 @@ import org.springframework.context.ApplicationContextAware;
 /**
  *
  * @author Henry Sampson (henry@dreamoval.com)
+ * @author Josepoh Djomeda (joseph@dreamoval.com)
  * Date Created: Aug 3, 2009
  */
 public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
@@ -41,7 +45,15 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public ResponseDetails createResponseDetails(MotechContext motechContext) {
         return (ResponseDetails) getInstance("responseDetails", ResponseDetails.class);
     }
-
+    
+    /**
+     * 
+     * @param motechContext
+     * @return
+     */
+    public Transition createTransition(MotechContext motechContext) {
+       return (Transition) getInstance("transition", Transition.class);
+    }
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetailsDAO() }
      */
@@ -64,6 +76,17 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         return rdDAO;
     }
     
+    /**
+     *
+     * @param motechContext
+     * @return
+     */
+    public TransitionDAO createTransitionDAO(MotechContext motechContext) {
+        TransitionDAO tDAO =(TransitionDAO)getInstance("transitionDAO", TransitionDAO.class);
+        tDAO.setDBSession(motechContext.getDBSession());
+        return tDAO;
+    }
+
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
@@ -95,4 +118,8 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     private Object getInstance(String beanName, Class<?> reqType){
         return applicationContext.getBean(beanName, reqType);
     }
+
+   
+
+    
 }

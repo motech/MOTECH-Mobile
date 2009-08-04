@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
- * @author Jojo
+ * Date :Jul 24, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDetails{
 

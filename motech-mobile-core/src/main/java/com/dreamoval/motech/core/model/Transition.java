@@ -8,12 +8,11 @@ package com.dreamoval.motech.core.model;
 import java.util.Date;
 
 /**
- * Date : 
- * @author Joseph
- * Email: joseph@dreamoval.com
+ * Date : Aug 4, 2009
+ * @author Joseph (joseph@dreamoval.com)
  */
 //TODO eventualy refactor Transition class to logs
-public interface Transition {
+public interface Transition extends MotechEntity {
     /**
      * @return the responseId
      */

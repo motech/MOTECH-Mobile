@@ -1,6 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * HibernateDBSessionImpl is the implementation of the contracts defined
+ * by DBSession interface.Its provides Hibernate session and transaction
  */
 package com.dreamoval.motech.core.dao;
 
@@ -12,7 +12,7 @@ import org.hibernate.Transaction;
  * see com.dreamoval.motech.core.dao.DBSession
  *
  * @author Henry Sampson
- * Date Created @date
+ * Date Created :
  */
 public class HibernateDBSessionImpl implements DBSession<Session, Transaction> {
 

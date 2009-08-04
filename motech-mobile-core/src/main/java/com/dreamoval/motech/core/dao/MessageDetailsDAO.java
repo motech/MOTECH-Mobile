@@ -8,12 +8,17 @@ import com.dreamoval.motech.core.model.MessageDetails;
 import java.util.List;
 
 /**
- * Date: 
- * @author Joseoh Djomeda
- * Email: joseph@dreamoval.com
+ * Date: Jul 29, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface MessageDetailsDAO<T extends MessageDetails> extends GenericDAO<T> {
-   
+
+    /**
+     * Returns the list of MessageDetails object whose status matches
+     * the one provided as argument
+     * @param status String indicating the status to fetch for
+     * @return List of MessageDetails objects
+     */
     public List<MessageDetails> getByStatus(String status);
 
 

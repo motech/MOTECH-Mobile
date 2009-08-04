@@ -9,9 +9,8 @@ import org.hibernate.Session;
 
 
 /**
- * Date :
- * @author Joseph Djomeda
- * Email: joseph@dreamoval.com
+ * Date :Jul 30, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface SessionContainer {
 

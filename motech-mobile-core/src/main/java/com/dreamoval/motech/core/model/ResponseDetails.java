@@ -8,9 +8,8 @@ package com.dreamoval.motech.core.model;
 import java.util.List;
 
 /**
- * Date:
- * @author Joseph
- * Email : joseph@dreamoval.com
+ * Date: Jul 24, 2009
+ * @author Joseph (joseph@dreamoval.com)
  */
 public interface ResponseDetails extends MotechEntity {
 

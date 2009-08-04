@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  - //TODO: Add name of creator of file
+
   - author Henry Sampson (henry@dreamoval.com)
+  -author Joseph Djomeda (joseph@dreamoval.com)
 
 
 -->
@@ -88,6 +89,8 @@
     </bean>
 
     <bean id="responseDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDAOImpl" scope="prototype">
+    </bean>
+    <bean id="transitionDAO" class="com.dreamoval.motech.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
     </bean>
 
     <!-- End of Data Access-->
