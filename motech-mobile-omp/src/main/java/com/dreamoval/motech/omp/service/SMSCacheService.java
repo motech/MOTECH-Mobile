@@ -57,16 +57,6 @@ public interface SMSCacheService {
     public void setCoreManager(CoreManager coreManager);
 
     /**
-     * @return the motechContext
-     */
-    public MotechContext getMotechContext();
-
-    /**
-     * @param motechContext the motechContext to set
-     */
-    public void setMotechContext(MotechContext motechContext);
-
-    /**
      * @return the ompManager
      */
     public OMPManager getOmpManager();

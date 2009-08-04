@@ -20,13 +20,13 @@ import java.util.List;
  *
  * <p>Handles interactions with OMP for message delivery related functions</p>
  */
-public class MessageServiceImpl implements MessageService {
+public class OMIServiceImpl implements OMIService {
     private MessageStoreManager storeManager;
     private OMPManager ompManager;
 
     /**
      *
-     * @see MessageService.sendPatientMessage
+     * @see OMIService.sendPatientMessage
      */
     public Long sendPatientMessage(Long messageId, String clinic, Date serviceDate, String patientNumber, ContactNumberType patientNumberType, MessageType messageType){
         MessageDetails messageDetails = new MessageDetailsImpl();
@@ -41,7 +41,7 @@ public class MessageServiceImpl implements MessageService {
 
     /**
      *
-     * @see MessageService.sendCHPSMessage
+     * @see OMIService.sendCHPSMessage
      */
     public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<Patient> patientList){
         MessageDetails messageDetails = new MessageDetailsImpl();

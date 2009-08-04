@@ -54,7 +54,7 @@
     </bean>-->
 
     <bean id="smsGatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeSMSGatewayManagerImpl">
-        <property name="productCode" value="testcode" />
+        <property name="productCode" value="NU-OB-DEMO" />
         <property name="senderId" value="MoTeCH" />
         <property name="handler" ref="messageHandler" />
     </bean>
@@ -66,11 +66,13 @@
     </bean>
 
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
+        <property name="coreManager" ref="coreManager" />
+        <property name="ompManager" ref="ompManager" />
     </bean>
 
     <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSServiceImpl">
         <property name="cache" ref="smsCache" />
-        <property name="gatewayManager" ref="dummyGateway" />
+        <property name="gatewayManager" ref="smsGatewayManager" />
     </bean>
 
     <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />

@@ -5,7 +5,7 @@
 
 package com.dreamoval.motech.omi.manager;
 
-import com.dreamoval.motech.omi.service.MessageService;
+import com.dreamoval.motech.omi.service.OMIService;
 import com.dreamoval.motech.omi.service.Patient;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -29,11 +29,11 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
     }
 
     /**
-     * creates a MessageService object
-     * @return the created MessageService object
+     * creates a OMIService object
+     * @return the created OMIService object
      */
-    public MessageService createMessageService() {
-        return (MessageService)context.getBean("messageService");
+    public OMIService createOMIService() {
+        return (OMIService)context.getBean("omiService");
     }
 
     /**

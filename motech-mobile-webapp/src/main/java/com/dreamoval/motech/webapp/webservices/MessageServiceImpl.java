@@ -35,11 +35,11 @@ public class MessageServiceImpl implements MessageService, ApplicationContextAwa
     }
 
     public Long sendPatientMessage(Long messageId, String clinic, Date serviceDate, String patientNumber, ContactNumberType patientNumberType, MessageType messageType) {
-        return this.getOmiManager().createMessageService().sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
+        return this.getOmiManager().createOMIService().sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
     }
 
     public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<Patient> patientList) {
-        return this.getOmiManager().createMessageService().sendCHPSMessage(messageId, workerName, workerNumber, patientList);
+        return this.getOmiManager().createOMIService().sendCHPSMessage(messageId, workerName, workerNumber, patientList);
     }
 
     /**

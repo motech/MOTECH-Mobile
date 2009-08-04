@@ -21,7 +21,6 @@ import com.dreamoval.motech.omp.manager.OMPManager;
 public class SMSCacheServiceImpl implements SMSCacheService {
 
     private CoreManager coreManager;
-    private MotechContext motechContext;
     private OMPManager ompManager;
 
     /**
@@ -29,7 +28,7 @@ public class SMSCacheServiceImpl implements SMSCacheService {
      * @see SMSCacheService.saveMessage
      */
     public void saveMessage(MessageDetails messageDetails) {
-        MessageDetailsDAO messageDAO = coreManager.createMessageDetailsDAO(getMotechContext());
+        MessageDetailsDAO messageDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
         messageDAO.save(messageDetails);
     }
 
@@ -70,20 +69,6 @@ public class SMSCacheServiceImpl implements SMSCacheService {
      */
     public void setCoreManager(CoreManager coreManager) {
         this.coreManager = coreManager;
-    }
-
-    /**
-     * @return the motechContext
-     */
-    public MotechContext getMotechContext() {
-        return motechContext;
-    }
-
-    /**
-     * @param motechContext the motechContext to set
-     */
-    public void setMotechContext(MotechContext motechContext) {
-        this.motechContext = motechContext;
     }
 
     /**

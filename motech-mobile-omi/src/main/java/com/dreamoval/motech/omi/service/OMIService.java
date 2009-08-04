@@ -15,7 +15,7 @@ import java.util.List;
  * @author Henry Sampaon
  * Date Created: Jul 31, 2009
  */
-public interface MessageService {
+public interface OMIService {
 
     /**
      * Sends a message to a CHPS patient

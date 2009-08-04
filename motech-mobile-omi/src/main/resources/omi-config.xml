@@ -38,7 +38,7 @@
         </property>
     </bean>
 
-    <bean name="messageService" class="com.dreamoval.motech.omi.service.MessageServiceImpl">
+    <bean name="omiService" class="com.dreamoval.motech.omi.service.OMIServiceImpl">
         <property name="ompManager" ref="ompManager" />
         <property name="storeManager" ref="storeManager" />
     </bean>
