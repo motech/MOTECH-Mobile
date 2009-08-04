@@ -31,15 +31,20 @@
       <import resource="classpath:META-INF/cxf/cxf.xml" />
       <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
       <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+      <import resource="classpath:META-INF/omi-config.xml" />
       <jaxws:endpoint id="messageService"
-                      implementor="com.dreamoval.motech.webapp.webservices.MessageServiceImpl"
+                      implementor="#messageWebServiceBean"
                       address="/messaging">
+
           <!--<jaxws:serviceFactory>
                <ref bean="aegis-service" />
            </jaxws:serviceFactory>-->
       </jaxws:endpoint>
+      <bean id="messageWebServiceBean" class="com.dreamoval.motech.webapp.webservices.MessageServiceImpl">
+        <property name="omiManager" ref="omiManager"/>
+      </bean>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
         <property name="url" value="jdbc:derby://localhost:1527/motechmobil" />
         <property name="username" value="root" />
@@ -78,13 +83,13 @@
 
     <bean id="messageDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl" />
 
-    <!--<bean id="responseDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDao">
+    <bean id="responseDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDao">
         <constructor-arg ref="sessionManager" />
     </bean>
 
     <bean id="transitionDao" class="com.dreamoval.motech.core.dao.hibernate.TransitionDao">
         <constructor-arg ref="sessionManager" />,12069795389
-    </bean>-->
+    </bean>
 
     <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" />
 
@@ -97,7 +102,7 @@
 
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
         <property name="messageDetailsDao" ref="messageDetailsDao" />
-    </bean>
+    </bean>-->
 
     <bean id="aegisBean" class="org.apache.cxf.aegis.databinding.AegisDatabinding"
            scope="prototype" />

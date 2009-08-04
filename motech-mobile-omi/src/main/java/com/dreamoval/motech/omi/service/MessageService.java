@@ -6,9 +6,6 @@
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
-import com.dreamoval.motech.omi.wrapper.ContactNumberType;
-import com.dreamoval.motech.omi.wrapper.MessageType;
-import com.dreamoval.motech.omi.wrapper.Patient;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import java.util.Date;
 import java.util.List;

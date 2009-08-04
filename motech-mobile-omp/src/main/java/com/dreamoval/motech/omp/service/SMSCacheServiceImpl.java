@@ -5,8 +5,12 @@
 
 package com.dreamoval.motech.omp.service;
 
+import com.dreamoval.motech.core.dao.MessageDetailsDAO;
+import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.omp.manager.MessageDetailsManager;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
+import com.dreamoval.motech.omp.manager.OMPManager;
 
 /**
  *
@@ -16,14 +20,17 @@ import com.dreamoval.motech.omp.manager.MessageDetailsManager;
  */
 public class SMSCacheServiceImpl implements SMSCacheService {
 
-    private MessageDetailsManager messageManager;
+    private CoreManager coreManager;
+    private MotechContext motechContext;
+    private OMPManager ompManager;
 
     /**
      *
      * @see SMSCacheService.saveMessage
      */
     public void saveMessage(MessageDetails messageDetails) {
-        messageManager.saveMessage(messageDetails);
+        MessageDetailsDAO messageDAO = coreManager.createMessageDetailsDAO(getMotechContext());
+        messageDAO.save(messageDetails);
     }
 
     /**
@@ -31,7 +38,8 @@ public class SMSCacheServiceImpl implements SMSCacheService {
      * @see SMSCacheService.saveMessage
      */
     public void saveMessage(String messageDetails) {
-        messageManager.saveMessage(messageDetails);
+        GatewayMessageHandler messageHandler = getOmpManager().createGatewayMessageHandler();
+        saveMessage(messageHandler.prepareMessage(messageDetails));
     }
 
     /**
@@ -51,17 +59,45 @@ public class SMSCacheServiceImpl implements SMSCacheService {
     }
 
     /**
-     * @return the messageManager
+     * @return the coreManager
      */
-    public MessageDetailsManager getMessageManager() {
-        return messageManager;
+    public CoreManager getCoreManager() {
+        return coreManager;
     }
 
     /**
-     * @param messageManager the messageManager to set
+     * @param coreManager the coreManager to set
      */
-    public void setMessageManager(MessageDetailsManager messageManager) {
-        this.messageManager = messageManager;
+    public void setCoreManager(CoreManager coreManager) {
+        this.coreManager = coreManager;
+    }
+
+    /**
+     * @return the motechContext
+     */
+    public MotechContext getMotechContext() {
+        return motechContext;
+    }
+
+    /**
+     * @param motechContext the motechContext to set
+     */
+    public void setMotechContext(MotechContext motechContext) {
+        this.motechContext = motechContext;
+    }
+
+    /**
+     * @return the ompManager
+     */
+    public OMPManager getOmpManager() {
+        return ompManager;
+    }
+
+    /**
+     * @param ompManager the ompManager to set
+     */
+    public void setOmpManager(OMPManager ompManager) {
+        this.ompManager = ompManager;
     }
 
 }

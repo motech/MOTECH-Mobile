@@ -6,47 +6,30 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.omi.service.MessageService;
-import com.dreamoval.motech.omi.wrapper.ContactNumberType;
-import com.dreamoval.motech.omi.wrapper.MessageType;
-import com.dreamoval.motech.omi.wrapper.Patient;
-import java.util.Date;
-import java.util.List;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.dreamoval.motech.omi.service.Patient;
 
 /**
  *
- * @author Henry Sampson
- * Date Created: Jul 31, 2009
+ * @author Henry Sampaon (henry@dreamoval.com)
+ * Date Created: Aug 4, 2009
  */
-public class OMIManager{
-    private MessageService messageService;
-
-    public OMIManager(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("omi-config.xml");
-        messageService = (MessageService)context.getBean("messageService");
-    }
-
-    public Long sendPatientMessage(Long messageId, String clinic, Date serviceDate, String patientNumber, ContactNumberType patientNumberType, MessageType messageType) {
-        return this.getMessageService().sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
-    }
-
-    public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<Patient> patientList) {
-        return this.getMessageService().sendCHPSMessage(messageId, workerName, workerNumber, patientList);
-    }
+public interface OMIManager {
 
     /**
-     * @return the messageService
+     * creates a new MessageService object
+     * @return the MessageService object
      */
-    public MessageService getMessageService() {
-        return messageService;
-    }
+    MessageService createMessageService();
 
     /**
-     * @param messageService the messageService to set
+     * creates a new MessageStoreManager object
+     * @return the MessageStoreManager object
      */
-    public void setMessageService(MessageService messageService) {
-        this.messageService = messageService;
-    }
+    MessageStoreManager createMessageStoreManager();
 
+    /**
+     * creates a new MessagePatient object
+     * @return the MessagePatient object
+     */
+    Patient createPatient();
 }

@@ -8,9 +8,6 @@ package com.dreamoval.motech.omi.service;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.MessageDetailsImpl;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
-import com.dreamoval.motech.omi.wrapper.ContactNumberType;
-import com.dreamoval.motech.omi.wrapper.MessageType;
-import com.dreamoval.motech.omi.wrapper.Patient;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +36,7 @@ public class MessageServiceImpl implements MessageService {
         messageDetails.setRecipientsNumbers(patientNumber);
         messageDetails.setMessageText(storeManager.getMessage("patient"));
 
-        return getOmpManager().sendTextMessage(messageDetails);
+        return ompManager.createSMSService().sendTextMessage(messageDetails);
     }
 
     /**
@@ -54,7 +51,7 @@ public class MessageServiceImpl implements MessageService {
         messageDetails.setRecipientsNumbers(workerNumber);
         messageDetails.setMessageText(storeManager.getMessage("worker"));
         
-        return getOmpManager().sendTextMessage(messageDetails);
+        return ompManager.createSMSService().sendTextMessage(messageDetails);
     }
 
     /**

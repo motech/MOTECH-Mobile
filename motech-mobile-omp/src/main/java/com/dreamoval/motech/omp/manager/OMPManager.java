@@ -5,95 +5,44 @@
 
 package com.dreamoval.motech.omp.manager;
 
-import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.omp.service.SMSCacheService;
 import com.dreamoval.motech.omp.service.SMSService;
 
 /**
- *
- * @author Kofi A. Asamoah
- * Date Created: Jul 31, 2009
- *
  * <p>Provides access to OMP services and managers to external modules</p>
+ *
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created: Jul 31, 2009
  */
-public class OMPManager{
-    private SMSService smsService;
-    private SMSCacheService cacheService;
+public interface OMPManager{
 
     /**
-     * Calls the sendTextMessage method of the OMP SMSService
-     * @see SMSService.sendTextMessage
+     * creates a new GatewayManager object
+     * @return the created GatewayManager object
      */
-    public Long sendTextMessage(MessageDetails messageDetails) {
-        return this.getSmsService().sendTextMessage(messageDetails);
-    }
+    //public GatewayManager createGatewayManager();
 
     /**
-     * Calls the sendTextMessage method of the OMP SMSService
-     * @see SMSService.sendTextMessage
+     * creates a new GatewayMessageHandler object
+     * @return the created GatewayMessageHandler object
      */
-    public Long sendTextMessage(String messageDetails) {
-        return this.getSmsService().sendTextMessage(messageDetails);
-    }
+    public GatewayMessageHandler createGatewayMessageHandler();
 
     /**
-     * Calls the saveMessage method of the OMP SMSCacheService
-     * @see SMSCacheService.saveMessage
+     * creates a new SMSGatewayManager object
+     * @return the created SMSGatewayManager object
      */
-    public void saveMessage(MessageDetails messageDetails) {
-        this.getCacheService().saveMessage(messageDetails);
-    }
+    public SMSGatewayManager createSMSGatewayManager();
 
     /**
-     * Calls the saveMessage method of the OMP SMSCacheService
-     * @see SMSCacheService.saveMessage
+     * creates a new SMSCacheService object
+     * @return the created SMSCacheService object
      */
-    public void saveMessage(String messageDetails) {
-        this.getCacheService().saveMessage(messageDetails);
-    }
+    public SMSCacheService createSMSCacheService();
 
     /**
-     * Calls the updateMessage method of the OMP SMSCacheService
-     * @see SMSCacheService.updateMessage
+     * creates a new SMSService object
+     * @return the created SMSService object
      */
-    public boolean updateMessage(MessageDetails messageDetails) {
-        return this.getCacheService().updateMessage(messageDetails);
-    }
-
-    /**
-     * Calls the updateMessage method of the OMP SMSCacheService
-     * @see SMSCacheService.updateMessage
-     */
-    public boolean updateMessage(String messageDetails) {
-        return this.getCacheService().updateMessage(messageDetails);
-    }
-
-    /**
-     * @return the smsService
-     */
-    public SMSService getSmsService() {
-        return smsService;
-    }
-
-    /**
-     * @param smsService the smsService to set
-     */
-    public void setSmsService(SMSService smsService) {
-        this.smsService = smsService;
-    }
-
-    /**
-     * @return the cacheService
-     */
-    public SMSCacheService getCacheService() {
-        return cacheService;
-    }
-
-    /**
-     * @param cacheService the cacheService to set
-     */
-    public void setCacheService(SMSCacheService cacheService) {
-        this.cacheService = cacheService;
-    }
-    
+    public SMSService createSMSService();
 }

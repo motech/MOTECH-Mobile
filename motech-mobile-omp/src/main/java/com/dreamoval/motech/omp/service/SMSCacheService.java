@@ -5,8 +5,10 @@
 
 package com.dreamoval.motech.omp.service;
 
+import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.omp.manager.MessageDetailsManager;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.omp.manager.OMPManager;
 /**
  *
  * @author Kofi A. Asamoah
@@ -44,15 +46,33 @@ public interface SMSCacheService {
      */
     public boolean updateMessage(String messageDetails);
 
-
+    /**
+     * @return the coreManager
+     */
+    public CoreManager getCoreManager();
 
     /**
-     * @return the messageManager
+     * @param coreManager the coreManager to set
      */
-    public MessageDetailsManager getMessageManager();
+    public void setCoreManager(CoreManager coreManager);
 
     /**
-     * @param messageManager the messageManager to set
+     * @return the motechContext
      */
-    public void setMessageManager(MessageDetailsManager messageManager);
+    public MotechContext getMotechContext();
+
+    /**
+     * @param motechContext the motechContext to set
+     */
+    public void setMotechContext(MotechContext motechContext);
+
+    /**
+     * @return the ompManager
+     */
+    public OMPManager getOmpManager();
+
+    /**
+     * @param ompManager the ompManager to set
+     */
+    public void setOmpManager(OMPManager ompManager);
 }

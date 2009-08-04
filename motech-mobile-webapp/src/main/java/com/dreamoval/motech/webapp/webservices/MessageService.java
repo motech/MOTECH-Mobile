@@ -5,9 +5,10 @@
 
 package com.dreamoval.motech.webapp.webservices;
 
-import com.dreamoval.motech.omi.wrapper.ContactNumberType;
-import com.dreamoval.motech.omi.wrapper.MessageType;
-import com.dreamoval.motech.omi.wrapper.Patient;
+import com.dreamoval.motech.omi.manager.OMIManager;
+import com.dreamoval.motech.omi.service.ContactNumberType;
+import com.dreamoval.motech.omi.service.MessageType;
+import com.dreamoval.motech.omi.service.Patient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,4 @@ public interface MessageService extends Serializable{
      * @return The id of the message sent
      */
     public Long sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") List<Patient> patientList);
-
-    //MessageDetails getMessageDetails(@WebParam(name="msgId") String msgId);
 }

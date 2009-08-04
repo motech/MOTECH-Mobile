@@ -13,7 +13,8 @@
        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
     
-    <import resource="classpath:META-INF/main/resources/omp-config.xml" />
+    <import resource="classpath:META-INF/omp-config.xml" />
+    <!--
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
         <property name="messageManager" ref="messageManager" />
     </bean>
@@ -27,7 +28,7 @@
         <property name="smsService" ref="smsService" />
         <property name="cacheService" ref="smsCache" />
     </bean>
-
+-->
     <bean name="storeManager" class="com.dreamoval.motech.omi.manager.MessageStoreManagerImpl">
         <property name="messageStore">
             <map key-type="java.lang.String">
@@ -42,7 +43,5 @@
         <property name="storeManager" ref="storeManager" />
     </bean>
 
-    <bean name="omiManager" class="com.dreamoval.motech.omi.manager.OMIManager">
-        <property name="messageService" ref="messageService" />
-    </bean>
+    <bean name="omiManager" class="com.dreamoval.motech.omi.manager.OMIManagerImpl" />
 </beans>

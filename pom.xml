@@ -36,6 +36,10 @@
                     <exclude>**/*.java</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <targetPath>META-INF</targetPath>
+                <directory>src/main/resources</directory>
+            </resource>
         </resources>
         <testResources>
             <testResource>
