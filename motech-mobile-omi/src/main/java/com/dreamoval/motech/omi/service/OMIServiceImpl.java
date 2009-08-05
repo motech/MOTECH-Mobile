@@ -6,7 +6,7 @@
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import java.util.Date;
@@ -23,13 +23,14 @@ import java.util.List;
 public class OMIServiceImpl implements OMIService {
     private MessageStoreManager storeManager;
     private OMPManager ompManager;
+    private CoreManager coreManager;
 
     /**
      *
      * @see OMIService.sendPatientMessage
      */
     public Long sendPatientMessage(Long messageId, String clinic, Date serviceDate, String patientNumber, ContactNumberType patientNumberType, MessageType messageType){
-        MessageDetails messageDetails = new MessageDetailsImpl();
+        MessageDetails messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
         messageDetails.setId(messageId);
         messageDetails.setMessageType(messageType.toString());
         messageDetails.setNumberOfPages(1);
@@ -44,7 +45,7 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.sendCHPSMessage
      */
     public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<Patient> patientList){
-        MessageDetails messageDetails = new MessageDetailsImpl();
+        MessageDetails messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
         messageDetails.setId(messageId);
         messageDetails.setMessageType(MessageType.TEXT.toString());
         messageDetails.setNumberOfPages(1);
@@ -80,5 +81,19 @@ public class OMIServiceImpl implements OMIService {
      */
     public void setOmpManager(OMPManager ompManager) {
         this.ompManager = ompManager;
+    }
+
+    /**
+     * @return the ompManager
+     */
+    public CoreManager geCoreManager() {
+        return coreManager;
+    }
+
+    /**
+     * @param ompManager the ompManager to set
+     */
+    public void setCoreManager(CoreManager coreManager) {
+        this.coreManager = coreManager;
     }
 }

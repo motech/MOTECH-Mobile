@@ -7,6 +7,7 @@ package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omp.manager.OMPManager;
+import com.dreamoval.motech.core.manager.CoreManager;
 import java.util.Date;
 import java.util.List;
 
@@ -60,4 +61,14 @@ public interface OMIService {
      * @param ompManager the ompManager to set
      */
     public void setOmpManager(OMPManager ompManager);
+
+    /**
+     * @return the ompManager
+     */
+    public CoreManager geCoreManager();
+
+    /**
+     * @param ompManager the ompManager to set
+     */
+    public void setCoreManager(CoreManager coreManager);
 }
