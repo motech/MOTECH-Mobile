@@ -85,4 +85,12 @@ public interface MessageDetails extends MotechEntity {
      */
     void setResponseDetails(List<ResponseDetailsImpl> responseDetails);
 
+    /**
+     *
+     */
+    void addResponse(ResponseDetailsImpl response);
+    /**
+     *
+     */
+    void removeResponse(ResponseDetailsImpl response);
 }

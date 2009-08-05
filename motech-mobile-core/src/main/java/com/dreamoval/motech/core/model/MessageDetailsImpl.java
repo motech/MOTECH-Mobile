@@ -5,13 +5,12 @@
 
 package com.dreamoval.motech.core.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  *
- * @author Jojo
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetails{
     
@@ -132,4 +131,17 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
     public void setRecipientsNumbers(String recipientsNumbers) {
         this.recipientsNumbers = recipientsNumbers;
     }
+
+    public void addResponse(ResponseDetailsImpl response) {
+        response.setMessageId(this);
+        this.responseDetails.add(response);
+    }
+
+    public void removeResponse(ResponseDetailsImpl response) {
+        if(this.responseDetails.contains(response)) {
+            this.responseDetails.remove(response);
+        }
+
+    }
+
 }

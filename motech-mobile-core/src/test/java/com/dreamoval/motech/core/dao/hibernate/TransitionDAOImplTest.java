@@ -26,12 +26,12 @@ import java.util.Date;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/resources/core-config.xml"})
 public class TransitionDAOImplTest {
-    
+
 
       @Autowired
     CoreManager coreManager;
     TransitionDAO tDAO;
-    
+
       @Autowired
       private Transition t1;
 
@@ -77,7 +77,7 @@ public class TransitionDAOImplTest {
        Transition fromdb2 = (TransitionImpl)session.get(TransitionImpl.class, t2.getId());
        Transition fromdb3 = (TransitionImpl)session.get(TransitionImpl.class, t3.getId());
        session.getTransaction().commit();
-       
+
        Assert.assertEquals(t1.getId(), fromdb1.getId());
       Assert.assertEquals(t2.getId(), fromdb2.getId());
       Assert.assertEquals(t3.getId(), fromdb3.getId());

@@ -8,7 +8,7 @@
     <property name="recipientsNumbers"/>
     <property name="globalStatus"/>
     <property name="dateSent" type="timestamp"/>
-    <set name="responseDetails">
+    <set name="responseDetails" cascade="all">
       <key column="messageId"/>
       <one-to-many class="ResponseDetailsImpl"/>
     </set>

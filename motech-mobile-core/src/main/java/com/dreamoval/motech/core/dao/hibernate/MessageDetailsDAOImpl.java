@@ -14,7 +14,7 @@ import org.hibernate.criterion.Restrictions;
 
 /**
  * Date: Jul 24, 2009
- * @author Joseph Djomeda (jojo@dreamoval.com)
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  * @author Henry Sampson (henry@dreamoval.com)
  */
 public class MessageDetailsDAOImpl extends HibernateGenericDAOImpl<MessageDetailsImpl> implements MessageDetailsDAO<MessageDetailsImpl> {

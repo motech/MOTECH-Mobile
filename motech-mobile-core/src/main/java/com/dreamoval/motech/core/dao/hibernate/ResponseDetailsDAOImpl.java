@@ -15,4 +15,8 @@ import com.dreamoval.motech.core.model.ResponseDetailsImpl;
  * @author Henry Sampson (henry@dreamoval.com)
  */
 public class ResponseDetailsDAOImpl extends HibernateGenericDAOImpl <ResponseDetailsImpl> implements ResponseDetailsDAO<ResponseDetailsImpl> {
+
+    public ResponseDetailsDAOImpl() {
+    }
+    
 }
