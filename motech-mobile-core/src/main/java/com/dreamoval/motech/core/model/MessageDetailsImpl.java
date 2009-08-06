@@ -19,7 +19,7 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
     private String messageText;
     private String recipientsNumbers;
     private String globalStatus;
-    private List<ResponseDetailsImpl> responseDetails;
+    private List<ResponseDetails> responseDetails;
     private Date dateSent;
 
     public MessageDetailsImpl(){}
@@ -93,14 +93,14 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
     /**
      * @return the responseDetails
      */
-    public List<ResponseDetailsImpl> getResponseDetails() {
+    public List<ResponseDetails> getResponseDetails() {
         return responseDetails;
     }
 
     /**
      * @param responseDetails the responseDetails to set
      */
-    public void setResponseDetails(List<ResponseDetailsImpl> responseDetails) {
+    public void setResponseDetails(List<ResponseDetails> responseDetails) {
         this.responseDetails = responseDetails;
     }
 
@@ -132,12 +132,12 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
         this.recipientsNumbers = recipientsNumbers;
     }
 
-    public void addResponse(ResponseDetailsImpl response) {
+    public void addResponse(ResponseDetails response) {
         response.setMessageId(this);
         this.responseDetails.add(response);
     }
 
-    public void removeResponse(ResponseDetailsImpl response) {
+    public void removeResponse(ResponseDetails response) {
         if(this.responseDetails.contains(response)) {
             this.responseDetails.remove(response);
         }

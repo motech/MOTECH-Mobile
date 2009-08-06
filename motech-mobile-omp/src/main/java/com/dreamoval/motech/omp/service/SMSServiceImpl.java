@@ -6,17 +6,20 @@
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
+import java.util.List;
 
 /**
  *
- * @author Kofi A. Asamoah
- * @email yoofi@dreamoval.com
- * @date 15-JUL-2009
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created: Jul 15, 2009
  */
 public class SMSServiceImpl implements SMSService {
     private SMSCacheService cache;
     private GatewayManager gatewayManager;
+    private GatewayMessageHandler handler;
 
     /**
      *
@@ -24,7 +27,13 @@ public class SMSServiceImpl implements SMSService {
      */
     public Long sendTextMessage(MessageDetails messageDetails) {
         this.cache.saveMessage(messageDetails);
-        this.gatewayManager.send(messageDetails);
+        
+        String gatewayResponse = this.gatewayManager.sendMessage(messageDetails);
+        List<ResponseDetails> responseList = handler.parseMessageResponse(messageDetails, gatewayResponse);
+        messageDetails.setResponseDetails(responseList);
+
+        this.cache.updateMessage(messageDetails);
+
         return messageDetails.getId();
     }
 
@@ -32,7 +41,11 @@ public class SMSServiceImpl implements SMSService {
      * @see SMSService.sendTextMessage(string messageDetails)
      */
     public Long sendTextMessage(String messageDetails) {
-        return this.gatewayManager.send(messageDetails).getMessageId().getId();
+        return sendTextMessage(handler.prepareMessage(messageDetails));
+    }
+
+    public String getMessageStatus(String gatewayMessageId){
+        return handler.parseMessageStatus(gatewayManager.getMessageStatus(gatewayMessageId));
     }
 
     /**
@@ -61,6 +74,20 @@ public class SMSServiceImpl implements SMSService {
      */
     public void setGatewayManager(GatewayManager gatewayManager) {
         this.gatewayManager = gatewayManager;
+    }
+
+    /**
+     * @return the handler
+     */
+    public GatewayMessageHandler getHandler() {
+        return handler;
+    }
+
+    /**
+     * @param handler the handler to set
+     */
+    public void setHandler(GatewayMessageHandler handler) {
+        this.handler = handler;
     }
 
 }

@@ -15,7 +15,7 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-       <import resource="classpath:META-INF/motech-core.xml" />
+       <import resource="classpath:META-INF/core-config.xml" />
 <!--
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
@@ -46,7 +46,9 @@
 -->
     <bean id="date" class="java.util.Date" scope="prototype" />
 
-    <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype" />
+    <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
+        <property name="coreManager" ref="coreManager" />
+    </bean>
 
     <!--<bean id="messageManager" class="com.dreamoval.motech.omp.manager.MessageDetailsManagerImpl" scope="prototype">
         <property name="messageDetailsDao" ref="messageDetailsDao" />
@@ -56,14 +58,11 @@
     <bean id="smsGatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeSMSGatewayManagerImpl">
         <property name="productCode" value="NU-OB-DEMO" />
         <property name="senderId" value="MoTeCH" />
-        <property name="handler" ref="messageHandler" />
     </bean>
 
     <bean name="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl" />
 
-    <bean name="dummyGateway" class="com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl">
-        <property name="handler" ref="dummyHandler" />
-    </bean>
+    <bean name="dummyGateway" class="com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl" />
 
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />
@@ -73,6 +72,7 @@
     <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSServiceImpl">
         <property name="cache" ref="smsCache" />
         <property name="gatewayManager" ref="smsGatewayManager" />
+        <property name="handler" ref="messageHandler" />
     </bean>
 
     <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />

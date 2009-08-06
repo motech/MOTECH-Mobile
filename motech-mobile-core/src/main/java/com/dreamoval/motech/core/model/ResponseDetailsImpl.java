@@ -16,7 +16,7 @@ public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDet
 
     private static final long serialVersionUID = 1L;
     
-    private MessageDetailsImpl messageId;
+    private MessageDetails messageId;
     private String gatewayMessageId;
     private String recipientNumber;
     private String messageStatus;
@@ -34,14 +34,14 @@ public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDet
     /**
      * @return the messageId
      */
-    public MessageDetailsImpl getMessageId() {
+    public MessageDetails getMessageId() {
         return messageId;
     }
 
     /**
      * @param messageId the messageId to set
      */
-    public void setMessageId(MessageDetailsImpl messageId) {
+    public void setMessageId(MessageDetails messageId) {
         this.messageId = messageId;
     }
 

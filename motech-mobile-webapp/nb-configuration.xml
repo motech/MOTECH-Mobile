@@ -12,4 +12,5 @@ Without this configuration present, some functionality in the IDE may be limited
         </config-files>
         <config-file-groups/>
     </spring-data>
+    <creator-data xmlns="http://www.sun.com/creator/ns" jsf.current.theme="woodstock-theme-default" jsf.pagebean.package="motechmobilewebapp" jsf.project.libraries.dir="lib" jsf.project.version="4.0" jsf.startPage="wstest.jsp"/>
 </project-shared-configuration>

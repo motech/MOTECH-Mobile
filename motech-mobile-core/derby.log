@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-2009-08-05 18:47:58.828 GMT:
- Booting Derby version The Apache Software Foundation - Apache Derby - 10.2.2.0 - (485682): instance c013800d-0122-ebe3-92f2-0000002ef580
-on database directory D:\joseph\javaprojectsnbeans\motech\motech-mobile-core\motechmobil  
+2009-08-06 21:27:35.937 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.5.2.0 - (794445): instance a816c00e-0122-f19c-1aee-0000002b8680
+on database directory D:\enr\Henry\DreamOval\dev\Projects\MoTeCH\motech-mobile-core\motechmobiledb  
 
 Database Class Loader started - derby.database.classpath=''

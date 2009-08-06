@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>MoTeCH Mobile Web</display-name>
-
-    <session-config>
-        <session-timeout>
-            60
-        </session-timeout>
-    </session-config>
+    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -20,11 +15,9 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/webapp-config.xml</param-value>
     </context-param>
-
+    
     <listener>
-        <listener-class>
-      org.springframework.web.context.ContextLoaderListener
-        </listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <listener>
@@ -39,8 +32,10 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    
     <servlet-mapping>
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/webservices/*</url-pattern>
     </servlet-mapping>
-</web-app>
+    
+    </web-app>

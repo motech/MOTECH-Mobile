@@ -6,45 +6,41 @@
 package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
-import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.outreachcity.orserve.messaging.SMSMessenger;
 import com.outreachcity.orserve.messaging.SMSMessengerSoap;
 
 /**
- *
- * @author Kofi A. Asamoah
- * @email yoofi@dreamoval.com
- * @date 15-JUL-2009
- *
  * <p>Handles all interactions with the OutReach Server message gateway</p>
+ *
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * @date Jul 15, 2009
  */
 public class ORServeSMSGatewayManagerImpl implements GatewayManager {
     private String productCode;
     private String senderId;
-    private GatewayMessageHandler handler;
 
     /**
      *
      * @see GatewayManager.send
      */
-    public ResponseDetails send(MessageDetails messageDetails) {
+    public String sendMessage(MessageDetails messageDetails) {
         if(messageDetails == null)
             return null;
         
         SMSMessenger messenger = new SMSMessenger();
         SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
-        String gatewayResponse = soap.sendMessage(messageDetails.getMessageText(), messageDetails.getRecipientsNumbers(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
-        return getHandler().parseResponse(gatewayResponse);
+        return soap.sendMessage(messageDetails.getMessageText(), messageDetails.getRecipientsNumbers(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
     }
 
     /**
      *
-     * @see GatewayManager.send
+     * @see GatewayManager.getMessageStatus
      */
-    public ResponseDetails send(String messageDetails) {
-        return this.send(handler.prepareMessage(messageDetails));
+    public String getMessageStatus(String gatewayMessageId) {
+        SMSMessenger messenger = new SMSMessenger();
+        SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
+        return soap.getMessageStatus(gatewayMessageId, productCode);
     }
 
     /**
@@ -73,19 +69,5 @@ public class ORServeSMSGatewayManagerImpl implements GatewayManager {
      */
     public void setSenderId(String senderId) {
         this.senderId = senderId;
-    }
-
-    /**
-     * @return the handler
-     */
-    public GatewayMessageHandler getHandler() {
-        return handler;
-    }
-
-    /**
-     * @param handler the handler to set
-     */
-    public void setHandler(GatewayMessageHandler handler) {
-        this.handler = handler;
     }
 }

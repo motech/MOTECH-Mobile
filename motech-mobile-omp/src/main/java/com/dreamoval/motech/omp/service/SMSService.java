@@ -7,13 +7,13 @@ package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
+
 /**
- *
- * @author Kofi A. Asamoah
- * @email yoofi@dreamoval.com
- * @date 15-JUL-2009
- *
  * <p>Handles all SMS related functions including cachine, sending and lookup</p>
+ *
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created: Jul 15, 2009
  */
 public interface SMSService {
     /**
@@ -51,4 +51,14 @@ public interface SMSService {
      * @param gatewayManager the gatewayManager to set
      */
     public void setGatewayManager(GatewayManager gatewayManager);
+
+    /**
+     * @return the handler
+     */
+    public GatewayMessageHandler getHandler();
+
+    /**
+     * @param handler the handler to set
+     */
+    public void setHandler(GatewayMessageHandler handler);
 }

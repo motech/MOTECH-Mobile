@@ -6,48 +6,30 @@
 package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.core.model.ResponseDetailsImpl;
 
 /**
- * A dummy gateway manager for testing purposes
+ * <p>A dummy gateway manager for testing purposes</p>
  *
- * @author Kofi A. Asamoah
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 31, 2009
  */
 public class DummyGatewayManagerImpl implements GatewayManager{
-    private GatewayMessageHandler handler;
+
 
     /**
      *
      * @see GatewayManager.send
      */
-    public ResponseDetails send(MessageDetails messageDetails) {
-        ResponseDetails response = new ResponseDetailsImpl();
-        response.setMessageStatus("sent");
-        return response;
+    public String sendMessage(MessageDetails messageDetails) {
+        return "sent";
     }
 
     /**
      *
-     * @see GatewayManager.send
+     * @see GatewayManager.getMessageStatus
      */
-    public ResponseDetails send(String messageDetails) {
-        return new ResponseDetailsImpl();
-    }
-
-    /**
-     * @return the handler
-     */
-    public GatewayMessageHandler getHandler() {
-        return handler;
-    }
-
-    /**
-     * @param handler the handler to set
-     */
-    public void setHandler(GatewayMessageHandler handler) {
-        this.handler = handler;
+    public String getMessageStatus(String gatewayMessageId) {
+        return " sent";
     }
 
 }

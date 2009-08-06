@@ -8,15 +8,13 @@ package com.dreamoval.motech.omp.service;
 import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
 
 /**
  *
- * @author Kofi A. Asamoah
- * @email yoofi@dreamoval.com
- * @date 15-JUL-2009
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created: Jul 15, 2009
  */
 public class SMSCacheServiceImpl implements SMSCacheService {
 
@@ -45,16 +43,9 @@ public class SMSCacheServiceImpl implements SMSCacheService {
      *
      * @see SMSCacheService.updateMessage
      */
-    public boolean updateMessage(MessageDetails messageDetails) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     *
-     * @see SMSCacheService.updateMessage
-     */
-    public boolean updateMessage(String messageDetails) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void updateMessage(MessageDetails messageDetails) {
+        MessageDetailsDAO messageDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
+        messageDAO.save(messageDetails);
     }
 
     /**

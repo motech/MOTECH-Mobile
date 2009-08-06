@@ -35,89 +35,11 @@
       <jaxws:endpoint id="messageService"
                       implementor="#messageWebServiceBean"
                       address="/messaging">
-
-          <!--<jaxws:serviceFactory>
-               <ref bean="aegis-service" />
-           </jaxws:serviceFactory>-->
       </jaxws:endpoint>
+
       <bean id="messageWebServiceBean" class="com.dreamoval.motech.webapp.webservices.MessageServiceImpl">
         <property name="omiManager" ref="omiManager"/>
       </bean>
-
-    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
-        <property name="url" value="jdbc:derby://localhost:1527/motechmobil" />
-        <property name="username" value="root" />
-        <property name="password" value="admin" />
-    </bean>
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-            </props>
-        </property>
-        <property name="mappingResources">
-            <list>
-                <value>com/dreamoval/motech/core/model/MessageDetails.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/ResponseDetails.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/Transition.hbm.xml</value>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="sessionManager" class="com.dreamoval.motech.core.dao.hibernate.HibernateUtils">
-        <constructor-arg ref="sessionFactory" />
-    </bean>
-
-    <bean id="date" class="java.util.Date" />
-
-    <bean id="messageDetails" class="com.dreamoval.motech.core.model.MessageDetails">
-        <property name="messageType" value="text" />
-        <property name="numberOfPages" value="1" />
-        <property name="messageText" value="Welcome to MoTeCH Mobile" />
-        <property name="globalStatus" value="pending" />
-        <property name="dateSent" ref="date" />
-    </bean>
-
-    <bean id="messageDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl" />
-
-    <bean id="responseDetailsDao" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDao">
-        <constructor-arg ref="sessionManager" />
-    </bean>
-
-    <bean id="transitionDao" class="com.dreamoval.motech.core.dao.hibernate.TransitionDao">
-        <constructor-arg ref="sessionManager" />,12069795389
-    </bean>
-
-    <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" />
-
-    <bean id="smsGateway" class="com.dreamoval.motech.omp.manager.orserve.ORServeSMSGatewayManagerImpl">
-        <property name="productCode" value="NU-OB-DEMO" />
-        <property name="recipients" value="233244733999" />
-        <property name="senderId" value="MoTeCH" />
-        <property name="handler" ref="messageHandler" />
-    </bean>
-
-    <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
-        <property name="messageDetailsDao" ref="messageDetailsDao" />
-    </bean>-->
-
-    <bean id="aegisBean" class="org.apache.cxf.aegis.databinding.AegisDatabinding"
-           scope="prototype" />
-
-   <bean id="aegis-service" class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean"
-       scope="prototype">
-       <property name="dataBinding" ref="aegisBean" />
-       <property name="serviceConfigurations">
-           <list>
-               <bean class="org.apache.cxf.jaxws.support.JaxWsServiceConfiguration" />
-               <bean class="org.apache.cxf.aegis.databinding.AegisServiceConfiguration" />
-               <bean class="org.apache.cxf.service.factory.DefaultServiceConfiguration" />
-           </list>
-       </property>
-   </bean>
 
     <cxf:bus>
       <cxf:features>

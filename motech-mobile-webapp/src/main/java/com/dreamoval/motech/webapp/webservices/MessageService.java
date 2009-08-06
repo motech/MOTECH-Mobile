@@ -5,7 +5,6 @@
 
 package com.dreamoval.motech.webapp.webservices;
 
-import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.MessageType;
 import com.dreamoval.motech.omi.service.Patient;

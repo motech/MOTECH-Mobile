@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContextAware;
 
 /**
  *
- * @author Henry Sampson (henry@dreamoval.com)
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Aug 3, 2009
  */
 public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
@@ -55,9 +55,5 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
     public SMSService createSMSService() {
         return (SMSService)context.getBean("smsService");
     }
-
-//    public GatewayManager createGatewayManager() {
-//        return (GatewayManager)context.getBean("gateway");
-//    }
 
 }

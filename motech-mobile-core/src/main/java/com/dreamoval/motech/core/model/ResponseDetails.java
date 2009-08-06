@@ -21,7 +21,7 @@ public interface ResponseDetails extends MotechEntity {
     /**
      * @return the messageId
      */
-    MessageDetailsImpl getMessageId();
+    MessageDetails getMessageId();
 
     /**
      * @return the messageStatus
@@ -46,7 +46,7 @@ public interface ResponseDetails extends MotechEntity {
     /**
      * @param messageId the messageId to set
      */
-    void setMessageId(MessageDetailsImpl messageId);
+    void setMessageId(MessageDetails messageId);
 
     /**
      * @param messageStatus the messageStatus to set

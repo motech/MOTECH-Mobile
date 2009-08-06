@@ -5,26 +5,44 @@
 
 package com.dreamoval.motech.omp.manager;
 
+import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.core.model.ResponseDetailsImpl;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author Henry Sampson
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 31, 2009
  */
 public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
+    CoreManager coreManager;
 
     public MessageDetails prepareMessage(String message) {
-        return new MessageDetailsImpl();
+        return coreManager.createMessageDetails(coreManager.createMotechContext());
     }
 
-    public ResponseDetails parseResponse(String gatewayResponse) {
-        ResponseDetailsImpl response = new ResponseDetailsImpl();
-        response.setMessageStatus(gatewayResponse);
-        return response;
+    public List<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {
+        List<ResponseDetails> responseList = new ArrayList<ResponseDetails>();
+        ResponseDetails response = coreManager.createResponseDetails(coreManager.createMotechContext());
+        response.setMessageId(message);
+        response.setMessageStatus("delivered");
+        response.setRecipientNumber(message.getRecipientsNumbers());
+        responseList.add(response);
+        return responseList;
+    }
+
+    public String parseMessageStatus(String messageStatus) {
+        return "delivered";
+    }
+
+    public CoreManager getCoreManager() {
+        return this.coreManager;
+    }
+
+    public void setCoreManager(CoreManager coreManager) {
+        this.coreManager = coreManager;
     }
 
 }

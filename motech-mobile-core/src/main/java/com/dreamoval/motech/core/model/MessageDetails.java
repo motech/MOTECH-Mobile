@@ -48,7 +48,7 @@ public interface MessageDetails extends MotechEntity {
     /**
      * @return the responseDetails
      */
-    List<ResponseDetailsImpl> getResponseDetails();
+    List<ResponseDetails> getResponseDetails();
 
     /**
      * @param dateSent the dateSent to set
@@ -83,14 +83,14 @@ public interface MessageDetails extends MotechEntity {
     /**
      * @param responseDetails the responseDetails to set
      */
-    void setResponseDetails(List<ResponseDetailsImpl> responseDetails);
+    void setResponseDetails(List<ResponseDetails> responseDetails);
 
     /**
      *
      */
-    void addResponse(ResponseDetailsImpl response);
+    void addResponse(ResponseDetails response);
     /**
      *
      */
-    void removeResponse(ResponseDetailsImpl response);
+    void removeResponse(ResponseDetails response);
 }
