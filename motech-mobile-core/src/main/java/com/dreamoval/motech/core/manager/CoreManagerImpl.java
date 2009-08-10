@@ -15,6 +15,7 @@ import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 
+import com.dreamoval.motech.core.util.MotechIDGenerator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.BeansException;
@@ -22,7 +23,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 /**
- *
+ * <p>Reponsible for the creation of all entities in the Core module</p>
+ * 
  * @author Henry Sampson (henry@dreamoval.com)
  * @author Josepoh Djomeda (joseph@dreamoval.com)
  * Date Created: Aug 3, 2009
@@ -36,14 +38,22 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetails() }
      */
     public MessageDetails createMessageDetails(MotechContext motechContext) {
-        return (MessageDetails) getInstance("messageDetails", MessageDetails.class);
+        MessageDetails result = (MessageDetails) getInstance("messageDetails", MessageDetails.class);
+
+        result.setId(MotechIDGenerator.generateID());
+
+        return result;
     }
 
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createResponseDetails() }
      */
     public ResponseDetails createResponseDetails(MotechContext motechContext) {
-        return (ResponseDetails) getInstance("responseDetails", ResponseDetails.class);
+        ResponseDetails result = (ResponseDetails) getInstance("responseDetails", ResponseDetails.class);
+
+        result.setId(MotechIDGenerator.generateID());
+
+        return result;
     }
     
     /**
@@ -52,7 +62,11 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      * @return
      */
     public Transition createTransition(MotechContext motechContext) {
-       return (Transition) getInstance("transition", Transition.class);
+        Transition result = (Transition) getInstance("transition", Transition.class);
+
+        result.setId(MotechIDGenerator.generateID());
+
+        return result;
     }
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetailsDAO() }

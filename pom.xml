@@ -8,6 +8,20 @@
     <version>1.0-SNAPSHOT</version>
     <name>MoTeCH Mobile</name>
     <url>https://motech.rcg.usm.maine.edu/redmine</url>
+    <repositories>
+        <repository>
+            <url>http://repository.jboss.org/maven2</url>
+            <id>jboss-repo</id>
+            <layout>default</layout>
+            <name>JBoss Repository</name>
+        </repository>
+        <repository>
+            <url>http://download.java.net/maven/2/</url>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven 2</name>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
