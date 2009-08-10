@@ -6,9 +6,14 @@
 package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.outreachcity.orserve.messaging.SMSMessenger;
 import com.outreachcity.orserve.messaging.SMSMessengerSoap;
+import java.net.URL;
+import javax.xml.namespace.QName;
+import java.net.MalformedURLException;
 
 /**
  * <p>Handles all interactions with the OutReach Server message gateway</p>
@@ -28,7 +33,13 @@ public class ORServeSMSGatewayManagerImpl implements GatewayManager {
         if(messageDetails == null)
             return null;
         
-        SMSMessenger messenger = new SMSMessenger();
+        URL wsdlURL = null;
+        try {
+          wsdlURL = new URL("http://www.outreachcity.com/orserve/messaging/smsmessenger.asmx?WSDL");
+        } catch ( MalformedURLException e ) {
+          e.printStackTrace();
+        }
+        SMSMessenger messenger = new SMSMessenger(wsdlURL, new QName("http://www.outreachcity.com/ORServe/Messaging/", "SMSMessenger"));
         SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
         return soap.sendMessage(messageDetails.getMessageText(), messageDetails.getRecipientsNumbers(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
     }

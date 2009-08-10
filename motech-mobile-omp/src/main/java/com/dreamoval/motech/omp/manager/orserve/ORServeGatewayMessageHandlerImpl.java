@@ -9,8 +9,8 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * <p>Handles preparation and parsing of messages and responses from the OutReach Server message gateway</p>
@@ -35,8 +35,8 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      *
      * @see GatewayMessageHandler.parseResponse
      */
-    public List<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {
-        List<ResponseDetails> responses = new ArrayList<ResponseDetails>();
+    public Set<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {
+        Set<ResponseDetails> responses = new HashSet<ResponseDetails>();
         String[] responseLines = gatewayResponse.split("\n");
 
         for(String line : responseLines){

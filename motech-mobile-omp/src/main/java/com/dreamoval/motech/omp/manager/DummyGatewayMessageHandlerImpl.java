@@ -8,8 +8,8 @@ package com.dreamoval.motech.omp.manager;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  *
@@ -23,8 +23,8 @@ public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
         return coreManager.createMessageDetails(coreManager.createMotechContext());
     }
 
-    public List<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {
-        List<ResponseDetails> responseList = new ArrayList<ResponseDetails>();
+    public Set<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {
+        Set<ResponseDetails> responseList = new HashSet<ResponseDetails>();
         ResponseDetails response = coreManager.createResponseDetails(coreManager.createMotechContext());
         response.setMessageId(message);
         response.setMessageStatus("delivered");

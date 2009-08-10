@@ -9,7 +9,7 @@ import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
-import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -29,7 +29,7 @@ public class SMSServiceImpl implements SMSService {
         this.cache.saveMessage(messageDetails);
         
         String gatewayResponse = this.gatewayManager.sendMessage(messageDetails);
-        List<ResponseDetails> responseList = handler.parseMessageResponse(messageDetails, gatewayResponse);
+        Set<ResponseDetails> responseList = handler.parseMessageResponse(messageDetails, gatewayResponse);
         messageDetails.setResponseDetails(responseList);
 
         this.cache.updateMessage(messageDetails);

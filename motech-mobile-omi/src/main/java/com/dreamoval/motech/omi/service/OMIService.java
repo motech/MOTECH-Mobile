@@ -40,7 +40,7 @@ public interface OMIService {
      * @param patientList A List of patients requiring service from CHPS worker
      * @return The id of the message sent
      */
-    public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<Patient> patientList);
+    public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList);
     
     /**
      * @return the storeManager

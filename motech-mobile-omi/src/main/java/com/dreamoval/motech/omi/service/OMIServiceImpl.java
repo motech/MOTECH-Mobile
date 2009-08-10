@@ -44,7 +44,7 @@ public class OMIServiceImpl implements OMIService {
      *
      * @see OMIService.sendCHPSMessage
      */
-    public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<Patient> patientList){
+    public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList){
         MessageDetails messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
         messageDetails.setId(messageId);
         messageDetails.setMessageType(MessageType.TEXT.toString());

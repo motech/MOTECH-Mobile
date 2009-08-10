@@ -37,8 +37,8 @@
 class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>hibernate.properties</value>
-                <value>jdbc.properties</value>
+                <value>classpath:hibernate.properties</value>
+                <value>classpath:jdbc.properties</value>
             </list>
         </property>
     </bean> 
@@ -88,9 +88,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory"/>
-        </property>
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <bean id="dBSession" class="com.dreamoval.motech.core.dao.HibernateDBSessionImpl" scope="prototype">
@@ -101,6 +99,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <bean id="responseDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDAOImpl" scope="prototype">
     </bean>
+    
     <bean id="transitionDAO" class="com.dreamoval.motech.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
     </bean>
 

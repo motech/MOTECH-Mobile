@@ -32,6 +32,7 @@
       <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
       <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
       <import resource="classpath:META-INF/omi-config.xml" />
+
       <jaxws:endpoint id="messageService"
                       implementor="#messageWebServiceBean"
                       address="/messaging">

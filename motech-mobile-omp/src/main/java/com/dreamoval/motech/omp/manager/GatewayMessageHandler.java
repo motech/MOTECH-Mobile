@@ -8,7 +8,7 @@ package com.dreamoval.motech.omp.manager;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import java.util.List;
+import java.util.Set;
 
 /**
  * <p>Handles preparation and parsing of messages and responses from a message gateway</p>
@@ -31,7 +31,7 @@ public interface GatewayMessageHandler {
      * @param gatewayResponse
      * @return
      */
-    public List<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse);
+    public Set<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse);
 
     /**
      *

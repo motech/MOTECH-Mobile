@@ -7,7 +7,7 @@
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Date: Jul 24, 2009
@@ -48,7 +48,7 @@ public interface MessageDetails extends MotechEntity {
     /**
      * @return the responseDetails
      */
-    List<ResponseDetails> getResponseDetails();
+    Set<ResponseDetails> getResponseDetails();
 
     /**
      * @param dateSent the dateSent to set
@@ -83,7 +83,7 @@ public interface MessageDetails extends MotechEntity {
     /**
      * @param responseDetails the responseDetails to set
      */
-    void setResponseDetails(List<ResponseDetails> responseDetails);
+    void setResponseDetails(Set<ResponseDetails> responseDetails);
 
     /**
      *
