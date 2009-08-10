@@ -8,9 +8,14 @@
     <property name="recipientsNumbers"/>
     <property name="globalStatus"/>
     <property name="dateSent" type="timestamp"/>
-    <set name="responseDetails" cascade="all">
+    <set name="responseDetails" cascade="all" inverse="true">
       <key column="messageId"/>
       <one-to-many class="ResponseDetailsImpl"/>
     </set>
+    <!--<list name="responseDetails" cascade="all">
+        <key column="messageId" />
+        <list-index column="id" />
+        <one-to-many class="ResponseDetailsImpl" />
+    </list>-->
   </union-subclass>
 </hibernate-mapping>

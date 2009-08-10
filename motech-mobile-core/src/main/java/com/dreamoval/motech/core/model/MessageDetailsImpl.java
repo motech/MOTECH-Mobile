@@ -6,6 +6,8 @@
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,7 +21,7 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
     private String messageText;
     private String recipientsNumbers;
     private String globalStatus;
-    private Set<ResponseDetails> responseDetails;
+    private Set<ResponseDetails> responseDetails = new HashSet<ResponseDetails>();
     private Date dateSent;
 
     public MessageDetailsImpl(){}
@@ -142,6 +144,22 @@ public class MessageDetailsImpl extends MotechEntityImpl implements MessageDetai
             this.responseDetails.remove(response);
         }
 
+    }
+
+    public void addResponse(List<ResponseDetails> responses) {
+
+        for(ResponseDetails r : responses) {
+            r.setMessageId(this);
+            this.responseDetails.add(r);
+        }
+
+    }
+
+      public void removeResponse(List<ResponseDetails> responses) {
+          for(ResponseDetails r : responses) {
+              if(this.responseDetails.contains(r))
+                  this.responseDetails.remove(r);
+          }
     }
 
 }

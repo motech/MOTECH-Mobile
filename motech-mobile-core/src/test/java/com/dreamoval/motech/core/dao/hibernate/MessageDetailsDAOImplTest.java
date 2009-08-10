@@ -7,20 +7,23 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.MessageDetailsImpl;
 import com.dreamoval.motech.core.model.ResponseDetails;
-import com.dreamoval.motech.core.model.ResponseDetailsImpl;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import junit.framework.Assert;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -54,8 +57,11 @@ public class MessageDetailsDAOImplTest {
     private MessageDetails md4;
     @Autowired
     private MessageDetails md5;
+    @Autowired
+    private MessageDetails md6;
     String text;
-
+  @Autowired
+     private MessageDetails md7;
     @Autowired
     private ResponseDetails rd1;
 
@@ -103,12 +109,18 @@ public class MessageDetailsDAOImplTest {
         md5.setMessageText("insertion with responsedetailsobject");
         md5.setGlobalStatus("Failed");
 
+        md6.setId(6L);
+        md6.setDateSent(new Date());
+        md6.setRecipientsNumbers("12345,54321");
+        md6.setMessageText("another test for dummies");
+        md6.setGlobalStatus("Failed");
 
-        rd1.setId(1L);
+
+        rd1.setId(8L);
         rd1.setMessageStatus("Pending");
         rd1.setRecipientNumber("123445");
 
-        rd2.setId(2L);
+        rd2.setId(9L);
         rd2.setMessageStatus("Failed");
         rd2.setRecipientNumber("54321");
 
@@ -128,6 +140,7 @@ public class MessageDetailsDAOImplTest {
         mDDAO.save(md2);
         mDDAO.save(md3);
         mDDAO.save(md4);
+        mDDAO.save(md6);
 
         tx.commit();
 
@@ -172,6 +185,7 @@ public class MessageDetailsDAOImplTest {
         session.beginTransaction();
         MessageDetails fromdb =(MessageDetailsImpl) session.get(MessageDetailsImpl.class, md2.getId());
         session.getTransaction().commit();
+//        session.close();
         Assert.assertNull(fromdb);
 
 
@@ -198,17 +212,37 @@ public class MessageDetailsDAOImplTest {
         Assert.assertFalse(text.equals(fromdb.getMessageText()));
     }
 
-        @Ignore
+//        @Ignore
         @Test
         public void testSaveWithResponse() {
             System.out.println("saving with response object");
-            md5.addResponse((ResponseDetailsImpl)rd1);
-            md5.addResponse((ResponseDetailsImpl)rd2);
+            List<ResponseDetails> res = new ArrayList<ResponseDetails>();
+            res.add(rd1);
+            res.add(rd2);
+//            md5.addResponse(rd1);
+//            md5.addResponse(rd2);
+            md5.addResponse(res);
             Session session =(Session)mDDAO.getDBSession().getSession();
             Transaction tx = session.beginTransaction();
             mDDAO.save(md5);
             tx.commit();
-            Assert.assertTrue(true);
+            MessageDetails fromdb = (MessageDetailsImpl) session.get(MessageDetailsImpl.class, md5.getId());
+            Set<ResponseDetails> fromdbchild = fromdb.getResponseDetails();
+            ArrayList<ResponseDetails> children = new ArrayList<ResponseDetails>();
+            for(Iterator it = fromdbchild.iterator();it.hasNext();) {
+                children.add((ResponseDetails)it.next());
+            }
+
+
+            Assert.assertEquals(2, fromdbchild.size());
+
+//            Assert.assertEquals(rd1.getId(),children.get(0).getId());
+//            Assert.assertEquals(children.get(0).getMessageStatus(), rd1.getMessageStatus());
+//            Assert.assertEquals(children.get(0).getRecipientNumber(), rd1.getRecipientNumber());
+//
+//            Assert.assertEquals(children.get(1).getId(), rd1.getId());
+//            Assert.assertEquals(children.get(1).getMessageStatus(), rd1.getMessageStatus());
+//            Assert.assertEquals(children.get(1).getRecipientNumber(), rd1.getRecipientNumber());
 
         }
 
@@ -224,10 +258,29 @@ public class MessageDetailsDAOImplTest {
             Assert.assertEquals(md1.getGlobalStatus(), result.getGlobalStatus());
         }
 
-        @Ignore
+//        @Ignore
         @Test
-        public void testFindByCriteria(){
+        public void testFindByExample(){
             System.out.println("testing findByCriteria");
+
+         List<MessageDetails> expResult = new ArrayList<MessageDetails>();
+         expResult.add(md1);
+       expResult.add(md2);
+         expResult.add(md3);
+
+            md7.setRecipientsNumbers("123445");
+            Session session = (Session) mDDAO.getDBSession().getSession();
+            List<MessageDetails> result = session.createCriteria(MessageDetailsImpl.class)
+                    .add(Example.create(md7))
+                    .addOrder(Order.asc("id"))
+                    .list();
+            for(MessageDetails r : result)
+            {
+                System.out.println(r.getId());
+            System.out.println(r.getMessageText());
+            }
+
+            Assert.assertEquals(expResult, result);
 
         }
 

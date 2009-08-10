@@ -6,6 +6,7 @@
 package com.dreamoval.motech.core.model;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Date: Jul 24, 2009
@@ -36,7 +37,7 @@ public interface ResponseDetails extends MotechEntity {
     /**
      * @return the transitions
      */
-    List getTransitions();
+   Set<Transition> getTransitions();
 
     /**
      * @param gatewayMessageId the gatewayMessageId to set
@@ -61,6 +62,18 @@ public interface ResponseDetails extends MotechEntity {
     /**
      * @param transitions the transitions to set
      */
-    void setTransitions(List transitions);
+    void setTransitions( Set<Transition> transitions);
+
+    /**
+     *
+     */
+    void addTransition(Transition transition);
+    
+    void addTransition(List<Transition> transitions);
+
+    void removeTransition(Transition transition);
+
+    void removeTransition(List<Transition> transitions);
+
 
 }

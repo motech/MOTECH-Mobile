@@ -7,6 +7,7 @@
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -93,4 +94,14 @@ public interface MessageDetails extends MotechEntity {
      *
      */
     void removeResponse(ResponseDetails response);
+
+    /**
+     *
+     */
+    void addResponse(List<ResponseDetails> responses);
+
+    /**
+     *
+     */
+    void removeResponse(List<ResponseDetails> responses);
 }

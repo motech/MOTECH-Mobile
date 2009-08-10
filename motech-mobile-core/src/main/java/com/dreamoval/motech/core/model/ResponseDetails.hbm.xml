@@ -6,7 +6,7 @@
     <property name="recipientNumber"/>
     <property name="messageStatus"/>
     <many-to-one class="MessageDetailsImpl" name="messageId"/>
-    <set name="transitions">
+    <set name="transitions" cascade="all">
       <key column="responseId"/>
       <one-to-many class="TransitionImpl"/>
     </set>

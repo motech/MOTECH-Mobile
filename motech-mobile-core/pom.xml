@@ -128,7 +128,6 @@
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.5.2.0</version>
-            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -140,3 +139,4 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
+

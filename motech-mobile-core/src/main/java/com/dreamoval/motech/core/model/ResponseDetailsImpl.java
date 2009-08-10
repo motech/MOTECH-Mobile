@@ -5,6 +5,7 @@
 
 package com.dreamoval.motech.core.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDet
     private String gatewayMessageId;
     private String recipientNumber;
     private String messageStatus;
-    private List transitions;
+    private Set<Transition> transitions = new HashSet<Transition>();
 
     public ResponseDetailsImpl(){}
 
@@ -90,14 +91,37 @@ public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDet
     /**
      * @return the transitions
      */
-    public List getTransitions() {
+    public Set<Transition> getTransitions() {
         return transitions;
     }
 
     /**
      * @param transitions the transitions to set
      */
-    public void setTransitions(List transitions) {
+    public void setTransitions(Set<Transition> transitions) {
         this.transitions = transitions;
+    }
+
+    public void addTransition(Transition transition) {
+        transition.setResponseId(this);
+        this.transitions.add(transition);
+
+    }
+    public void addTransition(List<Transition> transitions) {
+        for(Transition t : transitions) {
+            t.setResponseId(this);
+            this.transitions.add(t);
+        }
+    }
+
+    public void removeTransition(List<Transition> transitions) {
+        for(Transition t : transitions) {
+            if(this.transitions.contains(t))
+                this.transitions.remove(t);
+        }
+    }
+    public void removeTransition(Transition transition) {
+        if(this.transitions.contains(transition))
+            this.transitions.remove(transition);
     }
 }
