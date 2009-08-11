@@ -185,7 +185,6 @@ public class MessageDetailsDAOImplTest {
         session.beginTransaction();
         MessageDetails fromdb =(MessageDetailsImpl) session.get(MessageDetailsImpl.class, md2.getId());
         session.getTransaction().commit();
-//        session.close();
         Assert.assertNull(fromdb);
 
 
@@ -219,8 +218,6 @@ public class MessageDetailsDAOImplTest {
             List<ResponseDetails> res = new ArrayList<ResponseDetails>();
             res.add(rd1);
             res.add(rd2);
-//            md5.addResponse(rd1);
-//            md5.addResponse(rd2);
             md5.addResponse(res);
             Session session =(Session)mDDAO.getDBSession().getSession();
             Transaction tx = session.beginTransaction();
@@ -233,8 +230,8 @@ public class MessageDetailsDAOImplTest {
                 children.add((ResponseDetails)it.next());
             }
 
-
             Assert.assertEquals(2, fromdbchild.size());
+//Needs to find out the order issue inside the List return by hibernate
 
 //            Assert.assertEquals(rd1.getId(),children.get(0).getId());
 //            Assert.assertEquals(children.get(0).getMessageStatus(), rd1.getMessageStatus());
@@ -258,7 +255,6 @@ public class MessageDetailsDAOImplTest {
             Assert.assertEquals(md1.getGlobalStatus(), result.getGlobalStatus());
         }
 
-//        @Ignore
         @Test
         public void testFindByExample(){
             System.out.println("testing findByCriteria");
@@ -269,18 +265,13 @@ public class MessageDetailsDAOImplTest {
          expResult.add(md3);
 
             md7.setRecipientsNumbers("123445");
-            Session session = (Session) mDDAO.getDBSession().getSession();
-            List<MessageDetails> result = session.createCriteria(MessageDetailsImpl.class)
-                    .add(Example.create(md7))
-                    .addOrder(Order.asc("id"))
-                    .list();
-            for(MessageDetails r : result)
-            {
-                System.out.println(r.getId());
-            System.out.println(r.getMessageText());
-            }
-
-            Assert.assertEquals(expResult, result);
+            Transaction tx= ((Session) mDDAO.getDBSession().getSession()).beginTransaction();
+            List<MessageDetails> result = mDDAO.findByExample(md7);
+            tx.commit();
+             Assert.assertEquals(expResult.size(), result.size());
+             Assert.assertEquals(true, result.contains(md1));
+             Assert.assertEquals(true, result.contains(md2));
+             Assert.assertEquals(true, result.contains(md3));
 
         }
 

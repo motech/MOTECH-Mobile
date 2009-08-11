@@ -1,7 +1,4 @@
-/*
- * ResponseDetails class is a POJO to hold and manipulate ResponseDetails to be persited in the database
- * It contains properties like recipient's number and message delivery status
- */
+
 
 package com.dreamoval.motech.core.model;
 
@@ -9,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * ResponseDetails class is a POJO to hold and manipulate ResponseDetails to be persited in the database
+ * It contains properties like recipient's number and message delivery status
+ * 
  * Date: Jul 24, 2009
  * @author Joseph (joseph@dreamoval.com)
  */

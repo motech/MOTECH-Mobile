@@ -1,8 +1,4 @@
-/*
- * MessageDetails class is a POJO to hold MessageDetails information for data storage and manipulation
- * It has properties for example the text message itself or the numberofpages of that sms text in case it's
- * sms send
- */
+
 
 package com.dreamoval.motech.core.model;
 
@@ -11,6 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ *
+ * MessageDetails class is a POJO to hold MessageDetails information for data storage and manipulation
+ * It has properties for example the text message itself or the numberofpages of that sms text in case it's
+ * sms send
+ *
  * Date: Jul 24, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */

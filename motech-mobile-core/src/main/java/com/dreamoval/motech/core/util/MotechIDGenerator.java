@@ -4,6 +4,8 @@
  */
 package com.dreamoval.motech.core.util;
 
+import org.apache.log4j.Logger;
+
 /**
  * <p>Class for generating IDs </p>
  *
@@ -14,6 +16,7 @@ public class MotechIDGenerator {
 
     public static final int DEFUALT_ID_LENGTH = 15;
 
+    private static Logger logger = Logger.getLogger(MotechIDGenerator.class);
     private static final int[] NUMS = {6, 2, 9, 3, 4, 9, 1, 4, 8, 0, 5, 0, 2, 5, 6, 7, 1, 7, 3, 8};
 
     /**
@@ -23,6 +26,7 @@ public class MotechIDGenerator {
      * @return an ID of type Long with length <code>length</code>
      */
     public static Long generateID(int length) {
+        logger.info("Calling generateID with specify length");
         Long result = null;
 
         if (length > 0) {
@@ -42,6 +46,7 @@ public class MotechIDGenerator {
      * @return an ID of type Long
      */
     public static Long generateID(){
+       logger.info("Calling Default generateID");
         return generateID(DEFUALT_ID_LENGTH);
     }
 }

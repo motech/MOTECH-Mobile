@@ -1,23 +1,27 @@
-/*
- * HibernateUtil class provides session to client based on conditions to be added.
- * This is a simple implemention to build on and it has 2 constructors.
- * the first constructor is for the implementation of the sessionFactory interface hard coded with the sessionfactory dependency
- * on purpose for testing
- * the second constructor takes sessionFactory object as argument which is supposed to be wired by spring.
- */
+
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.SessionContainer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.apache.log4j.Logger;
 
-/**
+
+
+/*
+ * HibernateUtil class provides session to client based on conditions to be added.
+ * This is a simple implemention to build on and it has 2 constructors.
+ * the first constructor is for the implementation of the sessionFactory interface hard coded with the sessionfactory dependency
+ * on purpose for testing
+ * the second constructor takes sessionFactory object as argument which is supposed to be wired by spring.
+ * 
  *Date :Jul 24, 2009
  * @author Joseph Djomedd  (joseph@dreamoval.com)
  */
 public class HibernateUtils implements SessionContainer {
 
+    private static Logger logger = Logger.getLogger(HibernateUtils.class);
     private final SessionFactory sessionFactory;
     private Session session;
 
@@ -42,6 +46,7 @@ public class HibernateUtils implements SessionContainer {
      * @return Hibernate Session
      */
     public Session requestSession() {
+        logger.info("Calling requestSession");
         return sessionFactory.openSession();
     }
 }

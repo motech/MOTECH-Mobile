@@ -1,9 +1,4 @@
-/**
- * GenericDAO interface provides common persistence methods contracts.
- * It's implemented by an abstract class that all the implementations of
- * various domain should extend.
- * It's should be also extended by domains DAO interfaces.
- */
+
 package com.dreamoval.motech.core.dao;
 
 
@@ -13,8 +8,14 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+
 /**
- *  Date : Jul 31, 2009
+ * GenericDAO interface provides common persistence methods contracts.
+ * It's implemented by an abstract class that all the implementations of
+ * various domain should extend.
+ * It's should be also extended by domains DAO interfaces.
+ *
+ * Date : Jul 31, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  * @author Henry Samspon (henry@dreamoval.com)
  * 

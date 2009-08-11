@@ -181,20 +181,15 @@ public class ResponseDetailsDAOImplTest {
             List<ResponseDetails> expResult = new ArrayList<ResponseDetails>();
             expResult.add(rd4);
             expResult.add(rd5);
-            Session session = (Session) rDDAO.getDBSession().getSession();
-            session.beginTransaction();
-            List<ResponseDetails> result = session.createCriteria(ResponseDetailsImpl.class)
-                    .add(Example.create(rd6))
-                    .addOrder(Order.asc("id"))
-                    .list();
-            session.getTransaction().commit();
+            Transaction tx = ((Session) rDDAO.getDBSession().getSession()).beginTransaction();
+       
+            List<ResponseDetails> result = rDDAO.findByExample(rd6);
+            tx.commit();
             Assert.assertNotNull(result);
             Assert.assertEquals(expResult.size(), result.size());
-            Assert.assertEquals(expResult.get(0).getId(), result.get(0).getId());
-            Assert.assertEquals(expResult.get(0).getMessageStatus(), result.get(0).getMessageStatus());
-
-            Assert.assertEquals(expResult.get(1).getId(), result.get(1).getId());
-            Assert.assertEquals(expResult.get(1).getMessageStatus(), result.get(1).getMessageStatus());
+            Assert.assertEquals(true, result.contains(rd4));
+            Assert.assertEquals(true, result.contains(rd5));
+                 
         }
 
         @Ignore
