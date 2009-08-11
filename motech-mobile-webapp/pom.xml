@@ -28,13 +28,6 @@
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.4</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
         <version>2.5.6.SEC01</version>
@@ -78,12 +71,6 @@
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
         <version>2.5.6.SEC01</version>
-    </dependency>
-
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.14</version>
     </dependency>
     <dependency>
       <groupId>com.dreamoval.motech</groupId>
@@ -145,6 +132,17 @@
         <version>2.1.9</version>
     </dependency>
     <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
         <groupId>org.apache.ws.commons.schema</groupId>
         <artifactId>XmlSchema</artifactId>
         <version>1.4.5</version>
@@ -162,18 +160,8 @@
     <dependency>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-rt</artifactId>
-        <version>2.1.4</version>
+        <version>2.1.5</version>
     </dependency>
-    <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>1.2_04-p02</version>
-        </dependency>
-    <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>1.2_04-p02</version>
-        </dependency>
     <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>

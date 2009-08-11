@@ -6,6 +6,7 @@
 package com.dreamoval.motech.omi.manager;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -17,13 +18,14 @@ import java.util.Map;
  */
 public class MessageStoreManagerImpl implements MessageStoreManager {
     private Map<String, String> messageStore;
-
+    private static Logger logger = Logger.getLogger(MessageStoreManagerImpl.class);
     /**
      *
      * @param key The identifier of the message to return
      * @return The message associated with the supplied key
      */
     public String getMessage(String key){
+        logger.info("Retrieving message with key: " + key);
         return messageStore.get(key);
     }
 
@@ -38,6 +40,8 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * @param messageStore the messageStore to set
      */
     public void setMessageStore(Map<String, String> messageStore) {
+        logger.debug("Setting MessageStoreManagerImpl.messageStore");
+        logger.debug(messageStore);
         this.messageStore = messageStore;
     }
 }

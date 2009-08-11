@@ -10,42 +10,40 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
-public class SMSCacheServiceImpl implements SMSCacheService {
+public class SMSCacheServiceImpl implements CacheService {
 
     private CoreManager coreManager;
     private OMPManager ompManager;
+    private static Logger logger = Logger.getLogger(SMSCacheServiceImpl.class);
 
     /**
      *
-     * @see SMSCacheService.saveMessage
+     * @see CacheService.saveMessage
      */
     public void saveMessage(MessageDetails messageDetails) {
+        logger.info("Creating MessageDetailsDAO object");
         MessageDetailsDAO messageDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
+        
+        logger.info("Calling MessageDetailsDAO.save");
+        logger.debug(messageDetails);
         messageDAO.save(messageDetails);
     }
 
     /**
      *
-     * @see SMSCacheService.saveMessage
+     * @see CacheService.saveMessage
      */
     public void saveMessage(String messageDetails) {
         GatewayMessageHandler messageHandler = getOmpManager().createGatewayMessageHandler();
+        logger.info("Preparing messge for saving");
         saveMessage(messageHandler.prepareMessage(messageDetails));
-    }
-
-    /**
-     *
-     * @see SMSCacheService.updateMessage
-     */
-    public void updateMessage(MessageDetails messageDetails) {
-        MessageDetailsDAO messageDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
-        messageDAO.save(messageDetails);
     }
 
     /**
@@ -59,6 +57,8 @@ public class SMSCacheServiceImpl implements SMSCacheService {
      * @param coreManager the coreManager to set
      */
     public void setCoreManager(CoreManager coreManager) {
+        logger.debug("Setting value of SMSCacheServiceImpl.coreManager");
+        logger.debug(coreManager);
         this.coreManager = coreManager;
     }
 
@@ -73,6 +73,8 @@ public class SMSCacheServiceImpl implements SMSCacheService {
      * @param ompManager the ompManager to set
      */
     public void setOmpManager(OMPManager ompManager) {
+        logger.debug("Setting value of SMSCacheServiceImpl.ompManager");
+        logger.debug(ompManager);
         this.ompManager = ompManager;
     }
 

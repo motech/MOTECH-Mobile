@@ -7,6 +7,8 @@ package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.omi.service.OMIService;
 import com.dreamoval.motech.omi.service.Patient;
+import com.dreamoval.motech.omi.service.PatientImpl;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -18,6 +20,7 @@ import org.springframework.context.ApplicationContextAware;
  */
 public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
     ApplicationContext context;
+    private static Logger logger = Logger.getLogger(OMIManagerImpl.class);
 
     /**
      * sets the current application context
@@ -33,6 +36,7 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
      * @return the created OMIService object
      */
     public OMIService createOMIService() {
+        logger.info("Fetching a wired OMIService object");
         return (OMIService)context.getBean("omiService");
     }
 
@@ -41,6 +45,7 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
      * @return the created MessageStoreManager object
      */
     public MessageStoreManager createMessageStoreManager() {
+        logger.info("Fetching a wired MessageStore object");
         return (MessageStoreManager)context.getBean("storeManager");
     }
 
@@ -49,7 +54,8 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
      * @return the created Patient object
      */
     public Patient createPatient() {
-        return (Patient)context.getBean("patient");
+        logger.info("Creating a new Patient object");
+        return new PatientImpl();
     }
     
 

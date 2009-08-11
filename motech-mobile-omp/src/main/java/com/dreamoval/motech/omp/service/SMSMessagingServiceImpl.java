@@ -10,55 +10,67 @@ import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
-public class SMSServiceImpl implements SMSService {
-    private SMSCacheService cache;
+public class SMSMessagingServiceImpl implements MessagingService {
+    private CacheService cache;
     private GatewayManager gatewayManager;
     private GatewayMessageHandler handler;
+    private static Logger logger = Logger.getLogger(SMSMessagingServiceImpl.class);
 
     /**
      *
      * @see sendTextMessage(MessageDetails messageDetails)
      */
     public Long sendTextMessage(MessageDetails messageDetails) {
+        logger.info("Calling CacheService.saveMessage");
+        logger.debug(messageDetails);
         this.cache.saveMessage(messageDetails);
-        
+
+        logger.info("Sending message to gateway");
         String gatewayResponse = this.gatewayManager.sendMessage(messageDetails);
+
+        logger.info("Parsing gateway response");
         Set<ResponseDetails> responseList = handler.parseMessageResponse(messageDetails, gatewayResponse);
         messageDetails.setResponseDetails(responseList);
 
-        this.cache.updateMessage(messageDetails);
+        logger.debug(responseList);
+        logger.info("Updating message status");
+        this.cache.saveMessage(messageDetails);
 
         return messageDetails.getId();
     }
 
     /**
-     * @see SMSService.sendTextMessage(string messageDetails)
+     * @see MessagingService.sendTextMessage(string messageDetails)
      */
     public Long sendTextMessage(String messageDetails) {
         return sendTextMessage(handler.prepareMessage(messageDetails));
     }
 
     public String getMessageStatus(String gatewayMessageId){
+        logger.info("Calling GatewayManager.getMessageStatus");
         return handler.parseMessageStatus(gatewayManager.getMessageStatus(gatewayMessageId));
     }
 
     /**
      * @return the cache
      */
-    public SMSCacheService getCache() {
+    public CacheService getCache() {
         return cache;
     }
 
     /**
      * @param cache the cache to set
      */
-    public void setCache(SMSCacheService cache) {
+    public void setCache(CacheService cache) {
+        logger.debug("Setting SMSMessagingServiceImpl.cache:");
+        logger.debug(cache);
         this.cache = cache;
     }
 
@@ -73,6 +85,8 @@ public class SMSServiceImpl implements SMSService {
      * @param gatewayManager the gatewayManager to set
      */
     public void setGatewayManager(GatewayManager gatewayManager) {
+        logger.debug("Setting SMSMessagingServiceImpl.gatewayManager:");
+        logger.debug(gatewayManager);
         this.gatewayManager = gatewayManager;
     }
 
@@ -87,6 +101,8 @@ public class SMSServiceImpl implements SMSService {
      * @param handler the handler to set
      */
     public void setHandler(GatewayMessageHandler handler) {
+        logger.debug("Setting SMSMessagingServiceImpl.handler:");
+        logger.debug(handler);
         this.handler = handler;
     }
 

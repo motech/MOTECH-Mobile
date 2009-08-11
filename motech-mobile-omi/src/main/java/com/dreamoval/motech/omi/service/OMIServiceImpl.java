@@ -11,6 +11,7 @@ import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,20 +25,23 @@ public class OMIServiceImpl implements OMIService {
     private MessageStoreManager storeManager;
     private OMPManager ompManager;
     private CoreManager coreManager;
+    private static Logger logger = Logger.getLogger(OMIServiceImpl.class);
 
     /**
      *
      * @see OMIService.sendPatientMessage
      */
     public Long sendPatientMessage(Long messageId, String clinic, Date serviceDate, String patientNumber, ContactNumberType patientNumberType, MessageType messageType){
+        logger.info("Creating MessageDetails object");
         MessageDetails messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
-        messageDetails.setId(messageId);
         messageDetails.setMessageType(messageType.toString());
         messageDetails.setNumberOfPages(1);
         messageDetails.setRecipientsNumbers(patientNumber);
         messageDetails.setMessageText(storeManager.getMessage("patient"));
 
-        return ompManager.createSMSService().sendTextMessage(messageDetails);
+        logger.debug(messageDetails);
+        logger.info("Calling MessageService.sendTextMessage");
+        return ompManager.createMessagingService().sendTextMessage(messageDetails);
     }
 
     /**
@@ -45,14 +49,17 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.sendCHPSMessage
      */
     public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList){
+        logger.info("Creating MessageDetails object");
         MessageDetails messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
         messageDetails.setId(messageId);
         messageDetails.setMessageType(MessageType.TEXT.toString());
         messageDetails.setNumberOfPages(1);
         messageDetails.setRecipientsNumbers(workerNumber);
         messageDetails.setMessageText(storeManager.getMessage("worker"));
-        
-        return ompManager.createSMSService().sendTextMessage(messageDetails);
+
+        logger.debug(messageDetails);
+        logger.info("Calling MessageService.sendTextMessage");
+        return ompManager.createMessagingService().sendTextMessage(messageDetails);
     }
 
     /**
@@ -66,6 +73,8 @@ public class OMIServiceImpl implements OMIService {
      * @param storeManager the storeManager to set
      */
     public void setStoreManager(MessageStoreManager storeManager) {
+        logger.debug("Setting OMIServiceImpl.storeManager");
+        logger.debug(storeManager);
         this.storeManager = storeManager;
     }
 
@@ -80,13 +89,15 @@ public class OMIServiceImpl implements OMIService {
      * @param ompManager the ompManager to set
      */
     public void setOmpManager(OMPManager ompManager) {
+        logger.debug("Setting OMIServiceImpl.ompmanager");
+        logger.debug(ompManager);
         this.ompManager = ompManager;
     }
 
     /**
      * @return the ompManager
      */
-    public CoreManager geCoreManager() {
+    public CoreManager getCoreManager() {
         return coreManager;
     }
 
@@ -94,6 +105,8 @@ public class OMIServiceImpl implements OMIService {
      * @param ompManager the ompManager to set
      */
     public void setCoreManager(CoreManager coreManager) {
+        logger.debug("Setting OMIServiceImpl.coreManager");
+        logger.debug(coreManager);
         this.coreManager = coreManager;
     }
 }

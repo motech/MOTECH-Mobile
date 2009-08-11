@@ -5,8 +5,8 @@
 
 package com.dreamoval.motech.omp.manager;
 
-import com.dreamoval.motech.omp.service.SMSCacheService;
-import com.dreamoval.motech.omp.service.SMSService;
+import com.dreamoval.motech.omp.service.CacheService;
+import com.dreamoval.motech.omp.service.MessagingService;
 
 /**
  * <p>Provides access to OMP services and managers to external modules</p>
@@ -32,17 +32,17 @@ public interface OMPManager{
      * creates a new SMSGatewayManager object
      * @return the created SMSGatewayManager object
      */
-    public SMSGatewayManager createSMSGatewayManager();
+    public GatewayManager createGatewayManager();
 
     /**
-     * creates a new SMSCacheService object
-     * @return the created SMSCacheService object
+     * creates a new CacheService object
+     * @return the created CacheService object
      */
-    public SMSCacheService createSMSCacheService();
+    public CacheService createCacheService();
 
     /**
-     * creates a new SMSService object
-     * @return the created SMSService object
+     * creates a new MessagingService object
+     * @return the created MessagingService object
      */
-    public SMSService createSMSService();
+    public MessagingService createMessagingService();
 }

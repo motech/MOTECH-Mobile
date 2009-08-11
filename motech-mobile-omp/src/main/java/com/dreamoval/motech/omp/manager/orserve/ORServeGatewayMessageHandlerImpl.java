@@ -11,6 +11,7 @@ import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
 import java.util.HashSet;
+import org.apache.log4j.Logger;
 
 /**
  * <p>Handles preparation and parsing of messages and responses from the OutReach Server message gateway</p>
@@ -21,13 +22,14 @@ import java.util.HashSet;
 public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
 
     private CoreManager coreManager;
+    private static Logger logger = Logger.getLogger(ORServeGatewayMessageHandlerImpl.class);
 
     /**
      *
      * @see GatewayMessageHandler.prepareMessage
      */
     public MessageDetails prepareMessage(String message) {
-        System.out.println(message);
+        System.out.println("Message:" + message);
         return null;
     }
 
@@ -36,6 +38,13 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      * @see GatewayMessageHandler.parseResponse
      */
     public Set<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {
+        logger.info("Parsing message gateway response");
+        if(message == null)
+            return null;
+        
+        if(gatewayResponse.isEmpty())
+            return null;
+
         Set<ResponseDetails> responses = new HashSet<ResponseDetails>();
         String[] responseLines = gatewayResponse.split("\n");
 
@@ -51,6 +60,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
                 responses.add(response);
             }
         }
+        logger.debug(responses);
         return responses;
     }
 
@@ -59,6 +69,8 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      * @see GatewayMessageHandler.parseMessageStatus
      */
     public String parseMessageStatus(String messageStatus) {
+        logger.info("Parsing message gateway status response");
+        
         String status = messageStatus.trim();
 
         if (!status.isEmpty())
@@ -93,6 +105,8 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      * @param coreManager the coreManager to set
      */
     public void setCoreManager(CoreManager coreManager) {
+        logger.debug("Setting ORServeGatewayMessageHandlerImpl.coreManager");
+        logger.debug(coreManager);
         this.coreManager = coreManager;
     }
 

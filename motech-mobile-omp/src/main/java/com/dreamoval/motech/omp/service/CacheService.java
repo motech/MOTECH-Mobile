@@ -15,7 +15,7 @@ import com.dreamoval.motech.omp.manager.OMPManager;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
-public interface SMSCacheService {
+public interface CacheService {
     /**
      * saves a message to the cache
      * @param messageDetails MessageDetails object to be saved to the cache
@@ -29,13 +29,6 @@ public interface SMSCacheService {
      * @see saveMessage(MessageDetails messageDetails)
      */
     public void saveMessage(String messageDetails);
-
-    /**
-     * updates a message in the cache
-     * @param messageDetails MessageDetails object to be updated in the cache
-     * @return value indicating success. True for success, false for failure
-     */
-    public void updateMessage(MessageDetails messageDetails);
 
     /**
      * @return the coreManager

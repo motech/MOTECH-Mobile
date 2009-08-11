@@ -65,7 +65,7 @@ public interface OMIService {
     /**
      * @return the ompManager
      */
-    public CoreManager geCoreManager();
+    public CoreManager getCoreManager();
 
     /**
      * @param ompManager the ompManager to set

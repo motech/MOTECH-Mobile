@@ -15,7 +15,7 @@ import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
-public interface SMSService {
+public interface MessagingService {
     /**
      * Sends an SMS message with the provided details
      *
@@ -35,12 +35,12 @@ public interface SMSService {
     /**
      * @return the cache
      */
-    public SMSCacheService getCache();
+    public CacheService getCache();
 
     /**
      * @param cache the cache to set
      */
-    public void setCache(SMSCacheService cache);
+    public void setCache(CacheService cache);
 
     /**
      * @return the gatewayManager

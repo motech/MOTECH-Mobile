@@ -23,12 +23,14 @@
         <property name="coreManager" ref="coreManager" />
     </bean>
 
-    <bean id="smsGatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeSMSGatewayManagerImpl">
-        <property name="productCode" value="NU-OB-DEMO" />
-        <property name="senderId" value="MoTeCH" />
+    <bean id="gatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayManagerImpl">
+        <property name="productCode" value="m0t3ch-d3v" />
+        <property name="senderId" value="myTXTbuddy" />
     </bean>
 
-    <bean name="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl" />
+    <bean name="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl">
+        <property name="coreManager" ref="coreManager" />
+    </bean>
 
     <bean name="dummyGateway" class="com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl" />
 
@@ -37,9 +39,9 @@
         <property name="ompManager" ref="ompManager" />
     </bean>
 
-    <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSServiceImpl">
+    <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSMessagingServiceImpl">
         <property name="cache" ref="smsCache" />
-        <property name="gatewayManager" ref="smsGatewayManager" />
+        <property name="gatewayManager" ref="gatewayManager" />
         <property name="handler" ref="messageHandler" />
     </bean>
 
