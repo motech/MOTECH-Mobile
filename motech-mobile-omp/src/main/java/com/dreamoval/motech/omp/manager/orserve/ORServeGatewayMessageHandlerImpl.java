@@ -54,7 +54,12 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
             if(responseParts[0].equalsIgnoreCase("ID:")){
                 ResponseDetails response = getCoreManager().createResponseDetails(getCoreManager().createMotechContext());
                 response.setGatewayMessageId(responseParts[1]);
-                response.setRecipientNumber(responseParts[3]);
+
+                if(responseParts.length == 4)
+                    response.setRecipientNumber(responseParts[3]);
+                else
+                    response.setRecipientNumber(message.getRecipientsNumbers());
+
                 response.setMessageStatus("sent");
                 response.setMessageId(message);
                 responses.add(response);

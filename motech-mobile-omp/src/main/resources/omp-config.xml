@@ -25,7 +25,7 @@
 
     <bean id="gatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayManagerImpl">
         <property name="productCode" value="m0t3ch-d3v" />
-        <property name="senderId" value="myTXTbuddy" />
+        <property name="senderId" value="MoTeCH" />
     </bean>
 
     <bean name="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl">

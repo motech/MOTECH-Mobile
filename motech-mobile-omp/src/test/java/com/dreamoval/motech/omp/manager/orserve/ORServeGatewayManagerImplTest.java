@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,7 @@ public class ORServeGatewayManagerImplTest {
      * Test of getProductCode method, of class ORServeGatewayManagerImpl.
      */
     @Test
+    @Ignore
     public void testGetProductCode() {
         System.out.println("getProductCode");
         ORServeGatewayManagerImpl instance = gatewayManager;
@@ -96,6 +98,7 @@ public class ORServeGatewayManagerImplTest {
      * Test of setProductCode method, of class ORServeGatewayManagerImpl.
      */
     @Test
+    @Ignore
     public void testSetProductCode() {
         System.out.println("setProductCode");
         String productCode = "";
@@ -108,6 +111,7 @@ public class ORServeGatewayManagerImplTest {
      * Test of getSenderId method, of class ORServeGatewayManagerImpl.
      */
     @Test
+    @Ignore
     public void testGetSenderId() {
         System.out.println("getSenderId");
         ORServeGatewayManagerImpl instance = gatewayManager;
@@ -120,6 +124,7 @@ public class ORServeGatewayManagerImplTest {
      * Test of setSenderId method, of class ORServeGatewayManagerImpl.
      */
     @Test
+    @Ignore
     public void testSetSenderId() {
         System.out.println("setSenderId");
         String senderId = "";
