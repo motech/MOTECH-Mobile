@@ -7,14 +7,9 @@ package com.dreamoval.motech.omp.manager;
 
 
 
-import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.MessageDetailsImpl;
 import java.util.Set;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,22 +30,6 @@ public class DummyGatewayMessageHandlerImplTest {
     DummyGatewayMessageHandlerImpl dummyHandler;
 
     public DummyGatewayMessageHandlerImplTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /**
@@ -86,26 +65,6 @@ public class DummyGatewayMessageHandlerImplTest {
         String expResult = "delivered";
         String result = dummyHandler.parseMessageStatus(messageStatus);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getCoreManager method, of class DummyGatewayMessageHandlerImpl.
-     */
-    @Test
-    public void testGetCoreManager() {
-        System.out.println("getCoreManager");
-        CoreManager result = dummyHandler.getCoreManager();
-        assertNotNull(result);
-    }
-
-    /**
-     * Test of setCoreManager method, of class DummyGatewayMessageHandlerImpl.
-     */
-    @Test
-    public void testSetCoreManager() {
-        System.out.println("setCoreManager");
-        dummyHandler.setCoreManager(null);
-        assertNull(dummyHandler.getCoreManager());
     }
 
 }

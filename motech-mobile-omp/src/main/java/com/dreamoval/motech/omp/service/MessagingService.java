@@ -25,14 +25,6 @@ public interface MessagingService {
     public Long sendTextMessage(MessageDetails messageDetails);
 
     /**
-     *
-     * @see sendTextMessage(MessageDetails messageDetails)
-     * @param messageDetails a string containing details of message to be sent
-     * @return The id of the message sent
-     */
-    public Long sendTextMessage(String messageDetails);
-
-    /**
      * @return the cache
      */
     public CacheService getCache();

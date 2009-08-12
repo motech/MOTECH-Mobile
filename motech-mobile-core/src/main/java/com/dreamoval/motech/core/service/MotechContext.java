@@ -28,7 +28,7 @@ public interface MotechContext<S, TX> extends Serializable{
 
     /**
      *
-     * Returns the current context DB session
+     * Returns the current context's DB session
      *
      * @return
      */

@@ -8,7 +8,6 @@ package com.dreamoval.motech.omp.service;
 import com.dreamoval.motech.core.dao.MessageDetailsDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import org.apache.log4j.Logger;
 
@@ -34,16 +33,6 @@ public class SMSCacheServiceImpl implements CacheService {
         logger.info("Calling MessageDetailsDAO.save");
         logger.debug(messageDetails);
         messageDAO.save(messageDetails);
-    }
-
-    /**
-     *
-     * @see CacheService.saveMessage
-     */
-    public void saveMessage(String messageDetails) {
-        GatewayMessageHandler messageHandler = getOmpManager().createGatewayMessageHandler();
-        logger.info("Preparing messge for saving");
-        saveMessage(messageHandler.prepareMessage(messageDetails));
     }
 
     /**

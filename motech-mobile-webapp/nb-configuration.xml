@@ -6,11 +6,12 @@ The configuration is intended to be shared among all the users of project and
 therefore it is assumed to be part of version control checkout.
 Without this configuration present, some functionality in the IDE may be limited or fail altogether.
 -->
+    <creator-data xmlns="http://www.sun.com/creator/ns" jsf.current.theme="woodstock-theme-default" jsf.pagebean.package="motechmobilewebapp" jsf.project.libraries.dir="lib" jsf.project.version="4.0" jsf.startPage="wstest.jsp"/>
     <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
         <config-files>
             <config-file>spring-config.xml</config-file>
+            <config-file>src/main/webapp/WEB-INF/client-config.xml</config-file>
         </config-files>
         <config-file-groups/>
     </spring-data>
-    <creator-data xmlns="http://www.sun.com/creator/ns" jsf.current.theme="woodstock-theme-default" jsf.pagebean.package="motechmobilewebapp" jsf.project.libraries.dir="lib" jsf.project.version="4.0" jsf.startPage="wstest.jsp"/>
 </project-shared-configuration>

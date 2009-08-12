@@ -24,13 +24,6 @@ public interface CacheService {
     public void saveMessage(MessageDetails messageDetails);
 
     /**
-     *
-     * @param messageDetails a string representation of the MessageDetails object to be saved
-     * @see saveMessage(MessageDetails messageDetails)
-     */
-    public void saveMessage(String messageDetails);
-
-    /**
      * @return the coreManager
      */
     public CoreManager getCoreManager();

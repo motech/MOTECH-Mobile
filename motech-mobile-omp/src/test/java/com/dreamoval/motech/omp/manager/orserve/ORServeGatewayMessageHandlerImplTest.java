@@ -5,14 +5,9 @@
 
 package com.dreamoval.motech.omp.manager.orserve;
 
-import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
 import java.util.Set;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,22 +28,6 @@ public class ORServeGatewayMessageHandlerImplTest {
     ORServeGatewayMessageHandlerImpl messageHandler;
     
     public ORServeGatewayMessageHandlerImplTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /**
@@ -89,29 +68,6 @@ public class ORServeGatewayMessageHandlerImplTest {
         String expResult = "failed";
         String result = instance.parseMessageStatus(messageStatus);
         assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getCoreManager method, of class ORServeGatewayMessageHandlerImpl.
-     */
-    @Test
-    public void testGetCoreManager() {
-        System.out.println("getCoreManager");
-        ORServeGatewayMessageHandlerImpl instance = messageHandler;
-        CoreManager result = instance.getCoreManager();
-        assertNotNull(result);
-    }
-
-    /**
-     * Test of setCoreManager method, of class ORServeGatewayMessageHandlerImpl.
-     */
-    @Test
-    public void testSetCoreManager() {
-        System.out.println("setCoreManager");
-        CoreManager coreManager = null;
-        ORServeGatewayMessageHandlerImpl instance = messageHandler;
-        instance.setCoreManager(coreManager);
-        assertEquals(coreManager, instance.getCoreManager());
     }
 
 }

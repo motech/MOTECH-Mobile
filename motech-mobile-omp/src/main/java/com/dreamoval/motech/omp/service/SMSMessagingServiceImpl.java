@@ -46,13 +46,6 @@ public class SMSMessagingServiceImpl implements MessagingService {
         return messageDetails.getId();
     }
 
-    /**
-     * @see MessagingService.sendTextMessage(string messageDetails)
-     */
-    public Long sendTextMessage(String messageDetails) {
-        return sendTextMessage(handler.prepareMessage(messageDetails));
-    }
-
     public String getMessageStatus(String gatewayMessageId){
         logger.info("Calling GatewayManager.getMessageStatus");
         return handler.parseMessageStatus(gatewayManager.getMessageStatus(gatewayMessageId));

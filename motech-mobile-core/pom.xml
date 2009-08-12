@@ -87,7 +87,7 @@
             <artifactId>cglib-nodep</artifactId>
         </dependency>
         <dependency>
-            <groupId>apache-log4j</groupId>
+            <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
     </dependencies>

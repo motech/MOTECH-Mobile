@@ -9,10 +9,6 @@ package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.omp.service.CacheService;
 import com.dreamoval.motech.omp.service.MessagingService;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,22 +29,6 @@ public class OMPManagerImplTest {
     OMPManagerImpl ompManager;
 
     public OMPManagerImplTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     /**

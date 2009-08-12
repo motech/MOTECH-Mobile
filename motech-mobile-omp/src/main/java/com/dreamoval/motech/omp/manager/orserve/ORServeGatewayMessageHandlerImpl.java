@@ -39,6 +39,8 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      */
     public Set<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {
         logger.info("Parsing message gateway response");
+        logger.debug(gatewayResponse);
+
         if(message == null)
             return null;
         
