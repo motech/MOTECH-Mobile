@@ -342,7 +342,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
-                <version>3.2.5.GA</version>
+                <version>3.2.5.ga</version>
                 <exclusions>
                     <exclusion>
                         <groupId>asm</groupId>
@@ -361,7 +361,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
-                <version>3.3.1.ga</version>
+                <version>3.3.1.GA</version>
                 <exclusions>
                     <exclusion>
                         <groupId>asm</groupId>
