@@ -27,10 +27,10 @@ public class SMSCacheServiceImpl implements CacheService {
      * @see CacheService.saveMessage
      */
     public void saveMessage(MessageDetails messageDetails) {
-        logger.info("Creating MessageDetailsDAO object");
+        logger.info("Initializing DAO");
         MessageDetailsDAO messageDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
         
-        logger.info("Calling MessageDetailsDAO.save");
+        logger.info("Caching message");
         logger.debug(messageDetails);
         messageDAO.save(messageDetails);
     }

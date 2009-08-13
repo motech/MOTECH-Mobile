@@ -66,6 +66,9 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
                 response.setMessageId(message);
                 responses.add(response);
             }
+            else{
+                logger.error("Gateway returned error: " + gatewayResponse);
+            }
         }
         logger.debug(responses);
         return responses;

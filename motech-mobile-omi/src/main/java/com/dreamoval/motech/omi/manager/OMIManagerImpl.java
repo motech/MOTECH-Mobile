@@ -37,7 +37,14 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
      */
     public OMIService createOMIService() {
         logger.info("Fetching a wired OMIService object");
-        return (OMIService)context.getBean("omiService");
+
+        try{
+            return (OMIService)context.getBean("omiService");
+        }
+        catch(Exception ex){
+            logger.fatal("OMIService creation failed", ex);
+            throw new RuntimeException("Service creation failure: OMI service unavailable.");
+        }
     }
 
     /**
@@ -46,7 +53,14 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
      */
     public MessageStoreManager createMessageStoreManager() {
         logger.info("Fetching a wired MessageStore object");
-        return (MessageStoreManager)context.getBean("storeManager");
+        
+        try{
+            return (MessageStoreManager)context.getBean("storeManager");
+        }
+        catch(Exception ex){
+            logger.error("MessageStoreManager creation failed", ex);
+            return null;
+        }
     }
 
     /**

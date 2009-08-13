@@ -25,7 +25,13 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * @return The message associated with the supplied key
      */
     public String getMessage(String key){
-        logger.info("Retrieving message with key: " + key);
+        logger.info("Retrieving message from store");
+        logger.debug("Key: " + key);
+        if(!messageStore.containsKey(key)){
+            logger.error("No message found for key - " + key);
+            logger.debug(messageStore);
+            throw new RuntimeException("No message found for key - " + key);
+        }
         return messageStore.get(key);
     }
 

@@ -45,7 +45,13 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         
         logger.info("Calling sendMessage method of ORServe message gateway");
         logger.debug(messageDetails);
-        return soap.sendMessage(messageDetails.getMessageText(), messageDetails.getRecipientsNumbers(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
+        try{
+            return soap.sendMessage(messageDetails.getMessageText(), messageDetails.getRecipientsNumbers(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
+        }
+        catch(Exception ex){
+            logger.fatal("Error sending message", ex);
+            throw new RuntimeException("Error sending message");
+        }
     }
 
     /**
@@ -66,7 +72,13 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
 
         logger.info("Calling getMessageStatus method of ORServe message gateway");
-        return soap.getMessageStatus(gatewayMessageId, productCode);
+        try{
+            return soap.getMessageStatus(gatewayMessageId, productCode);
+        }
+        catch(Exception ex){
+            logger.fatal("Error sending message", ex);
+            throw new RuntimeException("Error sending message");
+        }
     }
 
     /**

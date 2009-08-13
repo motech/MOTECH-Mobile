@@ -35,7 +35,13 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      */
     public GatewayMessageHandler createGatewayMessageHandler() {
         logger.info("Fetching a wired GatewayMessageHandler object");
-        return (GatewayMessageHandler)context.getBean("messageHandler");
+        try{
+            return (GatewayMessageHandler)context.getBean("messageHandler");
+        }
+        catch(Exception ex){
+            logger.error("GatewayMessageHandler creation failed", ex);
+            return null;
+        }
     }
 
     /**
@@ -43,7 +49,13 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      */
     public GatewayManager createGatewayManager() {
         logger.info("Fetching a wired GatewayManager object");
-        return (GatewayManager)context.getBean("gatewayManager");
+        try{
+            return (GatewayManager)context.getBean("gatewayManager");
+        }
+        catch(Exception ex){
+            logger.fatal("GatewayManager creation failed", ex);
+            throw new RuntimeException("Unable to create gateway");
+        }
     }
 
     /**
@@ -51,7 +63,13 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      */
     public CacheService createCacheService() {
         logger.info("Fetching a wired CacheService object");
-        return (CacheService)context.getBean("smsCache");
+        try{
+            return (CacheService)context.getBean("smsCache");
+        }
+        catch(Exception ex){
+            logger.fatal("CacheService creation failed", ex);
+            throw new RuntimeException("Unable to initialize cache");
+        }
     }
 
     /**
@@ -59,7 +77,13 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      */
     public MessagingService createMessagingService() {
         logger.info("Fetching a wired MessagingService object");
-        return (MessagingService)context.getBean("smsService");
+        try{
+            return (MessagingService)context.getBean("smsService");
+        }
+        catch(Exception ex){
+            logger.fatal("MessagingService creation failed", ex);
+            throw new RuntimeException("Unable to initialize messaging service");
+        }
     }
 
 }
