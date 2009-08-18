@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/webapp-config.xml"})
+@ContextConfiguration(locations = {"file:src/test/java/client-config.xml"})
 public class MessageServiceImplITCase {
     @Autowired
     MessageService client;
