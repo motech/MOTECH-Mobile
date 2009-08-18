@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.webapp.webservices;
+package com.dreamoval.motech.web.webservices;
 
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.MessageType;

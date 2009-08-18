@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.webapp.webservices;
+package com.dreamoval.motech.web.webservices;
 
 import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created 30-07-09
  */
-@WebService(endpointInterface = "com.dreamoval.motech.webapp.webservices.MessageService", serviceName = "messagingService")
+@WebService(endpointInterface = "com.dreamoval.motech.web.webservices.MessageService", serviceName = "messagingService")
 public class MessageServiceImpl implements MessageService {
     private OMIManager omiManager;
     private static Logger logger = Logger.getLogger(MessageServiceImpl.class);

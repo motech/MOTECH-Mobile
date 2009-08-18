@@ -8,7 +8,7 @@ package com.dreamoval.motech.itests;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.MessageType;
 import com.dreamoval.motech.omi.service.PatientImpl;
-import com.dreamoval.motech.webapp.webservices.MessageService;
+import com.dreamoval.motech.web.webservices.MessageService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
