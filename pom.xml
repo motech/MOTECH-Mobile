@@ -148,7 +148,7 @@
       <!--<module>motech-mobile-imp</module>-->
         <module>motech-mobile-omi</module>
         <module>motech-mobile-omp</module>
-        <module>motech-mobile-web</module>
+        <module>motech-mobile-webapp</module>
     </modules>
     <dependencyManagement>
         <dependencies>
