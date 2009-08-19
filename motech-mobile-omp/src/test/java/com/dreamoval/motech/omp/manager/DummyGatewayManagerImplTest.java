@@ -6,7 +6,13 @@
 package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.ResponseDetails;
+import java.util.Set;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 /**
@@ -14,7 +20,12 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"file:src/main/resources/omp-config.xml"})
 public class DummyGatewayManagerImplTest {
+
+    @Autowired
+    DummyGatewayManagerImpl dummyGateway;
 
     public DummyGatewayManagerImplTest() {
     }
@@ -26,10 +37,8 @@ public class DummyGatewayManagerImplTest {
     public void testSendMessage() {
         System.out.println("sendMessage");
         MessageDetails messageDetails = null;
-        GatewayManager instance = new DummyGatewayManagerImpl();
-        String expResult = "sent";
-        String result = instance.sendMessage(messageDetails);
-        assertEquals(expResult, result);
+        Set<ResponseDetails> result = dummyGateway.sendMessage(messageDetails);
+        assertNotNull(result);
     }
 
     /**
@@ -39,9 +48,8 @@ public class DummyGatewayManagerImplTest {
     public void testGetMessageStatus() {
         System.out.println("getMessageStatus");
         String gatewayMessageId = "";
-        DummyGatewayManagerImpl instance = new DummyGatewayManagerImpl();
         String expResult = "delivered";
-        String result = instance.getMessageStatus(gatewayMessageId);
+        String result = dummyGateway.getMessageStatus(gatewayMessageId);
         assertEquals(expResult, result);
     }
 

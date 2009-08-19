@@ -28,7 +28,7 @@ public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
         ResponseDetails response = coreManager.createResponseDetails(coreManager.createMotechContext());
         response.setMessageId(message);
         response.setMessageStatus("delivered");
-        response.setRecipientNumber(message.getRecipientsNumbers());
+        response.setRecipientNumber("000000000000");
         responseList.add(response);
         return responseList;
     }

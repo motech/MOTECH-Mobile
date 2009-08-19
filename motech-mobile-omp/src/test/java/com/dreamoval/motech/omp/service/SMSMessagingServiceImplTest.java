@@ -8,7 +8,6 @@ package com.dreamoval.motech.omp.service;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl;
-import com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,6 @@ public class SMSMessagingServiceImplTest {
     CoreManager coreManager;
     @Autowired
     DummyGatewayManagerImpl dummyGateway;
-    @Autowired
-    DummyGatewayMessageHandlerImpl dummyHandler;
 
     public SMSMessagingServiceImplTest() {
     }
@@ -53,9 +50,7 @@ public class SMSMessagingServiceImplTest {
 
         SMSMessagingServiceImpl instance = smsService;
         
-        dummyHandler.setCoreManager(coreManager);
         instance.setGatewayManager(dummyGateway);
-        instance.setHandler(dummyHandler);
 
         Long expResult = messageDetails.getId();
         Long result = instance.sendTextMessage(messageDetails);
@@ -70,7 +65,7 @@ public class SMSMessagingServiceImplTest {
         System.out.println("getMessageStatus");
         String gatewayMessageId = "";
         SMSMessagingServiceImpl instance = smsService;
-        instance.setHandler(dummyHandler);
+        instance.setGatewayManager(dummyGateway);
         String expResult = "delivered";
         String result = instance.getMessageStatus(gatewayMessageId);
         assertEquals(expResult, result);

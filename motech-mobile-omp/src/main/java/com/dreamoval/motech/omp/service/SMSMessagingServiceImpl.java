@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
 public class SMSMessagingServiceImpl implements MessagingService {
     private CacheService cache;
     private GatewayManager gatewayManager;
-    private GatewayMessageHandler handler;
     private static Logger logger = Logger.getLogger(SMSMessagingServiceImpl.class);
 
     /**
@@ -33,14 +32,11 @@ public class SMSMessagingServiceImpl implements MessagingService {
         this.cache.saveMessage(messageDetails);
 
         logger.info("Sending message to gateway");
-        String gatewayResponse = this.gatewayManager.sendMessage(messageDetails);
-
-        logger.info("Parsing gateway response");
-        Set<ResponseDetails> responseList = handler.parseMessageResponse(messageDetails, gatewayResponse);
-        messageDetails.setResponseDetails(responseList);
+        Set<ResponseDetails> responseList = this.gatewayManager.sendMessage(messageDetails);
 
         logger.debug(responseList);
         logger.info("Updating message status");
+        messageDetails.setResponseDetails(responseList);
         this.cache.saveMessage(messageDetails);
 
         return messageDetails.getId();
@@ -48,7 +44,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
 
     public String getMessageStatus(String gatewayMessageId){
         logger.info("Calling GatewayManager.getMessageStatus");
-        return handler.parseMessageStatus(gatewayManager.getMessageStatus(gatewayMessageId));
+        return gatewayManager.getMessageStatus(gatewayMessageId);
     }
 
     /**
@@ -81,22 +77,6 @@ public class SMSMessagingServiceImpl implements MessagingService {
         logger.debug("Setting SMSMessagingServiceImpl.gatewayManager:");
         logger.debug(gatewayManager);
         this.gatewayManager = gatewayManager;
-    }
-
-    /**
-     * @return the handler
-     */
-    public GatewayMessageHandler getHandler() {
-        return handler;
-    }
-
-    /**
-     * @param handler the handler to set
-     */
-    public void setHandler(GatewayMessageHandler handler) {
-        logger.debug("Setting SMSMessagingServiceImpl.handler:");
-        logger.debug(handler);
-        this.handler = handler;
     }
 
 }

@@ -6,6 +6,8 @@
 package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.ResponseDetails;
+import java.util.Set;
 
 /**
  * <p>A dummy gateway manager for testing purposes</p>
@@ -15,13 +17,13 @@ import com.dreamoval.motech.core.model.MessageDetails;
  */
 public class DummyGatewayManagerImpl implements GatewayManager{
 
-
+    private GatewayMessageHandler messageHandler;
     /**
      *
      * @see GatewayManager.send
      */
-    public String sendMessage(MessageDetails messageDetails) {
-        return "sent";
+    public Set<ResponseDetails> sendMessage(MessageDetails messageDetails){
+        return messageHandler.parseMessageResponse(messageDetails, "sent");
     }
 
     /**
@@ -30,6 +32,20 @@ public class DummyGatewayManagerImpl implements GatewayManager{
      */
     public String getMessageStatus(String gatewayMessageId) {
         return "delivered";
+    }
+
+    /**
+     * @return the messageHandler
+     */
+    public GatewayMessageHandler getMessageHandler() {
+        return messageHandler;
+    }
+
+    /**
+     * @param messageHandler the messageHandler to set
+     */
+    public void setMessageHandler(GatewayMessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
     }
 
 }

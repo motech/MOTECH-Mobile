@@ -7,6 +7,8 @@ package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.core.model.ResponseDetails;
+import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,7 @@ public class ORServeGatewayManagerImplTest {
         messageDetails.setMessageType("TEXT");
 
         ORServeGatewayManagerImpl instance = gatewayManager;
-        String result = instance.sendMessage(messageDetails);
+        Set<ResponseDetails> result = instance.sendMessage(messageDetails);
         assertNotNull(result);
     }
 
