@@ -5,11 +5,18 @@
 
 package com.dreamoval.motech.web.webservices;
 
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.anyObject;
+
+import java.util.Date;
+import java.util.List;
+
+import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.MessageType;
 import com.dreamoval.motech.omi.service.PatientImpl;
-import java.util.Date;
-import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +33,18 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/webapp-config.xml"})
 public class MessageServiceImplTest{
 
+    OMIManager mockOMI;
+
     @Autowired
     MessageServiceImpl messageWebServiceBean;
 
     public MessageServiceImplTest() {
+    }
+
+    @Before
+    public void setUp(){
+        //mockOMI = createMock(OMIManager.class);
+        //messageWebServiceBean.setOmiManager(mockOMI);
     }
 
     /**

@@ -14,4 +14,5 @@
         <property name="serviceClass" value="com.dreamoval.motech.web.webservices.MessageService" />
         <property name="address" value="http://localhost:8080/motechmobile/webservices/messaging" />
     </bean>
+
 </beans>
