@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/test/resources/client-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/client-config.xml"})
 public class MessageServiceImplITCase {
 
 
@@ -46,7 +46,7 @@ public class MessageServiceImplITCase {
         testProps = new Properties();
 
         try{
-            testProps.load(new FileInputStream("src/test/resources/test.properties"));
+            testProps.load(getClass().getResourceAsStream("/test.properties"));
         }
         catch(IOException ex){
             System.out.print(ex);

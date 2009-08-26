@@ -19,10 +19,6 @@ import java.util.HashSet;
 public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
     CoreManager coreManager;
 
-    public MessageDetails prepareMessage(String message) {
-        return coreManager.createMessageDetails(coreManager.createMotechContext());
-    }
-
     public Set<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {
         Set<ResponseDetails> responseList = new HashSet<ResponseDetails>();
         ResponseDetails response = coreManager.createResponseDetails(coreManager.createMotechContext());

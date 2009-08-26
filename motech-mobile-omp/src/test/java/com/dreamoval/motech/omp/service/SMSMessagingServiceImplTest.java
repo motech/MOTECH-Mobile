@@ -5,12 +5,14 @@
 
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.manager.CoreManager;
+import static org.easymock.EasyMock.*;
+
 import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl;
+import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.omp.manager.GatewayManager;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
@@ -21,17 +23,25 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/omp-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/omp-config.xml"})
 public class SMSMessagingServiceImplTest {
 
-    @Autowired
-    SMSMessagingServiceImpl smsService;
-    @Autowired
-    CoreManager coreManager;
-    @Autowired
-    DummyGatewayManagerImpl dummyGateway;
+    SMSMessagingServiceImpl instance;
+    
+    CacheService mockCache;
+    GatewayManager mockGateway;
 
     public SMSMessagingServiceImplTest() {
+    }
+
+    @Before
+    public void setUp(){
+        mockCache = createMock(CacheService.class);
+        mockGateway = createMock(GatewayManager.class);
+
+        instance = new SMSMessagingServiceImpl();
+        instance.setCache(mockCache);
+        instance.setGatewayManager(mockGateway);
     }
 
     /**
@@ -41,20 +51,29 @@ public class SMSMessagingServiceImplTest {
     public void testSendTextMessage_MessageDetails() {
         System.out.println("sendTextMessage");
 
-        MessageDetails messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
+        MessageDetails messageDetails = new MessageDetailsImpl();
         messageDetails.setGlobalStatus("pending");
         messageDetails.setMessageText("a message for testing");
         messageDetails.setNumberOfPages(1);
         messageDetails.setRecipientsNumbers("000000000000");
         messageDetails.setMessageType("TEXT");
 
-        SMSMessagingServiceImpl instance = smsService;
-        
-        instance.setGatewayManager(dummyGateway);
+        mockCache.saveMessage((MessageDetails) anyObject());
+        expectLastCall();
+
+        expect(
+                mockGateway.sendMessage((MessageDetails) anyObject())
+                ).andReturn(null);
+
+        mockCache.saveMessage((MessageDetails) anyObject());
+        expectLastCall();
+
+        replay(mockCache, mockGateway);
 
         Long expResult = messageDetails.getId();
         Long result = instance.sendTextMessage(messageDetails);
         assertEquals(expResult, result);
+        verify(mockCache, mockGateway);
     }
 
     /**
@@ -64,11 +83,16 @@ public class SMSMessagingServiceImplTest {
     public void testGetMessageStatus() {
         System.out.println("getMessageStatus");
         String gatewayMessageId = "";
-        SMSMessagingServiceImpl instance = smsService;
-        instance.setGatewayManager(dummyGateway);
         String expResult = "delivered";
+
+        expect(
+                mockGateway.getMessageStatus((String) anyObject())
+                ).andReturn("delivered");
+        replay(mockGateway);
+
         String result = instance.getMessageStatus(gatewayMessageId);
         assertEquals(expResult, result);
+        verify(mockGateway);
     }
 
 }

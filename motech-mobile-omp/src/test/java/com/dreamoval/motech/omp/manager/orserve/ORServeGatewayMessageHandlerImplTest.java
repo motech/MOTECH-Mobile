@@ -1,46 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.dreamoval.motech.omp.manager.orserve;
-
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
-import java.util.Set;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/omp-config.xml"})
+
+package com.dreamoval.motech.omp.manager.orserve;
+
+import com.dreamoval.motech.core.manager.CoreManager;
+import static org.easymock.EasyMock.*;
+
+import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
+import java.util.Set;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class ORServeGatewayMessageHandlerImplTest {
 
-    @Autowired
-    ORServeGatewayMessageHandlerImpl messageHandler;
+    CoreManager mockCoreManager;
+    GatewayMessageHandler instance;
     
     public ORServeGatewayMessageHandlerImplTest() {
     }
 
-    /**
-     * Test of prepareMessage method, of class ORServeGatewayMessageHandlerImpl.
-     */
-    @Test
-    public void testPrepareMessage() {
-        System.out.println("prepareMessage");
-        String message = "";
-        MessageDetails expResult = null;
-        ORServeGatewayMessageHandlerImpl instance = messageHandler;
-        MessageDetails result = instance.prepareMessage(message);
-        assertEquals(expResult, result);
+    @Before
+    public void setUp(){
+        mockCoreManager = createMock(CoreManager.class);
+        instance = new ORServeGatewayMessageHandlerImpl();
+        instance.setCoreManager(mockCoreManager);
     }
 
     /**
@@ -52,7 +41,6 @@ public class ORServeGatewayMessageHandlerImplTest {
         MessageDetails message = null;
         String gatewayResponse = "";
         MessageDetails expResult = null;
-        ORServeGatewayMessageHandlerImpl instance = messageHandler;
         Set<ResponseDetails> result = instance.parseMessageResponse(message, gatewayResponse);
         assertEquals(expResult, result);
     }
@@ -64,7 +52,6 @@ public class ORServeGatewayMessageHandlerImplTest {
     public void testParseMessageStatus() {
         System.out.println("parseMessageStatus");
         String messageStatus = "";
-        ORServeGatewayMessageHandlerImpl instance = messageHandler;
         String expResult = "failed";
         String result = instance.parseMessageStatus(messageStatus);
         assertEquals(expResult, result);

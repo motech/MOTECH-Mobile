@@ -26,15 +26,6 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
 
     /**
      *
-     * @see GatewayMessageHandler.prepareMessage
-     */
-    public MessageDetails prepareMessage(String message) {
-        System.out.println("Message:" + message);
-        return null;
-    }
-
-    /**
-     *
      * @see GatewayMessageHandler.parseResponse
      */
     public Set<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse) {

@@ -1,35 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.dreamoval.motech.omp.manager;
-
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
-import java.util.Set;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/omp-config.xml"})
+
+package com.dreamoval.motech.omp.manager;
+
+import static org.easymock.EasyMock.*;
+
+import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.ResponseDetails;
+import java.util.HashSet;
+import java.util.Set;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class DummyGatewayManagerImplTest {
 
-    @Autowired
-    DummyGatewayManagerImpl dummyGateway;
+    GatewayMessageHandler mockHandler;
 
     public DummyGatewayManagerImplTest() {
     }
 
+    @Before
+    public void setUp(){
+        mockHandler = createMock(GatewayMessageHandler.class);
+    }
+    
     /**
      * Test of sendMessage method, of class DummyGatewayManagerImpl.
      */
@@ -37,8 +35,17 @@ public class DummyGatewayManagerImplTest {
     public void testSendMessage() {
         System.out.println("sendMessage");
         MessageDetails messageDetails = null;
-        Set<ResponseDetails> result = dummyGateway.sendMessage(messageDetails);
+        GatewayManager instance = new DummyGatewayManagerImpl();
+        instance.setMessageHandler(mockHandler);
+
+        expect(
+                mockHandler.parseMessageResponse(messageDetails, "sent")
+                ).andReturn(new HashSet<ResponseDetails>());
+        replay(mockHandler);
+        
+        Set<ResponseDetails> result = instance.sendMessage(messageDetails);
         assertNotNull(result);
+        verify(mockHandler);
     }
 
     /**
@@ -49,8 +56,17 @@ public class DummyGatewayManagerImplTest {
         System.out.println("getMessageStatus");
         String gatewayMessageId = "";
         String expResult = "delivered";
-        String result = dummyGateway.getMessageStatus(gatewayMessageId);
+        GatewayManager instance = new DummyGatewayManagerImpl();
+        instance.setMessageHandler(mockHandler);
+
+        expect(
+                mockHandler.parseMessageStatus((String) anyObject())
+                ).andReturn("delivered");
+        replay(mockHandler);
+
+        String result = instance.getMessageStatus(gatewayMessageId);
         assertEquals(expResult, result);
+        verify(mockHandler);
     }
 
 }

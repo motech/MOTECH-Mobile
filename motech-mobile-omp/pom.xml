@@ -96,6 +96,10 @@
           <groupId>log4j</groupId>
           <artifactId>log4j</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

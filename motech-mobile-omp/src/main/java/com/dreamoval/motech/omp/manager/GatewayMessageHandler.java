@@ -19,14 +19,6 @@ import java.util.Set;
 public interface GatewayMessageHandler {
 
     /**
-     * Generates a MessageDetails object from a string
-     *
-     * @param message a string containing message information
-     * @return the generated MessageDetails object
-     */
-    public MessageDetails prepareMessage(String message);
-
-    /**
      * Constructs ResponseDetails objects from a response recieved from a message gateway
      * @param gatewayResponse
      * @return

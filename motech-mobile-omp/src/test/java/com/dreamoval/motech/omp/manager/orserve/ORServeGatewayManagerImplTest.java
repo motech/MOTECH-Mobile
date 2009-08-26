@@ -5,15 +5,16 @@
 
 package com.dreamoval.motech.omp.manager.orserve;
 
+import static org.easymock.EasyMock.*;
+
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.MessageDetailsImpl;
 import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
+import java.util.HashSet;
 import java.util.Set;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 /**
@@ -21,14 +22,22 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/omp-config.xml"})
 public class ORServeGatewayManagerImplTest {
 
-    @Autowired
-    ORServeGatewayManagerImpl gatewayManager;
+    ORServeGatewayManagerImpl instance;
+    GatewayMessageHandler mockHandler;
 
     public ORServeGatewayManagerImplTest() {
+    }
+
+    @Before
+    public void setUp(){
+        mockHandler = createMock(GatewayMessageHandler.class);
+        instance = new ORServeGatewayManagerImpl();
+        instance.setMessageHandler(mockHandler);
+        instance.setProductCode("TestCode");
+        instance.setSenderId("TestSender");
+        instance.setMessageHandler(mockHandler);
     }
 
     /**
@@ -45,9 +54,14 @@ public class ORServeGatewayManagerImplTest {
         messageDetails.setRecipientsNumbers("000000000000");
         messageDetails.setMessageType("TEXT");
 
-        ORServeGatewayManagerImpl instance = gatewayManager;
+        expect(
+                mockHandler.parseMessageResponse((MessageDetails) anyObject(), (String) anyObject())
+                ).andReturn(new HashSet<ResponseDetails>());
+        replay(mockHandler);
+        
         Set<ResponseDetails> result = instance.sendMessage(messageDetails);
         assertNotNull(result);
+        verify(mockHandler);
     }
 
     /**
@@ -57,9 +71,15 @@ public class ORServeGatewayManagerImplTest {
     public void testGetMessageStatus() {
         System.out.println("getMessageStatus");
         String gatewayMessageId = "testid";
-        ORServeGatewayManagerImpl instance = gatewayManager;
+
+        expect(
+                mockHandler.parseMessageStatus((String) anyObject())
+                ).andReturn("delivered");
+        replay(mockHandler);
+
         String result = instance.getMessageStatus(gatewayMessageId);
         assertNotNull(result);
+        verify(mockHandler);
     }
 
 }

@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/omi-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/omi-config.xml"})
 public class OMIServiceImplTest {
 
     @Autowired

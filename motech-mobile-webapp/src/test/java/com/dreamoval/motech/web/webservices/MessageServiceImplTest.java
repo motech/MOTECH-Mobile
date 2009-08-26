@@ -5,8 +5,7 @@
 
 package com.dreamoval.motech.web.webservices;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.anyObject;
+import static org.easymock.EasyMock.*;
 
 import java.util.Date;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.List;
 import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.MessageType;
+import com.dreamoval.motech.omi.service.OMIService;
 import com.dreamoval.motech.omi.service.PatientImpl;
 
 import org.junit.Before;
@@ -34,6 +34,7 @@ import static org.junit.Assert.*;
 public class MessageServiceImplTest{
 
     OMIManager mockOMI;
+    OMIService mockOMIService;
 
     @Autowired
     MessageServiceImpl messageWebServiceBean;
@@ -43,8 +44,13 @@ public class MessageServiceImplTest{
 
     @Before
     public void setUp(){
-        //mockOMI = createMock(OMIManager.class);
-        //messageWebServiceBean.setOmiManager(mockOMI);
+        mockOMI = createMock(OMIManager.class);
+        mockOMIService = createMock(OMIService.class);
+        messageWebServiceBean.setOmiManager(mockOMI);
+
+        expect(
+               mockOMI.createOMIService()
+               ).andReturn(mockOMIService);
     }
 
     /**
@@ -59,9 +65,21 @@ public class MessageServiceImplTest{
         String patientNumber = "000000000000";
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MessageType messageType = MessageType.TEXT;
+
+        expect(
+                mockOMIService.sendPatientMessage(anyLong(),
+                                                    (String) anyObject(),
+                                                    (Date) anyObject(),
+                                                    (String) anyObject(),
+                                                    (ContactNumberType) anyObject(),
+                                                    (MessageType) anyObject())
+                ).andReturn(1L);
+        replay(mockOMI, mockOMIService);
+        
         MessageServiceImpl instance = messageWebServiceBean;
         Long result = instance.sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
         assertNotNull(result);
+        verify(mockOMI, mockOMIService);
     }
 
     /**
@@ -74,9 +92,19 @@ public class MessageServiceImplTest{
         String workerName = "Test worker";
         String workerNumber = "000000000000";
         List<PatientImpl> patientList = null;
+
+        expect(
+                mockOMIService.sendCHPSMessage(anyLong(),
+                                                (String) anyObject(),
+                                                (String) anyObject(),
+                                                (List<PatientImpl>) anyObject())
+                ).andReturn(1L);     
+        replay(mockOMI, mockOMIService);
+        
         MessageServiceImpl instance = messageWebServiceBean;
         Long result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList);
         assertNotNull(result);
+        verify(mockOMI, mockOMIService);
     }
 
 }

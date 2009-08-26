@@ -8,6 +8,7 @@ package com.dreamoval.motech.web.webservices;
 import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.MessageType;
+import com.dreamoval.motech.omi.service.OMIService;
 import com.dreamoval.motech.omi.service.PatientImpl;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,7 @@ public class MessageServiceImpl implements MessageService {
     public Long sendPatientMessage(Long messageId, String clinic, Date serviceDate, String patientNumber, ContactNumberType patientNumberType, MessageType messageType) {
         logger.debug("Called MessageService.sendPatientMessage with parameters:\n\rmessageId - "+ messageId + "\n\rclinic - " + clinic + "\n\rserviceDate - " + serviceDate + "\n\rpatientNumber - " + patientNumber + "\n\rpatientNumbrType - " + patientNumberType + "\n\rmessageType - " + messageType);
         logger.info("Calling OMIService.sendPtientMessage");
-        return this.omiManager.createOMIService().sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
+        return omiManager.createOMIService().sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
     }
 
     public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList) {

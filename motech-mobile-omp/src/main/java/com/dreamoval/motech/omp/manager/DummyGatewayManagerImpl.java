@@ -31,7 +31,7 @@ public class DummyGatewayManagerImpl implements GatewayManager{
      * @see GatewayManager.getMessageStatus
      */
     public String getMessageStatus(String gatewayMessageId) {
-        return "delivered";
+        return messageHandler.parseMessageStatus("delivered");
     }
 
     /**

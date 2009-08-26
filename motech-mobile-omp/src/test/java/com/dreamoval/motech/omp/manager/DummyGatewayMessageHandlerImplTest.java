@@ -1,46 +1,37 @@
-package com.dreamoval.motech.omp.manager;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
-import java.util.Set;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/omp-config.xml"})
+
+package com.dreamoval.motech.omp.manager;
+
+import static org.easymock.EasyMock.*;
+
+import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.core.model.ResponseDetailsImpl;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.core.service.MotechContextImpl;
+import java.util.Set;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class DummyGatewayMessageHandlerImplTest {
 
-    @Autowired
-    DummyGatewayMessageHandlerImpl dummyHandler;
+    CoreManager mockCoreManager;
+    GatewayMessageHandler instance;
 
     public DummyGatewayMessageHandlerImplTest() {
     }
 
-    /**
-     * Test of prepareMessage method, of class DummyGatewayMessageHandlerImpl.
-     */
-    @Test
-    public void testPrepareMessage() {
-        System.out.println("prepareMessage");
-        String message = "";
-        MessageDetails result = dummyHandler.prepareMessage(message);
-        assertNotNull(result);
+    @Before
+    public void setUp(){
+        instance = new DummyGatewayMessageHandlerImpl();
+        mockCoreManager = createMock(CoreManager.class);
+        instance.setCoreManager(mockCoreManager);
     }
 
     /**
@@ -51,8 +42,18 @@ public class DummyGatewayMessageHandlerImplTest {
         System.out.println("parseMessageResponse");
         MessageDetails message = new MessageDetailsImpl();
         String gatewayResponse = "sent";
-        Set result = dummyHandler.parseMessageResponse(message, gatewayResponse);
+
+        expect(
+                mockCoreManager.createResponseDetails((MotechContext) anyObject())
+                ).andReturn(new ResponseDetailsImpl());
+        expect(
+                mockCoreManager.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        replay(mockCoreManager);
+
+        Set result = instance.parseMessageResponse(message, gatewayResponse);
         assertNotNull(result);
+        verify(mockCoreManager);
     }
 
     /**
@@ -63,7 +64,7 @@ public class DummyGatewayMessageHandlerImplTest {
         System.out.println("parseMessageStatus");
         String messageStatus = "";
         String expResult = "delivered";
-        String result = dummyHandler.parseMessageStatus(messageStatus);
+        String result = instance.parseMessageStatus(messageStatus);
         assertEquals(expResult, result);
     }
 
