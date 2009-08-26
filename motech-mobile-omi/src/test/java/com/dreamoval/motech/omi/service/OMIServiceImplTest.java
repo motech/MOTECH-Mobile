@@ -1,32 +1,50 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.dreamoval.motech.omi.service;
-
-import java.util.Date;
-import java.util.List;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/omi-config.xml"})
+
+package com.dreamoval.motech.omi.service;
+
+import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.core.service.MotechContextImpl;
+import com.dreamoval.motech.omi.manager.MessageStoreManager;
+import com.dreamoval.motech.omp.manager.OMPManager;
+import com.dreamoval.motech.omp.service.MessagingService;
+import static org.easymock.EasyMock.*;
+
+import java.util.Date;
+import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+
 public class OMIServiceImplTest {
 
-    @Autowired
-    OMIServiceImpl omiService;
+    OMIService instance;
+    CoreManager mockCore;
+    OMPManager mockOMP;
+    MessagingService mockMessagingService;
+    MessageStoreManager mockStore;
 
     public OMIServiceImplTest() {
+    }
+
+    @Before
+    public void setUp(){
+        mockCore = createMock(CoreManager.class);
+        mockOMP = createMock(OMPManager.class);
+        mockMessagingService = createMock(MessagingService.class);
+        mockStore = createMock(MessageStoreManager.class);
+        
+        instance = new OMIServiceImpl();
+        instance.setCoreManager(mockCore);
+        instance.setOmpManager(mockOMP);
+        instance.setStoreManager(mockStore);
     }
 
     /**
@@ -41,9 +59,28 @@ public class OMIServiceImplTest {
         String patientNumber = "000000000000";
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MessageType messageType = MessageType.TEXT;
-        OMIServiceImpl instance = omiService;
+        Long expResult = 1L;
+
+        expect(
+                mockCore.createMessageDetails((MotechContext)anyObject())
+                ).andReturn(new MessageDetailsImpl());
+        expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        expect(
+                mockStore.getMessage((String) anyObject())
+                ).andReturn("Test Message");
+        expect(
+                mockOMP.createMessagingService()
+                ).andReturn(mockMessagingService);
+        expect(
+                mockMessagingService.sendTextMessage((MessageDetails) anyObject())
+                ).andReturn(1L);
+        replay(mockCore, mockStore, mockOMP, mockMessagingService);
+
         Long result = instance.sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
-        assertNotNull(result);
+        assertEquals(expResult, result);
+        verify(mockCore, mockStore, mockOMP, mockMessagingService);
     }
 
     /**
@@ -56,9 +93,28 @@ public class OMIServiceImplTest {
         String workerName = "Test worker";
         String workerNumber = "000000000000";
         List<PatientImpl> patientList = null;
-        OMIServiceImpl instance = omiService;
+        Long expResult = 1L;
+
+        expect(
+                mockCore.createMessageDetails((MotechContext)anyObject())
+                ).andReturn(new MessageDetailsImpl());
+        expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        expect(
+                mockStore.getMessage((String) anyObject())
+                ).andReturn("Test Message");
+        expect(
+                mockOMP.createMessagingService()
+                ).andReturn(mockMessagingService);
+        expect(
+                mockMessagingService.sendTextMessage((MessageDetails) anyObject())
+                ).andReturn(1L);
+        replay(mockCore, mockStore, mockOMP, mockMessagingService);
+
         Long result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList);
-        assertNotNull(result);
+        assertEquals(expResult, result);
+        verify(mockCore, mockStore, mockOMP, mockMessagingService);
     }
 
 }

@@ -1,30 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.dreamoval.motech.omi.manager;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.junit.Assert.*;
-
 /**
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/omi-config.xml"})
+
+package com.dreamoval.motech.omi.manager;
+
+
+import java.util.Map;
+import static org.easymock.EasyMock.*;
+
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+
 public class MessageStoreManagerImplTest {
 
-    @Autowired
-    MessageStoreManagerImpl storeManager;
+    Map<String, String> mockStore;
+    MessageStoreManager instance;
 
     public MessageStoreManagerImplTest() {
+    }
+
+    @Before
+    public void setUp(){
+        mockStore = createMock(Map.class);
+        instance = new MessageStoreManagerImpl();
+        instance.setMessageStore(mockStore);
     }
 
     /**
@@ -34,10 +37,15 @@ public class MessageStoreManagerImplTest {
     public void testGetMessage() {
         System.out.println("getMessage");
         String key = "patient";
-        MessageStoreManagerImpl instance = storeManager;
-        String expResult = "This is a sample patient message for testing purposes";
+
+        expect(
+                mockStore.get((String) anyObject())
+                ).andReturn("Test Message");
+        replay(mockStore);
+
         String result = instance.getMessage(key);
-        assertEquals(expResult, result);
+        assertNotNull(result);
+        verify(mockStore);
     }
 
 }

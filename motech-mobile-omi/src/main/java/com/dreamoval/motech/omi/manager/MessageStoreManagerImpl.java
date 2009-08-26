@@ -27,12 +27,14 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
     public String getMessage(String key){
         logger.info("Retrieving message from store");
         logger.debug("Key: " + key);
-        if(!messageStore.containsKey(key)){
-            logger.error("No message found for key - " + key);
-            logger.debug(messageStore);
-            throw new RuntimeException("No message found for key - " + key);
+        try{
+            return messageStore.get(key);
         }
-        return messageStore.get(key);
+        catch(Exception e){
+            logger.error("Error retrieving message with key: " + key, e);
+            logger.debug(messageStore);
+            return null;
+        }
     }
 
     /**
