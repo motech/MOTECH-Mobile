@@ -1,9 +1,3 @@
-/**
- *
- * @author Kofi A. Asamoah (yoofi@dreamoval.com)
- * Date Created Aug 10, 2009
- */
-
 package com.dreamoval.motech.omi.manager;
 
 
@@ -14,7 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
+/**
+ * Unit test for the MessageStoreManagerImpl class
+ *
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created Aug 10, 2009
+ */
 public class MessageStoreManagerImplTest {
 
     Map<String, String> mockStore;

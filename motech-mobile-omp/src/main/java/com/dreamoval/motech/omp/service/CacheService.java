@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -10,12 +5,13 @@ import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.omp.manager.OMPManager;
 
 /**
- * <p>Handles all message caching related functions</p>
+ * Handles all message caching related functions
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
 public interface CacheService {
+
     /**
      * saves a message to the cache
      * @param messageDetails MessageDetails object to be saved to the cache

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.model.MessageDetails;
@@ -14,12 +9,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
+ * An implementation of the OMIService
  *
- * @author Kofi A. Asamoah
- * @email yoofi@dreamoval.com
- * @date 30-Apr-2009
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created: Jul 31, 2009
  *
- * <p>Handles interactions with OMP for message delivery related functions</p>
  */
 public class OMIServiceImpl implements OMIService {
     private MessageStoreManager storeManager;

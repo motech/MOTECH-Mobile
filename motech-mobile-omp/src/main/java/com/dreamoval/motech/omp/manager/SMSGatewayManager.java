@@ -9,7 +9,7 @@ import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
 
 /**
- *<p>Handles all interactions with a remote sms gateway</p>
+ * Handles all interactions with a remote sms gateway
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009

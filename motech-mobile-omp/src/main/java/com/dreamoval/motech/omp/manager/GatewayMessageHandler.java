@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -11,7 +6,7 @@ import com.dreamoval.motech.core.model.ResponseDetails;
 import java.util.Set;
 
 /**
- * <p>Handles preparation and parsing of messages and responses from a message gateway</p>
+ * Handles preparation and parsing of messages and responses from a message gateway
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009

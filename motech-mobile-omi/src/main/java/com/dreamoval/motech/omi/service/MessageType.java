@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omi.service;
 
 /**
+ * An enumeration of message types
  *
- * @author Henry Sampson
+ * @author Kofi A. Asamoah
  * Date Created: Jul 31, 2009
  */
 public enum MessageType {

@@ -1,17 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omi.service;
 
 import java.io.Serializable;
 
 /**
+ * Wrapper for passing patient information across the webservice
  *
- * @author Kofi A. Asamoah
- * @email yoofi@dreamoval.com
- * @date 30-Apr-2009
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created: Jul 31, 2009
  */
 public interface Patient extends Serializable {
 

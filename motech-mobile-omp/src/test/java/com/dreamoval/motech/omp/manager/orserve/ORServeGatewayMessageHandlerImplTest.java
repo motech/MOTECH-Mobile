@@ -1,9 +1,3 @@
-/**
- *
- * @author Kofi A. Asamoah (yoofi@dreamoval.com)
- * Date Created Aug 10, 2009
- */
-
 package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -17,6 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Unit test fo the ORServeGaewayMessageHanlerImpl class
+ * 
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created Aug 10, 2009
+ */
 public class ORServeGatewayMessageHandlerImplTest {
 
     CoreManager mockCoreManager;

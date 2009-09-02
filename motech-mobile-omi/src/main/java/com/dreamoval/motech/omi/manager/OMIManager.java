@@ -9,8 +9,9 @@ import com.dreamoval.motech.omi.service.OMIService;
 import com.dreamoval.motech.omi.service.Patient;
 
 /**
+ * Handles creation of all objects within the OMI
  *
- * @author Henry Sampaon (henry@dreamoval.com)
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Aug 4, 2009
  */
 public interface OMIManager {

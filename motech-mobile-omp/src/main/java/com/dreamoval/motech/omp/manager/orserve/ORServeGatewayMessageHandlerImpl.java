@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -14,7 +9,7 @@ import java.util.HashSet;
 import org.apache.log4j.Logger;
 
 /**
- * <p>Handles preparation and parsing of messages and responses from the OutReach Server message gateway</p>
+ * Handles preparation and parsing of messages and responses from the OutReach Server message gateway
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * @date Jul 15, 2009

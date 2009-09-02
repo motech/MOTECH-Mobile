@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
@@ -12,8 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Provides external access to OMI methods
  *
- * @author Henry Sampaon
+ * @author Kofi A. Asamoah (yoofi@dremoval.com)
  * Date Created: Jul 31, 2009
  */
 public interface OMIService {

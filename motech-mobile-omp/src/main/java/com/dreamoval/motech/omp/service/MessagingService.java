@@ -1,20 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 
 /**
- * <p>Handles all SMS related functions including cachine, sending and lookup</p>
+ * Handles all SMS related functions including cachine, sending and lookup
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
 public interface MessagingService {
+
     /**
      * Sends an SMS message with the provided details
      *

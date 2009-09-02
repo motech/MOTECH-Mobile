@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.omp.service.CacheService;
@@ -13,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 /**
+ * An implementation of the OMPManager interface
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Aug 3, 2009

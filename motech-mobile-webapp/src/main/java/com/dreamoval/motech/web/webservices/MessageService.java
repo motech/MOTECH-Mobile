@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.web.webservices;
 
 import com.dreamoval.motech.omi.service.ContactNumberType;
@@ -15,8 +10,10 @@ import javax.jws.WebService;
 import javax.jws.WebParam;
 
 /**
+ * A webservice interface providing functionality for sending messages
  *
- * @author Yoofi
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created 30-07-09
  */
 @WebService()
 public interface MessageService extends Serializable{

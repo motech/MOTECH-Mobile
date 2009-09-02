@@ -1,9 +1,3 @@
-/**
- *
- * @author Kofi A. Asamoah (yoofi@dreamoval.com)
- * Date Created Aug 10, 2009
- */
-
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -22,7 +16,12 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
+/**
+ * Unit test for the OMIServiceImpl class
+ *
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created Aug 10, 2009
+ */
 public class OMIServiceImplTest {
 
     OMIService instance;

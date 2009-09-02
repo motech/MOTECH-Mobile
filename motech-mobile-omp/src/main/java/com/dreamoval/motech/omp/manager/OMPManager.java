@@ -1,26 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.omp.service.CacheService;
 import com.dreamoval.motech.omp.service.MessagingService;
 
 /**
- * <p>Provides access to OMP services and managers to external modules</p>
+ * Handles the creation of all OMP objects
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 31, 2009
  */
 public interface OMPManager{
-
-    /**
-     * creates a new GatewayManager object
-     * @return the created GatewayManager object
-     */
-    //public GatewayManager createGatewayManager();
 
     /**
      * creates a new GatewayMessageHandler object
@@ -30,7 +19,7 @@ public interface OMPManager{
 
     /**
      * creates a new SMSGatewayManager object
-     * @return the created SMSGatewayManager object
+     * @return the created GatewayManager object
      */
     public GatewayManager createGatewayManager();
 

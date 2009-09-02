@@ -1,12 +1,5 @@
 package com.dreamoval.motech.omp.manager;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-
 import com.dreamoval.motech.omp.service.CacheService;
 import com.dreamoval.motech.omp.service.MessagingService;
 import org.junit.Test;
@@ -17,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 /**
+ * Unit test for the OMPManagerImpl class
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009

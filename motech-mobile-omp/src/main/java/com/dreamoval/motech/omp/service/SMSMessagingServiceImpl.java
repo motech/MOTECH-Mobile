@@ -1,18 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.model.MessageDetails;
 import com.dreamoval.motech.core.model.ResponseDetails;
 import com.dreamoval.motech.omp.manager.GatewayManager;
-import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
 import org.apache.log4j.Logger;
 
 /**
+ * An SMS specific implementation of the MessagingService interface
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009

@@ -6,12 +6,11 @@
 package com.dreamoval.motech.omi.service;
 
 /**
+ * An implementation of the Patient interface
  *
- * @author Kofi A. Asamoah
- * @email yoofi@dreamoval.com
- * @date 30-Apr-2009
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created Jul 31, 2009
  *
- * <p>Data object for storing patient information</p>
  */
 public class PatientImpl implements Patient {
     private String name;

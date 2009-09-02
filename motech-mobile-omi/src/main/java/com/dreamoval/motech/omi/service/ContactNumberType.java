@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omi.service;
 
 /**
+ * An enumeration of contact number types
  *
- * @author Henry Sampson
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 31, 2009
  */
 public enum ContactNumberType {

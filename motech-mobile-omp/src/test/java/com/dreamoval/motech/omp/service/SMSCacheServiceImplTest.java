@@ -1,9 +1,3 @@
-/**
- *
- * @author Kofi A. Asamoah (yoofi@dreamoval.com)
- * Date Created Aug 10, 2009
- */
-
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.dao.MessageDetailsDAO;
@@ -18,7 +12,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert.*;
 
-
+/**
+ * Unit test for the SMSCacheServiceImpl class
+ *
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * Date Created Aug 10, 2009
+ */
 public class SMSCacheServiceImplTest {
 
     SMSCacheServiceImpl instance;

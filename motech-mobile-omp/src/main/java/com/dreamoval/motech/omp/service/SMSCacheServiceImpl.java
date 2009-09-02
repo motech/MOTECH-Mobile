@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.dao.MessageDetailsDAO;
@@ -12,6 +7,7 @@ import com.dreamoval.motech.omp.manager.OMPManager;
 import org.apache.log4j.Logger;
 
 /**
+ * An SMS specific implementation of the CacheService interface
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009

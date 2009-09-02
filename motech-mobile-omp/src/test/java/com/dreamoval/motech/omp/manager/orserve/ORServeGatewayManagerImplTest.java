@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.omp.manager.orserve;
 
 import static org.easymock.EasyMock.*;
@@ -18,6 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Unit tst for th ORServeGatewayManagerImpl class
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009

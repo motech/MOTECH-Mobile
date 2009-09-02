@@ -29,14 +29,6 @@
         <property name="messageHandler" ref="messageHandler" />
     </bean>
 
-    <bean name="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl">
-        <property name="coreManager" ref="coreManager" />
-    </bean>
-
-    <bean name="dummyGateway" class="com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl">
-        <property name="messageHandler" ref="dummyHandler" />
-    </bean>
-
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="ompManager" ref="ompManager" />
