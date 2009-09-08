@@ -3,13 +3,13 @@
     <groupId>com.dreamoval.motech</groupId>
     <artifactId>motech-mobile-webapp</artifactId>
     <packaging>war</packaging>
-    <version>1.0-M1</version>
+    <version>1.0-M2-SNAPSHOT</version>
     <name>MoTeCH Mobile WebApp</name>
     <url>http://maven.apache.org</url>
     <parent>
         <groupId>com.dreamoval</groupId>
         <artifactId>motech-mobile</artifactId>
-        <version>1.0-M1</version>
+        <version>1.0-M2-SNAPSHOT</version>
     </parent>
     <dependencies>
 
@@ -62,19 +62,19 @@
         <dependency>
           <groupId>com.dreamoval.motech</groupId>
           <artifactId>motech-mobile-core</artifactId>
-          <version>1.0-M1</version>
+          <version>1.0-M2-SNAPSHOT</version>
           <type>jar</type>
         </dependency>
         <dependency>
           <groupId>com.dreamoval.motech</groupId>
           <artifactId>motech-mobile-omp</artifactId>
-          <version>1.0-M1</version>
+          <version>1.0-M2-SNAPSHOT</version>
           <type>jar</type>
         </dependency>
         <dependency>
           <groupId>com.dreamoval.motech</groupId>
           <artifactId>motech-mobile-omi</artifactId>
-          <version>1.0-M1</version>
+          <version>1.0-M2-SNAPSHOT</version>
           <type>jar</type>
         </dependency>
         <dependency>
