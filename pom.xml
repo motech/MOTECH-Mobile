@@ -1,11 +1,9 @@
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dreamoval</groupId>
     <artifactId>motech-mobile</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-M1</version>
     <name>MoTeCH Mobile</name>
     <url>https://motech.rcg.usm.maine.edu/redmine/projects/show/motech-mobile</url>
 
@@ -201,19 +199,19 @@
             <dependency>
                 <groupId>com.dreamoval.motech</groupId>
                 <artifactId>motech-mobile-core</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0-M1</version>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>com.dreamoval.motech</groupId>
                 <artifactId>motech-mobile-omp</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0-M1</version>
                 <type>jar</type>
             </dependency>
             <dependency>
                 <groupId>com.dreamoval.motech</groupId>
                 <artifactId>motech-mobile-omi</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0-M1</version>
                 <type>jar</type>
             </dependency>
             <dependency>
@@ -471,12 +469,9 @@
         </profile>
     </profiles>
     <scm>
-        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile</url>
-        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/trunk</connection>
-        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/trunk</developerConnection>
+        <url>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/tags/motech-mobile-1.0-M1</url>
+        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/tags/motech-mobile-1.0-M1</connection>
+        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/tags/motech-mobile-1.0-M1</developerConnection>
     </scm>
 
 </project>
-
-
-
