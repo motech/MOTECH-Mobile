@@ -44,7 +44,7 @@ public class ORServeGatewayManagerImplTest {
         System.out.println("sendMessage");
         
         GatewayRequest messageDetails = new GatewayRequestImpl();
-//        TODO to yoofi conflict here
+//TODO to yoofi conflict here
         messageDetails.setDateFrom(new Date());
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
