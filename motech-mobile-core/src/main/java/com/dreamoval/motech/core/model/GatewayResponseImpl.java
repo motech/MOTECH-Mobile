@@ -9,20 +9,21 @@ import java.util.Set;
  * Date :Jul 24, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDetails{
+public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResponse{
 
     private static final long serialVersionUID = 1L;
     
-    private MessageDetails messageId;
+    private GatewayRequest messageId;
     private String gatewayMessageId;
     private String recipientNumber;
     private String messageStatus;
     private Set<Transition> transitions = new HashSet<Transition>();
+    private int tryNumber;
 
-    public ResponseDetailsImpl(){}
+    public GatewayResponseImpl(){}
 
 
-    public ResponseDetailsImpl(String gatewayMessageId, String recipientNumber, String messageStatus) {
+    public GatewayResponseImpl(String gatewayMessageId, String recipientNumber, String messageStatus) {
         this.gatewayMessageId = gatewayMessageId;
         this.recipientNumber = recipientNumber;
         this.messageStatus = messageStatus;
@@ -31,14 +32,14 @@ public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDet
     /**
      * @return the messageId
      */
-    public MessageDetails getMessageId() {
+    public GatewayRequest getMessageId() {
         return messageId;
     }
 
     /**
      * @param messageId the messageId to set
      */
-    public void setMessageId(MessageDetails messageId) {
+    public void setMessageId(GatewayRequest messageId) {
         this.messageId = messageId;
     }
 
@@ -120,4 +121,20 @@ public class ResponseDetailsImpl extends MotechEntityImpl implements ResponseDet
         if(this.transitions.contains(transition))
             this.transitions.remove(transition);
     }
+
+    /**
+     * @return the tryNumber
+     */
+    public int getTryNumber() {
+        return tryNumber;
+    }
+
+    /**
+     * @param tryNumber the tryNumber to set
+     */
+    public void setTryNumber(int tryNumber) {
+        this.tryNumber = tryNumber;
+    }
+
+
 }

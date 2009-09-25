@@ -49,13 +49,15 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <constructor-arg ref="sessionFactory" />
     </bean>
 
-    <bean id="messageDetails" class="com.dreamoval.motech.core.model.MessageDetailsImpl" scope="prototype">
+    <bean id="messageDetails" class="com.dreamoval.motech.core.model.GatewayRequestImpl" scope="prototype">
     </bean>
 
-    <bean id="responseDetails" class="com.dreamoval.motech.core.model.ResponseDetailsImpl" scope="prototype">
+    <bean id="responseDetails" class="com.dreamoval.motech.core.model.GatewayResponseImpl" scope="prototype">
     </bean>
 
     <bean id="transition" class="com.dreamoval.motech.core.model.TransitionImpl" scope="prototype">
+    </bean>
+    <bean id="gatewayRequestDetails" class="com.dreamoval.motech.core.model.GatewayRequestDetailsImpl" scope="prototype">
     </bean>
 
     <!-- End of Model-->
@@ -80,9 +82,10 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="mappingResources">
             <list>
                 <value>com/dreamoval/motech/core/model/MotechEntityImpl.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/MessageDetails.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/ResponseDetails.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/GatewayRequest.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/GatewayResponse.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/Transition.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/GatewayRequestDetails.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -94,10 +97,10 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="dBSession" class="com.dreamoval.motech.core.dao.HibernateDBSessionImpl" scope="prototype">
     </bean>
 
-    <bean id="messageDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.MessageDetailsDAOImpl" scope="prototype">
+    <bean id="messageDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="responseDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.ResponseDetailsDAOImpl" scope="prototype">
+    <bean id="responseDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
     </bean>
     
     <bean id="transitionDAO" class="com.dreamoval.motech.core.dao.hibernate.TransitionDAOImpl" scope="prototype">

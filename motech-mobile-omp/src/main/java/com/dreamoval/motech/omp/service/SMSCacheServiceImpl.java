@@ -1,8 +1,8 @@
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.dao.MessageDetailsDAO;
+import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import org.apache.log4j.Logger;
 
@@ -22,9 +22,9 @@ public class SMSCacheServiceImpl implements CacheService {
      *
      * @see CacheService.saveMessage
      */
-    public void saveMessage(MessageDetails messageDetails) {
+    public void saveMessage(GatewayRequest messageDetails) {
         logger.info("Initializing DAO");
-        MessageDetailsDAO messageDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
+        GatewayRequestDAO messageDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
         
         logger.info("Caching message");
         logger.debug(messageDetails);

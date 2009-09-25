@@ -1,7 +1,7 @@
 package com.dreamoval.motech.omp.manager.clickatell;
 
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.io.BufferedReader;
@@ -43,15 +43,15 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
         }
     }
 
-    public Set<ResponseDetails> sendMessage(MessageDetails messageDetails) {
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         try {
             postData = "api_id=" + URLEncoder.encode(clickProps.getProperty("apiId"), "UTF-8");
             postData += "&user=" + URLEncoder.encode(clickProps.getProperty("user"), "UTF-8");
             postData += "&password=" + URLEncoder.encode(clickProps.getProperty("password"), "UTF-8");
-            postData += "&to=" + URLEncoder.encode(messageDetails.getRecipientsNumbers(), "UTF-8");
-            postData += "&text=" + URLEncoder.encode(messageDetails.getMessageText(), "UTF-8");
+            postData += "&to=" + URLEncoder.encode(messageDetails.getRecipientsNumber(), "UTF-8");
+            postData += "&text=" + URLEncoder.encode(messageDetails.getMessage(), "UTF-8");
             postData += "&from=" + URLEncoder.encode(clickProps.getProperty("sender", "MoTeCH"), "UTF-8");
-            postData += "&concat=" + URLEncoder.encode(String.valueOf(messageDetails.getNumberOfPages()), "UTF-8");
+            postData += "&concat=" + URLEncoder.encode(String.valueOf(messageDetails.getDateTo()), "UTF-8");
             postData += "&deliv_ack=" + URLEncoder.encode(clickProps.getProperty("deliveryAcknowledge", "1"), "UTF-8");
             postData += "&callback=" + URLEncoder.encode(clickProps.getProperty("callback", "2"), "UTF-8");
         }

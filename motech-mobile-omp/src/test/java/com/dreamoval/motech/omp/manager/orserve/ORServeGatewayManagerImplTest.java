@@ -2,10 +2,11 @@ package com.dreamoval.motech.omp.manager.orserve;
 
 import static org.easymock.EasyMock.*;
 
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Before;
@@ -42,19 +43,20 @@ public class ORServeGatewayManagerImplTest {
     public void testSendMessage() {
         System.out.println("sendMessage");
         
-        MessageDetails messageDetails = new MessageDetailsImpl();
-        messageDetails.setGlobalStatus("pending");
-        messageDetails.setMessageText("a message for testing");
-        messageDetails.setNumberOfPages(1);
-        messageDetails.setRecipientsNumbers("000000000000");
-        messageDetails.setMessageType("TEXT");
+        GatewayRequest messageDetails = new GatewayRequestImpl();
+//        TODO to yoofi conflict here
+        messageDetails.setDateFrom(new Date());
+        messageDetails.setMessage("a message for testing");
+        messageDetails.setDateTo(new Date());
+        messageDetails.setRecipientsNumber("000000000000");
+        messageDetails.setRequestId(5L);
 
         expect(
-                mockHandler.parseMessageResponse((MessageDetails) anyObject(), (String) anyObject())
-                ).andReturn(new HashSet<ResponseDetails>());
+                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject())
+                ).andReturn(new HashSet<GatewayResponse>());
         replay(mockHandler);
         
-        Set<ResponseDetails> result = instance.sendMessage(messageDetails);
+        Set<GatewayResponse> result = instance.sendMessage(messageDetails);
         assertNotNull(result);
         verify(mockHandler);
     }

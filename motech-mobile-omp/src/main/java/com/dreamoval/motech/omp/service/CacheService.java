@@ -1,7 +1,7 @@
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.omp.manager.OMPManager;
 
 /**
@@ -17,7 +17,7 @@ public interface CacheService {
      * @param messageDetails MessageDetails object to be saved to the cache
      * @return value indicating success. True for success, false for failure
      */
-    public void saveMessage(MessageDetails messageDetails);
+    public void saveMessage(GatewayRequest messageDetails);
 
     /**
      * @return the coreManager

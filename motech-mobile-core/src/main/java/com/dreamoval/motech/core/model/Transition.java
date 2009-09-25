@@ -16,7 +16,7 @@ public interface Transition extends MotechEntity {
     /**
      * @return the responseId
      */
-    ResponseDetails getResponseId();
+    GatewayResponse getResponseId();
 
     /**
      * @return the transactionDate
@@ -36,7 +36,7 @@ public interface Transition extends MotechEntity {
     /**
      * @param responseId the responseId to set
      */
-    void setResponseId(ResponseDetails responseId);
+    void setResponseId(GatewayResponse responseId);
 
     /**
      * @param transactionDate the transactionDate to set

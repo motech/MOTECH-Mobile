@@ -2,12 +2,12 @@
 
 package com.dreamoval.motech.core.manager;
 
-import com.dreamoval.motech.core.dao.MessageDetailsDAO;
-import com.dreamoval.motech.core.dao.ResponseDetailsDAO;
+import com.dreamoval.motech.core.dao.GatewayRequestDAO;
+import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.TransitionDAO;
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 import java.io.Serializable;
@@ -27,14 +27,14 @@ public interface CoreManager extends Serializable{
      * 
      * @return The newly created MessageDetails
      */
-    public MessageDetails createMessageDetails(MotechContext motechContext);
+    public GatewayRequest createMessageDetails(MotechContext motechContext);
 
     /**
      * Creates a new instance of ResponseDetails
      *
      * @return The newly created ResponseDetails
      */
-    public ResponseDetails createResponseDetails(MotechContext motechContext);
+    public GatewayResponse createResponseDetails(MotechContext motechContext);
 
     /**
      *  Creates a new instance of Transition
@@ -48,14 +48,14 @@ public interface CoreManager extends Serializable{
      *
      * @return The newly created instance of MessageDetailsDAO
      */
-    public MessageDetailsDAO createMessageDetailsDAO(MotechContext motechContext);
+    public GatewayRequestDAO createMessageDetailsDAO(MotechContext motechContext);
 
     /**
      * Creates a new instance of ResponseDetailsDAO
      *
      * @return The newly created ResponseDetailsDAO
      */
-    public ResponseDetailsDAO createResponseDetailsDAO(MotechContext motechContext);
+    public GatewayResponseDAO createResponseDetailsDAO(MotechContext motechContext);
 
     public TransitionDAO createTransitionDAO(MotechContext motechContext);
     /**

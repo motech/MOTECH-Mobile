@@ -12,7 +12,7 @@ import java.util.Set;
  * Date: Jul 24, 2009
  * @author Joseph (joseph@dreamoval.com)
  */
-public interface ResponseDetails extends MotechEntity {
+public interface GatewayResponse extends MotechEntity {
 
     /**
      * @return the gatewayMessageId
@@ -22,7 +22,7 @@ public interface ResponseDetails extends MotechEntity {
     /**
      * @return the messageId
      */
-    MessageDetails getMessageId();
+    GatewayRequest getMessageId();
 
     /**
      * @return the messageStatus
@@ -39,6 +39,11 @@ public interface ResponseDetails extends MotechEntity {
      */
    Set<Transition> getTransitions();
 
+
+   int getTryNumber();
+
+   void setTryNumber(int tryNumber);
+
     /**
      * @param gatewayMessageId the gatewayMessageId to set
      */
@@ -47,7 +52,7 @@ public interface ResponseDetails extends MotechEntity {
     /**
      * @param messageId the messageId to set
      */
-    void setMessageId(MessageDetails messageId);
+    void setMessageId(GatewayRequest messageId);
 
     /**
      * @param messageStatus the messageStatus to set

@@ -2,9 +2,10 @@ package com.dreamoval.motech.omp.service;
 
 import static org.easymock.EasyMock.*;
 
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,21 +48,22 @@ public class SMSMessagingServiceImplTest {
     public void testSendTextMessage_MessageDetails() {
         System.out.println("sendTextMessage");
 
-        MessageDetails messageDetails = new MessageDetailsImpl();
-        messageDetails.setGlobalStatus("pending");
-        messageDetails.setMessageText("a message for testing");
-        messageDetails.setNumberOfPages(1);
-        messageDetails.setRecipientsNumbers("000000000000");
-        messageDetails.setMessageType("TEXT");
+        GatewayRequest messageDetails = new GatewayRequestImpl();
+//        TODO to yoofi conflict here
+        messageDetails.setDateFrom(new Date());
+        messageDetails.setMessage("a message for testing");
+        messageDetails.setDateTo(new Date());
+        messageDetails.setRecipientsNumber("000000000000");
+        messageDetails.setRequestId(6L);
 
-        mockCache.saveMessage((MessageDetails) anyObject());
+        mockCache.saveMessage((GatewayRequest) anyObject());
         expectLastCall();
 
         expect(
-                mockGateway.sendMessage((MessageDetails) anyObject())
+                mockGateway.sendMessage((GatewayRequest) anyObject())
                 ).andReturn(null);
 
-        mockCache.saveMessage((MessageDetails) anyObject());
+        mockCache.saveMessage((GatewayRequest) anyObject());
         expectLastCall();
 
         replay(mockCache, mockGateway);

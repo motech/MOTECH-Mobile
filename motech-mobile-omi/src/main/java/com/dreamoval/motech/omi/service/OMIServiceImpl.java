@@ -1,6 +1,6 @@
 package com.dreamoval.motech.omi.service;
 
-import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omp.manager.OMPManager;
@@ -27,11 +27,12 @@ public class OMIServiceImpl implements OMIService {
      */
     public Long sendPatientMessage(Long messageId, String clinic, Date serviceDate, String patientNumber, ContactNumberType patientNumberType, MessageType messageType){
         logger.info("Creating MessageDetails object");
-        MessageDetails messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
-        messageDetails.setMessageType(messageType.toString());
-        messageDetails.setNumberOfPages(1);
-        messageDetails.setRecipientsNumbers(patientNumber);
-        messageDetails.setMessageText(storeManager.getMessage("patient"));
+        GatewayRequest messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
+//     TODO: to yoofi  conflict here
+        messageDetails.setRequestId(1L);
+        messageDetails.setDateTo(new Date());
+        messageDetails.setRecipientsNumber(patientNumber);
+        messageDetails.setMessage(storeManager.getMessage("patient"));
 
         logger.debug(messageDetails);
         logger.info("Calling MessageService.sendTextMessage");
@@ -44,12 +45,13 @@ public class OMIServiceImpl implements OMIService {
      */
     public Long sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList){
         logger.info("Creating MessageDetails object");
-        MessageDetails messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
+        GatewayRequest messageDetails = coreManager.createMessageDetails(coreManager.createMotechContext());
         messageDetails.setId(messageId);
-        messageDetails.setMessageType(MessageType.TEXT.toString());
-        messageDetails.setNumberOfPages(1);
-        messageDetails.setRecipientsNumbers(workerNumber);
-        messageDetails.setMessageText(storeManager.getMessage("worker"));
+        //TODO to yoofi confilct here
+        messageDetails.setRequestId(2L);
+        messageDetails.setDateTo(new Date());
+        messageDetails.setRecipientsNumber(workerNumber);
+        messageDetails.setMessage(storeManager.getMessage("worker"));
 
         logger.debug(messageDetails);
         logger.info("Calling MessageService.sendTextMessage");

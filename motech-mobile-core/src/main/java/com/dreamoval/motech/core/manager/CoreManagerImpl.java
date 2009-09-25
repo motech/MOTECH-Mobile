@@ -2,12 +2,12 @@
 
 package com.dreamoval.motech.core.manager;
 
-import com.dreamoval.motech.core.dao.MessageDetailsDAO;
-import com.dreamoval.motech.core.dao.ResponseDetailsDAO;
+import com.dreamoval.motech.core.dao.GatewayRequestDAO;
+import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.TransitionDAO;
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 
@@ -35,9 +35,9 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetails() }
      */
-    public MessageDetails createMessageDetails(MotechContext motechContext) {
+    public GatewayRequest createMessageDetails(MotechContext motechContext) {
         logger.info("Creating MessageDetails instance");
-        MessageDetails result = (MessageDetails) getInstance("messageDetails", MessageDetails.class);
+        GatewayRequest result = (GatewayRequest) getInstance("messageDetails", GatewayRequest.class);
 
         logger.info("Setting generated Id to the MessageDetails instance created");
         result.setId(MotechIDGenerator.generateID());
@@ -48,9 +48,9 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createResponseDetails() }
      */
-    public ResponseDetails createResponseDetails(MotechContext motechContext) {
+    public GatewayResponse createResponseDetails(MotechContext motechContext) {
         logger.info("Creating ResonseDetails instance");
-        ResponseDetails result = (ResponseDetails) getInstance("responseDetails", ResponseDetails.class);
+        GatewayResponse result = (GatewayResponse) getInstance("responseDetails", GatewayResponse.class);
 
         logger.info("Setting generated Id to the ResponseDetails instance created");
         result.setId(MotechIDGenerator.generateID());
@@ -75,9 +75,9 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetailsDAO() }
      */
-    public MessageDetailsDAO createMessageDetailsDAO(MotechContext motechContext) {
+    public GatewayRequestDAO createMessageDetailsDAO(MotechContext motechContext) {
         logger.info("Creating MessageDetailsDAO instance");
-        MessageDetailsDAO mdDAO = (MessageDetailsDAO) getInstance("messageDetailsDAO", MessageDetailsDAO.class);
+        GatewayRequestDAO mdDAO = (GatewayRequestDAO) getInstance("messageDetailsDAO", GatewayRequestDAO.class);
 
         mdDAO.setDBSession(motechContext.getDBSession());
 
@@ -87,9 +87,9 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createResponseDetailsDAO() }
      */
-    public ResponseDetailsDAO createResponseDetailsDAO(MotechContext motechContext) {
+    public GatewayResponseDAO createResponseDetailsDAO(MotechContext motechContext) {
         logger.info("Creating ResponseDetailsDAO instance");
-        ResponseDetailsDAO rdDAO = (ResponseDetailsDAO) getInstance("responseDetailsDAO", ResponseDetailsDAO.class);
+        GatewayResponseDAO rdDAO = (GatewayResponseDAO) getInstance("responseDetailsDAO", GatewayResponseDAO.class);
         
         rdDAO.setDBSession(motechContext.getDBSession());
 

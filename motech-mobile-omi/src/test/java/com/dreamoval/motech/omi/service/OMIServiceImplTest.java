@@ -1,8 +1,8 @@
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
@@ -62,7 +62,7 @@ public class OMIServiceImplTest {
 
         expect(
                 mockCore.createMessageDetails((MotechContext)anyObject())
-                ).andReturn(new MessageDetailsImpl());
+                ).andReturn(new GatewayRequestImpl());
         expect(
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
@@ -73,7 +73,7 @@ public class OMIServiceImplTest {
                 mockOMP.createMessagingService()
                 ).andReturn(mockMessagingService);
         expect(
-                mockMessagingService.sendTextMessage((MessageDetails) anyObject())
+                mockMessagingService.sendTextMessage((GatewayRequest) anyObject())
                 ).andReturn(1L);
         replay(mockCore, mockStore, mockOMP, mockMessagingService);
 
@@ -96,7 +96,7 @@ public class OMIServiceImplTest {
 
         expect(
                 mockCore.createMessageDetails((MotechContext)anyObject())
-                ).andReturn(new MessageDetailsImpl());
+                ).andReturn(new GatewayRequestImpl());
         expect(
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
@@ -107,7 +107,7 @@ public class OMIServiceImplTest {
                 mockOMP.createMessagingService()
                 ).andReturn(mockMessagingService);
         expect(
-                mockMessagingService.sendTextMessage((MessageDetails) anyObject())
+                mockMessagingService.sendTextMessage((GatewayRequest) anyObject())
                 ).andReturn(1L);
         replay(mockCore, mockStore, mockOMP, mockMessagingService);
 

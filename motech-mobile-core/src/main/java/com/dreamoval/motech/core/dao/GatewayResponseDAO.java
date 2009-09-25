@@ -1,7 +1,7 @@
 
 package com.dreamoval.motech.core.dao;
 
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayResponse;
 
 /**
  * ResponseDetailsDAO is an interface that defines only methods and attributes that are specific to ResponseDetails entity
@@ -9,6 +9,6 @@ import com.dreamoval.motech.core.model.ResponseDetails;
  * 
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface ResponseDetailsDAO<T extends ResponseDetails> extends GenericDAO<T>{
+public interface GatewayResponseDAO<T extends GatewayResponse> extends GenericDAO<T>{
 
 }

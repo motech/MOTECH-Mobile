@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class TransitionImpl extends MotechEntityImpl implements Transition{
     
-    private ResponseDetails responseId;
+    private GatewayResponse responseId;
     private String transactionType;
     private String transactionDescription;
     private Date transactionDate;
@@ -20,14 +20,14 @@ public class TransitionImpl extends MotechEntityImpl implements Transition{
     /**
      * @return the responseId
      */
-    public ResponseDetails getResponseId() {
+    public GatewayResponse getResponseId() {
         return responseId;
     }
 
     /**
      * @param responseId the responseId to set
      */
-    public void setResponseId(ResponseDetails responseId) {
+    public void setResponseId(GatewayResponse responseId) {
         this.responseId = responseId;
     }
 

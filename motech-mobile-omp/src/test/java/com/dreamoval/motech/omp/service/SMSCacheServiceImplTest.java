@@ -1,13 +1,14 @@
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.dao.MessageDetailsDAO;
+import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import static org.easymock.EasyMock.*;
 
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert.*;
@@ -23,7 +24,7 @@ public class SMSCacheServiceImplTest {
     SMSCacheServiceImpl instance;
 
     CoreManager mockCore;
-    MessageDetailsDAO mockMessageDAO;
+    GatewayRequestDAO mockMessageDAO;
 
     public SMSCacheServiceImplTest() {
     }
@@ -31,7 +32,7 @@ public class SMSCacheServiceImplTest {
     @Before
     public void setUp(){
         mockCore = createMock(CoreManager.class);
-        mockMessageDAO = createMock(MessageDetailsDAO.class);
+        mockMessageDAO = createMock(GatewayRequestDAO.class);
         
         instance = new SMSCacheServiceImpl();
         instance.setCoreManager(mockCore);
@@ -44,12 +45,13 @@ public class SMSCacheServiceImplTest {
     public void testSaveMessage() {
         System.out.println("saveMessage");
 
-        MessageDetails messageDetails = new MessageDetailsImpl();
-        messageDetails.setGlobalStatus("pending");
-        messageDetails.setMessageText("a message for testing");
-        messageDetails.setNumberOfPages(1);
-        messageDetails.setRecipientsNumbers("000000000000");
-        messageDetails.setMessageType("TEXT");
+        GatewayRequest messageDetails = new GatewayRequestImpl();
+//        TODO to yoofi conflick here
+        messageDetails.setDateFrom(new Date());
+        messageDetails.setMessage("a message for testing");
+        messageDetails.setDateTo(new Date());
+        messageDetails.setRecipientsNumber("000000000000");
+        messageDetails.setRequestId(2L);
         
         expect(
                 mockCore.createMessageDetailsDAO((MotechContext) anyObject())
@@ -58,7 +60,7 @@ public class SMSCacheServiceImplTest {
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
         expect(
-                mockMessageDAO.save((MessageDetails) anyObject())
+                mockMessageDAO.save((GatewayRequest) anyObject())
                 ).andReturn(messageDetails);
         replay(mockCore, mockMessageDAO);
 

@@ -2,9 +2,9 @@
 
 package com.dreamoval.motech.core.dao.hibernate;
 
-import com.dreamoval.motech.core.dao.MessageDetailsDAO;
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
+import com.dreamoval.motech.core.dao.GatewayRequestDAO;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
@@ -20,10 +20,10 @@ import org.hibernate.criterion.Restrictions;
  * @author Joseph Djomeda (joseph@dreamoval.com)
  * @author Henry Sampson (henry@dreamoval.com)
  */
-public class MessageDetailsDAOImpl extends HibernateGenericDAOImpl<MessageDetailsImpl> implements MessageDetailsDAO<MessageDetailsImpl> {
+public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayRequestImpl> implements GatewayRequestDAO<GatewayRequestImpl> {
 
-private static Logger logger = Logger.getLogger(MessageDetailsImpl.class);
-  public MessageDetailsDAOImpl(){}
+private static Logger logger = Logger.getLogger(GatewayRequestImpl.class);
+  public GatewayRequestDAOImpl(){}
 
   /**
    * Searches for all messages with status: <code>status</code>
@@ -31,11 +31,11 @@ private static Logger logger = Logger.getLogger(MessageDetailsImpl.class);
    * @param status The status to use as criteria for the search
    * @return The list of MessageDetails object with status: <code>status</code>
    */
-    public List<MessageDetails> getByStatus(String status) {
+    public List<GatewayRequest> getByStatus(String status) {
         logger.info("Calling getByStatus");
         try
         {
-            return (List<MessageDetails>) getDBSession().getSession().createCriteria(getPersistentClass())
+            return (List<GatewayRequest>) getDBSession().getSession().createCriteria(getPersistentClass())
                     .add(Restrictions.eq("globalStatus", status)).list();
         }
         catch(Exception ex)

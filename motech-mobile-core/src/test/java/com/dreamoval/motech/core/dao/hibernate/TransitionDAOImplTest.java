@@ -84,7 +84,7 @@ public class TransitionDAOImplTest {
         setUpInitialData();
     }
 
-    
+
     public void setUpInitialData() {
         Transaction tx = ((Session) tDAO.getDBSession().getSession()).beginTransaction();
         tDAO.save(t1);
@@ -94,7 +94,7 @@ public class TransitionDAOImplTest {
         tDAO.save(t5);
         tx.commit();
     }
-    
+
 //    @Ignore
     @Test
     public void testSave() {
@@ -103,15 +103,15 @@ public class TransitionDAOImplTest {
        Session session = ((Session) tDAO.getDBSession().getSession());
        session.beginTransaction();
        tDAO.save(t1);
-      
+
        session.getTransaction().commit();
        session.beginTransaction();
-       Transition fromdb1 = (TransitionImpl)session.get(TransitionImpl.class, t1.getId());       
+       Transition fromdb1 = (TransitionImpl)session.get(TransitionImpl.class, t1.getId());
        session.getTransaction().commit();
        Assert.assertEquals(t1.getId(), fromdb1.getId());
        Assert.assertEquals(t1.getTransactionDate(), fromdb1.getTransactionDate());
        Assert.assertEquals(t1.getTransactionDescription(), fromdb1.getTransactionDescription());
-    
+
     }
 
 
@@ -178,7 +178,7 @@ public class TransitionDAOImplTest {
           session.getTransaction().commit();
          for(Transition t : allfromdb)
              System.out.println(t.getId() + " " + t.getTransactionDescription());
-          Assert.assertEquals(all.size(), allfromdb.size()); 
+          Assert.assertEquals(all.size(), allfromdb.size());
           Assert.assertEquals(true, allfromdb.contains(t2));
           Assert.assertEquals(true, allfromdb.contains(t3));
           Assert.assertEquals(true, allfromdb.contains(t4));

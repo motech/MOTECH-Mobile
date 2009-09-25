@@ -2,11 +2,11 @@
 
 package com.dreamoval.motech.core.dao.hibernate;
 
-import com.dreamoval.motech.core.dao.MessageDetailsDAO;
+import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.MessageDetailsImpl;
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -41,32 +41,32 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/core-config.xml"})
-public class MessageDetailsDAOImplTest {
+public class GatewayRequestDAOImplTest {
 
     @Autowired
     CoreManager coreManager;
-    MessageDetailsDAO mDDAO;
+    GatewayRequestDAO mDDAO;
 
     @Autowired
-    private MessageDetails md1;
+    private GatewayRequest md1;
     @Autowired
-    private MessageDetails md2;
+    private GatewayRequest md2;
     @Autowired
-    private MessageDetails md3;
+    private GatewayRequest md3;
     @Autowired
-    private MessageDetails md4;
+    private GatewayRequest md4;
     @Autowired
-    private MessageDetails md5;
+    private GatewayRequest md5;
     @Autowired
-    private MessageDetails md6;
+    private GatewayRequest md6;
     String text;
   @Autowired
-     private MessageDetails md7;
+     private GatewayRequest md7;
     @Autowired
-    private ResponseDetails rd1;
+    private GatewayResponse rd1;
 
     @Autowired
-    private ResponseDetails rd2;
+    private GatewayResponse rd2;
 
 
 
@@ -84,36 +84,36 @@ public class MessageDetailsDAOImplTest {
          mDDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
           text = "First";
           md1.setId(1L);
-        md1.setMessageText(text);
-        md1.setRecipientsNumbers("123445");
-        md1.setGlobalStatus("Pending");
+        md1.setMessage(text);
+        md1.setRecipientsNumber("123445");
+        md1.setDateFrom(new Date());
 
         md2.setId(2L);
-        md2.setMessageText("Second");
-        md2.setRecipientsNumbers("123445");
-        md2.setGlobalStatus("Pending");
+        md2.setMessage("Second");
+        md2.setRecipientsNumber("123445");
+        md2.setDateFrom(new Date());
 
         md3.setId(3L);
-        md3.setMessageText("Third");
-        md3.setRecipientsNumbers("123445");
-        md3.setGlobalStatus("TRIAL");
+        md3.setMessage("Third");
+        md3.setRecipientsNumber("123445");
+        md3.setDateFrom(new Date());
 
         md4.setId(4L);
-        md4.setMessageText("Test for dummies 4");
-        md4.setRecipientsNumbers("123445, 54321");
-        md4.setGlobalStatus("Delivered");
+        md4.setMessage("Test for dummies 4");
+        md4.setRecipientsNumber("123445, 54321");
+        md4.setDateFrom(new Date());
 
         md5.setId(5L);
         md5.setDateSent(new Date());
-        md5.setRecipientsNumbers("12345,54321");
-        md5.setMessageText("insertion with responsedetailsobject");
-        md5.setGlobalStatus("Failed");
+        md5.setRecipientsNumber("12345,54321");
+        md5.setMessage("insertion with responsedetailsobject");
+        md5.setDateFrom(new Date());
 
         md6.setId(6L);
         md6.setDateSent(new Date());
-        md6.setRecipientsNumbers("12345,54321");
-        md6.setMessageText("another test for dummies");
-        md6.setGlobalStatus("Failed");
+        md6.setRecipientsNumber("12345,54321");
+        md6.setMessage("another test for dummies");
+        md6.setDateFrom(new Date());
 
 
         rd1.setId(8L);
@@ -147,28 +147,11 @@ public class MessageDetailsDAOImplTest {
     }
 
 
-    public MessageDetailsDAOImplTest() {
+    public GatewayRequestDAOImplTest() {
 
     }
 
-    /**
-     * Test of getByStatus method, of class MessageDetailsDAOImpl.
-     */
-    @Test
-    public void testGetByStatus() {
-        System.out.println("getByStatus");
-        String status = "Pending";
-        Transaction tx = ((Session)mDDAO.getDBSession().getSession()).beginTransaction();
 
-        tx.commit();
-
-        List<MessageDetails> expResult = new ArrayList<MessageDetails>();
-        expResult.add(md1);
-        expResult.add(md2);
-
-        List<MessageDetails> result = mDDAO.getByStatus(status);
-        Assert.assertEquals(expResult, result);
-    }
 
     /**
      *
@@ -183,7 +166,7 @@ public class MessageDetailsDAOImplTest {
         tx.commit();
 
         session.beginTransaction();
-        MessageDetails fromdb =(MessageDetailsImpl) session.get(MessageDetailsImpl.class, md2.getId());
+        GatewayRequest fromdb =(GatewayRequestImpl) session.get(GatewayRequestImpl.class, md2.getId());
         session.getTransaction().commit();
         Assert.assertNull(fromdb);
 
@@ -197,25 +180,25 @@ public class MessageDetailsDAOImplTest {
     public void testUpdate() {
         System.out.println("Update");
 
-        md1.setMessageText("First altered");
-        md1.setGlobalStatus("Failed");
-        md1.setNumberOfPages(2);
+        md1.setMessage("First altered");
+        md1.setDateFrom(new Date());
+        md1.setDateTo(new Date());
         Session session = ((Session)mDDAO.getDBSession().getSession());
         Transaction tx = session.beginTransaction();
         mDDAO.save(md1);
         tx.commit();
 
         session.beginTransaction();
-        MessageDetails fromdb =(MessageDetailsImpl) session.get(MessageDetailsImpl.class, md1.getId());
+        GatewayRequest fromdb =(GatewayRequestImpl) session.get(GatewayRequestImpl.class, md1.getId());
         session.getTransaction().commit();
-        Assert.assertFalse(text.equals(fromdb.getMessageText()));
+        Assert.assertFalse(text.equals(fromdb.getMessage()));
     }
 
 //        @Ignore
         @Test
         public void testSaveWithResponse() {
             System.out.println("saving with response object");
-            List<ResponseDetails> res = new ArrayList<ResponseDetails>();
+            List<GatewayResponse> res = new ArrayList<GatewayResponse>();
             res.add(rd1);
             res.add(rd2);
             md5.addResponse(res);
@@ -223,11 +206,11 @@ public class MessageDetailsDAOImplTest {
             Transaction tx = session.beginTransaction();
             mDDAO.save(md5);
             tx.commit();
-            MessageDetails fromdb = (MessageDetailsImpl) session.get(MessageDetailsImpl.class, md5.getId());
-            Set<ResponseDetails> fromdbchild = fromdb.getResponseDetails();
-            ArrayList<ResponseDetails> children = new ArrayList<ResponseDetails>();
+            GatewayRequest fromdb = (GatewayRequestImpl) session.get(GatewayRequestImpl.class, md5.getId());
+            Set<GatewayResponse> fromdbchild = fromdb.getResponseDetails();
+            ArrayList<GatewayResponse> children = new ArrayList<GatewayResponse>();
             for(Iterator it = fromdbchild.iterator();it.hasNext();) {
-                children.add((ResponseDetails)it.next());
+                children.add((GatewayResponse)it.next());
             }
 
             Assert.assertEquals(2, fromdbchild.size());
@@ -247,26 +230,26 @@ public class MessageDetailsDAOImplTest {
         public void testGetById() {
             System.out.println("testing FindById");
             Transaction tx = ((Session)mDDAO.getDBSession().getSession()).beginTransaction();
-            MessageDetails result = (MessageDetails) mDDAO.getById(md1.getId());
+            GatewayRequest result = (GatewayRequest) mDDAO.getById(md1.getId());
             Assert.assertSame(md1, result);
             Assert.assertEquals(md1.getId(), result.getId());
-            Assert.assertEquals(md1.getMessageText(), result.getMessageText());
-            Assert.assertEquals(md1.getRecipientsNumbers(), result.getRecipientsNumbers());
-            Assert.assertEquals(md1.getGlobalStatus(), result.getGlobalStatus());
+            Assert.assertEquals(md1.getMessage(), result.getMessage());
+            Assert.assertEquals(md1.getRecipientsNumber(), result.getRecipientsNumber());
+            Assert.assertEquals(md1.getDateFrom(), result.getDateFrom());
         }
 
         @Test
         public void testFindByExample(){
             System.out.println("testing findByCriteria");
 
-         List<MessageDetails> expResult = new ArrayList<MessageDetails>();
+         List<GatewayRequest> expResult = new ArrayList<GatewayRequest>();
          expResult.add(md1);
        expResult.add(md2);
          expResult.add(md3);
 
-            md7.setRecipientsNumbers("123445");
+            md7.setRecipientsNumber("123445");
             Transaction tx= ((Session) mDDAO.getDBSession().getSession()).beginTransaction();
-            List<MessageDetails> result = mDDAO.findByExample(md7);
+            List<GatewayRequest> result = mDDAO.findByExample(md7);
             tx.commit();
              Assert.assertEquals(expResult.size(), result.size());
              Assert.assertEquals(true, result.contains(md1));

@@ -1,7 +1,7 @@
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -21,13 +21,13 @@ public class SMSMessagingServiceImpl implements MessagingService {
      *
      * @see sendTextMessage(MessageDetails messageDetails)
      */
-    public Long sendTextMessage(MessageDetails messageDetails) {
+    public Long sendTextMessage(GatewayRequest messageDetails) {
         logger.info("Calling CacheService.saveMessage");
         logger.debug(messageDetails);
         this.cache.saveMessage(messageDetails);
 
         logger.info("Sending message to gateway");
-        Set<ResponseDetails> responseList = this.gatewayManager.sendMessage(messageDetails);
+        Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(messageDetails);
 
         logger.debug(responseList);
         logger.info("Updating message status");

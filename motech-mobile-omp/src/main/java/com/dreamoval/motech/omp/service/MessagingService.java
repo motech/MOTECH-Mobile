@@ -1,6 +1,6 @@
 package com.dreamoval.motech.omp.service;
 
-import com.dreamoval.motech.core.model.MessageDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 
 /**
@@ -17,7 +17,7 @@ public interface MessagingService {
      * @param messageDetails MessageDetails object containing information about the message to be sent
      * @return The id of the message sent
      */
-    public Long sendTextMessage(MessageDetails messageDetails);
+    public Long sendTextMessage(GatewayRequest messageDetails);
 
     /**
      * @return the cache

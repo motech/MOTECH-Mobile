@@ -2,8 +2,8 @@
 
 package com.dreamoval.motech.core.dao.hibernate;
 
-import com.dreamoval.motech.core.dao.ResponseDetailsDAO;
-import com.dreamoval.motech.core.model.ResponseDetailsImpl;
+import com.dreamoval.motech.core.dao.GatewayResponseDAO;
+import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import org.apache.log4j.Logger;
 
 
@@ -16,10 +16,10 @@ import org.apache.log4j.Logger;
  * @author Henry Sampson (henry@dreamoval.com)
  * 
  */
-public class ResponseDetailsDAOImpl extends HibernateGenericDAOImpl <ResponseDetailsImpl> implements ResponseDetailsDAO<ResponseDetailsImpl> {
-private static Logger logger = Logger.getLogger(ResponseDetailsDAOImpl.class);
+public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl <GatewayResponseImpl> implements GatewayResponseDAO<GatewayResponseImpl> {
+private static Logger logger = Logger.getLogger(GatewayResponseDAOImpl.class);
 
-    public ResponseDetailsDAOImpl() {
+    public GatewayResponseDAOImpl() {
     }
     
 }

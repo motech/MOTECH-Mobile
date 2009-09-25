@@ -1,8 +1,8 @@
 package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import java.util.Set;
 
 /**
@@ -18,7 +18,7 @@ public interface GatewayMessageHandler {
      * @param gatewayResponse
      * @return
      */
-    public Set<ResponseDetails> parseMessageResponse(MessageDetails message, String gatewayResponse);
+    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse);
 
     /**
      *

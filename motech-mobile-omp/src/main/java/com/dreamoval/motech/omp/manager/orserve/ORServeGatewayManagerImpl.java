@@ -1,7 +1,7 @@
 package com.dreamoval.motech.omp.manager.orserve;
 
-import com.dreamoval.motech.core.model.MessageDetails;
-import com.dreamoval.motech.core.model.ResponseDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.outreachcity.orserve.messaging.SMSMessenger;
@@ -28,7 +28,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
      *
      * @see GatewayManager.send
      */
-    public Set<ResponseDetails> sendMessage(MessageDetails messageDetails) {
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         String gatewayResponse;
 
         if(messageDetails == null)
@@ -47,7 +47,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         logger.info("Calling sendMessage method of ORServe message gateway");
         logger.debug(messageDetails);
         try{
-            gatewayResponse = soap.sendMessage(messageDetails.getMessageText(), messageDetails.getRecipientsNumbers(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getNumberOfPages()));
+            gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getDateTo()));
         }
         catch(Exception ex){
             logger.fatal("Error sending message", ex);
