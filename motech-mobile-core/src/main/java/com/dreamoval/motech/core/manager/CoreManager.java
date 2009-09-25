@@ -4,6 +4,7 @@ package com.dreamoval.motech.core.manager;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
+import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.TransitionDAO;
 import com.dreamoval.motech.core.model.GatewayRequest;
@@ -57,7 +58,20 @@ public interface CoreManager extends Serializable{
      */
     public GatewayResponseDAO createResponseDetailsDAO(MotechContext motechContext);
 
+    /**
+     *
+     * @param motechContext
+     * @return
+     */
     public TransitionDAO createTransitionDAO(MotechContext motechContext);
+
+
+    /**
+     * Creates a new instance of MessageRequestDAO
+     * @param motechContext motechcontext to pass
+     * @return the newly created MessageRequestDAO
+     */
+    public MessageRequestDAO createMessageRequestDAO(MotechContext motechContext);
     /**
      * @return the sessionContainer
      */

@@ -4,6 +4,7 @@ package com.dreamoval.motech.core.manager;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
+import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.TransitionDAO;
 import com.dreamoval.motech.core.model.GatewayRequest;
@@ -95,7 +96,17 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
 
         return rdDAO;
     }
-    
+
+    /**
+     *
+     @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageRequestDAO() }
+     */
+    public MessageRequestDAO createMessageRequestDAO(MotechContext motechContext) {
+        logger.info("Creating ResponseDetailsDAO instance");
+        MessageRequestDAO mrDAO =(MessageRequestDAO) getInstance("messageRequestDAO", MessageRequestDAO.class);
+        mrDAO.setDBSession(motechContext.getDBSession());
+        return mrDAO;
+    }
     /**
      *
      * @param motechContext
@@ -143,8 +154,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         logger.debug("Calling getInstance");
         return applicationContext.getBean(beanName, reqType);
     }
-
-   
 
     
 }

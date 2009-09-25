@@ -60,6 +60,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="gatewayRequestDetails" class="com.dreamoval.motech.core.model.GatewayRequestDetailsImpl" scope="prototype">
     </bean>
 
+    <bean id="messageRequest" class="com.dreamoval.motech.core.model.MessageRequestImpl" scope="prototype">
+    </bean>
+
     <!-- End of Model-->
 
     <!-- Data Access -->
@@ -86,6 +89,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/core/model/GatewayResponse.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/Transition.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/GatewayRequestDetails.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/MessageRequest.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -104,6 +108,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     </bean>
     
     <bean id="transitionDAO" class="com.dreamoval.motech.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
+    </bean>
+
+    <bean id="messageRequestDAO" class="com.dreamoval.motech.core.dao.hibernate.MessageRequestDAOImpl" scope="prototype">
     </bean>
 
     <!-- End of Data Access-->

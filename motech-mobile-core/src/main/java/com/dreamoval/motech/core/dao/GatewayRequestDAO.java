@@ -3,7 +3,6 @@
 package com.dreamoval.motech.core.dao;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
-import java.util.List;
 
 /*
  * MessageDetailsDao is an interface that defines only methods and attributes that are specific to MessageDetails entity

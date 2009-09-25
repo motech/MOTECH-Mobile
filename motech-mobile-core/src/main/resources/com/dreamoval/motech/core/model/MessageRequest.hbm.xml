@@ -1,6 +1,14 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.dreamoval.motech.core.model.MessageRequest" optimistic-lock="version" polymorphism="implicit" select-before-update="false"/>
+<hibernate-mapping package="com.dreamoval.motech.core.model">
+  <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="Request">
+    <property name="recipient_name"/>
+    <property name="language"/>
+    <property name="schedule"/>
+    <property name="message_type"/>
+    <property name="p13n_data"/>
+    <property name="notification_type"/>
+    <property name="date_created" type="date"/>
+    <property name="date_processed" type="date"/>
+  </union-subclass>
 </hibernate-mapping>
--->
