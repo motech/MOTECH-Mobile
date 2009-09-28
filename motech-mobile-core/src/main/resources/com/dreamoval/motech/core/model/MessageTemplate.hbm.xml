@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dreamoval.motech.core.model">
+  <union-subclass  name="MessageTemplateImpl" extends="MotechEntityImpl">
+      <property name="notification_type"/>
+      <property name="language" length="10" />
+      <property name="date_created" type="date" />
+  </union-subclass>
+</hibernate-mapping>

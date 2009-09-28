@@ -4,11 +4,18 @@ package com.dreamoval.motech.core.manager;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
+import com.dreamoval.motech.core.dao.LanguageDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
+import com.dreamoval.motech.core.dao.MessageTemplateDAO;
+import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.TransitionDAO;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.Language;
+import com.dreamoval.motech.core.model.MessageRequest;
+import com.dreamoval.motech.core.model.MessageTemplate;
+import com.dreamoval.motech.core.model.NotificationType;
 import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 import java.io.Serializable;
@@ -45,6 +52,36 @@ public interface CoreManager extends Serializable{
     public Transition createTransition(MotechContext motechContext);
 
     /**
+     *  Creates a new instance of MessageRequest
+     * @param motechContext takes a instance of MotechContext
+     * @return the newly created MessageRequest
+     */
+    public MessageRequest createMessageRequest(MotechContext motechContext);
+
+    /**
+     *  Creates a new instance of Language
+     * @param motechContext takes a instance of MotechContext
+     * @return the newly created Language
+     */
+    public Language createLanguage(MotechContext motechContext);
+
+
+
+    /**
+     *  Creates a new instance of MessageTemplate
+     * @param motechContext takes a instance of MotechContext
+     * @return the newly created MessageTemplate
+     */
+    public MessageTemplate createMessageTemplate(MotechContext motechContext);
+
+    /**
+     *  Creates a new instance of NotificationType
+     * @param motechContext takes a instance of MotechContext
+     * @return the newly created NotificationType
+     */
+    public NotificationType createNotificationType(MotechContext motechContext);
+
+    /**
      * Creates a new instance of MessageDetailsDAO
      *
      * @return The newly created instance of MessageDetailsDAO
@@ -72,6 +109,28 @@ public interface CoreManager extends Serializable{
      * @return the newly created MessageRequestDAO
      */
     public MessageRequestDAO createMessageRequestDAO(MotechContext motechContext);
+
+    /**
+     * Creates a new instance of LanguageDAO
+     * @param motechContext motechcontext to pass
+     * @return the newly created LanguageDAO
+     */
+
+    public LanguageDAO createLanguageDAO(MotechContext motechContext);
+
+    /**
+     * Creates a new instance of MessateTemplateDAO
+     * @param motechContext motechcontext to pass
+     * @return the newly created MessageTemplateDAO
+     */
+    public MessageTemplateDAO createMessageTemplateDAO(MotechContext motechContext);
+
+    /**
+     * Creates a new instance of NotificationTypeDAO
+     * @param motechContext motechcontext to pass
+     * @return the newly created NotificationTypeDAO
+     */
+    public NotificationTypeDAO createNotificationTypeDAO(MotechContext motechContext);
     /**
      * @return the sessionContainer
      */

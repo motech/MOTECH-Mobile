@@ -22,6 +22,7 @@ public interface MessageRequest extends MotechEntity {
     int getNotification_type();
     Date getDate_created();
     Date getDate_processed();
+    String getRecipient_number();
 
     void setRecipient_name(String recipient_name);
     void setLanguage(String language);
@@ -31,4 +32,5 @@ public interface MessageRequest extends MotechEntity {
     void setNotification_type(int notification_type);
     void setDate_created(Date date_created);
     void setDate_processed(Date date_processed);
+    void setRecipient_number(String recipient_number);
 }

@@ -21,6 +21,7 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private Date date_created;
     private Date date_processed;
     private String recipient_name;
+    private String recipient_number;
 
     /**
      * @return the language
@@ -133,6 +134,21 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     public void setRecipient_name(String recipient_name) {
         this.recipient_name = recipient_name;
     }
+
+    /**
+     * @return the recipient_number
+     */
+    public String getRecipient_number() {
+        return recipient_number;
+    }
+
+    /**
+     * @param recipient_number the recipient_number to set
+     */
+    public void setRecipient_number(String recipient_number) {
+        this.recipient_number = recipient_number;
+    }
+
 
 
 

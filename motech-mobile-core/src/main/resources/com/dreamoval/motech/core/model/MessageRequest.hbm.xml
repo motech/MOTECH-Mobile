@@ -8,6 +8,7 @@
     <property name="message_type"/>
     <property name="p13n_data"/>
     <property name="notification_type"/>
+    <property name="recipient_number"/>
     <property name="date_created" type="date"/>
     <property name="date_processed" type="date"/>
   </union-subclass>

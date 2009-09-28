@@ -4,11 +4,18 @@ package com.dreamoval.motech.core.manager;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
+import com.dreamoval.motech.core.dao.LanguageDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
+import com.dreamoval.motech.core.dao.MessageTemplateDAO;
+import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.TransitionDAO;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.Language;
+import com.dreamoval.motech.core.model.MessageRequest;
+import com.dreamoval.motech.core.model.MessageTemplate;
+import com.dreamoval.motech.core.model.NotificationType;
 import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 
@@ -47,6 +54,15 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     }
 
     /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createLanguage() }
+     */
+    public Language createLanguage(MotechContext motechContext) {
+        logger.info("Creating Language instance");
+        Language result = (Language) getInstance("language", Language.class);
+        return result;
+    }
+
+    /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createResponseDetails() }
      */
     public GatewayResponse createResponseDetails(MotechContext motechContext) {
@@ -70,6 +86,27 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
 
         logger.info("Setting generated Id to the Transition instance created");
         result.setId(MotechIDGenerator.generateID());
+
+        return result;
+    }
+
+    public MessageRequest createMessageRequest(MotechContext motechContext) {
+        logger.info("Creating MessageRequest instance");
+        MessageRequest result = (MessageRequest) getInstance("messageRequest", MessageRequest.class);
+
+        return result;
+    }
+
+    public MessageTemplate createMessageTemplate(MotechContext motechContext) {
+        logger.info("Creating MessageTemplate instance");
+        MessageTemplate result = (MessageTemplate) getInstance("messageTemplate", MessageTemplate.class);
+
+        return result;
+    }
+
+    public NotificationType createNotificationType(MotechContext motechContext) {
+        logger.info("Creating NotificationType instance");
+        NotificationType result = (NotificationType) getInstance("notificationType", NotificationType.class);
 
         return result;
     }
@@ -119,6 +156,43 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         return tDAO;
     }
 
+    /**
+     *
+     * @param motechContext
+     * @return
+     */
+    public LanguageDAO createLanguageDAO(MotechContext motechContext) {
+        logger.info("Creating LanguageDAO instance");
+        LanguageDAO lDAO =(LanguageDAO)getInstance("languageDAO", LanguageDAO.class);
+        lDAO.setDBSession(motechContext.getDBSession());
+        return lDAO;
+    }
+
+
+    /**
+     *
+     * @param motechContext
+     * @return
+     */
+    public MessageTemplateDAO createMessageTemplateDAO(MotechContext motechContext) {
+        logger.info("Creating messageTemplateDAO instance");
+        MessageTemplateDAO mDAO =(MessageTemplateDAO)getInstance("messageTemplateDAO", MessageTemplateDAO.class);
+        mDAO.setDBSession(motechContext.getDBSession());
+        return mDAO;
+    }
+
+    /**
+     *
+     * @param motechContext
+     * @return
+     */
+    public NotificationTypeDAO createNotificationTypeDAO(MotechContext motechContext) {
+        logger.info("Creating notiticationTypeDAO instance");
+        NotificationTypeDAO nDAO =(NotificationTypeDAO)getInstance("notificationTypeDAO", NotificationTypeDAO.class);
+        nDAO.setDBSession(motechContext.getDBSession());
+        return nDAO;
+    }
+
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         logger.info("Setting te applicationContext property");
         this.applicationContext = applicationContext;
@@ -154,6 +228,10 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         logger.debug("Calling getInstance");
         return applicationContext.getBean(beanName, reqType);
     }
+
+
+
+
 
     
 }

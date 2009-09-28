@@ -30,7 +30,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <context:annotation-config />
-    <tx:annotation-driven /> 
+    <tx:annotation-driven />
     
     <!--Spring specific-->
     <bean id="propertyConfigurer"
@@ -41,7 +41,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>classpath:jdbc.properties</value>
             </list>
         </property>
-    </bean> 
+    </bean>
 
     <!-- Model -->
 
@@ -61,6 +61,17 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     </bean>
 
     <bean id="messageRequest" class="com.dreamoval.motech.core.model.MessageRequestImpl" scope="prototype">
+    </bean>
+
+    <!--<bean id="messageRequestDetails" class="com.dreamoval.motech.core.model.MessageRequestDetailsImpl" scope="prototype">
+    </bean>-->
+
+    <bean id="language" class="com.dreamoval.motech.core.model.LanguageImpl" scope="prototype">
+    </bean>
+
+    <bean id="messageTemplate" class="com.dreamoval.motech.core.model.MessageTemplateImpl" scope="prototype">
+    </bean>
+    <bean id="notificationType" class="com.dreamoval.motech.core.model.NotificationTypeImpl" scope="prototype">
     </bean>
 
     <!-- End of Model-->
@@ -90,6 +101,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/core/model/Transition.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/GatewayRequestDetails.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/MessageRequest.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/Language.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/MessageTemplate.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/NotificationType.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -111,6 +125,14 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     </bean>
 
     <bean id="messageRequestDAO" class="com.dreamoval.motech.core.dao.hibernate.MessageRequestDAOImpl" scope="prototype">
+    </bean>
+
+    <bean id="languageDAO" class="com.dreamoval.motech.core.dao.hibernate.LanguageDAOImpl" scope="prototype">
+    </bean>
+    <bean id="messageTemplateDAO" class="com.dreamoval.motech.core.dao.hibernate.MessageTemplateDAOImpl" scope="prototype">
+    </bean>
+
+    <bean id="notificationTypeDAO" class="com.dreamoval.motech.core.dao.hibernate.NotificationTypeDAOImpl" scope="prototype">
     </bean>
 
     <!-- End of Data Access-->
