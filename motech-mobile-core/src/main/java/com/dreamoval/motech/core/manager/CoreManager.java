@@ -35,14 +35,14 @@ public interface CoreManager extends Serializable{
      * 
      * @return The newly created MessageDetails
      */
-    public GatewayRequest createMessageDetails(MotechContext motechContext);
+    public GatewayRequest createGatewayRequest(MotechContext motechContext);
 
     /**
      * Creates a new instance of ResponseDetails
      *
      * @return The newly created ResponseDetails
      */
-    public GatewayResponse createResponseDetails(MotechContext motechContext);
+    public GatewayResponse createGatewayResponse(MotechContext motechContext);
 
     /**
      *  Creates a new instance of Transition
@@ -86,14 +86,14 @@ public interface CoreManager extends Serializable{
      *
      * @return The newly created instance of MessageDetailsDAO
      */
-    public GatewayRequestDAO createMessageDetailsDAO(MotechContext motechContext);
+    public GatewayRequestDAO createGatewayRequestDAO(MotechContext motechContext);
 
     /**
      * Creates a new instance of ResponseDetailsDAO
      *
      * @return The newly created ResponseDetailsDAO
      */
-    public GatewayResponseDAO createResponseDetailsDAO(MotechContext motechContext);
+    public GatewayResponseDAO createGatewayResponseDAO(MotechContext motechContext);
 
     /**
      *

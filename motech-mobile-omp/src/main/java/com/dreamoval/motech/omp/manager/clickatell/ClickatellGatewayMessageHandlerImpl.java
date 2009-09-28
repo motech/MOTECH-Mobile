@@ -43,7 +43,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
             String[] responseParts = line.split(" ");
 
             if(responseParts[0].equalsIgnoreCase("ID:")){
-                GatewayResponse response = getCoreManager().createResponseDetails(getCoreManager().createMotechContext());
+                GatewayResponse response = getCoreManager().createGatewayResponse(getCoreManager().createMotechContext());
                 response.setGatewayMessageId(responseParts[1]);
 
                 if(responseParts.length == 4)

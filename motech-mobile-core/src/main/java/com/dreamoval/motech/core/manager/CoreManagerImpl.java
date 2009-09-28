@@ -43,7 +43,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetails() }
      */
-    public GatewayRequest createMessageDetails(MotechContext motechContext) {
+    public GatewayRequest createGatewayRequest(MotechContext motechContext) {
         logger.info("Creating MessageDetails instance");
         GatewayRequest result = (GatewayRequest) getInstance("messageDetails", GatewayRequest.class);
 
@@ -65,7 +65,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createResponseDetails() }
      */
-    public GatewayResponse createResponseDetails(MotechContext motechContext) {
+    public GatewayResponse createGatewayResponse(MotechContext motechContext) {
         logger.info("Creating ResonseDetails instance");
         GatewayResponse result = (GatewayResponse) getInstance("responseDetails", GatewayResponse.class);
 
@@ -113,7 +113,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetailsDAO() }
      */
-    public GatewayRequestDAO createMessageDetailsDAO(MotechContext motechContext) {
+    public GatewayRequestDAO createGatewayRequestDAO(MotechContext motechContext) {
         logger.info("Creating MessageDetailsDAO instance");
         GatewayRequestDAO mdDAO = (GatewayRequestDAO) getInstance("messageDetailsDAO", GatewayRequestDAO.class);
 
@@ -125,7 +125,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createResponseDetailsDAO() }
      */
-    public GatewayResponseDAO createResponseDetailsDAO(MotechContext motechContext) {
+    public GatewayResponseDAO createGatewayResponseDAO(MotechContext motechContext) {
         logger.info("Creating ResponseDetailsDAO instance");
         GatewayResponseDAO rdDAO = (GatewayResponseDAO) getInstance("responseDetailsDAO", GatewayResponseDAO.class);
         

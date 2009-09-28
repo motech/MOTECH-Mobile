@@ -54,7 +54,7 @@ public class SMSCacheServiceImplTest {
         messageDetails.setRequestId(2L);
         
         expect(
-                mockCore.createMessageDetailsDAO((MotechContext) anyObject())
+                mockCore.createGatewayRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockMessageDAO);
         expect(
                 mockCore.createMotechContext()

@@ -65,7 +65,7 @@ public class GatewayResponseDAOImplTest {
 
     @Before
     public void setUp() {
-         rDDAO = coreManager.createResponseDetailsDAO(coreManager.createMotechContext());
+         rDDAO = coreManager.createGatewayResponseDAO(coreManager.createMotechContext());
 
         rd1.setId(1L);
         rd1.setRecipientNumber("123445");

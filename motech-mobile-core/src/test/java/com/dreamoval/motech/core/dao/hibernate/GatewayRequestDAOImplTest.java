@@ -81,7 +81,7 @@ public class GatewayRequestDAOImplTest {
 
     @Before
     public void setUp() {
-         mDDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
+         mDDAO = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
           text = "First";
           md1.setId(1L);
         md1.setMessage(text);

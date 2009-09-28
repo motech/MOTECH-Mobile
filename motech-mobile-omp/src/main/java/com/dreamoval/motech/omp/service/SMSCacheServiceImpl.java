@@ -24,7 +24,7 @@ public class SMSCacheServiceImpl implements CacheService {
      */
     public void saveMessage(GatewayRequest messageDetails) {
         logger.info("Initializing DAO");
-        GatewayRequestDAO messageDAO = coreManager.createMessageDetailsDAO(coreManager.createMotechContext());
+        GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
         
         logger.info("Caching message");
         logger.debug(messageDetails);

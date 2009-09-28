@@ -15,13 +15,17 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
 
     private String language;
     private Date schedule;
-    private int message_type;
+    private String message_type;
     private String p13n_data;
-    private int notification_type;
+    private String notification_type;
     private Date date_created;
     private Date date_processed;
     private String recipient_name;
     private String recipient_number;
+    private Date date_from;
+    private Date date_to;
+    private String status;
+
 
     /**
      * @return the language
@@ -54,14 +58,14 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     /**
      * @return the message_type
      */
-    public int getMessage_type() {
+    public String getMessage_type() {
         return message_type;
     }
 
     /**
      * @param message_type the message_type to set
      */
-    public void setMessage_type(int message_type) {
+    public void setMessage_type(String message_type) {
         this.message_type = message_type;
     }
 
@@ -82,14 +86,14 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     /**
      * @return the notification_type
      */
-    public int getNotification_type() {
+    public String getNotification_type() {
         return notification_type;
     }
 
     /**
      * @param notification_type the notification_type to set
      */
-    public void setNotification_type(int notification_type) {
+    public void setNotification_type(String notification_type) {
         this.notification_type = notification_type;
     }
 
@@ -147,6 +151,48 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
      */
     public void setRecipient_number(String recipient_number) {
         this.recipient_number = recipient_number;
+    }
+
+    /**
+     * @return the date_from
+     */
+    public Date getDate_from() {
+        return date_from;
+    }
+
+    /**
+     * @param date_from the date_from to set
+     */
+    public void setDate_from(Date date_from) {
+        this.date_from = date_from;
+    }
+
+    /**
+     * @return the date_to
+     */
+    public Date getDate_to() {
+        return date_to;
+    }
+
+    /**
+     * @param date_to the date_to to set
+     */
+    public void setDate_to(Date date_to) {
+        this.date_to = date_to;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 

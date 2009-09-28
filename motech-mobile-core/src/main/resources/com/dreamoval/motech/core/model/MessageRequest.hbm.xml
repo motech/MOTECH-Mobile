@@ -11,5 +11,8 @@
     <property name="recipient_number"/>
     <property name="date_created" type="date"/>
     <property name="date_processed" type="date"/>
+    <property name="date_from" type="date"/>
+    <property name="date_to" type="date"/>
+    <property name="status"/>
   </union-subclass>
 </hibernate-mapping>

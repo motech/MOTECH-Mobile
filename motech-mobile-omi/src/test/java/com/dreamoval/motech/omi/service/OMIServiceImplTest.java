@@ -61,7 +61,7 @@ public class OMIServiceImplTest {
         Long expResult = 1L;
 
         expect(
-                mockCore.createMessageDetails((MotechContext)anyObject())
+                mockCore.createGatewayRequest((MotechContext)anyObject())
                 ).andReturn(new GatewayRequestImpl());
         expect(
                 mockCore.createMotechContext()
@@ -95,7 +95,7 @@ public class OMIServiceImplTest {
         Long expResult = 1L;
 
         expect(
-                mockCore.createMessageDetails((MotechContext)anyObject())
+                mockCore.createGatewayRequest((MotechContext)anyObject())
                 ).andReturn(new GatewayRequestImpl());
         expect(
                 mockCore.createMotechContext()
