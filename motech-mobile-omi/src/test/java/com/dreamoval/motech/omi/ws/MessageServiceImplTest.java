@@ -1,4 +1,4 @@
-package com.dreamoval.motech.web.webservices;
+package com.dreamoval.motech.omi.ws;
 
 import static org.easymock.EasyMock.*;
 
@@ -20,12 +20,14 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = {"classpath:META-INF/omi-config.xml"})
 public class MessageServiceImplTest{
 
     OMIManager mockOMI;
     OMIService mockOMIService;
 
-    MessageServiceImpl instance;
+    MessageService instance;
 
     public MessageServiceImplTest() {
     }
@@ -60,7 +62,7 @@ public class MessageServiceImplTest{
                 ).andReturn("QUEUED");
         replay(mockOMI, mockOMIService);
         
-        String result = instance.sendPatientMessage(messageId, patientNumber, patientNumber, patientNumberType, clinic, messageType, patientNumber, null, null);
+        String result = instance.sendPatientMessage(messageId, patientNumber, patientNumber, patientNumberType, "db_GH", messageType, patientNumber, null, null);
         assertEquals("QUEUED", result);
         verify(mockOMI, mockOMIService);
     }

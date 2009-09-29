@@ -16,12 +16,7 @@
     <import resource="classpath:META-INF/omp-config.xml" />
 
     <bean name="storeManager" class="com.dreamoval.motech.omi.manager.MessageStoreManagerImpl">
-        <property name="messageStore">
-            <map key-type="java.lang.String">
-                <entry key="patient" value="This is a sample patient message for testing purposes" />
-                <entry key="worker" value="This is a sample CHPS worker message for testing purposes" />
-            </map>
-        </property>
+        <property name="coreManager" ref="coreManager" />
     </bean>
 
     <bean name="omiService" class="com.dreamoval.motech.omi.service.OMIServiceImpl">

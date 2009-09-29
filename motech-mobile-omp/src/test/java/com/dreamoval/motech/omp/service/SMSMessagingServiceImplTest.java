@@ -4,6 +4,8 @@ import static org.easymock.EasyMock.*;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
+import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import java.util.Date;
 import org.junit.Before;
@@ -45,8 +47,8 @@ public class SMSMessagingServiceImplTest {
      * Test of sendTextMessage method, of class SMSMessagingServiceImpl.
      */
     @Test
-    public void testSendTextMessage_MessageDetails() {
-        System.out.println("sendTextMessage");
+    public void testSendMessage() {
+        System.out.println("sendMessage");
 
         GatewayRequest messageDetails = new GatewayRequestImpl();
 //        TODO to yoofi conflict here
@@ -56,22 +58,16 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setRecipientsNumber("000000000000");
         messageDetails.setRequestId(6L);
 
-        mockCache.saveMessage((GatewayRequest) anyObject());
-        expectLastCall();
-
         expect(
                 mockGateway.sendMessage((GatewayRequest) anyObject())
                 ).andReturn(null);
 
-        mockCache.saveMessage((GatewayRequest) anyObject());
-        expectLastCall();
-
-        replay(mockCache, mockGateway);
+        replay(mockGateway);
 
         Long expResult = messageDetails.getId();
-        Long result = instance.sendTextMessage(messageDetails);
+        Long result = instance.sendMessage(messageDetails);
         assertEquals(expResult, result);
-        verify(mockCache, mockGateway);
+        verify(mockGateway);
     }
 
     /**
@@ -80,15 +76,14 @@ public class SMSMessagingServiceImplTest {
     @Test
     public void testGetMessageStatus() {
         System.out.println("getMessageStatus");
-        String gatewayMessageId = "";
         String expResult = "delivered";
 
         expect(
-                mockGateway.getMessageStatus((String) anyObject())
+                mockGateway.getMessageStatus((GatewayResponse) anyObject())
                 ).andReturn("delivered");
         replay(mockGateway);
 
-        String result = instance.getMessageStatus(gatewayMessageId);
+        String result = instance.getMessageStatus(new GatewayResponseImpl());
         assertEquals(expResult, result);
         verify(mockGateway);
     }

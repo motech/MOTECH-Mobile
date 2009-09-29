@@ -1,12 +1,12 @@
-package com.dreamoval.motech.web.webservices;
+package com.dreamoval.motech.omi.ws;
 
 import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
+import com.dreamoval.motech.omi.service.MessageType;
 import com.dreamoval.motech.omi.service.PatientImpl;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.WebParam;
 
@@ -43,4 +43,13 @@ public interface MessageService extends Serializable{
      */
     public String sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") List<PatientImpl> patientList, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
     
+    /**
+     * @return the omiManager
+     */
+    public OMIManager getOmiManager();
+
+    /**
+     * @param omiManager the omiManager to set
+     */
+    public void setOmiManager(OMIManager omiManager);
 }

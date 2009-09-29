@@ -1,4 +1,4 @@
-package com.dreamoval.motech.web.webservices;
+package com.dreamoval.motech.omi.ws;
 
 import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
@@ -24,9 +24,9 @@ public class MessageServiceImpl implements MessageService {
      * @see MessageService.sendPatientMessage
      */
     public String sendPatientMessage(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, String messageType, String notificationType, Date startDate, Date endDate){
-        //logger.debug("Called MessageService.sendPatientMessage with parameters:\n\rmessageId - "+ messageId + "\n\rclinic - " + clinic + "\n\rserviceDate - " + serviceDate + "\n\rpatientNumber - " + patientNumber + "\n\rpatientNumbrType - " + patientNumberType + "\n\rmessageType - " + messageType);
+        logger.debug("Called MessageService.sendPatientMessage with parameters:\n\rmessageId - "+ messageId + "\n\rclinic - " + patientNumber + "\n\rpatientNumbrType - " + patientNumberType + "\n\rmessageType - " + messageType + "\n\rstartDate - " + startDate + "\n\rendDate - " + endDate);
         logger.info("Calling OMIService.sendPtientMessage");
-        return omiManager.createOMIService().savePatientMessageRequest(messageId, patientName, patientNumber, patientNumberType, langCode, langCode, notificationType, startDate, endDate);
+        return omiManager.createOMIService().savePatientMessageRequest(messageId, patientName, patientNumber, patientNumberType, langCode, messageType, notificationType, startDate, endDate);
     }
 
     /**
@@ -34,7 +34,7 @@ public class MessageServiceImpl implements MessageService {
      * @see MessageService.sendCHPSMessage
      */
     public String sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, Date startDate, Date endDate) {
-        //logger.debug("Called MessageService.sendCHPSMessage with parameters:\n\rmessageId - "+ messageId + "\n\rworkerName - " + workerName + "\n\rworkerNumber - " + workerNumber + "\n\rpatientList - " + patientList);
+        logger.debug("Called MessageService.sendCHPSMessage with parameters:\n\rmessageId - "+ messageId + "\n\rworkerName - " + workerName + "\n\rworkerNumber - " + workerNumber + "\n\rpatientList - " + patientList + "\n\rstartDate - " + startDate + "\n\rendDate - " + endDate);
         logger.info("Calling OMIService.sendCHPSMessage");
         return this.omiManager.createOMIService().saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, startDate, endDate);
     }

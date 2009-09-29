@@ -5,6 +5,7 @@ import static org.easymock.EasyMock.*;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Date;
 import java.util.HashSet;
@@ -66,15 +67,16 @@ public class ORServeGatewayManagerImplTest {
      */
     @Test
     public void testGetMessageStatus() {
-        System.out.println("getMessageStatus");
-        String gatewayMessageId = "testid";
+        System.out.println("getMessageStatus");        
+        GatewayResponseImpl response = new GatewayResponseImpl();
+        response.setGatewayMessageId("testId");
 
         expect(
                 mockHandler.parseMessageStatus((String) anyObject())
                 ).andReturn("delivered");
         replay(mockHandler);
 
-        String result = instance.getMessageStatus(gatewayMessageId);
+        String result = instance.getMessageStatus(response);
         assertNotNull(result);
         verify(mockHandler);
     }

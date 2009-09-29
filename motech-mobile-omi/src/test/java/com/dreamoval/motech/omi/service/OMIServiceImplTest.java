@@ -1,8 +1,9 @@
 package com.dreamoval.motech.omi.service;
 
+import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.GatewayRequest;
-import com.dreamoval.motech.core.model.GatewayRequestImpl;
+import com.dreamoval.motech.core.model.MessageRequest;
+import com.dreamoval.motech.core.model.MessageRequestImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
@@ -24,11 +25,12 @@ import static org.junit.Assert.*;
  */
 public class OMIServiceImplTest {
 
+    OMPManager mockOMP;
     OMIService instance;
     CoreManager mockCore;
-    OMPManager mockOMP;
-    MessagingService mockMessagingService;
     MessageStoreManager mockStore;
+    MessageRequestDAO mockRequestDao;
+    MessagingService mockMessagingService;
 
     public OMIServiceImplTest() {
     }
@@ -50,36 +52,34 @@ public class OMIServiceImplTest {
      * Test of sendPatientMessage method, of class OMIServiceImpl.
      */
     @Test
-    public void testSendPatientMessage() {
-        System.out.println("sendPatientMessage");
-        Long messageId = 0L;
-        String clinic = "Test clinic";
-        Date serviceDate = null;
-        String patientNumber = "000000000000";
-        ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
-        MessageType messageType = MessageType.TEXT;
-        Long expResult = 1L;
+    public void testSavePatientMessageRequest() {
+        System.out.println("savePatientMessageRequest");
+        
+        String expResult = "QUEUED";
 
+        mockRequestDao = createMock(MessageRequestDAO.class);
+        
         expect(
-                mockCore.createGatewayRequest((MotechContext)anyObject())
-                ).andReturn(new GatewayRequestImpl());
+                mockCore.createMessageRequest((MotechContext)anyObject())
+                ).andReturn(new MessageRequestImpl());
         expect(
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
         expect(
-                mockStore.getMessage((String) anyObject())
-                ).andReturn("Test Message");
+                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockRequestDao);
         expect(
-                mockOMP.createMessagingService()
-                ).andReturn(mockMessagingService);
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
         expect(
-                mockMessagingService.sendTextMessage((GatewayRequest) anyObject())
-                ).andReturn(1L);
-        replay(mockCore, mockStore, mockOMP, mockMessagingService);
+                mockRequestDao.save((MessageRequest) anyObject())
+                ).andReturn(new MessageRequestImpl());
 
-        Long result = instance.sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
+        replay(mockCore, mockRequestDao);
+        
+        String result = instance.savePatientMessageRequest(0L, "Test Patient", "000000000000", ContactNumberType.PERSONAL, "language", "messageType", "notificationType", new Date(), new Date());
         assertEquals(expResult, result);
-        verify(mockCore, mockStore, mockOMP, mockMessagingService);
+        verify(mockCore, mockRequestDao);
     }
 
     /**
@@ -92,28 +92,33 @@ public class OMIServiceImplTest {
         String workerName = "Test worker";
         String workerNumber = "000000000000";
         List<PatientImpl> patientList = null;
-        Long expResult = 1L;
+        String expResult = "QUEUED";
+        Date testDate = new Date();
 
+        mockRequestDao = createMock(MessageRequestDAO.class);
+        
         expect(
-                mockCore.createGatewayRequest((MotechContext)anyObject())
-                ).andReturn(new GatewayRequestImpl());
+                mockCore.createMessageRequest((MotechContext)anyObject())
+                ).andReturn(new MessageRequestImpl());
         expect(
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
         expect(
-                mockStore.getMessage((String) anyObject())
-                ).andReturn("Test Message");
+                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockRequestDao);
         expect(
-                mockOMP.createMessagingService()
-                ).andReturn(mockMessagingService);
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
         expect(
-                mockMessagingService.sendTextMessage((GatewayRequest) anyObject())
-                ).andReturn(1L);
-        replay(mockCore, mockStore, mockOMP, mockMessagingService);
+                mockRequestDao.save((MessageRequest) anyObject())
+                ).andReturn(new MessageRequestImpl());
 
-        Long result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList);
+        replay(mockCore, mockRequestDao);
+
+        String result = instance.saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, testDate, testDate);
         assertEquals(expResult, result);
-        verify(mockCore, mockStore, mockOMP, mockMessagingService);
+        verify(mockCore, mockRequestDao);
     }
 
+    
 }

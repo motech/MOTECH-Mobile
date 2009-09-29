@@ -106,12 +106,12 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
         return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
     }
 
-    public String getMessageStatus(String gatewayMessageId) {
+    public String getMessageStatus(GatewayResponse response) {
         try {
             postData = "api_id=" + URLEncoder.encode(clickProps.getProperty("apiId"), "UTF-8");
             postData += "&user=" + URLEncoder.encode(clickProps.getProperty("user"), "UTF-8");
             postData += "&password=" + URLEncoder.encode(clickProps.getProperty("password"), "UTF-8");
-            postData += "&apimsgid" + URLEncoder.encode(gatewayMessageId, "UTF-8");
+            postData += "&apimsgid=" + URLEncoder.encode(response.getGatewayMessageId(), "UTF-8");
         }
         catch (UnsupportedEncodingException ex) {
             logger.fatal("Error constructing request: parameter encoding failed", ex);
@@ -161,7 +161,9 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
         }
 
         //Convert the response to a standard format
-        return messageHandler.parseMessageStatus(gatewayResponse);
+        //response.setResponseText(gatewayResponse);
+        response.setMessageStatus(messageHandler.parseMessageStatus(gatewayResponse));
+        return response.getMessageStatus();
     }
 
     public GatewayMessageHandler getMessageHandler() {

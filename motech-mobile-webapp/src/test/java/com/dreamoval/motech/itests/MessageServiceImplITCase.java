@@ -6,7 +6,6 @@
 package com.dreamoval.motech.itests;
 
 import com.dreamoval.motech.omi.service.ContactNumberType;
-import com.dreamoval.motech.omi.service.MessageType;
 import com.dreamoval.motech.omi.service.PatientImpl;
 import com.dreamoval.motech.web.webservices.MessageService;
 import java.io.IOException;
@@ -60,12 +59,11 @@ public class MessageServiceImplITCase {
     public void testSendPatientMessage() {
         System.out.println("sendPatientMessage");
         Long messageId = 0L;
-        String clinic = "Test clinic";
         Date serviceDate = new Date();
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
-        MessageType messageType = MessageType.TEXT;
-        Long result = client.sendPatientMessage(messageId, clinic, serviceDate, patientNumber, patientNumberType, messageType);
+        String messageType = "TEXT";
+        String result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", "TEXT", "noteType", serviceDate, serviceDate);
         assertNotNull(result);
     }
 
@@ -82,7 +80,7 @@ public class MessageServiceImplITCase {
         PatientImpl patient = new PatientImpl();
         patient.setName("Test patient");
         patient.setSerialNumber("TS000000001");
-        Long result = client.sendCHPSMessage(messageId, workerName, workerNumber, patientList);
+        String result = client.sendCHPSMessage(messageId, workerName, workerNumber, patientList, null, null);
         assertNotNull(result);
     }
 

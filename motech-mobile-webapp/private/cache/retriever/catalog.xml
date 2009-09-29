@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://cxf.apache.org/schemas/core.xsd" uri="cxf.apache.org/schemas/core.xsd"/>
+    <system systemId="http://cxf.apache.org/schemas/jaxws.xsd" uri="cxf.apache.org/schemas/jaxws.xsd"/>
+    <system systemId="http://www.springframework.org/schema/beans/spring-beans.xsd" uri="www.springframework.org/schema/beans/spring-beans.xsd"/>
+    <system systemId="http://cxf.apache.org/schemas/configuration/cxf-beans.xsd" uri="cxf.apache.org/schemas/configuration/cxf-beans.xsd"/>
+</catalog>

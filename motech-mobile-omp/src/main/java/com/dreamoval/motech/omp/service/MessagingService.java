@@ -1,6 +1,7 @@
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 
 /**
@@ -12,13 +13,36 @@ import com.dreamoval.motech.omp.manager.GatewayManager;
 public interface MessagingService {
 
     /**
-     * Sends an SMS message with the provided details
+     * Queues a message for delivery within the scheduled period
+     * 
+     * @param message to be scheduled
+     */
+    public void scheduleMessage(GatewayRequest message);
+    
+    /**
+     * Sends all messages due for delivery
+     *
+     */
+    public void sendScheduledMessages();
+    /**
+     * Sends a message with the provided details
      *
      * @param messageDetails MessageDetails object containing information about the message to be sent
      * @return The id of the message sent
      */
-    public Long sendTextMessage(GatewayRequest messageDetails);
+    public Long sendMessage(GatewayRequest messageDetails);
 
+    /**
+     * Queries and updates the delivery status of all pending messages
+     */
+    public void updateMessageStatuses();
+    
+    /**
+     * 
+     * @param current message response to be updated
+     * @return current status of the message
+     */
+    public String getMessageStatus(GatewayResponse response);
     /**
      * @return the cache
      */

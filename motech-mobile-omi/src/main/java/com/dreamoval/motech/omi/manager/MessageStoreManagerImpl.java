@@ -1,6 +1,13 @@
 package com.dreamoval.motech.omi.manager;
 
+import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.MessageRequest;
+import com.dreamoval.motech.core.model.MessageTemplate;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 /**
@@ -8,45 +15,79 @@ import org.apache.log4j.Logger;
  *
  * @author Kofi A. Asamoah
  * @email yoofi@dreamoval.com
- * @date 30-Apr-2009
+ * @date 30-JULY-2009
  *
  */
 public class MessageStoreManagerImpl implements MessageStoreManager {
-    private Map<String, String> messageStore;
     private static Logger logger = Logger.getLogger(MessageStoreManagerImpl.class);
+    private CoreManager coreManager;
 
     /**
-     * Retrieves a message with a specified key from the message store
-     *
-     * @param key The identifier of the message to return
-     * @return The message associated with the supplied key
+     * 
+     * @see MessageStoreManager.constructMessage
      */
-    public String getMessage(String key){
-        logger.info("Retrieving message from store");
-        logger.debug("Key: " + key);
-        try{
-            return messageStore.get(key);
+    public GatewayRequest constructMessage(MessageRequest messageData) {
+        logger.info("Fetching message template");
+        String template = fetchTemplate(messageData);
+        
+        logger.info("Initializing template parameters");
+        Map<String, String> templateParams = new HashMap<String, String>();
+        templateParams.put("RecipientName", messageData.getRecipient_name());
+        logger.debug(templateParams);
+        
+        logger.info("Parsing message template");
+        String message = parseTemplate(template, templateParams);
+        
+        logger.info("Constructing GatewayRequest object");
+        GatewayRequest gwReq = coreManager.createGatewayRequest(coreManager.createMotechContext());
+        gwReq.setDateFrom(messageData.getDate_from());
+        gwReq.setDateTo(messageData.getDate_to());
+        gwReq.setRecipientsNumber(messageData.getRecipient_number());
+        gwReq.setMessage(message);
+        gwReq.setRequestId(messageData.getId());
+        
+        logger.info("GatewayRequest object successfully constructed");
+        logger.debug(gwReq);
+            
+        return gwReq;
+    }
+
+    /**
+     * 
+     * @see MessageStoreManager.parseTemplate
+     */
+    public String parseTemplate(String template, Map<String, String> templateParams) {
+        String key, value;
+        
+        for(Entry<String, String> e : templateParams.entrySet()){
+            key = "<"+ e.getKey() + ">";
+            value = e.getValue();
+                    
+            template = template.replaceAll(key, value);
         }
-        catch(Exception e){
-            logger.error("Error retrieving message with key: " + key, e);
-            logger.debug(messageStore);
-            return null;
-        }
+        return template;
     }
 
     /**
-     * @return the messageStore
+     * 
+     * @see MessageStoreManager.fetchTemplate
      */
-    public Map<String, String> getMessageStore() {
-        return messageStore;
+    public String fetchTemplate(MessageRequest messageData) {
+        MessageTemplate template = coreManager.createMessageTemplate(coreManager.createMotechContext());
+        template.setLanguage(messageData.getLanguage());
+        //template.setNotification_type(messageData.getMessage_type());
+        
+        List<MessageTemplate> templates = coreManager.createMessageTemplateDAO(coreManager.createMotechContext()).findByExample(template);
+        return templates.get(0).getLanguage();
     }
 
-    /**
-     * @param messageStore the messageStore to set
-     */
-    public void setMessageStore(Map<String, String> messageStore) {
-        logger.debug("Setting MessageStoreManagerImpl.messageStore");
-        logger.debug(messageStore);
-        this.messageStore = messageStore;
+    public CoreManager getCoreManager() {
+        return coreManager;
     }
+
+    public void setCoreManager(CoreManager coreManager) {
+        this.coreManager = coreManager;
+    }
+
+    
 }

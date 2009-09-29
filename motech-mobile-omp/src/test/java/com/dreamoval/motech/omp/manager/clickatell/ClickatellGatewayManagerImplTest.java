@@ -1,10 +1,12 @@
-package com.dreamoval.motech.omp.manager.orserve;
+package com.dreamoval.motech.omp.manager.clickatell;
 
 import static org.easymock.EasyMock.*;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.GatewayResponseImpl;
+import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.dreamoval.motech.omp.manager.clickatell.ClickatellGatewayManagerImpl;
 import java.util.Date;
@@ -66,14 +68,15 @@ public class ClickatellGatewayManagerImplTest {
     @Test
     public void testGetMessageStatus() {
         System.out.println("getMessageStatus");
-        String gatewayMessageId = "testid";
+        GatewayResponseImpl response = new GatewayResponseImpl();
+        response.setGatewayMessageId("testId");
 
         expect(
                 mockHandler.parseMessageStatus((String) anyObject())
                 ).andReturn("delivered");
         replay(mockHandler);
 
-        String result = instance.getMessageStatus(gatewayMessageId);
+        String result = instance.getMessageStatus(response);
         assertNotNull(result);
         verify(mockHandler);
     }

@@ -1,8 +1,11 @@
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import java.util.List;
 import java.util.Set;
 import org.apache.log4j.Logger;
 
@@ -18,13 +21,31 @@ public class SMSMessagingServiceImpl implements MessagingService {
     private static Logger logger = Logger.getLogger(SMSMessagingServiceImpl.class);
 
     /**
-     *
-     * @see sendTextMessage(MessageDetails messageDetails)
+     * 
+     * @see MessageService.scheduleMessage
      */
-    public Long sendTextMessage(GatewayRequest messageDetails) {
-        logger.info("Calling CacheService.saveMessage");
-        logger.debug(messageDetails);
-        this.cache.saveMessage(messageDetails);
+    public void scheduleMessage(GatewayRequest message){
+        cache.saveMessage(message);
+    }
+    /**
+     *
+     * @see MessagingService.sendScheduledMessages
+     */
+    public void sendScheduledMessages(){
+        List<GatewayRequest> scheduledMessages = cache.getMessages(new GatewayRequestImpl());
+        for(GatewayRequest message : scheduledMessages){
+            sendMessage(message);
+        }
+    }
+    
+    /**
+     *
+     * @see MessagingService.sendMessage(MessageDetails messageDetails)
+     */
+    public Long sendMessage(GatewayRequest messageDetails) {
+        //logger.info("Calling CacheService.saveMessage");
+        //logger.debug(messageDetails);
+        //this.cache.saveMessage(messageDetails);
 
         logger.info("Sending message to gateway");
         Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(messageDetails);
@@ -37,9 +58,24 @@ public class SMSMessagingServiceImpl implements MessagingService {
         return messageDetails.getId();
     }
 
-    public String getMessageStatus(String gatewayMessageId){
+    /**
+     * 
+     */
+    public void updateMessageStatuses() {
+        List<GatewayResponse> pendingMessages = cache.getResponses(new GatewayResponseImpl());
+        for(GatewayResponse response : pendingMessages){
+            getMessageStatus(response);
+            cache.saveResponse(response);
+        }
+    }
+
+    /**
+     * 
+     * @see MessageService.getMessageStatus
+     */
+    public String getMessageStatus(GatewayResponse response){
         logger.info("Calling GatewayManager.getMessageStatus");
-        return gatewayManager.getMessageStatus(gatewayMessageId);
+        return gatewayManager.getMessageStatus(response);
     }
 
     /**

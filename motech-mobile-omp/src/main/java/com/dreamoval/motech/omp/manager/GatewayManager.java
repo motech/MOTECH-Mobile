@@ -25,7 +25,7 @@ public interface GatewayManager {
      * @param response the id of the message returned by the message gateway
      * @return
      */
-    public String getMessageStatus(String gatewayMessageId);
+    public String getMessageStatus(GatewayResponse response);
 
     /**
      * @return the messageHandler

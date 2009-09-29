@@ -62,7 +62,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
      *
      * @see GatewayManager.getMessageStatus
      */
-    public String getMessageStatus(String gatewayMessageId) {
+    public String getMessageStatus(GatewayResponse response) {
         String gatewayResponse;
 
         logger.info("Checking message delivery status");
@@ -79,13 +79,15 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
 
         logger.info("Calling getMessageStatus method of ORServe message gateway");
         try{
-            gatewayResponse = soap.getMessageStatus(gatewayMessageId, productCode);
+            gatewayResponse = soap.getMessageStatus(response.getGatewayMessageId(), productCode);
         }
         catch(Exception ex){
             logger.fatal("Error querying message", ex);
             throw new RuntimeException("Error checking message status");
         }
-        return messageHandler.parseMessageStatus(gatewayResponse);
+        //response.setResponseText(gatewayResponse);
+        response.setMessageStatus(messageHandler.parseMessageStatus(gatewayResponse));
+        return response.getMessageStatus();
     }
 
     /**

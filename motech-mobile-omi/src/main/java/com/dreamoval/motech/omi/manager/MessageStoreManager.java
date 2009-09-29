@@ -1,5 +1,8 @@
 package com.dreamoval.motech.omi.manager;
 
+import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.MessageRequest;
 import java.util.Map;
 
 /**
@@ -13,20 +16,40 @@ import java.util.Map;
 public interface MessageStoreManager {
 
     /**
-     *
-     * @param key The identifier of the message to return
-     * @return The message associated with the supplied key
+     * Builds a GatewayRequest object out of a MessageRequest
+     * 
+     * @param messageData the MessageRequest object containing details of the message to construct
+     * @return the constructed GatewayRequest object
      */
-    String getMessage(String key);
+    public GatewayRequest constructMessage(MessageRequest messageData);
 
     /**
-     * @return the messageStore
+     * Constructs a personalized message from the provided template and parameters
+     * 
+     * @param template
+     * @param templateParams
+     * @return
      */
-    Map<String, String> getMessageStore();
+    public String parseTemplate(String template, Map<String, String> templateParams);
+    
+    /**
+     * Fetches a template for specific message types from the message store
+     * 
+     * @param messageData information on the template to select
+     * @return the template matching the message information
+     */
+    public String fetchTemplate(MessageRequest messageData);
+    
+    
+    /**
+     * 
+     * @return the coreManager
+     */
+    public CoreManager getCoreManager();
 
     /**
-     * @param messageStore the messageStore to set
+     * 
+     * @param coreManager the CoreManager to set
      */
-    void setMessageStore(Map<String, String> messageStore);
-
+    public void setCoreManager(CoreManager coreManager);
 }
