@@ -75,7 +75,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
     public String fetchTemplate(MessageRequest messageData) {
         MessageTemplate template = coreManager.createMessageTemplate(coreManager.createMotechContext());
         template.setLanguage(messageData.getLanguage());
-        //template.setNotification_type(messageData.getMessage_type());
+        //template.setNotification_type(notification_type);
         
         List<MessageTemplate> templates = coreManager.createMessageTemplateDAO(coreManager.createMotechContext()).findByExample(template);
         return templates.get(0).getLanguage();
