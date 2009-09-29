@@ -13,6 +13,7 @@
     <property name="date_processed" type="date"/>
     <property name="date_from" type="date"/>
     <property name="date_to" type="date"/>
+    <property name="max_try_number"/>
     <property name="status"/>
   </union-subclass>
 </hibernate-mapping>

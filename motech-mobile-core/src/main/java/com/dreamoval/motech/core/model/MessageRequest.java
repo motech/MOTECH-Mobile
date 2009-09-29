@@ -26,6 +26,7 @@ public interface MessageRequest extends MotechEntity {
     Date getDate_from();
     Date getDate_to();
     String getStatus();
+    int getMax_try_number();
 
     void setRecipient_name(String recipient_name);
     void setLanguage(String language);
@@ -39,5 +40,6 @@ public interface MessageRequest extends MotechEntity {
     void setDate_from(Date date_from);
     void setDate_to(Date date_to);
     void setStatus(String status);
+    void setMax_try_number(int max_try_number);
     
 }

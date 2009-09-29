@@ -40,10 +40,7 @@ public interface GatewayResponse extends MotechEntity {
    Set<Transition> getTransitions();
 
 
-   int getTryNumber();
-
-   void setTryNumber(int tryNumber);
-
+  
     /**
      * @param gatewayMessageId the gatewayMessageId to set
      */

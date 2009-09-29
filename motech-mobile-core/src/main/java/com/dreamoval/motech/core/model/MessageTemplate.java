@@ -26,7 +26,7 @@ public interface MessageTemplate extends MotechEntity{
     /**
      * @return the notification_type
      */
-    int getNotification_type();
+    String getNotification_type();
 
     /**
      * @param date_created the date_created to set
@@ -41,6 +41,6 @@ public interface MessageTemplate extends MotechEntity{
     /**
      * @param notification_type the notification_type to set
      */
-    void setNotification_type(int notification_type);
+    void setNotification_type(String notification_type);
 
 }

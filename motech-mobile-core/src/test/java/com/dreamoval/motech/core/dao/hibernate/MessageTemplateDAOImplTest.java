@@ -40,7 +40,7 @@ public class MessageTemplateDAOImplTest {
         mtDao = coreManager.createMessageTemplateDAO(coreManager.createMotechContext());
         mt1.setId(Long.MIN_VALUE);
         mt1.setLanguage("en");
-        mt1.setNotification_type(1);
+        mt1.setNotification_type("1");
     }
 
     @Test

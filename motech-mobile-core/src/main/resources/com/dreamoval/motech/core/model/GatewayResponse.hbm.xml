@@ -5,7 +5,6 @@
     <property name="gatewayMessageId"/>
     <property name="recipientNumber"/>
     <property name="messageStatus"/>
-    <property name="tryNumber"/>
     <many-to-one class="GatewayRequestImpl" name="messageId"/>
     <set cascade="all" name="transitions">
       <key column="responseId"/>

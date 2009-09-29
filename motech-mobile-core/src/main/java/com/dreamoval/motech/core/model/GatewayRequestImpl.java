@@ -19,7 +19,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     private Date dateFrom;
     private Set<GatewayResponse> responseDetails = new HashSet<GatewayResponse>();
     private Date dateSent;
-
+    private int try_number;
     public GatewayRequestImpl(){}
 
     public GatewayRequestImpl(Long requestId, Date dateTo, String messageText, String recipientsNumber, Date dateFrom, Date dateSent) {
@@ -156,6 +156,20 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
               if(this.responseDetails.contains(r))
                   this.responseDetails.remove(r);
           }
+    }
+
+    /**
+     * @return the try_number
+     */
+    public int getTry_number() {
+        return try_number;
+    }
+
+    /**
+     * @param try_number the try_number to set
+     */
+    public void setTry_number(int try_number) {
+        this.try_number = try_number;
     }
 
     

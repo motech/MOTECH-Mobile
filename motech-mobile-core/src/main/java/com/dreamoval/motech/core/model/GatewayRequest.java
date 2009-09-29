@@ -52,6 +52,9 @@ public interface GatewayRequest extends MotechEntity {
      */
     Set<GatewayResponse> getResponseDetails();
 
+     int getTry_number();
+
+   void setTry_number(int try_number);
     /**
      * @param dateSent the dateSent to set
      */

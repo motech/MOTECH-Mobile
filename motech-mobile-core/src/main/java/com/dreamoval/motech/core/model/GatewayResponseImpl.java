@@ -18,7 +18,7 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
     private String recipientNumber;
     private String messageStatus;
     private Set<Transition> transitions = new HashSet<Transition>();
-    private int tryNumber;
+    
 
     public GatewayResponseImpl(){}
 
@@ -122,19 +122,7 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
             this.transitions.remove(transition);
     }
 
-    /**
-     * @return the tryNumber
-     */
-    public int getTryNumber() {
-        return tryNumber;
-    }
 
-    /**
-     * @param tryNumber the tryNumber to set
-     */
-    public void setTryNumber(int tryNumber) {
-        this.tryNumber = tryNumber;
-    }
 
 
 }

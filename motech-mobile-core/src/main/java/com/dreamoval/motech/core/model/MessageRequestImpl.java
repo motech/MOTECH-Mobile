@@ -25,7 +25,8 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private Date date_from;
     private Date date_to;
     private String status;
-
+    private int max_try_number;
+    
 
     /**
      * @return the language
@@ -193,6 +194,20 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the max_try_number
+     */
+    public int getMax_try_number() {
+        return max_try_number;
+    }
+
+    /**
+     * @param max_try_number the max_try_number to set
+     */
+    public void setMax_try_number(int max_try_number) {
+        this.max_try_number = max_try_number;
     }
 
 
