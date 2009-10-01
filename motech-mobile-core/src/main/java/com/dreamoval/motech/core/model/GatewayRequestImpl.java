@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public class GatewayRequestImpl extends MotechEntityImpl implements GatewayRequest{
     
-    private Long requestId;
+    private GatewayRequestDetails gatewayRequestDetails;
     private Date dateTo;
     private String message;
     private String recipientsNumber;
@@ -20,31 +20,24 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     private Set<GatewayResponse> responseDetails = new HashSet<GatewayResponse>();
     private Date dateSent;
     private int try_number;
+    private Long requestId;
     public GatewayRequestImpl(){}
 
-    public GatewayRequestImpl(Long requestId, Date dateTo, String messageText, String recipientsNumber, Date dateFrom, Date dateSent) {
-        this.requestId =  requestId;
+    public GatewayRequestImpl( Date dateTo, String messageText, String recipientsNumber, Date dateFrom, Date dateSent) {
+        
         this.dateTo = dateTo;
         this.message = messageText;
         this.dateFrom = dateFrom;
         this.dateSent = dateSent;
         this.recipientsNumber = recipientsNumber;
+
     }    
 
     /**
      * @return the messageType
      */
     
-    public Long getRequestId() {
-        return requestId;
-    }
-
-    /**
-     * @param messageType the messageType to set
-     */
-    public void setRequestId(Long requestId) {
-        this.requestId = requestId;
-    }
+   
 
     /**
      * @return the numberOfPages
@@ -170,6 +163,34 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
      */
     public void setTry_number(int try_number) {
         this.try_number = try_number;
+    }
+
+    /**
+     * @return the gatewayRequestDetails
+     */
+    public GatewayRequestDetails getGatewayRequestDetails() {
+        return gatewayRequestDetails;
+    }
+
+    /**
+     * @param gatewayRequestDetails the gatewayRequestDetails to set
+     */
+    public void setGatewayRequestDetails(GatewayRequestDetails gatewayRequestDetails) {
+        this.gatewayRequestDetails = gatewayRequestDetails;
+    }
+
+    /**
+     * @return the requestId
+     */
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * @param requestId the requestId to set
+     */
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
     }
 
     

@@ -15,6 +15,16 @@
     
     <import resource="classpath:META-INF/omp-config.xml" />
 
+    <!--Spring specific-->
+    <bean id="omiPropertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:omi.settings.properties</value>
+            </list>
+        </property>
+    </bean>
+    
     <bean name="storeManager" class="com.dreamoval.motech.omi.manager.MessageStoreManagerImpl">
         <property name="coreManager" ref="coreManager" />
     </bean>
@@ -26,4 +36,52 @@
     </bean>
 
     <bean name="omiManager" class="com.dreamoval.motech.omi.manager.OMIManagerImpl" />
+     <!--Scheduling-->
+        <!--Job-->
+        <bean id="omiStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="omiService"/>
+            <property name="targetMethod" value="getMessageResponses"/>
+        </bean>
+
+        <bean id="messageRequestProcessor" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="omiService"/>
+            <property name="targetMethod" value="processMessageRequests"/>
+        </bean>
+
+        <bean id="messageRetriesProcessor" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="omiService"/>
+            <property name="targetMethod" value="processMessageRetries"/>
+        </bean>
+        <!--End of Job-->
+
+        <!--Triggers-->
+        <bean id="omiStatusUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="omiStatusUpdater"/>
+            <property name="cronExpression" value="0 * * * * ?"/>
+        </bean>
+
+        <bean id="messageRequestProcessorTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="messageRequestProcessor"/>
+            <property name="cronExpression" value="30 * * * * ?" />
+        </bean>
+
+        <bean id="messageRetriesProcessorTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="messageRetriesProcessor"/>
+            <property name="cronExpression" value="0 5 * * * ? *"/>
+        </bean>
+        <!--End Of Triggers-->
+
+        <!--Scheduler Factory-->
+        <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+            <property name="triggers">
+                <list>
+                    <ref bean="omiStatusUpdaterTrigger"/>
+                    <ref bean="messageRequestProcessorTrigger"/>
+                    <ref bean="messageRetriesProcessorTrigger" />
+                </list>
+            </property>
+        </bean>
+
+        <!--End Of scheduler Factory-->
+    <!--End of Scheduling-->
 </beans>

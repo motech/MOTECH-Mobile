@@ -49,10 +49,10 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <constructor-arg ref="sessionFactory" />
     </bean>
 
-    <bean id="messageDetails" class="com.dreamoval.motech.core.model.GatewayRequestImpl" scope="prototype">
+    <bean id="gatewayRequest" class="com.dreamoval.motech.core.model.GatewayRequestImpl" scope="prototype">
     </bean>
 
-    <bean id="responseDetails" class="com.dreamoval.motech.core.model.GatewayResponseImpl" scope="prototype">
+    <bean id="gatewayResponse" class="com.dreamoval.motech.core.model.GatewayResponseImpl" scope="prototype">
     </bean>
 
     <bean id="transition" class="com.dreamoval.motech.core.model.TransitionImpl" scope="prototype">
@@ -112,10 +112,10 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="dBSession" class="com.dreamoval.motech.core.dao.HibernateDBSessionImpl" scope="prototype">
     </bean>
 
-    <bean id="messageDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDAOImpl" scope="prototype">
+    <bean id="gatewayRequestDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="responseDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
+    <bean id="gatewayResponseDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
     </bean>
     
     <bean id="transitionDAO" class="com.dreamoval.motech.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
@@ -134,6 +134,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <bean id="gatewayRequestDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDetailsDAOImpl" scope="prototype">
     </bean>
+    
 
     <!-- End of Data Access-->
 

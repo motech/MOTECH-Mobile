@@ -5,6 +5,9 @@
 
 package com.dreamoval.motech.core.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *  Date : Sep 24, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
@@ -17,6 +20,7 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
     private String messageType;
     private String message;
     private int numberOfPages;
+    private Set gatewayRequests = new HashSet();
 
     /**
      * @return the messageType
@@ -58,6 +62,20 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
      */
     public void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
+    }
+
+    /**
+     * @return the gatewayRequests
+     */
+    public Set getGatewayRequests() {
+        return gatewayRequests;
+    }
+
+    /**
+     * @param gatewayRequests the gatewayRequests to set
+     */
+    public void setGatewayRequests(Set gatewayRequests) {
+        this.gatewayRequests = gatewayRequests;
     }
 
 

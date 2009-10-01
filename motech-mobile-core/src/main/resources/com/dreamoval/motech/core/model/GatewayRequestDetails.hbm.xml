@@ -5,5 +5,9 @@
     <property name="messageType"/>
     <property name="message"/>
     <property name="numberOfPages"/>
+    <set name="gatewayRequests" cascade="all" >
+        <key column="gatewayRequestDetailsId"/>
+        <one-to-many class="GatewayRequestImpl"/>
+    </set>
   </union-subclass>
 </hibernate-mapping>

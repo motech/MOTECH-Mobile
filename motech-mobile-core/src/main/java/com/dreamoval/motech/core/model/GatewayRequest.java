@@ -33,10 +33,15 @@ public interface GatewayRequest extends MotechEntity {
     String getMessage();
 
     /**
-     * @return the requestId
+     * @return the gatewayRequestDetails Object
+     */
+    GatewayRequestDetails getGatewayRequestDetails();
+
+    /**
+     * 
+     * @return
      */
     Long getRequestId();
-
     /**
      * @return the  dateTo
      */
@@ -54,6 +59,7 @@ public interface GatewayRequest extends MotechEntity {
 
      int getTry_number();
 
+   void setRequestId(Long requestId);
    void setTry_number(int try_number);
     /**
      * @param dateSent the dateSent to set
@@ -73,7 +79,7 @@ public interface GatewayRequest extends MotechEntity {
     /**
      * @param messageType the requestId to set
      */
-    void setRequestId(Long requestId);
+    void setGatewayRequestDetails(GatewayRequestDetails gatewayRequestDetails);
 
     /**
      * @param numberOfPages the dateTo to set
