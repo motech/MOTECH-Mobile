@@ -7,6 +7,7 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -117,11 +118,11 @@ public class GatewayRequestDAOImplTest {
 
 
         rd1.setId(8L);
-        rd1.setMessageStatus("Pending");
+        rd1.setMessageStatus(MStatus.PENDING);
         rd1.setRecipientNumber("123445");
 
         rd2.setId(9L);
-        rd2.setMessageStatus("Failed");
+        rd2.setMessageStatus(MStatus.FAILED);
         rd2.setRecipientNumber("54321");
 
 

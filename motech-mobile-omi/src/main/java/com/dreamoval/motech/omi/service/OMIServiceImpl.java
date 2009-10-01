@@ -128,13 +128,16 @@ public class OMIServiceImpl implements OMIService {
         }
     }
     
+    /**
+     * @see OMIService.getMessageResponses
+     */
     public void getMessageResponses(){
         MessageRequest sample = coreManager.createMessageRequest(coreManager.createMotechContext());
         List<MessageRequest> messages = coreManager.createMessageRequestDAO(coreManager.createMotechContext()).findByExample(sample);
-        GatewayResponseDAO responseDao = coreManager.createGatewayResponseDAO(coreManager.createMotechContext());
+        GatewayRequestDAO gatewayDao = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
         
         for(MessageRequest message : messages){
-            //GatewayResponse response = responseDao.
+            //GatewayRequest request = gatewayDao.
         }
     }
 

@@ -1,6 +1,7 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import java.util.Map;
 
 /**
@@ -11,34 +12,33 @@ import java.util.Map;
  */
 public class StatusHandlerImpl implements StatusHandler {
 
-    private Map<MessageStatus, StatusAction> actionRegister;
-    private Map<String, MessageStatus> statusDictionary;
+    private Map<MStatus, StatusAction> actionRegister;
+    private Map<String, MStatus> statusDictionary;
     
     public void handleStatus(GatewayResponse response){
-        //MessageResponse msgResponse = coreManager.
         actionRegister.get(response.getMessageStatus()).DoAction(response);
     }
     
-    public boolean registerStatusAction(MessageStatus status, StatusAction action){
+    public boolean registerStatusAction(MStatus status, StatusAction action){
         if(actionRegister.put(status, action).equals(action))
             return true;
         else
             return false;
     }
 
-    public Map<MessageStatus, StatusAction> getActionRegister() {
+    public Map<MStatus, StatusAction> getActionRegister() {
         return actionRegister;
     }
 
-    public void setActionRegister(Map<MessageStatus, StatusAction> registry) {
+    public void setActionRegister(Map<MStatus, StatusAction> registry) {
         this.actionRegister = registry;
     }
 
-    public Map<String, MessageStatus> getStatusDictionary() {
+    public Map<String, MStatus> getStatusDictionary() {
         return statusDictionary;
     }
 
-    public void setStatusDictionary(Map<String, MessageStatus> statusDictionary) {
+    public void setStatusDictionary(Map<String, MStatus> statusDictionary) {
         this.statusDictionary = statusDictionary;
     }
 }

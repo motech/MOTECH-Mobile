@@ -4,6 +4,7 @@ import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import java.util.List;
 import java.util.Set;
@@ -64,7 +65,8 @@ public class SMSMessagingServiceImpl implements MessagingService {
     public void updateMessageStatuses() {
         List<GatewayResponse> pendingMessages = cache.getResponses(new GatewayResponseImpl());
         for(GatewayResponse response : pendingMessages){
-            getMessageStatus(response);
+            response.setResponseText(gatewayManager.getMessageStatus(response));
+            response.setMessageStatus(gatewayManager.mapMessageStatus(response));
             cache.saveResponse(response);
         }
     }

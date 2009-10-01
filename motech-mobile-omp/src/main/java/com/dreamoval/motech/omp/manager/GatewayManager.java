@@ -2,6 +2,7 @@ package com.dreamoval.motech.omp.manager;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import java.util.Set;
 
 /**
@@ -22,10 +23,17 @@ public interface GatewayManager {
 
     /**
      *
-     * @param response the id of the message returned by the message gateway
-     * @return
+     * @param response the GatewayResponse created when the message was sent
+     * @return the response message from the gateway
      */
     public String getMessageStatus(GatewayResponse response);
+    
+    /**
+     * 
+     * @param response the GatewayResponse created when the message was sent
+     * @return the status of the message
+     */
+    public MStatus mapMessageStatus(GatewayResponse response);
 
     /**
      * @return the messageHandler

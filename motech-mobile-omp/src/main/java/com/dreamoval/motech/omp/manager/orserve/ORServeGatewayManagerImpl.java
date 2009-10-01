@@ -2,6 +2,7 @@ package com.dreamoval.motech.omp.manager.orserve;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.outreachcity.orserve.messaging.SMSMessenger;
@@ -85,9 +86,11 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
             logger.fatal("Error querying message", ex);
             throw new RuntimeException("Error checking message status");
         }
-        //response.setResponseText(gatewayResponse);
-        response.setMessageStatus(messageHandler.parseMessageStatus(gatewayResponse));
-        return response.getMessageStatus();
+        return gatewayResponse;
+    }
+
+    public MStatus mapMessageStatus(GatewayResponse response) {
+        return messageHandler.parseMessageStatus(response.getResponseText());
     }
 
     /**

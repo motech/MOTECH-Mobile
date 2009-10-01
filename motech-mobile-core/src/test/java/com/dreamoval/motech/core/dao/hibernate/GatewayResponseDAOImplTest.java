@@ -6,6 +6,7 @@ import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.Transition;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,27 +70,27 @@ public class GatewayResponseDAOImplTest {
 
         rd1.setId(1L);
         rd1.setRecipientNumber("123445");
-        rd1.setMessageStatus("Pending");
+        rd1.setMessageStatus(MStatus.PENDING);
 
         rd2.setId(2L);
         rd2.setRecipientNumber("123445");
-        rd2.setMessageStatus("Pending");
+        rd2.setMessageStatus(MStatus.PENDING);
 
         rd3.setId(3L);
         rd3.setRecipientNumber("234567");
-        rd3.setMessageStatus("Delivered");
+        rd3.setMessageStatus(MStatus.DELIVERED);
 
         rd4.setId(4L);
         rd4.setRecipientNumber("345678");
-        rd4.setMessageStatus("Failed");
+        rd4.setMessageStatus(MStatus.DELIVERED);
 
         rd5.setId(5L);
         rd5.setRecipientNumber("765432");
-        rd5.setMessageStatus("Failed");
+        rd5.setMessageStatus(MStatus.FAILED);
 
         rd7.setId(9L);
         rd7.setRecipientNumber("23459");
-        rd7.setMessageStatus("Delivered");
+        rd7.setMessageStatus(MStatus.FAILED);
         setUpInitialData();
 
     }
@@ -145,7 +146,7 @@ public class GatewayResponseDAOImplTest {
     @Test
     public void testUpdate() {
         System.out.println("Update Response");
-        rd3.setMessageStatus("Failed");
+        rd3.setMessageStatus(MStatus.FAILED);
         rd3.setRecipientNumber("4444444");
         Session session = (Session) rDDAO.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
@@ -155,7 +156,7 @@ public class GatewayResponseDAOImplTest {
        GatewayResponse rd3fromdb = (GatewayResponseImpl) session.get(GatewayResponseImpl.class, rd3.getId());
        session.getTransaction().commit();
        Assert.assertEquals(rd3.getId(), rd3fromdb.getId());
-       Assert.assertEquals("Failed", rd3fromdb.getMessageStatus());
+       Assert.assertEquals(MStatus.FAILED, rd3fromdb.getMessageStatus());
        Assert.assertEquals("4444444", rd3fromdb.getRecipientNumber());
     }
 
@@ -175,7 +176,7 @@ public class GatewayResponseDAOImplTest {
         @Test
         public void testFindByExample() {
             System.out.println("Find byResponseDetails example");
-            rd6.setMessageStatus("Failed");
+            rd6.setMessageStatus(MStatus.FAILED);
             List<GatewayResponse> expResult = new ArrayList<GatewayResponse>();
             expResult.add(rd4);
             expResult.add(rd5);

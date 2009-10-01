@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 public class OMIServiceImplTest {
 
     OMPManager mockOMP;
-    OMIService instance;
+    OMIServiceImpl instance;
     CoreManager mockCore;
     MessageStoreManager mockStore;
     MessageRequestDAO mockRequestDao;

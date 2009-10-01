@@ -2,6 +2,7 @@ package com.dreamoval.motech.omp.manager.clickatell;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.io.BufferedReader;
@@ -160,10 +161,11 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
             throw new RuntimeException("Unable to communicate with gateway");
         }
 
-        //Convert the response to a standard format
-        //response.setResponseText(gatewayResponse);
-        response.setMessageStatus(messageHandler.parseMessageStatus(gatewayResponse));
-        return response.getMessageStatus();
+        return gatewayResponse;
+    }
+
+    public MStatus mapMessageStatus(GatewayResponse response) {
+        return messageHandler.parseMessageStatus(response.getResponseText());
     }
 
     public GatewayMessageHandler getMessageHandler() {

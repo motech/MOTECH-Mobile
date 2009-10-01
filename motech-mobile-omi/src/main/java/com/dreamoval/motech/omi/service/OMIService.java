@@ -1,8 +1,5 @@
 package com.dreamoval.motech.omi.service;
 
-import com.dreamoval.motech.omi.manager.MessageStoreManager;
-import com.dreamoval.motech.omp.manager.OMPManager;
-import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageType;
 import java.util.Date;
 import java.util.List;
@@ -46,42 +43,12 @@ public interface OMIService {
     public void processMessageRequests();
     
     /**
-     * Processes MessageRequests that have been marked for resending
+     * Resends all messages that have been marked for retry
      */
     public void processMessageRetries();
     
     /**
-     * Queries the OMP for the responses of sent messages
+     * Queries and updates the statuses of sent messages
      */
     public void getMessageResponses();
-    
-    /**
-     * @return the storeManager
-     */
-    public MessageStoreManager getStoreManager();
-
-    /**
-     * @param storeManager the storeManager to set
-     */
-    public void setStoreManager(MessageStoreManager storeManager);
-
-    /**
-     * @return the ompManager
-     */
-    public OMPManager getOmpManager();
-
-    /**
-     * @param ompManager the ompManager to set
-     */
-    public void setOmpManager(OMPManager ompManager);
-
-    /**
-     * @return the ompManager
-     */
-    public CoreManager getCoreManager();
-
-    /**
-     * @param ompManager the ompManager to set
-     */
-    public void setCoreManager(CoreManager coreManager);
 }

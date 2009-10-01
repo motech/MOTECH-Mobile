@@ -23,6 +23,12 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>org.motech</groupId>
+            <artifactId>motech-wsclient</artifactId>
+            <version>1.0-M2-SNAPSHOT</version>            
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>

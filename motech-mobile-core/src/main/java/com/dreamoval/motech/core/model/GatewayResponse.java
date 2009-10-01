@@ -27,7 +27,7 @@ public interface GatewayResponse extends MotechEntity {
     /**
      * @return the messageStatus
      */
-    String getMessageStatus();
+    MStatus getMessageStatus();
 
     /**
      * @return the recipientNumber
@@ -39,7 +39,10 @@ public interface GatewayResponse extends MotechEntity {
      */
    Set<Transition> getTransitions();
 
-
+   /**
+     * @return the responseText
+     */
+    String getResponseText();
   
     /**
      * @param gatewayMessageId the gatewayMessageId to set
@@ -54,7 +57,7 @@ public interface GatewayResponse extends MotechEntity {
     /**
      * @param messageStatus the messageStatus to set
      */
-    void setMessageStatus(String messageStatus);
+    void setMessageStatus(MStatus messageStatus);
 
     /**
      * @param recipientNumber the recipientNumber to set
@@ -65,6 +68,11 @@ public interface GatewayResponse extends MotechEntity {
      * @param transitions the transitions to set
      */
     void setTransitions( Set<Transition> transitions);
+    
+    /**
+     * @param recipientNumber the recipientNumber to set
+     */
+    void setResponseText(String responseText);
 
     /**
      *

@@ -8,6 +8,7 @@ package com.dreamoval.motech.omp.manager.clickatell;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,7 +52,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
                 else
                     response.setRecipientNumber(message.getRecipientsNumber());
 
-                response.setMessageStatus("sent");
+                response.setMessageStatus(MStatus.PENDING);
                 response.setMessageId(message);
                 responses.add(response);
             }
@@ -67,7 +68,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
      *
      * @see GatewayMessageHandler.parseMessageStatus
      */
-    public String parseMessageStatus(String messageStatus) {
+    public MStatus parseMessageStatus(String messageStatus) {
         logger.info("Parsing message gateway status response");
 
         String status = messageStatus.trim();
@@ -76,20 +77,20 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
         {
             if (status.equals("004"))
             {
-                return "delivered";
+                return MStatus.DELIVERED;
             }
             else if (status.equals("002") || status.equals("003") || status.equals("008") || status.equals("011"))
             {
-                return "sent";
+                return MStatus.PENDING;
             }
             else
             {
-                return "failed";
+                return MStatus.FAILED;
             }
         }
         else
         {
-            return "failed";
+            return MStatus.FAILED;
         }
     }
 

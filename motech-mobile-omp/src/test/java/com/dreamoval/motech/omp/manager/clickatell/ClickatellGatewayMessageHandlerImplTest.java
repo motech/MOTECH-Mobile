@@ -5,6 +5,7 @@ import static org.easymock.EasyMock.*;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
 import org.junit.Before;
@@ -52,8 +53,8 @@ public class ClickatellGatewayMessageHandlerImplTest {
     public void testParseMessageStatus() {
         System.out.println("parseMessageStatus");
         String messageStatus = "";
-        String expResult = "failed";
-        String result = instance.parseMessageStatus(messageStatus);
+        MStatus expResult = MStatus.FAILED;
+        MStatus result = instance.parseMessageStatus(messageStatus);
         assertEquals(expResult, result);
     }
 

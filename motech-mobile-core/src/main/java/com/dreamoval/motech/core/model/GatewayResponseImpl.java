@@ -16,14 +16,15 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
     private GatewayRequest messageId;
     private String gatewayMessageId;
     private String recipientNumber;
-    private String messageStatus;
+    private MStatus messageStatus;
+    private String responseText;
     private Set<Transition> transitions = new HashSet<Transition>();
     
 
     public GatewayResponseImpl(){}
 
 
-    public GatewayResponseImpl(String gatewayMessageId, String recipientNumber, String messageStatus) {
+    public GatewayResponseImpl(String gatewayMessageId, String recipientNumber, MStatus messageStatus) {
         this.gatewayMessageId = gatewayMessageId;
         this.recipientNumber = recipientNumber;
         this.messageStatus = messageStatus;
@@ -74,14 +75,14 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
     /**
      * @return the messageStatus
      */
-    public String getMessageStatus() {
+    public MStatus getMessageStatus() {
         return messageStatus;
     }
 
     /**
      * @param messageStatus the messageStatus to set
      */
-    public void setMessageStatus(String messageStatus) {
+    public void setMessageStatus(MStatus messageStatus) {
         this.messageStatus = messageStatus;
     }
 
@@ -120,6 +121,14 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
     public void removeTransition(Transition transition) {
         if(this.transitions.contains(transition))
             this.transitions.remove(transition);
+    }
+
+    public String getResponseText() {
+        return responseText;
+    }
+
+    public void setResponseText(String responseText) {
+        this.responseText = responseText;
     }
 
 

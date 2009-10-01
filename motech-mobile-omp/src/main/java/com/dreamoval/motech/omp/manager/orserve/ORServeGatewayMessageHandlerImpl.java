@@ -3,6 +3,7 @@ package com.dreamoval.motech.omp.manager.orserve;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
 import java.util.HashSet;
@@ -48,7 +49,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
                 else
                     response.setRecipientNumber(message.getRecipientsNumber());
 
-                response.setMessageStatus("sent");
+                response.setMessageStatus(MStatus.PENDING);
                 response.setMessageId(message);
                 responses.add(response);
             }
@@ -64,7 +65,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      *
      * @see GatewayMessageHandler.parseMessageStatus
      */
-    public String parseMessageStatus(String messageStatus) {
+    public MStatus parseMessageStatus(String messageStatus) {
         logger.info("Parsing message gateway status response");
         
         String status = messageStatus.trim();
@@ -73,20 +74,20 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
         {
             if (status.equals("004"))
             {
-                return "delivered";
+                return MStatus.DELIVERED;
             }
             else if (status.equals("002") || status.equals("003") || status.equals("008") || status.equals("011"))
             {
-                return "sent";
+                return MStatus.PENDING;
             }
             else
             {
-                return "failed";
+                return MStatus.FAILED;
             }
         }
         else
         {
-            return "failed";
+            return MStatus.FAILED;
         }
     }
 

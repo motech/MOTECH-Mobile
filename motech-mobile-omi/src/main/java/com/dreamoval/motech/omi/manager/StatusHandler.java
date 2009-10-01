@@ -1,6 +1,7 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import java.util.Map;
 
 /**
@@ -13,13 +14,13 @@ public interface StatusHandler{
 
     public void handleStatus(GatewayResponse response);
     
-    public boolean registerStatusAction(MessageStatus status, StatusAction action);
+    public boolean registerStatusAction(MStatus status, StatusAction action);
 
-    public Map<MessageStatus, StatusAction> getActionRegister();
+    public Map<MStatus, StatusAction> getActionRegister();
 
-    public void setActionRegister(Map<MessageStatus, StatusAction> registry); 
+    public void setActionRegister(Map<MStatus, StatusAction> registry); 
 
-    public Map<String, MessageStatus> getStatusDictionary();
+    public Map<String, MStatus> getStatusDictionary();
 
-    public void setStatusDictionary(Map<String, MessageStatus> statusDictionary);
+    public void setStatusDictionary(Map<String, MStatus> statusDictionary);
 }

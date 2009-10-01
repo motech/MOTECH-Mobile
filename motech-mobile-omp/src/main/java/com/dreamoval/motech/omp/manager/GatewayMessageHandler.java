@@ -26,7 +26,7 @@ public interface GatewayMessageHandler {
      * @param messageStatus the status of the message returned by the message gateway
      * @return a more reader-friendly message status
      */
-    public String parseMessageStatus(String messageStatus);
+    public MStatus parseMessageStatus(String messageStatus);
 
     /**
      * @return the coreManager
