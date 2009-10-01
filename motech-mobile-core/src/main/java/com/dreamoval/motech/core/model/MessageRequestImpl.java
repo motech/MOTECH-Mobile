@@ -15,17 +15,17 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
 
     private String language;
     private Date schedule;
-    private String message_type;
-    private String p13n_data;
-    private String notification_type;
-    private Date date_created;
-    private Date date_processed;
-    private String recipient_name;
-    private String recipient_number;
-    private Date date_from;
-    private Date date_to;
-    private String status;
-    private int max_try_number;
+    private MessageType messageType;
+    private String p13nData;
+    private Long notificationType;
+    private Date dateCreated;
+    private Date dateProcessed;
+    private String recipientName;
+    private String recipientNumber;
+    private Date dateFrom;
+    private Date dateTo;
+    private MStatus status;
+    private int maxTryNumber;
     
 
     /**
@@ -59,155 +59,156 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     /**
      * @return the message_type
      */
-    public String getMessage_type() {
-        return message_type;
+    public MessageType getMessageType() {
+        return messageType;
     }
 
     /**
      * @param message_type the message_type to set
      */
-    public void setMessage_type(String message_type) {
-        this.message_type = message_type;
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
     }
 
     /**
-     * @return the p13n_data
+     * @return the p13nData
      */
-    public String getP13n_data() {
-        return p13n_data;
+    public String getP13nData() {
+        return p13nData;
     }
 
     /**
-     * @param p13n_data the p13n_data to set
+     * @param p13nData the p13nData to set
      */
-    public void setP13n_data(String p13n_data) {
-        this.p13n_data = p13n_data;
+    public void setP13nData(String p13nData) {
+        this.p13nData = p13nData;
     }
 
     /**
-     * @return the notification_type
+     * @return the notificationType
      */
-    public String getNotification_type() {
-        return notification_type;
+    public Long getNotificationType() {
+        return notificationType;
     }
 
     /**
-     * @param notification_type the notification_type to set
+     * @param notificationType the notificationType to set
      */
-    public void setNotification_type(String notification_type) {
-        this.notification_type = notification_type;
+    public void setNotificationType(Long notificationType) {
+        this.notificationType = notificationType;
     }
 
     /**
-     * @return the date_created
+     * @return the dateCreated
      */
-    public Date getDate_created() {
-        return date_created;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
     /**
-     * @param date_created the date_created to set
+     * @param dateCreated the dateCreated to set
      */
-    public void setDate_created(Date date_created) {
-        this.date_created = date_created;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     /**
-     * @return the date_processed
+     * @return the dateProcessed
      */
-    public Date getDate_processed() {
-        return date_processed;
+    public Date getDateProcessed() {
+        return dateProcessed;
     }
 
     /**
-     * @param date_processed the date_processed to set
+     * @param dateProcessed the dateProcessed to set
      */
-    public void setDate_processed(Date date_processed) {
-        this.date_processed = date_processed;
+    public void setDateProcessed(Date dateProcessed) {
+        this.dateProcessed = dateProcessed;
     }
 
     /**
-     * @return the recipient_name
+     * @return the recipientName
      */
-    public String getRecipient_name() {
-        return recipient_name;
+    public String getRecipientName() {
+        return recipientName;
     }
 
     /**
-     * @param recipient_name the recipient_name to set
+     * @param recipientName the recipientName to set
      */
-    public void setRecipient_name(String recipient_name) {
-        this.recipient_name = recipient_name;
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
     }
 
     /**
-     * @return the recipient_number
+     * @return the recipientNumber
      */
-    public String getRecipient_number() {
-        return recipient_number;
+    public String getRecipientNumber() {
+        return recipientNumber;
     }
 
     /**
-     * @param recipient_number the recipient_number to set
+     * @param recipientNumber the recipientNumber to set
      */
-    public void setRecipient_number(String recipient_number) {
-        this.recipient_number = recipient_number;
+    public void setRecipientNumber(String recipientNumber) {
+        this.recipientNumber = recipientNumber;
     }
 
     /**
-     * @return the date_from
+     * @return the dateFrom
      */
-    public Date getDate_from() {
-        return date_from;
+    public Date getDateFrom() {
+        return dateFrom;
     }
 
     /**
-     * @param date_from the date_from to set
+     * @param dateFrom the dateFrom to set
      */
-    public void setDate_from(Date date_from) {
-        this.date_from = date_from;
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
     }
 
     /**
-     * @return the date_to
+     * @return the dateTo
      */
-    public Date getDate_to() {
-        return date_to;
+    public Date getDateTo() {
+        return dateTo;
     }
 
     /**
-     * @param date_to the date_to to set
+     * @param dateTo the dateTo to set
      */
-    public void setDate_to(Date date_to) {
-        this.date_to = date_to;
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
     }
 
     /**
      * @return the status
      */
-    public String getStatus() {
+    public MStatus getStatus() {
         return status;
+    }
+
+
+    /**
+     * @return the maxTryNumber
+     */
+    public int getMaxTryNumber() {
+        return maxTryNumber;
+    }
+
+    /**
+     * @param maxTryNumber the maxTryNumber to set
+     */
+    public void setMaxTryNumber(int maxTryNumber) {
+        this.maxTryNumber = maxTryNumber;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(String status) {
+    public void setStatus(MStatus status) {
         this.status = status;
-    }
-
-    /**
-     * @return the max_try_number
-     */
-    public int getMax_try_number() {
-        return max_try_number;
-    }
-
-    /**
-     * @param max_try_number the max_try_number to set
-     */
-    public void setMax_try_number(int max_try_number) {
-        this.max_try_number = max_try_number;
     }
 
 

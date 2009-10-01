@@ -1,5 +1,6 @@
 package com.dreamoval.motech.omi.ws;
 
+import com.dreamoval.motech.core.model.MessageType;
 import static org.easymock.EasyMock.*;
 
 import java.util.Date;
@@ -58,11 +59,11 @@ public class MessageServiceImplTest{
         String messageType = "TEXT";
 
         expect(
-                mockOMIService.savePatientMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.savePatientMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MessageType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
                 ).andReturn("QUEUED");
         replay(mockOMI, mockOMIService);
         
-        String result = instance.sendPatientMessage(messageId, patientNumber, patientNumber, patientNumberType, "db_GH", messageType, patientNumber, null, null);
+        String result = instance.sendPatientMessage(messageId, patientNumber, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null);
         assertEquals("QUEUED", result);
         verify(mockOMI, mockOMIService);
     }

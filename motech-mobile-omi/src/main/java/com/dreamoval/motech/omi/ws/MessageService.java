@@ -2,7 +2,6 @@ package com.dreamoval.motech.omi.ws;
 
 import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
-import com.dreamoval.motech.omi.service.MessageType;
 import com.dreamoval.motech.omi.service.PatientImpl;
 import java.io.Serializable;
 import java.util.Date;
@@ -30,7 +29,7 @@ public interface MessageService extends Serializable{
      * @param messageType Preferred message type. Possible values include TEXT, VOICE
      * @return The id of the message sent
      */
-    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="messageType") String messageType, @WebParam(name="notificationType") String notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
+    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="messageType") String messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
 
     /**
      * Sends a message to a CHPS Worker

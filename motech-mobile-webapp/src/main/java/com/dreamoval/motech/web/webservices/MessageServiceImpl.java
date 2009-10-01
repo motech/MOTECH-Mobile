@@ -1,5 +1,6 @@
 package com.dreamoval.motech.web.webservices;
 
+import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.PatientImpl;
@@ -23,10 +24,10 @@ public class MessageServiceImpl implements MessageService {
      *
      * @see MessageService.sendPatientMessage
      */
-    public String sendPatientMessage(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, String messageType, String notificationType, Date startDate, Date endDate){
+    public String sendPatientMessage(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, String messageType, Long notificationType, Date startDate, Date endDate){
         //logger.debug("Called MessageService.sendPatientMessage with parameters:\n\rmessageId - "+ messageId + "\n\rclinic - " + clinic + "\n\rserviceDate - " + serviceDate + "\n\rpatientNumber - " + patientNumber + "\n\rpatientNumbrType - " + patientNumberType + "\n\rmessageType - " + messageType);
         logger.info("Calling OMIService.sendPtientMessage");
-        return omiManager.createOMIService().savePatientMessageRequest(messageId, patientName, patientNumber, patientNumberType, langCode, langCode, notificationType, startDate, endDate);
+        return omiManager.createOMIService().savePatientMessageRequest(messageId, patientName, patientNumber, patientNumberType, langCode, MessageType.valueOf(messageType), notificationType, startDate, endDate);
     }
 
     /**

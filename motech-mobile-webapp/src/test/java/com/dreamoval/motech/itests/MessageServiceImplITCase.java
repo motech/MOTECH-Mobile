@@ -5,6 +5,7 @@
 
 package com.dreamoval.motech.itests;
 
+import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.PatientImpl;
 import com.dreamoval.motech.web.webservices.MessageService;
@@ -62,8 +63,8 @@ public class MessageServiceImplITCase {
         Date serviceDate = new Date();
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
-        String messageType = "TEXT";
-        String result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", "TEXT", "noteType", serviceDate, serviceDate);
+        MessageType messageType = MessageType.TEXT;
+        String result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", "TEXT", 49L, serviceDate, serviceDate);
         assertNotNull(result);
     }
 

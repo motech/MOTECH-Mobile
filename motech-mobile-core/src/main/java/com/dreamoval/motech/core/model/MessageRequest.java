@@ -14,32 +14,32 @@ import java.util.Date;
  */
 public interface MessageRequest extends MotechEntity {
 
-    String getRecipient_name();
+    String getRecipientName();
     String getLanguage();
     Date getSchedule();
-    String getMessage_type();
-    String getP13n_data();
-    String getNotification_type();
-    Date getDate_created();
-    Date getDate_processed();
-    String getRecipient_number();
-    Date getDate_from();
-    Date getDate_to();
-    String getStatus();
-    int getMax_try_number();
+    MessageType getMessageType();
+    String getP13nData();
+    Long getNotificationType();
+    Date getDateCreated();
+    Date getDateProcessed();
+    String getRecipientNumber();
+    Date getDateFrom();
+    Date getDateTo();
+    MStatus getStatus();
+    int getMaxTryNumber();
 
-    void setRecipient_name(String recipient_name);
+    void setRecipientName(String recipientName);
     void setLanguage(String language);
     void setSchedule(Date schedule);
-    void setMessage_type(String message_type);
-    void setP13n_data(String p13n_data);
-    void setNotification_type(String notification_type);
-    void setDate_created(Date date_created);
-    void setDate_processed(Date date_processed);
-    void setRecipient_number(String recipient_number);
-    void setDate_from(Date date_from);
-    void setDate_to(Date date_to);
-    void setStatus(String status);
-    void setMax_try_number(int max_try_number);
+    void setMessageType(MessageType messageType);
+    void setP13nData(String p13nData);
+    void setNotificationType(Long notificationType);
+    void setDateCreated(Date dateCreated);
+    void setDateProcessed(Date dateProcessed);
+    void setRecipientNumber(String recipientNumber);
+    void setDateFrom(Date dateFrom);
+    void setDateTo(Date dateTo);
+    void setMaxTryNumber(int maxTryNumber);
+    void setStatus(MStatus status);
     
 }

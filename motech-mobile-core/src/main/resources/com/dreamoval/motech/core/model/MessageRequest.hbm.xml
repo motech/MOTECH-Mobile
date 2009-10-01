@@ -2,18 +2,18 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="Request">
-    <property name="recipient_name"/>
+    <property name="recipientName"/>
     <property name="language"/>
     <property name="schedule"/>
-    <property name="message_type"/>
-    <property name="p13n_data"/>
-    <property name="notification_type"/>
-    <property name="recipient_number"/>
-    <property name="date_created" type="date"/>
-    <property name="date_processed" type="date"/>
-    <property name="date_from" type="date"/>
-    <property name="date_to" type="date"/>
-    <property name="max_try_number"/>
-    <property name="status"/>
+    <property name="status" type="mStatus" update="false" access="field"/>
+    <property name="p13nData"/>
+    <property name="notificationType"/>
+    <property name="recipientNumber"/>
+    <property name="dateCreated" type="date"/>
+    <property name="dateProcessed" type="date"/>
+    <property name="dateFrom" type="date"/>
+    <property name="dateTo" type="date"/>
+    <property name="maxTryNumber"/>
+    
   </union-subclass>
 </hibernate-mapping>

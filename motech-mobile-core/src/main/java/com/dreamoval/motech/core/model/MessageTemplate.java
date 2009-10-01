@@ -16,7 +16,7 @@ public interface MessageTemplate extends MotechEntity{
     /**
      * @return the date_created
      */
-    Date getDate_created();
+    Date getDateCreated();
 
     /**
      * @return the language
@@ -26,12 +26,24 @@ public interface MessageTemplate extends MotechEntity{
     /**
      * @return the notification_type
      */
-    String getNotification_type();
+    Long getNotificationType();
+
+    /**
+     *
+     * @return the message_type
+     */
+   MessageType getMessageType();
+
+   /**
+    *
+    * @return the template
+    */
+   String getTemplate();
 
     /**
      * @param date_created the date_created to set
      */
-    void setDate_created(Date date_created);
+    void setDateCreated(Date dateCreated);
 
     /**
      * @param language the language to set
@@ -41,6 +53,17 @@ public interface MessageTemplate extends MotechEntity{
     /**
      * @param notification_type the notification_type to set
      */
-    void setNotification_type(String notification_type);
+    void setNotificationType(Long notificationType);
 
+    /**
+     *
+     * @param message_type the message_tpe to set
+     */
+    void setMessageType(MessageType messageType);
+
+    /**
+     * 
+     * @param template the template to set
+     */
+    void setTemplate(String template);
 }

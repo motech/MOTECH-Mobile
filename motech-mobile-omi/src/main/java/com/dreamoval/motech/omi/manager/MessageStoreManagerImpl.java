@@ -32,7 +32,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         
         logger.info("Initializing template parameters");
         Map<String, String> templateParams = new HashMap<String, String>();
-        templateParams.put("RecipientName", messageData.getRecipient_name());
+        templateParams.put("RecipientName", messageData.getRecipientName());
         logger.debug(templateParams);
         
         logger.info("Parsing message template");
@@ -40,9 +40,9 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         
         logger.info("Constructing GatewayRequest object");
         GatewayRequest gwReq = coreManager.createGatewayRequest(coreManager.createMotechContext());
-        gwReq.setDateFrom(messageData.getDate_from());
-        gwReq.setDateTo(messageData.getDate_to());
-        gwReq.setRecipientsNumber(messageData.getRecipient_number());
+        gwReq.setDateFrom(messageData.getDateFrom());
+        gwReq.setDateTo(messageData.getDateTo());
+        gwReq.setRecipientsNumber(messageData.getRecipientNumber());
         gwReq.setMessage(message);
         gwReq.setRequestId(messageData.getId());
         

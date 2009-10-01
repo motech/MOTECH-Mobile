@@ -1,12 +1,25 @@
 package com.dreamoval.motech.omi.manager;
 
+import com.dreamoval.motech.core.model.GatewayResponse;
+import java.util.Map;
+
 /**
  * Provides external access to OMI methods
  *
  * @author Kofi A. Asamoah (yoofi@dremoval.com)
- * Date Created: Jul 31, 2009
+ * Date Created: Sep 30, 2009
  */
-public interface StatusHandler {
+public interface StatusHandler{
 
+    public void handleStatus(GatewayResponse response);
     
+    public boolean registerStatusAction(MessageStatus status, StatusAction action);
+
+    public Map<MessageStatus, StatusAction> getActionRegister();
+
+    public void setActionRegister(Map<MessageStatus, StatusAction> registry); 
+
+    public Map<String, MessageStatus> getStatusDictionary();
+
+    public void setStatusDictionary(Map<String, MessageStatus> statusDictionary);
 }

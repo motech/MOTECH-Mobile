@@ -15,22 +15,24 @@ public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemp
     public MessageTemplateImpl() {
     }
 
-    private String notification_type;
+    private Long notificationType;
     private String language;
-    private Date date_created;
+    private Date dateCreated;
+    private MessageType messageType;
+    private String template;
 
     /**
      * @return the notification_type
      */
-    public String getNotification_type() {
-        return notification_type;
+    public Long getNotificationType() {
+        return notificationType;
     }
 
     /**
      * @param notification_type the notification_type to set
      */
-    public void setNotification_type(String notification_type) {
-        this.notification_type = notification_type;
+    public void setNotificationType(Long notificationType) {
+        this.notificationType = notificationType;
     }
 
     /**
@@ -50,15 +52,43 @@ public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemp
     /**
      * @return the date_created
      */
-    public Date getDate_created() {
-        return date_created;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
     /**
      * @param date_created the date_created to set
      */
-    public void setDate_created(Date date_created) {
-        this.date_created = date_created;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    /**
+     * @return the message_type
+     */
+    public MessageType getMessageType() {
+        return messageType;
+    }
+
+    /**
+     * @param message_type the message_type to set
+     */
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
+    }
+
+    /**
+     * @return the template
+     */
+    public String getTemplate() {
+        return template;
+    }
+
+    /**
+     * @param template the template to set
+     */
+    public void setTemplate(String template) {
+        this.template = template;
     }
     
 }

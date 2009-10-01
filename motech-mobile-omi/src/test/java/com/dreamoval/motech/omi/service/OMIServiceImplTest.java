@@ -4,6 +4,7 @@ import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageRequestImpl;
+import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
@@ -77,7 +78,7 @@ public class OMIServiceImplTest {
 
         replay(mockCore, mockRequestDao);
         
-        String result = instance.savePatientMessageRequest(0L, "Test Patient", "000000000000", ContactNumberType.PERSONAL, "language", "messageType", "notificationType", new Date(), new Date());
+        String result = instance.savePatientMessageRequest(0L, "Test Patient", "000000000000", ContactNumberType.PERSONAL, "language", MessageType.TEXT, 1L, new Date(), new Date());
         assertEquals(expResult, result);
         verify(mockCore, mockRequestDao);
     }

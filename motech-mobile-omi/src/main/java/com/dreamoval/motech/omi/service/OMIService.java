@@ -3,6 +3,7 @@ package com.dreamoval.motech.omi.service;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.MessageType;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface OMIService {
      * @param messageType Preferred message type. Possible values include TEXT, VOICE
      * @return The id of the message sent
      */
-    public String savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, String messageType, String notificationType, Date startDate, Date endDate);
+    public String savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, MessageType messageType, Long notificationType, Date startDate, Date endDate);
 
     /**
      * Sends a message to a CHPS Worker

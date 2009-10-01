@@ -6,9 +6,11 @@ import com.dreamoval.motech.core.model.GatewayResponse;
  * Provides external access to OMI methods
  *
  * @author Kofi A. Asamoah (yoofi@dremoval.com)
- * Date Created: Jul 31, 2009
+ * Date Created: Sep 30, 2009
  */
-public interface StatusAction {
+public class RetryStatusActionImpl implements StatusAction{
 
-   public void DoAction(GatewayResponse response);
+   public void DoAction(GatewayResponse response){
+       
+   }
 }
