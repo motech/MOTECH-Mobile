@@ -3,6 +3,7 @@ package com.dreamoval.motech.omp.manager;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import java.util.Set;
 
 /**

@@ -63,9 +63,6 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="messageRequest" class="com.dreamoval.motech.core.model.MessageRequestImpl" scope="prototype">
     </bean>
 
-    <!--<bean id="messageRequestDetails" class="com.dreamoval.motech.core.model.MessageRequestDetailsImpl" scope="prototype">
-    </bean>-->
-
     <bean id="language" class="com.dreamoval.motech.core.model.LanguageImpl" scope="prototype">
     </bean>
 
@@ -133,6 +130,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     </bean>
 
     <bean id="notificationTypeDAO" class="com.dreamoval.motech.core.dao.hibernate.NotificationTypeDAOImpl" scope="prototype">
+    </bean>
+
+    <bean id="gatewayRequestDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDetailsDAOImpl" scope="prototype">
     </bean>
 
     <!-- End of Data Access-->

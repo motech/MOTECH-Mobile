@@ -45,15 +45,15 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
 
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         try {
-            postData = "api_id=" + URLEncoder.encode(clickProps.getProperty("apiId"), "UTF-8");
-            postData += "&user=" + URLEncoder.encode(clickProps.getProperty("user"), "UTF-8");
-            postData += "&password=" + URLEncoder.encode(clickProps.getProperty("password"), "UTF-8");
+            postData = "api_id=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.apiId"), "UTF-8");
+            postData += "&user=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.user"), "UTF-8");
+            postData += "&password=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.password"), "UTF-8");
             postData += "&to=" + URLEncoder.encode(messageDetails.getRecipientsNumber(), "UTF-8");
             postData += "&text=" + URLEncoder.encode(messageDetails.getMessage(), "UTF-8");
-            postData += "&from=" + URLEncoder.encode(clickProps.getProperty("sender", "MoTeCH"), "UTF-8");
+            postData += "&from=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.sender", "MoTeCH"), "UTF-8");
             postData += "&concat=" + URLEncoder.encode(String.valueOf(messageDetails.getDateTo()), "UTF-8");
-            postData += "&deliv_ack=" + URLEncoder.encode(clickProps.getProperty("deliveryAcknowledge", "1"), "UTF-8");
-            postData += "&callback=" + URLEncoder.encode(clickProps.getProperty("callback", "2"), "UTF-8");
+            postData += "&deliv_ack=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.deliveryAcknowledge", "1"), "UTF-8");
+            postData += "&callback=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.callback", "2"), "UTF-8");
         }
         catch (UnsupportedEncodingException ex) {
             logger.fatal("Error constructing request: parameter encoding failed", ex);
@@ -108,9 +108,9 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
 
     public String getMessageStatus(GatewayResponse response) {
         try {
-            postData = "api_id=" + URLEncoder.encode(clickProps.getProperty("apiId"), "UTF-8");
-            postData += "&user=" + URLEncoder.encode(clickProps.getProperty("user"), "UTF-8");
-            postData += "&password=" + URLEncoder.encode(clickProps.getProperty("password"), "UTF-8");
+            postData = "api_id=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.apiId"), "UTF-8");
+            postData += "&user=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.user"), "UTF-8");
+            postData += "&password=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.password"), "UTF-8");
             postData += "&apimsgid=" + URLEncoder.encode(response.getGatewayMessageId(), "UTF-8");
         }
         catch (UnsupportedEncodingException ex) {

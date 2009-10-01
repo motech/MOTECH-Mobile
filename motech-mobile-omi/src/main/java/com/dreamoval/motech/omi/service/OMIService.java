@@ -45,7 +45,16 @@ public interface OMIService {
      */
     public void processMessageRequests();
     
-     
+    /**
+     * Processes MessageRequests that have been marked for resending
+     */
+    public void processMessageRetries();
+    
+    /**
+     * Queries the OMP for the responses of sent messages
+     */
+    public void getMessageResponses();
+    
     /**
      * @return the storeManager
      */

@@ -3,6 +3,7 @@
 package com.dreamoval.motech.core.manager;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
+import com.dreamoval.motech.core.dao.GatewayRequestDetailsDAO;
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.LanguageDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
@@ -11,6 +12,7 @@ import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.TransitionDAO;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MessageRequest;
@@ -41,7 +43,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     private SessionContainer sessionContainer;
 
     /**
-     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetails() }
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createGatewayRequest(com.dreamoval.motech.core.service.MotechContext)  }
      */
     public GatewayRequest createGatewayRequest(MotechContext motechContext) {
         logger.info("Creating MessageDetails instance");
@@ -50,6 +52,16 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         logger.info("Setting generated Id to the MessageDetails instance created");
         result.setId(MotechIDGenerator.generateID());
 
+        return result;
+    }
+
+    /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createGatewayRequestDetails(com.dreamoval.motech.core.service.MotechContext)  }
+     */
+    public GatewayRequestDetails createGatewayRequestDetails(MotechContext motechContext) {
+        logger.info("Creating GatewayRequestDetails instance");
+        GatewayRequestDetails result = (GatewayRequestDetails) getInstance("gatewayRequestDetails", GatewayRequestDetails.class);
+       
         return result;
     }
 
@@ -110,12 +122,25 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
 
         return result;
     }
+
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createMessageDetailsDAO() }
      */
     public GatewayRequestDAO createGatewayRequestDAO(MotechContext motechContext) {
         logger.info("Creating MessageDetailsDAO instance");
         GatewayRequestDAO mdDAO = (GatewayRequestDAO) getInstance("messageDetailsDAO", GatewayRequestDAO.class);
+
+        mdDAO.setDBSession(motechContext.getDBSession());
+
+        return mdDAO;
+    }
+
+    /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createGatewayRequestDetailsDAO(com.dreamoval.motech.core.service.MotechContext)}
+     */
+    public GatewayRequestDetailsDAO createGatewayRequestDetailsDAO(MotechContext motechContext) {
+        logger.info("Creating GatewayRequestDetailsDAO instance");
+        GatewayRequestDetailsDAO mdDAO = (GatewayRequestDetailsDAO) getInstance("gatewayRequestDetailsDAO", GatewayRequestDetailsDAO.class);
 
         mdDAO.setDBSession(motechContext.getDBSession());
 

@@ -1,6 +1,7 @@
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
+import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -8,6 +9,7 @@ import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
+import com.dreamoval.motech.omi.manager.StatusHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import com.dreamoval.motech.omp.service.MessagingService;
 import java.util.Date;
@@ -25,6 +27,7 @@ public class OMIServiceImpl implements OMIService {
     private MessageStoreManager storeManager;
     private OMPManager ompManager;
     private CoreManager coreManager;
+    private StatusHandler statHandler;
     private static Logger logger = Logger.getLogger(OMIServiceImpl.class);
 
     /**
@@ -124,6 +127,16 @@ public class OMIServiceImpl implements OMIService {
             msgSvc.scheduleMessage(gwReq);
         }
     }
+    
+    public void getMessageResponses(){
+        MessageRequest sample = coreManager.createMessageRequest(coreManager.createMotechContext());
+        List<MessageRequest> messages = coreManager.createMessageRequestDAO(coreManager.createMotechContext()).findByExample(sample);
+        GatewayResponseDAO responseDao = coreManager.createGatewayResponseDAO(coreManager.createMotechContext());
+        
+        for(MessageRequest message : messages){
+            //GatewayResponse response = responseDao.
+        }
+    }
 
     /**
      * @return the storeManager
@@ -171,5 +184,13 @@ public class OMIServiceImpl implements OMIService {
         logger.debug("Setting OMIServiceImpl.coreManager");
         logger.debug(coreManager);
         this.coreManager = coreManager;
+    }
+
+    public StatusHandler getStatHandler() {
+        return statHandler;
+    }
+
+    public void setStatHandler(StatusHandler statHandler) {
+        this.statHandler = statHandler;
     }
 }

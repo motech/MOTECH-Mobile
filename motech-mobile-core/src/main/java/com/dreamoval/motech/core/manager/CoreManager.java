@@ -3,6 +3,7 @@
 package com.dreamoval.motech.core.manager;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
+import com.dreamoval.motech.core.dao.GatewayRequestDetailsDAO;
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.LanguageDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
@@ -11,6 +12,7 @@ import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.dao.SessionContainer;
 import com.dreamoval.motech.core.dao.TransitionDAO;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MessageRequest;
@@ -31,11 +33,18 @@ import java.io.Serializable;
 public interface CoreManager extends Serializable{
 
     /**
-     * Creates a new instance of MessageDetails
+     * Creates a new instance of GatewayRequest
      * 
-     * @return The newly created MessageDetails
+     * @return The newly created GatewayRequest
      */
     public GatewayRequest createGatewayRequest(MotechContext motechContext);
+
+    /**
+     * Creates a new instance of MessageDetails
+     *
+     * @return The newly created MessageDetails
+     */
+    public GatewayRequestDetails createGatewayRequestDetails(MotechContext motechContext);
 
     /**
      * Creates a new instance of ResponseDetails
@@ -82,11 +91,18 @@ public interface CoreManager extends Serializable{
     public NotificationType createNotificationType(MotechContext motechContext);
 
     /**
-     * Creates a new instance of MessageDetailsDAO
+     * Creates a new instance of GatewayRequestDAO
      *
-     * @return The newly created instance of MessageDetailsDAO
+     * @return The newly created instance of GatewayRequestDAO
      */
     public GatewayRequestDAO createGatewayRequestDAO(MotechContext motechContext);
+
+    /**
+     * Creates a new instance of GatewayRequestDetailsDAO
+     *
+     * @return The newly created instance of GatewayRequestDetailsDAO
+     */
+    public GatewayRequestDetailsDAO createGatewayRequestDetailsDAO(MotechContext motechContext);
 
     /**
      * Creates a new instance of ResponseDetailsDAO
