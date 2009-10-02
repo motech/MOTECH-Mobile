@@ -39,7 +39,7 @@ public class OMPManagerImplTest {
      * Test of createSMSGatewayManager method, of class OMPManagerImpl.
      */
     @Test
-    public void testCreateSMSGatewayManager() {
+    public void testCreateGatewayManager() {
         System.out.println("createGatewayManager");
         GatewayManager result = ompManager.createGatewayManager();
         assertNotNull(result);
@@ -49,7 +49,7 @@ public class OMPManagerImplTest {
      * Test of createSMSCacheService method, of class OMPManagerImpl.
      */
     @Test
-    public void testCreateSMSCacheService() {
+    public void testCreateCacheService() {
         System.out.println("createCacheService");
         CacheService result = ompManager.createCacheService();
         assertNotNull(result);
@@ -59,7 +59,7 @@ public class OMPManagerImplTest {
      * Test of createSMSService method, of class OMPManagerImpl.
      */
     @Test
-    public void testCreateSMSService() {
+    public void testCreateMessagingService() {
         System.out.println("createMessagingService");
         MessagingService result = ompManager.createMessagingService();
         assertNotNull(result);

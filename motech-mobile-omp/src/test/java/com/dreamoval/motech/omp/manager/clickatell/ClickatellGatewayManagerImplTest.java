@@ -34,6 +34,12 @@ public class ClickatellGatewayManagerImplTest {
         mockHandler = createMock(GatewayMessageHandler.class);
         instance = new ClickatellGatewayManagerImpl();
         instance.setMessageHandler(mockHandler);
+        instance.setApiId("someid");
+        instance.setUser("someuser");
+        instance.setPassword("somepassword");
+        instance.setSender("somesender");
+        instance.setDeliveryAcknowledge("1");
+        instance.setCallback("somecallback");
     }
 
     /**
@@ -77,5 +83,25 @@ public class ClickatellGatewayManagerImplTest {
         String result = instance.getMessageStatus(response);
         assertNotNull(result);
         //verify(mockHandler);
+    }
+
+    /**
+     * Test of mapMessageStatus method, of class ClickatellGatewayManagerImpl.
+     */
+    @Test
+    public void testMapMessageStatus() {
+        System.out.println("mapMessageStatus");
+
+        GatewayResponseImpl response = new GatewayResponseImpl();
+        response.setResponseText("Some gateway response message");
+        
+        expect(
+                mockHandler.parseMessageStatus((String) anyObject())
+                ).andReturn(MStatus.DELIVERED);
+        replay(mockHandler);
+
+        MStatus result = instance.mapMessageStatus(response);
+        assertEquals(result, MStatus.DELIVERED);
+        verify(mockHandler);
     }
 }

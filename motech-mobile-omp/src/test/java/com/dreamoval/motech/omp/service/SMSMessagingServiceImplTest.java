@@ -6,8 +6,11 @@ import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +50,62 @@ public class SMSMessagingServiceImplTest {
      * Test of sendTextMessage method, of class SMSMessagingServiceImpl.
      */
     @Test
+    public void testScheduleMessage() {
+        System.out.println("scheduleMessage");
+
+        GatewayRequest messageDetails = new GatewayRequestImpl();
+        messageDetails.setDateFrom(new Date());
+        messageDetails.setMessage("a message for testing");
+        messageDetails.setDateTo(new Date());
+        messageDetails.setRecipientsNumber("000000000000");
+        messageDetails.setRequestId(6L);
+        
+        mockCache.saveMessage((GatewayRequest) anyObject());
+        expectLastCall();
+
+        replay(mockCache);
+
+        instance.scheduleMessage(messageDetails);
+        verify(mockCache);
+    }
+
+    /**
+     * Test of sendTextMessage method, of class SMSMessagingServiceImpl.
+     */
+    @Test
+    public void testSendScheduledMessages() {
+        System.out.println("sendScheduledMessages");
+
+        GatewayRequest messageDetails = new GatewayRequestImpl();
+        messageDetails.setDateFrom(new Date());
+        messageDetails.setMessage("a message for testing");
+        messageDetails.setDateTo(new Date());
+        messageDetails.setRecipientsNumber("000000000000");
+        messageDetails.setRequestId(6L);
+        
+        List<GatewayRequest> messages = new ArrayList<GatewayRequest>();
+        messages.add(messageDetails);
+
+        expect(
+                mockCache.getMessages((GatewayRequest) anyObject())
+                ).andReturn(messages);        
+        expect(
+                mockGateway.sendMessage((GatewayRequest) anyObject())
+                ).andReturn(null);
+        
+        mockCache.saveMessage((GatewayRequest) anyObject());
+        expectLastCall();
+
+        replay(mockCache, mockGateway);
+
+        instance.sendScheduledMessages();
+        verify(mockCache, mockGateway);
+    }
+
+    /**
+     * Test of sendTextMessage method, of class SMSMessagingServiceImpl.
+     */
+    @Test
     public void testSendMessage() {
         System.out.println("sendMessage");
 
@@ -61,13 +120,51 @@ public class SMSMessagingServiceImplTest {
         expect(
                 mockGateway.sendMessage((GatewayRequest) anyObject())
                 ).andReturn(null);
+        
+        mockCache.saveMessage((GatewayRequest) anyObject());
+        expectLastCall();
 
-        replay(mockGateway);
+        replay(mockGateway, mockCache);
 
         Long expResult = messageDetails.getId();
         Long result = instance.sendMessage(messageDetails);
         assertEquals(expResult, result);
-        verify(mockGateway);
+        verify(mockGateway, mockCache);
+    }
+
+    /**
+     * Test of sendTextMessage method, of class SMSMessagingServiceImpl.
+     */
+    @Test
+    public void testUpdateMessageStatuses() {
+        System.out.println("updateMessageStatuses");
+
+        GatewayResponse response = new GatewayResponseImpl();
+        response.setGatewayMessageId("werfet54y56g645v4e");
+        response.setMessageStatus(MStatus.PENDING);
+        response.setRecipientNumber("000000000000");
+        response.setResponseText("Some gateway response message");
+                
+        List<GatewayResponse> responses = new ArrayList<GatewayResponse>();
+        responses.add(response);
+        
+        expect(
+                mockCache.getResponses((GatewayResponse) anyObject())
+                ).andReturn(responses);
+        expect(
+                mockGateway.getMessageStatus((GatewayResponse) anyObject())
+                ).andReturn("Some gateway response details");
+        expect(
+                mockGateway.mapMessageStatus((GatewayResponse) anyObject())
+                ).andReturn(MStatus.DELIVERED);
+        
+        mockCache.saveResponse((GatewayResponse) anyObject());
+        expectLastCall();
+
+        replay(mockCache, mockGateway);
+
+        instance.updateMessageStatuses();
+        verify(mockCache, mockGateway);
     }
 
     /**

@@ -28,33 +28,31 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
 
     private static String BASEURL = "https://api.clickatell.com/http/";
 
-    String postData;
+    private String postData;
+    private String apiId;
+    private String user;
+    private String password;
+    private String sender;
+    private String deliveryAcknowledge;
+    private String callback;
     private Properties clickProps;
     private GatewayMessageHandler messageHandler;
     private static Logger logger = Logger.getLogger(ClickatellGatewayManagerImpl.class);
 
     public ClickatellGatewayManagerImpl(){
-        clickProps = new Properties();
-        try{
-            clickProps.load(getClass().getResourceAsStream("/clickatell.properties"));
-        }
-        catch(IOException ex){
-            logger.fatal("Error initializing Clickatell Gateway: unable to read properties", ex);
-            throw new RuntimeException("Gateway connection failed");
-        }
     }
 
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         try {
-            postData = "api_id=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.apiId"), "UTF-8");
-            postData += "&user=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.user"), "UTF-8");
-            postData += "&password=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.password"), "UTF-8");
+            postData = "api_id=" + URLEncoder.encode(apiId, "UTF-8");
+            postData += "&user=" + URLEncoder.encode(user, "UTF-8");
+            postData += "&password=" + URLEncoder.encode(password, "UTF-8");
             postData += "&to=" + URLEncoder.encode(messageDetails.getRecipientsNumber(), "UTF-8");
             postData += "&text=" + URLEncoder.encode(messageDetails.getMessage(), "UTF-8");
-            postData += "&from=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.sender", "MoTeCH"), "UTF-8");
+            postData += "&from=" + URLEncoder.encode(sender, "UTF-8");
             postData += "&concat=" + URLEncoder.encode(String.valueOf(messageDetails.getDateTo()), "UTF-8");
-            postData += "&deliv_ack=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.deliveryAcknowledge", "1"), "UTF-8");
-            postData += "&callback=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.callback", "2"), "UTF-8");
+            postData += "&deliv_ack=" + URLEncoder.encode(deliveryAcknowledge, "UTF-8");
+            postData += "&callback=" + URLEncoder.encode(callback, "UTF-8");
         }
         catch (UnsupportedEncodingException ex) {
             logger.fatal("Error constructing request: parameter encoding failed", ex);
@@ -109,9 +107,9 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
 
     public String getMessageStatus(GatewayResponse response) {
         try {
-            postData = "api_id=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.apiId"), "UTF-8");
-            postData += "&user=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.user"), "UTF-8");
-            postData += "&password=" + URLEncoder.encode(clickProps.getProperty("clickatell.gateway.password"), "UTF-8");
+            postData = "api_id=" + URLEncoder.encode(apiId, "UTF-8");
+            postData += "&user=" + URLEncoder.encode(user, "UTF-8");
+            postData += "&password=" + URLEncoder.encode(password, "UTF-8");
             postData += "&apimsgid=" + URLEncoder.encode(response.getGatewayMessageId(), "UTF-8");
         }
         catch (UnsupportedEncodingException ex) {
@@ -176,6 +174,54 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
         logger.debug("Setting ClickatellGatewayManagerImpl.messageHandler");
         logger.debug(messageHandler);
         this.messageHandler = messageHandler;
+    }
+
+    public String getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(String apiId) {
+        this.apiId = apiId;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }  
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getDeliveryAcknowledge() {
+        return deliveryAcknowledge;
+    }
+
+    public void setDeliveryAcknowledge(String deliveryAcknowledge) {
+        this.deliveryAcknowledge = deliveryAcknowledge;
+    }
+
+    public String getCallback() {
+        return callback;
+    }
+
+    public void setCallback(String callback) {
+        this.callback = callback;
     }
 
 }

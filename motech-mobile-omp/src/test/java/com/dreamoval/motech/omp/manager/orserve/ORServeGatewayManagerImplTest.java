@@ -83,4 +83,24 @@ public class ORServeGatewayManagerImplTest {
         //verify(mockHandler);
     }
 
+    /**
+     * Test of mapMessageStatus method, of class ClickatellGatewayManagerImpl.
+     */
+    @Test
+    public void testMapMessageStatus() {
+        System.out.println("mapMessageStatus");
+
+        GatewayResponseImpl response = new GatewayResponseImpl();
+        response.setResponseText("Some gateway response message");
+        
+        expect(
+                mockHandler.parseMessageStatus((String) anyObject())
+                ).andReturn(MStatus.DELIVERED);
+        replay(mockHandler);
+
+        MStatus result = instance.mapMessageStatus(response);
+        assertEquals(result, MStatus.DELIVERED);
+        verify(mockHandler);
+    }
+
 }
