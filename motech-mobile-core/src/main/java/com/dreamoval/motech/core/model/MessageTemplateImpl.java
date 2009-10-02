@@ -15,8 +15,8 @@ public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemp
     public MessageTemplateImpl() {
     }
 
-    private Long notificationType;
-    private String language;
+    private NotificationType notificationType;
+    private Language language;
     private Date dateCreated;
     private MessageType messageType;
     private String template;
@@ -24,28 +24,28 @@ public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemp
     /**
      * @return the notification_type
      */
-    public Long getNotificationType() {
+    public NotificationType getNotificationType() {
         return notificationType;
     }
 
     /**
      * @param notification_type the notification_type to set
      */
-    public void setNotificationType(Long notificationType) {
+    public void setNotificationType(NotificationType notificationType) {
         this.notificationType = notificationType;
     }
 
     /**
      * @return the language
      */
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
     /**
      * @param language the language to set
      */
-    public void setLanguage(String language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 

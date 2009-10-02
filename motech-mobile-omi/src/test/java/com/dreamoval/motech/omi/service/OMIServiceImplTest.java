@@ -2,9 +2,11 @@ package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.LanguageImpl;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageRequestImpl;
 import com.dreamoval.motech.core.model.MessageType;
+import com.dreamoval.motech.core.model.NotificationTypeImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
@@ -61,17 +63,20 @@ public class OMIServiceImplTest {
         mockRequestDao = createMock(MessageRequestDAO.class);
         
         expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        expect(
                 mockCore.createMessageRequest((MotechContext)anyObject())
                 ).andReturn(new MessageRequestImpl());
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
+                mockCore.createNotificationType((MotechContext) anyObject())
+                ).andReturn(new NotificationTypeImpl());
+        expect(
+                mockCore.createLanguage((MotechContext) anyObject())
+                ).andReturn(new LanguageImpl());
         expect(
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockRequestDao);
-        expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(new MessageRequestImpl());

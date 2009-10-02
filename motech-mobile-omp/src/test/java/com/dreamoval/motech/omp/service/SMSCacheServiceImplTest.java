@@ -6,6 +6,7 @@ import static org.easymock.EasyMock.*;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
@@ -32,6 +33,7 @@ public class SMSCacheServiceImplTest {
     CoreManager mockCore;
     GatewayRequestDAO mockMessageDAO;
     GatewayResponseDAO mockResponseDAO;
+    GatewayRequestDetails mockGatewayRequestDetails;
 
     public SMSCacheServiceImplTest() {
     }
@@ -39,7 +41,8 @@ public class SMSCacheServiceImplTest {
     @Before
     public void setUp(){
         mockCore = createMock(CoreManager.class);
-        
+        mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
+        mockGatewayRequestDetails.setId(2L);
         instance = new SMSCacheServiceImpl();
         instance.setCoreManager(mockCore);
     }
@@ -56,7 +59,7 @@ public class SMSCacheServiceImplTest {
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
-        messageDetails.setRequestId(2L);
+        messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
         mockMessageDAO = createMock(GatewayRequestDAO.class);
         
@@ -119,7 +122,7 @@ public class SMSCacheServiceImplTest {
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
-        messageDetails.setRequestId(2L);
+        messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
         mockMessageDAO = createMock(GatewayRequestDAO.class);
         

@@ -2,6 +2,7 @@ package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageTemplate;
 import java.util.HashMap;
@@ -39,12 +40,15 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         String message = parseTemplate(template, templateParams);
         
         logger.info("Constructing GatewayRequest object");
+       
         GatewayRequest gwReq = coreManager.createGatewayRequest(coreManager.createMotechContext());
+        GatewayRequestDetails gwReqDet = coreManager.createGatewayRequestDetails(coreManager.createMotechContext());
+        gwReqDet.setId(messageData.getId());
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
         gwReq.setRecipientsNumber(messageData.getRecipientNumber());
         gwReq.setMessage(message);
-        gwReq.setRequestId(messageData.getId());
+        gwReq.setGatewayRequestDetails(gwReqDet);
         
         logger.info("GatewayRequest object successfully constructed");
         logger.debug(gwReq);
@@ -78,7 +82,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         //template.setNotificationType(notification_type);
         
         List<MessageTemplate> templates = coreManager.createMessageTemplateDAO(coreManager.createMotechContext()).findByExample(template);
-        return templates.get(0).getLanguage();
+        return templates.get(0).getTemplate();
     }
 
     public CoreManager getCoreManager() {

@@ -14,7 +14,7 @@ public class ReportStatusActionImpl implements StatusAction{
    private RegistrarWebService regWs;
    
    public void doAction(GatewayResponse response){
-       Long rId = response.getMessageId().getRequestId();
+       Long rId = response.getMessageId().getGatewayRequestDetails().getId();
        
        if(response.getMessageStatus() == MStatus.DELIVERED)
            getRegWs().setMessageStatus(rId.toString(), true);

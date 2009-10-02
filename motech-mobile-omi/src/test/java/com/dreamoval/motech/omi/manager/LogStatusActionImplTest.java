@@ -1,6 +1,7 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
@@ -12,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.motech.ws.client.LogType;
 import org.motech.ws.client.RegistrarWebService;
-import static org.junit.Assert.*;
 
 /**
  * Unit test for the LogStatusActionImpl class
@@ -23,6 +23,7 @@ import static org.junit.Assert.*;
 public class LogStatusActionImplTest{
     LogStatusActionImpl instance;
     RegistrarWebService mockService;
+    GatewayRequestDetails mockGatewayRequestDetails;
     
     public LogStatusActionImplTest() {
     }
@@ -30,7 +31,8 @@ public class LogStatusActionImplTest{
     @Before
     public void setUp(){
         mockService = createMock(RegistrarWebService.class);
-        
+        mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
+        mockGatewayRequestDetails.setId(2L);
         instance = new LogStatusActionImpl();        
         instance.setRegWs(mockService);
     }
@@ -44,7 +46,7 @@ public class LogStatusActionImplTest{
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
-        messageDetails.setRequestId(2L);
+        messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
         GatewayResponse response = new GatewayResponseImpl();
         response.setMessageId(messageDetails);

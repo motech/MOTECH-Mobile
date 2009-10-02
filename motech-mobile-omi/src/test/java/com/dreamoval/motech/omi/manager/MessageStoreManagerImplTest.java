@@ -9,6 +9,8 @@ import com.dreamoval.motech.core.model.MessageRequestImpl;
 import com.dreamoval.motech.core.model.MessageTemplate;
 import com.dreamoval.motech.core.model.MessageTemplateImpl;
 import com.dreamoval.motech.core.dao.MessageTemplateDAO;
+import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
+import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class MessageStoreManagerImplTest {
     CoreManager mockCore;
     MessageTemplateDAO mockTemplateDao;
     MessageStoreManager instance;
+    Language mockLang;
 
     public MessageStoreManagerImplTest() {
     }
@@ -39,6 +42,9 @@ public class MessageStoreManagerImplTest {
     @Before
     public void setUp(){
         mockCore = createMock(CoreManager.class);
+        mockLang = createMock(Language.class);
+        mockLang.setId(1L);
+        mockLang.setCode("testing");
         mockTemplateDao = createMock(MessageTemplateDAO.class);
         instance = new MessageStoreManagerImpl();
         instance.setCoreManager(mockCore);
@@ -54,17 +60,12 @@ public class MessageStoreManagerImplTest {
         MessageRequest message = new MessageRequestImpl();
 
         MessageTemplate tpl = new MessageTemplateImpl();
-        tpl.setLanguage("testing");
+        tpl.setLanguage(mockLang);
+        tpl.setTemplate("Some template");
         
         List<MessageTemplate> templates = new ArrayList<MessageTemplate>();
         templates.add(tpl);
-        
-        expect(
-                mockCore.createGatewayRequest((MotechContext) anyObject())
-                ).andReturn(new GatewayRequestImpl());
-        expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
+
         expect(
                 mockCore.createMessageTemplate((MotechContext) anyObject())
                 ).andReturn(new MessageTemplateImpl());
@@ -80,6 +81,18 @@ public class MessageStoreManagerImplTest {
         expect(
                 mockTemplateDao.findByExample(anyObject())
                 ).andReturn(templates);
+        expect(
+                mockCore.createGatewayRequest((MotechContext) anyObject())
+                ).andReturn(new GatewayRequestImpl());
+        expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        expect(
+                mockCore.createGatewayRequestDetails((MotechContext) anyObject())
+                ).andReturn(new GatewayRequestDetailsImpl());
+        expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
         
         replay(mockCore, mockTemplateDao);
 
@@ -119,7 +132,8 @@ public class MessageStoreManagerImplTest {
         MessageRequest message = new MessageRequestImpl();
         
         MessageTemplate tpl = new MessageTemplateImpl();
-        tpl.setLanguage("testing");
+        tpl.setLanguage(mockLang);
+        tpl.setTemplate("testing");
         
         List<MessageTemplate> templates = new ArrayList<MessageTemplate>();
         templates.add(tpl);

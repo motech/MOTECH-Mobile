@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="GatewayRequestImpl">
-    <property name="requestId" unique="true"/>
+    <!--<property name="requestId" unique="true"/>-->
     <property name="dateFrom" type="timestamp"/>
     <property name="dateTo" type="timestamp"/>
     <property name="recipientsNumber"/>
@@ -12,7 +12,7 @@
       <key column="messageId"/>
       <one-to-many class="GatewayResponseImpl"/>
     </set>
-    <!--<many-to-one class="GatewayRequestDetailsImpl" name="gatewayRequestDetails" column="requestId"/>-->
+    <many-to-one class="GatewayRequestDetailsImpl" name="gatewayRequestDetails" column="requestId"/>
     <!--<list name="responseDetails" cascade="all">
         <key column="messageId" />
         <list-index column="id" />

@@ -1,13 +1,15 @@
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
-import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageType;
+import com.dreamoval.motech.core.model.NotificationType;
+import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omi.manager.StatusHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
@@ -28,6 +30,7 @@ public class OMIServiceImpl implements OMIService {
     private OMPManager ompManager;
     private CoreManager coreManager;
     private StatusHandler statHandler;
+
     private static Logger logger = Logger.getLogger(OMIServiceImpl.class);
 
     /**
@@ -36,21 +39,26 @@ public class OMIServiceImpl implements OMIService {
      */
     public String savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, MessageType messageType, Long notificationType, Date startDate, Date endDate){
         logger.info("Constructing MessageRequest object");
-        MessageRequest messageRequest = coreManager.createMessageRequest(coreManager.createMotechContext());
+        MotechContext mc = coreManager.createMotechContext();
+        MessageRequest messageRequest = coreManager.createMessageRequest(mc);
+        NotificationType notifTypeObject = coreManager.createNotificationType(mc);
+        Language langObject = coreManager.createLanguage(mc);
+        langObject.setCode(langCode);
+        notifTypeObject.setId(notificationType);
         messageRequest.setId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
         messageRequest.setRecipientName(patientName);
         messageRequest.setRecipientNumber(patientNumber);
-        messageRequest.setNotificationType(notificationType);
+        messageRequest.setNotificationType(notifTypeObject);
         messageRequest.setMessageType(messageType);
-        messageRequest.setLanguage(langCode);
+        messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
         logger.info("Saving MessageRequest");
-        coreManager.createMessageRequestDAO(coreManager.createMotechContext()).save(messageRequest);
+        coreManager.createMessageRequestDAO(mc).save(messageRequest);
         return messageRequest.getStatus().toString();
     }
 

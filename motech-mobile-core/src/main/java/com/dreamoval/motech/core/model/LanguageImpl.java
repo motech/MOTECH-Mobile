@@ -5,6 +5,9 @@
 
 package com.dreamoval.motech.core.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *  Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
@@ -14,7 +17,7 @@ public class LanguageImpl extends  MotechEntityImpl implements Language{
     private String code;
     private String name;
     private String description;
-
+    private Set<MessageRequest> messageRequests = new HashSet<MessageRequest>();
     public LanguageImpl() {
     }
 
@@ -58,6 +61,20 @@ public class LanguageImpl extends  MotechEntityImpl implements Language{
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the messageRequests
+     */
+    public Set<MessageRequest> getMessageRequests() {
+        return messageRequests;
+    }
+
+    /**
+     * @param messageRequests the messageRequests to set
+     */
+    public void setMessageRequests(Set<MessageRequest> messageRequests) {
+        this.messageRequests = messageRequests;
     }
 
     

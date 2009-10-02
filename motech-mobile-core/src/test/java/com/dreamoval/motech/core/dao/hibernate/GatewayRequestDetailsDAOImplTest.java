@@ -78,10 +78,13 @@ public class GatewayRequestDetailsDAOImplTest {
     }
 
 
+    @Test
     public void testSaveWithChild(){
         System.out.println("test save GatewayRequestDetails object");
         Session session = (Session )grDao.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
+        grd1.addGatewayRequest(gr1);
+        grd1.addGatewayRequest(gr2);
         grDao.save(grd1);
         tx.commit();
 
@@ -89,8 +92,10 @@ public class GatewayRequestDetailsDAOImplTest {
         GatewayRequestDetails fromdb = (GatewayRequestDetailsImpl)session.get(GatewayRequestDetailsImpl.class, grd1.getId());
         session.getTransaction().commit();
 
-//        Assert.assertNotNull(fromdb);
-//        Assert.assertEquals( grd1,fromdb);
-//        Assert.assertEquals(grd1.getId(),fromdb.getId());
+        Assert.assertNotNull(fromdb);
+        Assert.assertEquals( grd1,fromdb);
+        Assert.assertEquals(2, fromdb.getGatewayRequests().size());
+        Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr1));
+        Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr2));
     }
 }

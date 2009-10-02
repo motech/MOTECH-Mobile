@@ -3,6 +3,7 @@ package com.dreamoval.motech.omp.service;
 import static org.easymock.EasyMock.*;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
@@ -32,6 +33,7 @@ public class SMSMessagingServiceImplTest {
     
     CacheService mockCache;
     GatewayManager mockGateway;
+    GatewayRequestDetails mockGatewayRequestDetails;
 
     public SMSMessagingServiceImplTest() {
     }
@@ -40,6 +42,8 @@ public class SMSMessagingServiceImplTest {
     public void setUp(){
         mockCache = createMock(CacheService.class);
         mockGateway = createMock(GatewayManager.class);
+        mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
+        mockGatewayRequestDetails.setId(6L);
 
         instance = new SMSMessagingServiceImpl();
         instance.setCache(mockCache);
@@ -58,7 +62,7 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
-        messageDetails.setRequestId(6L);
+        messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
         mockCache.saveMessage((GatewayRequest) anyObject());
         expectLastCall();
@@ -81,7 +85,7 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
-        messageDetails.setRequestId(6L);
+        messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
         List<GatewayRequest> messages = new ArrayList<GatewayRequest>();
         messages.add(messageDetails);
@@ -115,7 +119,7 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
-        messageDetails.setRequestId(6L);
+        messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
                 mockGateway.sendMessage((GatewayRequest) anyObject())

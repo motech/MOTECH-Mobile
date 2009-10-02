@@ -3,6 +3,8 @@ package com.dreamoval.motech.omp.manager.orserve;
 import static org.easymock.EasyMock.*;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
+import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
@@ -25,13 +27,15 @@ public class ORServeGatewayManagerImplTest {
 
     ORServeGatewayManagerImpl instance;
     GatewayMessageHandler mockHandler;
-
+    GatewayRequestDetails mockGatewayRequestDetails ;
     public ORServeGatewayManagerImplTest() {
     }
 
     @Before
     public void setUp(){
         mockHandler = createMock(GatewayMessageHandler.class);
+        mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
+        mockGatewayRequestDetails.setId(89L);
         instance = new ORServeGatewayManagerImpl();
         instance.setProductCode("TestCode");
         instance.setSenderId("TestSender");
@@ -46,12 +50,11 @@ public class ORServeGatewayManagerImplTest {
         System.out.println("sendMessage");
         
         GatewayRequest messageDetails = new GatewayRequestImpl();
-//TODO to yoofi conflict here
         messageDetails.setDateFrom(new Date());
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
-        messageDetails.setRequestId(5L);
+        messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
                 mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject())

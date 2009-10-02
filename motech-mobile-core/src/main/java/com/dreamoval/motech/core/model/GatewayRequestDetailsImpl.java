@@ -78,5 +78,17 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
         this.gatewayRequests = gatewayRequests;
     }
 
+    public void addGatewayRequest(GatewayRequest gatewayRequest) {
+        if(gatewayRequest != null) {
+            gatewayRequest.setGatewayRequestDetails(this);
+            this.gatewayRequests.add(gatewayRequest);
+        }
+    }
+
+    public void removeGatewayRequest(GatewayRequest gatewayRequest) {
+        if(this.gatewayRequests.contains(gatewayRequest)) {
+            this.gatewayRequests.remove(gatewayRequest);
+        }
+    }
 
 }

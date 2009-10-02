@@ -13,11 +13,11 @@ import java.util.Date;
  */
 public class MessageRequestImpl extends MotechEntityImpl implements MessageRequest{
 
-    private String language;
+    private Language language;
     private Date schedule;
     private MessageType messageType;
     private String p13nData;
-    private Long notificationType;
+    private NotificationType notificationType;
     private Date dateCreated;
     private Date dateProcessed;
     private String recipientName;
@@ -31,14 +31,14 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     /**
      * @return the language
      */
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
     /**
      * @param language the language to set
      */
-    public void setLanguage(String language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 
@@ -87,14 +87,14 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     /**
      * @return the notificationType
      */
-    public Long getNotificationType() {
+    public NotificationType getNotificationType() {
         return notificationType;
     }
 
     /**
      * @param notificationType the notificationType to set
      */
-    public void setNotificationType(Long notificationType) {
+    public void setNotificationType(NotificationType notificationType) {
         this.notificationType = notificationType;
     }
 

@@ -3,17 +3,18 @@
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="Request">
     <property name="recipientName"/>
-    <property name="language"/>
+    <!--<property name="language"/>-->
     <property name="schedule"/>
     <property name="status" type="mStatus" update="false" access="field"/>
     <property name="p13nData"/>
-    <property name="notificationType"/>
+    <!--<property name="notificationType"/>-->
     <property name="recipientNumber"/>
     <property name="dateCreated" type="date"/>
     <property name="dateProcessed" type="date"/>
     <property name="dateFrom" type="date"/>
     <property name="dateTo" type="date"/>
     <property name="maxTryNumber"/>
-    
+    <many-to-one class="LanguageImpl" column="language" name="language"/>
+    <many-to-one class="NotificationTypeImpl" column="notificationType" name="notificationType"/>
   </union-subclass>
 </hibernate-mapping>

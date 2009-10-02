@@ -5,6 +5,9 @@
 
 package com.dreamoval.motech.core.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *  Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
@@ -16,6 +19,7 @@ public class NotificationTypeImpl extends MotechEntityImpl implements Notificati
 
     private String name;
     private String description;
+    private Set<MessageTemplate> messageTemplates = new HashSet<MessageTemplate>();
 
     /**
      * @return the name
@@ -43,6 +47,20 @@ public class NotificationTypeImpl extends MotechEntityImpl implements Notificati
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the messageTemplates
+     */
+    public Set<MessageTemplate> getMessageTemplates() {
+        return messageTemplates;
+    }
+
+    /**
+     * @param messageTemplates the messageTemplates to set
+     */
+    public void setMessageTemplates(Set<MessageTemplate> messageTemplates) {
+        this.messageTemplates = messageTemplates;
     }
     
 }

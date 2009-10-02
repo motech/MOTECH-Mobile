@@ -3,6 +3,7 @@ package com.dreamoval.motech.omp.manager.clickatell;
 import static org.easymock.EasyMock.*;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
@@ -25,6 +26,7 @@ public class ClickatellGatewayManagerImplTest {
 
     ClickatellGatewayManagerImpl instance;
     GatewayMessageHandler mockHandler;
+    GatewayRequestDetails mockGatewayRequestDetails;
 
     public ClickatellGatewayManagerImplTest() {
     }
@@ -32,6 +34,8 @@ public class ClickatellGatewayManagerImplTest {
     @Before
     public void setUp(){
         mockHandler = createMock(GatewayMessageHandler.class);
+        mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
+        mockGatewayRequestDetails.setId(987L);
         instance = new ClickatellGatewayManagerImpl();
         instance.setMessageHandler(mockHandler);
         instance.setApiId("someid");
@@ -54,7 +58,7 @@ public class ClickatellGatewayManagerImplTest {
         messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
-        messageDetails.setRequestId(4L);
+        messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
                 mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject())

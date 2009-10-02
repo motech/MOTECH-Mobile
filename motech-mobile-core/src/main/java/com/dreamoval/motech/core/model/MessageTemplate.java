@@ -21,12 +21,12 @@ public interface MessageTemplate extends MotechEntity{
     /**
      * @return the language
      */
-    String getLanguage();
+    Language getLanguage();
 
     /**
      * @return the notification_type
      */
-    Long getNotificationType();
+    NotificationType getNotificationType();
 
     /**
      *
@@ -48,12 +48,12 @@ public interface MessageTemplate extends MotechEntity{
     /**
      * @param language the language to set
      */
-    void setLanguage(String language);
+    void setLanguage(Language language);
 
     /**
      * @param notification_type the notification_type to set
      */
-    void setNotificationType(Long notificationType);
+    void setNotificationType(NotificationType notificationType);
 
     /**
      *

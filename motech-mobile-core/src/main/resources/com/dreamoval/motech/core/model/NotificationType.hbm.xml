@@ -8,5 +8,6 @@
     <union-subclass name="NotificationTypeImpl" extends="MotechEntityImpl" table="Notification_Type">
         <property name="name" length="45"/>
         <property name="description" length="200"/>
+        
     </union-subclass>
 </hibernate-mapping>

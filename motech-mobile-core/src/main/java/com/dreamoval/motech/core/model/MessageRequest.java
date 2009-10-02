@@ -15,11 +15,11 @@ import java.util.Date;
 public interface MessageRequest extends MotechEntity {
 
     String getRecipientName();
-    String getLanguage();
+    Language getLanguage();
     Date getSchedule();
     MessageType getMessageType();
     String getP13nData();
-    Long getNotificationType();
+    NotificationType getNotificationType();
     Date getDateCreated();
     Date getDateProcessed();
     String getRecipientNumber();
@@ -29,11 +29,11 @@ public interface MessageRequest extends MotechEntity {
     int getMaxTryNumber();
 
     void setRecipientName(String recipientName);
-    void setLanguage(String language);
+    void setLanguage(Language language);
     void setSchedule(Date schedule);
     void setMessageType(MessageType messageType);
     void setP13nData(String p13nData);
-    void setNotificationType(Long notificationType);
+    void setNotificationType(NotificationType notificationType);
     void setDateCreated(Date dateCreated);
     void setDateProcessed(Date dateProcessed);
     void setRecipientNumber(String recipientNumber);
