@@ -33,6 +33,7 @@
         <property name="ompManager" ref="ompManager" />
         <property name="coreManager" ref="coreManager" />
         <property name="storeManager" ref="storeManager" />
+        <property name="statHandler" ref="statusHandler" />
     </bean>
 
     <bean name="omiManager" class="com.dreamoval.motech.omi.manager.OMIManagerImpl" />
@@ -84,4 +85,33 @@
 
         <!--End Of scheduler Factory-->
     <!--End of Scheduling-->
+    
+    <bean id="logStatAction" class="com.dreamoval.motech.omi.manager.LogStatusActionImpl" />
+    <bean id="rptStatAction" class="com.dreamoval.motech.omi.manager.ReportStatusActionImpl" />
+    <bean id="retryStatAction" class="com.dreamoval.motech.omi.manager.RetryStatusActionImpl" />
+    
+    <bean id="statusHandler" class="com.dreamoval.motech.omi.manager.StatusHandlerImpl">
+        <property name="actionRegister">
+            <map>
+                <entry key="DELIVERED">
+                    <list>
+                        <ref bean="logStatAction" />
+                        <ref bean="rptStatAction" />
+                    </list>
+                </entry>
+                <entry key="FAILED">
+                    <list>
+                        <ref bean="logStatAction" />
+                        <ref bean="rptStatAction" />
+                    </list>
+                </entry>
+                <entry key="RETRY">
+                    <list>
+                        <ref bean="logStatAction" />
+                        <ref bean="retryStatAction" />
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
 </beans>

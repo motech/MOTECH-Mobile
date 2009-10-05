@@ -1,5 +1,6 @@
 package com.dreamoval.motech.omp.manager;
 
+import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.service.CacheService;
 import com.dreamoval.motech.omp.service.MessagingService;
 

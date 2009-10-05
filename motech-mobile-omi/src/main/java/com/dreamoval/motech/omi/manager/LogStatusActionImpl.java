@@ -1,6 +1,7 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.core.model.GatewayResponse;
+import org.apache.log4j.Logger;
 import org.motech.ws.client.LogType;
 import  org.motech.ws.client.RegistrarWebService;
 
@@ -12,6 +13,7 @@ import  org.motech.ws.client.RegistrarWebService;
  */
 public class LogStatusActionImpl implements StatusAction {
    private RegistrarWebService regWs;
+   private static Logger logger = Logger.getLogger(LogStatusActionImpl.class);
    
    public void doAction(GatewayResponse response){
        String summary = "Status of message with id "
@@ -21,7 +23,13 @@ public class LogStatusActionImpl implements StatusAction {
                + ". Response from gateway was: "
                + response.getResponseText();
        
-        getRegWs().log(LogType.SUCCESS, summary);
+       try{
+            getRegWs().log(LogType.SUCCESS, summary);
+       }
+       catch(Exception e){
+           logger.error("Error communicating with logging service");
+           logger.debug(e);
+       }
    }
 
     public RegistrarWebService getRegWs() {

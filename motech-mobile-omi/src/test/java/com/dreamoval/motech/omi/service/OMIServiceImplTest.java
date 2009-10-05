@@ -1,8 +1,12 @@
 package com.dreamoval.motech.omi.service;
 
+import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.LanguageImpl;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageRequestImpl;
 import com.dreamoval.motech.core.model.MessageType;
@@ -12,6 +16,7 @@ import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import com.dreamoval.motech.omp.service.MessagingService;
+import java.util.ArrayList;
 import static org.easymock.EasyMock.*;
 
 import java.util.Date;
@@ -34,6 +39,7 @@ public class OMIServiceImplTest {
     MessageStoreManager mockStore;
     MessageRequestDAO mockRequestDao;
     MessagingService mockMessagingService;
+    GatewayRequestDAO mockGatewayDao;
 
     public OMIServiceImplTest() {
     }
@@ -44,6 +50,8 @@ public class OMIServiceImplTest {
         mockOMP = createMock(OMPManager.class);
         mockMessagingService = createMock(MessagingService.class);
         mockStore = createMock(MessageStoreManager.class);
+        mockGatewayDao = createMock(GatewayRequestDAO.class);
+        mockRequestDao = createMock(MessageRequestDAO.class);
         
         instance = new OMIServiceImpl();
         instance.setCoreManager(mockCore);
@@ -129,5 +137,97 @@ public class OMIServiceImplTest {
         verify(mockCore, mockRequestDao);
     }
 
+    /**
+     * Test of processMessageRequests method
+     */
+    @Test
+    public void testProcessMessageRequests(){
+        List<MessageRequest> messageList = new ArrayList<MessageRequest>();
+        
+        MessageRequest msgReq1 = new MessageRequestImpl();
+        msgReq1.setDateFrom(new Date());
+        msgReq1.setDateTo(new Date());
+        msgReq1.setId(49L);
+        msgReq1.setMaxTryNumber(3);
+        msgReq1.setMessageType(MessageType.TEXT);
+        msgReq1.setRecipientName("Tester");
+        msgReq1.setRecipientNumber("000000000000");
+        msgReq1.setStatus(MStatus.QUEUED);
+        messageList.add(msgReq1);
+        
+        
+        expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        expect(
+                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockRequestDao);
+        expect(
+                mockCore.createMessageRequest((MotechContext) anyObject())
+                ).andReturn(new MessageRequestImpl());
+        expect(
+                mockRequestDao.findByExample((MessageRequest)anyObject())
+                ).andReturn(messageList);
+        expect(
+                mockOMP.createMessagingService()
+                ).andReturn(mockMessagingService);
+        expect(
+                mockStore.constructMessage((MessageRequest) anyObject())
+                ).andReturn(new GatewayRequestImpl());
+
+        mockMessagingService.scheduleMessage((GatewayRequest) anyObject());
+        expectLastCall();
+
+        mockRequestDao.save((GatewayRequest) anyObject());
+        expectLastCall();
+    }
     
+    /**
+     * Test processMessageRetries method
+     */
+    @Test
+    public void testProcessMessageRetries(){
+        List<MessageRequest> messageList = new ArrayList<MessageRequest>();
+        
+        MessageRequest msgReq1 = new MessageRequestImpl();
+        msgReq1.setDateFrom(new Date());
+        msgReq1.setDateTo(new Date());
+        msgReq1.setId(39L);
+        msgReq1.setMaxTryNumber(3);
+        msgReq1.setMessageType(MessageType.TEXT);
+        msgReq1.setRecipientName("Tester");
+        msgReq1.setRecipientNumber("000000000000");
+        msgReq1.setStatus(MStatus.QUEUED);
+        messageList.add(msgReq1);
+        
+        
+        expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        expect(
+                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockRequestDao);
+        expect(
+                mockCore.createMessageRequest((MotechContext) anyObject())
+                ).andReturn(new MessageRequestImpl());
+        expect(
+                mockRequestDao.findByExample((MessageRequest)anyObject())
+                ).andReturn(messageList);
+        expect(
+                mockCore.createGatewayRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockGatewayDao);
+        expect(
+                mockOMP.createMessagingService()
+                ).andReturn(mockMessagingService);
+        expect(
+                mockGatewayDao.getById(anyLong())
+                ).andReturn((new GatewayRequestImpl()));
+        
+        mockMessagingService.scheduleMessage((GatewayRequest) anyObject());
+        expectLastCall();
+        
+        replay(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService);
+        instance.processMessageRetries();
+        verify(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService);
+    }
 }

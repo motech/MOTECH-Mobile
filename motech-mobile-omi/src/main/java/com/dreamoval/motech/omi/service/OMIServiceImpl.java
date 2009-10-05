@@ -1,6 +1,7 @@
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
+import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -101,8 +102,10 @@ public class OMIServiceImpl implements OMIService {
      */
     public void processMessageRequests(){
         logger.info("Fetching stored MessageRequest objects");
-        MessageRequestDAO msgDao = coreManager.createMessageRequestDAO(coreManager.createMotechContext());
-        MessageRequest sample = coreManager.createMessageRequest(coreManager.createMotechContext());
+        MotechContext mc = coreManager.createMotechContext();
+        
+        MessageRequestDAO msgDao = coreManager.createMessageRequestDAO(mc);
+        MessageRequest sample = coreManager.createMessageRequest(mc);
         sample.setStatus(MStatus.QUEUED);
         List<MessageRequest> messages = msgDao.findByExample(sample);
         
@@ -128,13 +131,15 @@ public class OMIServiceImpl implements OMIService {
      */
     public void processMessageRetries(){
         logger.info("Fetching stored MessageRequest objects");
-        MessageRequestDAO msgDao = coreManager.createMessageRequestDAO(coreManager.createMotechContext());
-        MessageRequest sample = coreManager.createMessageRequest(coreManager.createMotechContext());
+        MotechContext mc = coreManager.createMotechContext();
+        
+        MessageRequestDAO msgDao = coreManager.createMessageRequestDAO(mc);
+        MessageRequest sample = coreManager.createMessageRequest(mc);
         sample.setStatus(MStatus.RETRY);
         List<MessageRequest> messages = msgDao.findByExample(sample);
         
         logger.info("Initializing GatewayRequestDAO");
-        GatewayRequestDAO gwDao = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
+        GatewayRequestDAO gwDao = coreManager.createGatewayRequestDAO(mc);
         
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
@@ -149,12 +154,21 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.getMessageResponses
      */
     public void getMessageResponses(){
-        MessageRequest sample = coreManager.createMessageRequest(coreManager.createMotechContext());
-        List<MessageRequest> messages = coreManager.createMessageRequestDAO(coreManager.createMotechContext()).findByExample(sample);
-        GatewayRequestDAO gatewayDao = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
+        MotechContext mc = coreManager.createMotechContext();
+        
+        logger.info("Building search criteria");
+        MessageRequest sample = coreManager.createMessageRequest(mc);
+        sample.setStatus(MStatus.PENDING);
+        logger.debug(sample);
+        
+        logger.info("Initializing MessageRequestDAO and fetching matching message requests");
+        List<MessageRequest> messages = coreManager.createMessageRequestDAO(mc).findByExample(sample);
+        
+        logger.info("Initializing GatewayRequestDAO");
+        GatewayRequestDAO gatewayDao = coreManager.createGatewayRequestDAO(mc);
         
         for(MessageRequest message : messages){
-            //GatewayRequest request = gatewayDao.
+            //GatewayRequest request = (GatewayRequest) gatewayDao.getById(message.getId());
         }
     }
 
@@ -211,10 +225,8 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public void setStatHandler(StatusHandler statHandler) {
+        logger.debug("Setting OMIServiceImpl.statHandler");
+        logger.debug(coreManager);
         this.statHandler = statHandler;
-    }
-
-    public String savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, Language langCode, MessageType messageType, NotificationType notificationType, Date startDate, Date endDate) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
