@@ -104,24 +104,27 @@ public class OMIServiceImplTest {
         mockRequestDao = createMock(MessageRequestDAO.class);
         
         expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        expect(
                 mockCore.createMessageRequest((MotechContext)anyObject())
                 ).andReturn(new MessageRequestImpl());
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
+                mockCore.createNotificationType((MotechContext) anyObject())
+                ).andReturn(new NotificationTypeImpl());
+        expect(
+                mockCore.createLanguage((MotechContext) anyObject())
+                ).andReturn(new LanguageImpl());
         expect(
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockRequestDao);
-        expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(new MessageRequestImpl());
 
         replay(mockCore, mockRequestDao);
 
-        String result = instance.saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, testDate, testDate);
+        String result = instance.saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, "lang", MessageType.TEXT, 1L, testDate, testDate);
         assertEquals(expResult, result);
         verify(mockCore, mockRequestDao);
     }

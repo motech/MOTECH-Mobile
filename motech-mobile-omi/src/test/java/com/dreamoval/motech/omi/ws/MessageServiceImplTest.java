@@ -11,6 +11,7 @@ import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.OMIService;
 import com.dreamoval.motech.omi.service.PatientImpl;
 
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -28,7 +29,7 @@ public class MessageServiceImplTest{
     OMIManager mockOMI;
     OMIService mockOMIService;
 
-    MessageService instance;
+    MessageServiceImpl instance;
 
     public MessageServiceImplTest() {
     }
@@ -77,14 +78,14 @@ public class MessageServiceImplTest{
         Long messageId = 0L;
         String workerName = "Test worker";
         String workerNumber = "000000000000";
-        List<PatientImpl> patientList = null;
+        ArrayList<PatientImpl> patientList = new ArrayList<PatientImpl>();
 
         expect(
-                mockOMIService.saveCHPSMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (List<PatientImpl>) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.saveCHPSMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (List<PatientImpl>) anyObject(), (String) anyObject(), (MessageType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
                 ).andReturn("QUEUED");    
         replay(mockOMI, mockOMIService);
         
-        String result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, null, null);
+        String result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", "TEXT", 13L, null, null);
         assertEquals(result, "QUEUED");
         verify(mockOMI, mockOMIService);
     }

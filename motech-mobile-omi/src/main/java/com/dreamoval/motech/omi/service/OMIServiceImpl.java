@@ -39,11 +39,13 @@ public class OMIServiceImpl implements OMIService {
      */
     public String savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, MessageType messageType, Long notificationType, Date startDate, Date endDate){
         logger.info("Constructing MessageRequest object");
+        
         MotechContext mc = coreManager.createMotechContext();
         MessageRequest messageRequest = coreManager.createMessageRequest(mc);
         NotificationType notifTypeObject = coreManager.createNotificationType(mc);
         Language langObject = coreManager.createLanguage(mc);
         langObject.setCode(langCode);
+        
         notifTypeObject.setId(notificationType);
         messageRequest.setId(messageId);
         messageRequest.setDateFrom(startDate);
@@ -66,24 +68,31 @@ public class OMIServiceImpl implements OMIService {
      *
      * @see OMIService.sendCHPSMessage
      */
-    public String saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, Date startDate, Date endDate){
+    public String saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, String langCode, MessageType messageType, Long notificationType, Date startDate, Date endDate){
         logger.info("Constructing MessageDetails object");
-        MessageRequest messageRequest = coreManager.createMessageRequest(coreManager.createMotechContext());
+        
+        
+        MotechContext mc = coreManager.createMotechContext();
+        MessageRequest messageRequest = coreManager.createMessageRequest(mc);
+        NotificationType notifTypeObject = coreManager.createNotificationType(mc);
+        Language langObject = coreManager.createLanguage(mc);
+        
+        langObject.setCode(langCode);
         messageRequest.setId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
         messageRequest.setRecipientName(workerName);
         messageRequest.setRecipientNumber(workerNumber);
-        //messageRequest.setNotification_type(notificationType);
-        //messageRequest.setMessage_type(messageType);
-        //messageRequest.setLanguage(language);
+        messageRequest.setNotificationType(notifTypeObject);
+        messageRequest.setMessageType(messageType);
+        messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
         
         logger.info("Saving MessageRequest");
-        coreManager.createMessageRequestDAO(coreManager.createMotechContext()).save(messageRequest);
+        coreManager.createMessageRequestDAO(mc).save(messageRequest);
         return messageRequest.getStatus().toString();
     }
     
@@ -203,5 +212,9 @@ public class OMIServiceImpl implements OMIService {
 
     public void setStatHandler(StatusHandler statHandler) {
         this.statHandler = statHandler;
+    }
+
+    public String savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, Language langCode, MessageType messageType, NotificationType notificationType, Date startDate, Date endDate) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

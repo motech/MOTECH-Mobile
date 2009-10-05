@@ -1,6 +1,8 @@
 package com.dreamoval.motech.omi.service;
 
+import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MessageType;
+import com.dreamoval.motech.core.model.NotificationType;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public interface OMIService {
      * @param patientList A List of patients requiring service from CHPS worker
      * @return The id of the message sent
      */
-    public String saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, Date startDate, Date endDate);
+    public String saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, String langCode, MessageType messageType, Long notificationType, Date startDate, Date endDate);
     
     /**
      * Processes stored MessageRequests into GatewayRequests and schedules them for delivery on the OMP

@@ -78,11 +78,11 @@ public class MessageServiceImplTest{
         List<PatientImpl> patientList = null;
 
         expect(
-                mockOMIService.saveCHPSMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (List<PatientImpl>) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.saveCHPSMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (List<PatientImpl>) anyObject(), (String) anyObject(), (MessageType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
                 ).andReturn("QUEUED");    
         replay(mockOMI, mockOMIService);
         
-        String result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, null, null);
+        String result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", "TEXT", 24L, null, null);
         assertEquals(result, "QUEUED");
         verify(mockOMI, mockOMIService);
     }

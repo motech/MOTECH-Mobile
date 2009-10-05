@@ -1,11 +1,12 @@
 package com.dreamoval.motech.omi.ws;
 
-import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.PatientImpl;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.WebParam;
 
@@ -15,7 +16,7 @@ import javax.jws.WebParam;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created 30-07-09
  */
-@WebService()
+@WebService
 public interface MessageService extends Serializable{
 
     /**
@@ -29,7 +30,8 @@ public interface MessageService extends Serializable{
      * @param messageType Preferred message type. Possible values include TEXT, VOICE
      * @return The id of the message sent
      */
-    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="messageType") String messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
+    @WebMethod
+    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") String messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
 
     /**
      * Sends a message to a CHPS Worker
@@ -40,15 +42,18 @@ public interface MessageService extends Serializable{
      * @param patientList A List of patients requiring service from CHPS worker
      * @return The id of the message sent
      */
-    public String sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") List<PatientImpl> patientList, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
+    @WebMethod
+    public String sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") ArrayList<PatientImpl> patientList, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") String messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
     
+    
+
     /**
      * @return the omiManager
-     */
-    public OMIManager getOmiManager();
+     */ 
+    //public OMIManager getOmiManager();
 
     /**
      * @param omiManager the omiManager to set
      */
-    public void setOmiManager(OMIManager omiManager);
+    //public void setOmiManager(OMIManager omiManager);
 }

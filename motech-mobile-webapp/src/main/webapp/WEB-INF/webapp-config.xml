@@ -38,7 +38,7 @@
                       address="/messaging">
       </jaxws:endpoint>
 
-      <bean id="messageWebServiceBean" class="com.dreamoval.motech.web.webservices.MessageServiceImpl">
+      <bean id="messageWebServiceBean" class="com.dreamoval.motech.omi.ws.MessageServiceImpl">
         <property name="omiManager" ref="omiManager"/>
       </bean>
 

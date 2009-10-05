@@ -34,10 +34,10 @@ public class MessageServiceImpl implements MessageService {
      *
      * @see MessageService.sendCHPSMessage
      */
-    public String sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, Date startDate, Date endDate) {
+    public String sendCHPSMessage(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, String langCode, String messageType, Long notificationType, Date startDate, Date endDate) {
         //logger.debug("Called MessageService.sendCHPSMessage with parameters:\n\rmessageId - "+ messageId + "\n\rworkerName - " + workerName + "\n\rworkerNumber - " + workerNumber + "\n\rpatientList - " + patientList);
         logger.info("Calling OMIService.sendCHPSMessage");
-        return this.omiManager.createOMIService().saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, startDate, endDate);
+        return this.omiManager.createOMIService().saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, langCode, MessageType.valueOf(messageType), notificationType, startDate, endDate);
     }
 
     /**
