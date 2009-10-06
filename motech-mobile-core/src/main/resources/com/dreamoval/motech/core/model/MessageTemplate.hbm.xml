@@ -2,10 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass  name="MessageTemplateImpl" extends="MotechEntityImpl">
-      <!--<property name="language" length="10" />-->
-      <property name="dateCreated" type="date" />
-      <property name="messageType" type="messageType" update="false" access="field" />
-      <property name="template" />
+      <property name="dateCreated" type="date" column="date_created" />
+      <property name="messageType" type="messageType" update="false" access="field"  column="message_type"/>
+      <property name="template" type="string" column="template" />
       <many-to-one name="notificationType" column="notification_type" class="NotificationTypeImpl" />
       <many-to-one name="language" column="language" class="LanguageImpl" />
   </union-subclass>

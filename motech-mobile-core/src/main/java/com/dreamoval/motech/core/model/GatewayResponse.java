@@ -22,7 +22,7 @@ public interface GatewayResponse extends MotechEntity {
     /**
      * @return the messageId
      */
-    GatewayRequest getMessageId();
+    GatewayRequest getGatewayRequest();
 
     /**
      * @return the messageStatus
@@ -52,7 +52,7 @@ public interface GatewayResponse extends MotechEntity {
     /**
      * @param messageId the messageId to set
      */
-    void setMessageId(GatewayRequest messageId);
+    void setGatewayRequest(GatewayRequest messageId);
 
     /**
      * @param messageStatus the messageStatus to set
@@ -75,7 +75,7 @@ public interface GatewayResponse extends MotechEntity {
     void setResponseText(String responseText);
 
     /**
-     *
+   
      */
     void addTransition(Transition transition);
     

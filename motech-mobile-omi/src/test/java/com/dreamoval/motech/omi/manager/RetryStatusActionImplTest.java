@@ -57,7 +57,7 @@ public class RetryStatusActionImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         GatewayResponse response = new GatewayResponseImpl();
-        response.setMessageId(messageDetails);
+        response.setGatewayRequest(messageDetails);
         response.setGatewayMessageId("werfet54y56g645v4e");
         response.setMessageStatus(MStatus.DELIVERED);
         response.setRecipientNumber("000000000000");

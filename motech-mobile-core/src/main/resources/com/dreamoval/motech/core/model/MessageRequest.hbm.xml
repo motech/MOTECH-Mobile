@@ -2,19 +2,17 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="Request">
-    <property name="recipientName"/>
-    <!--<property name="language"/>-->
-    <property name="schedule"/>
-    <property name="status" type="mStatus" update="false" access="field"/>
-    <property name="p13nData"/>
-    <!--<property name="notificationType"/>-->
-    <property name="recipientNumber"/>
-    <property name="dateCreated" type="date"/>
-    <property name="dateProcessed" type="date"/>
-    <property name="dateFrom" type="date"/>
-    <property name="dateTo" type="date"/>
-    <property name="maxTryNumber"/>
-    <many-to-one class="LanguageImpl" column="language" name="language"/>
-    <many-to-one class="NotificationTypeImpl" column="notificationType" name="notificationType"/>
+    <property name="recipientName" type="string" column="recipient_name"/>
+    <property name="schedule" type="date"  column="schedule"/>
+    <property name="status" type="mStatus" update="false" access="field" column="status" />
+    <property name="p13nData" type="string" column="p113_nData"/>
+    <property name="recipientNumber" type="string" column="recipient_number"/>
+    <property name="dateCreated" type="date" column="date_created"/>
+    <property name="dateProcessed" type="date" column="date_processed"/>
+    <property name="dateFrom" type="date" column="date_from" />
+    <property name="dateTo" type="date" column="date_to"/>
+    <property name="maxTryNumber" column="max_try_number" />
+    <many-to-one class="LanguageImpl" column="language" name="language" />
+    <many-to-one class="NotificationTypeImpl" column="notificationType" name="notificationType" />
   </union-subclass>
 </hibernate-mapping>

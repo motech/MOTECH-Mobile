@@ -6,8 +6,7 @@
 
 <hibernate-mapping package="com.dreamoval.motech.core.model">
     <union-subclass name="NotificationTypeImpl" extends="MotechEntityImpl" table="Notification_Type">
-        <property name="name" length="45"/>
-        <property name="description" length="200"/>
-        
+        <property name="name" length="45" type="string"/>
+        <property name="description" length="200" type="string"/>
     </union-subclass>
 </hibernate-mapping>

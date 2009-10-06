@@ -63,12 +63,12 @@
 
         <bean id="messageRequestProcessorTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
             <property name="jobDetail" ref="messageRequestProcessor"/>
-            <property name="cronExpression" value="30 * * * * ?" />
+            <property name="cronExpression" value="0/30 * * * * ?" />
         </bean>
 
         <bean id="messageRetriesProcessorTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
             <property name="jobDetail" ref="messageRetriesProcessor"/>
-            <property name="cronExpression" value="0 5 * * * ? *"/>
+            <property name="cronExpression" value="0 0/5 * * * ? *"/>
         </bean>
         <!--End Of Triggers-->
 

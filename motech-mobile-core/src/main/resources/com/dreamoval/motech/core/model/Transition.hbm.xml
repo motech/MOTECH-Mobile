@@ -5,6 +5,6 @@
     <property name="transactionType"/>
     <property name="transactionDate" type="timestamp"/>
     <property name="transactionDescription"/>
-    <many-to-one class="TransitionImpl" name="responseId"/>
+    <many-to-one class="TransitionImpl" name="gatewayResponse" column="gateway_response_id"/>
   </union-subclass>
 </hibernate-mapping>

@@ -2,7 +2,6 @@ package com.dreamoval.motech.omi.ws.client;
 
 import static org.easymock.EasyMock.*;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;

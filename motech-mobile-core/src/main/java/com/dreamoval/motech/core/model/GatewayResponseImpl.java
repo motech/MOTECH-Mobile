@@ -13,7 +13,7 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
 
     private static final long serialVersionUID = 1L;
     
-    private GatewayRequest messageId;
+    private GatewayRequest gatewayRequest;
     private String gatewayMessageId;
     private String recipientNumber;
     private MStatus messageStatus;
@@ -33,15 +33,15 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
     /**
      * @return the messageId
      */
-    public GatewayRequest getMessageId() {
-        return messageId;
+    public GatewayRequest getGatewayRequest() {
+        return gatewayRequest;
     }
 
     /**
      * @param messageId the messageId to set
      */
-    public void setMessageId(GatewayRequest messageId) {
-        this.messageId = messageId;
+    public void setGatewayRequest(GatewayRequest gatewayRequest) {
+        this.gatewayRequest = gatewayRequest;
     }
 
     /**
@@ -101,13 +101,13 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
     }
 
     public void addTransition(Transition transition) {
-        transition.setResponseId(this);
+        transition.setGatewayResponse(this);
         this.transitions.add(transition);
 
     }
     public void addTransition(List<Transition> transitions) {
         for(Transition t : transitions) {
-            t.setResponseId(this);
+            t.setGatewayResponse(this);
             this.transitions.add(t);
         }
     }

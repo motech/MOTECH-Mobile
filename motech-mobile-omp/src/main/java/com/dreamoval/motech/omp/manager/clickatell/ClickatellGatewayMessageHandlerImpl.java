@@ -53,7 +53,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
                     response.setRecipientNumber(message.getRecipientsNumber());
 
                 response.setMessageStatus(MStatus.PENDING);
-                response.setMessageId(message);
+                response.setGatewayRequest(message);
                 responses.add(response);
             }
             else{

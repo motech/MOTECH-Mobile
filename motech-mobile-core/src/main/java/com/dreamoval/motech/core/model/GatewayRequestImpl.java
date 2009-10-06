@@ -19,7 +19,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     private Date dateFrom;
     private Set<GatewayResponse> responseDetails = new HashSet<GatewayResponse>();
     private Date dateSent;
-    private int try_number;
+    private int tryNumber;
     private Long requestId;
     public GatewayRequestImpl(){}
 
@@ -124,7 +124,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     }
 
     public void addResponse(GatewayResponse response) {
-        response.setMessageId(this);
+        response.setGatewayRequest(this);
         this.responseDetails.add(response);
     }
 
@@ -138,7 +138,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     public void addResponse(List<GatewayResponse> responses) {
 
         for(GatewayResponse r : responses) {
-            r.setMessageId(this);
+            r.setGatewayRequest(this);
             this.responseDetails.add(r);
         }
 
@@ -151,19 +151,6 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
           }
     }
 
-    /**
-     * @return the try_number
-     */
-    public int getTry_number() {
-        return try_number;
-    }
-
-    /**
-     * @param try_number the try_number to set
-     */
-    public void setTry_number(int try_number) {
-        this.try_number = try_number;
-    }
 
     /**
      * @return the gatewayRequestDetails
@@ -191,6 +178,14 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
      */
     public void setRequestId(Long requestId) {
         this.requestId = requestId;
+    }
+
+    public int getTryNumber() {
+        return tryNumber;
+    }
+
+    public void setTryNumber(int tryNumber) {
+        this.tryNumber = tryNumber;
     }
 
     

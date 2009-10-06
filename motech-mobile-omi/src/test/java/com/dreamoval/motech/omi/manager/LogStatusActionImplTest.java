@@ -49,7 +49,7 @@ public class LogStatusActionImplTest{
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
         GatewayResponse response = new GatewayResponseImpl();
-        response.setMessageId(messageDetails);
+        response.setGatewayRequest(messageDetails);
         response.setGatewayMessageId("werfet54y56g645v4e");
         response.setMessageStatus(MStatus.PENDING);
         response.setRecipientNumber("000000000000");

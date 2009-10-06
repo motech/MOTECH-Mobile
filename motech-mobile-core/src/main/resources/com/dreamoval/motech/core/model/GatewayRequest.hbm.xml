@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
-  <union-subclass extends="MotechEntityImpl" name="GatewayRequestImpl">
-    <!--<property name="requestId" unique="true"/>-->
-    <property name="dateFrom" type="timestamp"/>
-    <property name="dateTo" type="timestamp"/>
-    <property name="recipientsNumber"/>
-    <property name="dateSent" type="timestamp"/>
-    <property name="try_number"/>
-    <set cascade="all" inverse="true" name="responseDetails">
-      <key column="messageId"/>
-      <one-to-many class="GatewayResponseImpl"/>
-    </set>
-    <many-to-one class="GatewayRequestDetailsImpl" name="gatewayRequestDetails" column="requestId"/>
-    <!--<list name="responseDetails" cascade="all">
-        <key column="messageId" />
-        <list-index column="id" />
-        <one-to-many class="ResponseDetailsImpl" />
-    </list>-->
-  </union-subclass>
+    <union-subclass extends="MotechEntityImpl" name="GatewayRequestImpl" table="gateway_request">
+        <many-to-one class="GatewayRequestDetailsImpl" name="gatewayRequestDetails" column="request_id"/>
+        <property name="recipientsNumber" type="string" column="recipients_number" />
+        <property name="dateSent" type="timestamp" column="date_sent"/>
+        <property name="dateFrom" type="timestamp" column="date_from" />
+        <property name="dateTo" type="timestamp" column="date_to"/>
+        <property name="tryNumber" type="integer" column="try_number"/>
+        <set cascade="all" inverse="true" name="responseDetails">
+            <key column="message_id"/>
+            <one-to-many class="GatewayResponseImpl"/>
+        </set>
+    </union-subclass>
 </hibernate-mapping>

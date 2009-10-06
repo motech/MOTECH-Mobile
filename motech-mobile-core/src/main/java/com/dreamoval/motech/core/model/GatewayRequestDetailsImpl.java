@@ -17,7 +17,7 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
     public GatewayRequestDetailsImpl() {
     }
 
-    private String messageType;
+    private MessageType messageType;
     private String message;
     private int numberOfPages;
     private Set gatewayRequests = new HashSet();
@@ -25,14 +25,14 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
     /**
      * @return the messageType
      */
-    public String getMessageType() {
+    public MessageType getMessageType() {
         return messageType;
     }
 
     /**
      * @param messageType the messageType to set
      */
-    public void setMessageType(String messageType) {
+    public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
     }
 

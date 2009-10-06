@@ -13,7 +13,7 @@ public interface GatewayRequestDetails  extends MotechEntity{
      *
      * @return
      */
-    String getMessageType();
+    MessageType getMessageType();
     /**
      *
      * @return
@@ -26,7 +26,7 @@ public interface GatewayRequestDetails  extends MotechEntity{
     int getNumberOfPages();
     Set getGatewayRequests();
     void setGatewayRequests(Set gatewayRequests);
-    void setMessageType(String messageType);
+    void setMessageType(MessageType messageType);
     void setMessage(String message);
     void setNumberOfPages(int numberOfPages);
 

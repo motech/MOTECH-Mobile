@@ -109,6 +109,6 @@
 		</plugins>
 	</build>
 	<properties>
-		<endpointUrl>http://localhost:8080/motechmobile/webservices/messaging</endpointUrl>
+		<endpointUrl>http://localhost:8080/motech-mobile-webapp/webservices/messaging</endpointUrl>
 	</properties>
 </project>

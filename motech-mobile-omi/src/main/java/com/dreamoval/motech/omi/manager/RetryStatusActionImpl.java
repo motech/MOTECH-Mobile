@@ -17,7 +17,7 @@ public class RetryStatusActionImpl implements StatusAction{
     
    public void doAction(GatewayResponse response){   
         MessageRequestDAO msgDao = coreManager.createMessageRequestDAO(coreManager.createMotechContext());
-        MessageRequest msgReq = (MessageRequest) msgDao.getById(response.getMessageId().getRequestId());
+        MessageRequest msgReq = (MessageRequest) msgDao.getById(response.getGatewayRequest().getRequestId());
         msgReq.setStatus(MStatus.RETRY);
         msgDao.save(msgReq);
    }

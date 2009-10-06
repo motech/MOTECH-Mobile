@@ -2,13 +2,13 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="GatewayResponseImpl" table="message_response">
-    <property name="gatewayMessageId"/>
-    <property name="recipientNumber"/>
-    <property name="messageStatus" type="mStatus" update="false" access="field"/>
-    <property name="responseText"/>
-    <many-to-one class="GatewayRequestImpl" name="messageId"/>
+    <property name="gatewayMessageId" type="string" column="gateway_message_id"/>
+    <property name="recipientNumber" type="string" column="recipient_number"/>
+    <property name="messageStatus" type="mStatus" update="false" access="field" column="message_status"/>
+    <property name="responseText" type="string" column="response_text"/>
+    <many-to-one class="GatewayRequestImpl" name="gatewayRequest" column="message_id"/>
     <set cascade="all" name="transitions">
-      <key column="responseId"/>
+      <key column="gateway_response_id"/>
       <one-to-many class="TransitionImpl"/>
     </set>
   </union-subclass>
