@@ -1,5 +1,6 @@
 package com.dreamoval.motech.omi.ws;
 
+import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.PatientImpl;
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public interface MessageService extends Serializable{
      * @return The id of the message sent
      */
     @WebMethod
-    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") String messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
+    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") MessageType messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
 
     /**
      * Sends a message to a CHPS Worker
@@ -43,7 +44,7 @@ public interface MessageService extends Serializable{
      * @return The id of the message sent
      */
     @WebMethod
-    public String sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") ArrayList<PatientImpl> patientList, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") String messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
+    public String sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") ArrayList<PatientImpl> patientList, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") MessageType messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate);
     
     
 

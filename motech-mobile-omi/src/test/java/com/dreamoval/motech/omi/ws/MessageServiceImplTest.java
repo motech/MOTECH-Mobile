@@ -57,7 +57,7 @@ public class MessageServiceImplTest{
         Date serviceDate = null;
         String patientNumber = "000000000000";
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
-        String messageType = "TEXT";
+        MessageType messageType = MessageType.TEXT;
 
         expect(
                 mockOMIService.savePatientMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MessageType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
@@ -78,6 +78,7 @@ public class MessageServiceImplTest{
         Long messageId = 0L;
         String workerName = "Test worker";
         String workerNumber = "000000000000";
+        MessageType messageType = MessageType.TEXT;
         ArrayList<PatientImpl> patientList = new ArrayList<PatientImpl>();
 
         expect(
@@ -85,7 +86,7 @@ public class MessageServiceImplTest{
                 ).andReturn("QUEUED");    
         replay(mockOMI, mockOMIService);
         
-        String result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", "TEXT", 13L, null, null);
+        String result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 13L, null, null);
         assertEquals(result, "QUEUED");
         verify(mockOMI, mockOMIService);
     }

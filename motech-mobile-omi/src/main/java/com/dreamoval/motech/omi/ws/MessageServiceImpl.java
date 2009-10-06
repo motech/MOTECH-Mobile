@@ -6,7 +6,6 @@ import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.PatientImpl;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.jws.WebParam;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -34,10 +33,10 @@ public class MessageServiceImpl implements MessageService {
      * @see MessageService.sendPatientMessage
      */
     @WebMethod
-    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") String messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate){
+    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") MessageType messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate){
         logger.debug("Called MessageService.sendPatientMessage with parameters:\n\rmessageId - "+ messageId + "\n\rclinic - " + patientNumber + "\n\rpatientNumbrType - " + patientNumberType + "\n\rmessageType - " + messageType + "\n\rstartDate - " + startDate + "\n\rendDate - " + endDate);
         logger.info("Calling OMIService.sendPtientMessage");
-        return omiManager.createOMIService().savePatientMessageRequest(messageId, patientName, patientNumber, patientNumberType, langCode, MessageType.valueOf(messageType), notificationType, startDate, endDate);
+        return omiManager.createOMIService().savePatientMessageRequest(messageId, patientName, patientNumber, patientNumberType, langCode, messageType, notificationType, startDate, endDate);
     }
 
     /**
@@ -45,10 +44,10 @@ public class MessageServiceImpl implements MessageService {
      * @see MessageService.sendCHPSMessage
      */
     @WebMethod
-    public String sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") ArrayList<PatientImpl> patientList, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") String messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate){
+    public String sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") ArrayList<PatientImpl> patientList, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") MessageType messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate){
         logger.debug("Called MessageService.sendCHPSMessage with parameters:\n\rmessageId - "+ messageId + "\n\rworkerName - " + workerName + "\n\rworkerNumber - " + workerNumber + "\n\rpatientList - " + patientList.toString() + "\n\rstartDate - " + startDate + "\n\rendDate - " + endDate);
         logger.info("Calling OMIService.sendCHPSMessage");
-        return this.omiManager.createOMIService().saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, langCode, MessageType.valueOf(messageType), notificationType, startDate, endDate);
+        return this.omiManager.createOMIService().saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, langCode, messageType, notificationType, startDate, endDate);
     }
 
     /**

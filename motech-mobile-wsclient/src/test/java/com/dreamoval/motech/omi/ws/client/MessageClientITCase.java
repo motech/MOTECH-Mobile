@@ -57,7 +57,7 @@ public class MessageClientITCase {
         com.dreamoval.motech.omi.ws.client.ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         String langCode = "db_GH";
         long notificationType = 4L;
-        String messageType = "TEXT";
+        MessageType messageType = MessageType.TEXT;
 
         String result = msgWs.sendPatientMessage(messageId, patientName, patientNumber, patientNumberType, langCode, messageType, notificationType, serviceDate, serviceDate);
         assertNotNull(result);
@@ -75,7 +75,7 @@ public class MessageClientITCase {
         
         String langCode = "db_GH";
         long notificationType = 4L;
-        String messageType = "TEXT";
+        MessageType messageType = MessageType.TEXT;
         
         XMLGregorianCalendar serviceDate;
         GregorianCalendar inDate = new GregorianCalendar();
