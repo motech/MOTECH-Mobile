@@ -124,6 +124,7 @@ public class OMIServiceImpl implements OMIService {
             logger.debug(message);
             msgDao.save(message);
         }
+        logger.info("Messages processed successfully");
     }
     
     /**
