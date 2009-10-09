@@ -9,6 +9,7 @@ import com.dreamoval.motech.core.dao.LanguageDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.LanguageImpl;
+import com.dreamoval.motech.core.service.MotechContext;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -30,21 +31,34 @@ public class LanguageDAOImplTest {
     public LanguageDAOImplTest() {
     }
 
-    LanguageDAO lDao;
+     LanguageDAO lDao;
     @Autowired
     Language l1;
     @Autowired
     Language l2;
     @Autowired
     CoreManager coreManager;
+    String code;
 
     @Before
     public void setUp() {
-        lDao = coreManager.createLanguageDAO(coreManager.createMotechContext());
-        l1.setId(Long.MIN_VALUE);
+        MotechContext mc = coreManager.createMotechContext();
+        lDao = coreManager.createLanguageDAO(mc);
+        l1.setId(911L);
         l1.setCode("aul887");
         l1.setName("day notifier");
         l1.setDescription("some description");
+
+
+        code ="de";
+        l2.setId(98L);
+        l2.setCode(code);
+        l2.setName("german");
+        Session session = (Session) lDao.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        lDao.save(l2);
+        tx.commit();
+
     }
 
     @Test
@@ -65,5 +79,23 @@ public class LanguageDAOImplTest {
         Assert.assertEquals(l1.getDescription(),fromdb.getDescription());
 
         
+    }
+
+     @Test
+    public void testGeIdByCode() {
+        System.out.print("test getIdByCode");
+        Long expResult = 98L;
+        Long Result = lDao.getIdByCode(code);
+        Assert.assertNotNull(Result);
+        Assert.assertEquals(expResult, Result);
+    }
+
+     @Test
+    public void testGeByCode() {
+        System.out.print("test getIdByCode");
+        Language expResult = l2;
+        Language Result = lDao.getByCode(code);
+        Assert.assertNotNull(Result);
+        Assert.assertEquals(expResult, Result);
     }
 }

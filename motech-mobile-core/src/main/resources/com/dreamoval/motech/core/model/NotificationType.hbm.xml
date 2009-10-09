@@ -5,8 +5,11 @@
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.dreamoval.motech.core.model">
-    <union-subclass name="NotificationTypeImpl" extends="MotechEntityImpl" table="Notification_Type">
-        <property name="name" length="45" type="string"/>
-        <property name="description" length="200" type="string"/>
-    </union-subclass>
+    <class name="NotificationTypeImpl" table="notification_type">
+        <id name="id">
+            <generator class="assigned"/>
+        </id>
+        <property name="name" length="45"/>
+        <property name="description" length="200"/>
+    </class>
 </hibernate-mapping>

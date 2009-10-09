@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
-  <union-subclass extends="MotechEntityImpl" name="LanguageImpl" table="Language">
+  <class name="LanguageImpl" table="language">
+      <id name="id">
+            <generator class="assigned"/>
+        </id>
     <property length="10" name="code" unique="true" type="string" column="code"/>
     <property length="50" name="name" type="string" column="name"/>
     <property name="description" type="string" column="description"/>
-  </union-subclass>
+  </class>
 </hibernate-mapping>

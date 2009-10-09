@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
-import org.junit.Ignore;
 
 /**
  *  Date : Aug 4, 2009

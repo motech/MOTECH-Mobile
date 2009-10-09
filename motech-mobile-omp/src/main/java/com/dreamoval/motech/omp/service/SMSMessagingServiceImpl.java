@@ -1,9 +1,11 @@
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import java.util.List;
 import java.util.Set;
@@ -27,15 +29,32 @@ public class SMSMessagingServiceImpl implements MessagingService {
     public void scheduleMessage(GatewayRequest message){
         cache.saveMessage(message);
     }
+    
+    /**
+     * 
+     * @see MessageService.scheduleMessage
+     */
+    public void scheduleMessage(GatewayRequestDetails message){
+        cache.saveMessage(message);
+    }
+    
     /**
      *
      * @see MessagingService.sendScheduledMessages
      */
     public void sendScheduledMessages(){
-        List<GatewayRequest> scheduledMessages = cache.getMessages(new GatewayRequestImpl());
+        logger.info("Fetching cached GatewayRequests");
+        GatewayRequestImpl sample = new GatewayRequestImpl();
+        sample.setMessageStatus(MStatus.SCHEDULED);
+        
+        logger.info("Sending messages");
+        List<GatewayRequest> scheduledMessages = cache.getMessages(sample);
         for(GatewayRequest message : scheduledMessages){
-            sendMessage(message);
+            
+            logger.info("Message Status: " + message.getMessageStatus());
+            sendMessage(message);    
         }
+        logger.info("Sending completed successfully");
     }
     
     /**
@@ -53,6 +72,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
         logger.debug(responseList);
         logger.info("Updating message status");
         messageDetails.setResponseDetails(responseList);
+        messageDetails.setMessageStatus(MStatus.PENDING);
         this.cache.saveMessage(messageDetails);
 
         return messageDetails.getId();

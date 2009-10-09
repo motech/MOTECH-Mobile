@@ -1,13 +1,16 @@
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
+import com.dreamoval.motech.core.dao.GatewayRequestDetailsDAO;
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
 
 /**
  * An SMS specific implementation of the CacheService interface
@@ -31,7 +34,28 @@ public class SMSCacheServiceImpl implements CacheService {
         
         logger.info("Caching message");
         logger.debug(messageDetails);
+        
+        Transaction tx = (Transaction) messageDAO.getDBSession().getTransaction();
+        tx.begin();
         messageDAO.save(messageDetails);
+        tx.commit();
+    }
+    
+    /**
+     *
+     * @see CacheService.saveMessage
+     */
+    public void saveMessage(GatewayRequestDetails messageDetails) {
+        logger.info("Initializing DAO");
+        GatewayRequestDetailsDAO messageDAO = coreManager.createGatewayRequestDetailsDAO(coreManager.createMotechContext());
+        
+        logger.info("Caching message");
+        logger.debug(messageDetails);
+        
+        Transaction tx = (Transaction) messageDAO.getDBSession().getTransaction();
+        tx.begin();
+        messageDAO.save(messageDetails);
+        tx.commit();
     }
     
     /**
@@ -44,7 +68,11 @@ public class SMSCacheServiceImpl implements CacheService {
         
         logger.info("Caching response");
         logger.debug(responseDetails);
+        
+        Transaction tx = (Transaction) responseDAO.getDBSession().getTransaction();
+        tx.begin();
         responseDAO.save(responseDetails);
+        tx.commit();
     }
     
     /**

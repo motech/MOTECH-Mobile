@@ -2,6 +2,7 @@ package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import java.util.List;
@@ -20,6 +21,13 @@ public interface CacheService {
      * @return value indicating success. True for success, false for failure
      */
     public void saveMessage(GatewayRequest messageDetails);
+    
+    /**
+     * saves a message to the cache
+     * @param messageDetails MessageDetails object to be saved to the cache
+     * @return value indicating success. True for success, false for failure
+     */
+    public void saveMessage(GatewayRequestDetails messageDetails);
     
     /**
      * saves a message response to the cache

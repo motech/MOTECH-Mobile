@@ -6,16 +6,17 @@ import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageRequestImpl;
-import com.dreamoval.motech.core.model.MessageTemplate;
-import com.dreamoval.motech.core.model.MessageTemplateImpl;
 import com.dreamoval.motech.core.dao.MessageTemplateDAO;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
 import com.dreamoval.motech.core.model.Language;
+import com.dreamoval.motech.core.model.MessageTemplate;
+import com.dreamoval.motech.core.model.MessageTemplateImpl;
+import com.dreamoval.motech.core.model.MessageType;
+import com.dreamoval.motech.core.model.NotificationType;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import static org.easymock.EasyMock.*;
 
@@ -35,6 +36,7 @@ public class MessageStoreManagerImplTest {
     MessageTemplateDAO mockTemplateDao;
     MessageStoreManager instance;
     Language mockLang;
+    MessageTemplate template;
 
     public MessageStoreManagerImplTest() {
     }
@@ -48,6 +50,9 @@ public class MessageStoreManagerImplTest {
         mockTemplateDao = createMock(MessageTemplateDAO.class);
         instance = new MessageStoreManagerImpl();
         instance.setCoreManager(mockCore);
+        
+        template = new MessageTemplateImpl();
+        template.setTemplate("testing");
     }
 
     /**
@@ -59,19 +64,6 @@ public class MessageStoreManagerImplTest {
         
         MessageRequest message = new MessageRequestImpl();
 
-        MessageTemplate tpl = new MessageTemplateImpl();
-        tpl.setLanguage(mockLang);
-        tpl.setTemplate("Some template");
-        
-        List<MessageTemplate> templates = new ArrayList<MessageTemplate>();
-        templates.add(tpl);
-
-        expect(
-                mockCore.createMessageTemplate((MotechContext) anyObject())
-                ).andReturn(new MessageTemplateImpl());
-        expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
         expect(
                 mockCore.createMessageTemplateDAO((MotechContext) anyObject())
                 ).andReturn(mockTemplateDao);
@@ -79,8 +71,8 @@ public class MessageStoreManagerImplTest {
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
         expect(
-                mockTemplateDao.findByExample(anyObject())
-                ).andReturn(templates);
+                mockTemplateDao.getTemplateByLangNotifMType((Language)anyObject(), (NotificationType) anyObject(), (MessageType) anyObject())
+                ).andReturn(template);
         expect(
                 mockCore.createGatewayRequest((MotechContext) anyObject())
                 ).andReturn(new GatewayRequestImpl());
@@ -96,7 +88,8 @@ public class MessageStoreManagerImplTest {
         
         replay(mockCore, mockTemplateDao);
 
-        GatewayRequest result = instance.constructMessage(message);
+        //GatewayRequest result = instance.constructMessage(message);
+        GatewayRequestDetails result = instance.constructMessage(message);
         assertNotNull(result);
         verify(mockCore, mockTemplateDao);
     }
@@ -108,7 +101,7 @@ public class MessageStoreManagerImplTest {
     public void testParseTemplate() {
         System.out.println("parseTemplate");
         
-        String template = "Testing the <method> method of the <class> class";
+        String tpl = "Testing the <method> method of the <class> class";
         
         Map<String, String> params = new HashMap<String, String>();
         params.put("class", "MessageStoreManagerImpl");
@@ -116,7 +109,7 @@ public class MessageStoreManagerImplTest {
         
         String expResult = "Testing the parseTemplate method of the MessageStoreManagerImpl class";
         
-        String result = instance.parseTemplate(template, params);
+        String result = instance.parseTemplate(tpl, params);
         assertEquals(expResult, result);
     }
     
@@ -131,19 +124,7 @@ public class MessageStoreManagerImplTest {
         
         MessageRequest message = new MessageRequestImpl();
         
-        MessageTemplate tpl = new MessageTemplateImpl();
-        tpl.setLanguage(mockLang);
-        tpl.setTemplate("testing");
         
-        List<MessageTemplate> templates = new ArrayList<MessageTemplate>();
-        templates.add(tpl);
-        
-        expect(
-                mockCore.createMessageTemplate((MotechContext) anyObject())
-                ).andReturn(new MessageTemplateImpl());
-        expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
         expect(
                 mockCore.createMessageTemplateDAO((MotechContext) anyObject())
                 ).andReturn(mockTemplateDao);
@@ -151,8 +132,8 @@ public class MessageStoreManagerImplTest {
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
         expect(
-                mockTemplateDao.findByExample(anyObject())
-                ).andReturn(templates);
+                mockTemplateDao.getTemplateByLangNotifMType((Language)anyObject(), (NotificationType) anyObject(), (MessageType) anyObject())
+                ).andReturn(template);
         
         replay(mockCore, mockTemplateDao);
 

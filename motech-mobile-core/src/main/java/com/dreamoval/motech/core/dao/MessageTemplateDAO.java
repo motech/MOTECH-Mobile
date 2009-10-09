@@ -5,12 +5,20 @@
 
 package com.dreamoval.motech.core.dao;
 
-import com.dreamoval.motech.core.model.MessageTemplateImpl;
+import com.dreamoval.motech.core.model.Language;
+import com.dreamoval.motech.core.model.Language;
+import com.dreamoval.motech.core.model.MessageTemplate;
+import com.dreamoval.motech.core.model.MessageType;
+import com.dreamoval.motech.core.model.NotificationType;
+import com.dreamoval.motech.core.model.MessageType;
+import com.dreamoval.motech.core.model.NotificationType;
 
 /**
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
-public interface MessageTemplateDAO<T extends MessageTemplateImpl> extends GenericDAO<T> {
+public interface MessageTemplateDAO<T extends MessageTemplate> extends GenericDAO<T> {
+    public MessageTemplate getTemplateByLangNotifMType(Language lang, NotificationType notif, MessageType type);
+   
 
 }

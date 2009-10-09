@@ -3,10 +3,10 @@ package com.dreamoval.motech.omi.manager;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageTemplate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
@@ -27,7 +27,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * 
      * @see MessageStoreManager.constructMessage
      */
-    public GatewayRequest constructMessage(MessageRequest messageData) {
+    public GatewayRequestDetails constructMessage(MessageRequest messageData) {
         logger.info("Fetching message template");
         String template = fetchTemplate(messageData);
         
@@ -41,19 +41,25 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         
         logger.info("Constructing GatewayRequest object");
        
-        GatewayRequest gwReq = coreManager.createGatewayRequest(coreManager.createMotechContext());
-        GatewayRequestDetails gwReqDet = coreManager.createGatewayRequestDetails(coreManager.createMotechContext());
-        gwReqDet.setId(messageData.getId());
+        GatewayRequest gwReq = coreManager.createGatewayRequest(coreManager.createMotechContext());        
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
         gwReq.setRecipientsNumber(messageData.getRecipientNumber());
         gwReq.setMessage(message);
-        gwReq.setGatewayRequestDetails(gwReqDet);
+        gwReq.setMessageStatus(MStatus.SCHEDULED);
+        //gwReq.setGatewayRequestDetails(gwReqDet);
+        
+        GatewayRequestDetails gwReqDet = coreManager.createGatewayRequestDetails(coreManager.createMotechContext());
+        gwReqDet.setId(messageData.getId());
+        gwReqDet.setMessage(message);
+        gwReqDet.setMessageType(messageData.getMessageType());
+        gwReqDet.setNumberOfPages(3);
+        gwReqDet.getGatewayRequests().add(gwReq);
         
         logger.info("GatewayRequest object successfully constructed");
         logger.debug(gwReq);
             
-        return gwReq;
+        return gwReqDet;
     }
 
     /**
@@ -77,13 +83,12 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * @see MessageStoreManager.fetchTemplate
      */
     public String fetchTemplate(MessageRequest messageData) {
-        MessageTemplate template = coreManager.createMessageTemplate(coreManager.createMotechContext());
-        template.setLanguage(messageData.getLanguage());
-        template.setMessageType(messageData.getMessageType());
-        template.setNotificationType(messageData.getNotificationType());
+        MessageTemplate template = coreManager.createMessageTemplateDAO(coreManager.createMotechContext()).getTemplateByLangNotifMType(messageData.getLanguage(), messageData.getNotificationType(), messageData.getMessageType());
         
-        List<MessageTemplate> templates = coreManager.createMessageTemplateDAO(coreManager.createMotechContext()).findByExample(template);
-        return templates.get(0).getTemplate();
+        if(template == null)
+            throw new RuntimeException("No matching template found");
+            
+        return template.getTemplate();
     }
 
     public CoreManager getCoreManager() {

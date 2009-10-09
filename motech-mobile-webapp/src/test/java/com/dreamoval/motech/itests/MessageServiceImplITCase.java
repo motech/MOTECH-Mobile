@@ -58,12 +58,12 @@ public class MessageServiceImplITCase {
     @Test
     public void testSendPatientMessage() {
         System.out.println("sendPatientMessage");
-        Long messageId = 0L;
+        Long messageId = 2L;
         Date serviceDate = new Date();
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MessageType messageType = MessageType.TEXT;
-        String result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", messageType, 49L, serviceDate, serviceDate);
+        String result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", messageType, 4L, serviceDate, serviceDate);
         assertNotNull(result);
     }
 
@@ -73,7 +73,7 @@ public class MessageServiceImplITCase {
     @Test
     public void testSendCHPSMessage() {
         System.out.println("sendCHPSMessage");
-        Long messageId = 0L;
+        Long messageId = 5L;
         String workerName = "Test worker";
         String workerNumber = testProps.getProperty("workerNumber", "000000000000");
         Date serviceDate = new Date();
@@ -85,7 +85,7 @@ public class MessageServiceImplITCase {
         patient.setSerialNumber("TS000000001");
         patientList.add(patient);
         
-        String result = client.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 39L, serviceDate, serviceDate);
+        String result = client.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 1L, serviceDate, serviceDate);
         assertNotNull(result);
     }
 

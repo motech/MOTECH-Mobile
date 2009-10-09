@@ -3,9 +3,11 @@ package com.dreamoval.motech.omi.service;
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
+import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageType;
@@ -18,6 +20,7 @@ import com.dreamoval.motech.omp.service.MessagingService;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
 
 /**
  * An implementation of the OMIService
@@ -43,30 +46,40 @@ public class OMIServiceImpl implements OMIService {
         
         MotechContext mc = coreManager.createMotechContext();
         MessageRequest messageRequest = coreManager.createMessageRequest(mc);
-        NotificationType notifTypeObject = coreManager.createNotificationType(mc);
-        Language langObject = coreManager.createLanguage(mc);
-        langObject.setCode(langCode);
         
-        notifTypeObject.setId(notificationType);
+        NotificationTypeDAO noteTypeDao = coreManager.createNotificationTypeDAO(mc);
+        NotificationType noteType = (NotificationType)noteTypeDao.getById(notificationType);
+        
+        Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
+        
         messageRequest.setId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
         messageRequest.setRecipientName(patientName);
         messageRequest.setRecipientNumber(patientNumber);
-        messageRequest.setNotificationType(notifTypeObject);
+        messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(messageType);
         messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
-        logger.info("Saving MessageRequest");
-        coreManager.createMessageRequestDAO(mc).save(messageRequest);
+        logger.debug(langObject);
+        logger.debug(noteType);
+        
+        logger.info("Saving MessageRequest");        
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
+        
+        Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+        tx.begin();
+        msgReqDao.save(messageRequest);
+        tx.commit();      
+        
         return messageRequest.getStatus().toString();
     }
 
     /**
-     *
+     *logger
      * @see OMIService.sendCHPSMessage
      */
     public String saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, String langCode, MessageType messageType, Long notificationType, Date startDate, Date endDate){
@@ -75,16 +88,18 @@ public class OMIServiceImpl implements OMIService {
         
         MotechContext mc = coreManager.createMotechContext();
         MessageRequest messageRequest = coreManager.createMessageRequest(mc);
-        NotificationType notifTypeObject = coreManager.createNotificationType(mc);
-        Language langObject = coreManager.createLanguage(mc);
         
-        langObject.setCode(langCode);
+        NotificationTypeDAO noteTypeDao = coreManager.createNotificationTypeDAO(mc);
+        NotificationType noteType = (NotificationType)noteTypeDao.getById(notificationType);
+        
+        Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
+        
         messageRequest.setId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
         messageRequest.setRecipientName(workerName);
         messageRequest.setRecipientNumber(workerNumber);
-        messageRequest.setNotificationType(notifTypeObject);
+        messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(messageType);
         messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
@@ -93,7 +108,14 @@ public class OMIServiceImpl implements OMIService {
         logger.debug(messageRequest);
         
         logger.info("Saving MessageRequest");
-        coreManager.createMessageRequestDAO(mc).save(messageRequest);
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
+        
+        Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+        tx.begin();
+        msgReqDao.save(messageRequest);
+        tx.commit(); 
+        
+        
         return messageRequest.getStatus().toString();
     }
     
@@ -101,28 +123,39 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.processMessageRequests
      */
     public void processMessageRequests(){
-        logger.info("Fetching stored MessageRequest objects");
+        logger.info("Building search criteria");
         MotechContext mc = coreManager.createMotechContext();
         
-        MessageRequestDAO msgDao = coreManager.createMessageRequestDAO(mc);
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
         MessageRequest sample = coreManager.createMessageRequest(mc);
         sample.setStatus(MStatus.QUEUED);
-        List<MessageRequest> messages = msgDao.findByExample(sample);
+        logger.debug(sample);
+        
+        logger.info("Fetching stored MessageRequest objects");
+        List<MessageRequest> messages = msgReqDao.findByExample(sample);
+        
+        logger.info("MessageRequest objects fetched successfully");
+        logger.debug(messages);
         
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
         
         logger.info("Preparing messages:");
         for(MessageRequest message : messages){            
-            GatewayRequest gwReq = storeManager.constructMessage(message);
+            //GatewayRequest gwReq = storeManager.constructMessage(message);
+            GatewayRequestDetails gwReqDet = storeManager.constructMessage(message);
             
             logger.info("Scheduling GatewayRequest");
-            msgSvc.scheduleMessage(gwReq);
+            msgSvc.scheduleMessage(gwReqDet);
             
             logger.info("Updating MessageRequest");
             message.setStatus(MStatus.SCHEDULED);
             logger.debug(message);
-            msgDao.save(message);
+            
+            Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+            tx.begin();
+            msgReqDao.save(message);
+            tx.commit(); 
         }
         logger.info("Messages processed successfully");
     }
@@ -131,13 +164,19 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.processMessageRetries
      */
     public void processMessageRetries(){
-        logger.info("Fetching stored MessageRequest objects");
+        logger.info("Building search criteria");
         MotechContext mc = coreManager.createMotechContext();
         
-        MessageRequestDAO msgDao = coreManager.createMessageRequestDAO(mc);
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
         MessageRequest sample = coreManager.createMessageRequest(mc);
         sample.setStatus(MStatus.RETRY);
-        List<MessageRequest> messages = msgDao.findByExample(sample);
+        logger.debug(sample);
+        
+        logger.info("Fetching stored MessageRequest objects");
+        List<MessageRequest> messages = msgReqDao.findByExample(sample);
+        
+        logger.info("MessageRequest objects fetched successfully");
+        logger.debug(messages);
         
         logger.info("Initializing GatewayRequestDAO");
         GatewayRequestDAO gwDao = coreManager.createGatewayRequestDAO(mc);
@@ -148,6 +187,13 @@ public class OMIServiceImpl implements OMIService {
         for(MessageRequest message : messages){
             GatewayRequest gwReq = (GatewayRequest) gwDao.getById(message.getId());
             msgSvc.scheduleMessage(gwReq);
+            
+            message.setStatus(MStatus.SCHEDULED);
+            
+            Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+            tx.begin();
+            msgReqDao.save(message);
+            tx.commit(); 
         }
     }
     
@@ -164,6 +210,9 @@ public class OMIServiceImpl implements OMIService {
         
         logger.info("Initializing MessageRequestDAO and fetching matching message requests");
         List<MessageRequest> messages = coreManager.createMessageRequestDAO(mc).findByExample(sample);
+        
+        logger.info("MessageRequest objects fetched successfully");
+        logger.debug(messages);
         
         logger.info("Initializing GatewayRequestDAO");
         GatewayRequestDAO gatewayDao = coreManager.createGatewayRequestDAO(mc);

@@ -21,6 +21,8 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     private Date dateSent;
     private int tryNumber;
     private Long requestId;
+    private MStatus messageStatus;
+    
     public GatewayRequestImpl(){}
 
     public GatewayRequestImpl( Date dateTo, String messageText, String recipientsNumber, Date dateFrom, Date dateSent) {
@@ -186,6 +188,14 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
 
     public void setTryNumber(int tryNumber) {
         this.tryNumber = tryNumber;
+    }
+
+    public MStatus getMessageStatus() {
+        return messageStatus;
+    }
+
+    public void setMessageStatus(MStatus messageStatus) {
+        this.messageStatus = messageStatus;
     }
 
     

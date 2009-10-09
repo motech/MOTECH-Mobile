@@ -1,6 +1,7 @@
 package com.dreamoval.motech.omp.service;
 
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.omp.manager.GatewayManager;
@@ -19,6 +20,13 @@ public interface MessagingService {
      * @param message to be scheduled
      */
     public void scheduleMessage(GatewayRequest message);
+    
+    /**
+     * Queues a message for delivery within the scheduled period
+     * 
+     * @param message to be scheduled
+     */
+    public void scheduleMessage(GatewayRequestDetails message);
     
     /**
      * Sends all messages due for delivery

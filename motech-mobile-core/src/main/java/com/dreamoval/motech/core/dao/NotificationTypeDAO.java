@@ -5,12 +5,12 @@
 
 package com.dreamoval.motech.core.dao;
 
-import com.dreamoval.motech.core.model.NotificationTypeImpl;
+import com.dreamoval.motech.core.model.NotificationType;
 
 /**
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
-public interface NotificationTypeDAO<T extends NotificationTypeImpl> extends GenericDAO<T> {
+public interface NotificationTypeDAO<T extends NotificationType> extends GenericDAO<T> {
 
 }

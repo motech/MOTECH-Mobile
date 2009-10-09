@@ -33,13 +33,27 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
         <property name="coreManager" ref="coreManager" />
     </bean>
-
+    
+    
     <bean id="gatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayManagerImpl">
-        <!--<property name="productCode" value="${orserve.gateway.productCode}" />
-        <property name="senderId" value="${orserve.gateway.senderId}" />-->
+        <property name="productCode" value="nu-ob-demo" />
+        <property name="senderId" value="MoTeCH" />
         <property name="messageHandler" ref="messageHandler" />
     </bean>
-
+    <!--
+     ${orserve.gateway.senderId}
+     ${orserve.gateway.productCode}
+     
+     
+     <bean id="gatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ClickatellGatewayManagerImpl">
+        <property name="messageHandler" ref="messageHandler" />
+    </bean>    
+    
+     <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ClickatellGatewayMessageHandlerImpl" scope="prototype">
+        <property name="coreManager" ref="coreManager" />
+    </bean>
+     -->
+     
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="ompManager" ref="ompManager" />
@@ -53,35 +67,35 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />
     <!--Scheduling-->
         <!--Job-->
-        <bean id="gatewayStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-            <property name="targetObject" ref="smsService"/>
-            <property name="targetMethod" value="updateMessageStatuses"/>
-        </bean>
-
         <bean id="sendMessageUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
             <property name="targetObject" ref="smsService"/>
             <property name="targetMethod" value="sendScheduledMessages"/>
         </bean>
-        <!--End of Job-->
+        
+        <!--<bean id="gatewayStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="smsService"/>
+            <property name="targetMethod" value="updateMessageStatuses"/>
+        </bean>-->
+<!--End of Job-->
 
         <!--Triggers-->
-        <bean id="gatewayStatusUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-            <property name="jobDetail" ref="gatewayStatusUpdater"/>
-            <property name="cronExpression" value="0 * * * * ?"/>
-        </bean>
-
         <bean id="sendMessageUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
             <property name="jobDetail" ref="sendMessageUpdater"/>
             <property name="cronExpression" value="0 * * * * ?"/>
         </bean>
-        <!--End Of Triggers-->
+        
+        <!--<bean id="gatewayStatusUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="gatewayStatusUpdater"/>
+            <property name="cronExpression" value="0 * * * * ?"/>
+        </bean>-->
+<!--End Of Triggers-->
 
         <!--Scheduler Factory-->
         <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
             <property name="triggers">
                 <list>
-                    <ref bean="gatewayStatusUpdaterTrigger"/>
                     <ref bean="sendMessageUpdaterTrigger"/>
+                    <!--<ref bean="gatewayStatusUpdaterTrigger"/>-->
                 </list>
             </property>
         </bean>

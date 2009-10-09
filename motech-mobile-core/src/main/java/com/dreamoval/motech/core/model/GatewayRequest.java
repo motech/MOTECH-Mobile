@@ -59,7 +59,10 @@ public interface GatewayRequest extends MotechEntity {
 
 //     int getTry_number();
     int getTryNumber();
-//   void setRequestId(Long requestId);
+//   void setRequestId(Long requestId);          
+    
+    MStatus getMessageStatus();
+    
    void setTryNumber(int tryNumber);
     /**
      * @param dateSent the dateSent to set
@@ -96,6 +99,8 @@ public interface GatewayRequest extends MotechEntity {
      */
     void setResponseDetails(Set<GatewayResponse> responseDetails);
 
+    void setMessageStatus(MStatus status);
+
     /**
      *
      */
@@ -113,5 +118,5 @@ public interface GatewayRequest extends MotechEntity {
     /**
      *
      */
-    void removeResponse(List<GatewayResponse> responses);
+    void removeResponse(List<GatewayResponse> responses);    
 }

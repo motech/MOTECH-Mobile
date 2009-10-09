@@ -34,6 +34,6 @@ public interface NotificationType extends MotechEntity {
     void setName(String name);
 
     Set<MessageTemplate> getMessageTemplates();
-    void setMessageTemplates(Set<MessageTemplate>messageTemplate);
+    void setMessageTemplates(Set<MessageTemplate> messageTemplate);
 
 }

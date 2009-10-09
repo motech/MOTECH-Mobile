@@ -2,6 +2,7 @@ package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
+import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.MessageRequest;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public interface MessageStoreManager {
      * @param messageData the MessageRequest object containing details of the message to construct
      * @return the constructed GatewayRequest object
      */
-    public GatewayRequest constructMessage(MessageRequest messageData);
+    public GatewayRequestDetails constructMessage(MessageRequest messageData);
 
     /**
      * Constructs a personalized message from the provided template and parameters

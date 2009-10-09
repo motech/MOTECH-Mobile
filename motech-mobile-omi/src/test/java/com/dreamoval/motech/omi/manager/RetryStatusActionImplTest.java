@@ -1,5 +1,6 @@
 package com.dreamoval.motech.omi.manager;
 
+import com.dreamoval.motech.core.dao.DBSession;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
@@ -13,6 +14,7 @@ import com.dreamoval.motech.core.model.MessageRequestImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import java.util.Date;
+import org.hibernate.Transaction;
 import static org.easymock.EasyMock.*;
 
 import org.junit.Before;
@@ -26,9 +28,11 @@ import org.junit.Test;
  */
 public class RetryStatusActionImplTest {
 
-    RetryStatusActionImpl instance;
     CoreManager mockCore;
     MessageRequestDAO mockDao;
+    RetryStatusActionImpl instance;
+    DBSession mockSession;
+    Transaction mockTrans;
     GatewayRequestDetails mockGatewayRequestDetails;
 
     public RetryStatusActionImplTest() {
@@ -38,6 +42,8 @@ public class RetryStatusActionImplTest {
     public void setUp() {
         mockCore = createMock(CoreManager.class);
         mockDao = createMock(MessageRequestDAO.class);
+        mockSession = createMock(DBSession.class);
+        mockTrans = createMock(Transaction.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
         mockGatewayRequestDetails.setId(2L);
 
@@ -71,10 +77,24 @@ public class RetryStatusActionImplTest {
         expect(
                 mockDao.getById((Long) anyObject())).andReturn(new MessageRequestImpl());
         expect(
-                mockDao.save((MessageRequest) anyObject())).andReturn(response);
+                mockDao.getDBSession()
+                ).andReturn(mockSession);
+        expect(
+                mockSession.getTransaction()
+                ).andReturn(mockTrans);
+        
+        mockTrans.begin();
+        expectLastCall();
+        
+        expect(
+                mockDao.save((MessageRequest) anyObject())
+                ).andReturn(response);
+        
+        mockTrans.commit();
+        expectLastCall();
 
-        replay(mockCore, mockDao);
+        replay(mockCore, mockDao, mockSession, mockTrans);
         instance.doAction(response);
-        verify(mockCore, mockDao);
+        verify(mockCore, mockDao, mockSession, mockTrans);
     }
 }

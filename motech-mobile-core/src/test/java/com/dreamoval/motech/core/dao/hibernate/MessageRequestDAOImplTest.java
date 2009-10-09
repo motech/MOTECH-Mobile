@@ -55,7 +55,7 @@ public class MessageRequestDAOImplTest {
         MotechContext mc = coreManager.createMotechContext();
         lDAO = coreManager.createLanguageDAO(mc);
         lg1.setId(23L);
-        lg1.setCode("en");
+        lg1.setCode("es");
 
         ntDao = coreManager.createNotificationTypeDAO(mc);
         nt1.setId(9878L);
