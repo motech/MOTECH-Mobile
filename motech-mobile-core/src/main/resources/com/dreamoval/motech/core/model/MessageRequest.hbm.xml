@@ -4,7 +4,7 @@
   <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="message_request">
     <property name="recipientName" type="string" column="recipient_name"/>
     <property name="schedule" type="date"  column="schedule"/>
-    <property name="status" type="mStatus" update="false" access="field" column="status" />
+    <property name="status" type="mStatus" access="field" column="status" />
     <property name="p13nData" type="string" column="p113_nData"/>
     <property name="recipientNumber" type="string" column="recipient_number"/>
     <property name="messageType" type="messageType" column="message_type"/>

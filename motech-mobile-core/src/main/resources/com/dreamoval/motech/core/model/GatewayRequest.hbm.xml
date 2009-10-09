@@ -9,7 +9,7 @@
         <property name="dateTo" type="timestamp" column="date_to"/>
         <property name="tryNumber" type="integer" column="try_number"/>
         <property name="message" type="string" column="message"/>
-        <property name="messageStatus" type="mStatus" update="false" access="field" column="message_status"/>
+        <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
         <set cascade="all" inverse="true" name="responseDetails">
             <key column="message_id"/>
             <one-to-many class="GatewayResponseImpl"/>

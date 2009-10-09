@@ -4,7 +4,7 @@
   <union-subclass extends="MotechEntityImpl" name="GatewayResponseImpl" table="message_response">
     <property name="gatewayMessageId" type="string" column="gateway_message_id"/>
     <property name="recipientNumber" type="string" column="recipient_number"/>
-    <property name="messageStatus" type="mStatus" update="false" access="field" column="message_status"/>
+    <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
     <property name="responseText" type="string" column="response_text"/>
     <many-to-one class="GatewayRequestImpl" name="gatewayRequest" column="message_id"/>
     <set cascade="all" name="transitions">
