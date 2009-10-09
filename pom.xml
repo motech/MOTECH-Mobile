@@ -399,6 +399,11 @@
                 <version>10.2.2.0</version>
             </dependency>
             <dependency>
+                <groupId>hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>1.8.0.10</version>
+            </dependency>
+            <dependency>
                 <groupId>asm</groupId>
                 <artifactId>asm</artifactId>
                 <version>2.2.3</version>
@@ -435,6 +440,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>2.5.6.SEC01</spring.version>
+        <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
         <cxf.version>2.2.2</cxf.version>
     </properties>
 
