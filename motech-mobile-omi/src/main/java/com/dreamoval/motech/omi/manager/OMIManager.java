@@ -6,7 +6,6 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.omi.service.OMIService;
-import com.dreamoval.motech.omi.service.Patient;
 
 /**
  * Handles creation of all objects within the OMI
@@ -27,10 +26,4 @@ public interface OMIManager {
      * @return the MessageStoreManager object
      */
     MessageStoreManager createMessageStoreManager();
-
-    /**
-     * creates a new MessagePatient object
-     * @return the MessagePatient object
-     */
-    Patient createPatient();
 }

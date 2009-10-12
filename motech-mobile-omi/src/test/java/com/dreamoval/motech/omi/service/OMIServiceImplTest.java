@@ -16,7 +16,6 @@ import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageRequestImpl;
 import com.dreamoval.motech.core.model.MessageType;
-import com.dreamoval.motech.core.model.NotificationType;
 import com.dreamoval.motech.core.model.NotificationTypeImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
@@ -31,6 +30,9 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.ws.ContactNumberType;
+import org.motechproject.ws.MediaType;
+import org.motechproject.ws.Patient;
 import static org.junit.Assert.*;
 
 /**
@@ -129,7 +131,7 @@ public class OMIServiceImplTest {
 
         replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
         
-        String result = instance.savePatientMessageRequest(0L, "Test Patient", "000000000000", ContactNumberType.PERSONAL, "language", MessageType.TEXT, 1L, new Date(), new Date());
+        String result = instance.savePatientMessageRequest(0L, "Test Patient", "000000000000", ContactNumberType.PERSONAL, "language", MediaType.TEXT, 1L, new Date(), new Date());
         assertEquals(expResult, result);
         verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
     }
@@ -143,7 +145,7 @@ public class OMIServiceImplTest {
         Long messageId = 0L;
         String workerName = "Test worker";
         String workerNumber = "000000000000";
-        List<PatientImpl> patientList = null;
+        Patient[] patientList = null;
         List<Language> langList = new ArrayList<Language>();
         langList.add(new LanguageImpl());
         
@@ -192,7 +194,7 @@ public class OMIServiceImplTest {
 
         replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
 
-        String result = instance.saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, "lang", MessageType.TEXT, 1L, testDate, testDate);
+        String result = instance.saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, "lang", MediaType.TEXT, 1L, testDate, testDate);
         assertEquals(expResult, result);
         verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
     }

@@ -7,13 +7,14 @@ import java.util.Date;
 import java.util.List;
 
 import com.dreamoval.motech.omi.manager.OMIManager;
-import com.dreamoval.motech.omi.service.ContactNumberType;
 import com.dreamoval.motech.omi.service.OMIService;
-import com.dreamoval.motech.omi.service.PatientImpl;
 
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.ws.ContactNumberType;
+import org.motechproject.ws.MediaType;
+import org.motechproject.ws.Patient;
 import static org.junit.Assert.*;
 
 /**
@@ -57,10 +58,10 @@ public class MessageServiceImplTest{
         Date serviceDate = null;
         String patientNumber = "000000000000";
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
-        MessageType messageType = MessageType.TEXT;
+        MediaType messageType = MediaType.TEXT;
 
         expect(
-                mockOMIService.savePatientMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MessageType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.savePatientMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
                 ).andReturn("QUEUED");
         replay(mockOMI, mockOMIService);
         
@@ -78,11 +79,11 @@ public class MessageServiceImplTest{
         Long messageId = 0L;
         String workerName = "Test worker";
         String workerNumber = "000000000000";
-        MessageType messageType = MessageType.TEXT;
-        ArrayList<PatientImpl> patientList = new ArrayList<PatientImpl>();
+        MediaType messageType = MediaType.TEXT;
+        Patient[] patientList = null;
 
         expect(
-                mockOMIService.saveCHPSMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (List<PatientImpl>) anyObject(), (String) anyObject(), (MessageType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.saveCHPSMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (Patient[]) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
                 ).andReturn("QUEUED");    
         replay(mockOMI, mockOMIService);
         

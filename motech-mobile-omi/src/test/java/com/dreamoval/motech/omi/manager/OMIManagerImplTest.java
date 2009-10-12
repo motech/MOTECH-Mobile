@@ -1,7 +1,6 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.omi.service.OMIService;
-import com.dreamoval.motech.omi.service.Patient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,16 +41,6 @@ public class OMIManagerImplTest {
     public void testCreateMessageStoreManager() {
         System.out.println("createMessageStoreManager");
         MessageStoreManager result = omiManager.createMessageStoreManager();
-        assertNotNull(result);
-    }
-
-    /**
-     * Test of createPatient method, of class OMIManagerImpl.
-     */
-    @Test
-    public void testCreatePatient() {
-        System.out.println("createPatient");
-        Patient result = omiManager.createPatient();
         assertNotNull(result);
     }
 

@@ -115,8 +115,7 @@
         <module>motech-mobile-omp</module>
         <module>motech-mobile-omi</module>
         <module>motech-mobile-webapp</module>
-        <module>motech-mobile-wsclient</module>
-        
+        <!--<module>motech-mobile-wsclient</module>-->        
     </modules>
     <dependencyManagement>
         <dependencies>

@@ -5,17 +5,16 @@
 
 package com.dreamoval.motech.itests;
 
-import com.dreamoval.motech.core.model.MessageType;
-import com.dreamoval.motech.omi.service.ContactNumberType;
-import com.dreamoval.motech.omi.service.PatientImpl;
-import com.dreamoval.motech.omi.ws.MessageService;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.ws.ContactNumberType;
+import org.motechproject.ws.MediaType;
+import org.motechproject.ws.Patient;
+import org.motechproject.ws.mobile.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -62,7 +61,7 @@ public class MessageServiceImplITCase {
         Date serviceDate = new Date();
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
-        MessageType messageType = MessageType.TEXT;
+        MediaType messageType = MediaType.TEXT;
         String result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", messageType, 4L, serviceDate, serviceDate);
         assertNotNull(result);
     }
@@ -77,16 +76,14 @@ public class MessageServiceImplITCase {
         String workerName = "Test worker";
         String workerNumber = testProps.getProperty("workerNumber", "000000000000");
         Date serviceDate = new Date();
-        MessageType messageType = MessageType.TEXT;
+        MediaType messageType = MediaType.TEXT;
         
-        ArrayList<PatientImpl> patientList = new ArrayList<PatientImpl>();
-        PatientImpl patient = new PatientImpl();
+        Patient patient = new Patient();
         patient.setName("Test patient");
         patient.setSerialNumber("TS000000001");
-        patientList.add(patient);
+        Patient[] patientList = new Patient[]{patient};
         
         String result = client.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 1L, serviceDate, serviceDate);
         assertNotNull(result);
     }
-
 }

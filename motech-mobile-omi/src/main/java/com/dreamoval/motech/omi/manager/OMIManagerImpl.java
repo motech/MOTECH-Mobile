@@ -1,8 +1,6 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.omi.service.OMIService;
-import com.dreamoval.motech.omi.service.Patient;
-import com.dreamoval.motech.omi.service.PatientImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -57,16 +55,6 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
             logger.error("MessageStoreManager creation failed", ex);
             return null;
         }
-    }
-
-    /**
-     * creates a new Patient object
-     * @return the created Patient object
-     */
-    public Patient createPatient() {
-        logger.info("Creating a new Patient object");
-        return new PatientImpl();
-    }
-    
+    }   
 
 }

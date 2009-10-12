@@ -1,7 +1,6 @@
 package com.dreamoval.motech.omi.service;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
-import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.model.MessageRequest;
@@ -21,6 +20,9 @@ import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
+import org.motechproject.ws.ContactNumberType;
+import org.motechproject.ws.MediaType;
+import org.motechproject.ws.Patient;
 
 /**
  * An implementation of the OMIService
@@ -41,7 +43,7 @@ public class OMIServiceImpl implements OMIService {
      *
      * @see OMIService.sendPatientMessage
      */
-    public String savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, MessageType messageType, Long notificationType, Date startDate, Date endDate){
+    public String savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate){
         logger.info("Constructing MessageRequest object");
         
         MotechContext mc = coreManager.createMotechContext();
@@ -58,7 +60,7 @@ public class OMIServiceImpl implements OMIService {
         messageRequest.setRecipientName(patientName);
         messageRequest.setRecipientNumber(patientNumber);
         messageRequest.setNotificationType(noteType);
-        messageRequest.setMessageType(messageType);
+        messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
         messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
 
@@ -82,7 +84,7 @@ public class OMIServiceImpl implements OMIService {
      *logger
      * @see OMIService.sendCHPSMessage
      */
-    public String saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, List<PatientImpl> patientList, String langCode, MessageType messageType, Long notificationType, Date startDate, Date endDate){
+    public String saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate){
         logger.info("Constructing MessageDetails object");
         
         
@@ -100,7 +102,7 @@ public class OMIServiceImpl implements OMIService {
         messageRequest.setRecipientName(workerName);
         messageRequest.setRecipientNumber(workerNumber);
         messageRequest.setNotificationType(noteType);
-        messageRequest.setMessageType(messageType);
+        messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
         messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
 
