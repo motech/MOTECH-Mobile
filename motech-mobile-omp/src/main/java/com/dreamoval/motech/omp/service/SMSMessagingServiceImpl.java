@@ -1,11 +1,11 @@
 package com.dreamoval.motech.omp.service;
 
+import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
-import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
-import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import java.util.List;
 import java.util.Set;
@@ -20,22 +20,23 @@ import org.apache.log4j.Logger;
 public class SMSMessagingServiceImpl implements MessagingService {
     private CacheService cache;
     private GatewayManager gatewayManager;
+    private CoreManager coreManager;
     private static Logger logger = Logger.getLogger(SMSMessagingServiceImpl.class);
 
     /**
      * 
      * @see MessageService.scheduleMessage
      */
-    public void scheduleMessage(GatewayRequest message){
-        cache.saveMessage(message);
+    public void scheduleMessage(GatewayRequest message, MotechContext context){
+        cache.saveMessage(message, context);
     }
     
     /**
      * 
      * @see MessageService.scheduleMessage
      */
-    public void scheduleMessage(GatewayRequestDetails message){
-        cache.saveMessage(message);
+    public void scheduleMessage(GatewayRequestDetails message, MotechContext context){
+        cache.saveMessage(message, context);
     }
     
     /**
@@ -43,17 +44,19 @@ public class SMSMessagingServiceImpl implements MessagingService {
      * @see MessagingService.sendScheduledMessages
      */
     public void sendScheduledMessages(){
+        MotechContext mc = coreManager.createMotechContext();
+        
         logger.info("Fetching cached GatewayRequests");
-        GatewayRequestImpl sample = new GatewayRequestImpl();
+        GatewayRequest sample = coreManager.createGatewayRequest(mc);
         sample.setMessageStatus(MStatus.SCHEDULED);
+        List<GatewayRequest> scheduledMessages = cache.getMessages(sample, mc);
         
         logger.info("Sending messages");
-        List<GatewayRequest> scheduledMessages = cache.getMessages(sample);
-        for(GatewayRequest message : scheduledMessages){
-            
-            logger.info("Message Status: " + message.getMessageStatus());
-            sendMessage(message);    
+        for(GatewayRequest message : scheduledMessages){            
+            sendMessage(message, mc);    
         }
+        mc.cleanUp();
+        
         logger.info("Sending completed successfully");
     }
     
@@ -61,11 +64,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
      *
      * @see MessagingService.sendMessage(MessageDetails messageDetails)
      */
-    public Long sendMessage(GatewayRequest messageDetails) {
-        //logger.info("Calling CacheService.saveMessage");
-        //logger.debug(messageDetails);
-        //this.cache.saveMessage(messageDetails);
-
+    public Long sendMessage(GatewayRequest messageDetails, MotechContext context) {
         logger.info("Sending message to gateway");
         Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(messageDetails);
 
@@ -73,7 +72,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
         logger.info("Updating message status");
         messageDetails.setResponseDetails(responseList);
         messageDetails.setMessageStatus(MStatus.PENDING);
-        this.cache.saveMessage(messageDetails);
+        this.cache.saveMessage(messageDetails, context);
 
         return messageDetails.getId();
     }
@@ -82,12 +81,19 @@ public class SMSMessagingServiceImpl implements MessagingService {
      * 
      */
     public void updateMessageStatuses() {
-        List<GatewayResponse> pendingMessages = cache.getResponses(new GatewayResponseImpl());
+        MotechContext mc = getCoreManager().createMotechContext();
+        
+        GatewayResponse gwResp = coreManager.createGatewayResponse(mc);
+        gwResp.setMessageStatus(MStatus.PENDING);
+        
+        List<GatewayResponse> pendingMessages = cache.getResponses(gwResp, mc);
+        
         for(GatewayResponse response : pendingMessages){
             response.setResponseText(gatewayManager.getMessageStatus(response));
             response.setMessageStatus(gatewayManager.mapMessageStatus(response));
-            cache.saveResponse(response);
+            cache.saveResponse(response, mc);
         }
+        mc.cleanUp();
     }
 
     /**
@@ -129,6 +135,14 @@ public class SMSMessagingServiceImpl implements MessagingService {
         logger.debug("Setting SMSMessagingServiceImpl.gatewayManager:");
         logger.debug(gatewayManager);
         this.gatewayManager = gatewayManager;
+    }
+
+    public CoreManager getCoreManager() {
+        return coreManager;
+    }
+
+    public void setCoreManager(CoreManager coreManager) {
+        this.coreManager = coreManager;
     }
 
 }

@@ -4,6 +4,7 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import java.util.List;
 
@@ -20,21 +21,21 @@ public interface CacheService {
      * @param messageDetails MessageDetails object to be saved to the cache
      * @return value indicating success. True for success, false for failure
      */
-    public void saveMessage(GatewayRequest messageDetails);
+    public void saveMessage(GatewayRequest messageDetails, MotechContext context);
     
     /**
      * saves a message to the cache
      * @param messageDetails MessageDetails object to be saved to the cache
      * @return value indicating success. True for success, false for failure
      */
-    public void saveMessage(GatewayRequestDetails messageDetails);
+    public void saveMessage(GatewayRequestDetails messageDetails, MotechContext context);
     
     /**
      * saves a message response to the cache
      * @param messageDetails MessageDetails object to be saved to the cache
      * @return value indicating success. True for success, false for failure
      */
-    public void saveResponse(GatewayResponse responseDetails);
+    public void saveResponse(GatewayResponse responseDetails, MotechContext context);
 
     /**
      * fetches messages matching specified criteria
@@ -42,13 +43,13 @@ public interface CacheService {
      * @param criteria by which messages should be fetched
      * @return list of messages matching specified criteria
      */
-    public List<GatewayRequest> getMessages(GatewayRequest criteria);
+    public List<GatewayRequest> getMessages(GatewayRequest criteria, MotechContext context);
     
     /**
      * 
      * fetches all GatewayResponse objects matching the specified criteria
      */
-    public List<GatewayResponse> getResponses(GatewayResponse criteria);
+    public List<GatewayResponse> getResponses(GatewayResponse criteria, MotechContext context);
     
     /**
      * @return the coreManager
@@ -59,14 +60,4 @@ public interface CacheService {
      * @param coreManager the coreManager to set
      */
     public void setCoreManager(CoreManager coreManager);
-
-    /**
-     * @return the ompManager
-     */
-    public OMPManager getOmpManager();
-
-    /**
-     * @param ompManager the ompManager to set
-     */
-    public void setOmpManager(OMPManager ompManager);
 }

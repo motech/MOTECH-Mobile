@@ -56,12 +56,12 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
      
     <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />
-        <property name="ompManager" ref="ompManager" />
     </bean>
 
     <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSMessagingServiceImpl">
         <property name="cache" ref="smsCache" />
         <property name="gatewayManager" ref="gatewayManager" />
+        <property name="coreManager" ref="coreManager" />
     </bean>
 
     <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />

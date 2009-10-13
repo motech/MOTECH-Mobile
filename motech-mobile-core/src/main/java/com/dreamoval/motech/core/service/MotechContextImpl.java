@@ -2,14 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.dreamoval.motech.core.service;
 
 import com.dreamoval.motech.core.dao.DBSession;
 import javax.transaction.Transaction;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-
 
 /**
  *
@@ -36,16 +34,17 @@ public class MotechContextImpl implements MotechContext<Session, Transaction> {
      */
     public void cleanUp() {
         logger.info("Cleaning up the session");
-        dBsession.getSession().flush();
-        dBsession.getSession().close();
+        if (dBsession != null) {
+            dBsession.getSession().flush();
+            dBsession.getSession().close();
+        }
     }
 
-     /**
+    /**
      * @see com.dreamoval.motech.core.service.MotechContext#setDBSession()
      */
     public void setDBSession(DBSession<Session, Transaction> session) {
         logger.info("Setting DBSession");
-        this.dBsession = (DBSession<Session, Transaction>)session;
+        this.dBsession = (DBSession<Session, Transaction>) session;
     }
-
 }

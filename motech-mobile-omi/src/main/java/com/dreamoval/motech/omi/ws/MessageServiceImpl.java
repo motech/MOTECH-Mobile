@@ -12,6 +12,7 @@ import javax.jws.soap.SOAPBinding.Use;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
+import org.motechproject.ws.MessageStatus;
 import org.motechproject.ws.Patient;
 import org.motechproject.ws.mobile.MessageService;
 
@@ -33,7 +34,7 @@ public class MessageServiceImpl implements MessageService {
      * @see MessageService.sendPatientMessage
      */
     @WebMethod
-    public String sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") MediaType messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate){
+    public MessageStatus sendPatientMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="patientName") String patientName, @WebParam(name="patientNumber") String patientNumber, @WebParam(name="patientNumberType") ContactNumberType patientNumberType, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") MediaType messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate){
         logger.debug("Called MessageService.sendPatientMessage with parameters:\n\rmessageId - "+ messageId + "\n\rclinic - " + patientNumber + "\n\rpatientNumbrType - " + patientNumberType + "\n\rmessageType - " + messageType + "\n\rstartDate - " + startDate + "\n\rendDate - " + endDate);
         logger.info("Calling OMIService.sendPtientMessage");
         return omiManager.createOMIService().savePatientMessageRequest(messageId, patientName, patientNumber, patientNumberType, langCode, messageType, notificationType, startDate, endDate);
@@ -44,7 +45,7 @@ public class MessageServiceImpl implements MessageService {
      * @see MessageService.sendCHPSMessage
      */
     @WebMethod
-    public String sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") Patient[] patientList, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") MediaType messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate){
+    public MessageStatus sendCHPSMessage(@WebParam(name="messageId") Long messageId, @WebParam(name="workerName") String workerName, @WebParam(name="workerNumber") String workerNumber, @WebParam(name="patientList") Patient[] patientList, @WebParam(name="langCode") String langCode, @WebParam(name="mediaType") MediaType messageType, @WebParam(name="notificationType") Long notificationType, @WebParam(name="startDate")Date startDate, @WebParam(name="endDate")Date endDate){
         logger.debug("Called MessageService.sendCHPSMessage with parameters:\n\rmessageId - "+ messageId + "\n\rworkerName - " + workerName + "\n\rworkerNumber - " + workerNumber + "\n\rstartDate - " + startDate + "\n\rendDate - " + endDate);
         logger.info("Calling OMIService.sendCHPSMessage");
         return this.omiManager.createOMIService().saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, langCode, messageType, notificationType, startDate, endDate);

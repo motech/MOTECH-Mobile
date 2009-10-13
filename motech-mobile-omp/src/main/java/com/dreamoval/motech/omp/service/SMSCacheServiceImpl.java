@@ -7,7 +7,7 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
-import com.dreamoval.motech.omp.manager.OMPManager;
+import com.dreamoval.motech.core.service.MotechContext;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
@@ -21,16 +21,15 @@ import org.hibernate.Transaction;
 public class SMSCacheServiceImpl implements CacheService {
 
     private CoreManager coreManager;
-    private OMPManager ompManager;
     private static Logger logger = Logger.getLogger(SMSCacheServiceImpl.class);
 
     /**
      *
      * @see CacheService.saveMessage
      */
-    public void saveMessage(GatewayRequest messageDetails) {
+    public void saveMessage(GatewayRequest messageDetails, MotechContext context) {
         logger.info("Initializing DAO");
-        GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
+        GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO(context);
         
         logger.info("Caching message");
         logger.debug(messageDetails);
@@ -45,9 +44,9 @@ public class SMSCacheServiceImpl implements CacheService {
      *
      * @see CacheService.saveMessage
      */
-    public void saveMessage(GatewayRequestDetails messageDetails) {
+    public void saveMessage(GatewayRequestDetails messageDetails, MotechContext context) {
         logger.info("Initializing DAO");
-        GatewayRequestDetailsDAO messageDAO = coreManager.createGatewayRequestDetailsDAO(coreManager.createMotechContext());
+        GatewayRequestDetailsDAO messageDAO = coreManager.createGatewayRequestDetailsDAO(context);
         
         logger.info("Caching message");
         logger.debug(messageDetails);
@@ -62,9 +61,9 @@ public class SMSCacheServiceImpl implements CacheService {
      *
      * @see CacheService.saveResponse
      */
-    public void saveResponse(GatewayResponse responseDetails) {
+    public void saveResponse(GatewayResponse responseDetails, MotechContext context) {
         logger.info("Initializing DAO");
-        GatewayResponseDAO responseDAO = coreManager.createGatewayResponseDAO(coreManager.createMotechContext());
+        GatewayResponseDAO responseDAO = coreManager.createGatewayResponseDAO(context);
         
         logger.info("Caching response");
         logger.debug(responseDetails);
@@ -79,8 +78,8 @@ public class SMSCacheServiceImpl implements CacheService {
      * 
      * see CacheService.getMessages
      */
-    public List<GatewayRequest> getMessages(GatewayRequest criteria) {
-        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
+    public List<GatewayRequest> getMessages(GatewayRequest criteria, MotechContext context) {
+        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO(context);
         return messageDao.findByExample(criteria);
     }
     
@@ -88,8 +87,8 @@ public class SMSCacheServiceImpl implements CacheService {
      * 
      * see CacheService.getMessages
      */
-    public List<GatewayResponse> getResponses(GatewayResponse criteria) {
-        GatewayResponseDAO responseDao = coreManager.createGatewayResponseDAO(coreManager.createMotechContext());
+    public List<GatewayResponse> getResponses(GatewayResponse criteria, MotechContext context) {
+        GatewayResponseDAO responseDao = coreManager.createGatewayResponseDAO(context);
         return responseDao.findByExample(criteria);
     }
 
@@ -108,21 +107,4 @@ public class SMSCacheServiceImpl implements CacheService {
         logger.debug(coreManager);
         this.coreManager = coreManager;
     }
-
-    /**
-     * @return the ompManager
-     */
-    public OMPManager getOmpManager() {
-        return ompManager;
-    }
-
-    /**
-     * @param ompManager the ompManager to set
-     */
-    public void setOmpManager(OMPManager ompManager) {
-        logger.debug("Setting value of SMSCacheServiceImpl.ompManager");
-        logger.debug(ompManager);
-        this.ompManager = ompManager;
-    }
-
 }

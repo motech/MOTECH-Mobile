@@ -1,19 +1,17 @@
 package com.dreamoval.motech.omi.ws;
 
-import com.dreamoval.motech.core.model.MessageType;
 import static org.easymock.EasyMock.*;
 
 import java.util.Date;
-import java.util.List;
 
 import com.dreamoval.motech.omi.manager.OMIManager;
 import com.dreamoval.motech.omi.service.OMIService;
 
-import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
+import org.motechproject.ws.MessageStatus;
 import org.motechproject.ws.Patient;
 import static org.junit.Assert.*;
 
@@ -62,11 +60,11 @@ public class MessageServiceImplTest{
 
         expect(
                 mockOMIService.savePatientMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
-                ).andReturn("QUEUED");
+                ).andReturn(MessageStatus.QUEUED);
         replay(mockOMI, mockOMIService);
         
-        String result = instance.sendPatientMessage(messageId, patientNumber, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null);
-        assertEquals("QUEUED", result);
+        MessageStatus result = instance.sendPatientMessage(messageId, patientNumber, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null);
+        assertEquals(MessageStatus.QUEUED, result);
         verify(mockOMI, mockOMIService);
     }
 
@@ -84,11 +82,11 @@ public class MessageServiceImplTest{
 
         expect(
                 mockOMIService.saveCHPSMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (Patient[]) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
-                ).andReturn("QUEUED");    
+                ).andReturn(MessageStatus.QUEUED);    
         replay(mockOMI, mockOMIService);
         
-        String result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 13L, null, null);
-        assertEquals(result, "QUEUED");
+        MessageStatus result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 13L, null, null);
+        assertEquals(result, MessageStatus.QUEUED);
         verify(mockOMI, mockOMIService);
     }
 

@@ -38,6 +38,7 @@ public class SMSCacheServiceImplTest {
     GatewayRequestDAO mockMessageDAO;
     GatewayResponseDAO mockResponseDAO;
     GatewayRequestDetails mockGatewayRequestDetails;
+    MotechContext mCtx;
 
     public SMSCacheServiceImplTest() {
     }
@@ -52,6 +53,8 @@ public class SMSCacheServiceImplTest {
         mockGatewayRequestDetails.setId(2L);
         instance = new SMSCacheServiceImpl();
         instance.setCoreManager(mockCore);
+        
+        mCtx = new MotechContextImpl();
     }
 
     /**
@@ -75,9 +78,6 @@ public class SMSCacheServiceImplTest {
                 mockCore.createGatewayRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockMessageDAO);
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
                 mockMessageDAO.getDBSession()
                 ).andReturn(mockSession);
         expect(
@@ -95,7 +95,7 @@ public class SMSCacheServiceImplTest {
         expectLastCall();
         
         replay(mockCore, mockMessageDAO, mockSession, mockTrans);
-        instance.saveMessage(messageDetails);
+        instance.saveMessage(messageDetails, mCtx);
         verify(mockCore, mockMessageDAO, mockSession, mockTrans);
     }
 
@@ -119,9 +119,6 @@ public class SMSCacheServiceImplTest {
                 mockCore.createGatewayResponseDAO((MotechContext) anyObject())
                 ).andReturn(mockResponseDAO);
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
                 mockResponseDAO.getDBSession()
                 ).andReturn(mockSession);
         expect(
@@ -139,7 +136,7 @@ public class SMSCacheServiceImplTest {
         expectLastCall();
         
         replay(mockCore, mockResponseDAO, mockSession, mockTrans);
-        instance.saveResponse(response);
+        instance.saveResponse(response, mCtx);
         verify(mockCore, mockResponseDAO, mockSession, mockTrans);
     }
 
@@ -163,14 +160,11 @@ public class SMSCacheServiceImplTest {
                 mockCore.createGatewayRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockMessageDAO);
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
                 mockMessageDAO.findByExample((GatewayRequest) anyObject())
                 ).andReturn(new ArrayList<GatewayRequest>());
         replay(mockCore, mockMessageDAO);
 
-        List<GatewayRequest> result = instance.getMessages(messageDetails);
+        List<GatewayRequest> result = instance.getMessages(messageDetails, mCtx);
         assertNotNull(result);
         
         verify(mockCore, mockMessageDAO);
@@ -195,15 +189,12 @@ public class SMSCacheServiceImplTest {
                 mockCore.createGatewayResponseDAO((MotechContext) anyObject())
                 ).andReturn(mockResponseDAO);
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
                 mockResponseDAO.findByExample((GatewayResponse) anyObject())
                 ).andReturn(new ArrayList<GatewayResponse>());
         
         replay(mockCore, mockResponseDAO);
 
-        List<GatewayResponse> result = instance.getResponses(response);
+        List<GatewayResponse> result = instance.getResponses(response, mCtx);
         assertNotNull(result);
         
         verify(mockCore, mockResponseDAO);

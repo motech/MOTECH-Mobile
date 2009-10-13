@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
+import org.motechproject.ws.MessageStatus;
 import org.motechproject.ws.Patient;
 import org.motechproject.ws.mobile.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +63,8 @@ public class MessageServiceImplITCase {
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
-        String result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", messageType, 4L, serviceDate, serviceDate);
-        assertNotNull(result);
+        MessageStatus result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", messageType, 4L, serviceDate, serviceDate);
+        assertEquals(result, MessageStatus.QUEUED);
     }
 
     /**
@@ -83,7 +84,7 @@ public class MessageServiceImplITCase {
         patient.setSerialNumber("TS000000001");
         Patient[] patientList = new Patient[]{patient};
         
-        String result = client.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 1L, serviceDate, serviceDate);
-        assertNotNull(result);
+        MessageStatus result = client.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 1L, serviceDate, serviceDate);
+        assertEquals(result, MessageStatus.QUEUED);
     }
 }
