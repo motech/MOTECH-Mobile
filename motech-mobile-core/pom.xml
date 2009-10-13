@@ -80,8 +80,8 @@
             <version>5.1.6</version>
         </dependency>-->
         <dependency>
-            <groupId>hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
+      <groupId>hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

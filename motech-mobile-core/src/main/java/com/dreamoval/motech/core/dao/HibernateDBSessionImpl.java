@@ -1,9 +1,7 @@
-
 package com.dreamoval.motech.core.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 
 /**
  * HibernateDBSessionImpl is the implementation of the contracts defined

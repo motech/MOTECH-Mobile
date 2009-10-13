@@ -1,5 +1,3 @@
-
-
 package com.dreamoval.motech.core.dao;
 
 import java.io.Serializable;

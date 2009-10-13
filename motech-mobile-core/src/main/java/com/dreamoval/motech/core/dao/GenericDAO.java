@@ -1,13 +1,7 @@
-
 package com.dreamoval.motech.core.dao;
-
 
 import java.io.Serializable;
 import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 
 /**
  * GenericDAO interface provides common persistence methods contracts.
@@ -20,7 +14,7 @@ import org.hibernate.Transaction;
  * @author Henry Samspon (henry@dreamoval.com)
  * 
  */
-public interface GenericDAO <T> {
+public interface GenericDAO<T> {
 
     /**
      * Gets all objects of type T
@@ -28,7 +22,7 @@ public interface GenericDAO <T> {
      * @return List of entity Type T
      */
     List<T> getAll();
-    
+
     /**
      * Get all object by Example
      *
@@ -45,7 +39,7 @@ public interface GenericDAO <T> {
      * @return entity of type T
      */
     T getById(Serializable id);
-    
+
     /**
      * Saves the entity of type T
      *
@@ -70,5 +64,4 @@ public interface GenericDAO <T> {
      * @param session the session to set
      */
     public void setDBSession(DBSession session);
-
 }
