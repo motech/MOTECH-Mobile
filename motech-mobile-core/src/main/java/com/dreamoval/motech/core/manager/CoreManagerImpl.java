@@ -59,6 +59,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         logger.info("Creating GatewayRequestDetails instance");
         GatewayRequestDetails result = (GatewayRequestDetails) getInstance("gatewayRequestDetails", GatewayRequestDetails.class);
 
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -103,7 +104,8 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public MessageRequest createMessageRequest(MotechContext motechContext) {
         logger.info("Creating MessageRequest instance");
         MessageRequest result = (MessageRequest) getInstance("messageRequest", MessageRequest.class);
-
+        
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 

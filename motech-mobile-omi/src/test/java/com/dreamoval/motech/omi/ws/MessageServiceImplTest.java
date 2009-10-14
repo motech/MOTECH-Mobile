@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
 import org.motechproject.ws.MessageStatus;
+import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
 import static org.junit.Assert.*;
 
@@ -51,19 +52,20 @@ public class MessageServiceImplTest{
     @Test
     public void testSendPatientMessage() {
         System.out.println("sendPatientMessage");
-        Long messageId = 0L;
+        String messageId = "tsid1";
         String clinic = "Test clinic";
         Date serviceDate = null;
+        NameValuePair[] personalInfo = new NameValuePair[0];
         String patientNumber = "000000000000";
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
 
         expect(
-                mockOMIService.savePatientMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.savePatientMessageRequest((String) anyObject(), (NameValuePair[]) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
                 ).andReturn(MessageStatus.QUEUED);
         replay(mockOMI, mockOMIService);
         
-        MessageStatus result = instance.sendPatientMessage(messageId, patientNumber, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null);
+        MessageStatus result = instance.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null);
         assertEquals(MessageStatus.QUEUED, result);
         verify(mockOMI, mockOMIService);
     }
@@ -74,18 +76,19 @@ public class MessageServiceImplTest{
     @Test
     public void testSendCHPSMessage() {
         System.out.println("sendCHPSMessage");
-        Long messageId = 0L;
+        String messageId = "tsid2";
         String workerName = "Test worker";
         String workerNumber = "000000000000";
         MediaType messageType = MediaType.TEXT;
         Patient[] patientList = null;
+        NameValuePair[] personalInfo = new NameValuePair[0];
 
         expect(
-                mockOMIService.saveCHPSMessageRequest((Long) anyObject(), (String) anyObject(), (String) anyObject(), (Patient[]) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.saveCHPSMessageRequest((String) anyObject(), (NameValuePair[]) anyObject(), (String) anyObject(), (Patient[]) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
                 ).andReturn(MessageStatus.QUEUED);    
         replay(mockOMI, mockOMIService);
         
-        MessageStatus result = instance.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 13L, null, null);
+        MessageStatus result = instance.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "Lang", messageType, 13L, null, null);
         assertEquals(result, MessageStatus.QUEUED);
         verify(mockOMI, mockOMIService);
     }

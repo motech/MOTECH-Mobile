@@ -105,29 +105,6 @@ public class MessageStoreManagerImplTest {
         String result = instance.parseTemplate(tpl, params);
         assertEquals(expResult, result);
     }
-
-    /**
-     * Test of parseTemplate method, of class MessageStoreManagerImpl.
-     */
-    @Test
-    public void testParseTemplate_WrongParams() {
-        System.out.println("parseTemplate");
-        
-        String tpl = "Testing the <name> method of the <object> class";
-        String errorMsg = "Parameters did not match template.";
-        
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("class", "MessageStoreManagerImpl");
-        params.put("method", "parseTemplate");
-        
-        try{
-            String result = instance.parseTemplate(tpl, params);
-            fail("Should have thrown MotechException - Parameters did not match template.");
-        }
-        catch(MotechException expected){
-            assertEquals(expected.getMessage(), errorMsg);            
-        }
-    }
     
     /**
      * Test of constructMessage method, of class MessageStoreManagerImpl.

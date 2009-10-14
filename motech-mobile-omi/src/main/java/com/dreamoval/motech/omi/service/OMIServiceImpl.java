@@ -6,6 +6,7 @@ import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MStatus;
@@ -17,6 +18,7 @@ import com.dreamoval.motech.omi.manager.StatusHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import com.dreamoval.motech.omp.service.MessagingService;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -25,6 +27,7 @@ import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
 import org.motechproject.ws.Patient;
 import org.motechproject.ws.MessageStatus;
+import org.motechproject.ws.NameValuePair;
 
 /**
  * An implementation of the OMIService
@@ -45,7 +48,7 @@ public class OMIServiceImpl implements OMIService {
      *
      * @see OMIService.sendPatientMessage
      */
-    public MessageStatus savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate){
+    public MessageStatus savePatientMessageRequest(String messageId, NameValuePair[] personalInfo, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate){
         logger.info("Constructing MessageRequest object");
         
         MotechContext mc = coreManager.createMotechContext();
@@ -56,10 +59,15 @@ public class OMIServiceImpl implements OMIService {
         
         Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
         
-        messageRequest.setId(messageId);
+        HashSet persDetails = new HashSet();
+        for(NameValuePair detail : personalInfo){
+            persDetails.add(detail);
+        }
+        
+        messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
-        messageRequest.setRecipientName(patientName);
+        messageRequest.setPersInfos(persDetails);
         messageRequest.setRecipientNumber(patientNumber);
         messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
@@ -68,8 +76,10 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
-        logger.debug(langObject);
-        logger.debug(noteType);
+        
+        if(messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null){
+            return sendMessage(messageRequest, mc);
+        }
         
         logger.info("Saving MessageRequest");        
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
@@ -88,7 +98,7 @@ public class OMIServiceImpl implements OMIService {
      *logger
      * @see OMIService.sendCHPSMessage
      */
-    public MessageStatus saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate){
+    public MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate){
         logger.info("Constructing MessageDetails object");
         
         
@@ -100,10 +110,16 @@ public class OMIServiceImpl implements OMIService {
         
         Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
         
-        messageRequest.setId(messageId);
+        HashSet persDetails = new HashSet();
+        
+        for(NameValuePair detail : personalInfo){
+            persDetails.add(detail);
+        }
+        
+        messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
-        messageRequest.setRecipientName(workerName);
+        messageRequest.setPersInfos(persDetails);
         messageRequest.setRecipientNumber(workerNumber);
         messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
@@ -112,6 +128,10 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
+        
+        if(messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null){
+            return sendMessage(messageRequest, mc);
+        }
         
         logger.info("Saving MessageRequest");
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
@@ -124,6 +144,43 @@ public class OMIServiceImpl implements OMIService {
         mc.cleanUp();
         
         return MessageStatus.valueOf(messageRequest.getStatus().toString());
+    }
+    
+    public MessageStatus sendMessage(MessageRequest message, MotechContext context){
+        logger.info("Constructing GatewayRequest");
+        GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, context);
+        
+        logger.info("Initializing OMP MessagingService");
+        MessagingService msgSvc = ompManager.createMessagingService();
+        
+        logger.info("Sending GatewayRequest");
+        
+        if(context.getDBSession() != null){
+            ((Session)context.getDBSession().getSession()).evict(gwReqDet);
+        }
+        
+        GatewayRequest gwReq = (GatewayRequest)gwReqDet.getGatewayRequests().toArray()[0];
+        gwReq.setGatewayRequestDetails(gwReqDet);
+        msgSvc.sendMessage(gwReq, context);
+
+        logger.info("Updating MessageRequest");
+        message.setStatus(MStatus.PENDING);
+        logger.debug(message);
+
+        if(context.getDBSession() != null){
+            ((Session)context.getDBSession().getSession()).evict(gwReqDet);
+        }
+
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(context);
+        Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+        tx.begin();
+        msgReqDao.save(message);
+        tx.commit(); 
+        
+        context.cleanUp();
+        
+        logger.info("Messages sent successfully");
+        return MessageStatus.valueOf(message.getStatus().toString());
     }
     
     /**
@@ -148,7 +205,8 @@ public class OMIServiceImpl implements OMIService {
         MessagingService msgSvc = ompManager.createMessagingService();
         
         logger.info("Preparing messages:");
-        for(MessageRequest message : messages){            
+        for(MessageRequest message : messages){
+            
             GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, mc);
             
             logger.info("Scheduling GatewayRequest");

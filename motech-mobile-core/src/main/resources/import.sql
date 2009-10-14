@@ -1,12 +1,12 @@
 --inserting into the language table
 
-insert into LANGUAGE (id, code,name,description) values (1,'en','English', 'english language is the official spoken language in Ghana');
+insert into language (id, code,name,description) values (1,'en','English', 'english language is the official spoken language in Ghana');
 --insert into language (id, code,name,description) values ('-92233720368547758','gan','Gan', 'Gan is the most spoken language in Accra area');
 
 --inserting into Nofitication type
 insert into notification_type(id, name, description) values (1, 'informational message','tetanus related information');
 insert into notification_type(id, name, description) values (2, 'informational message','tetanus related information');
-insert into notification_type(id, name, description) values (3, 'informational message','immuniazation against tetanus related advices');
+insert into notification_type(id, name, description) values (3, 'informational message','immuniazation against tetanus related advice');
 insert into notification_type(id, name, description) values (4, 'informational message','General related advices');
 insert into notification_type(id, name, description) values (5, 'invitation message','General related vaccination');
 insert into notification_type(id, name, description) values (6, 'invitation message','Tetanus related information');

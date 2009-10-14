@@ -32,6 +32,7 @@ import org.junit.Test;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
 import org.motechproject.ws.MessageStatus;
+import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
 import static org.junit.Assert.*;
 
@@ -86,8 +87,12 @@ public class OMIServiceImplTest {
     public void testSavePatientMessageRequest() {
         System.out.println("savePatientMessageRequest");
         
+        System.out.println("sendCHPSMessage");
+        String messageId = "tsid17";
+        String patientNumber = "000000000000";
         List<Language> langList = new ArrayList<Language>();
         langList.add(new LanguageImpl());
+        NameValuePair[] personalInfo = new NameValuePair[0];
         
         MessageStatus expResult = MessageStatus.QUEUED;
 
@@ -133,7 +138,7 @@ public class OMIServiceImplTest {
 
         replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
         
-        MessageStatus result = instance.savePatientMessageRequest(0L, "Test Patient", "000000000000", ContactNumberType.PERSONAL, "language", MediaType.TEXT, 1L, new Date(), new Date());
+        MessageStatus result = instance.savePatientMessageRequest(messageId, personalInfo, patientNumber, ContactNumberType.PERSONAL, "language", MediaType.TEXT, 1L, new Date(), new Date());
         assertEquals(expResult, result);
         verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
     }
@@ -144,12 +149,13 @@ public class OMIServiceImplTest {
     @Test
     public void testSendCHPSMessage() {
         System.out.println("sendCHPSMessage");
-        Long messageId = 0L;
+        String messageId = "tsid17";
         String workerName = "Test worker";
         String workerNumber = "000000000000";
         Patient[] patientList = null;
         List<Language> langList = new ArrayList<Language>();
         langList.add(new LanguageImpl());
+        NameValuePair[] personalInfo = new NameValuePair[0];
         
         MessageStatus expResult = MessageStatus.QUEUED;
         Date testDate = new Date();
@@ -196,7 +202,7 @@ public class OMIServiceImplTest {
 
         replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
 
-        MessageStatus result = instance.saveCHPSMessageRequest(messageId, workerName, workerNumber, patientList, "lang", MediaType.TEXT, 1L, testDate, testDate);
+        MessageStatus result = instance.saveCHPSMessageRequest(messageId, personalInfo, workerNumber, patientList, "lang", MediaType.TEXT, 1L, testDate, testDate);
         assertEquals(expResult, result);
         verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
     }

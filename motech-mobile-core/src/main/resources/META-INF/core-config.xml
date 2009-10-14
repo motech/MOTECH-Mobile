@@ -37,8 +37,8 @@
 class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:hibernate.properties</value>
-                <value>classpath:jdbc.properties</value>
+                <value>classpath:test.hibernate.properties</value>
+                <value>classpath:test.jdbc.properties</value>
             </list>
         </property>
     </bean>

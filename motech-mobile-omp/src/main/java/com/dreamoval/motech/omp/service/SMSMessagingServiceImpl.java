@@ -10,6 +10,7 @@ import com.dreamoval.motech.omp.manager.GatewayManager;
 import java.util.List;
 import java.util.Set;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 /**
  * An SMS specific implementation of the MessagingService interface
@@ -71,7 +72,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
         logger.debug(responseList);
         logger.info("Updating message status");
         messageDetails.setResponseDetails(responseList);
-        messageDetails.setMessageStatus(MStatus.PENDING);
+        messageDetails.setMessageStatus(MStatus.SENT);
         this.cache.saveMessage(messageDetails, context);
 
         return messageDetails.getId();
@@ -91,6 +92,11 @@ public class SMSMessagingServiceImpl implements MessagingService {
         for(GatewayResponse response : pendingMessages){
             response.setResponseText(gatewayManager.getMessageStatus(response));
             response.setMessageStatus(gatewayManager.mapMessageStatus(response));
+            
+            if(mc.getDBSession() != null){
+                ((Session)mc.getDBSession().getSession()).evict(response);
+            }
+            
             cache.saveResponse(response, mc);
         }
         mc.cleanUp();

@@ -4,6 +4,7 @@ import java.util.Date;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
 import org.motechproject.ws.MessageStatus;
+import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
 
 /**
@@ -26,7 +27,7 @@ public interface OMIService {
      * @param messageType Preferred message type. Possible values include TEXT, VOICE
      * @return The id of the message sent
      */
-    public MessageStatus savePatientMessageRequest(Long messageId, String patientName, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate);
+    public MessageStatus savePatientMessageRequest(String messageId, NameValuePair[] personalInfo, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate);
 
     /**
      * Sends a message to a CHPS Worker
@@ -37,7 +38,7 @@ public interface OMIService {
      * @param patientList A List of patients requiring service from CHPS worker
      * @return The id of the message sent
      */
-    public MessageStatus saveCHPSMessageRequest(Long messageId, String workerName, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate);
+    public MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate);
     
     /**
      * Processes stored MessageRequests into GatewayRequests and schedules them for delivery on the OMP

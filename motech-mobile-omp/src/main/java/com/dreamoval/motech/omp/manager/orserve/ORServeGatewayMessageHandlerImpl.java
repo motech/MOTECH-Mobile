@@ -68,7 +68,15 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
     public MStatus parseMessageStatus(String messageStatus) {
         logger.info("Parsing message gateway status response");
         
-        String status = messageStatus.trim();
+        String status;
+        String[] responseParts = messageStatus.split(" ");
+        
+        if(responseParts.length == 4){
+            status = responseParts[3];
+        }
+        else{
+            status = "";
+        }
 
         if (!status.isEmpty())
         {

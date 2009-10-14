@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
 import org.motechproject.ws.MessageStatus;
+import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
 import org.motechproject.ws.mobile.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,12 +59,18 @@ public class MessageServiceImplITCase {
     @Test
     public void testSendPatientMessage() {
         System.out.println("sendPatientMessage");
-        Long messageId = 2L;
+        String messageId = "tsid64";
+        
+        NameValuePair attrib = new NameValuePair();
+        attrib.setName("test");
+        attrib.setValue("test");
+        NameValuePair[] personalInfo = new NameValuePair[]{attrib};
+        
         Date serviceDate = new Date();
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
-        MessageStatus result = client.sendPatientMessage(messageId, "Test Patient", patientNumber, patientNumberType, "ts_GH", messageType, 4L, serviceDate, serviceDate);
+        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "ts_GH", messageType, 4L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.QUEUED);
     }
 
@@ -73,18 +80,23 @@ public class MessageServiceImplITCase {
     @Test
     public void testSendCHPSMessage() {
         System.out.println("sendCHPSMessage");
-        Long messageId = 5L;
+        String messageId = "5L";
         String workerName = "Test worker";
         String workerNumber = testProps.getProperty("workerNumber", "000000000000");
         Date serviceDate = new Date();
         MediaType messageType = MediaType.TEXT;
+        
+        NameValuePair attrib = new NameValuePair();        
+        attrib.setName("test");
+        attrib.setValue("test");
+        NameValuePair[] personalInfo = new NameValuePair[]{attrib};
         
         Patient patient = new Patient();
         patient.setName("Test patient");
         patient.setSerialNumber("TS000000001");
         Patient[] patientList = new Patient[]{patient};
         
-        MessageStatus result = client.sendCHPSMessage(messageId, workerName, workerNumber, patientList, "Lang", messageType, 1L, serviceDate, serviceDate);
+        MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "Lang", messageType, 1L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.QUEUED);
     }
 }
