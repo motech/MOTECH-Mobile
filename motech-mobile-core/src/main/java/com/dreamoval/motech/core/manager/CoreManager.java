@@ -1,5 +1,3 @@
-
-
 package com.dreamoval.motech.core.manager;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
@@ -30,26 +28,23 @@ import java.io.Serializable;
  * @author Joseph Djomeda (joseph@dreamoval.com)
  * Date Created: Aug 3, 2009
  */
-public interface CoreManager extends Serializable{
+public interface CoreManager extends Serializable {
 
     /**
      * Creates a new instance of GatewayRequest
-     * 
      * @return The newly created GatewayRequest
      */
     public GatewayRequest createGatewayRequest(MotechContext motechContext);
 
     /**
-     * Creates a new instance of MessageDetails
-     *
-     * @return The newly created MessageDetails
+     * Creates a new instance of GatewayRequestDetails
+     * @return The newly created GatewayRequestDetails
      */
     public GatewayRequestDetails createGatewayRequestDetails(MotechContext motechContext);
 
     /**
-     * Creates a new instance of ResponseDetails
-     *
-     * @return The newly created ResponseDetails
+     * Creates a new instance of GatewayResponse
+     * @return The newly created GatewayResponse
      */
     public GatewayResponse createGatewayResponse(MotechContext motechContext);
 
@@ -74,8 +69,6 @@ public interface CoreManager extends Serializable{
      */
     public Language createLanguage(MotechContext motechContext);
 
-
-
     /**
      *  Creates a new instance of MessageTemplate
      * @param motechContext takes a instance of MotechContext
@@ -92,61 +85,60 @@ public interface CoreManager extends Serializable{
 
     /**
      * Creates a new instance of GatewayRequestDAO
-     *
+     * @param motechContext takes a instance of MotechContext
      * @return The newly created instance of GatewayRequestDAO
      */
     public GatewayRequestDAO createGatewayRequestDAO(MotechContext motechContext);
 
     /**
      * Creates a new instance of GatewayRequestDetailsDAO
-     *
+     * @param motechContext takes a instance of MotechContext
      * @return The newly created instance of GatewayRequestDetailsDAO
      */
     public GatewayRequestDetailsDAO createGatewayRequestDetailsDAO(MotechContext motechContext);
 
     /**
-     * Creates a new instance of ResponseDetailsDAO
-     *
-     * @return The newly created ResponseDetailsDAO
+     * Creates a new instance of GatewayResponseDAO
+     * @param motechContext takes a instance of MotechContext
+     * @return The newly created GatewayResponseDAO
      */
     public GatewayResponseDAO createGatewayResponseDAO(MotechContext motechContext);
 
     /**
-     *
-     * @param motechContext
-     * @return
+     * Creates a new instance of TransitionDAO
+     * @param motechContext takes a instance of MotechContext
+     * @return the newly created TransitionDAO
      */
     public TransitionDAO createTransitionDAO(MotechContext motechContext);
 
-
     /**
      * Creates a new instance of MessageRequestDAO
-     * @param motechContext motechcontext to pass
+     * @param motechContext takes a instance of MotechContext
      * @return the newly created MessageRequestDAO
      */
     public MessageRequestDAO createMessageRequestDAO(MotechContext motechContext);
 
     /**
      * Creates a new instance of LanguageDAO
-     * @param motechContext motechcontext to pass
+     * @param motechContext takes a instance of MotechContext
      * @return the newly created LanguageDAO
      */
-
     public LanguageDAO createLanguageDAO(MotechContext motechContext);
 
     /**
      * Creates a new instance of MessateTemplateDAO
-     * @param motechContext motechcontext to pass
+     * @param motechContext takes a instance of MotechContext
      * @return the newly created MessageTemplateDAO
      */
     public MessageTemplateDAO createMessageTemplateDAO(MotechContext motechContext);
 
     /**
      * Creates a new instance of NotificationTypeDAO
-     * @param motechContext motechcontext to pass
+     * @param motechContext takes a instance of MotechContext
      * @return the newly created NotificationTypeDAO
      */
     public NotificationTypeDAO createNotificationTypeDAO(MotechContext motechContext);
+
     /**
      * @return the sessionContainer
      */
@@ -159,7 +151,6 @@ public interface CoreManager extends Serializable{
 
     /**
      * Creates a new instance of MotechContext
-     *
      * @return The newly created instance of MotechContext
      */
     MotechContext createMotechContext();
