@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  *  Date : Sep 25, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class MessageRequestImpl extends MotechEntityImpl implements MessageRequest{
+public class MessageRequestImpl extends MotechEntityImpl implements MessageRequest {
 
     private Language language;
     private Date schedule;
@@ -26,7 +22,8 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private Date dateTo;
     private MStatus status;
     private int maxTryNumber;
-    
+    private String requestId;
+    private Set persInfos;
 
     /**
      * @return the language
@@ -189,7 +186,6 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
         return status;
     }
 
-
     /**
      * @return the maxTryNumber
      */
@@ -211,7 +207,32 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
         this.status = status;
     }
 
+    /**
+     * @return the requestId
+     */
+    public String getRequestId() {
+        return requestId;
+    }
+
+    /**
+     * @param requestId the requestId to set
+     */
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
 
+    /**
+     * @return the persInfos
+     */
+    public Set getPersInfos() {
+        return persInfos;
+    }
 
+    /**
+     * @param persInfos the persInfos to set
+     */
+    public void setPersInfos(Set persInfos) {
+        this.persInfos = persInfos;
+    }
 }

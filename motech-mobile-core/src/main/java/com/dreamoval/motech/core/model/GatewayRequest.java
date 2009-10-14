@@ -1,5 +1,3 @@
-
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
@@ -21,7 +19,7 @@ public interface GatewayRequest extends MotechEntity {
      * @return the dateSent
      */
     Date getDateSent();
-    
+
     /**
      * @return the dateFrom
      */
@@ -38,14 +36,14 @@ public interface GatewayRequest extends MotechEntity {
     GatewayRequestDetails getGatewayRequestDetails();
 
     /**
-     * 
-     * @return
+     * @return the RequestId
      */
     Long getRequestId();
+
     /**
      * @return the  dateTo
      */
-   Date getDateTo();
+    Date getDateTo();
 
     /**
      * @return the recipientsNumber
@@ -57,13 +55,22 @@ public interface GatewayRequest extends MotechEntity {
      */
     Set<GatewayResponse> getResponseDetails();
 
-//     int getTry_number();
+    /**
+     * @return
+     */
     int getTryNumber();
-//   void setRequestId(Long requestId);          
-    
+
+    /**
+     * @return
+     */
     MStatus getMessageStatus();
-    
-   void setTryNumber(int tryNumber);
+
+    /**
+     *
+     * @param tryNumber
+     */
+    void setTryNumber(int tryNumber);
+
     /**
      * @param dateSent the dateSent to set
      */
@@ -99,12 +106,17 @@ public interface GatewayRequest extends MotechEntity {
      */
     void setResponseDetails(Set<GatewayResponse> responseDetails);
 
+    /**
+     *
+     * @param status
+     */
     void setMessageStatus(MStatus status);
 
     /**
      *
      */
     void addResponse(GatewayResponse response);
+
     /**
      *
      */
@@ -118,5 +130,5 @@ public interface GatewayRequest extends MotechEntity {
     /**
      *
      */
-    void removeResponse(List<GatewayResponse> responses);    
+    void removeResponse(List<GatewayResponse> responses);
 }
