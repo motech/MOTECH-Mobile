@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.LanguageDAO;
@@ -30,8 +29,7 @@ public class LanguageDAOImplTest {
 
     public LanguageDAOImplTest() {
     }
-
-     LanguageDAO lDao;
+    LanguageDAO lDao;
     @Autowired
     Language l1;
     @Autowired
@@ -50,7 +48,7 @@ public class LanguageDAOImplTest {
         l1.setDescription("some description");
 
 
-        code ="de";
+        code = "de";
         l2.setId(98L);
         l2.setCode(code);
         l2.setName("german");
@@ -64,7 +62,7 @@ public class LanguageDAOImplTest {
     @Test
     public void testSave() {
         System.out.println("Test save Language object");
-        Session session =(Session) lDao.getDBSession().getSession();
+        Session session = (Session) lDao.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
         lDao.save(l1);
         tx.commit();
@@ -73,24 +71,15 @@ public class LanguageDAOImplTest {
         Language fromdb = (LanguageImpl) session.get(LanguageImpl.class, l1.getId());
         Assert.assertNotNull(fromdb);
         Assert.assertSame(l1, fromdb);
-        Assert.assertEquals(l1.getId(),fromdb.getId());
-        Assert.assertEquals(l1.getCode(),fromdb.getCode());
-        Assert.assertEquals(l1.getName(),fromdb.getName());
-        Assert.assertEquals(l1.getDescription(),fromdb.getDescription());
+        Assert.assertEquals(l1.getId(), fromdb.getId());
+        Assert.assertEquals(l1.getCode(), fromdb.getCode());
+        Assert.assertEquals(l1.getName(), fromdb.getName());
+        Assert.assertEquals(l1.getDescription(), fromdb.getDescription());
 
-        
+
     }
 
-     @Test
-    public void testGeIdByCode() {
-        System.out.print("test getIdByCode");
-        Long expResult = 98L;
-        Long Result = lDao.getIdByCode(code);
-        Assert.assertNotNull(Result);
-        Assert.assertEquals(expResult, Result);
-    }
-
-     @Test
+    @Test
     public void testGeByCode() {
         System.out.print("test getIdByCode");
         Language expResult = l2;

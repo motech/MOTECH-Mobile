@@ -9,8 +9,6 @@ import com.dreamoval.motech.core.model.Language;
  */
 public interface LanguageDAO<T extends Language> extends GenericDAO<T> {
 
-    public Long getIdByCode(String code);
-
     /**
      * Method to take a language code and return the language object representing that row in the database
      * @param code the code of the registered language

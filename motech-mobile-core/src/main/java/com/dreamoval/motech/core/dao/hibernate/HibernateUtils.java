@@ -1,4 +1,3 @@
-
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.SessionContainer;
@@ -6,8 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.apache.log4j.Logger;
-
-
 
 /*
  * HibernateUtil class provides session to client based on conditions to be added.

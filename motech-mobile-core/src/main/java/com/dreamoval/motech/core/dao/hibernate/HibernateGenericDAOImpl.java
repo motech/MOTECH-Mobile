@@ -1,4 +1,3 @@
-
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.DBSession;
@@ -6,7 +5,6 @@ import com.dreamoval.motech.core.dao.GenericDAO;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -40,8 +38,6 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
         logger.info("Calling getPersistentClass");
         return persistentClass;
     }
-
-
 
     /**
      * @return the session
