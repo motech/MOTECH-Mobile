@@ -5,7 +5,7 @@
     <property name="messageType" type="messageType" column="message_type" access="field"/>
     <property name="message" type="string" column="message"/>
     <property name="numberOfPages" type="integer" column="number_of_pages"/>
-    <set name="gatewayRequests" cascade="all" >
+    <set name="gatewayRequests" cascade="all">
         <key column="request_id"/>
         <one-to-many class="GatewayRequestImpl"/>
     </set>

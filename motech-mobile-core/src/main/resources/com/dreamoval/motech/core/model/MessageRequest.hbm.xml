@@ -15,8 +15,8 @@
         <property name="maxTryNumber" column="max_try_number" />
         <many-to-one class="LanguageImpl" column="language_id" name="language" />
         <many-to-one class="NotificationTypeImpl" column="notification_type_id" name="notificationType" />
-        <set name="persInfos" table="personalization_info">
 
+        <set name="persInfos" table="personalization_info">
         <key column="requestId"/>
          <composite-element  class="org.motechproject.ws.NameValuePair">
              <property name="name" column="name" type="string" not-null="true" />

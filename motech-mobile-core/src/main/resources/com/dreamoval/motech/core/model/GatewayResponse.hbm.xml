@@ -6,8 +6,8 @@
     <property name="recipientNumber" type="string" column="recipient_number"/>
     <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
     <property name="responseText" type="string" column="response_text"/>
-    <many-to-one class="GatewayRequestImpl" name="gatewayRequest" column="message_id"/>
-    <set cascade="all" name="transitions">
+    <many-to-one class="GatewayRequestImpl" name="gatewayRequest" column="message_id" />
+    <set name="transitions" cascade="all">
       <key column="gateway_response_id"/>
       <one-to-many class="TransitionImpl"/>
     </set>
