@@ -100,7 +100,7 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
             logger.fatal("Error processing gateway request", ex);
             throw new RuntimeException("Unable to communicate with gateway");
         }
-
+        
         //Convert the response to a standard format
         return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
     }

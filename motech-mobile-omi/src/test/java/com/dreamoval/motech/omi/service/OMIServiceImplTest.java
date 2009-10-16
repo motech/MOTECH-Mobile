@@ -231,12 +231,6 @@ public class OMIServiceImplTest {
         expect(
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockRequestDao);
-//        expect(
-//                mockCore.createMessageRequest((MotechContext) anyObject())
-//                ).andReturn(new MessageRequestImpl());
-//        expect(
-//                mockRequestDao.findByExample((MessageRequest)anyObject())
-//                ).andReturn(messageList);
         expect(
                 mockRequestDao.getMsgRequestByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject())
                 ).andReturn(messageList);

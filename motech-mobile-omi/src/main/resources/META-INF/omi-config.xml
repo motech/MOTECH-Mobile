@@ -91,11 +91,7 @@
     
     <bean id="rptStatAction" class="com.dreamoval.motech.omi.manager.ReportStatusActionImpl">
         <property name="regWs" ref="registrarClient" />
-    </bean>
-    
-    <bean id="retryStatAction" class="com.dreamoval.motech.omi.manager.RetryStatusActionImpl">
-        <property name="coreManager" ref="coreManager" />        
-    </bean>
+    </bean>    
     
     <bean id="statusHandler" class="com.dreamoval.motech.omi.manager.StatusHandlerImpl">
         <property name="actionRegister">
@@ -115,7 +111,6 @@
                 <entry key="RETRY">
                     <list>
                         <ref bean="logStatAction" />
-                        <ref bean="retryStatAction" />
                     </list>
                 </entry>
             </map>

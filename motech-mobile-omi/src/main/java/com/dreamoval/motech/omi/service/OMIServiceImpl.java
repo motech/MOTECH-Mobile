@@ -1,13 +1,14 @@
 package com.dreamoval.motech.omi.service;
 
-import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.dao.GatewayRequestDetailsDAO;
+import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageType;
@@ -287,16 +288,30 @@ public class OMIServiceImpl implements OMIService {
         logger.debug(sample);
         
         logger.info("Initializing MessageRequestDAO and fetching matching message requests");
-        List<MessageRequest> messages = coreManager.createMessageRequestDAO(mc).findByExample(sample);
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
+        List<MessageRequest> messages = msgReqDao.findByExample(sample);
         
         logger.info("MessageRequest objects fetched successfully");
         logger.debug(messages);
         
         logger.info("Initializing GatewayRequestDAO");
-        GatewayRequestDAO gatewayDao = coreManager.createGatewayRequestDAO(mc);
+        GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO(mc);
         
         for(MessageRequest message : messages){
-            //GatewayRequest request = (GatewayRequest) gatewayDao.getById(message.getId());
+            GatewayResponse response = gwRespDao.getMostRecentResponseByRequestId(message.getRequestId());
+            
+            statHandler.handleStatus(response);
+            
+            message.setStatus(response.getMessageStatus());
+            
+            if(mc.getDBSession() != null){
+                ((Session)mc.getDBSession().getSession()).evict(message);
+            }
+            
+            Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+            tx.begin();
+            msgReqDao.save(message);
+            tx.commit(); 
         }
         mc.cleanUp();
     }

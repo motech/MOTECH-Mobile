@@ -36,7 +36,7 @@ public class ORServeGatewayManagerImplTest {
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
         mockGatewayRequestDetails.setId(89L);
         instance = new ORServeGatewayManagerImpl();
-        instance.setProductCode("Test Code");
+        instance.setProductCode("testId");
         instance.setSenderId("Test Sender");
         instance.setMessageHandler(mockHandler);
     }
@@ -50,7 +50,7 @@ public class ORServeGatewayManagerImplTest {
         
         GatewayRequest messageDetails = new GatewayRequestImpl();
         messageDetails.setDateFrom(new Date());
-        messageDetails.setMessage("a message for testing");
+        //messageDetails.setMessage("a message for testing");
         messageDetails.setDateTo(new Date());
         messageDetails.setRecipientsNumber("000000000000");
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
