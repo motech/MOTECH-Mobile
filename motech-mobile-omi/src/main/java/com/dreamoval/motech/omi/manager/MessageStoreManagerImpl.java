@@ -9,10 +9,9 @@ import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageTemplate;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.util.MotechException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 import org.apache.log4j.Logger;
+import org.motechproject.ws.NameValuePair;
 
 /**
  * An implementation of the MessageStore interface
@@ -32,12 +31,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      */
     public GatewayRequestDetails constructMessage(MessageRequest messageData, MotechContext context) {      
         
-        logger.info("Constructing GatewayRequest object");
-        logger.info("Initializing template parameters");
-        Map<String, String> templateParams = new HashMap<String, String>();
-        templateParams.put("RecipientName", messageData.getRecipientName());
-        logger.debug(templateParams);
-       
+        logger.info("Constructing GatewayRequest object");       
         GatewayRequest gwReq = coreManager.createGatewayRequest(context);        
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
@@ -54,7 +48,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
             String template = fetchTemplate(messageData, context);
 
             logger.info("Parsing message template");
-            String message = parseTemplate(template, templateParams);
+            String message = parseTemplate(template, messageData.getPersInfos());
 
             gwReq.setMessage(message);
             gwReq.setMessageStatus(MStatus.SCHEDULED);
@@ -81,12 +75,12 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * 
      * @see MessageStoreManager.parseTemplate
      */
-    public String parseTemplate(String template, Map<String, String> templateParams) {
+    public String parseTemplate(String template, Set<NameValuePair> templateParams) {
         String key, value;  
         
-        for(Entry<String, String> e : templateParams.entrySet()){
-            key = "<"+ e.getKey() + ">";
-            value = e.getValue();
+        for(NameValuePair detail : templateParams){
+            key = "<"+ detail.getName() + ">";
+            value = detail.getValue();
                     
             template = template.replaceAll(key, value);
         }

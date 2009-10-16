@@ -57,17 +57,17 @@ public class OMIServiceImpl implements OMIService {
         NotificationTypeDAO noteTypeDao = coreManager.createNotificationTypeDAO(mc);
         NotificationType noteType = (NotificationType)noteTypeDao.getById(notificationType);
         
-        Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
+        Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode); 
         
-        HashSet persDetails = new HashSet();
+        HashSet<NameValuePair> details = new HashSet<NameValuePair>();
         for(NameValuePair detail : personalInfo){
-            persDetails.add(detail);
-        }
-        
+            details.add(detail);
+        }     
+                
         messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
-        messageRequest.setPersInfos(persDetails);
+        messageRequest.setPersInfos(details);
         messageRequest.setRecipientNumber(patientNumber);
         messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
@@ -110,16 +110,15 @@ public class OMIServiceImpl implements OMIService {
         
         Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
         
-        HashSet persDetails = new HashSet();
-        
+        HashSet<NameValuePair> details = new HashSet<NameValuePair>();
         for(NameValuePair detail : personalInfo){
-            persDetails.add(detail);
+            details.add(detail);
         }
         
         messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
-        messageRequest.setPersInfos(persDetails);
+        messageRequest.setPersInfos(details);
         messageRequest.setRecipientNumber(workerNumber);
         messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
@@ -190,13 +189,14 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Building search criteria");
         MotechContext mc = coreManager.createMotechContext();
         
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-        MessageRequest sample = coreManager.createMessageRequest(mc);
-        sample.setStatus(MStatus.QUEUED);
-        logger.debug(sample);
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);        
+        //MessageRequest sample = coreManager.createMessageRequest(mc);
+        //sample.setStatus(MStatus.QUEUED);
+        //logger.debug(sample);
         
-        logger.info("Fetching stored MessageRequest objects");
-        List<MessageRequest> messages = msgReqDao.findByExample(sample);
+        //logger.info("Fetching stored MessageRequest objects");
+        //List<MessageRequest> messages = msgReqDao.findByExample(sample);
+        List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndSchedule(MStatus.QUEUED, new Date());
         
         logger.info("MessageRequest objects fetched successfully");
         logger.debug(messages);

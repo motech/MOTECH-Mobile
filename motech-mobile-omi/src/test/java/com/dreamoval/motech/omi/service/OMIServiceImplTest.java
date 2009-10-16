@@ -150,7 +150,6 @@ public class OMIServiceImplTest {
     public void testSendCHPSMessage() {
         System.out.println("sendCHPSMessage");
         String messageId = "tsid17";
-        String workerName = "Test worker";
         String workerNumber = "000000000000";
         Patient[] patientList = null;
         List<Language> langList = new ArrayList<Language>();
@@ -232,11 +231,14 @@ public class OMIServiceImplTest {
         expect(
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockRequestDao);
+//        expect(
+//                mockCore.createMessageRequest((MotechContext) anyObject())
+//                ).andReturn(new MessageRequestImpl());
+//        expect(
+//                mockRequestDao.findByExample((MessageRequest)anyObject())
+//                ).andReturn(messageList);
         expect(
-                mockCore.createMessageRequest((MotechContext) anyObject())
-                ).andReturn(new MessageRequestImpl());
-        expect(
-                mockRequestDao.findByExample((MessageRequest)anyObject())
+                mockRequestDao.getMsgRequestByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject())
                 ).andReturn(messageList);
         expect(
                 mockOMP.createMessagingService()

@@ -5,6 +5,8 @@ import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.service.MotechContext;
 import java.util.Map;
+import java.util.Set;
+import org.motechproject.ws.NameValuePair;
 
 /**
  * An interface for manipulating stored message templates
@@ -31,7 +33,7 @@ public interface MessageStoreManager {
      * @param templateParams
      * @return
      */
-    public String parseTemplate(String template, Map<String, String> templateParams);
+    public String parseTemplate(String template, Set<NameValuePair> templateParams);
     
     /**
      * Fetches a template for specific message types from the message store

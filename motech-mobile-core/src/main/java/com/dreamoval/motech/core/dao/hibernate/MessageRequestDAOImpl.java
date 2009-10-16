@@ -23,8 +23,8 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
      * @see  {@link com.dreamoval.motech.core.dao.MessageRequestDAO#getMsgRequestByStatusAndSchedule(com.dreamoval.motech.core.model.MStatus, java.util.Date)  }
      */
     public List getMsgRequestByStatusAndSchedule(MStatus status, Date schedule) {
-        Session session = this.getDBSession().getSession();
-        List msgRequest = session.createCriteria(this.getPersistentClass())
+        Session sess = this.getDBSession().getSession();
+        List msgRequest = sess.createCriteria(this.getPersistentClass())
                 .add(Restrictions.eq("status", status))
                 .add(Restrictions.lt("dateFrom", schedule))
                 .add(Restrictions.gt("dateTo", schedule))

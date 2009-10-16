@@ -15,13 +15,13 @@ import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.core.model.NotificationType;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
-import com.dreamoval.motech.core.util.MotechException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import static org.easymock.EasyMock.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.ws.NameValuePair;
 import static org.junit.Assert.*;
 
 /**
@@ -66,6 +66,7 @@ public class MessageStoreManagerImplTest {
         System.out.println("consrtuctMessage");
         
         MessageRequest message = new MessageRequestImpl();
+        message.setPersInfos(new HashSet<NameValuePair>());
 
         expect(
                 mockCore.createMessageTemplateDAO((MotechContext) anyObject())
@@ -96,9 +97,9 @@ public class MessageStoreManagerImplTest {
         
         String tpl = "Testing the <method> method of the <class> class";
         
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("class", "MessageStoreManagerImpl");
-        params.put("method", "parseTemplate");
+        Set<NameValuePair> params = new HashSet<NameValuePair>();
+        params.add(new NameValuePair("method", "parseTemplate"));
+        params.add(new NameValuePair("class", "MessageStoreManagerImpl"));
         
         String expResult = "Testing the parseTemplate method of the MessageStoreManagerImpl class";
         

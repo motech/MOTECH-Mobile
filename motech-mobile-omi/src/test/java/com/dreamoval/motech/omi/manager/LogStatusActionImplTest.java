@@ -11,8 +11,8 @@ import static org.easymock.EasyMock.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.motech.ws.client.LogType;
-import org.motech.ws.client.RegistrarWebService;
+import org.motechproject.ws.LogType;
+import org.motechproject.ws.server.RegistrarService;
 
 /**
  * Unit test for the LogStatusActionImpl class
@@ -22,7 +22,7 @@ import org.motech.ws.client.RegistrarWebService;
  */
 public class LogStatusActionImplTest{
     LogStatusActionImpl instance;
-    RegistrarWebService mockService;
+    RegistrarService mockService;
     GatewayRequestDetails mockGatewayRequestDetails;
     
     public LogStatusActionImplTest() {
@@ -30,7 +30,7 @@ public class LogStatusActionImplTest{
 
     @Before
     public void setUp(){
-        mockService = createMock(RegistrarWebService.class);
+        mockService = createMock(RegistrarService.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
         mockGatewayRequestDetails.setId(2L);
         instance = new LogStatusActionImpl();        

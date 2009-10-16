@@ -61,9 +61,7 @@ public class MessageServiceImplITCase {
         System.out.println("sendPatientMessage");
         String messageId = "tsid64";
         
-        NameValuePair attrib = new NameValuePair();
-        attrib.setName("test");
-        attrib.setValue("test");
+        NameValuePair attrib = new NameValuePair("Test", "Test");
         NameValuePair[] personalInfo = new NameValuePair[]{attrib};
         
         Date serviceDate = new Date();
@@ -81,14 +79,11 @@ public class MessageServiceImplITCase {
     public void testSendCHPSMessage() {
         System.out.println("sendCHPSMessage");
         String messageId = "5L";
-        String workerName = "Test worker";
         String workerNumber = testProps.getProperty("workerNumber", "000000000000");
         Date serviceDate = new Date();
-        MediaType messageType = MediaType.TEXT;
-        
-        NameValuePair attrib = new NameValuePair();        
-        attrib.setName("test");
-        attrib.setValue("test");
+        MediaType messageType = MediaType.TEXT;       
+                
+        NameValuePair attrib = new NameValuePair("Test", "Test");
         NameValuePair[] personalInfo = new NameValuePair[]{attrib};
         
         Patient patient = new Patient();

@@ -3,7 +3,7 @@ package com.dreamoval.motech.omi.manager;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
 import org.apache.log4j.Logger;
-import org.motech.ws.client.RegistrarWebService;
+import org.motechproject.ws.server.RegistrarService;
 
 /**
  * Provides external access to OMI methods
@@ -12,7 +12,7 @@ import org.motech.ws.client.RegistrarWebService;
  * Date Created: Sep 30, 2009
  */
 public class ReportStatusActionImpl implements StatusAction{
-   private RegistrarWebService regWs;
+   private RegistrarService regWs;
    private static Logger logger = Logger.getLogger(LogStatusActionImpl.class);
    
    public void doAction(GatewayResponse response){
@@ -31,11 +31,11 @@ public class ReportStatusActionImpl implements StatusAction{
        }
    }
 
-    public RegistrarWebService getRegWs() {
+    public RegistrarService getRegWs() {
         return regWs;
     }
 
-    public void setRegWs(RegistrarWebService regWs) {
+    public void setRegWs(RegistrarService regWs) {
         this.regWs = regWs;
     }
 }

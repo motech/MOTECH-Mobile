@@ -54,8 +54,11 @@ public class MessageServiceImplTest{
         System.out.println("sendPatientMessage");
         String messageId = "tsid1";
         String clinic = "Test clinic";
-        Date serviceDate = null;
-        NameValuePair[] personalInfo = new NameValuePair[0];
+        Date serviceDate = null;        
+        
+        NameValuePair attrib = new NameValuePair("Test", "Test");
+        NameValuePair[] personalInfo = new NameValuePair[]{attrib};
+        
         String patientNumber = "000000000000";
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
@@ -80,11 +83,13 @@ public class MessageServiceImplTest{
         String workerName = "Test worker";
         String workerNumber = "000000000000";
         MediaType messageType = MediaType.TEXT;
-        Patient[] patientList = null;
-        NameValuePair[] personalInfo = new NameValuePair[0];
+        Patient[] patientList = null;        
+        
+        NameValuePair attrib = new NameValuePair("Test", "Test");
+        NameValuePair[] personalInfo = new NameValuePair[]{attrib};
 
         expect(
-                mockOMIService.saveCHPSMessageRequest((String) anyObject(), (NameValuePair[]) anyObject(), (String) anyObject(), (Patient[]) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.saveCHPSMessageRequest((String) anyObject(), ( NameValuePair[]) anyObject(), (String) anyObject(), (Patient[]) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
                 ).andReturn(MessageStatus.QUEUED);    
         replay(mockOMI, mockOMIService);
         

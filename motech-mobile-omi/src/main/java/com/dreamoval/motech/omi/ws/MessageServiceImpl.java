@@ -25,7 +25,6 @@ import org.motechproject.ws.mobile.MessageService;
  */
 
 @WebService(targetNamespace = "http://server.ws.motechproject.org/")
-@SOAPBinding(style = Style.RPC, use = Use.LITERAL,parameterStyle = ParameterStyle.WRAPPED)
 public class MessageServiceImpl implements MessageService {
     private OMIManager omiManager;
     private static Logger logger = Logger.getLogger(MessageServiceImpl.class);
