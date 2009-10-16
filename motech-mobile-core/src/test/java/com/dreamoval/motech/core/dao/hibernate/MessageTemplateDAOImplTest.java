@@ -97,7 +97,7 @@ public class MessageTemplateDAOImplTest {
         mt1.setMessageType(type);
         mt1.setTemplate("test template for test 1");
 
-        mt2.setId(43L);
+        mt2.setId(443L);
         mt2.setNotificationType(nt2);
         mt2.setLanguage(l1);
         mt2.setMessageType(type);
