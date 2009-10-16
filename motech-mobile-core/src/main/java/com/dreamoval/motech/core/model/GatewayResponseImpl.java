@@ -1,6 +1,6 @@
-
 package com.dreamoval.motech.core.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,27 +9,27 @@ import java.util.Set;
  * Date :Jul 24, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResponse{
+public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResponse {
 
     private static final long serialVersionUID = 1L;
-    
     private GatewayRequest gatewayRequest;
     private String gatewayMessageId;
     private String recipientNumber;
     private MStatus messageStatus;
     private String responseText;
     private Set<Transition> transitions = new HashSet<Transition>();
-    
+    private String requestId;
+    private Date dateCreated;
 
-    public GatewayResponseImpl(){}
-
+    public GatewayResponseImpl() {
+    }
 
     public GatewayResponseImpl(String gatewayMessageId, String recipientNumber, MStatus messageStatus) {
         this.gatewayMessageId = gatewayMessageId;
         this.recipientNumber = recipientNumber;
         this.messageStatus = messageStatus;
     }
-    
+
     /**
      * @return the messageId
      */
@@ -105,22 +105,26 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
         this.transitions.add(transition);
 
     }
+
     public void addTransition(List<Transition> transitions) {
-        for(Transition t : transitions) {
+        for (Transition t : transitions) {
             t.setGatewayResponse(this);
             this.transitions.add(t);
         }
     }
 
     public void removeTransition(List<Transition> transitions) {
-        for(Transition t : transitions) {
-            if(this.transitions.contains(t))
+        for (Transition t : transitions) {
+            if (this.transitions.contains(t)) {
                 this.transitions.remove(t);
+            }
         }
     }
+
     public void removeTransition(Transition transition) {
-        if(this.transitions.contains(transition))
+        if (this.transitions.contains(transition)) {
             this.transitions.remove(transition);
+        }
     }
 
     public String getResponseText() {
@@ -131,7 +135,31 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
         this.responseText = responseText;
     }
 
+    /**
+     * @return the requestId
+     */
+    public String getRequestId() {
+        return requestId;
+    }
 
+    /**
+     * @param requestId the requestId to set
+     */
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
+    /**
+     * @return the dateCreated
+     */
+    public Date getDateCreated() {
+        return dateCreated;
+    }
 
+    /**
+     * @param dateCreated the dateCreated to set
+     */
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 }

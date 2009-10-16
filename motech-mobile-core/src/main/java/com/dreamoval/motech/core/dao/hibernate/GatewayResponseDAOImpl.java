@@ -1,8 +1,14 @@
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.GatewayResponseDAO;
+import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
+import com.dreamoval.motech.core.model.MStatus;
+import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 
 /*
@@ -19,5 +25,17 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
     private static Logger logger = Logger.getLogger(GatewayResponseDAOImpl.class);
 
     public GatewayResponseDAOImpl() {
+    }
+
+    public GatewayResponse getMostRecentResponseByRequestId(String requestId) {
+        Session session = this.getDBSession().getSession();
+        List responses = session.createCriteria(this.getPersistentClass())
+                .add(Restrictions.ne("messageStatus", MStatus.PENDING))
+                .add(Restrictions.ne("messageStatus", MStatus.PROCESSING))
+                .add(Restrictions.eq("requestId", requestId))
+                .addOrder(Order.desc("dateCreated"))
+                .list();
+
+        return (GatewayResponse) responses.get(0);
     }
 }
