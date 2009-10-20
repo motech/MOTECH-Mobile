@@ -91,7 +91,7 @@ public class MessageServiceImplITCase {
         patient.setSerialNumber("TS000000001");
         Patient[] patientList = new Patient[]{patient};
         
-        MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "Lang", messageType, 1L, serviceDate, serviceDate);
+        MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "Lang", messageType, 2L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.QUEUED);
     }
 }
