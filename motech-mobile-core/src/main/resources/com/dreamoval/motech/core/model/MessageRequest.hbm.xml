@@ -3,25 +3,24 @@
 <hibernate-mapping package="com.dreamoval.motech.core.model">
     <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="message_request">
         <property name="requestId" type="string" column="request_id" />
+        <many-to-one class="NotificationTypeImpl" column="notification_type_id" name="notificationType" />
+        <many-to-one class="LanguageImpl" column="language_id" name="language" />
+        <property name="messageType" type="messageType" column="message_type"/>
         <property name="schedule" type="date"  column="schedule"/>
-        <property name="status" type="mStatus" access="field" column="status" />
         <property name="p13nData" type="string" column="p113_nData"/>
         <property name="recipientNumber" type="string" column="recipient_number"/>
-        <property name="messageType" type="messageType" column="message_type"/>
-        <property name="dateCreated" type="date" column="date_created"/>
-        <property name="dateProcessed" type="date" column="date_processed"/>
-        <property name="dateFrom" type="date" column="date_from" />
-        <property name="dateTo" type="date" column="date_to"/>
-        <property name="maxTryNumber" column="max_try_number" />
-        <many-to-one class="LanguageImpl" column="language_id" name="language" />
-        <many-to-one class="NotificationTypeImpl" column="notification_type_id" name="notificationType" />
-
+        <property name="dateFrom" type="timestamp" column="date_from" />
+        <property name="dateTo" type="timestamp" column="date_to"/>
+        <property name="dateCreated" type="timestamp" column="date_created"/>
+        <property name="dateProcessed" type="timestamp" column="date_processed"/>
+        <property name="status" type="mStatus" access="field" column="status" />
+        <property name="maxTryNumber" column="max_try_number" />     
         <set name="persInfos" table="personalization_info">
-        <key column="requestId"/>
-         <composite-element  class="org.motechproject.ws.NameValuePair">
-             <property name="name" column="name" type="string" not-null="true" />
-             <property name="value" column="value" type="string" not-null="true" />
-         </composite-element>
-         </set>
+            <key column="requestId"/>
+            <composite-element  class="org.motechproject.ws.NameValuePair">
+                <property name="name" column="name" type="string" not-null="true" />
+                <property name="value" column="value" type="string" not-null="true" />
+            </composite-element>
+        </set>
     </union-subclass>
 </hibernate-mapping>
