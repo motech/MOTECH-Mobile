@@ -38,37 +38,39 @@ import org.motechproject.ws.NameValuePair;
  *
  */
 public class OMIServiceImpl implements OMIService {
+
     private MessageStoreManager storeManager;
     private OMPManager ompManager;
     private CoreManager coreManager;
     private StatusHandler statHandler;
-
     private static Logger logger = Logger.getLogger(OMIServiceImpl.class);
 
     /**String
      *
      * @see OMIService.sendPatientMessage
      */
-    public MessageStatus savePatientMessageRequest(String messageId, NameValuePair[] personalInfo, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate){
+    public MessageStatus savePatientMessageRequest(String messageId, NameValuePair[] personalInfo, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
         logger.info("Constructing MessageRequest object");
-        
+
         MotechContext mc = coreManager.createMotechContext();
         MessageRequest messageRequest = coreManager.createMessageRequest(mc);
-        
+
         NotificationTypeDAO noteTypeDao = coreManager.createNotificationTypeDAO(mc);
-        NotificationType noteType = (NotificationType)noteTypeDao.getById(notificationType);
-        
-        Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode); 
-        
-        HashSet<NameValuePair> details = new HashSet<NameValuePair>();
-        for(NameValuePair detail : personalInfo){
-            details.add(detail);
-        }     
-                
+        NotificationType noteType = (NotificationType) noteTypeDao.getById(notificationType);
+
+        Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
+
+        if (personalInfo != null) {
+            HashSet<NameValuePair> details = new HashSet<NameValuePair>();
+            for (NameValuePair detail : personalInfo) {
+                details.add(detail);
+            }
+            messageRequest.setPersInfos(details);
+        }
+
         messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
-        messageRequest.setPersInfos(details);
         messageRequest.setRecipientNumber(patientNumber);
         messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
@@ -77,21 +79,21 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
-        
-        if(messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null){
+
+        if (messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null) {
             return sendMessage(messageRequest, mc);
         }
-        
-        logger.info("Saving MessageRequest");        
+
+        logger.info("Saving MessageRequest");
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-        
-        Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+
+        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
         tx.begin();
         msgReqDao.save(messageRequest);
-        tx.commit();      
-        
+        tx.commit();
+
         mc.cleanUp();
-        
+
         return MessageStatus.valueOf(messageRequest.getStatus().toString());
     }
 
@@ -99,27 +101,29 @@ public class OMIServiceImpl implements OMIService {
      *logger
      * @see OMIService.sendCHPSMessage
      */
-    public MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate){
+    public MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
         logger.info("Constructing MessageDetails object");
-        
-        
+
+
         MotechContext mc = coreManager.createMotechContext();
         MessageRequest messageRequest = coreManager.createMessageRequest(mc);
-        
+
         NotificationTypeDAO noteTypeDao = coreManager.createNotificationTypeDAO(mc);
-        NotificationType noteType = (NotificationType)noteTypeDao.getById(notificationType);
-        
+        NotificationType noteType = (NotificationType) noteTypeDao.getById(notificationType);
+
         Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
-        
-        HashSet<NameValuePair> details = new HashSet<NameValuePair>();
-        for(NameValuePair detail : personalInfo){
-            details.add(detail);
+
+        if (personalInfo != null) {
+            HashSet<NameValuePair> details = new HashSet<NameValuePair>();
+            for (NameValuePair detail : personalInfo) {
+                details.add(detail);
+            }
+            messageRequest.setPersInfos(details);
         }
-        
+
         messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
-        messageRequest.setPersInfos(details);
         messageRequest.setRecipientNumber(workerNumber);
         messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
@@ -128,38 +132,38 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
-        
-        if(messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null){
+
+        if (messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null) {
             return sendMessage(messageRequest, mc);
         }
-        
+
         logger.info("Saving MessageRequest");
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-        
-        Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+
+        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
         tx.begin();
         msgReqDao.save(messageRequest);
-        tx.commit(); 
-        
+        tx.commit();
+
         mc.cleanUp();
-        
+
         return MessageStatus.valueOf(messageRequest.getStatus().toString());
     }
-    
-    public MessageStatus sendMessage(MessageRequest message, MotechContext context){
+
+    public MessageStatus sendMessage(MessageRequest message, MotechContext context) {
         logger.info("Constructing GatewayRequest");
         GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, context);
-        
+
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
-        
+
         logger.info("Sending GatewayRequest");
-        
-        if(context.getDBSession() != null){
-            ((Session)context.getDBSession().getSession()).evict(gwReqDet);
+
+        if (context.getDBSession() != null) {
+            ((Session) context.getDBSession().getSession()).evict(gwReqDet);
         }
-        
-        GatewayRequest gwReq = (GatewayRequest)gwReqDet.getGatewayRequests().toArray()[0];
+
+        GatewayRequest gwReq = (GatewayRequest) gwReqDet.getGatewayRequests().toArray()[0];
         gwReq.setGatewayRequestDetails(gwReqDet);
         msgSvc.sendMessage(gwReq, context);
 
@@ -167,146 +171,146 @@ public class OMIServiceImpl implements OMIService {
         message.setStatus(MStatus.PENDING);
         logger.debug(message);
 
-        if(context.getDBSession() != null){
-            ((Session)context.getDBSession().getSession()).evict(gwReqDet);
+        if (context.getDBSession() != null) {
+            ((Session) context.getDBSession().getSession()).evict(gwReqDet);
         }
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(context);
-        
-        Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+
+        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
         tx.begin();
         msgReqDao.save(message);
-        tx.commit(); 
-        
+        tx.commit();
+
         context.cleanUp();
-        
+
         logger.info("Messages sent successfully");
         return MessageStatus.valueOf(message.getStatus().toString());
     }
-    
+
     /**
      * @see OMIService.processMessageRequests
      */
-    public void processMessageRequests(){
+    public void processMessageRequests() {
         logger.info("Building search criteria");
         MotechContext mc = coreManager.createMotechContext();
-        
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);        
+
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
         List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndSchedule(MStatus.QUEUED, new Date());
-        
+
         logger.info("MessageRequest objects fetched successfully");
         logger.debug(messages);
-        
+
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
-        
+
         logger.info("Preparing messages:");
-        for(MessageRequest message : messages){
-            
+        for (MessageRequest message : messages) {
+
             GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, mc);
-            
+
             logger.info("Scheduling GatewayRequest");
-            if(mc.getDBSession() != null){
-                ((Session)mc.getDBSession().getSession()).evict(message);
-                ((Session)mc.getDBSession().getSession()).evict(gwReqDet);
+            if (mc.getDBSession() != null) {
+                ((Session) mc.getDBSession().getSession()).evict(message);
+                ((Session) mc.getDBSession().getSession()).evict(gwReqDet);
             }
             msgSvc.scheduleMessage(gwReqDet, mc);
-            
+
             logger.info("Updating MessageRequest");
             message.setStatus(MStatus.SCHEDULED);
             logger.debug(message);
-            
-            if(mc.getDBSession() != null){
-                ((Session)mc.getDBSession().getSession()).evict(gwReqDet);
-                ((Session)mc.getDBSession().getSession()).evict(message);
+
+            if (mc.getDBSession() != null) {
+                ((Session) mc.getDBSession().getSession()).evict(gwReqDet);
+                ((Session) mc.getDBSession().getSession()).evict(message);
             }
-            
-            Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+
+            Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
             tx.begin();
             msgReqDao.save(message);
-            tx.commit(); 
+            tx.commit();
         }
         mc.cleanUp();
-        
+
         logger.info("Messages processed successfully");
     }
-    
+
     /**
      * @see OMIService.processMessageRetries
      */
-    public void processMessageRetries(){
+    public void processMessageRetries() {
         logger.info("Building search criteria");
         MotechContext mc = coreManager.createMotechContext();
-        
+
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
         MessageRequest sample = coreManager.createMessageRequest(mc);
         sample.setStatus(MStatus.RETRY);
         logger.debug(sample);
-        
+
         logger.info("Fetching stored MessageRequest objects");
         List<MessageRequest> messages = msgReqDao.findByExample(sample);
-        
+
         logger.info("MessageRequest objects fetched successfully");
         logger.debug(messages);
-        
+
         logger.info("Initializing GatewayRequestDAO");
         GatewayRequestDetailsDAO gwReqDao = coreManager.createGatewayRequestDetailsDAO(mc);
-        
+
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
-        
-        for(MessageRequest message : messages){
+
+        for (MessageRequest message : messages) {
             GatewayRequestDetails gwReqDet = (GatewayRequestDetails) gwReqDao.getById(message.getId());
             msgSvc.scheduleMessage(gwReqDet, mc);
-            
+
             message.setStatus(MStatus.SCHEDULED);
-            
-            Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+
+            Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
             tx.begin();
             msgReqDao.save(message);
-            tx.commit(); 
+            tx.commit();
         }
         mc.cleanUp();
-        
+
         logger.info("Messages processed successfully");
     }
-    
+
     /**
      * @see OMIService.getMessageResponses
      */
-    public void getMessageResponses(){
+    public void getMessageResponses() {
         MotechContext mc = coreManager.createMotechContext();
-        
+
         logger.info("Building search criteria");
         MessageRequest sample = coreManager.createMessageRequest(mc);
         sample.setStatus(MStatus.PENDING);
         logger.debug(sample);
-        
+
         logger.info("Initializing MessageRequestDAO and fetching matching message requests");
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
         List<MessageRequest> messages = msgReqDao.findByExample(sample);
-        
+
         logger.info("MessageRequest objects fetched successfully");
         logger.debug(messages);
-        
+
         logger.info("Initializing GatewayResponseDAO");
         GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO(mc);
-        
-        for(MessageRequest message : messages){
+
+        for (MessageRequest message : messages) {
             GatewayResponse response = gwRespDao.getMostRecentResponseByRequestId(message.getRequestId());
-            
+
             message.setStatus(response.getMessageStatus());
-            
-            if(mc.getDBSession() != null){
-                ((Session)mc.getDBSession().getSession()).evict(message);
+
+            if (mc.getDBSession() != null) {
+                ((Session) mc.getDBSession().getSession()).evict(message);
             }
-            
-            Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
+
+            Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
             tx.begin();
             msgReqDao.save(message);
             tx.commit();
-            
-            statHandler.handleStatus(response); 
+
+            statHandler.handleStatus(response);
         }
         mc.cleanUp();
     }
