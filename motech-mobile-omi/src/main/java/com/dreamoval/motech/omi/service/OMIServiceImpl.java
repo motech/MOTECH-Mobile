@@ -163,9 +163,7 @@ public class OMIServiceImpl implements OMIService {
             ((Session) context.getDBSession().getSession()).evict(gwReqDet);
         }
 
-        GatewayRequest gwReq = (GatewayRequest) gwReqDet.getGatewayRequests().toArray()[0];
-        gwReq.setGatewayRequestDetails(gwReqDet);
-        msgSvc.sendMessage(gwReq, context);
+        msgSvc.sendMessage(gwReqDet, context);
 
         logger.info("Updating MessageRequest");
         message.setStatus(MStatus.PENDING);

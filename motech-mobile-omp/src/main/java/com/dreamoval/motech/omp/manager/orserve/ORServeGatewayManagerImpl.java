@@ -49,11 +49,6 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         logger.debug(messageDetails);
         try{
             gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), "1");
-            logger.info("Message sent with the following params:\n");
-            logger.info("Message - " + messageDetails.getMessage() + "\n");
-            logger.info("Recipient - " + messageDetails.getRecipientsNumber() + "\n");
-            logger.info("Sender Id - " + getSenderId() + "\n");
-            logger.info("Product Code - " + getProductCode() + "\n");
         }
         catch(Exception ex){
             logger.fatal("Error sending message", ex);

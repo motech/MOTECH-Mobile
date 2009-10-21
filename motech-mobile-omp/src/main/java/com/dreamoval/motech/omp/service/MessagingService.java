@@ -33,14 +33,23 @@ public interface MessagingService {
      *
      */
     public void sendScheduledMessages();
+    
     /**
      * Sends a message with the provided details
      *
-     * @param messageDetails MessageDetails object containing information about the message to be sent
+     * @param messageDetails GatewayRequest object containing information about the message to be sent
      * @return The id of the message sent
      */
     public Long sendMessage(GatewayRequest messageDetails, MotechContext context);
 
+    /**
+     * Sends a message with the provided details
+     *
+     * @param messageDetails GatewayRequestDetails object containing information about the message to be sent
+     * @return The id of the message sent
+     */
+    public Long sendMessage(GatewayRequestDetails messageDetails, MotechContext context);
+            
     /**
      * Queries and updates the delivery status of all pending messages
      */

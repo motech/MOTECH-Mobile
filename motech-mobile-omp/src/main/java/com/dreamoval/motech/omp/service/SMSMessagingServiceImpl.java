@@ -77,6 +77,26 @@ public class SMSMessagingServiceImpl implements MessagingService {
 
         return messageDetails.getId();
     }
+    
+    
+    
+    /**
+     *
+     * @see MessagingService.sendMessage(MessageDetails messageDetails)
+     */
+    public Long sendMessage(GatewayRequestDetails messageDetails, MotechContext context) {
+        logger.info("Sending message to gateway");
+        GatewayRequest message = (GatewayRequest)messageDetails.getGatewayRequests().toArray()[0];
+        Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message);
+
+        logger.debug(responseList);
+        logger.info("Updating message status");
+        message.setResponseDetails(responseList);
+        message.setMessageStatus(MStatus.SENT);
+        this.cache.saveMessage(messageDetails, context);
+
+        return message.getId();
+    }
 
     /**
      * 

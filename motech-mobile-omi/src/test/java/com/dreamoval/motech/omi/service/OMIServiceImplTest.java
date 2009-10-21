@@ -243,7 +243,7 @@ public class OMIServiceImplTest {
                 mockOMP.createMessagingService()
                 ).andReturn(mockMessagingService);
         expect(
-                mockMessagingService.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
+                mockMessagingService.sendMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject())
                 ).andReturn(1L);
         expect(
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
