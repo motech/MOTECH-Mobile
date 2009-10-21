@@ -106,6 +106,37 @@ public class MessageStoreManagerImplTest {
         String result = instance.parseTemplate(tpl, params);
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of parseTemplate method, of class MessageStoreManagerImpl.
+     */
+    @Test
+    public void testParseTemplate_MissingParam() {
+        System.out.println("parseTemplate");
+        
+        String tpl = "Testing the <method> method of the <class> class";
+        
+        Set<NameValuePair> params = new HashSet<NameValuePair>();
+        params.add(new NameValuePair("method", "parseTemplate"));
+        
+        String expResult = "Testing the parseTemplate method of the <class> class";
+        
+        String result = instance.parseTemplate(tpl, params);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of parseTemplate method, of class MessageStoreManagerImpl.
+     */
+    @Test
+    public void testParseTemplate_NULLParam() {
+        System.out.println("parseTemplate");
+        
+        String tpl = "Testing the <method> method of the <class> class";
+        
+        String result = instance.parseTemplate(tpl, null);
+        assertEquals(tpl, result);
+    }
     
     /**
      * Test of constructMessage method, of class MessageStoreManagerImpl.

@@ -3,12 +3,17 @@ package com.dreamoval.motech.omi.service;
 import com.dreamoval.motech.core.dao.DBSession;
 import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.dao.GatewayRequestDetailsDAO;
+import com.dreamoval.motech.core.dao.GatewayResponseDAO;
 import com.dreamoval.motech.core.dao.LanguageDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
+import com.dreamoval.motech.core.model.GatewayRequestImpl;
+import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.LanguageImpl;
 import com.dreamoval.motech.core.model.MStatus;
@@ -19,6 +24,7 @@ import com.dreamoval.motech.core.model.NotificationTypeImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
+import com.dreamoval.motech.omi.manager.StatusHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import com.dreamoval.motech.omp.service.MessagingService;
 import java.util.ArrayList;
@@ -55,7 +61,9 @@ public class OMIServiceImplTest {
     NotificationTypeDAO mockNoteDao;
     MessagingService mockMessagingService;
     GatewayRequestDAO mockGatewayDao;
+    GatewayResponseDAO mockResponseDao;
     GatewayRequestDetailsDAO mockGwDetDao;
+    StatusHandler mockHandler;
 
     public OMIServiceImplTest() {
     }
@@ -73,11 +81,14 @@ public class OMIServiceImplTest {
         mockSession = createMock(DBSession.class);
         mockTrans = createMock(Transaction.class);
         mockGwDetDao = createMock(GatewayRequestDetailsDAO.class);
+        mockHandler = createMock(StatusHandler.class);
+        mockResponseDao = createMock(GatewayResponseDAO.class);
         
         instance = new OMIServiceImpl();
         instance.setCoreManager(mockCore);
         instance.setOmpManager(mockOMP);
         instance.setStoreManager(mockStore);
+        instance.setStatHandler(mockHandler);
     }
 
     /**
@@ -147,8 +158,8 @@ public class OMIServiceImplTest {
      * Test of sendCHPSMessage method, of class OMIServiceImpl.
      */
     @Test
-    public void testSendCHPSMessage() {
-        System.out.println("sendCHPSMessage");
+    public void testSaveCHPSMessageRequest() {
+        System.out.println("saveCHPSMessage");
         String messageId = "tsid17";
         String workerNumber = "000000000000";
         Patient[] patientList = null;
@@ -205,12 +216,66 @@ public class OMIServiceImplTest {
         assertEquals(expResult, result);
         verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
     }
+    
+    @Test
+    public void testSendMessage(){
+        System.out.println("sendMessage");
+        
+        MessageRequest msgReq1 = new MessageRequestImpl();
+        msgReq1.setDateFrom(new Date());
+        msgReq1.setDateTo(new Date());
+        msgReq1.setId(49L);
+        msgReq1.setMaxTryNumber(3);
+        msgReq1.setMessageType(MessageType.TEXT);
+        msgReq1.setRecipientName("Tester");
+        msgReq1.setRecipientNumber("000000000000");
+        msgReq1.setStatus(MStatus.QUEUED);
+        
+        GatewayRequestDetailsImpl gwReqDet = new GatewayRequestDetailsImpl();
+        gwReqDet.getGatewayRequests().add(new GatewayRequestImpl());
+        
+        MotechContext context = new MotechContextImpl();
+        
+        expect(
+                mockStore.constructMessage((MessageRequest) anyObject(), (MotechContext) anyObject())
+                ).andReturn(gwReqDet);
+        expect(
+                mockOMP.createMessagingService()
+                ).andReturn(mockMessagingService);
+        expect(
+                mockMessagingService.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
+                ).andReturn(1L);
+        expect(
+                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockRequestDao);
+        expect(
+                mockRequestDao.getDBSession()
+                ).andReturn(mockSession);
+        expect(
+                mockSession.getTransaction()
+                ).andReturn(mockTrans);
+        
+        mockTrans.begin();
+        expectLastCall();
+        
+        expect(
+                mockRequestDao.save((MessageRequest) anyObject())
+                ).andReturn(new MessageRequestImpl());
+        
+        mockTrans.commit();
+        expectLastCall();
+        
+        replay(mockStore, mockOMP, mockMessagingService, mockCore, mockRequestDao, mockSession, mockTrans);
+        instance.sendMessage(msgReq1, context);
+        verify(mockStore, mockOMP, mockMessagingService, mockCore, mockRequestDao, mockSession, mockTrans);
+    }
 
     /**
      * Test of processMessageRequests method
      */
     @Test
     public void testProcessMessageRequests(){
+        System.out.println("processMessageRequests");
         List<MessageRequest> messageList = new ArrayList<MessageRequest>();
         
         MessageRequest msgReq1 = new MessageRequestImpl();
@@ -271,6 +336,7 @@ public class OMIServiceImplTest {
      */
     @Test
     public void testProcessMessageRetries(){
+        System.out.println("processMessageRetries");
         List<MessageRequest> messageList = new ArrayList<MessageRequest>();
         
         MessageRequest msgReq1 = new MessageRequestImpl();
@@ -330,5 +396,62 @@ public class OMIServiceImplTest {
         replay(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService, mockSession, mockTrans);
         instance.processMessageRetries();
         verify(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService, mockSession, mockTrans);
+    }
+    
+    @Test
+    public void testGetMessageResponses(){
+        System.out.println("getMessageResponses");
+        
+        List<MessageRequest> msgList = new ArrayList<MessageRequest>();
+        
+        MessageRequestImpl request = new MessageRequestImpl();
+        request.setStatus(MStatus.PENDING);
+        
+        msgList.add(request);
+        
+        GatewayResponseImpl response = new GatewayResponseImpl();
+        response.setMessageStatus(MStatus.DELIVERED);
+        
+        expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl());
+        expect(
+                mockCore.createMessageRequest((MotechContext) anyObject())
+                ).andReturn(request);
+        expect(
+                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockRequestDao);
+        expect(
+                mockCore.createGatewayResponseDAO((MotechContext) anyObject())
+                ).andReturn(mockResponseDao);
+        expect(
+                mockResponseDao.getMostRecentResponseByRequestId((String) anyObject())
+                ).andReturn(response);
+        expect(
+                mockRequestDao.findByExample((MessageRequest) anyObject())
+                ).andReturn(msgList);
+        expect(
+                mockRequestDao.getDBSession()
+                ).andReturn(mockSession);
+        expect(
+                mockSession.getTransaction()
+                ).andReturn(mockTrans);
+        
+        mockTrans.begin();
+        expectLastCall();
+        
+        expect(
+                mockRequestDao.save((MessageRequest) anyObject())
+                ).andReturn(request);
+        
+        mockTrans.commit();
+        expectLastCall();
+        
+        mockHandler.handleStatus((GatewayResponse) anyObject());
+        expectLastCall();
+        
+        replay(mockCore, mockResponseDao, mockRequestDao, mockSession, mockTrans, mockHandler);
+        instance.getMessageResponses();
+        verify(mockCore, mockResponseDao, mockRequestDao, mockSession, mockTrans, mockHandler);
     }
 }

@@ -5,7 +5,10 @@
 
 package com.dreamoval.motech.itests;
 
+import com.dreamoval.motech.omi.service.OMIService;
+import com.dreamoval.motech.omp.service.MessagingService;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import org.junit.Before;
@@ -37,6 +40,13 @@ public class MessageServiceImplITCase {
 
     @Autowired
     MessageService client;
+    
+    @Autowired
+    OMIService omiService;
+    
+    @Autowired
+    MessagingService smsService;
+    
 
     public MessageServiceImplITCase() {
     }
@@ -61,19 +71,23 @@ public class MessageServiceImplITCase {
         System.out.println("sendPatientMessage");
         String messageId = "tsid64";
         
-        NameValuePair attrib = new NameValuePair("Test", "Test");
-        NameValuePair[] personalInfo = new NameValuePair[]{attrib};
+        NameValuePair attrib = new NameValuePair("PatientFirstName", "Tester");
+        NameValuePair attrib2 = new NameValuePair("DueDate", "now");
+        NameValuePair[] personalInfo = new NameValuePair[]{attrib, attrib2};
         
         Date serviceDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        Date endDate = cal.getTime();
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
-        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "ts_GH", messageType, 4L, serviceDate, serviceDate);
-        assertEquals(result, MessageStatus.QUEUED);
+        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "ts_GH", messageType, 12L, null, null);
+        assertNotNull(result);
     }
 
     /**
-     * Test of sendCHPSMessage method, of class MessageServiceImpl.
+     * Test of sendCHPSMessage method of MessageServiceImpl class.
      */
     @Test
     public void testSendCHPSMessage() {
@@ -94,4 +108,49 @@ public class MessageServiceImplITCase {
         MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "Lang", messageType, 2L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.QUEUED);
     }
+    
+    /**
+     * Test of processMessageRequests method of OMIService class.
+     */
+//    @Test
+//    public void testProcessMessageRequests(){
+//        System.out.println("processMessageRequests");
+//        omiService.processMessageRequests();
+//    }
+//    
+//    /**
+//     * Test of sendScheduledMessages method of MessagingService class.
+//     */
+//    @Test
+//    public void testSendScheduledMessages(){
+//        System.out.println("sendScheduledMessages");
+//        smsService.sendScheduledMessages();
+//    }
+//    
+//    /**
+//     * Test of updateMessageStatuses method of MessagingService class.
+//     */
+//    @Test
+//    public void testUpdateMessageStatuses(){
+//        System.out.println("updateMessageStatuses");
+//        smsService.updateMessageStatuses();
+//    }
+//    
+//    /**
+//     * Test of getMessageResponses method of OMIService class.
+//     */
+//    @Test
+//    public void testGetMessageResponses(){
+//        System.out.println("getMessageResponses");
+//        omiService.getMessageResponses();
+//    }
+//    
+//    /**
+//     * Test of processMessageRetries method of OMIService class.
+//     */
+//    @Test
+//    public void testProcessMessageRetries(){
+//        System.out.println("processMessageRetries");
+//        omiService.processMessageRetries();
+//    }
 }

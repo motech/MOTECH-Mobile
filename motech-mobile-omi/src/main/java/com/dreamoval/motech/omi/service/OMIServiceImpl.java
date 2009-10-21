@@ -172,6 +172,7 @@ public class OMIServiceImpl implements OMIService {
         }
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(context);
+        
         Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
         tx.begin();
         msgReqDao.save(message);
@@ -191,12 +192,6 @@ public class OMIServiceImpl implements OMIService {
         MotechContext mc = coreManager.createMotechContext();
         
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);        
-        //MessageRequest sample = coreManager.createMessageRequest(mc);
-        //sample.setStatus(MStatus.QUEUED);
-        //logger.debug(sample);
-        
-        //logger.info("Fetching stored MessageRequest objects");
-        //List<MessageRequest> messages = msgReqDao.findByExample(sample);
         List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndSchedule(MStatus.QUEUED, new Date());
         
         logger.info("MessageRequest objects fetched successfully");
@@ -294,13 +289,11 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest objects fetched successfully");
         logger.debug(messages);
         
-        logger.info("Initializing GatewayRequestDAO");
+        logger.info("Initializing GatewayResponseDAO");
         GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO(mc);
         
         for(MessageRequest message : messages){
             GatewayResponse response = gwRespDao.getMostRecentResponseByRequestId(message.getRequestId());
-            
-            statHandler.handleStatus(response);
             
             message.setStatus(response.getMessageStatus());
             
@@ -311,7 +304,9 @@ public class OMIServiceImpl implements OMIService {
             Transaction tx = (Transaction)msgReqDao.getDBSession().getTransaction();
             tx.begin();
             msgReqDao.save(message);
-            tx.commit(); 
+            tx.commit();
+            
+            statHandler.handleStatus(response); 
         }
         mc.cleanUp();
     }

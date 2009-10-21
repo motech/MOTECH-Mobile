@@ -76,13 +76,17 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * @see MessageStoreManager.parseTemplate
      */
     public String parseTemplate(String template, Set<NameValuePair> templateParams) {
-        String key, value;  
+        String tag, value;  
+        
+        if(templateParams == null){
+            return template;
+        }
         
         for(NameValuePair detail : templateParams){
-            key = "<"+ detail.getName() + ">";
+            tag = "<"+ detail.getName() + ">";
             value = detail.getValue();
                     
-            template = template.replaceAll(key, value);
+            template = template.replaceAll(tag, value);
         }
         
         return template;
