@@ -16,14 +16,13 @@ public class ReportStatusActionImpl implements StatusAction{
    private static Logger logger = Logger.getLogger(LogStatusActionImpl.class);
    
    public void doAction(GatewayResponse response){
-       String rId = response.getGatewayRequest().getRequestId();
        
        try{
            logger.info("Reporting message status to event engine");
            if(response.getMessageStatus() == MStatus.DELIVERED)
-               getRegWs().setMessageStatus(rId.toString(), true);
+               getRegWs().setMessageStatus(response.getRequestId(), true);
            else if(response.getMessageStatus() == MStatus.FAILED)
-               getRegWs().setMessageStatus(rId.toString(), false);
+               getRegWs().setMessageStatus(response.getRequestId(), false);
        }
        catch(Exception e){
            logger.error("Error communicating with event engine");
