@@ -6,7 +6,7 @@
     <property name="message" type="string" column="message"/>
     <property name="numberOfPages" type="integer" column="number_of_pages"/>
     <set name="gatewayRequests" cascade="all">
-        <key column="request_id"/>
+        <key column="request_details_id"/>
         <one-to-many class="GatewayRequestImpl"/>
     </set>
   </union-subclass>
