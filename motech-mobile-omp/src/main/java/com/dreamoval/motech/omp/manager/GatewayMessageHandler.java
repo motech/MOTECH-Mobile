@@ -4,6 +4,7 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.service.MotechContext;
 import java.util.Set;
 
 /**
@@ -19,7 +20,7 @@ public interface GatewayMessageHandler {
      * @param gatewayResponse
      * @return
      */
-    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse);
+    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context);
 
     /**
      *

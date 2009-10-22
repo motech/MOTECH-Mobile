@@ -8,6 +8,8 @@ import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Date;
 import java.util.HashSet;
@@ -48,6 +50,7 @@ public class ORServeGatewayManagerImplTest {
     public void testSendMessage() {
         System.out.println("sendMessage");
         
+        MotechContext context = new MotechContextImpl();
         GatewayRequest messageDetails = new GatewayRequestImpl();
         messageDetails.setDateFrom(new Date());
         //messageDetails.setMessage("a message for testing");
@@ -56,11 +59,11 @@ public class ORServeGatewayManagerImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
-                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject())
+                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject(), (MotechContext) anyObject())
                 ).andReturn(new HashSet<GatewayResponse>());
         replay(mockHandler);
         
-        Set<GatewayResponse> result = instance.sendMessage(messageDetails);
+        Set<GatewayResponse> result = instance.sendMessage(messageDetails, context);
         assertNotNull(result);
         verify(mockHandler);
     }

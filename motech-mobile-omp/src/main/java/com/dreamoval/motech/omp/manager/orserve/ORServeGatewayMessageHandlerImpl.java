@@ -4,6 +4,7 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
 import java.util.HashSet;
@@ -24,7 +25,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      *
      * @see GatewayMessageHandler.parseResponse
      */
-    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
+    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context) {
         logger.info("Parsing message gateway response");
         logger.debug(gatewayResponse);
 
@@ -41,8 +42,10 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
             String[] responseParts = line.split(" ");            
 
             if(responseParts[0].equalsIgnoreCase("ID:")){
-                GatewayResponse response = getCoreManager().createGatewayResponse(getCoreManager().createMotechContext());
+                GatewayResponse response = getCoreManager().createGatewayResponse(context);
+                
                 response.setGatewayMessageId(responseParts[1]);
+                response.setRequestId(message.getRequestId());
 
                 if(responseParts.length == 4)
                     response.setRecipientNumber(responseParts[3]);

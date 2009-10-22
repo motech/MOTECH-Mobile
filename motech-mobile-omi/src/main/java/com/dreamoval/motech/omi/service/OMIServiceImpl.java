@@ -6,7 +6,6 @@ import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.Language;

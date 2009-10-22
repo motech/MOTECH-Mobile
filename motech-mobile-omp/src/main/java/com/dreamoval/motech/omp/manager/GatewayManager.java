@@ -3,6 +3,7 @@ package com.dreamoval.motech.omp.manager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.service.MotechContext;
 import java.util.Set;
 
 /**
@@ -19,7 +20,7 @@ public interface GatewayManager {
      * @param messageDetails Object containing details of message to send
      * @return Formatted object containing information about the gateway's response
      */
-    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails);
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context);
 
     /**
      *

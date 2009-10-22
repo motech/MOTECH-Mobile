@@ -3,6 +3,7 @@ package com.dreamoval.motech.omp.manager.orserve;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.outreachcity.orserve.messaging.SMSMessenger;
@@ -29,7 +30,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
      *
      * @see GatewayManager.send
      */
-    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context) {
         String gatewayResponse;
 
         if(messageDetails == null)
@@ -56,7 +57,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         }
         
         logger.info("Parsing gateway response");
-        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
+        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse, context);
     }
 
     /**

@@ -67,7 +67,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
      */
     public Long sendMessage(GatewayRequest messageDetails, MotechContext context) {
         logger.info("Sending message to gateway");
-        Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(messageDetails);
+        Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(messageDetails, context);
 
         logger.debug(responseList);
         logger.info("Updating message status");
@@ -87,7 +87,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
     public Long sendMessage(GatewayRequestDetails messageDetails, MotechContext context) {
         logger.info("Sending message to gateway");
         GatewayRequest message = (GatewayRequest)messageDetails.getGatewayRequests().toArray()[0];
-        Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message);
+        Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message, context);
 
         logger.debug(responseList);
         logger.info("Updating message status");

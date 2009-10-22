@@ -6,6 +6,8 @@ import static org.easymock.EasyMock.*;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
 import org.junit.Before;
@@ -42,7 +44,8 @@ public class ClickatellGatewayMessageHandlerImplTest {
         GatewayRequest message = null;
         String gatewayResponse = "";
         GatewayRequest expResult = null;
-        Set<GatewayResponse> result = instance.parseMessageResponse(message, gatewayResponse);
+        MotechContext context = new MotechContextImpl();
+        Set<GatewayResponse> result = instance.parseMessageResponse(message, gatewayResponse, context);
         assertEquals(expResult, result);
     }
 

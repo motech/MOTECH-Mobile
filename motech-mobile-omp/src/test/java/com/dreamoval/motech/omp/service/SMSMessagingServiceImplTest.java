@@ -109,7 +109,7 @@ public class SMSMessagingServiceImplTest {
                 mockCache.getMessages((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(messages);        
         expect(
-                mockGateway.sendMessage((GatewayRequest) anyObject())
+                mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(null);
         
         mockCache.saveMessage((GatewayRequest) anyObject(), (MotechContext) anyObject());
@@ -136,7 +136,7 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
-                mockGateway.sendMessage((GatewayRequest) anyObject())
+                mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(null);
         
         mockCache.saveMessage((GatewayRequest) anyObject(), (MotechContext) anyObject());

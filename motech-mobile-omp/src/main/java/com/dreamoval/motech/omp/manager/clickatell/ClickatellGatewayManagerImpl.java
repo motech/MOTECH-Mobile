@@ -3,6 +3,7 @@ package com.dreamoval.motech.omp.manager.clickatell;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.io.BufferedReader;
@@ -42,7 +43,7 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
     public ClickatellGatewayManagerImpl(){
     }
 
-    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context) {
         try {
             postData = "api_id=" + URLEncoder.encode(apiId, "UTF-8");
             postData += "&user=" + URLEncoder.encode(user, "UTF-8");
@@ -102,7 +103,7 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
         }
         
         //Convert the response to a standard format
-        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
+        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse, context);
     }
 
     public String getMessageStatus(GatewayResponse response) {
