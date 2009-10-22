@@ -38,7 +38,7 @@ public interface GatewayRequest extends MotechEntity {
     /**
      * @return the RequestId
      */
-    Long getRequestId();
+    String getRequestId();
 
     /**
      * @return the  dateTo
@@ -100,6 +100,12 @@ public interface GatewayRequest extends MotechEntity {
      * @param recipientsNumbers the recipientsNumbers to set
      */
     void setRecipientsNumber(String recipientsNumber);
+
+    /**
+     *
+     * @param requestId the requestId to set
+     */
+    void setRequestId(String requestId);
 
     /**
      * @param responseDetails the responseDetails to set

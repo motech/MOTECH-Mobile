@@ -20,7 +20,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     private Set<GatewayResponse> responseDetails = new HashSet<GatewayResponse>();
     private Date dateSent;
     private int tryNumber;
-    private Long requestId;
+    private String requestId;
     private MStatus messageStatus;
     
     public GatewayRequestImpl(){}
@@ -171,14 +171,14 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     /**
      * @return the requestId
      */
-    public Long getRequestId() {
+    public String getRequestId() {
         return requestId;
     }
 
     /**
      * @param requestId the requestId to set
      */
-    public void setRequestId(Long requestId) {
+    public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
 

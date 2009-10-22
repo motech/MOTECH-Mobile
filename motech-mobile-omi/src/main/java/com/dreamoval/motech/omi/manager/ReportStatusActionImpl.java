@@ -16,7 +16,7 @@ public class ReportStatusActionImpl implements StatusAction{
    private static Logger logger = Logger.getLogger(LogStatusActionImpl.class);
    
    public void doAction(GatewayResponse response){
-       Long rId = response.getGatewayRequest().getRequestId();
+       String rId = response.getGatewayRequest().getRequestId();
        
        try{
            logger.info("Reporting message status to event engine");

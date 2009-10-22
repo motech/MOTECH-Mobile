@@ -60,7 +60,6 @@ public class MessageRequestDAOImplTest {
     Date dateto1;
     Date dateto2;
     Date schedule;
-
     List expResult;
 
     @Before
@@ -68,20 +67,20 @@ public class MessageRequestDAOImplTest {
 
         MotechContext mc = coreManager.createMotechContext();
         lDAO = coreManager.createLanguageDAO(mc);
-        lg1.setId(823L);
-        lg1.setCode("es");
+        lg1.setId(8234L);
+        lg1.setCode("it");
 
         ntDao = coreManager.createNotificationTypeDAO(mc);
         nt1.setId(9878L);
         nt1.setName("pregnancy");
 
-        
+
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try {
-             datefrom1 = df.parse("2009-08-21");
-             datefrom2 = df.parse("2009-09-04");
-             dateto1 = df.parse("2009-10-30");
+            datefrom1 = df.parse("2009-08-21");
+            datefrom2 = df.parse("2009-09-04");
+            dateto1 = df.parse("2009-10-30");
             dateto2 = df.parse("2009-11-04");
             schedule = df.parse("2009-10-02");
         } catch (ParseException e) {
@@ -126,7 +125,7 @@ public class MessageRequestDAOImplTest {
         mrDAO.save(mr3);
         tx.commit();
 
-        expResult  = new ArrayList();
+        expResult = new ArrayList();
         expResult.add(mr2);
         expResult.add(mr3);
 
@@ -157,7 +156,7 @@ public class MessageRequestDAOImplTest {
     @Test
     public void testGetMsgRequestByStatusAndSchedule() {
         System.out.println("getMsgRequestByStatusAndSchedule");
-        
+
         List result = mrDAO.getMsgRequestByStatusAndSchedule(sta, schedule);
         Assert.assertNotNull(result);
         Assert.assertEquals(expResult.size(), result.size());
@@ -165,5 +164,16 @@ public class MessageRequestDAOImplTest {
         Assert.assertTrue(result.contains(mr3));
         Assert.assertEquals(expResult, result);
 
+    }
+
+    /**
+     * Test of getById method, of class MessageRequestDAOImpl.
+     */
+    @Test
+    public void testGetById() {
+        System.out.print("test GatewayRequest getById");
+        MessageRequest fromdb = (MessageRequestImpl) mrDAO.getById(mr3.getId());
+        Assert.assertNotNull(fromdb);
+        Assert.assertEquals(mr3, fromdb);
     }
 }

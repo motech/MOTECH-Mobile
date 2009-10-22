@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
  * HibernateDBSessionImpl is the implementation of the contracts defined
  * by DBSession interface.Its provides Hibernate session and transaction
  *
- * see com.dreamoval.motech.core.dao.DBSession
+ * @see {@link  com.dreamoval.motech.core.dao.DBSession}
  *
  * @author Henry Sampson
  * Date Created :

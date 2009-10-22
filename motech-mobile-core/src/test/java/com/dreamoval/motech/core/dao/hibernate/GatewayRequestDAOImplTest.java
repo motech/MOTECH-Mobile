@@ -137,7 +137,7 @@ public class GatewayRequestDAOImplTest {
     }
 
     /**
-     *
+     * Test of delete method, of class GatewayRequestDAOImpl.
      */
     @Test
     public void testDelete() {
@@ -157,7 +157,7 @@ public class GatewayRequestDAOImplTest {
     }
 
     /**
-     *
+     * Test of save method with update purpose, of class GatewayRequestDAOImpl.
      */
     @Test
     public void testUpdate() {
@@ -177,7 +177,9 @@ public class GatewayRequestDAOImplTest {
         Assert.assertFalse(text.equals(fromdb.getMessage()));
     }
 
-//        @Ignore
+/**
+     * Test of save method with child saving purpose, of class GatewayRequestDAOImpl.
+     */
     @Test
     public void testSaveWithResponse() {
         System.out.println("saving with response object");
@@ -212,6 +214,9 @@ public class GatewayRequestDAOImplTest {
 
     }
 
+    /**
+     * Test of getById method, of class GatewayRequestDAOImpl.
+     */
     @Test
     public void testGetById() {
         System.out.println("testing FindById");
@@ -224,6 +229,9 @@ public class GatewayRequestDAOImplTest {
         Assert.assertEquals(md1.getDateFrom(), result.getDateFrom());
     }
 
+    /**
+     * Test of findByExample method, of class GatewayRequestDAOImpl.
+     */
     @Test
     public void testFindByExample() {
         System.out.println("testing findByCriteria");

@@ -26,4 +26,16 @@ public class MessageTemplateDAOImpl extends HibernateGenericDAOImpl<MessageTempl
         MessageTemplate template = (MessageTemplate) sess.createCriteria(MessageTemplateImpl.class).add(Restrictions.eq("language", lang)).add(Restrictions.eq("notificationType", notif)).add(Restrictions.eq("messageType", type)).uniqueResult();
         return template;
     }
+
+     /**
+     * @see {@link com.dreamoval.motech.core.dao.MessageTemplateDAO#getTemplateByLangNotifMType(com.dreamoval.motech.core.model.Language, com.dreamoval.motech.core.model.NotificationType, com.dreamoval.motech.core.model.MessageType, com.dreamoval.motech.core.model.Language)   }
+     */
+    public MessageTemplate getTemplateByLangNotifMType(Language lang, NotificationType notif, MessageType type, Language defaultLang) {
+        if(lang != null){
+           return  getTemplateByLangNotifMType(lang, notif,  type);
+
+        } else {
+            return  getTemplateByLangNotifMType(defaultLang, notif,  type);
+        }
+    }
 }

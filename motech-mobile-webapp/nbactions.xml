@@ -21,4 +21,23 @@
                 <netbeans.deploy.debugmode>true</netbeans.deploy.debugmode>
             </properties>
         </action>
+        <action>
+            <actionName>build</actionName>
+            <goals>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <enableIT>true</enableIT>
+            </properties>
+        </action>
+        <action>
+            <actionName>rebuild</actionName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <enableIT>true</enableIT>
+            </properties>
+        </action>
     </actions>
