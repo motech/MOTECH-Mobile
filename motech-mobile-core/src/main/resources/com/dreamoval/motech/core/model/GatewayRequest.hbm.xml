@@ -2,13 +2,14 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
     <union-subclass extends="MotechEntityImpl" name="GatewayRequestImpl" table="gateway_request">
-        <many-to-one class="GatewayRequestDetailsImpl" name="gatewayRequestDetails" column="request_id" />
+        <many-to-one class="GatewayRequestDetailsImpl" name="gatewayRequestDetails" column="request_details_id" />
         <property name="recipientsNumber" type="string" column="recipients_number" />
         <property name="dateSent" type="timestamp" column="date_sent"/>
         <property name="dateFrom" type="timestamp" column="date_from" />
         <property name="dateTo" type="timestamp" column="date_to"/>
         <property name="tryNumber" type="integer" column="try_number"/>
         <property name="message" type="string" column="message"/>
+        <property name="requestId" type="string" column="request_id"/>
         <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
         <set inverse="true" name="responseDetails" cascade="all">
             <key column="message_id"/>

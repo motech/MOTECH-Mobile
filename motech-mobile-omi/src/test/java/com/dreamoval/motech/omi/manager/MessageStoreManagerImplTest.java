@@ -9,6 +9,7 @@ import com.dreamoval.motech.core.dao.MessageTemplateDAO;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
 import com.dreamoval.motech.core.model.Language;
+import com.dreamoval.motech.core.model.LanguageImpl;
 import com.dreamoval.motech.core.model.MessageTemplate;
 import com.dreamoval.motech.core.model.MessageTemplateImpl;
 import com.dreamoval.motech.core.model.MessageType;
@@ -66,13 +67,14 @@ public class MessageStoreManagerImplTest {
         System.out.println("consrtuctMessage");
         
         MessageRequest message = new MessageRequestImpl();
+        Language defaultLang = new LanguageImpl();
         message.setPersInfos(new HashSet<NameValuePair>());
 
         expect(
                 mockCore.createMessageTemplateDAO((MotechContext) anyObject())
                 ).andReturn(mockTemplateDao);
         expect(
-                mockTemplateDao.getTemplateByLangNotifMType((Language)anyObject(), (NotificationType) anyObject(), (MessageType) anyObject())
+                mockTemplateDao.getTemplateByLangNotifMType((Language)anyObject(), (NotificationType) anyObject(), (MessageType) anyObject(), (Language) anyObject())
                 ).andReturn(template);
         expect(
                 mockCore.createGatewayRequest((MotechContext) anyObject())
@@ -83,7 +85,7 @@ public class MessageStoreManagerImplTest {
         
         replay(mockCore, mockTemplateDao);
 
-        GatewayRequestDetails result = instance.constructMessage(message, mCtx);
+        GatewayRequestDetails result = instance.constructMessage(message, mCtx, defaultLang);
         assertNotNull(result);
         verify(mockCore, mockTemplateDao);
     }
@@ -148,18 +150,18 @@ public class MessageStoreManagerImplTest {
         mockTemplateDao = createMock(MessageTemplateDAO.class);
         
         MessageRequest message = new MessageRequestImpl();
-        
+        Language defaultLang = new LanguageImpl();
         
         expect(
                 mockCore.createMessageTemplateDAO((MotechContext) anyObject())
                 ).andReturn(mockTemplateDao);
         expect(
-                mockTemplateDao.getTemplateByLangNotifMType((Language)anyObject(), (NotificationType) anyObject(), (MessageType) anyObject())
+                mockTemplateDao.getTemplateByLangNotifMType((Language)anyObject(), (NotificationType) anyObject(), (MessageType) anyObject(), (Language) anyObject())
                 ).andReturn(template);
         
         replay(mockCore, mockTemplateDao);
 
-        String result = instance.fetchTemplate(message, mCtx);
+        String result = instance.fetchTemplate(message, mCtx, defaultLang);
         assertEquals(result, "testing");
         verify(mockCore, mockTemplateDao);
     }

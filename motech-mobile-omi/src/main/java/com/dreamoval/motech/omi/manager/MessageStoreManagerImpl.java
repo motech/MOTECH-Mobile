@@ -4,6 +4,7 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageTemplate;
@@ -29,7 +30,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * 
      * @see MessageStoreManager.constructMessage
      */
-    public GatewayRequestDetails constructMessage(MessageRequest messageData, MotechContext context) {      
+    public GatewayRequestDetails constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang) {      
         
         logger.info("Constructing GatewayRequest object");       
         GatewayRequest gwReq = coreManager.createGatewayRequest(context);        
@@ -46,7 +47,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         
         try{
             logger.info("Fetching message template");
-            String template = fetchTemplate(messageData, context);
+            String template = fetchTemplate(messageData, context, defaultLang);
 
             logger.info("Parsing message template");
             String message = parseTemplate(template, messageData.getPersInfos());
@@ -97,8 +98,9 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * 
      * @see MessageStoreManager.fetchTemplate
      */
-    public String fetchTemplate(MessageRequest messageData, MotechContext context) {
-        MessageTemplate template = coreManager.createMessageTemplateDAO(context).getTemplateByLangNotifMType(messageData.getLanguage(), messageData.getNotificationType(), messageData.getMessageType());
+    public String fetchTemplate(MessageRequest messageData, MotechContext context, Language defaultLang) {        
+        
+        MessageTemplate template = coreManager.createMessageTemplateDAO(context).getTemplateByLangNotifMType(messageData.getLanguage(), messageData.getNotificationType(), messageData.getMessageType(), defaultLang);
         
         if(template == null)
             throw new MotechException("No such NotificationType found");

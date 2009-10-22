@@ -17,9 +17,11 @@ import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omi.manager.StatusHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import com.dreamoval.motech.omp.service.MessagingService;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -150,8 +152,19 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public MessageStatus sendMessage(MessageRequest message, MotechContext context) {
+        Properties settings = new Properties();
+        
+        try{
+            settings.load(getClass().getResourceAsStream("/omi.settings.properties"));
+        }
+        catch(IOException ex){
+            logger.error(ex.getMessage());
+        }
+        
+        Language defaultLang = coreManager.createLanguageDAO(context).getByCode(settings.getProperty("omi.settings.defaultLang"));
+        
         logger.info("Constructing GatewayRequest");
-        GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, context);
+        GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, context, defaultLang);
 
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
@@ -201,10 +214,21 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
 
+        Properties settings = new Properties();
+        
+        try{
+            settings.load(getClass().getResourceAsStream("/omi.settings.properties"));
+        }
+        catch(IOException ex){
+            logger.error(ex.getMessage());
+        }
+        
+        Language defaultLang = coreManager.createLanguageDAO(mc).getByCode(settings.getProperty("omi.settings.defaultLang"));
+        
         logger.info("Preparing messages:");
         for (MessageRequest message : messages) {
 
-            GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, mc);
+            GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, mc, defaultLang);
 
             logger.info("Scheduling GatewayRequest");
             if (mc.getDBSession() != null) {

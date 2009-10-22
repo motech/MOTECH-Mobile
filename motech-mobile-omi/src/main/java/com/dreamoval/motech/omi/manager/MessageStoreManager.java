@@ -2,9 +2,9 @@ package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
+import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.service.MotechContext;
-import java.util.Map;
 import java.util.Set;
 import org.motechproject.ws.NameValuePair;
 
@@ -24,7 +24,7 @@ public interface MessageStoreManager {
      * @param messageData the MessageRequest object containing details of the message to construct
      * @return the constructed GatewayRequest object
      */
-    public GatewayRequestDetails constructMessage(MessageRequest messageData, MotechContext context);
+    public GatewayRequestDetails constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang);
 
     /**
      * Constructs a personalized message from the provided template and parameters
@@ -41,7 +41,7 @@ public interface MessageStoreManager {
      * @param messageData information on the template to select
      * @return the template matching the message information
      */
-    public String fetchTemplate(MessageRequest messageData, MotechContext context);
+    public String fetchTemplate(MessageRequest messageData, MotechContext context, Language defaultLang);
     
     
     /**

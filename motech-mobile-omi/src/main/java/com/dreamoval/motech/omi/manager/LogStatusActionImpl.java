@@ -17,7 +17,7 @@ public class LogStatusActionImpl implements StatusAction {
    
    public void doAction(GatewayResponse response){
        String summary = "Status of message with id "
-               + response.getGatewayRequest().getRequestId()
+               + response.getRequestId()
                + " is: " 
                + response.getMessageStatus().toString() 
                + ". Response from gateway was: "
