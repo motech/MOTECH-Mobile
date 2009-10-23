@@ -36,6 +36,6 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
                 .addOrder(Order.desc("dateCreated"))
                 .list();
 
-        return (GatewayResponse) responses.get(0);
+        return responses != null && responses.size() > 0 ? (GatewayResponse) responses.get(0) : null;
     }
 }
