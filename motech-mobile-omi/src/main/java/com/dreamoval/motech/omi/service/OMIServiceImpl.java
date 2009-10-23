@@ -180,6 +180,7 @@ public class OMIServiceImpl implements OMIService {
         msgSvc.sendMessage(gwReqDet, context);
 
         logger.info("Updating MessageRequest");
+        message.setDateProcessed(new Date());
         message.setStatus(MStatus.PENDING);
         logger.debug(message);
 
@@ -240,8 +241,8 @@ public class OMIServiceImpl implements OMIService {
             msgSvc.scheduleMessage(gwReqDet, mc);
 
             logger.info("Updating MessageRequest");
-            message.setStatus(MStatus.SCHEDULED);
             message.setDateProcessed(new Date());
+            message.setStatus(MStatus.SCHEDULED);
             logger.debug(message);
 
             if (mc.getDBSession() != null) {
