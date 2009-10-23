@@ -3,7 +3,7 @@
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="GatewayResponseImpl" table="gateway_response">
     <property name="gatewayMessageId" type="string" column="gateway_message_id"/>
-      <property name="requestId" type="string" column="request_id"/>
+    <property name="requestId" type="string" column="request_id"/>
     <property name="recipientNumber" type="string" column="recipient_number"/>
     <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
     <property name="responseText" type="string" column="response_text"/>

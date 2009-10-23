@@ -6,6 +6,7 @@ import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
+import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
 import org.apache.log4j.Logger;
@@ -46,14 +47,16 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
                 
                 response.setGatewayMessageId(responseParts[1]);
                 response.setRequestId(message.getRequestId());
+                response.setMessageStatus(MStatus.PENDING);
+                response.setGatewayRequest(message);
+                response.setDateCreated(new Date());
 
                 if(responseParts.length == 4)
                     response.setRecipientNumber(responseParts[3]);
                 else
                     response.setRecipientNumber(message.getRecipientsNumber());
 
-                response.setMessageStatus(MStatus.PENDING);
-                response.setGatewayRequest(message);
+                
                 responses.add(response);
             }
             else{
