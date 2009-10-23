@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.Set;
 import javax.xml.namespace.QName;
 import java.net.MalformedURLException;
+import java.util.Date;
 import org.apache.log4j.Logger;
 
 /**
@@ -55,6 +56,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
             logger.fatal("Error sending message", ex);
             throw new RuntimeException("Error sending message");
         }
+        messageDetails.setDateSent(new Date());
         
         logger.info("Parsing gateway response");
         return messageHandler.parseMessageResponse(messageDetails, gatewayResponse, context);

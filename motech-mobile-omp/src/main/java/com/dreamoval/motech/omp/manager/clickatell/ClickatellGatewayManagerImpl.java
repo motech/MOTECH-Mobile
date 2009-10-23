@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -101,6 +102,7 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
             logger.fatal("Error processing gateway request", ex);
             throw new RuntimeException("Unable to communicate with gateway");
         }
+        messageDetails.setDateSent(new Date());
         
         //Convert the response to a standard format
         return messageHandler.parseMessageResponse(messageDetails, gatewayResponse, context);

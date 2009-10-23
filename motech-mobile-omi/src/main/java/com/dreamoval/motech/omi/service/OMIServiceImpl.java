@@ -77,6 +77,7 @@ public class OMIServiceImpl implements OMIService {
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
         messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
+        messageRequest.setDateCreated(new Date());
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
@@ -130,6 +131,7 @@ public class OMIServiceImpl implements OMIService {
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
         messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
+        messageRequest.setDateCreated(new Date());
 
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
@@ -239,6 +241,7 @@ public class OMIServiceImpl implements OMIService {
 
             logger.info("Updating MessageRequest");
             message.setStatus(MStatus.SCHEDULED);
+            message.setDateProcessed(new Date());
             logger.debug(message);
 
             if (mc.getDBSession() != null) {
