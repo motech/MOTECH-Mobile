@@ -3,12 +3,8 @@
 package com.dreamoval.motech.core.dao.hibernate;
 import junit.framework.Assert;
 import org.hibernate.Session;
-//
-//import org.junit.After;
-//import org.junit.AfterClass;
 import com.dreamoval.motech.core.dao.TransitionDAO;
 import org.junit.Before;
-//import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +23,7 @@ import org.hibernate.Transaction;
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/core-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
 public class TransitionDAOImplTest {
 
 

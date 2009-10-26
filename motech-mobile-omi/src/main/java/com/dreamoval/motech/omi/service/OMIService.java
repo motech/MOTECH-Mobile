@@ -54,4 +54,29 @@ public interface OMIService {
      * Queries and updates the statuses of sent messages
      */
     public void getMessageResponses();
+    
+    
+    /**
+     * Gets the default language
+     * @return the default language
+     */
+    public String getDefaultLang();
+
+    /**
+     * Sets the default language
+     * @param defaultLang the default language to set
+     */
+    public void setDefaultLang(String defaultLang);
+
+    /**
+     * Gets the maximum number of message retries
+     * @return the maximum retries
+     */
+    public int getMaxTries();
+
+    /**
+     * Sets the maximum number of message retries
+     * @param maxRetries the maximum number of message retries
+     */
+    public void setMaxTries(int maxRetries);
 }

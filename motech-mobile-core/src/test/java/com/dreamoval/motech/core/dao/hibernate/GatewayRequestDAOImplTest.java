@@ -33,7 +33,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/core-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
 public class GatewayRequestDAOImplTest {
 
     @Autowired

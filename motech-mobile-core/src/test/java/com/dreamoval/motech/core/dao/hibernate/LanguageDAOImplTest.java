@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,10 +46,12 @@ public class LanguageDAOImplTest {
     @Autowired
     CoreManager coreManager;
     String code;
+    
+    MotechContext mc;
 
     @Before
     public void setUp() {
-        MotechContext mc = coreManager.createMotechContext();
+        mc = coreManager.createMotechContext();
         lDao = coreManager.createLanguageDAO(mc);
         l1.setId(911L);
         l1.setCode("aul887");
@@ -63,6 +65,7 @@ public class LanguageDAOImplTest {
         l2.setId(958L);
         l2.setCode(code);
         l2.setName("german");
+        l2.setDescription("description for l2");
 
         l3.setId(959L);
         l3.setCode("fr");
@@ -77,12 +80,17 @@ public class LanguageDAOImplTest {
 
 
         Session session = (Session) lDao.getDBSession().getSession();
+        
         Transaction tx = session.beginTransaction();
         lDao.save(l2);
         lDao.save(l3);
         lDao.save(l4);
         tx.commit();
-
+    }
+    
+    @After
+    public void cleanUp(){
+        mc.cleanUp();
     }
 
     /**

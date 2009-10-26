@@ -45,7 +45,23 @@ public class OMIServiceImpl implements OMIService {
     private CoreManager coreManager;
     private StatusHandler statHandler;
     private static Logger logger = Logger.getLogger(OMIServiceImpl.class);
+    
+    private String defaultLang;
+    private int maxTries;
 
+    public OMIServiceImpl(){
+        Properties settings = new Properties();
+        
+        try{
+            settings.load(getClass().getResourceAsStream("/omi.settings.properties"));
+        }
+        catch(IOException ex){
+            logger.error(ex.getMessage());
+        }
+        defaultLang = settings.getProperty("defaultLang", "en");
+        maxTries = Integer.valueOf(settings.getProperty("maxTries", "3"));
+    }
+    
     /**String
      *
      * @see OMIService.sendPatientMessage
@@ -69,6 +85,7 @@ public class OMIServiceImpl implements OMIService {
             messageRequest.setPersInfos(details);
         }
 
+        messageRequest.setMaxTryNumber(maxTries);
         messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
@@ -123,6 +140,7 @@ public class OMIServiceImpl implements OMIService {
             messageRequest.setPersInfos(details);
         }
 
+        messageRequest.setMaxTryNumber(maxTries);
         messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
@@ -163,14 +181,14 @@ public class OMIServiceImpl implements OMIService {
             logger.error(ex.getMessage());
         }
         
-        Language defaultLang = coreManager.createLanguageDAO(context).getByCode(settings.getProperty("omi.settings.defaultLang"));
+        Language defaultLanguage = coreManager.createLanguageDAO(context).getByCode(defaultLang);
         
         if(message.getLanguage() == null){
-            message.setLanguage(defaultLang);
+            message.setLanguage(defaultLanguage);
         }
         
         logger.info("Constructing GatewayRequest");
-        GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, context, defaultLang);
+        GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, context, defaultLanguage);
 
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
@@ -230,16 +248,16 @@ public class OMIServiceImpl implements OMIService {
             logger.error(ex.getMessage());
         }
         
-        Language defaultLang = coreManager.createLanguageDAO(mc).getByCode(settings.getProperty("omi.settings.defaultLang"));
+        Language defaultLanguage = coreManager.createLanguageDAO(mc).getByCode(defaultLang);
         
         logger.info("Preparing messages:");
         for (MessageRequest message : messages) {
 
-            GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, mc, defaultLang);
+            GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, mc, defaultLanguage);
 
             
             if(message.getLanguage() == null){
-                message.setLanguage(defaultLang);
+                message.setLanguage(defaultLanguage);
             }
             
             logger.info("Scheduling GatewayRequest");
@@ -407,5 +425,21 @@ public class OMIServiceImpl implements OMIService {
         logger.debug("Setting OMIServiceImpl.statHandler");
         logger.debug(coreManager);
         this.statHandler = statHandler;
+    }
+
+    public String getDefaultLang() {
+        return defaultLang;
+    }
+
+    public void setDefaultLang(String defaultLang) {
+        this.defaultLang = defaultLang;
+    }
+
+    public int getMaxTries() {
+        return maxTries;
+    }
+
+    public void setMaxTries(int maxRetries) {
+        this.maxTries = maxRetries;
     }
 }

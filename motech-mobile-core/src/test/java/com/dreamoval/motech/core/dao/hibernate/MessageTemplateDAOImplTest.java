@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/core-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
 public class MessageTemplateDAOImplTest {
 
      @Autowired
@@ -84,7 +84,7 @@ public class MessageTemplateDAOImplTest {
 
         
         l1.setId(98L);
-        l1.setCode("fr");
+        l1.setCode("sk");
         
         mtDao = coreManager.createMessageTemplateDAO(mc);
         lDao = coreManager.createLanguageDAO(mc);
