@@ -3,6 +3,7 @@ package com.dreamoval.motech.omi.manager;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.LogType;
+import com.dreamoval.motech.core.model.MStatus;
 import org.motechproject.ws.server.RegistrarService;
 
 /**
@@ -15,7 +16,9 @@ public class LogStatusActionImpl implements StatusAction {
    private RegistrarService regWs;
    private static Logger logger = Logger.getLogger(LogStatusActionImpl.class);
    
-   public void doAction(GatewayResponse response){
+   public void doAction(GatewayResponse response){       
+       LogType logType;
+       
        String summary = "Status of message with id "
                + response.getRequestId()
                + " is: " 
@@ -23,12 +26,19 @@ public class LogStatusActionImpl implements StatusAction {
                + ". Response from gateway was: "
                + response.getResponseText();
        
+       
+       if(response.getMessageStatus() == MStatus.DELIVERED){
+           logType = LogType.SUCCESS;
+       }
+       else{
+           logType = LogType.FAILURE;
+       }
+       
        try{
-            getRegWs().log(LogType.SUCCESS, summary);
+            getRegWs().log(logType, summary);
        }
        catch(Exception e){
-           logger.error("Error communicating with logging service");
-           logger.debug(e);
+           logger.error("Error communicating with logging service", e);
        }
    }
 

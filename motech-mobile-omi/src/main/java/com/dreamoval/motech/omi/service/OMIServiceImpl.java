@@ -165,6 +165,10 @@ public class OMIServiceImpl implements OMIService {
         
         Language defaultLang = coreManager.createLanguageDAO(context).getByCode(settings.getProperty("omi.settings.defaultLang"));
         
+        if(message.getLanguage() == null){
+            message.setLanguage(defaultLang);
+        }
+        
         logger.info("Constructing GatewayRequest");
         GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, context, defaultLang);
 
@@ -233,6 +237,11 @@ public class OMIServiceImpl implements OMIService {
 
             GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, mc, defaultLang);
 
+            
+            if(message.getLanguage() == null){
+                message.setLanguage(defaultLang);
+            }
+            
             logger.info("Scheduling GatewayRequest");
             if (mc.getDBSession() != null) {
                 ((Session) mc.getDBSession().getSession()).evict(message);
@@ -324,18 +333,20 @@ public class OMIServiceImpl implements OMIService {
         for (MessageRequest message : messages) {
             GatewayResponse response = gwRespDao.getMostRecentResponseByRequestId(message.getRequestId());
 
-            message.setStatus(response.getMessageStatus());
+            if(response != null){
+                statHandler.handleStatus(response);
+                
+                message.setStatus(response.getMessageStatus());
 
-            if (mc.getDBSession() != null) {
-                ((Session) mc.getDBSession().getSession()).evict(message);
+                if (mc.getDBSession() != null) {
+                    ((Session) mc.getDBSession().getSession()).evict(message);
+                }
+
+                Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
+                tx.begin();
+                msgReqDao.save(message);
+                tx.commit();
             }
-
-            Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
-            tx.begin();
-            msgReqDao.save(message);
-            tx.commit();
-
-            statHandler.handleStatus(response);
         }
         mc.cleanUp();
     }

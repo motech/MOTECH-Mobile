@@ -25,8 +25,7 @@ public class ReportStatusActionImpl implements StatusAction{
                getRegWs().setMessageStatus(response.getRequestId(), false);
        }
        catch(Exception e){
-           logger.error("Error communicating with event engine");
-           logger.debug(e);
+           logger.error("Error communicating with event engine", e);
        }
    }
 
