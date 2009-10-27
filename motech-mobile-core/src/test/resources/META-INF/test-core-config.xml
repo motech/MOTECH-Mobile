@@ -152,4 +152,5 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="sessionContainer" ref="sessionContainer"/>
     </bean>
     <!-- End of Managers -->
+     
 </beans>

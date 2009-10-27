@@ -7,13 +7,13 @@
        http://cxf.apache.org/jaxws
        http://cxf.apache.org/schema/jaxws.xsd">
 
-    <import resource="classpath:META-INF/test-omi-config.xml" />
+    <import resource="classpath:META-INF/omi-config.xml" />
       
     <bean id="client" class="org.motechproject.ws.mobile.MessageService"
         factory-bean="clientFactory" factory-method="create" />
 
     <bean id="clientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
         <property name="serviceClass" value="org.motechproject.ws.mobile.MessageService" />
-        <property name="address" value="http://localhost:8080/motech-mobile-webapp/webservices/messaging" />
+        <property name="address" value="http://localhost:8080/motechmobile/webservices/messaging" />
     </bean>
 </beans>
