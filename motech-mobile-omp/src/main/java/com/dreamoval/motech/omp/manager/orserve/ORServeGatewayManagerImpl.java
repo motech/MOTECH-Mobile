@@ -51,10 +51,11 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         logger.debug(messageDetails);
         try{
             gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), "1");
+            //gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
         }
         catch(Exception ex){
-            logger.fatal("Error sending message", ex);
-            throw new RuntimeException("Error sending message");
+            logger.error("Error sending message", ex);
+            gatewayResponse = ex.getMessage();
         }
         messageDetails.setDateSent(new Date());
         

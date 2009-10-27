@@ -44,8 +44,8 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         gwReqDet.setId(messageData.getId());
         gwReqDet.setMessage(gwReq.getMessage());
         gwReqDet.setMessageType(messageData.getMessageType());
-        gwReqDet.setNumberOfPages(3);
-        
+        gwReqDet.setNumberOfPages(3);     
+                
         try{
             logger.info("Fetching message template");
             String template = fetchTemplate(messageData, context, defaultLang);
@@ -53,6 +53,16 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
             logger.info("Parsing message template");
             String message = parseTemplate(template, messageData.getPersInfos());
 
+//            if(message.length() <= 160){
+//                gwReqDet.setNumberOfPages(1);
+//            }
+//            else if(message.length() > 160 && message.length() < 305){
+//                gwReqDet.setNumberOfPages(2);
+//            }
+//            else{
+//                gwReqDet.setNumberOfPages(3);
+//            }
+            
             gwReq.setMessage(message);
             gwReq.setMessageStatus(MStatus.SCHEDULED);
         }

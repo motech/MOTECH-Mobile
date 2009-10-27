@@ -13,6 +13,8 @@ import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import org.apache.log4j.Logger;
 
@@ -21,9 +23,11 @@ import org.apache.log4j.Logger;
  * @author henry
  */
 public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandler{
-
+    
     private CoreManager coreManager;
     private static Logger logger = Logger.getLogger(ClickatellGatewayMessageHandlerImpl.class);
+    private Map<MStatus, String> codeStatusMap;
+    private Map<MStatus, String> codeResponseMap;
 
     /**
      *
@@ -64,6 +68,22 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
             }
             else{
                 logger.error("Gateway returned error: " + gatewayResponse);
+                
+                String errorCode = responseParts[1];
+                errorCode.replaceAll(",", "");
+                errorCode.trim();
+                
+                MStatus status = lookupResponse(errorCode);
+                
+                GatewayResponse response = getCoreManager().createGatewayResponse(context);
+                
+                response.setRequestId(message.getRequestId());
+                response.setMessageStatus(status);
+                response.setGatewayRequest(message);
+                response.setResponseText(gatewayResponse);
+                response.setDateCreated(new Date());
+                
+                responses.add(response);
             }
         }
         logger.debug(responses);
@@ -74,30 +94,76 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
      *
      * @see GatewayMessageHandler.parseMessageStatus
      */
-    public MStatus parseMessageStatus(String messageStatus) {
+    public MStatus parseMessageStatus(String gatewayResponse) {
         logger.info("Parsing message gateway status response");
 
-        String status = messageStatus.trim();
-
-        if (!status.isEmpty())
-        {
-            if (status.equals("004"))
-            {
-                return MStatus.DELIVERED;
-            }
-            else if (status.equals("002") || status.equals("003") || status.equals("008") || status.equals("011"))
-            {
-                return MStatus.PENDING;
-            }
-            else
-            {
-                return MStatus.FAILED;
+        String status;
+                
+        String[] responseParts = gatewayResponse.split(" ");
+        
+        if(responseParts.length == 2){
+            status = responseParts[1];
+        }
+        else if(responseParts.length == 4){
+            status = responseParts[3];
+        }
+        else{
+            status = "";
+        }
+        
+        return lookupStatus(status);
+        
+//        if (!status.isEmpty())
+//        {
+//            if (status.equals("004"))
+//            {
+//                return MStatus.DELIVERED;
+//            }
+//            else if (status.equals("002") || status.equals("003") || status.equals("008") || status.equals("011"))
+//            {
+//                return MStatus.PENDING;
+//            }
+//            else
+//            {
+//                return MStatus.FAILED;
+//            }
+//        }
+//        else
+//        {
+//            return MStatus.FAILED;
+//        }
+    }
+    
+    /**
+     * @see GatewayMessageHandler.lookupStatus
+     */
+    public MStatus lookupStatus(String code){
+        if(code.isEmpty()){
+            return MStatus.RETRY;
+        }
+        
+        for(Entry<MStatus, String> entry: getCodeStatusMap().entrySet()){
+            if(entry.getValue().contains(code)){
+                return entry.getKey();
             }
         }
-        else
-        {
-            return MStatus.FAILED;
+        return MStatus.RETRY;
+    }
+    
+    /**
+     * @see GatewayMessageHandler.lookupResponse
+     */
+    public MStatus lookupResponse(String code){
+        if(code.isEmpty()){
+            return MStatus.RETRY;
         }
+        
+        for(Entry<MStatus, String> entry: getCodeResponseMap().entrySet()){
+            if(entry.getValue().contains(code)){
+                return entry.getKey();
+            }
+        }
+        return MStatus.RETRY;
     }
 
     /**
@@ -114,5 +180,21 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
         logger.debug("Setting ClickatellGatewayMessageHandlerImpl.coreManager");
         logger.debug(coreManager);
         this.coreManager = coreManager;
+    }
+
+    public Map<MStatus, String> getCodeStatusMap() {
+        return codeStatusMap;
+    }
+
+    public void setCodeStatusMap(Map<MStatus, String> codeStatusMap) {
+        this.codeStatusMap = codeStatusMap;
+    }
+
+    public Map<MStatus, String> getCodeResponseMap() {
+        return codeResponseMap;
+    }
+
+    public void setCodeResponseMap(Map<MStatus, String> codeResponseMap) {
+        this.codeResponseMap = codeResponseMap;
     }
 }

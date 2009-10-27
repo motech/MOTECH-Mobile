@@ -99,8 +99,8 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
             in.close();
         } 
         catch (IOException ex) {
-            logger.fatal("Error processing gateway request", ex);
-            throw new RuntimeException("Unable to communicate with gateway");
+            logger.error("Error processing gateway request", ex);
+            gatewayResponse = ex.getMessage();
         }
         messageDetails.setDateSent(new Date());
         

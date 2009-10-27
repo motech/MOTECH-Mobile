@@ -56,7 +56,7 @@ public class ClickatellGatewayMessageHandlerImplTest {
     public void testParseMessageStatus() {
         System.out.println("parseMessageStatus");
         String messageStatus = "";
-        MStatus expResult = MStatus.FAILED;
+        MStatus expResult = MStatus.RETRY;
         MStatus result = instance.parseMessageStatus(messageStatus);
         assertEquals(expResult, result);
     }

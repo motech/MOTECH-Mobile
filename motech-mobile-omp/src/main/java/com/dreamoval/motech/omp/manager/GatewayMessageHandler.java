@@ -30,6 +30,22 @@ public interface GatewayMessageHandler {
     public MStatus parseMessageStatus(String messageStatus);
 
     /**
+     * Looks up an MStatus value based on the provided code
+     * 
+     * @param code the status code to lookup
+     * @return the MStatus corresponding to the code
+     */
+    public MStatus lookupStatus(String code);
+    
+    /**
+     * Looks up an MStatus value based on the provided code
+     * 
+     * @param code the response code to lookup
+     * @return the MStatus corresponding to the code
+     */
+    public MStatus lookupResponse(String code);
+            
+    /**
      * @return the coreManager
      */
     public CoreManager getCoreManager();

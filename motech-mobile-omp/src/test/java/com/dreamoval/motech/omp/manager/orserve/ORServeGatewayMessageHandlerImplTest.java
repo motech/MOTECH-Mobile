@@ -12,6 +12,10 @@ import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 /**
@@ -20,10 +24,14 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:META-INF/omp-config.xml"})
 public class ORServeGatewayMessageHandlerImplTest {
 
     CoreManager mockCoreManager;
-    GatewayMessageHandler instance;
+    
+    @Autowired
+    GatewayMessageHandler messageHandler;
     
     public ORServeGatewayMessageHandlerImplTest() {
     }
@@ -31,8 +39,8 @@ public class ORServeGatewayMessageHandlerImplTest {
     @Before
     public void setUp(){
         mockCoreManager = createMock(CoreManager.class);
-        instance = new ORServeGatewayMessageHandlerImpl();
-        instance.setCoreManager(mockCoreManager);
+        
+        messageHandler.setCoreManager(mockCoreManager);
     }
 
     /**
@@ -45,7 +53,7 @@ public class ORServeGatewayMessageHandlerImplTest {
         String gatewayResponse = "";
         MotechContext context = new MotechContextImpl();
         GatewayRequest expResult = null;
-        Set<GatewayResponse> result = instance.parseMessageResponse(message, gatewayResponse, context);
+        Set<GatewayResponse> result = messageHandler.parseMessageResponse(message, gatewayResponse, context);
         assertEquals(expResult, result);
     }
 
@@ -55,9 +63,73 @@ public class ORServeGatewayMessageHandlerImplTest {
     @Test
     public void testParseMessageStatus() {
         System.out.println("parseMessageStatus");
-        String messageStatus = "";
-        MStatus expResult = MStatus.FAILED;
-        MStatus result = instance.parseMessageStatus(messageStatus);
+        String messageStatus = " ";
+        MStatus expResult = MStatus.RETRY;
+        MStatus result = messageHandler.parseMessageStatus(messageStatus);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of lookupStatus method, of class ORServeGatewayMessageHandlerImpl.
+     */
+    @Test
+    public void testLookupStatus() {
+        System.out.println("parseMessageStatus");
+        String messageStatus = " ";
+        MStatus expResult = MStatus.RETRY;
+        MStatus result = messageHandler.lookupStatus(messageStatus);
+        assertEquals(expResult, result);
+        
+        messageStatus = "004";
+        expResult = MStatus.DELIVERED;
+        result = messageHandler.lookupStatus(messageStatus);
+        assertEquals(expResult, result);
+        
+        messageStatus = "007";
+        expResult = MStatus.FAILED;
+        result = messageHandler.lookupStatus(messageStatus);
+        assertEquals(expResult, result);
+        
+        messageStatus = "002";
+        expResult = MStatus.PENDING;
+        result = messageHandler.lookupStatus(messageStatus);
+        assertEquals(expResult, result);
+        
+        messageStatus = "006";
+        expResult = MStatus.CANCELLED;
+        result = messageHandler.lookupStatus(messageStatus);
+        assertEquals(expResult, result);
+        
+        messageStatus = "120";
+        expResult = MStatus.EXPIRED;
+        result = messageHandler.lookupStatus(messageStatus);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of lookupResponse method, of class ORServeGatewayMessageHandlerImpl.
+     */
+    @Test
+    public void testLookupResponse() {
+        System.out.println("parseMessageStatus");
+        String messageStatus = " ";
+        MStatus expResult = MStatus.RETRY;
+        MStatus result = messageHandler.lookupResponse(messageStatus);
+        assertEquals(expResult, result);
+        
+        messageStatus = "103";
+        expResult = MStatus.RETRY;
+        result = messageHandler.lookupResponse(messageStatus);
+        assertEquals(expResult, result);
+        
+        messageStatus = "005";
+        expResult = MStatus.FAILED;
+        result = messageHandler.lookupResponse(messageStatus);
+        assertEquals(expResult, result);
+        
+        messageStatus = "116";
+        expResult = MStatus.EXPIRED;
+        result = messageHandler.lookupResponse(messageStatus);
         assertEquals(expResult, result);
     }
 

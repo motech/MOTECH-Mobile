@@ -9,6 +9,8 @@ import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 /**
@@ -21,6 +23,8 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
 
     private CoreManager coreManager;
     private static Logger logger = Logger.getLogger(ORServeGatewayMessageHandlerImpl.class);
+    private Map<MStatus, String> codeStatusMap;
+    private Map<MStatus, String> codeResponseMap;
 
     /**
      *
@@ -62,6 +66,22 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
             }
             else{
                 logger.error("Gateway returned error: " + gatewayResponse);
+                
+                String errorCode = responseParts[1];
+                errorCode.replaceAll(",", "");
+                errorCode.trim();
+                
+                MStatus status = lookupResponse(errorCode);
+                
+                GatewayResponse response = getCoreManager().createGatewayResponse(context);
+                
+                response.setRequestId(message.getRequestId());
+                response.setMessageStatus(status);
+                response.setGatewayRequest(message);
+                response.setResponseText(gatewayResponse);
+                response.setDateCreated(new Date());
+                
+                responses.add(response);
             }
         }
         logger.debug(responses);
@@ -72,11 +92,12 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      *
      * @see GatewayMessageHandler.parseMessageStatus
      */
-    public MStatus parseMessageStatus(String messageStatus) {
+    public MStatus parseMessageStatus(String gatewayResponse) {
         logger.info("Parsing message gateway status response");
         
         String status;
-        String[] responseParts = messageStatus.split(" ");
+                
+        String[] responseParts = gatewayResponse.split(" ");
         
         if(responseParts.length == 4){
             status = responseParts[3];
@@ -84,26 +105,60 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
         else{
             status = "";
         }
+        
+        return lookupStatus(status);
 
-        if (!status.isEmpty())
-        {
-            if (status.equals("004"))
-            {
-                return MStatus.DELIVERED;
-            }
-            else if (status.equals("002") || status.equals("003") || status.equals("008") || status.equals("011"))
-            {
-                return MStatus.PENDING;
-            }
-            else
-            {
-                return MStatus.FAILED;
+//        if (!status.isEmpty())
+//        {
+//            if (status.equals("004"))
+//            {
+//                return MStatus.DELIVERED;
+//            }
+//            else if (status.equals("002") || status.equals("003") || status.equals("008") || status.equals("011"))
+//            {
+//                return MStatus.PENDING;
+//            }
+//            else
+//            {
+//                return MStatus.FAILED;
+//            }
+//        }
+//        else
+//        {
+//            return MStatus.FAILED;
+//        }
+    }
+    
+    /**
+     * @see GatewayMessageHandler.lookupStatus
+     */
+    public MStatus lookupStatus(String code){
+        if(code.isEmpty()){
+            return MStatus.RETRY;
+        }
+        
+        for(Entry<MStatus, String> entry: codeStatusMap.entrySet()){
+            if(entry.getValue().contains(code)){
+                return entry.getKey();
             }
         }
-        else
-        {
-            return MStatus.FAILED;
+        return MStatus.RETRY;
+    }
+    
+    /**
+     * @see GatewayMessageHandler.lookupResponse
+     */
+    public MStatus lookupResponse(String code){
+        if(code.isEmpty()){
+            return MStatus.RETRY;
         }
+        
+        for(Entry<MStatus, String> entry: codeResponseMap.entrySet()){
+            if(entry.getValue().contains(code)){
+                return entry.getKey();
+            }
+        }
+        return MStatus.RETRY;
     }
 
     /**
@@ -120,6 +175,22 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
         logger.debug("Setting ORServeGatewayMessageHandlerImpl.coreManager");
         logger.debug(coreManager);
         this.coreManager = coreManager;
+    }
+
+    public Map<MStatus, String> getCodeStatusMap() {
+        return codeStatusMap;
+    }
+
+    public void setCodeStatusMap(Map<MStatus, String> codeStatusMap) {
+        this.codeStatusMap = codeStatusMap;
+    }
+
+    public Map<MStatus, String> getCodeResponseMap() {
+        return codeResponseMap;
+    }
+
+    public void setCodeResponseMap(Map<MStatus, String> codeResponseMap) {
+        this.codeResponseMap = codeResponseMap;
     }
 
 }
