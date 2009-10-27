@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:flow="http://www.springframework.org/schema/webflow-config"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-1.0.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+   <import resource="classpath:META-INF/test-core-config.xml" />
+
+   <!--Spring specific-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:clickatell.properties</value> 
+                <value>classpath:orserve.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="date" class="java.util.Date" scope="prototype" />
+
+    <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
+        <property name="coreManager" ref="coreManager" />
+    </bean>
+    
+    
+    <bean id="gatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayManagerImpl">
+        <property name="productCode" value="nu-ob-demo" />
+        <property name="senderId" value="MoTeCH" />
+        <property name="messageHandler" ref="messageHandler" />
+    </bean>
+     
+    <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
+        <property name="coreManager" ref="coreManager" />
+    </bean>
+
+    <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSMessagingServiceImpl">
+        <property name="cache" ref="smsCache" />
+        <property name="gatewayManager" ref="gatewayManager" />
+        <property name="coreManager" ref="coreManager" />
+    </bean>
+
+    <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />
+    <!--Scheduling-->
+        <!--Job-->
+        <bean id="sendMessageUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="smsService"/>
+            <property name="targetMethod" value="sendScheduledMessages"/>
+        </bean>
+        
+        <bean id="gatewayStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="smsService"/>
+            <property name="targetMethod" value="updateMessageStatuses"/>
+        </bean>
+<!--End of Job-->
+
+        <!--Triggers-->
+        <bean id="sendMessageUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="sendMessageUpdater"/>
+            <property name="cronExpression" value="0 * * * * ?"/>
+        </bean>
+        
+        <bean id="gatewayStatusUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail" ref="gatewayStatusUpdater"/>
+            <property name="cronExpression" value="0 * * * * ?"/>
+        </bean>
+<!--End Of Triggers-->
+
+        <!--Scheduler Factory-->
+        <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+            <property name="triggers">
+                <list>
+                    <ref bean="sendMessageUpdaterTrigger"/>
+                    <ref bean="gatewayStatusUpdaterTrigger"/>
+                </list>
+            </property>
+        </bean>
+        <!--End Of scheduler Factory-->
+    <!--End of Scheduling-->
+</beans>
