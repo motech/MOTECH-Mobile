@@ -14,6 +14,6 @@
 
     <bean id="clientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
         <property name="serviceClass" value="org.motechproject.ws.mobile.MessageService" />
-        <property name="address" value="http://localhost:8080/motechmobile/webservices/messaging" />
+        <property name="address" value="http://localhost:8080/motech-mobile-webapp/webservices/messaging" />
     </bean>
 </beans>
