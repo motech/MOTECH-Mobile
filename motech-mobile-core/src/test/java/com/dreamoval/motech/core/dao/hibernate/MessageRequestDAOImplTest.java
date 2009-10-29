@@ -21,6 +21,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -48,6 +49,10 @@ public class MessageRequestDAOImplTest {
     private MessageRequest mr2;
     @Autowired
     private MessageRequest mr3;
+    @Autowired
+    private MessageRequest mr4;
+    @Autowired
+    private MessageRequest mr5;
     @Autowired
     private Language lg1;
     @Autowired
@@ -117,19 +122,39 @@ public class MessageRequestDAOImplTest {
         mr3.setStatus(sta);
         mr3.setSchedule(schedule);
 
+        mr4.setId(7L);
+        mr4.setDateCreated(new Date());
+        mr4.setLanguage(lg1);
+        mr4.setRecipientName("jimmy hendrix");
+        mr4.setMessageType(t);
+        mr4.setDateFrom(datefrom2);
+        mr4.setDateTo(dateto2);
+        mr4.setStatus(MStatus.INVALIDNET);
+        mr4.setSchedule(schedule);
+        mr4.setTryNumber(2);
+
+        mr5.setId(78L);
+        mr5.setDateCreated(new Date());
+        mr5.setLanguage(lg1);
+        mr5.setRecipientName("Kodjo");
+        mr5.setMessageType(t);
+        mr5.setStatus(MStatus.INVALIDNET);
+        mr5.setSchedule(schedule);
+        mr5.setTryNumber(1);
+
         Session session = (Session) lDAO.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
         lDAO.save(lg1);
         ntDao.save(nt1);
         mrDAO.save(mr2);
         mrDAO.save(mr3);
+        mrDAO.save(mr4);
+        mrDAO.save(mr5);
         tx.commit();
 
         expResult = new ArrayList();
         expResult.add(mr2);
         expResult.add(mr3);
-
-
     }
 
     /**
@@ -166,12 +191,41 @@ public class MessageRequestDAOImplTest {
 
     }
 
+
+
+     /**
+     * Test of delete method, of class MessageRequestDAOImpl.
+     */
+    @Test
+    public void testDelete(){
+        System.out.println("test MessageRequest delete");
+        Session session = (Session) mrDAO.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        mrDAO.delete(mr4);
+        tx.commit();
+        MessageRequest fromdb = (MessageRequestImpl) session.get(MessageRequestImpl.class, mr4.getId());
+        Assert.assertNull(fromdb);
+    }
+
     /**
+     * Test of getMsgRequestByStatusAndTryNumber method, of class MessageRequestDAOImpl.
+     */
+    @Test
+    public void testGetMsgRequestByStatusAndTryNumber() {
+        System.out.println("test MessageRequest getMsgRequestByStatusAndTryNumber");
+        List expResult = new ArrayList();
+        expResult.add(mr4);
+        expResult.add(mr5);
+        List result = mrDAO.getMsgRequestByStatusAndTryNumber(mr4.getStatus(), mr4.getTryNumber());
+        Assert.assertNotNull(result);
+      
+    }
+        /**
      * Test of getById method, of class MessageRequestDAOImpl.
      */
     @Test
     public void testGetById() {
-        System.out.print("test GatewayRequest getById");
+        System.out.print("test MessageRequest getById");
         MessageRequest fromdb = (MessageRequestImpl) mrDAO.getById(mr3.getId());
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(mr3, fromdb);

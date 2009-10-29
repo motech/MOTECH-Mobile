@@ -21,7 +21,7 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private Date dateFrom;
     private Date dateTo;
     private MStatus status;
-    private int maxTryNumber;
+    private int tryNumber;
     private String requestId;
     private Set persInfos;
 
@@ -187,20 +187,6 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     }
 
     /**
-     * @return the maxTryNumber
-     */
-    public int getMaxTryNumber() {
-        return maxTryNumber;
-    }
-
-    /**
-     * @param maxTryNumber the maxTryNumber to set
-     */
-    public void setMaxTryNumber(int maxTryNumber) {
-        this.maxTryNumber = maxTryNumber;
-    }
-
-    /**
      * @param status the status to set
      */
     public void setStatus(MStatus status) {
@@ -234,5 +220,19 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
      */
     public void setPersInfos(Set persInfos) {
         this.persInfos = persInfos;
+    }
+
+    /**
+     * @return the tryNumber
+     */
+    public int getTryNumber() {
+        return tryNumber;
+    }
+
+    /**
+     * @param tryNumber the tryNumber to set
+     */
+    public void setTryNumber(int tryNumber) {
+        this.tryNumber = tryNumber;
     }
 }

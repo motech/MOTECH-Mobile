@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
-    <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="mStatus">
-        <param name="enumClassname">com.dreamoval.motech.core.model.MStatus</param>
-    </typedef>
-    <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="messageType">
-        <param name="enumClassname">com.dreamoval.motech.core.model.MessageType</param>
-    </typedef>
-
-    <class abstract="true" name="MotechEntityImpl">
-        <id name="id">
-            <generator class="assigned"/>
-        </id>
-    </class>
+  <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="mStatus">
+    <param name="enumClassname">com.dreamoval.motech.core.model.MStatus</param>
+  </typedef>
+  <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="messageType">
+    <param name="enumClassname">com.dreamoval.motech.core.model.MessageType</param>
+  </typedef>
+  <class abstract="true" name="MotechEntityImpl">
+    <id name="id">
+      <generator class="assigned"/>
+    </id>
+  </class>
 </hibernate-mapping>

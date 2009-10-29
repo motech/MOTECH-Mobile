@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDetailsDAO;
@@ -10,10 +9,13 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
+import com.dreamoval.motech.core.model.MessageType;
+import com.dreamoval.motech.core.service.MotechContext;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,58 +32,90 @@ public class GatewayRequestDetailsDAOImplTest {
 
     @Autowired
     CoreManager coreManager;
-
     GatewayRequestDetailsDAO grDao;
-    
     @Autowired
     GatewayRequestDetails grd1;
-
     @Autowired
     GatewayRequest gr1;
-
     @Autowired
     GatewayRequest gr2;
-    
     @Autowired
-    GatewayRequest gr3;
+    GatewayRequestDetails grd2;
+    @Autowired
+    GatewayRequestDetails grd3;
+
+    @Autowired
+    GatewayRequestDetails grd4;
+    @Autowired
+    GatewayRequestDetails grd5;
+    @Autowired
+    GatewayRequestDetails grd6;
 
     @Before
     public void setUp() {
-        grDao = coreManager.createGatewayRequestDetailsDAO(coreManager.createMotechContext());
-        grd1.setId(Long.MIN_VALUE);
+        MotechContext mc = coreManager.createMotechContext() ;
+        grDao = coreManager.createGatewayRequestDetailsDAO(mc);
+        grd1.setId(343L);
         grd1.setMessage("message to send");
         grd1.setNumberOfPages(2);
 
-        gr1.setId(1L);
+        gr1.setId(800L);
         gr1.setRecipientsNumber("234556");
 
-        gr2.setId(2L);
+        gr2.setId(801L);
         gr2.setRecipientsNumber("12345");
- 
+
+        grd2.setId(802L);
+        grd2.setMessage("Message for id 802");
+        grd2.setMessageType(MessageType.TEXT);
+        grd2.setNumberOfPages(2);
+
+        grd3.setId(803L);
+        grd3.setMessage("Message for id 803");
+        grd3.setMessageType(MessageType.TEXT);
+        grd3.setNumberOfPages(2);
+
+        grd4.setId(804L);
+        grd4.setMessage("Message for id 803");
+        grd4.setMessageType(MessageType.TEXT);
+        grd4.setNumberOfPages(2);
+
+        grd5.setId(805L);
+        grd5.setMessage("Message for id 805");
+        grd5.setMessageType(MessageType.TEXT);
+        grd5.setNumberOfPages(2);
+
+     
+
     }
 
+    /**
+     * Test of save method, of class GatewayRequestDetailsDAOImpl.
+     */
     @Test
-    public void testSave(){
+    public void testSave() {
         System.out.println("test save GatewayRequestDetails object");
-        Session session = (Session )grDao.getDBSession().getSession();
+        Session session = (Session) grDao.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
         grDao.save(grd1);
         tx.commit();
 
         session.beginTransaction();
-        GatewayRequestDetails fromdb = (GatewayRequestDetailsImpl)session.get(GatewayRequestDetailsImpl.class, grd1.getId());
+        GatewayRequestDetails fromdb = (GatewayRequestDetailsImpl) session.get(GatewayRequestDetailsImpl.class, grd1.getId());
         session.getTransaction().commit();
 
         Assert.assertNotNull(fromdb);
-        Assert.assertEquals( grd1,fromdb);
-        Assert.assertEquals(grd1.getId(),fromdb.getId());
+        Assert.assertEquals(grd1, fromdb);
+        Assert.assertEquals(grd1.getId(), fromdb.getId());
     }
 
-
+    /**
+     * Test of save method with child persisting purpose, of class GatewayRequestDetailsDAOImpl.
+     */
     @Test
-    public void testSaveWithChild(){
+    public void testSaveWithChild() {
         System.out.println("test save GatewayRequestDetails object");
-        Session session = (Session )grDao.getDBSession().getSession();
+        Session session = (Session) grDao.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
         grd1.addGatewayRequest(gr1);
         grd1.addGatewayRequest(gr2);
@@ -89,13 +123,38 @@ public class GatewayRequestDetailsDAOImplTest {
         tx.commit();
 
         session.beginTransaction();
-        GatewayRequestDetails fromdb = (GatewayRequestDetailsImpl)session.get(GatewayRequestDetailsImpl.class, grd1.getId());
+        GatewayRequestDetails fromdb = (GatewayRequestDetailsImpl) session.get(GatewayRequestDetailsImpl.class, grd1.getId());
         session.getTransaction().commit();
 
         Assert.assertNotNull(fromdb);
-        Assert.assertEquals( grd1,fromdb);
+        Assert.assertEquals(grd1, fromdb);
         Assert.assertEquals(2, fromdb.getGatewayRequests().size());
         Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr1));
         Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr2));
+    }
+
+    /**
+     * Test of save method with updating purpose, of class GatewayRequestDetailsDAOImpl.
+     */
+    @Ignore
+    public void testUpdate() {
+        System.out.print("test GatewayRequestDetails Update");
+        String alteredmsg = "Altered message";
+        int altnumofpage = 5;
+        grd5.setId(grd1.getId());
+        grd5.setMessage(alteredmsg);
+        grd5.setNumberOfPages(altnumofpage);
+
+        Session session = (Session)grDao.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        session.save(grd5);
+        tx.commit();
+
+        session.beginTransaction();
+        GatewayRequestDetails fromdb = (GatewayRequestDetailsImpl) session.get(GatewayRequestDetailsImpl.class, grd1.getId());
+        session.getTransaction().commit();
+        Assert.assertNotNull(fromdb);
+
+
     }
 }

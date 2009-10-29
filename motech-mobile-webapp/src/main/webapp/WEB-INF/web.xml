@@ -46,8 +46,7 @@
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
-
+  
     <servlet-mapping>
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/webservices/*</url-pattern>

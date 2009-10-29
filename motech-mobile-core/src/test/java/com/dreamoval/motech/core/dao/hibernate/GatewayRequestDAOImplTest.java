@@ -234,7 +234,7 @@ public class GatewayRequestDAOImplTest {
      */
     @Test
     public void testFindByExample() {
-        System.out.println("testing findByCriteria");
+        System.out.println("testing findByExample");
 
         List<GatewayRequest> expResult = new ArrayList<GatewayRequest>();
         expResult.add(md1);

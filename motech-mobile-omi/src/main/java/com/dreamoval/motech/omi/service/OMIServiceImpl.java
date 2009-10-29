@@ -85,7 +85,7 @@ public class OMIServiceImpl implements OMIService {
             messageRequest.setPersInfos(details);
         }
 
-        messageRequest.setMaxTryNumber(maxTries);
+        messageRequest.setTryNumber(maxTries);
         messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
@@ -140,7 +140,7 @@ public class OMIServiceImpl implements OMIService {
             messageRequest.setPersInfos(details);
         }
 
-        messageRequest.setMaxTryNumber(maxTries);
+        messageRequest.setTryNumber(maxTries);
         messageRequest.setRequestId(messageId);
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);

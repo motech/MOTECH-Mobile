@@ -34,7 +34,7 @@ public interface MessageRequest extends MotechEntity {
 
     MStatus getStatus();
 
-    int getMaxTryNumber();
+    int getTryNumber();
 
     String getRequestId();
 
@@ -62,7 +62,7 @@ public interface MessageRequest extends MotechEntity {
 
     void setDateTo(Date dateTo);
 
-    void setMaxTryNumber(int maxTryNumber);
+    void setTryNumber(int maxTryNumber);
 
     void setStatus(MStatus status);
 

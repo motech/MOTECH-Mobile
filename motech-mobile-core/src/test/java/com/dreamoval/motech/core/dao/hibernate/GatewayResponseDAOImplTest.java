@@ -186,15 +186,12 @@ public class GatewayResponseDAOImplTest {
         List<GatewayResponse> expResult = new ArrayList<GatewayResponse>();
         expResult.add(rd4);
         expResult.add(rd5);
-        Transaction tx = ((Session) rDDAO.getDBSession().getSession()).beginTransaction();
-
         List<GatewayResponse> result = rDDAO.findByExample(rd6);
-        tx.commit();
+
         Assert.assertNotNull(result);
         Assert.assertEquals(expResult.size(), result.size());
-        Assert.assertEquals(true, result.contains(rd4));
-        Assert.assertEquals(true, result.contains(rd5));
-
+        Assert.assertTrue(expResult.contains(rd4));
+        Assert.assertTrue(expResult.contains(rd5));
     }
 
     @Ignore

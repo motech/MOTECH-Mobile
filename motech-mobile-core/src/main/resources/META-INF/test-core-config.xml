@@ -31,14 +31,14 @@
 
     <context:annotation-config />
     <tx:annotation-driven />
-    
+
     <!--Spring specific-->
     <bean id="propertyConfigurer"
 class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:mysql.hibernate.properties</value>
-                <value>classpath:mysql.jdbc.properties</value>
+                <value>classpath:hsql.hibernate.properties</value>
+                <value>classpath:hsql.jdbc.properties</value>
             </list>
         </property>
     </bean>
@@ -117,7 +117,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <bean id="gatewayResponseDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
     </bean>
-    
+
     <bean id="transitionDAO" class="com.dreamoval.motech.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
     </bean>
 
@@ -134,7 +134,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <bean id="gatewayRequestDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDetailsDAOImpl" scope="prototype">
     </bean>
-    
+
 
     <!-- End of Data Access-->
 
@@ -152,8 +152,4 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="sessionContainer" ref="sessionContainer"/>
     </bean>
     <!-- End of Managers -->
-
-    <!--Configuration -->
-   
-    <!--End of Configuration -->
 </beans>

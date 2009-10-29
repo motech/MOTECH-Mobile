@@ -14,9 +14,17 @@ public interface MessageRequestDAO<T extends MessageRequest> extends GenericDAO<
 
     /**
      *  Method to select MessageRequest Objects based on its status and its schedule time
-     * @param status the Status enumeration
+     * @param status the Status of the message
      * @param schedule the Date schedule
      * @return a list of MessageRequest
      */
     public List getMsgRequestByStatusAndSchedule(MStatus status, Date schedule);
+
+    /**
+     * Method to select MessageRequest Objects based on status and tryNumber
+     * @param status the Status of the message
+     * @param tryNumber number of retries for the message
+     * @return list of MessageRequest Objects
+     */
+    public List getMsgRequestByStatusAndTryNumber(MStatus status, int tryNumber);
 }

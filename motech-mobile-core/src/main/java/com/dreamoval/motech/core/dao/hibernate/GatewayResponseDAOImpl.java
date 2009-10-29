@@ -7,6 +7,8 @@ import com.dreamoval.motech.core.model.MStatus;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -27,15 +29,32 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
     public GatewayResponseDAOImpl() {
     }
 
+    /**
+     * Retrieve the most recent GatewayResponse Object based on the request id and the fact its status is not pending nor processing
+     * @param requestId the requestId to pass
+     * @return GatewayResponse object
+     */
     public GatewayResponse getMostRecentResponseByRequestId(String requestId) {
-        Session session = this.getDBSession().getSession();
-        List responses = session.createCriteria(this.getPersistentClass())
-                .add(Restrictions.ne("messageStatus", MStatus.PENDING))
-                .add(Restrictions.ne("messageStatus", MStatus.PROCESSING))
-                .add(Restrictions.eq("requestId", requestId))
-                .addOrder(Order.desc("dateCreated"))
-                .list();
+        logger.debug("getMostRecentResponseByRequestId");
+        logger.debug(requestId);
 
-        return responses != null && responses.size() > 0 ? (GatewayResponse) responses.get(0) : null;
+        try {
+            Session session = this.getDBSession().getSession();
+            Criterion notpending = Restrictions.ne("messageStatus", MStatus.PENDING);
+            Criterion notprocessing = Restrictions.ne("messageStatus", MStatus.PROCESSING);
+            LogicalExpression andExp = Restrictions.and(notpending, notprocessing);
+
+            List responses = session.createCriteria(this.getPersistentClass())
+                    .add(andExp)
+                    .add(Restrictions.eq("requestId", requestId))
+                    .addOrder(Order.desc("dateCreated")).list();
+
+            logger.debug(responses);
+
+            return responses != null && responses.size() > 0 ? (GatewayResponse) responses.get(0) : null;
+        } catch (Exception ex) {
+            logger.debug("Error occured in getMostRecentResponseByRequestId", ex);
+            return new GatewayResponseImpl();
+        }
     }
 }

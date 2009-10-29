@@ -224,7 +224,7 @@ public class OMIServiceImplTest {
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
         msgReq1.setId(49L);
-        msgReq1.setMaxTryNumber(3);
+        msgReq1.setTryNumber(3);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
         msgReq1.setRecipientNumber("000000000000");
@@ -287,7 +287,7 @@ public class OMIServiceImplTest {
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
         msgReq1.setId(49L);
-        msgReq1.setMaxTryNumber(3);
+        msgReq1.setTryNumber(3);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
         msgReq1.setRecipientNumber("000000000000");
@@ -353,7 +353,7 @@ public class OMIServiceImplTest {
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
         msgReq1.setId(39L);
-        msgReq1.setMaxTryNumber(3);
+        msgReq1.setTryNumber(3);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
         msgReq1.setRecipientNumber("000000000000");
