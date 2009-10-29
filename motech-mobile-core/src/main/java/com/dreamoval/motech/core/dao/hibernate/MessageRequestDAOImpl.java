@@ -6,6 +6,7 @@ import com.dreamoval.motech.core.model.MessageRequestImpl;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
@@ -42,6 +43,9 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
             logger.debug(msgRequest);
             return msgRequest;
 
+        } catch (HibernateException he) {
+            logger.debug("Persistence or JDBC Exception in Method getMsgRequestByStatusAndSchedule", he);
+            return null;
         } catch (Exception ex) {
             logger.debug("Exception in Method getMsgRequestByStatusAndSchedule", ex);
             return null;
@@ -66,6 +70,9 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
 
             logger.debug(msgRequest);
             return msgRequest;
+        } catch (HibernateException he) {
+            logger.debug("Persistence or JDBC Exception in Method getMsgRequestByStatusAndTryNumber", he);
+            return null;
         } catch (Exception ex) {
             logger.debug("Exception in Method getMsgRequestByStatusAndTryNumber", ex);
             return null;

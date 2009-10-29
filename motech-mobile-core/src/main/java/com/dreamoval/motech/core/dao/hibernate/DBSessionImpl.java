@@ -6,7 +6,7 @@ import org.hibernate.Session;
 
 /**
  * DBSessionImpl is an implementation of DBSession that defines methods that provides a session, a transaction, and method to release the session
- * see com.dreamoval.motech.core.dao.DBSession
+ * @see {@link  com.dreamoval.motech.core.dao.DBSession}
  *
  * @author Henry Sampson
  * Date Created @date
@@ -20,7 +20,7 @@ public class DBSessionImpl<S extends Session, T extends Transaction> implements 
     }
 
     /**
-     * see com.dreamoval.motech.core.dao.DBSession#releaseSession()
+     * @see {@link  com.dreamoval.motech.core.dao.DBSession#releaseSession()}
      */
     public void releaseSession() {
         if (session != null) {
@@ -29,7 +29,7 @@ public class DBSessionImpl<S extends Session, T extends Transaction> implements 
     }
 
     /**
-     * see com.dreamoval.motech.core.dao.DBSession#getTransaction()
+     * @see {@link  com.dreamoval.motech.core.dao.DBSession#getTransaction()}
      */
     public T getTransaction() {
         if (session != null) {
@@ -39,14 +39,14 @@ public class DBSessionImpl<S extends Session, T extends Transaction> implements 
     }
 
     /**
-     * see com.dreamoval.motech.core.dao.DBSession#getSession()
+     * @see {@link  com.dreamoval.motech.core.dao.DBSession#getSession()}
      */
     public S getSession() {
         return (S) session;
     }
 
     /**
-     * see com.dreamoval.motech.core.dao.DBSession#setSession()
+     * @see {@link  com.dreamoval.motech.core.dao.DBSession#setSession()}
      */
     public void setSession(Object session) {
         this.session = (Session) session;

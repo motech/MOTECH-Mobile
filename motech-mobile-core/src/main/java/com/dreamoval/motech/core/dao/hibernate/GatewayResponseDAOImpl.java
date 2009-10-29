@@ -6,6 +6,7 @@ import com.dreamoval.motech.core.model.GatewayResponseImpl;
 import com.dreamoval.motech.core.model.MStatus;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
@@ -39,6 +40,7 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
         logger.debug(requestId);
 
         try {
+            
             Session session = this.getDBSession().getSession();
             Criterion notpending = Restrictions.ne("messageStatus", MStatus.PENDING);
             Criterion notprocessing = Restrictions.ne("messageStatus", MStatus.PROCESSING);
@@ -52,8 +54,13 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
             logger.debug(responses);
 
             return responses != null && responses.size() > 0 ? (GatewayResponse) responses.get(0) : null;
+        } catch (HibernateException he) {
+
+            logger.debug("Persistence or JDBC Exception in getMostRecentResponseByRequestId", he);
+            return null;
         } catch (Exception ex) {
-            logger.debug("Error occured in getMostRecentResponseByRequestId", ex);
+            
+            logger.debug("Exception in getMostRecentResponseByRequestId", ex);
             return new GatewayResponseImpl();
         }
     }

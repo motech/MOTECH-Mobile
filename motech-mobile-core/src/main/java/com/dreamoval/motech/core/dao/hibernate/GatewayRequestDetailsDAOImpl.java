@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class GatewayRequestDetailsDAOImpl<T extends GatewayRequestDetailsImpl> extends HibernateGenericDAOImpl<GatewayRequestDetailsImpl> implements GatewayRequestDetailsDAO<GatewayRequestDetailsImpl> {
 
-    private static Logger logger = Logger.getLogger(GatewayRequestDetailsImpl.class);
+    private static Logger logger = Logger.getLogger(GatewayRequestDetailsDAOImpl.class);
 
     public GatewayRequestDetailsDAOImpl() {
     }
