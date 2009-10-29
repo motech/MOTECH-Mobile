@@ -10,5 +10,10 @@ import com.dreamoval.motech.core.model.GatewayResponse;
  */
 public interface GatewayResponseDAO<T extends GatewayResponse> extends GenericDAO<T> {
 
+    /**
+     * Method to select the most recent GatewayResponse based on the passed requestId
+     * @param requestId the requestId corresponding to a GatewayResponse objects
+     * @return a single GatewayResponse object
+     */
     public GatewayResponse getMostRecentResponseByRequestId(String requestId);
 }
