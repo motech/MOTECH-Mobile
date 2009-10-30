@@ -5,7 +5,10 @@
 
 package com.dreamoval.motech.itests;
 
+import com.dreamoval.motech.omi.service.OMIService;
+import com.dreamoval.motech.omp.service.MessagingService;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import org.junit.Before;
@@ -37,6 +40,10 @@ public class MessageServiceImplITCase {
 
     @Autowired
     MessageService client;
+    @Autowired
+    OMIService omiService;
+    @Autowired
+    MessagingService smsService;
     
 
     public MessageServiceImplITCase() {
@@ -67,10 +74,14 @@ public class MessageServiceImplITCase {
         NameValuePair[] personalInfo = new NameValuePair[]{attrib, attrib2};
         
         Date serviceDate = new Date();
-        String patientNumber = testProps.getProperty("patientNumber", "000000000000");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, 1);
+        Date endDate = cal.getTime();
+        
+        String patientNumber = "233244733999";//testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
-        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "en", messageType, 2L, serviceDate, serviceDate);
+        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "en", messageType, 2L, serviceDate, endDate);
         assertEquals(result, MessageStatus.QUEUED);
     }
 
@@ -191,5 +202,35 @@ public class MessageServiceImplITCase {
         
         MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 8L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.PENDING);
+    }
+
+    @Test
+    public void testProcessMessageRequests(){
+        System.out.println("processMessageRequests");
+        omiService.processMessageRequests();
+    }
+
+    @Test
+    public void testSendScheduledMessages(){
+        System.out.println("sendScheduledMessages");
+        smsService.sendScheduledMessages();
+    }
+
+    @Test
+    public void testUpdateMessageStatuses(){
+        System.out.println("updateMessageStatuses");
+        smsService.updateMessageStatuses();
+    }
+
+    @Test
+    public void testGetMessageResponses(){
+        System.out.println("getMessagResponses");
+        omiService.getMessageResponses();
+    }
+
+    @Test
+    public void testProcessMessageRetries(){
+        System.out.println("processMessageRetries");
+        omiService.processMessageRetries();
     }
 }

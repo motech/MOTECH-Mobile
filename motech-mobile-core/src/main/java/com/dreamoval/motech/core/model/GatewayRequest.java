@@ -113,28 +113,31 @@ public interface GatewayRequest extends MotechEntity {
     void setResponseDetails(Set<GatewayResponse> responseDetails);
 
     /**
-     *
-     * @param status
+     * @param MStatus the status to set
      */
     void setMessageStatus(MStatus status);
 
     /**
-     *
+     * Helper method to add a GatewayResponse Object to GatewayRequest
+     * @param  GatewayResponse GatewayResponse Object to pass
      */
     void addResponse(GatewayResponse response);
 
     /**
-     *
+     *Helper method to remove the passed GatewayResponse  object from GatewayRequest
+     * @param  GatewayRespone the GatewayResponse to pass
      */
     void removeResponse(GatewayResponse response);
 
-    /**
-     *
+     /**
+     * Helper method to add a list of  GatewayResponse Objects to GatewayRequest
+     * @param  List the GatewayRespone List to pass
      */
     void addResponse(List<GatewayResponse> responses);
 
-    /**
-     *
+     /**
+     *Helper method to remove the passed List of GatewayResponse objects from GatewayRequest
+     * @param  List the List of GatewayResponse to pass
      */
     void removeResponse(List<GatewayResponse> responses);
 }

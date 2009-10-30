@@ -269,7 +269,7 @@ public class OMIServiceImpl implements OMIService {
 
             logger.info("Updating MessageRequest");
             message.setDateProcessed(new Date());
-            message.setStatus(MStatus.SCHEDULED);
+            message.setStatus(MStatus.PENDING);
             logger.debug(message);
 
             if (mc.getDBSession() != null) {

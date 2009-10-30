@@ -1,4 +1,3 @@
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
@@ -10,8 +9,8 @@ import java.util.Set;
  *
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class GatewayRequestImpl extends MotechEntityImpl implements GatewayRequest{
-    
+public class GatewayRequestImpl extends MotechEntityImpl implements GatewayRequest {
+
     private GatewayRequestDetails gatewayRequestDetails;
     private Date dateTo;
     private String message;
@@ -22,25 +21,23 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     private int tryNumber;
     private String requestId;
     private MStatus messageStatus;
-    
-    public GatewayRequestImpl(){}
 
-    public GatewayRequestImpl( Date dateTo, String messageText, String recipientsNumber, Date dateFrom, Date dateSent) {
-        
+    public GatewayRequestImpl() {
+    }
+
+    public GatewayRequestImpl(Date dateTo, String messageText, String recipientsNumber, Date dateFrom, Date dateSent) {
+
         this.dateTo = dateTo;
         this.message = messageText;
         this.dateFrom = dateFrom;
         this.dateSent = dateSent;
         this.recipientsNumber = recipientsNumber;
 
-    }    
+    }
 
     /**
      * @return the messageType
      */
-    
-   
-
     /**
      * @return the numberOfPages
      */
@@ -125,34 +122,46 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
         this.recipientsNumber = recipientsNumbers;
     }
 
+    /**
+     * @see {@link com.dreamoval.motech.core.model.GatewayRequest#addResponse(com.dreamoval.motech.core.model.GatewayResponse)  }
+     */
     public void addResponse(GatewayResponse response) {
         response.setGatewayRequest(this);
         this.responseDetails.add(response);
     }
 
+    /**
+     * @see {@link  com.dreamoval.motech.core.model.GatewayRequest#removeResponse(com.dreamoval.motech.core.model.GatewayResponse)  }
+     */
     public void removeResponse(GatewayResponse response) {
-        if(this.responseDetails.contains(response)) {
+        if (this.responseDetails.contains(response)) {
             this.responseDetails.remove(response);
         }
 
     }
 
+    /**
+     * @see {@link com.dreamoval.motech.core.model.GatewayRequest#addResponse(java.util.List)  }
+     */
     public void addResponse(List<GatewayResponse> responses) {
 
-        for(GatewayResponse r : responses) {
+        for (GatewayResponse r : responses) {
             r.setGatewayRequest(this);
             this.responseDetails.add(r);
         }
 
     }
 
-      public void removeResponse(List<GatewayResponse> responses) {
-          for(GatewayResponse r : responses) {
-              if(this.responseDetails.contains(r))
-                  this.responseDetails.remove(r);
-          }
+    /**
+     * @see {@link com.dreamoval.motech.core.model.GatewayRequest#removeResponse(java.util.List)  }
+     */
+    public void removeResponse(List<GatewayResponse> responses) {
+        for (GatewayResponse r : responses) {
+            if (this.responseDetails.contains(r)) {
+                this.responseDetails.remove(r);
+            }
+        }
     }
-
 
     /**
      * @return the gatewayRequestDetails
@@ -182,21 +191,31 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
         this.requestId = requestId;
     }
 
+    /**
+     * @return the tryNumber
+     */
     public int getTryNumber() {
         return tryNumber;
     }
 
+    /**
+     * @param tryNumber the tryNumber to set
+     */
     public void setTryNumber(int tryNumber) {
         this.tryNumber = tryNumber;
     }
 
+    /**
+     * @return the messageStatus
+     */
     public MStatus getMessageStatus() {
         return messageStatus;
     }
 
+    /**
+     * @param messageStatus the messageStatus to set
+     */
     public void setMessageStatus(MStatus messageStatus) {
         this.messageStatus = messageStatus;
     }
-
-    
 }
