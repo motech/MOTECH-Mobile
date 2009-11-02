@@ -64,7 +64,7 @@ public class ORServeGatewayMessageHandlerImplTest {
     public void testParseMessageStatus() {
         System.out.println("parseMessageStatus");
         String messageStatus = " ";
-        MStatus expResult = MStatus.RETRY;
+        MStatus expResult = MStatus.PENDING;
         MStatus result = messageHandler.parseMessageStatus(messageStatus);
         assertEquals(expResult, result);
     }
@@ -76,7 +76,7 @@ public class ORServeGatewayMessageHandlerImplTest {
     public void testLookupStatus() {
         System.out.println("parseMessageStatus");
         String messageStatus = " ";
-        MStatus expResult = MStatus.RETRY;
+        MStatus expResult = MStatus.PENDING;
         MStatus result = messageHandler.lookupStatus(messageStatus);
         assertEquals(expResult, result);
         
@@ -113,7 +113,7 @@ public class ORServeGatewayMessageHandlerImplTest {
     public void testLookupResponse() {
         System.out.println("parseMessageStatus");
         String messageStatus = " ";
-        MStatus expResult = MStatus.RETRY;
+        MStatus expResult = MStatus.SCHEDULED;
         MStatus result = messageHandler.lookupResponse(messageStatus);
         assertEquals(expResult, result);
         

@@ -6,6 +6,7 @@ import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.core.util.MotechException;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import java.util.List;
 import java.util.Set;
@@ -53,10 +54,6 @@ public class SMSMessagingServiceImpl implements MessagingService {
         List<GatewayRequest> scheduledMessages = cache.getMessagesByStatus(MStatus.SCHEDULED, mc);
 
         if (scheduledMessages != null) {
-            //Debug        
-            logger.info("Scheduled messages found: " + scheduledMessages.size());
-            //End debug
-
             logger.info("Sending messages");
             for (GatewayRequest message : scheduledMessages) {
                 sendMessage(message, mc);
@@ -73,14 +70,19 @@ public class SMSMessagingServiceImpl implements MessagingService {
      */
     public Long sendMessage(GatewayRequest messageDetails, MotechContext context) {
         logger.info("Sending message to gateway");
-        Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(messageDetails, context);
-
-        logger.debug(responseList);
-        logger.info("Updating message status");
-        messageDetails.setResponseDetails(responseList);
-        messageDetails.setMessageStatus(MStatus.SENT);
+        
+        try{
+            Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(messageDetails, context);     
+            logger.debug(responseList);
+            logger.info("Updating message status");
+            messageDetails.setResponseDetails(responseList);
+            messageDetails.setMessageStatus(MStatus.SENT);
+        }
+        catch(MotechException me){          
+            logger.error("Error sending message", me);
+            messageDetails.setMessageStatus(MStatus.SCHEDULED);
+        }
         this.cache.saveMessage(messageDetails, context);
-
         return messageDetails.getId();
     }
 
@@ -91,12 +93,18 @@ public class SMSMessagingServiceImpl implements MessagingService {
     public Long sendMessage(GatewayRequestDetails messageDetails, MotechContext context) {
         logger.info("Sending message to gateway");
         GatewayRequest message = (GatewayRequest) messageDetails.getGatewayRequests().toArray()[0];
-        Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message, context);
-
-        logger.debug(responseList);
-        logger.info("Updating message status");
-        message.setResponseDetails(responseList);
-        message.setMessageStatus(MStatus.SENT);
+        
+        try{        
+            Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message, context);
+            logger.debug(responseList);
+            logger.info("Updating message status");
+            message.setResponseDetails(responseList);
+            message.setMessageStatus(MStatus.SENT);
+        }
+        catch(MotechException me){
+            logger.error("Error sending message", me);
+            message.setMessageStatus(MStatus.SCHEDULED);
+        }
         this.cache.saveMessage(messageDetails, context);
 
         return message.getId();

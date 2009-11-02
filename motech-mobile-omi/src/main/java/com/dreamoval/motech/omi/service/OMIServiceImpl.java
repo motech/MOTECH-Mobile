@@ -336,10 +336,6 @@ public class OMIServiceImpl implements OMIService {
         List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndTryNumber(MStatus.PENDING, maxTries);
 
         if (messages != null) {
-            //Debug
-            logger.info("Pending messages found: " + messages.size());
-            //End debug
-
             logger.info("MessageRequest objects fetched successfully");
             logger.debug(messages);
 

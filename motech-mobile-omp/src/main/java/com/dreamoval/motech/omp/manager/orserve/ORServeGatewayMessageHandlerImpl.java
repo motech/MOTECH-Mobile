@@ -114,7 +114,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      */
     public MStatus lookupStatus(String code){
         if(code.isEmpty()){
-            return MStatus.RETRY;
+            return MStatus.PENDING;
         }
         
         for(Entry<MStatus, String> entry: codeStatusMap.entrySet()){
@@ -122,7 +122,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
                 return entry.getKey();
             }
         }
-        return MStatus.RETRY;
+        return MStatus.PENDING;
     }
     
     /**
@@ -130,7 +130,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      */
     public MStatus lookupResponse(String code){
         if(code.isEmpty()){
-            return MStatus.RETRY;
+            return MStatus.SCHEDULED;
         }
         
         for(Entry<MStatus, String> entry: codeResponseMap.entrySet()){
@@ -138,7 +138,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
                 return entry.getKey();
             }
         }
-        return MStatus.RETRY;
+        return MStatus.SCHEDULED;
     }
 
     /**

@@ -4,6 +4,7 @@ import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.core.util.MotechException;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import com.outreachcity.orserve.messaging.SMSMessenger;
@@ -42,7 +43,8 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         try {
           wsdlURL = new URL("http://www.outreachcity.com/orserve/messaging/smsmessenger.asmx?WSDL");
         } catch ( MalformedURLException e ) {
-          e.printStackTrace();
+          logger.error("Error creating web service client", e);
+          throw new MotechException(e.getMessage());
         }
         SMSMessenger messenger = new SMSMessenger(wsdlURL, new QName("http://www.outreachcity.com/ORServe/Messaging/", "SMSMessenger"));
         SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
@@ -50,12 +52,11 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         logger.info("Calling sendMessage method of ORServe message gateway");
         logger.debug(messageDetails);
         try{
-            gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), "1");
-            //gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
+            gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
         }
         catch(Exception ex){
             logger.error("Error sending message", ex);
-            gatewayResponse = ex.getMessage();
+            throw new MotechException(ex.getMessage());
         }
         messageDetails.setDateSent(new Date());
         
@@ -77,7 +78,8 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         try {
           wsdlURL = new URL("http://www.outreachcity.com/orserve/messaging/smsmessenger.asmx?WSDL");
         } catch ( MalformedURLException e ) {
-          e.printStackTrace();
+          logger.error("Error creating web service client", e);
+          gatewayResponse = e.getMessage();
         }
         SMSMessenger messenger = new SMSMessenger(wsdlURL, new QName("http://www.outreachcity.com/ORServe/Messaging/", "SMSMessenger"));
         SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
@@ -87,8 +89,8 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
             gatewayResponse = soap.getMessageStatus(response.getGatewayMessageId(), productCode);
         }
         catch(Exception ex){
-            logger.fatal("Error querying message", ex);
-            throw new RuntimeException("Error checking message status");
+            logger.error("Error querying message", ex);
+            gatewayResponse = ex.getMessage();
         }
         return gatewayResponse;
     }
