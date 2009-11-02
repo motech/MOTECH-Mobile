@@ -8,5 +8,8 @@ import com.dreamoval.motech.core.model.GatewayRequest;
  *  Date: Jul 29, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
+import com.dreamoval.motech.core.model.MStatus;
+import java.util.List;
 public interface GatewayRequestDAO<T extends GatewayRequest> extends GenericDAO<T> {
+    public List<GatewayRequest> getByStatus(MStatus status);
 }

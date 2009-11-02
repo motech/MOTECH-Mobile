@@ -41,8 +41,8 @@
         <property name="codeStatusMap">
             <map>
                 <entry key="DELIVERED" value="004,DELIVRD" />
-                <entry key="FAILED" value="001,005,007,105,106,107,113,114,201,202,ERROR,REJECTED" />
-                <entry key="RETRY" value="009,012,103,104,301,302,UNDELIV" />
+                <entry key="FAILED" value="001,005,007,105,106,107,113,114,201,202,ERROR,failed,REJECTED" />
+                <entry key="RETRY" value="009,012,103,104,301,302,failed,UNDELIV" />
                 <entry key="PENDING" value="002,003,008,011,PROCESSED," />
                 <entry key="CANCELLED" value="006" />
                 <entry key="EXPIRED" value="010,115,116,120" />
@@ -50,7 +50,7 @@
         </property>
         <property name="codeResponseMap">
             <map>
-                <entry key="FAILED" value="005,102,105,106,107,110,111,202,305,112,113,114,552,201,param:" />
+                <entry key="FAILED" value="005,102,105,106,107,110,111,202,305,112,113,114,552,201,failed,param:" />
                 <entry key="RETRY" value="001,002,003,004,007,101,101p,101t,101u,103,104,108,109,301,302,304,400,401,500,501,502" />
                 <entry key="EXPIRED" value="115,116,120" />
             </map>
@@ -75,6 +75,7 @@
     </bean>
 
     <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />
+    
     <!--Scheduling-->
         <!--Job-->
         <bean id="sendMessageUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -86,7 +87,7 @@
             <property name="targetObject" ref="smsService"/>
             <property name="targetMethod" value="updateMessageStatuses"/>
         </bean>
-<!--End of Job-->
+        <!--End of Job-->
 
         <!--Triggers-->
         <bean id="sendMessageUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
@@ -98,7 +99,7 @@
             <property name="jobDetail" ref="gatewayStatusUpdater"/>
             <property name="cronExpression" value="0 * * * * ?"/>
         </bean>
-<!--End Of Triggers-->
+        <!--End Of Triggers-->
 
         <!--Scheduler Factory-->
         <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">

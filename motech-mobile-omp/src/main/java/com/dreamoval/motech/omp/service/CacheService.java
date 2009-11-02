@@ -4,8 +4,8 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.service.MotechContext;
-import com.dreamoval.motech.omp.manager.OMPManager;
 import java.util.List;
 
 /**
@@ -44,7 +44,15 @@ public interface CacheService {
      * @return list of messages matching specified criteria
      */
     public List<GatewayRequest> getMessages(GatewayRequest criteria, MotechContext context);
-    
+      
+    /**
+     * fetches messages with specified status
+     * 
+     * @param criteria by which messages should be fetched
+     * @return list of messages matching specified criteria
+     */
+    public List<GatewayRequest> getMessagesByStatus(MStatus criteria, MotechContext context);
+            
     /**
      * 
      * fetches all GatewayResponse objects matching the specified criteria

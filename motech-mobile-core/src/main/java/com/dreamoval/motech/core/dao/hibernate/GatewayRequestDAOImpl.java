@@ -37,7 +37,7 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
 
             List<GatewayRequest> allbyStatus;
             allbyStatus = (List<GatewayRequest>) getDBSession().getSession().createCriteria(getPersistentClass())
-                    .add(Restrictions.eq("globalStatus", status))
+                    .add(Restrictions.eq("messageStatus", status))
                     .list();
 
             logger.debug(allbyStatus);

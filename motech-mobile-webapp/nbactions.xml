@@ -23,21 +23,39 @@
         </action>
         <action>
             <actionName>build</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
             <goals>
                 <goal>install</goal>
             </goals>
             <properties>
-                <enableIT>true</enableIT>
+                <enableIT>True</enableIT>
             </properties>
         </action>
         <action>
             <actionName>rebuild</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
             <goals>
                 <goal>clean</goal>
                 <goal>install</goal>
             </goals>
             <properties>
-                <enableIT>true</enableIT>
+                <enableIT>True</enableIT>
+            </properties>
+        </action>
+        <action>
+            <actionName>test</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <properties>
+                <enableIT>True</enableIT>
             </properties>
         </action>
     </actions>

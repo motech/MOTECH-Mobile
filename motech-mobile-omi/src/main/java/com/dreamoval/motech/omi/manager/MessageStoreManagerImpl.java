@@ -38,13 +38,11 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         gwReq.setDateTo(messageData.getDateTo());
         gwReq.setRecipientsNumber(messageData.getRecipientNumber());
         gwReq.setRequestId(messageData.getRequestId());
-        gwReq.setTryNumber(0);
+        gwReq.setTryNumber(messageData.getTryNumber());
         
-        GatewayRequestDetails gwReqDet = coreManager.createGatewayRequestDetails(context);
-        gwReqDet.setId(messageData.getId());
-        gwReqDet.setMessage(gwReq.getMessage());
-        gwReqDet.setMessageType(messageData.getMessageType());
-        gwReqDet.setNumberOfPages(3);     
+        GatewayRequestDetails gatewayDetails = coreManager.createGatewayRequestDetails(context);
+        gatewayDetails.setId(messageData.getId());
+        gatewayDetails.setMessageType(messageData.getMessageType());
                 
         try{
             logger.info("Fetching message template");
@@ -53,18 +51,19 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
             logger.info("Parsing message template");
             String message = parseTemplate(template, messageData.getPersInfos());
 
-//            if(message.length() <= 160){
-//                gwReqDet.setNumberOfPages(1);
-//            }
-//            else if(message.length() > 160 && message.length() < 305){
-//                gwReqDet.setNumberOfPages(2);
-//            }
-//            else{
-//                gwReqDet.setNumberOfPages(3);
-//            }
+            if(message.length() <= 160){
+                gatewayDetails.setNumberOfPages(1);
+            }
+            else if(message.length() > 160 && message.length() < 305){
+                gatewayDetails.setNumberOfPages(2);
+            }
+            else{
+                gatewayDetails.setNumberOfPages(3);
+            }
             
             gwReq.setMessage(message);
             gwReq.setMessageStatus(MStatus.SCHEDULED);
+            gatewayDetails.setMessage(message);
         }
         catch(MotechException ex){
             gwReq.setMessageStatus(MStatus.FAILED);
@@ -78,10 +77,10 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
             gwReq.getResponseDetails().add(gwResp);
         }       
         
-        gwReqDet.getGatewayRequests().add(gwReq);
+        gatewayDetails.getGatewayRequests().add(gwReq);
         logger.info("GatewayRequest object successfully constructed");
             
-        return gwReqDet;
+        return gatewayDetails;
     }
 
     /**

@@ -107,26 +107,6 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
         }
         
         return lookupStatus(status);
-
-//        if (!status.isEmpty())
-//        {
-//            if (status.equals("004"))
-//            {
-//                return MStatus.DELIVERED;
-//            }
-//            else if (status.equals("002") || status.equals("003") || status.equals("008") || status.equals("011"))
-//            {
-//                return MStatus.PENDING;
-//            }
-//            else
-//            {
-//                return MStatus.FAILED;
-//            }
-//        }
-//        else
-//        {
-//            return MStatus.FAILED;
-//        }
     }
     
     /**

@@ -7,6 +7,7 @@ import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
+import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.service.MotechContext;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -81,6 +82,15 @@ public class SMSCacheServiceImpl implements CacheService {
     public List<GatewayRequest> getMessages(GatewayRequest criteria, MotechContext context) {
         GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO(context);
         return messageDao.findByExample(criteria);
+    }
+    
+    /**
+     * 
+     * see CacheService.getMessagesByStatus
+     */
+    public List<GatewayRequest> getMessagesByStatus(MStatus criteria, MotechContext context) {
+        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO(context);
+        return messageDao.getByStatus(criteria);
     }
     
     /**

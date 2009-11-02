@@ -78,7 +78,7 @@ public class MessageServiceImplITCase {
         cal.add(Calendar.HOUR, 1);
         Date endDate = cal.getTime();
         
-        String patientNumber = "233244733999";//testProps.getProperty("patientNumber", "000000000000");
+        String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
         MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "en", messageType, 2L, serviceDate, endDate);
@@ -224,7 +224,7 @@ public class MessageServiceImplITCase {
 
     @Test
     public void testGetMessageResponses(){
-        System.out.println("getMessagResponses");
+        System.out.println("getMessageResponses");
         omiService.getMessageResponses();
     }
 

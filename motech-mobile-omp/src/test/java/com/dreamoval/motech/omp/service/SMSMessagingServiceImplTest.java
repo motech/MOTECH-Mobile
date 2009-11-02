@@ -101,13 +101,10 @@ public class SMSMessagingServiceImplTest {
 
         expect(
                 mockCore.createMotechContext()
-                ).andReturn(mCtx);
+                ).andReturn(mCtx); 
         expect(
-                mockCore.createGatewayRequest((MotechContext) anyObject())
-                ).andReturn(new GatewayRequestImpl());
-        expect(
-                mockCache.getMessages((GatewayRequest) anyObject(), (MotechContext) anyObject())
-                ).andReturn(messages);        
+                mockCache.getMessagesByStatus((MStatus) anyObject(), (MotechContext) anyObject())
+                ).andReturn(messages);
         expect(
                 mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(null);
