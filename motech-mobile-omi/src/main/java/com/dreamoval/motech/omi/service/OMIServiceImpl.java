@@ -274,12 +274,9 @@ public class OMIServiceImpl implements OMIService {
         MotechContext mc = coreManager.createMotechContext();
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-        MessageRequest sample = coreManager.createMessageRequest(mc);
-        sample.setStatus(MStatus.RETRY);
-        logger.debug(sample);
-
-        logger.info("Fetching stored MessageRequest objects");
-        List<MessageRequest> messages = msgReqDao.findByExample(sample);
+        
+        logger.info("Fetching stored messages marked for retry");
+        List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndTryNumber(MStatus.RETRY, maxTries);
 
         logger.info("MessageRequest objects fetched successfully");
         logger.debug(messages);

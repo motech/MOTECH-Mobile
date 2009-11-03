@@ -375,10 +375,7 @@ public class OMIServiceImplTest {
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockRequestDao);
         expect(
-                mockCore.createMessageRequest((MotechContext) anyObject())
-                ).andReturn(msgReq1);
-        expect(
-                mockRequestDao.findByExample((MessageRequest)anyObject())
+                mockRequestDao.getMsgRequestByStatusAndTryNumber((MStatus) anyObject(), anyInt())
                 ).andReturn(messageList);
         expect(
                 mockCore.createGatewayRequestDetailsDAO((MotechContext) anyObject())
