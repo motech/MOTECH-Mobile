@@ -46,12 +46,12 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
           logger.error("Error creating web service client", e);
           throw new MotechException(e.getMessage());
         }
-        SMSMessenger messenger = new SMSMessenger(wsdlURL, new QName("http://www.outreachcity.com/ORServe/Messaging/", "SMSMessenger"));
-        SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
         
         logger.info("Calling sendMessage method of ORServe message gateway");
         logger.debug(messageDetails);
         try{
+            SMSMessenger messenger = new SMSMessenger(wsdlURL, new QName("http://www.outreachcity.com/ORServe/Messaging/", "SMSMessenger"));
+            SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
             gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
         }
         catch(Exception ex){
