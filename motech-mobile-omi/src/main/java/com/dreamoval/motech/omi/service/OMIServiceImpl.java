@@ -316,7 +316,7 @@ public class OMIServiceImpl implements OMIService {
                     ((Session) mc.getDBSession().getSession()).evict(gwReqDet);
                 }
                 
-                message.setStatus(MStatus.SCHEDULED);
+                message.setStatus(MStatus.PENDING);
             }
 
             Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
