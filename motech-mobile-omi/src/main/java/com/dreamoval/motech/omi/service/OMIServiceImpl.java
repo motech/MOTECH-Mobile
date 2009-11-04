@@ -291,6 +291,10 @@ public class OMIServiceImpl implements OMIService {
             if (message.getTryNumber() >= maxTries) {
                 message.setStatus(MStatus.FAILED);
             } else {
+                if (mc.getDBSession() != null) {
+                    ((Session) mc.getDBSession().getSession()).evict(message);
+                }
+                
                 message.setTryNumber(message.getTryNumber() + 1);
 
                 logger.info("Constructing GatewayRequest object");
@@ -308,6 +312,10 @@ public class OMIServiceImpl implements OMIService {
                 gwReqDet.getGatewayRequests().add(gwReq);
                 msgSvc.scheduleMessage(gwReqDet, mc);
 
+                if (mc.getDBSession() != null) {
+                    ((Session) mc.getDBSession().getSession()).evict(gwReqDet);
+                }
+                
                 message.setStatus(MStatus.SCHEDULED);
             }
 
