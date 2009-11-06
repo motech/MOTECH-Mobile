@@ -30,7 +30,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * 
      * @see MessageStoreManager.constructMessage
      */
-    public GatewayRequestDetails constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang) {      
+    public GatewayRequest constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang) {      
         
         logger.info("Constructing GatewayRequest object");       
         GatewayRequest gwReq = coreManager.createGatewayRequest(context);        
@@ -63,6 +63,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
             
             gwReq.setMessage(message);
             gwReq.setMessageStatus(MStatus.SCHEDULED);
+            gwReq.setGatewayRequestDetails(gatewayDetails);
             gatewayDetails.setMessage(message);
         }
         catch(MotechException ex){
@@ -80,7 +81,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         gatewayDetails.getGatewayRequests().add(gwReq);
         logger.info("GatewayRequest object successfully constructed");
             
-        return gatewayDetails;
+        return gwReq;
     }
 
     /**

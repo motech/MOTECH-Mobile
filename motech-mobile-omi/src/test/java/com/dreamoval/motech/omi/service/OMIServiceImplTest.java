@@ -8,6 +8,7 @@ import com.dreamoval.motech.core.dao.LanguageDAO;
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.dao.NotificationTypeDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
@@ -231,8 +232,8 @@ public class OMIServiceImplTest {
         msgReq1.setRecipientNumber("000000000000");
         msgReq1.setStatus(MStatus.QUEUED);
         
-        GatewayRequestDetailsImpl gwReqDet = new GatewayRequestDetailsImpl();
-        gwReqDet.getGatewayRequests().add(new GatewayRequestImpl());
+        GatewayRequestImpl gwReq = new GatewayRequestImpl();
+        gwReq.setGatewayRequestDetails(new GatewayRequestDetailsImpl());
         
         MotechContext context = new MotechContextImpl();
         
@@ -244,12 +245,12 @@ public class OMIServiceImplTest {
                 ).andReturn(new LanguageImpl());
         expect(
                 mockStore.constructMessage((MessageRequest) anyObject(), (MotechContext) anyObject(), (Language) anyObject())
-                ).andReturn(gwReqDet);
+                ).andReturn(gwReq);
         expect(
                 mockOMP.createMessagingService()
                 ).andReturn(mockMessagingService);
         expect(
-                mockMessagingService.sendMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject())
+                mockMessagingService.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(1L);
         expect(
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
@@ -315,9 +316,9 @@ public class OMIServiceImplTest {
                 ).andReturn(new LanguageImpl());
         expect(
                 mockStore.constructMessage((MessageRequest) anyObject(), (MotechContext) anyObject(), (Language) anyObject())
-                ).andReturn(new GatewayRequestDetailsImpl());
+                ).andReturn(new GatewayRequestImpl());
 
-        mockMessagingService.scheduleMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject());
+        mockMessagingService.scheduleMessage((GatewayRequest) anyObject(), (MotechContext) anyObject());
         expectLastCall();
 
         expect(

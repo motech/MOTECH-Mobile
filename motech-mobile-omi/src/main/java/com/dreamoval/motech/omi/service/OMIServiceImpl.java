@@ -178,7 +178,7 @@ public class OMIServiceImpl implements OMIService {
         }
 
         logger.info("Constructing GatewayRequest");
-        GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, context, defaultLanguage);
+        GatewayRequest gwReq = storeManager.constructMessage(message, context, defaultLanguage);
 
         logger.info("Initializing OMP MessagingService");
         MessagingService msgSvc = ompManager.createMessagingService();
@@ -186,10 +186,10 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Sending GatewayRequest");
 
         if (context.getDBSession() != null) {
-            ((Session) context.getDBSession().getSession()).evict(gwReqDet);
+            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
         }
 
-        msgSvc.sendMessage(gwReqDet, context);
+        msgSvc.sendMessage(gwReq, context);
 
         logger.info("Updating MessageRequest");
         message.setDateProcessed(new Date());
@@ -197,7 +197,7 @@ public class OMIServiceImpl implements OMIService {
         logger.debug(message);
 
         if (context.getDBSession() != null) {
-            ((Session) context.getDBSession().getSession()).evict(gwReqDet);
+            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
         }
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(context);
@@ -233,7 +233,7 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("Preparing messages:");
         for (MessageRequest message : messages) {
-            GatewayRequestDetails gwReqDet = storeManager.constructMessage(message, mc, defaultLanguage);
+            GatewayRequest gwReq = storeManager.constructMessage(message, mc, defaultLanguage);
 
             if (message.getLanguage() == null) {
                 message.setLanguage(defaultLanguage);
@@ -242,9 +242,9 @@ public class OMIServiceImpl implements OMIService {
             logger.info("Scheduling GatewayRequest");
             if (mc.getDBSession() != null) {
                 ((Session) mc.getDBSession().getSession()).evict(message);
-                ((Session) mc.getDBSession().getSession()).evict(gwReqDet);
+                ((Session) mc.getDBSession().getSession()).evict(gwReq);
             }
-            msgSvc.scheduleMessage(gwReqDet, mc);
+            msgSvc.scheduleMessage(gwReq, mc);
 
             logger.info("Updating MessageRequest");
             message.setDateProcessed(new Date());
@@ -252,7 +252,8 @@ public class OMIServiceImpl implements OMIService {
             logger.debug(message);
 
             if (mc.getDBSession() != null) {
-                ((Session) mc.getDBSession().getSession()).evict(gwReqDet);
+                ((Session) mc.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
+                ((Session) mc.getDBSession().getSession()).evict(gwReq);
                 ((Session) mc.getDBSession().getSession()).evict(message);
             }
 

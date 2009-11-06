@@ -6,7 +6,7 @@ import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageRequestImpl;
 import com.dreamoval.motech.core.dao.MessageTemplateDAO;
-import com.dreamoval.motech.core.model.GatewayRequestDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.LanguageImpl;
@@ -85,7 +85,7 @@ public class MessageStoreManagerImplTest {
         
         replay(mockCore, mockTemplateDao);
 
-        GatewayRequestDetails result = instance.constructMessage(message, mCtx, defaultLang);
+        GatewayRequest result = instance.constructMessage(message, mCtx, defaultLang);
         assertNotNull(result);
         verify(mockCore, mockTemplateDao);
     }

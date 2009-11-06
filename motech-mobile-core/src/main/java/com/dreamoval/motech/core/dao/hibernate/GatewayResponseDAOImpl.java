@@ -41,12 +41,12 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
 
         try {
             
-            Session session = this.getDBSession().getSession();
+            Session sess = this.getDBSession().getSession();
             Criterion notpending = Restrictions.ne("messageStatus", MStatus.PENDING);
             Criterion notprocessing = Restrictions.ne("messageStatus", MStatus.PROCESSING);
             LogicalExpression andExp = Restrictions.and(notpending, notprocessing);
 
-            List responses = session.createCriteria(this.getPersistentClass())
+            List responses = sess.createCriteria(this.getPersistentClass())
                     .add(andExp)
                     .add(Restrictions.eq("requestId", requestId))
                     .addOrder(Order.desc("dateCreated")).list();

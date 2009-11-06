@@ -1,7 +1,7 @@
 package com.dreamoval.motech.omi.manager;
 
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.GatewayRequestDetails;
+import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.Language;
 import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.service.MotechContext;
@@ -24,7 +24,7 @@ public interface MessageStoreManager {
      * @param messageData the MessageRequest object containing details of the message to construct
      * @return the constructed GatewayRequest object
      */
-    public GatewayRequestDetails constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang);
+    public GatewayRequest constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang);
 
     /**
      * Constructs a personalized message from the provided template and parameters

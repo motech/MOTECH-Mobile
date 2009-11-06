@@ -31,7 +31,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
      * @see MessageService.scheduleMessage
      */
     public void scheduleMessage(GatewayRequest message, MotechContext context) {
-        cache.saveMessage(message, context);
+        cache.saveMessage(message.getGatewayRequestDetails(), context);
     }
 
     /**
@@ -82,7 +82,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
             logger.error("Error sending message", me);
             messageDetails.setMessageStatus(MStatus.SCHEDULED);
         }
-        this.cache.saveMessage(messageDetails, context);
+        this.cache.saveMessage(messageDetails.getGatewayRequestDetails(), context);
         return messageDetails.getId();
     }
 
@@ -121,10 +121,6 @@ public class SMSMessagingServiceImpl implements MessagingService {
         gwResp.setMessageStatus(MStatus.PENDING);
 
         List<GatewayResponse> pendingMessages = cache.getResponses(gwResp, mc);
-
-        //Debug
-        logger.info("Pending responses found: " + pendingMessages.size());
-        //End debug
 
         for (GatewayResponse response : pendingMessages) {
             response.setResponseText(gatewayManager.getMessageStatus(response));

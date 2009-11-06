@@ -73,7 +73,7 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setRecipientsNumber("000000000000");
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
-        mockCache.saveMessage((GatewayRequest) anyObject(), (MotechContext) anyObject());
+        mockCache.saveMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject());
         expectLastCall();
 
         replay(mockCache);
@@ -109,7 +109,7 @@ public class SMSMessagingServiceImplTest {
                 mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(null);
         
-        mockCache.saveMessage((GatewayRequest) anyObject(), (MotechContext) anyObject());
+        mockCache.saveMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject());
         expectLastCall();
 
         replay(mockCore, mockCache, mockGateway);
@@ -136,7 +136,7 @@ public class SMSMessagingServiceImplTest {
                 mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(null);
         
-        mockCache.saveMessage((GatewayRequest) anyObject(), (MotechContext) anyObject());
+        mockCache.saveMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject());
         expectLastCall();
 
         replay(mockGateway, mockCache);
