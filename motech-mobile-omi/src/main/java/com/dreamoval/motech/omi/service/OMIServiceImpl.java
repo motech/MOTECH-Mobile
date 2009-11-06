@@ -221,9 +221,11 @@ public class OMIServiceImpl implements OMIService {
         MotechContext mc = coreManager.createMotechContext();
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-        List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndSchedule(MStatus.QUEUED, new Date());
+        Date currDate = new Date();
+        logger.info("Processing Message Requests with valid date: " + currDate);
+        List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndSchedule(MStatus.QUEUED, currDate);
 
-        logger.info("MessageRequest objects fetched successfully");
+        logger.info("MessageRequest fetched: " + messages == null ? 0 : messages.size());
         logger.debug(messages);
 
         logger.info("Initializing OMP MessagingService");
