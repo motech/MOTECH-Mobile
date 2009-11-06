@@ -8,7 +8,7 @@
         <property name="dateFrom" type="timestamp" column="date_from" />
         <property name="dateTo" type="timestamp" column="date_to"/>
         <property name="tryNumber" type="integer" column="try_number"/>
-        <property name="message" type="string" column="message"/>
+        <property name="message" type="string" column="message" length="700"/>
         <property name="requestId" type="string" column="request_id"/>
         <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
         <set inverse="true" name="responseDetails" cascade="all">

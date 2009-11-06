@@ -6,7 +6,7 @@
     <property name="requestId" type="string" column="request_id"/>
     <property name="recipientNumber" type="string" column="recipient_number"/>
     <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
-    <property name="responseText" type="string" column="response_text"/>
+    <property name="responseText" type="string" column="response_text" length="700"/>
     <property name="dateCreated" >
         <column name="date_created" sql-type="datetime" />
     </property>
