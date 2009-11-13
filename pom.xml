@@ -438,6 +438,11 @@
                 <artifactId>hsqldb</artifactId>
                 <version>1.8.0.10</version>
             </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     
@@ -496,9 +501,9 @@
         </profile>
     </profiles>
     <scm>
-        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile</url>
-        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/trunk</connection>
-        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/trunk</developerConnection>
+        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/branches/motech-mobile-1.0-M2</url>
+        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/motech-mobile-1.0-M2</connection>
+        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/motech-mobile-1.0-M2</developerConnection>
     </scm>
 
 </project>
