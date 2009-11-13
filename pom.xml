@@ -438,6 +438,11 @@
                 <artifactId>hsqldb</artifactId>
                 <version>1.8.0.10</version>
             </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     
