@@ -179,6 +179,10 @@ public class OMIServiceImpl implements OMIService {
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(context);
 
+        if (context.getDBSession() != null) {
+            ((Session) context.getDBSession().getSession()).evict(message);
+        }
+
         Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
         tx.begin();
         message.setStatus(MStatus.QUEUED);
@@ -195,6 +199,8 @@ public class OMIServiceImpl implements OMIService {
 
         if (context.getDBSession() != null) {
             ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
+            ((Session) context.getDBSession().getSession()).evict(message);
+            ((Session) context.getDBSession().getSession()).evict(gwReq);
         }
 
         msgSvc.sendMessage(gwReq, context);
@@ -207,6 +213,7 @@ public class OMIServiceImpl implements OMIService {
         if (context.getDBSession() != null) {
             ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
             ((Session) context.getDBSession().getSession()).evict(message);
+            ((Session) context.getDBSession().getSession()).evict(gwReq);
         }
 
         tx.begin();

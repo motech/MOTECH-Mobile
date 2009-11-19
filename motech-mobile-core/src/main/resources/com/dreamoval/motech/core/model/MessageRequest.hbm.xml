@@ -16,7 +16,7 @@
     <property access="field" column="status" name="status" type="mStatus"/>
     <property column="max_try_number" name="tryNumber"/>
     <property name="lastModified" generated="always" update="false" insert="false">
-         <column name="last_modified" default="current_timestamp" sql-type="datetime" />
+         <column name="last_modified" default="current_timestamp" sql-type="timestamp" />
     </property>
     <set name="persInfos" table="personalization_info">
       <key column="requestId"/>

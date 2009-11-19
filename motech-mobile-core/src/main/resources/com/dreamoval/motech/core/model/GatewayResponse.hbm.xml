@@ -9,7 +9,7 @@
     <property name="responseText" type="string" column="response_text" length="700"/>
     <property name="dateCreated" column="date_created" type="timestamp" />
     <property name="lastModified" generated="always" update="false" insert="false" >
-            <column name="last_modified" default="current_timestamp" sql-type="datetime" />
+            <column name="last_modified" default="current_timestamp" sql-type="timestamp" />
     </property>
     <many-to-one class="GatewayRequestImpl" name="gatewayRequest" column="message_id" />
     <set name="transitions" cascade="all">

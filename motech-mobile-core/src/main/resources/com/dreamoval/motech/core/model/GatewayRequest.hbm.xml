@@ -12,7 +12,7 @@
         <property name="requestId" type="string" column="request_id"/>
         <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
         <property name="lastModified" generated="always" update="false" insert="false">
-            <column name="last_modified" default="current_timestamp" sql-type="datetime" />
+            <column name="last_modified" default="current_timestamp" sql-type="timestamp" />
         </property>
         <set inverse="true" name="responseDetails" cascade="all">
             <key column="message_id"/>
