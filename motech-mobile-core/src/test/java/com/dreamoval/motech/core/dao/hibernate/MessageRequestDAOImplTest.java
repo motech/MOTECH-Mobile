@@ -231,7 +231,7 @@ public class MessageRequestDAOImplTest {
         System.out.println("test MessageRequest getById");
         MessageRequest fromdb = (MessageRequestImpl) mrDAO.getById(mr3.getId());
         Assert.assertNotNull(fromdb);
-          System.out.print("test MessageRequest last modified field : " +fromdb.getLastModified());
+          System.out.print("test MessageRequest last modified field : " + fromdb.getLastModified().toString());
         Assert.assertEquals(mr3, fromdb);
     }
 

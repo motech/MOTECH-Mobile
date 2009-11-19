@@ -244,15 +244,6 @@ public class OMIServiceImplTest {
                 mockLangDao.getByCode((String) anyObject())
                 ).andReturn(new LanguageImpl());
         expect(
-                mockStore.constructMessage((MessageRequest) anyObject(), (MotechContext) anyObject(), (Language) anyObject())
-                ).andReturn(gwReq);
-        expect(
-                mockOMP.createMessagingService()
-                ).andReturn(mockMessagingService);
-        expect(
-                mockMessagingService.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
-                ).andReturn(1L);
-        expect(
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockRequestDao);
         expect(
@@ -261,6 +252,26 @@ public class OMIServiceImplTest {
         expect(
                 mockSession.getTransaction()
                 ).andReturn(mockTrans);
+
+        mockTrans.begin();
+        expectLastCall();
+
+        expect(
+                mockRequestDao.save((MessageRequest) anyObject())
+                ).andReturn(new MessageRequestImpl());
+
+        mockTrans.commit();
+        expectLastCall();
+        
+        expect(
+                mockStore.constructMessage((MessageRequest) anyObject(), (MotechContext) anyObject(), (Language) anyObject())
+                ).andReturn(gwReq);
+        expect(
+                mockOMP.createMessagingService()
+                ).andReturn(mockMessagingService);
+        expect(
+                mockMessagingService.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
+                ).andReturn(1L);
         
         mockTrans.begin();
         expectLastCall();
@@ -303,7 +314,7 @@ public class OMIServiceImplTest {
                 mockCore.createMessageRequestDAO((MotechContext) anyObject())
                 ).andReturn(mockRequestDao);
         expect(
-                mockRequestDao.getMsgRequestByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject())
+                mockRequestDao.getMsgByStatus((MStatus) anyObject())
                 ).andReturn(messageList);
         expect(
                 mockOMP.createMessagingService()
@@ -443,7 +454,7 @@ public class OMIServiceImplTest {
                 mockCore.createGatewayResponseDAO((MotechContext) anyObject())
                 ).andReturn(mockResponseDao);
         expect(
-                mockResponseDao.getMostRecentResponseByRequestId((String) anyObject())
+                mockResponseDao.getByRequestIdAndTryNumber((String) anyObject(), anyInt())
                 ).andReturn(response);
         expect(
                 mockRequestDao.getDBSession()

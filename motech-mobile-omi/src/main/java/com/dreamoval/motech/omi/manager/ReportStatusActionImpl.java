@@ -13,7 +13,7 @@ import org.motechproject.ws.server.RegistrarService;
  */
 public class ReportStatusActionImpl implements StatusAction{
    private RegistrarService regWs;
-   private static Logger logger = Logger.getLogger(LogStatusActionImpl.class);
+   private static Logger logger = Logger.getLogger(ReportStatusActionImpl.class);
    
    public void doAction(GatewayResponse response){
        

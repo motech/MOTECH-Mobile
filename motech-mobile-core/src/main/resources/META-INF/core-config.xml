@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<!--
   - author Henry Sampson (henry@dreamoval.com)
   - author Joseph Djomeda (joseph@dreamoval.com)
-
+-->
 
 
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -32,7 +32,7 @@
     <context:annotation-config />
     <tx:annotation-driven />
     
-    Spring specific
+    <!-- Spring specific -->
     <bean id="propertyConfigurer"
 class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -43,7 +43,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         </property>
     </bean>
 
-     Model 
+    <!-- Model  -->
 
     <bean id="sessionContainer" class="com.dreamoval.motech.core.dao.hibernate.HibernateUtils">
         <constructor-arg ref="sessionFactory" />
@@ -71,9 +71,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="notificationType" class="com.dreamoval.motech.core.model.NotificationTypeImpl" scope="prototype">
     </bean>
 
-     End of Model
+    <!-- End of Model -->
 
-     Data Access 
+    <!-- Data Access  -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}" />
         <property name="url" value="${jdbc.url}"/>
@@ -136,24 +136,25 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     </bean>
     
 
-     End of Data Access
+    <!-- End of Data Access -->
 
-     Services 
+    <!-- Services  -->
 
     <bean id="motechContext" class="com.dreamoval.motech.core.service.MotechContextImpl" destroy-method="cleanUp" scope="prototype">
         <property name="DBSession" ref="dBSession"/>
     </bean>
 
-     End of Services 
+    <!-- End of Services -->
 
-     Managers 
+    <!-- Managers -->
 
     <bean id="coreManager" class="com.dreamoval.motech.core.manager.CoreManagerImpl">
         <property name="sessionContainer" ref="sessionContainer"/>
     </bean>
-     End of Managers 
+    <!-- End of Managers  -->
 
-    Configuration 
+    <!-- Configuration -->
    
-    End of Configuration 
-</beans>
+    <!-- End of Configuration -->
+
+    </beans>

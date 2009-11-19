@@ -177,6 +177,14 @@ public class OMIServiceImpl implements OMIService {
             message.setLanguage(defaultLanguage);
         }
 
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(context);
+
+        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
+        tx.begin();
+        message.setStatus(MStatus.QUEUED);
+        msgReqDao.save(message);
+        tx.commit();
+
         logger.info("Constructing GatewayRequest");
         GatewayRequest gwReq = storeManager.constructMessage(message, context, defaultLanguage);
 
@@ -198,11 +206,9 @@ public class OMIServiceImpl implements OMIService {
 
         if (context.getDBSession() != null) {
             ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
+            ((Session) context.getDBSession().getSession()).evict(message);
         }
 
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(context);
-
-        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
         tx.begin();
         msgReqDao.save(message);
         tx.commit();
@@ -222,8 +228,8 @@ public class OMIServiceImpl implements OMIService {
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
         Date currDate = new Date();
-        logger.info("Processing Message Requests with valid date: " + currDate);
-        List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndSchedule(MStatus.QUEUED, currDate);
+        logger.info("Processing queued messages");
+        List<MessageRequest> messages = msgReqDao.getMsgByStatus(MStatus.QUEUED);
 
         logger.info("MessageRequest fetched: " + messages == null ? 0 : messages.size());
         logger.debug(messages);
@@ -351,9 +357,12 @@ public class OMIServiceImpl implements OMIService {
             GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO(mc);
 
             for (MessageRequest message : messages) {
-                GatewayResponse response = gwRespDao.getMostRecentResponseByRequestId(message.getRequestId());
+                GatewayResponse response = gwRespDao.getByRequestIdAndTryNumber(message.getRequestId(), message.getTryNumber());
 
                 if (response != null) {
+                    if(response.getMessageStatus() == MStatus.RETRY && message.getTryNumber() >= maxTries)
+                        response.setMessageStatus(MStatus.FAILED);
+
                     statHandler.handleStatus(response);
 
                     message.setStatus(response.getMessageStatus());

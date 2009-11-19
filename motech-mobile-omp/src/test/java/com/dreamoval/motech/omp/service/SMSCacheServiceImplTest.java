@@ -200,4 +200,49 @@ public class SMSCacheServiceImplTest {
         verify(mockCore, mockResponseDAO);
     }
 
+    /**
+     * Test of getMessagesByStatus method, of class SMSCacheServiceImpl.
+     */
+    @Test
+    public void testGetMessagesByStatus() {
+        System.out.println("getMessagesByStatus");
+
+        mockMessageDAO = createMock(GatewayRequestDAO.class);
+
+        expect(
+                mockCore.createGatewayRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockMessageDAO);
+        expect(
+                mockMessageDAO.getByStatus((MStatus) anyObject())
+                ).andReturn(new ArrayList<GatewayRequest>());
+        replay(mockCore, mockMessageDAO);
+
+        List<GatewayRequest> result = instance.getMessagesByStatus(MStatus.CANCELLED, mCtx);
+        assertNotNull(result);
+
+        verify(mockCore, mockMessageDAO);
+    }
+
+    /**
+     * Test of getMessagesByStatusAndSchedule method, of class SMSCacheServiceImpl.
+     */
+    @Test
+    public void testGetMessagesByStatusAndSchedule() {
+        System.out.println("getMessagesByStatusAndSchedule");
+
+        mockMessageDAO = createMock(GatewayRequestDAO.class);
+
+        expect(
+                mockCore.createGatewayRequestDAO((MotechContext) anyObject())
+                ).andReturn(mockMessageDAO);
+        expect(
+                mockMessageDAO.getByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject())
+                ).andReturn(new ArrayList<GatewayRequest>());
+        replay(mockCore, mockMessageDAO);
+
+        List<GatewayRequest> result = instance.getMessagesByStatusAndSchedule(MStatus.CANCELLED, new Date(), mCtx);
+        assertNotNull(result);
+
+        verify(mockCore, mockMessageDAO);
+    }
 }

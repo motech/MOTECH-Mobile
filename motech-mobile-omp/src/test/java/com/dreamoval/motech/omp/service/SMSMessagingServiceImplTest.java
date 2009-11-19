@@ -103,7 +103,7 @@ public class SMSMessagingServiceImplTest {
                 mockCore.createMotechContext()
                 ).andReturn(mCtx); 
         expect(
-                mockCache.getMessagesByStatus((MStatus) anyObject(), (MotechContext) anyObject())
+                mockCache.getMessagesByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject(), (MotechContext) anyObject())
                 ).andReturn(messages);
         expect(
                 mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())

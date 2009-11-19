@@ -8,6 +8,7 @@ import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.util.MotechException;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -51,7 +52,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
 
         logger.info("Fetching cached GatewayRequests");
 
-        List<GatewayRequest> scheduledMessages = cache.getMessagesByStatus(MStatus.SCHEDULED, mc);
+        List<GatewayRequest> scheduledMessages = cache.getMessagesByStatusAndSchedule(MStatus.SCHEDULED, new Date(), mc);
 
         if (scheduledMessages != null) {
             logger.info("Sending messages");
