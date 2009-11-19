@@ -16,91 +16,98 @@ public interface GatewayResponse extends MotechEntity {
     /**
      * @return the gatewayMessageId
      */
-    String getGatewayMessageId();
+    public String getGatewayMessageId();
 
     /**
      * @return the messageId
      */
-    GatewayRequest getGatewayRequest();
+    public GatewayRequest getGatewayRequest();
 
     /**
      * @return the messageStatus
      */
-    MStatus getMessageStatus();
+    public MStatus getMessageStatus();
 
     /**
      * @return the recipientNumber
      */
-    String getRecipientNumber();
+    public String getRecipientNumber();
 
     /**
      * @return the transitions
      */
-    Set<Transition> getTransitions();
+    public Set<Transition> getTransitions();
 
     /**
      * @return the responseText
      */
-    String getResponseText();
+    public String getResponseText();
 
     /**
      * @return the requestId
      */
-    String getRequestId();
+    public String getRequestId();
 
     /**
      * @return the dateCreated
      */
-    Date getDateCreated();
+    public Date getDateCreated();
+
+    /**
+     * @return the lastModified
+     */
+    public Date getLastModified();
 
     /**
      * @param gatewayMessageId the gatewayMessageId to set
      */
-    void setGatewayMessageId(String gatewayMessageId);
+    public void setGatewayMessageId(String gatewayMessageId);
 
     /**
      * @param messageId the messageId to set
      */
-    void setGatewayRequest(GatewayRequest messageId);
+    public void setGatewayRequest(GatewayRequest messageId);
 
     /**
      * @param messageStatus the messageStatus to set
      */
-    void setMessageStatus(MStatus messageStatus);
+    public void setMessageStatus(MStatus messageStatus);
 
     /**
      * @param recipientNumber the recipientNumber to set
      */
-    void setRecipientNumber(String recipientNumber);
+    public void setRecipientNumber(String recipientNumber);
 
     /**
      * @param transitions the transitions to set
      */
-    void setTransitions(Set<Transition> transitions);
+    public void setTransitions(Set<Transition> transitions);
 
     /**
      * @param recipientNumber the recipientNumber to set
      */
-    void setResponseText(String responseText);
+    public void setResponseText(String responseText);
 
     /**
-
+     * @param lastModified the lastModified to set
      */
-    void addTransition(Transition transition);
+    public void setLastModified(Date lastModified);
 
-    void addTransition(List<Transition> transitions);
+    public void addTransition(Transition transition);
 
-    void removeTransition(Transition transition);
+    public void addTransition(List<Transition> transitions);
 
-    void removeTransition(List<Transition> transitions);
+    public void removeTransition(Transition transition);
+
+    public void removeTransition(List<Transition> transitions);
 
     /**
      * @param requestId the requestId to set
      */
-    void setRequestId(String requestId);
+    public void setRequestId(String requestId);
 
     /**
      * @param  date the date to set
      */
-    void setDateCreated(Date date);
+    public void setDateCreated(Date date);
 }

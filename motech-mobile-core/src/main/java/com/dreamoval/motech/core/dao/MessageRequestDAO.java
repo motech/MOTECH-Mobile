@@ -27,4 +27,11 @@ public interface MessageRequestDAO<T extends MessageRequest> extends GenericDAO<
      * @return list of MessageRequest Objects
      */
     public List getMsgRequestByStatusAndTryNumber(MStatus status, int tryNumber);
+
+    /**
+     * Method to select MessageRequest Objects based on status
+     * @param status the Status of the message
+     * @return list of MessageRequest Objects
+     */
+    public List<MessageRequest> getMsgByStatus(MStatus status);
 }

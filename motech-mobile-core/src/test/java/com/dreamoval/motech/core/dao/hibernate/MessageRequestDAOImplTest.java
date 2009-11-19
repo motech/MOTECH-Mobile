@@ -21,7 +21,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -218,6 +217,10 @@ public class MessageRequestDAOImplTest {
         expResult.add(mr5);
         List result = mrDAO.getMsgRequestByStatusAndTryNumber(mr4.getStatus(), mr4.getTryNumber());
         Assert.assertNotNull(result);
+        Assert.assertEquals(expResult.size(), result.size());
+        Assert.assertEquals(expResult, result);
+        Assert.assertTrue(result.contains(mr4));
+        Assert.assertTrue(result.contains(mr5));
       
     }
         /**
@@ -225,9 +228,28 @@ public class MessageRequestDAOImplTest {
      */
     @Test
     public void testGetById() {
-        System.out.print("test MessageRequest getById");
+        System.out.println("test MessageRequest getById");
         MessageRequest fromdb = (MessageRequestImpl) mrDAO.getById(mr3.getId());
         Assert.assertNotNull(fromdb);
+          System.out.print("test MessageRequest last modified field : " +fromdb.getLastModified());
         Assert.assertEquals(mr3, fromdb);
+    }
+
+    /**
+     * Test of getMsgByStatus method, of class MessageRequestDAOImpl.
+     */
+    @Test
+    public void testGetMsgByStatus() {
+        System.out.println("getMsgByStatus");
+        MStatus status = MStatus.INVALIDNET;
+        List<MessageRequest> expResult = new ArrayList<MessageRequest>();
+        expResult.add(mr4);
+        expResult.add(mr5);
+        List<MessageRequest> result = mrDAO.getMsgByStatus(status);
+        Assert.assertFalse(result.isEmpty());
+        Assert.assertEquals(expResult.size(), result.size());
+        Assert.assertEquals(true, result.contains(mr4));
+        Assert.assertEquals(true, result.contains(mr5));
+        
     }
 }

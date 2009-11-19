@@ -6,6 +6,9 @@ import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -19,6 +22,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +63,13 @@ public class GatewayRequestDAOImplTest {
     @Autowired
     private GatewayResponse rd2;
 
+
+     Date dateFrom1;
+        Date dateFrom2;
+        Date dateTo1;
+        Date dateTo2;
+        Date schedule;
+
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -70,6 +81,21 @@ public class GatewayRequestDAOImplTest {
     @Before
     public void setUp() {
         mDDAO = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
+
+
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            dateFrom1 = df.parse("2009-08-21");
+            dateFrom2 = df.parse("2009-09-04");
+            dateTo1 = df.parse("2009-10-30");
+            dateTo2 = df.parse("2009-11-04");
+            schedule = df.parse("2009-10-02");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         text = "First";
         md1.setId(1L);
         md1.setMessage(text);
@@ -89,13 +115,17 @@ public class GatewayRequestDAOImplTest {
         md4.setId(4L);
         md4.setMessage("Test for dummies 4");
         md4.setRecipientsNumber("123445, 54321");
-        md4.setDateFrom(new Date());
+        md4.setDateFrom(dateFrom1);
+        md4.setDateTo(dateTo1);
+        md4.setMessageStatus(MStatus.FAILED);
 
         md5.setId(5L);
         md5.setDateSent(new Date());
         md5.setRecipientsNumber("12345,54321");
         md5.setMessage("insertion with responsedetailsobject");
-        md5.setDateFrom(new Date());
+        md5.setDateFrom(dateFrom2);
+        md5.setDateTo(dateTo2);
+        md5.setMessageStatus(MStatus.FAILED);
 
         md6.setId(6L);
         md6.setDateSent(new Date());
@@ -107,6 +137,8 @@ public class GatewayRequestDAOImplTest {
         rd1.setId(8L);
         rd1.setMessageStatus(MStatus.PENDING);
         rd1.setRecipientNumber("123445");
+
+
 
         rd2.setId(9L);
         rd2.setMessageStatus(MStatus.FAILED);
@@ -127,6 +159,7 @@ public class GatewayRequestDAOImplTest {
         mDDAO.save(md2);
         mDDAO.save(md3);
         mDDAO.save(md4);
+        mDDAO.save(md5);
         mDDAO.save(md6);
 
         tx.commit();
@@ -222,6 +255,7 @@ public class GatewayRequestDAOImplTest {
         System.out.println("testing FindById");
         Transaction tx = ((Session) mDDAO.getDBSession().getSession()).beginTransaction();
         GatewayRequest result = (GatewayRequest) mDDAO.getById(md1.getId());
+           System.out.println("the date lastModified: " + result.getLastModified());
         Assert.assertSame(md1, result);
         Assert.assertEquals(md1.getId(), result.getId());
         Assert.assertEquals(md1.getMessage(), result.getMessage());
@@ -250,5 +284,24 @@ public class GatewayRequestDAOImplTest {
         Assert.assertEquals(true, result.contains(md2));
         Assert.assertEquals(true, result.contains(md3));
 
+    }
+
+
+    /**
+     * Test of getByStatusAndSchedule method, of class GatewayRequestDAOImpl.
+     */
+    @Test
+    public void testGetByStatusAndSchedule() {
+        System.out.println("getByStatusAndSchedule");
+        List<GatewayRequest> expResult = new ArrayList<GatewayRequest>();
+        expResult.add(md4);
+        expResult.add(md5);
+        MStatus status = MStatus.FAILED;
+        List result = mDDAO.getByStatusAndSchedule(status, schedule);
+        Assert.assertFalse(result.isEmpty());
+        Assert.assertEquals(expResult.size(), result.size());
+        Assert.assertEquals(true, result.contains(md4));
+        Assert.assertEquals(true, result.contains(md5));
+      
     }
 }

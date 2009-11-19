@@ -4,9 +4,11 @@ import com.dreamoval.motech.core.dao.GatewayRequestDAO;
 import com.dreamoval.motech.core.model.GatewayRequest;
 import com.dreamoval.motech.core.model.GatewayRequestImpl;
 import com.dreamoval.motech.core.model.MStatus;
+import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /*
@@ -51,5 +53,30 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
             logger.debug("Exception in Method getByStatus", ex);
             return null;
         }
+    }
+
+    public List<GatewayRequest> getByStatusAndSchedule(MStatus status, Date schedule) {
+        logger.info("getByStatusAndSchedule");
+        logger.debug(status);
+//        try {
+
+            List<GatewayRequest> allbystatandSdule;
+             allbystatandSdule = (List<GatewayRequest>) getDBSession().getSession().createCriteria(getPersistentClass())
+                    .add(Restrictions.eq("messageStatus", status))
+                    .add(Restrictions.lt("dateFrom", schedule))
+                    .add(Restrictions.gt("dateTo", schedule))
+                    .list();
+
+            logger.debug( allbystatandSdule);
+            return  allbystatandSdule;
+//        } catch (HibernateException he) {
+//
+//            logger.debug("Persistence or JDBC Exception in Method getByStatusAndSchedule", he);
+//            return null;
+//        } catch (Exception ex) {
+//
+//            logger.debug("Exception in Method getByStatusAndSchedule", ex);
+//            return null;
+//        }
     }
 }

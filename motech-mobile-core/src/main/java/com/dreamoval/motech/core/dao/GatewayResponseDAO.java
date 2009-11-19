@@ -16,4 +16,12 @@ public interface GatewayResponseDAO<T extends GatewayResponse> extends GenericDA
      * @return a single GatewayResponse object
      */
     public GatewayResponse getMostRecentResponseByRequestId(String requestId);
+
+    /**
+     * Method to select GatewayResponse based on the requestId and its parent GatewayRequest tryNumber
+     * @param requestId the requestId corresponding to a GatewayResponse objects
+     * @param tryNumber tryNumber of the GatewayRequest
+     * @return a single GatewayResponse object
+     */
+    public GatewayResponse getByRequestIdAndTryNumber(String requestId, int tryNumber);
 }

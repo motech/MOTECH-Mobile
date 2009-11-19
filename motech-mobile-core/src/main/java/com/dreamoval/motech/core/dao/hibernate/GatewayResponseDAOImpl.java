@@ -64,4 +64,33 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
             return new GatewayResponseImpl();
         }
     }
+
+    public GatewayResponse getByRequestIdAndTryNumber(String requestId, int tryNumber) {
+        logger.debug("getByRequestIdAndTryNumber");
+        logger.debug(requestId);
+
+//        try {
+
+            Session session = this.getDBSession().getSession();
+            GatewayResponse response = null;
+            String query = "from GatewayResponseImpl g where g.requestId = :reqId and g.gatewayRequest.messageStatus != :status and g.gatewayRequest.tryNumber= :trynum ";
+
+            response = (GatewayResponse) session.createQuery(query)
+                    .setParameter("reqId", requestId)
+                    .setParameter("trynum", tryNumber)
+                    .setParameter("status", MStatus.PENDING)
+                    .setMaxResults(1)
+                    .uniqueResult();
+            return response;
+//        } catch (HibernateException he) {
+//
+//            logger.error("Persistence or JDBC Exception in getByRequestIdAndTryNumber", he);
+//            return null;
+//        } catch (Exception ex) {
+//
+//            logger.error("Exception in getByRequestIdAndTryNumber", ex);
+//            return null;
+//        }
+
+    }
 }

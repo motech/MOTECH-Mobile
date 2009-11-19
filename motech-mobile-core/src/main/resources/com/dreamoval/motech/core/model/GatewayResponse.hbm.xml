@@ -7,8 +7,9 @@
     <property name="recipientNumber" type="string" column="recipient_number"/>
     <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
     <property name="responseText" type="string" column="response_text" length="700"/>
-    <property name="dateCreated" >
-        <column name="date_created" sql-type="datetime" />
+    <property name="dateCreated" column="date_created" type="timestamp" />
+    <property name="lastModified" generated="always" update="false" insert="false" >
+            <column name="last_modified" default="current_timestamp" sql-type="datetime" />
     </property>
     <many-to-one class="GatewayRequestImpl" name="gatewayRequest" column="message_id" />
     <set name="transitions" cascade="all">
