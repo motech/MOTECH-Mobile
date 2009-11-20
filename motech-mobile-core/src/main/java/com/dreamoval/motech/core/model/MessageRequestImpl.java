@@ -24,6 +24,7 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private int tryNumber;
     private String requestId;
     private Set persInfos;
+    private Date lastModified;
 
     /**
      * @return the language
@@ -234,5 +235,19 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
      */
     public void setTryNumber(int tryNumber) {
         this.tryNumber = tryNumber;
+    }
+
+    /**
+     * @return the lastModified
+     */
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    /**
+     * @param lastModified the lastModified to set
+     */
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 }

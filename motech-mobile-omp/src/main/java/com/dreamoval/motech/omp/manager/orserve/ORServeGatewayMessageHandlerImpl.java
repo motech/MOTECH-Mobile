@@ -41,6 +41,9 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
             return null;
 
         Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
+        if(gatewayResponse.contains("error:") && gatewayResponse.contains("param:")){
+            gatewayResponse = gatewayResponse.substring(0, 15).replace("\n", "");
+        }
         String[] responseLines = gatewayResponse.split("\n");
 
         for(String line : responseLines){

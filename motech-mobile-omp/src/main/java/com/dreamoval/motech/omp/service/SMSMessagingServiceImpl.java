@@ -8,7 +8,11 @@ import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.util.MotechException;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -51,28 +55,33 @@ public class SMSMessagingServiceImpl implements MessagingService {
 
         logger.info("Fetching cached GatewayRequests");
 
-        List<GatewayRequest> scheduledMessages = cache.getMessagesByStatus(MStatus.SCHEDULED, mc);
+        List<GatewayRequest> scheduledMessages = cache.getMessagesByStatusAndSchedule(MStatus.SCHEDULED, new Date(), mc);
+        List<GatewayRequest> troubleScheduledMessages = cache.getMessagesByStatusAndSchedule(MStatus.SCHEDULED, null, mc);
+        scheduledMessages.addAll(troubleScheduledMessages);
 
         if (scheduledMessages != null) {
             logger.info("Sending messages");
             for (GatewayRequest message : scheduledMessages) {
                 sendMessage(message, mc);
             }
+            logger.info("Sending completed successfully");
+        }else{
+            logger.info("No scheduled messages Found");
         }
         mc.cleanUp();
-
-        logger.info("Sending completed successfully");
     }
 
     /**
      *
      * @see MessagingService.sendMessage(MessageDetails messageDetails)
      */
-    public Long sendMessage(GatewayRequest messageDetails, MotechContext context) {
+    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails, MotechContext context) {
         logger.info("Sending message to gateway");
-        
+        Set<GatewayResponse> responseList = null;
+        Map<Boolean, Set<GatewayResponse>> result = new HashMap<Boolean, Set<GatewayResponse>>();
         try{
-            Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(messageDetails, context);     
+            responseList = this.gatewayManager.sendMessage(messageDetails, context);
+            result.put(new Boolean(true), responseList);
             logger.debug(responseList);
             logger.info("Updating message status");
             messageDetails.setResponseDetails(responseList);
@@ -81,9 +90,14 @@ public class SMSMessagingServiceImpl implements MessagingService {
         catch(MotechException me){          
             logger.error("Error sending message", me);
             messageDetails.setMessageStatus(MStatus.SCHEDULED);
+            //workaround for sending info back to log service
+            GatewayMessageHandler orHandler = gatewayManager.getMessageHandler();
+            responseList = orHandler.parseMessageResponse(messageDetails, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage(), context);
+            result.put(new Boolean(false), responseList);
         }
         this.cache.saveMessage(messageDetails.getGatewayRequestDetails(), context);
-        return messageDetails.getId();
+        
+        return result;
     }
 
     /**

@@ -10,63 +10,67 @@ import java.util.Set;
  */
 public interface MessageRequest extends MotechEntity {
 
-    String getRecipientName();
+    public String getRecipientName();
 
-    Language getLanguage();
+    public Language getLanguage();
 
-    Date getSchedule();
+    public Date getSchedule();
 
-    MessageType getMessageType();
+    public MessageType getMessageType();
 
-    String getP13nData();
+    public String getP13nData();
 
-    NotificationType getNotificationType();
+    public NotificationType getNotificationType();
 
-    Date getDateCreated();
+    public Date getDateCreated();
 
-    Date getDateProcessed();
+    public Date getDateProcessed();
 
-    String getRecipientNumber();
+    public String getRecipientNumber();
 
-    Date getDateFrom();
+    public Date getDateFrom();
 
-    Date getDateTo();
+    public Date getDateTo();
 
-    MStatus getStatus();
+    public MStatus getStatus();
 
-    int getTryNumber();
+    public int getTryNumber();
 
-    String getRequestId();
+    public String getRequestId();
 
-    Set getPersInfos();
+    public Set getPersInfos();
 
-    void setRecipientName(String recipientName);
+    public Date getLastModified();
 
-    void setLanguage(Language language);
+    public void setRecipientName(String recipientName);
 
-    void setSchedule(Date schedule);
+    public void setLanguage(Language language);
 
-    void setMessageType(MessageType messageType);
+    public void setSchedule(Date schedule);
 
-    void setP13nData(String p13nData);
+    public void setMessageType(MessageType messageType);
 
-    void setNotificationType(NotificationType notificationType);
+    public void setP13nData(String p13nData);
 
-    void setDateCreated(Date dateCreated);
+    public void setNotificationType(NotificationType notificationType);
 
-    void setDateProcessed(Date dateProcessed);
+    public void setDateCreated(Date dateCreated);
 
-    void setRecipientNumber(String recipientNumber);
+    public void setDateProcessed(Date dateProcessed);
 
-    void setDateFrom(Date dateFrom);
+    public void setRecipientNumber(String recipientNumber);
 
-    void setDateTo(Date dateTo);
+    public void setDateFrom(Date dateFrom);
 
-    void setTryNumber(int maxTryNumber);
+    public void setDateTo(Date dateTo);
 
-    void setStatus(MStatus status);
+    public void setTryNumber(int maxTryNumber);
 
-    void setRequestId(String requestId);
+    public void setStatus(MStatus status);
 
-    void setPersInfos(Set persInfos);
+    public void setRequestId(String requestId);
+
+    public void setPersInfos(Set persInfos);
+
+    public void setLastModified(Date lastModified);
 }

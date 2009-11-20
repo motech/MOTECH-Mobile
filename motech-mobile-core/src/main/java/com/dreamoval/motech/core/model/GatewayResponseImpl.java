@@ -20,6 +20,7 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
     private Set<Transition> transitions = new HashSet<Transition>();
     private String requestId;
     private Date dateCreated;
+    private Date lastModified;
 
     public GatewayResponseImpl() {
     }
@@ -161,5 +162,19 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
      */
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    /**
+     * @return the lastModified
+     */
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    /**
+     * @param lastModified the lastModified to set
+     */
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 }

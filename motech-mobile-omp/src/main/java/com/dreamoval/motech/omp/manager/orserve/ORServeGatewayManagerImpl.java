@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.Set;
 import javax.xml.namespace.QName;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.util.Date;
 import org.apache.log4j.Logger;
 

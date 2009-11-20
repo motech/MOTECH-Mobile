@@ -5,6 +5,8 @@ import com.dreamoval.motech.core.model.GatewayRequestDetails;
 import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.omp.manager.GatewayManager;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Handles all SMS related functions including cachine, sending and lookup
@@ -40,7 +42,7 @@ public interface MessagingService {
      * @param messageDetails GatewayRequest object containing information about the message to be sent
      * @return The id of the message sent
      */
-    public Long sendMessage(GatewayRequest messageDetails, MotechContext context);
+    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails, MotechContext context);
 
     /**
      * Sends a message with the provided details

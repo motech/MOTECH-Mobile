@@ -18,126 +18,137 @@ public interface GatewayRequest extends MotechEntity {
     /**
      * @return the dateSent
      */
-    Date getDateSent();
+    public Date getDateSent();
 
     /**
      * @return the dateFrom
      */
-    Date getDateFrom();
+    public Date getDateFrom();
 
     /**
      * @return the message
      */
-    String getMessage();
+    public String getMessage();
 
     /**
      * @return the gatewayRequestDetails Object
      */
-    GatewayRequestDetails getGatewayRequestDetails();
+    public GatewayRequestDetails getGatewayRequestDetails();
 
     /**
      * @return the RequestId
      */
-    String getRequestId();
+    public String getRequestId();
 
     /**
      * @return the  dateTo
      */
-    Date getDateTo();
+    public Date getDateTo();
 
     /**
      * @return the recipientsNumber
      */
-    String getRecipientsNumber();
+    public String getRecipientsNumber();
 
     /**
      * @return the responseDetails
      */
-    Set<GatewayResponse> getResponseDetails();
+    public Set<GatewayResponse> getResponseDetails();
+
+    /**
+     * @return the try number
+     */
+    public int getTryNumber();
 
     /**
      * @return
      */
-    int getTryNumber();
+    public MStatus getMessageStatus();
 
     /**
-     * @return
+     * @return the lastModified
      */
-    MStatus getMessageStatus();
+    public Date getLastModified();
 
     /**
      *
      * @param tryNumber
      */
-    void setTryNumber(int tryNumber);
+    public void setTryNumber(int tryNumber);
 
     /**
      * @param dateSent the dateSent to set
      */
-    void setDateSent(Date dateSent);
+    public void setDateSent(Date dateSent);
 
     /**
      * @param dateFrom the dateFrom to set
      */
-    void setDateFrom(Date dateFrom);
+    public void setDateFrom(Date dateFrom);
 
     /**
      * @param messageText the message to set
      */
-    void setMessage(String message);
+    public void setMessage(String message);
 
     /**
      * @param messageType the requestId to set
      */
-    void setGatewayRequestDetails(GatewayRequestDetails gatewayRequestDetails);
+    public void setGatewayRequestDetails(GatewayRequestDetails gatewayRequestDetails);
 
     /**
      * @param numberOfPages the dateTo to set
      */
-    void setDateTo(Date dateTo);
+    public void setDateTo(Date dateTo);
 
     /**
      * @param recipientsNumbers the recipientsNumbers to set
      */
-    void setRecipientsNumber(String recipientsNumber);
+    public void setRecipientsNumber(String recipientsNumber);
 
     /**
      *
      * @param requestId the requestId to set
      */
-    void setRequestId(String requestId);
+    public void setRequestId(String requestId);
 
     /**
      * @param responseDetails the responseDetails to set
      */
-    void setResponseDetails(Set<GatewayResponse> responseDetails);
+    public void setResponseDetails(Set<GatewayResponse> responseDetails);
 
     /**
      * @param MStatus the status to set
      */
-    void setMessageStatus(MStatus status);
+    public void setMessageStatus(MStatus status);
+    
+    /**
+     * @param lastModified lastModified to set
+     */
+    public void setLastModified(Date lastModified);
+
 
     /**
      * Helper method to add a GatewayResponse Object to GatewayRequest
      * @param  GatewayResponse GatewayResponse Object to pass
      */
-    void addResponse(GatewayResponse response);
+    public void addResponse(GatewayResponse response);
 
     /**
      *Helper method to remove the passed GatewayResponse  object from GatewayRequest
      * @param  GatewayRespone the GatewayResponse to pass
      */
-    void removeResponse(GatewayResponse response);
+    public void removeResponse(GatewayResponse response);
 
-     /**
+    /**
      * Helper method to add a list of  GatewayResponse Objects to GatewayRequest
      * @param  List the GatewayRespone List to pass
      */
-    void addResponse(List<GatewayResponse> responses);
+    public void addResponse(List<GatewayResponse> responses);
 
-     /**
+    /**
      *Helper method to remove the passed List of GatewayResponse objects from GatewayRequest
      * @param  List the List of GatewayResponse to pass
      */
-    void removeResponse(List<GatewayResponse> responses);
+    public void removeResponse(List<GatewayResponse> responses);
 }

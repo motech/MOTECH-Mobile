@@ -2,6 +2,7 @@ package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.MessageRequestDAO;
 import com.dreamoval.motech.core.model.MStatus;
+import com.dreamoval.motech.core.model.MessageRequest;
 import com.dreamoval.motech.core.model.MessageRequestImpl;
 import java.util.Date;
 import java.util.List;
@@ -77,6 +78,28 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
             logger.debug("Exception in Method getMsgRequestByStatusAndTryNumber", ex);
             return null;
         }
+
+    }
+
+    public List<MessageRequest> getMsgByStatus(MStatus status) {
+         logger.info("getMsgRequestByStatusAndTryNumber");
+        logger.debug(status);
+
+//        try {
+
+            Session session = this.getDBSession().getSession();
+            Criterion eqStatus = Restrictions.eq("status", status);
+            List msgRequest = session.createCriteria(this.getPersistentClass()).add(eqStatus).list();
+
+            logger.debug(msgRequest);
+            return msgRequest;
+//        } catch (HibernateException he) {
+//            logger.debug("Persistence or JDBC Exception in Method getMsgRequestByStatusAndTryNumber", he);
+//            return null;
+//        } catch (Exception ex) {
+//            logger.debug("Exception in Method getMsgRequestByStatusAndTryNumber", ex);
+//            return null;
+//        }
 
     }
 }

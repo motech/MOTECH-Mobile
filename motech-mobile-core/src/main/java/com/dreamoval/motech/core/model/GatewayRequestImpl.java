@@ -21,6 +21,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     private int tryNumber;
     private String requestId;
     private MStatus messageStatus;
+    private Date lastModified;
 
     public GatewayRequestImpl() {
     }
@@ -217,5 +218,19 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
      */
     public void setMessageStatus(MStatus messageStatus) {
         this.messageStatus = messageStatus;
+    }
+
+    /**
+     * @return the lastModified
+     */
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    /**
+     * @param lastModified the lastModified to set
+     */
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 }

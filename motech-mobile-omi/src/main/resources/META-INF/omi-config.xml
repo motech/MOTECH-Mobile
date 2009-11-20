@@ -127,6 +127,11 @@
                         <ref bean="logStatAction" />
                     </list>
                 </entry>
+                <entry key="CANNOT_CONNECT">
+                    <list>
+                        <ref bean="logStatAction" />
+                    </list>
+                </entry>
             </map>
         </property>
     </bean>
