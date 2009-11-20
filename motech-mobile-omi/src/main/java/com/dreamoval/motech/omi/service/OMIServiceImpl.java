@@ -22,7 +22,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -170,7 +172,7 @@ public class OMIServiceImpl implements OMIService {
         return MessageStatus.valueOf(messageRequest.getStatus().toString());
     }
 
-    public MessageStatus sendMessage(MessageRequest message, MotechContext context) {
+    public synchronized MessageStatus sendMessage(MessageRequest message, MotechContext context) {
         Language defaultLanguage = coreManager.createLanguageDAO(context).getByCode(defaultLang);
 
         if (message.getLanguage() == null) {
@@ -203,8 +205,16 @@ public class OMIServiceImpl implements OMIService {
             ((Session) context.getDBSession().getSession()).evict(gwReq);
         }
 
-        msgSvc.sendMessage(gwReq, context);
-
+        Map<Boolean, Set<GatewayResponse>> responses = msgSvc.sendMessage(gwReq, context);
+        
+        Boolean falseBool = new Boolean(false);
+        if(responses.containsKey(falseBool)){
+            Set<GatewayResponse> resps= responses.get(falseBool);
+            for(GatewayResponse gp: resps){
+                statHandler.handleStatus(gp);
+            }
+        }
+        
         logger.info("Updating MessageRequest");
         message.setDateProcessed(new Date());
         message.setStatus(MStatus.PENDING);

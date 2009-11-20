@@ -7,8 +7,8 @@ import com.dreamoval.motech.core.model.MStatus;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /*
@@ -38,9 +38,7 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
         try {
 
             List<GatewayRequest> allbyStatus;
-            allbyStatus = (List<GatewayRequest>) getDBSession().getSession().createCriteria(getPersistentClass())
-                    .add(Restrictions.eq("messageStatus", status))
-                    .list();
+            allbyStatus = (List<GatewayRequest>) getDBSession().getSession().createCriteria(getPersistentClass()).add(Restrictions.eq("messageStatus", status)).list();
 
             logger.debug(allbyStatus);
             return allbyStatus;
@@ -58,17 +56,27 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
     public List<GatewayRequest> getByStatusAndSchedule(MStatus status, Date schedule) {
         logger.info("getByStatusAndSchedule");
         logger.debug(status);
+
 //        try {
 
-            List<GatewayRequest> allbystatandSdule;
-             allbystatandSdule = (List<GatewayRequest>) getDBSession().getSession().createCriteria(getPersistentClass())
+        List<GatewayRequest> allbystatandSdule;
+        Criteria criteria = getDBSession().getSession().createCriteria(getPersistentClass());
+        if (schedule == null) {
+            criteria = criteria
+                    .add(Restrictions.isNull("dateTo"))
+                    .add(Restrictions.isNull("dateFrom"))
+                    .add(Restrictions.eq("messageStatus", status));
+        } else {
+            criteria = criteria
                     .add(Restrictions.eq("messageStatus", status))
                     .add(Restrictions.lt("dateFrom", schedule))
-                    .add(Restrictions.gt("dateTo", schedule))
-                    .list();
+                    .add(Restrictions.gt("dateTo", schedule));
 
-            logger.debug( allbystatandSdule);
-            return  allbystatandSdule;
+        }
+
+        allbystatandSdule = (List<GatewayRequest>) criteria.add(Restrictions.isNotNull("gatewayRequestDetails")).list();
+        logger.debug(allbystatandSdule);
+        return allbystatandSdule;
 //        } catch (HibernateException he) {
 //
 //            logger.debug("Persistence or JDBC Exception in Method getByStatusAndSchedule", he);

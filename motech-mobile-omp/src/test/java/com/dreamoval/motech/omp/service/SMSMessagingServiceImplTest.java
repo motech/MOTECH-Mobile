@@ -14,7 +14,11 @@ import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.omp.manager.GatewayManager;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -97,6 +101,7 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
         List<GatewayRequest> messages = new ArrayList<GatewayRequest>();
+        List<GatewayRequest> troubledMessages = new ArrayList<GatewayRequest>();
         messages.add(messageDetails);
 
         expect(
@@ -105,6 +110,9 @@ public class SMSMessagingServiceImplTest {
         expect(
                 mockCache.getMessagesByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject(), (MotechContext) anyObject())
                 ).andReturn(messages);
+        expect(
+                mockCache.getMessagesByStatusAndSchedule((MStatus) anyObject(), (Date)anyObject(), (MotechContext) anyObject())
+                ).andReturn(troubledMessages);
         expect(
                 mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(null);
@@ -141,9 +149,10 @@ public class SMSMessagingServiceImplTest {
 
         replay(mockGateway, mockCache);
 
-        Long expResult = messageDetails.getId();
-        Long result = instance.sendMessage(messageDetails, mCtx);
-        assertEquals(expResult, result);
+        Map<Boolean, Set<GatewayResponse>> expResult = new HashMap<Boolean, Set<GatewayResponse>>();
+        expResult.put(new Boolean(true), new HashSet<GatewayResponse>());
+        Map<Boolean, Set<GatewayResponse>> result = instance.sendMessage(messageDetails, mCtx);
+        assertEquals(expResult.containsKey(new Boolean(true)), result.containsKey(new Boolean(true)));
         verify(mockGateway, mockCache);
     }
 

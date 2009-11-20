@@ -31,8 +31,10 @@ import java.util.ArrayList;
 import static org.easymock.EasyMock.*;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
@@ -234,6 +236,8 @@ public class OMIServiceImplTest {
         
         GatewayRequestImpl gwReq = new GatewayRequestImpl();
         gwReq.setGatewayRequestDetails(new GatewayRequestDetailsImpl());
+        HashMap<Boolean, Set<GatewayResponse>> respMap = new HashMap<Boolean, Set<GatewayResponse>>();
+        respMap.put(new Boolean(true), new HashSet<GatewayResponse>());
         
         MotechContext context = new MotechContextImpl();
         
@@ -271,7 +275,7 @@ public class OMIServiceImplTest {
                 ).andReturn(mockMessagingService);
         expect(
                 mockMessagingService.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
-                ).andReturn(1L);
+                ).andReturn(respMap);
         
         mockTrans.begin();
         expectLastCall();
