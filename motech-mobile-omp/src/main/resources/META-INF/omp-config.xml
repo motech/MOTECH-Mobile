@@ -50,8 +50,8 @@
         </property>
         <property name="codeResponseMap">
             <map>
-                <entry key="FAILED" value="005,102,105,106,107,110,111,202,305,112,113,114,552,201,failed,param:" />
-                <entry key="RETRY" value="001,002,003,004,007,101,101p,101t,101u,103,104,108,109,301,302,304,400,401,500,501,502" />
+                <entry key="FAILED" value="005,102,105,106,107,110,111,202,305,112,113,114,552,201,failed" />
+                <entry key="RETRY" value="001,002,003,004,007,101,101p,101t,101u,103,104,108,109,301,302,304,400,401,500,501,502,param:" />
                 <entry key="EXPIRED" value="115,116,120" />
                 <entry key="CANNOT_CONNECT" value="901" />
             </map>

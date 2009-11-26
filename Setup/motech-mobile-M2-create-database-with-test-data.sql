@@ -1,4 +1,3 @@
-
 -- MySQL dump 10.13  Distrib 5.1.39, for Win32 (ia32)
 --
 -- Host: localhost    Database: motechmobiledb
@@ -16,15 +15,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
-CREATE DATABASE IF NOT EXISTS `motechmobiledb`;
-
-GRANT ALL ON motechmobiledb.* TO 'motechmobile'@'localhost' IDENTIFIED BY 'mmobilepass';
-
-USE `motechmobiledb`;
+--
+-- Table structure for table `gateway_request`
+--
 
 DROP TABLE IF EXISTS `gateway_request`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `gateway_request` (
   `id` bigint(20) NOT NULL,
   `request_details_id` bigint(20) DEFAULT NULL,
@@ -36,15 +33,29 @@ CREATE TABLE `gateway_request` (
   `message` text,
   `request_id` varchar(255) DEFAULT NULL,
   `message_status` varchar(255) DEFAULT NULL,
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK81205B94A5644C7B` (`request_details_id`),
   CONSTRAINT `FK81205B94A5644C7B` FOREIGN KEY (`request_details_id`) REFERENCES `gateway_request_details` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Table structure for table `gateway_request_details` */
+--
+-- Dumping data for table `gateway_request`
+--
+
+LOCK TABLES `gateway_request` WRITE;
+/*!40000 ALTER TABLE `gateway_request` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gateway_request` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gateway_request_details`
+--
 
 DROP TABLE IF EXISTS `gateway_request_details`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `gateway_request_details` (
   `id` bigint(20) NOT NULL,
   `message_type` varchar(255) DEFAULT NULL,
@@ -52,11 +63,24 @@ CREATE TABLE `gateway_request_details` (
   `number_of_pages` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Table structure for table `gateway_response` */
+--
+-- Dumping data for table `gateway_request_details`
+--
+
+LOCK TABLES `gateway_request_details` WRITE;
+/*!40000 ALTER TABLE `gateway_request_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gateway_request_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gateway_response`
+--
 
 DROP TABLE IF EXISTS `gateway_response`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `gateway_response` (
   `id` bigint(20) NOT NULL,
   `gateway_message_id` varchar(255) DEFAULT NULL,
@@ -65,16 +89,30 @@ CREATE TABLE `gateway_response` (
   `message_status` varchar(255) DEFAULT NULL,
   `response_text` text,
   `date_created` datetime DEFAULT NULL,
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `message_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKA612CBDCDD47F282` (`message_id`),
   CONSTRAINT `FKA612CBDCDD47F282` FOREIGN KEY (`message_id`) REFERENCES `gateway_request` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Table structure for table `language` */
+--
+-- Dumping data for table `gateway_response`
+--
+
+LOCK TABLES `gateway_response` WRITE;
+/*!40000 ALTER TABLE `gateway_response` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gateway_response` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `language`
+--
 
 DROP TABLE IF EXISTS `language`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `language` (
   `id` bigint(20) NOT NULL,
   `code` varchar(10) DEFAULT NULL,
@@ -83,11 +121,25 @@ CREATE TABLE `language` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Table structure for table `message_request` */
+--
+-- Dumping data for table `language`
+--
+
+LOCK TABLES `language` WRITE;
+/*!40000 ALTER TABLE `language` DISABLE KEYS */;
+INSERT INTO `language` VALUES (1,'en','English','english language is the official spoken language in Ghana'),(2,'nan','Nankam','Nankam is the most spoken language in North Ghana'),(3,'kas','Kassim','Kassim the most spoken language');
+/*!40000 ALTER TABLE `language` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `message_request`
+--
 
 DROP TABLE IF EXISTS `message_request`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `message_request` (
   `id` bigint(20) NOT NULL,
   `request_id` varchar(255) DEFAULT NULL,
@@ -103,17 +155,31 @@ CREATE TABLE `message_request` (
   `date_processed` datetime DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `max_try_number` int(11) DEFAULT NULL,
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FKF9A8A257C247835` (`notification_type_id`),
   KEY `FKF9A8A25716C79BE` (`language_id`),
   CONSTRAINT `FKF9A8A25716C79BE` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`),
   CONSTRAINT `FKF9A8A257C247835` FOREIGN KEY (`notification_type_id`) REFERENCES `notification_type` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Table structure for table `message_template` */
+--
+-- Dumping data for table `message_request`
+--
+
+LOCK TABLES `message_request` WRITE;
+/*!40000 ALTER TABLE `message_request` DISABLE KEYS */;
+/*!40000 ALTER TABLE `message_request` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `message_template`
+--
 
 DROP TABLE IF EXISTS `message_template`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `message_template` (
   `id` bigint(20) NOT NULL,
   `date_created` datetime DEFAULT NULL,
@@ -127,22 +193,50 @@ CREATE TABLE `message_template` (
   CONSTRAINT `FK41715B2E7550DB4` FOREIGN KEY (`language`) REFERENCES `language` (`id`),
   CONSTRAINT `FK41715B2D5781D57` FOREIGN KEY (`notification_type`) REFERENCES `notification_type` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Table structure for table `notification_type` */
+--
+-- Dumping data for table `message_template`
+--
+
+LOCK TABLES `message_template` WRITE;
+/*!40000 ALTER TABLE `message_template` DISABLE KEYS */;
+INSERT INTO `message_template` VALUES (1,'2009-10-06 00:00:00','TEXT','Tetanus is a disorder that leads to severe and painful muscle spasms. It is caused by a bacterium that is commonly found in soil, dust and animal waste.',2,1),(2,'2009-10-06 00:00:00','TEXT','Immunization against tetanus is recommended especially in pregnant women. Vaccination of pregnant women is the best preventive measure against neonatal tetanus.',3,1),(3,'2009-10-06 00:00:00','TEXT','You are due for your first tetanus vaccination in your pregnancy.  Please go to your nearest clinic to receive your vaccination.',4,1),(4,'2009-10-06 00:00:00','TEXT','All wounds should be considered risky, so always be cleaned with soap and water.  Some wounds, however small, such as from thorns of roses or lemon, are highly risky and perhaps even more than other large open wounds.',5,1),(5,'2009-10-06 00:00:00','TEXT','Tetanus in newborns is severe, with high mortality rate. It usually occurs by contamination of the umbilical cord at delivery or in the first days of life. Furthermore, this disease often aggravated by complications, including infectious, which are the triggers of death.',6,1),(6,'2009-10-06 00:00:00','TEXT','You have missed your first tetanus vaccination.  Please go to your nearest clinic to receive your vaccination.',7,1),(7,'2009-10-06 00:00:00','TEXT','This is your second reminder for missing your first tetanus vaccination.  Please go to your nearest clinic.',8,1),(8,'2009-10-06 00:00:00','TEXT','You are due for your second tetanus vaccination in your pregnancy.  Please go to your nearest clinic to receive your vaccination.',9,1),(9,'2009-10-06 00:00:00','TEXT','You have missed your second tetanus vaccination.  Please go to your nearest clinic to receive your vaccination.',10,1),(10,'2009-10-06 00:00:00','TEXT','This is your second reminder for missing your second tetanus vaccination.  Please go to your nearest clinic.',11,1),(11,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 1.  Your estimated due date is <DueDate>.',14,1),(12,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 2.  Your estimated due date is <DueDate>.',15,1),(13,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 3.  Your estimated due date is <DueDate>.',16,1),(14,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 4.  Your estimated due date is <DueDate>.',17,1),(15,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 5.  Your estimated due date is <DueDate>.',18,1),(16,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 6.  Your estimated due date is <DueDate>.',19,1),(17,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 7.  Your estimated due date is <DueDate>.',20,1),(18,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 8.  Your estimated due date is <DueDate>.',21,1),(19,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 9.  Your estimated due date is <DueDate>.',22,1),(20,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 10.  Your estimated due date is <DueDate>.',23,1),(21,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 11.  Your estimated due date is <DueDate>.',24,1),(22,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 12.  Your estimated due date is <DueDate>.',25,1),(23,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 13.  Your estimated due date is <DueDate>.',26,1),(24,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 14.  Your estimated due date is <DueDate>.',27,1),(25,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 15.  Your estimated due date is <DueDate>.',28,1),(26,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 16.  Your estimated due date is <DueDate>.',29,1),(27,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 17.  Your estimated due date is <DueDate>.',30,1),(28,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 18.  Your estimated due date is <DueDate>.',31,1),(29,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 19.  Your estimated due date is <DueDate>.',32,1),(30,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 20.  Your estimated due date is <DueDate>.',33,1),(31,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 21.  Your estimated due date is <DueDate>.',34,1),(32,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 22.  Your estimated due date is <DueDate>.',35,1),(33,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 23.  Your estimated due date is <DueDate>.',36,1),(34,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 24.  Your estimated due date is <DueDate>.',37,1),(35,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 25.  Your estimated due date is <DueDate>.',38,1),(36,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 26.  Your estimated due date is <DueDate>.',39,1),(37,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 27.  Your estimated due date is <DueDate>.',40,1),(38,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 28.  Your estimated due date is <DueDate>.',41,1),(39,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 29.  Your estimated due date is <DueDate>.',42,1),(40,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 30.  Your estimated due date is <DueDate>.',43,1),(41,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 31.  Your estimated due date is <DueDate>.',44,1),(42,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 32.  Your estimated due date is <DueDate>.',45,1),(43,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 33.  Your estimated due date is <DueDate>.',46,1),(44,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 34.  Your estimated due date is <DueDate>.',47,1),(45,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 35.  Your estimated due date is <DueDate>.',48,1),(46,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 36.  Your estimated due date is <DueDate>.',49,1),(47,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 37.  Your estimated due date is <DueDate>.',50,1),(48,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 38.  Your estimated due date is <DueDate>.',51,1),(49,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 39.  Your estimated due date is <DueDate>.',52,1),(50,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.',53,1),(100,'2009-10-06 00:00:00','TEXT','Tetanus is a disorder that leads to severe and painful muscle spasms. It is caused by a bacterium that is commonly found in soil, dust and animal waste.@@',2,2),(101,'2009-10-06 00:00:00','TEXT','Tetanus is a disorder that leads to severe and painful muscle spasms. It is caused by a bacterium that is commonly found in soil, dust and animal waste.##',2,3),(102,'2009-10-06 00:00:00','TEXT','Immunization against tetanus is recommended especially in pregnant women. Vaccination of pregnant women is the best preventive measure against neonatal tetanus.@@',3,2),(103,'2009-10-06 00:00:00','TEXT','Immunization against tetanus is recommended especially in pregnant women. Vaccination of pregnant women is the best preventive measure against neonatal tetanus.##',3,3),(104,'2009-10-06 00:00:00','TEXT','You are due for your first tetanus vaccination in your pregnancy.  Please go to your nearest clinic to receive your vaccination.@@',4,2),(105,'2009-10-06 00:00:00','TEXT','You are due for your first tetanus vaccination in your pregnancy.  Please go to your nearest clinic to receive your vaccination.##',4,3),(106,'2009-10-06 00:00:00','TEXT','All wounds should be considered risky, so always be cleaned with soap and water.  Some wounds, however small, such as from thorns of roses or lemon, are highly risky and perhaps even more than other large open wounds.@@',5,2),(107,'2009-10-06 00:00:00','TEXT','All wounds should be considered risky, so always be cleaned with soap and water.  Some wounds, however small, such as from thorns of roses or lemon, are highly risky and perhaps even more than other large open wounds.##',5,3),(108,'2009-10-06 00:00:00','TEXT','Tetanus in newborns is severe, with high mortality rate. It usually occurs by contamination of the umbilical cord at delivery or in the first days of life. Furthermore, this disease often aggravated by complications, including infectious, which are the triggers of death.@@',6,2),(109,'2009-10-06 00:00:00','TEXT','Tetanus in newborns is severe, with high mortality rate. It usually occurs by contamination of the umbilical cord at delivery or in the first days of life. Furthermore, this disease often aggravated by complications, including infectious, which are the triggers of death.##',6,3),(110,'2009-10-06 00:00:00','TEXT','You have missed your first tetanus vaccination.  Please go to your nearest clinic to receive your vaccination.@@',7,2),(111,'2009-10-06 00:00:00','TEXT','You have missed your first tetanus vaccination.  Please go to your nearest clinic to receive your vaccination.##',7,3),(112,'2009-10-06 00:00:00','TEXT','This is your second reminder for missing your first tetanus vaccination.  Please go to your nearest clinic.@@',8,2),(113,'2009-10-06 00:00:00','TEXT','This is your second reminder for missing your first tetanus vaccination.  Please go to your nearest clinic.##',8,3),(114,'2009-10-06 00:00:00','TEXT','You are due for your second tetanus vaccination in your pregnancy.  Please go to your nearest clinic to receive your vaccination.@@',9,2),(115,'2009-10-06 00:00:00','TEXT','You are due for your second tetanus vaccination in your pregnancy.  Please go to your nearest clinic to receive your vaccination.##',9,3),(116,'2009-10-06 00:00:00','TEXT','You have missed your second tetanus vaccination.  Please go to your nearest clinic to receive your vaccination.@@',10,2),(117,'2009-10-06 00:00:00','TEXT','You have missed your second tetanus vaccination.  Please go to your nearest clinic to receive your vaccination.##',10,3),(118,'2009-10-06 00:00:00','TEXT','This is your second reminder for missing your second tetanus vaccination.  Please go to your nearest clinic.@@',11,2),(119,'2009-10-06 00:00:00','TEXT','This is your second reminder for missing your second tetanus vaccination.  Please go to your nearest clinic.##',11,3),(121,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 1.  Your estimated due date is <DueDate>.@@',14,2),(122,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 1.  Your estimated due date is <DueDate>.##',14,3),(123,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 2.  Your estimated due date is <DueDate>.',15,2),(124,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 2.  Your estimated due date is <DueDate>.',15,3),(125,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 3.  Your estimated due date is <DueDate>.@@',16,2),(126,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 3.  Your estimated due date is <DueDate>.##',16,3),(127,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 4.  Your estimated due date is <DueDate>.@@',17,2),(128,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 4.  Your estimated due date is <DueDate>.##',17,3),(129,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 5.  Your estimated due date is <DueDate>.@@',18,2),(130,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 5.  Your estimated due date is <DueDate>.##',18,3),(131,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 6.  Your estimated due date is <DueDate>.@@',19,2),(132,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 6.  Your estimated due date is <DueDate>.##',19,3),(133,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 7.  Your estimated due date is <DueDate>.@@',20,2),(134,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 7.  Your estimated due date is <DueDate>.##',20,3),(135,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 8.  Your estimated due date is <DueDate>.@@',21,2),(136,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 8.  Your estimated due date is <DueDate>.##',21,3),(137,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 9.  Your estimated due date is <DueDate>.@@',22,2),(138,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 9.  Your estimated due date is <DueDate>.##',22,3),(139,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 10.  Your estimated due date is <DueDate>.@@',23,2),(140,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 10.  Your estimated due date is <DueDate>.##',23,3),(141,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 11.  Your estimated due date is <DueDate>.@@',24,2),(142,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 11.  Your estimated due date is <DueDate>.##',24,3),(143,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 12.  Your estimated due date is <DueDate>.@@',25,2),(144,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 12.  Your estimated due date is <DueDate>.##',25,3),(145,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 13.  Your estimated due date is <DueDate>.@@',26,2),(146,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 13.  Your estimated due date is <DueDate>.##',26,3),(147,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 14.  Your estimated due date is <DueDate>.@@',27,2),(148,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 14.  Your estimated due date is <DueDate>.##',27,3),(149,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 15.  Your estimated due date is <DueDate>.',28,2),(150,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 15.  Your estimated due date is <DueDate>.',28,3),(151,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 16.  Your estimated due date is <DueDate>.@@',29,2),(152,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 16.  Your estimated due date is <DueDate>.##',29,3),(153,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 17.  Your estimated due date is <DueDate>.@@',30,2),(154,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 17.  Your estimated due date is <DueDate>.##',30,3),(155,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 18.  Your estimated due date is <DueDate>.@@',31,2),(156,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 18.  Your estimated due date is <DueDate>.##',31,3),(157,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 19.  Your estimated due date is <DueDate>.@@',32,2),(158,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 19.  Your estimated due date is <DueDate>.##',32,3),(159,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 20.  Your estimated due date is <DueDate>.@@',33,2),(160,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 20.  Your estimated due date is <DueDate>.##',33,3),(161,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 21.  Your estimated due date is <DueDate>.@@',34,2),(162,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 21.  Your estimated due date is <DueDate>.##',34,3),(163,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 22.  Your estimated due date is <DueDate>.@@',35,2),(164,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 22.  Your estimated due date is <DueDate>.##',35,3),(165,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 23.  Your estimated due date is <DueDate>.@@',36,2),(166,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 23.  Your estimated due date is <DueDate>.##',36,3),(167,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 24.  Your estimated due date is <DueDate>.@@',37,2),(168,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 24.  Your estimated due date is <DueDate>.##',37,3),(169,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 25.  Your estimated due date is <DueDate>.@@',38,2),(170,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 25.  Your estimated due date is <DueDate>.##',38,3),(171,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 26.  Your estimated due date is <DueDate>.@@',39,2),(172,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 26.  Your estimated due date is <DueDate>.##',39,3),(173,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 27.  Your estimated due date is <DueDate>.@@',40,2),(174,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 27.  Your estimated due date is <DueDate>.##',40,3),(175,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 28.  Your estimated due date is <DueDate>.@@',41,2),(176,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 28.  Your estimated due date is <DueDate>.##',41,3),(177,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 29.  Your estimated due date is <DueDate>.@@',42,2),(178,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 29.  Your estimated due date is <DueDate>.##',42,3),(179,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 30.  Your estimated due date is <DueDate>.@@',43,2),(180,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 30.  Your estimated due date is <DueDate>.##',43,3),(181,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 31.  Your estimated due date is <DueDate>.@@',44,2),(182,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 31.  Your estimated due date is <DueDate>.##',44,3),(183,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 32.  Your estimated due date is <DueDate>.@@',45,2),(184,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 32.  Your estimated due date is <DueDate>.##',45,3),(185,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 33.  Your estimated due date is <DueDate>.@@',46,2),(186,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 33.  Your estimated due date is <DueDate>.##',46,3),(187,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 34.  Your estimated due date is <DueDate>.@@',47,2),(188,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 34.  Your estimated due date is <DueDate>.##',47,3),(189,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 35.  Your estimated due date is <DueDate>.@@',48,2),(190,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 35.  Your estimated due date is <DueDate>.##',48,3),(191,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 36.  Your estimated due date is <DueDate>.@@',49,2),(192,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 36.  Your estimated due date is <DueDate>.##',49,3),(193,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 37.  Your estimated due date is <DueDate>.@@',50,2),(194,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 37.  Your estimated due date is <DueDate>.##',50,3),(195,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 38.  Your estimated due date is <DueDate>.@@',51,2),(196,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 38.  Your estimated due date is <DueDate>.##',51,3),(197,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 39.  Your estimated due date is <DueDate>.@@',52,2),(198,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 39.  Your estimated due date is <DueDate>.##',52,3),(199,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.@@',53,2),(200,'2009-10-06 00:00:00','TEXT','Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.##',53,3);
+/*!40000 ALTER TABLE `message_template` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notification_type`
+--
 
 DROP TABLE IF EXISTS `notification_type`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `notification_type` (
   `id` bigint(20) NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Table structure for table `personalization_info` */
+--
+-- Dumping data for table `notification_type`
+--
+
+LOCK TABLES `notification_type` WRITE;
+/*!40000 ALTER TABLE `notification_type` DISABLE KEYS */;
+INSERT INTO `notification_type` VALUES (2,'Min-by-min test ','First informational message sent at min 1'),(3,'Min-by-min test ','Second informational message sent at min 2'),(4,'Min-by-min test ','Prompt for tetanus dose 1  sent at min 3'),(5,'Min-by-min test ','Third informational message sent at min 5'),(6,'Min-by-min test ','Fourth informational message sent at min 6'),(7,'Min-by-min test ','Reminder for missed tetanus 1 sent at min 6 (if missed)'),(8,'Min-by-min test ','Second reminder for missed tetanus 1 sent at min 8 (if missed)'),(9,'Min-by-min test ','Prompt for tetanus 2'),(10,'Min-by-min test ','Reminder for missed tetanus dose 2'),(11,'Min-by-min test ','Second reminder for missed tetanus dose 2'),(14,'Day-by-day test ','Day 1 message'),(15,'Day-by-day test ','Day 2 message'),(16,'Day-by-day test ','Day 3 message'),(17,'Day-by-day test ','Day 4 message'),(18,'Day-by-day test ','Day 5 message'),(19,'Day-by-day test ','Day 6 message'),(20,'Day-by-day test ','Day 7 message'),(21,'Day-by-day test ','Day 8 message'),(22,'Day-by-day test ','Day 9 message'),(23,'Day-by-day test ','Day 10 message'),(24,'Day-by-day test ','Day 11 message'),(25,'Day-by-day test ','Day 12 message'),(26,'Day-by-day test ','Day 13 message'),(27,'Day-by-day test ','Day 14 message'),(28,'Day-by-day test ','Day 15 message'),(29,'Day-by-day test ','Day 16 message'),(30,'Day-by-day test ','Day 17 message'),(31,'Day-by-day test ','Day 18 message'),(32,'Day-by-day test ','Day 19 message'),(33,'Day-by-day test ','Day 20 message'),(34,'Day-by-day test ','Day 21 message'),(35,'Day-by-day test ','Day 22 message'),(36,'Day-by-day test ','Day 23 message'),(37,'Day-by-day test ','Day 24 message'),(38,'Day-by-day test ','Day 25 message'),(39,'Day-by-day test ','Day 26 message'),(40,'Day-by-day test ','Day 27 message'),(41,'Day-by-day test ','Day 28 message'),(42,'Day-by-day test ','Day 29 message'),(43,'Day-by-day test ','Day 30 message'),(44,'Day-by-day test ','Day 31 message'),(45,'Day-by-day test ','Day 32 message'),(46,'Day-by-day test ','Day 33 message'),(47,'Day-by-day test ','Day 34 message'),(48,'Day-by-day test ','Day 35 message'),(49,'Day-by-day test ','Day 36 message'),(50,'Day-by-day test ','Day 37 message'),(51,'Day-by-day test ','Day 38 message'),(52,'Day-by-day test ','Day 39 message'),(53,'Day-by-day test ','Day 40 message');
+/*!40000 ALTER TABLE `notification_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `personalization_info`
+--
 
 DROP TABLE IF EXISTS `personalization_info`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `personalization_info` (
   `requestId` bigint(20) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -151,11 +245,24 @@ CREATE TABLE `personalization_info` (
   KEY `FK7233DE9E60D8876` (`requestId`),
   CONSTRAINT `FK7233DE9E60D8876` FOREIGN KEY (`requestId`) REFERENCES `message_request` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Table structure for table `transition` */
+--
+-- Dumping data for table `personalization_info`
+--
+
+LOCK TABLES `personalization_info` WRITE;
+/*!40000 ALTER TABLE `personalization_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `personalization_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `transition`
+--
 
 DROP TABLE IF EXISTS `transition`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transition` (
   `id` bigint(20) NOT NULL,
   `transactionType` varchar(255) DEFAULT NULL,
@@ -168,8 +275,16 @@ CREATE TABLE `transition` (
   CONSTRAINT `FK993B6D553E72B537` FOREIGN KEY (`gateway_response_id`) REFERENCES `transition` (`id`),
   CONSTRAINT `FK993B6D552E655D7F` FOREIGN KEY (`gateway_response_id`) REFERENCES `gateway_response` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `transition`
+--
 
+LOCK TABLES `transition` WRITE;
+/*!40000 ALTER TABLE `transition` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transition` ENABLE KEYS */;
+UNLOCK TABLES;
 
 -- Dumping data for table `language`
 --
@@ -450,3 +565,4 @@ insert into message_template(id, notification_type, message_type, language, temp
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+-- Dump completed on 2009-11-26 21:11:32
