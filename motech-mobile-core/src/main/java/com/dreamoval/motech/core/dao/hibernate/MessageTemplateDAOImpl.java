@@ -26,10 +26,8 @@ public class MessageTemplateDAOImpl extends HibernateGenericDAOImpl<MessageTempl
      * @see {@link com.dreamoval.motech.core.dao.MessageTemplateDAO#getTemplateByLangNotifMType(com.dreamoval.motech.core.model.Language, com.dreamoval.motech.core.model.NotificationType, com.dreamoval.motech.core.model.MessageType)  }
      */
     public MessageTemplate getTemplateByLangNotifMType(Language lang, NotificationType notif, MessageType type) {
-        logger.info("getTemplateByLangNotifMType");
-        logger.debug(lang);
-        logger.debug(notif);
-        logger.debug(type);
+
+        logger.debug("variables passed to getTemplateByLangNotifMType. language: " + lang + "And NotificationType: " +  notif + "And MessageType: " + type);
         try {
             Session sess = this.getDBSession().getSession();
             MessageTemplate template = (MessageTemplate) sess.createCriteria(MessageTemplateImpl.class)
@@ -37,15 +35,18 @@ public class MessageTemplateDAOImpl extends HibernateGenericDAOImpl<MessageTempl
                     .add(Restrictions.eq("notificationType", notif))
                     .add(Restrictions.eq("messageType", type))
                     .uniqueResult();
+            
+            logger.debug(template);
+
             return template;
         } catch (NonUniqueResultException ne) {
-            logger.debug("Method getTemplateByLangNotifMType returned more than one MessageTemplate object", ne);
+            logger.error("Method getTemplateByLangNotifMType returned more than one MessageTemplate object", ne);
             return null;
         } catch (HibernateException he) {
-            logger.debug(" Persistence or JDBC Exception in Method getTemplateByLangNotifMType", he);
+            logger.error(" Persistence or JDBC Exception in Method getTemplateByLangNotifMType", he);
             return null;
         } catch (Exception ex) {
-            logger.debug("Exception in Method getTemplateByLangNotifMType", ex);
+            logger.error("Exception in Method getTemplateByLangNotifMType", ex);
             return null;
         }
 
