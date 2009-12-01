@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 import java.util.HashSet;
@@ -16,7 +11,6 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
 
     public GatewayRequestDetailsImpl() {
     }
-
     private MessageType messageType;
     private String message;
     private int numberOfPages;
@@ -79,16 +73,15 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
     }
 
     public void addGatewayRequest(GatewayRequest gatewayRequest) {
-        if(gatewayRequest != null) {
+        if (gatewayRequest != null) {
             gatewayRequest.setGatewayRequestDetails(this);
             this.gatewayRequests.add(gatewayRequest);
         }
     }
 
     public void removeGatewayRequest(GatewayRequest gatewayRequest) {
-        if(this.gatewayRequests.contains(gatewayRequest)) {
+        if (this.gatewayRequests.contains(gatewayRequest)) {
             this.gatewayRequests.remove(gatewayRequest);
         }
     }
-
 }
