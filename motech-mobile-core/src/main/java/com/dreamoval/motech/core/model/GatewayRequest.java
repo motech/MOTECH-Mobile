@@ -61,7 +61,7 @@ public interface GatewayRequest extends MotechEntity {
     public int getTryNumber();
 
     /**
-     * @return
+     * @return the messageStatus
      */
     public MStatus getMessageStatus();
 
@@ -135,7 +135,7 @@ public interface GatewayRequest extends MotechEntity {
     public void addResponse(GatewayResponse response);
 
     /**
-     *Helper method to remove the passed GatewayResponse  object from GatewayRequest
+     * Helper method to remove the passed GatewayResponse  object from GatewayRequest
      * @param  GatewayRespone the GatewayResponse to pass
      */
     public void removeResponse(GatewayResponse response);
