@@ -30,9 +30,8 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
      * @see  {@link com.dreamoval.motech.core.dao.MessageRequestDAO#getMsgRequestByStatusAndSchedule(com.dreamoval.motech.core.model.MStatus, java.util.Date)  }
      */
     public List getMsgRequestByStatusAndSchedule(MStatus status, Date schedule) {
-        logger.info("getMsgRequestByStatusAndSchedule");
-        logger.debug(status);
-        logger.debug(schedule);
+        logger.debug("variables passed to getMsgRequestByStatusAndSchedule. status: " + status + "And schedule: " + schedule);
+
 
         try {
             Session sess = this.getDBSession().getSession();
@@ -45,10 +44,10 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
             return msgRequest;
 
         } catch (HibernateException he) {
-            logger.debug("Persistence or JDBC Exception in Method getMsgRequestByStatusAndSchedule", he);
+            logger.error("Persistence or JDBC Exception in Method getMsgRequestByStatusAndSchedule", he);
             return null;
         } catch (Exception ex) {
-            logger.debug("Exception in Method getMsgRequestByStatusAndSchedule", ex);
+            logger.error("Exception in Method getMsgRequestByStatusAndSchedule", ex);
             return null;
         }
 
@@ -58,9 +57,9 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
      * @see  {@link com.dreamoval.motech.core.dao.MessageRequestDAO#getMsgRequestByStatusAndTryNumber(com.dreamoval.motech.core.model.MStatus, int)   }
      */
     public List getMsgRequestByStatusAndTryNumber(MStatus status, int tryNumber) {
-        logger.info("getMsgRequestByStatusAndTryNumber");
-        logger.debug(status);
-        logger.debug(tryNumber);
+   
+        logger.debug("variables passed to getMsgRequestByStatusAndTryNumber.status " + status + "And tryNumber: " + tryNumber);
+
         try {
 
             Session session = this.getDBSession().getSession();
@@ -72,34 +71,36 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
             logger.debug(msgRequest);
             return msgRequest;
         } catch (HibernateException he) {
-            logger.debug("Persistence or JDBC Exception in Method getMsgRequestByStatusAndTryNumber", he);
+            logger.error("Persistence or JDBC Exception in Method getMsgRequestByStatusAndTryNumber", he);
             return null;
         } catch (Exception ex) {
-            logger.debug("Exception in Method getMsgRequestByStatusAndTryNumber", ex);
+            logger.error("Exception in Method getMsgRequestByStatusAndTryNumber", ex);
             return null;
         }
 
     }
 
     public List<MessageRequest> getMsgByStatus(MStatus status) {
-         logger.info("getMsgRequestByStatusAndTryNumber");
-        logger.debug(status);
+   
+        logger.debug("variable passed to getMsgRequestByStatusAndTryNumber. status: " + status);
 
-//        try {
+        try {
 
             Session session = this.getDBSession().getSession();
             Criterion eqStatus = Restrictions.eq("status", status);
-            List msgRequest = session.createCriteria(this.getPersistentClass()).add(eqStatus).list();
+            List msgRequest = session.createCriteria(this.getPersistentClass())
+                    .add(eqStatus)
+                    .list();
 
             logger.debug(msgRequest);
             return msgRequest;
-//        } catch (HibernateException he) {
-//            logger.debug("Persistence or JDBC Exception in Method getMsgRequestByStatusAndTryNumber", he);
-//            return null;
-//        } catch (Exception ex) {
-//            logger.debug("Exception in Method getMsgRequestByStatusAndTryNumber", ex);
-//            return null;
-//        }
+        } catch (HibernateException he) {
+            logger.error("Persistence or JDBC Exception in Method getMsgRequestByStatusAndTryNumber", he);
+            return null;
+        } catch (Exception ex) {
+            logger.error("Exception in Method getMsgRequestByStatusAndTryNumber", ex);
+            return null;
+        }
 
     }
 }
