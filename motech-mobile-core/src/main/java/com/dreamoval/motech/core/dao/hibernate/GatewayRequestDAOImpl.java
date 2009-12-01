@@ -33,7 +33,7 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
      * @return The list of GatewayRequest object with status: <code>status</code>
      */
     public List<GatewayRequest> getByStatus(MStatus status) {
-        logger.debug(status);
+        logger.debug("varaible passed to getByStatus " + status);
         try {
 
             List<GatewayRequest> allbyStatus;
@@ -53,22 +53,28 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
     }
 
     public List<GatewayRequest> getByStatusAndSchedule(MStatus status, Date schedule) {
-        logger.debug(status);
+        logger.debug("variables passed to getByStatusAndSchedule. status: "+ status + "And schedule: " + schedule);
 
         try {
 
         List<GatewayRequest> allbystatandSdule;
         Criteria criteria = getDBSession().getSession().createCriteria(getPersistentClass());
         if (schedule == null) {
-            criteria = criteria.add(Restrictions.isNull("dateTo")).add(Restrictions.isNull("dateFrom")).add(Restrictions.eq("messageStatus", status));
+            criteria = criteria.add(Restrictions.isNull("dateTo"))
+                    .add(Restrictions.isNull("dateFrom"))
+                    .add(Restrictions.eq("messageStatus", status));
         } else {
-            criteria = criteria.add(Restrictions.eq("messageStatus", status)).add(Restrictions.lt("dateFrom", schedule)).add(Restrictions.gt("dateTo", schedule));
+            criteria = criteria.add(Restrictions.eq("messageStatus", status))
+                    .add(Restrictions.lt("dateFrom", schedule))
+                    .add(Restrictions.gt("dateTo", schedule));
 
         }
 
         allbystatandSdule = (List<GatewayRequest>) criteria.add(Restrictions.isNotNull("gatewayRequestDetails")).list();
         logger.debug(allbystatandSdule);
+
         return allbystatandSdule;
+        
         } catch (HibernateException he) {
 
             logger.error("Persistence or JDBC Exception in Method getByStatusAndSchedule", he);
