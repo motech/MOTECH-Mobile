@@ -30,8 +30,6 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
      * @return the created OMIService object
      */
     public OMIService createOMIService() {
-        logger.info("Fetching a wired OMIService object");
-
         try{
             return (OMIService)context.getBean("omiService");
         }
@@ -46,8 +44,6 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
      * @return the created MessageStoreManager object
      */
     public MessageStoreManager createMessageStoreManager() {
-        logger.info("Fetching a wired MessageStore object");
-        
         try{
             return (MessageStoreManager)context.getBean("storeManager");
         }

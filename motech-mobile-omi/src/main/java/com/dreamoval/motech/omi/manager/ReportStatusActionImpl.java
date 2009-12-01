@@ -14,11 +14,14 @@ import org.motechproject.ws.server.RegistrarService;
 public class ReportStatusActionImpl implements StatusAction{
    private RegistrarService regWs;
    private static Logger logger = Logger.getLogger(ReportStatusActionImpl.class);
-   
+
+   /**
+    *
+    * @see StatusAction.doAction
+    */
    public void doAction(GatewayResponse response){
        
        try{
-           logger.info("Reporting message status to event engine");
            if(response.getMessageStatus() == MStatus.DELIVERED)
                getRegWs().setMessageStatus(response.getRequestId(), true);
            else if(response.getMessageStatus() == MStatus.FAILED)

@@ -13,7 +13,6 @@ import java.net.URL;
 import java.util.Set;
 import javax.xml.namespace.QName;
 import java.net.MalformedURLException;
-import java.net.URLEncoder;
 import java.util.Date;
 import org.apache.log4j.Logger;
 
@@ -39,7 +38,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         if(messageDetails == null)
             return null;
 
-        logger.info("Building ORServe message gateway webservice proxy class");
+        logger.debug("Building ORServe message gateway webservice proxy class");
         URL wsdlURL = null;
         try {
           wsdlURL = new URL("http://www.outreachcity.com/orserve/messaging/smsmessenger.asmx?WSDL");
@@ -48,7 +47,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
           throw new MotechException(e.getMessage());
         }
         
-        logger.info("Calling sendMessage method of ORServe message gateway");
+        logger.debug("Calling sendMessage method of ORServe message gateway");
         logger.debug(messageDetails);
         try{
             SMSMessenger messenger = new SMSMessenger(wsdlURL, new QName("http://www.outreachcity.com/ORServe/Messaging/", "SMSMessenger"));
@@ -61,7 +60,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         }
         messageDetails.setDateSent(new Date());
         
-        logger.info("Parsing gateway response");
+        logger.debug("Parsing gateway response");
         return messageHandler.parseMessageResponse(messageDetails, gatewayResponse, context);
     }
 
@@ -72,9 +71,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
     public String getMessageStatus(GatewayResponse response) {
         String gatewayResponse;
 
-        logger.info("Checking message delivery status");
-
-        logger.info("Building ORServe message gateway webservice proxy class");
+        logger.debug("Building ORServe message gateway webservice proxy class");
         URL wsdlURL = null;
         try {
           wsdlURL = new URL("http://www.outreachcity.com/orserve/messaging/smsmessenger.asmx?WSDL");
@@ -85,7 +82,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         SMSMessenger messenger = new SMSMessenger(wsdlURL, new QName("http://www.outreachcity.com/ORServe/Messaging/", "SMSMessenger"));
         SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
 
-        logger.info("Calling getMessageStatus method of ORServe message gateway");
+        logger.debug("Calling getMessageStatus method of ORServe message gateway");
         try{
             gatewayResponse = soap.getMessageStatus(response.getGatewayMessageId(), productCode);
         }

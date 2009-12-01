@@ -31,7 +31,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      * @see GatewayMessageHandler.parseResponse
      */
     public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context) {
-        logger.info("Parsing message gateway response");
+        logger.debug("Parsing message gateway response");
         logger.debug(gatewayResponse);
 
         if(message == null)
@@ -96,7 +96,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      * @see GatewayMessageHandler.parseMessageStatus
      */
     public MStatus parseMessageStatus(String gatewayResponse) {
-        logger.info("Parsing message gateway status response");
+        logger.debug("Parsing message gateway status response");
         
         String status;
                 

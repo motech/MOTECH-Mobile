@@ -34,7 +34,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
      * @see GatewayMessageHandler.parseResponse
      */
     public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context) {
-        logger.info("Parsing message gateway response");
+        logger.debug("Parsing message gateway response");
         logger.debug(gatewayResponse);
 
         if(message == null)
@@ -95,7 +95,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
      * @see GatewayMessageHandler.parseMessageStatus
      */
     public MStatus parseMessageStatus(String gatewayResponse) {
-        logger.info("Parsing message gateway status response");
+        logger.debug("Parsing message gateway status response");
 
         String status;
                 
@@ -112,26 +112,6 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
         }
         
         return lookupStatus(status);
-        
-//        if (!status.isEmpty())
-//        {
-//            if (status.equals("004"))
-//            {
-//                return MStatus.DELIVERED;
-//            }
-//            else if (status.equals("002") || status.equals("003") || status.equals("008") || status.equals("011"))
-//            {
-//                return MStatus.PENDING;
-//            }
-//            else
-//            {
-//                return MStatus.FAILED;
-//            }
-//        }
-//        else
-//        {
-//            return MStatus.FAILED;
-//        }
     }
     
     /**

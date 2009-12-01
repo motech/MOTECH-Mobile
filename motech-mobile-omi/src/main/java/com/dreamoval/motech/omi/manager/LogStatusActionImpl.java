@@ -15,7 +15,11 @@ import org.motechproject.ws.server.RegistrarService;
 public class LogStatusActionImpl implements StatusAction {
    private RegistrarService regWs;
    private static Logger logger = Logger.getLogger(LogStatusActionImpl.class);
-   
+
+   /**
+    *
+    * @see StatusAction.doAction
+    */
    public void doAction(GatewayResponse response){       
        LogType logType;
        

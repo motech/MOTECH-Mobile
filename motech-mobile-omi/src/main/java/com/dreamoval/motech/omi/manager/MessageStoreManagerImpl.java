@@ -32,7 +32,6 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      */
     public GatewayRequest constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang) {      
         
-        logger.info("Constructing GatewayRequest object");       
         GatewayRequest gwReq = coreManager.createGatewayRequest(context);        
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
@@ -45,11 +44,14 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         gatewayDetails.setMessageType(messageData.getMessageType());
                 
         try{
-            logger.info("Fetching message template");
             String template = fetchTemplate(messageData, context, defaultLang);
+            logger.debug("message template fetched");
+            logger.debug(template);
 
-            logger.info("Parsing message template");
             String message = parseTemplate(template, messageData.getPersInfos());
+            logger.debug("message contructed");
+            logger.debug(message);
+
 
             if(message.length() <= 160){
                 gatewayDetails.setNumberOfPages(1);
@@ -79,7 +81,8 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         }       
         
         gatewayDetails.getGatewayRequests().add(gwReq);
-        logger.info("GatewayRequest object successfully constructed");
+        logger.debug("GatewayRequest object successfully constructed");
+        logger.debug(gatewayDetails);
             
         return gwReq;
     }

@@ -10,5 +10,9 @@ import com.dreamoval.motech.core.model.GatewayResponse;
  */
 public interface StatusAction {
 
+   /**
+    * Perform the corresponding action on the GatewayResponse object
+    * @param response object on which action should be performed
+    */
    public void doAction(GatewayResponse response);
 }

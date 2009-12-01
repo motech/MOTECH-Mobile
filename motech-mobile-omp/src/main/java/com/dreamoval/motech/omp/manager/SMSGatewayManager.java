@@ -15,5 +15,11 @@ import com.dreamoval.motech.core.model.GatewayResponse;
  * Date Created: Jul 15, 2009
  */
 public interface SMSGatewayManager extends GatewayManager {
+
+    /**
+     * Sends an sms message
+     * @param messageDetails details of message to be sent
+     * @return
+     */
     public GatewayResponse send(GatewayRequest messageDetails);
 }

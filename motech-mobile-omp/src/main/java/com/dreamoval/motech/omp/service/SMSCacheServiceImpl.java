@@ -30,10 +30,10 @@ public class SMSCacheServiceImpl implements CacheService {
      * @see CacheService.saveMessage
      */
     public void saveMessage(GatewayRequest messageDetails, MotechContext context) {
-        logger.info("Initializing DAO");
+        logger.debug("Initializing DAO");
         GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO(context);
         
-        logger.info("Caching message");
+        logger.debug("Caching message");
         logger.debug(messageDetails);
         
         Transaction tx = (Transaction) messageDAO.getDBSession().getTransaction();
@@ -47,10 +47,10 @@ public class SMSCacheServiceImpl implements CacheService {
      * @see CacheService.saveMessage
      */
     public void saveMessage(GatewayRequestDetails messageDetails, MotechContext context) {
-        logger.info("Initializing DAO");
+        logger.debug("Initializing DAO");
         GatewayRequestDetailsDAO messageDAO = coreManager.createGatewayRequestDetailsDAO(context);
         
-        logger.info("Caching message");
+        logger.debug("Caching message");
         logger.debug(messageDetails);
         
         Transaction tx = (Transaction) messageDAO.getDBSession().getTransaction();
@@ -64,10 +64,10 @@ public class SMSCacheServiceImpl implements CacheService {
      * @see CacheService.saveResponse
      */
     public void saveResponse(GatewayResponse responseDetails, MotechContext context) {
-        logger.info("Initializing DAO");
+        logger.debug("Initializing DAO");
         GatewayResponseDAO responseDAO = coreManager.createGatewayResponseDAO(context);
         
-        logger.info("Caching response");
+        logger.debug("Caching response");
         logger.debug(responseDetails);
         
         Transaction tx = (Transaction) responseDAO.getDBSession().getTransaction();

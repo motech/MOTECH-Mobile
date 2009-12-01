@@ -30,7 +30,6 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      * @see OMPManager.createGatewayMessageHandler()
      */
     public GatewayMessageHandler createGatewayMessageHandler() {
-        logger.info("Fetching a wired GatewayMessageHandler object");
         try{
             return (GatewayMessageHandler)context.getBean("messageHandler");
         }
@@ -44,7 +43,6 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      * @see OMPManager.createSMSGatewayManager()
      */
     public GatewayManager createGatewayManager() {
-        logger.info("Fetching a wired GatewayManager object");
         try{
             return (GatewayManager)context.getBean("gatewayManager");
         }
@@ -58,7 +56,6 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      * @see OMPManager.createSMSCacheService()
      */
     public CacheService createCacheService() {
-        logger.info("Fetching a wired CacheService object");
         try{
             return (CacheService)context.getBean("smsCache");
         }
@@ -72,7 +69,6 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      * @see OMPManager.createSMSService()
      */
     public MessagingService createMessagingService() {
-        logger.info("Fetching a wired MessagingService object");
         try{
             return (MessagingService)context.getBean("smsService");
         }
