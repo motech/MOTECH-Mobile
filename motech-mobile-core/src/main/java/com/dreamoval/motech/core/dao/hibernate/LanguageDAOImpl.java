@@ -18,6 +18,7 @@ import org.hibernate.criterion.Restrictions;
 public class LanguageDAOImpl extends HibernateGenericDAOImpl<LanguageImpl> implements LanguageDAO<LanguageImpl> {
 
     private static Logger logger = Logger.getLogger(LanguageDAOImpl.class);
+
     public LanguageDAOImpl() {
     }
 
@@ -25,25 +26,24 @@ public class LanguageDAOImpl extends HibernateGenericDAOImpl<LanguageImpl> imple
      * @see {@link com.dreamoval.motech.core.dao.LanguageDAO#getByCode(java.lang.String)  }
      */
     public Language getByCode(String code) {
-    logger.info("getByCode");
-    logger.debug(code);
-    try{
-        Session sess = this.getDBSession().getSession();
-        Language lang = (Language) sess.createCriteria(LanguageImpl.class)
-                .add(Restrictions.eq("code", code))
-                .uniqueResult();
-        logger.debug(lang);
-        return lang;
-    } catch(NonUniqueResultException ne){
-        logger.debug("getByCode returned more than one object", ne);
-        return null;
-    }     catch(HibernateException he){
-        logger.debug("Persistence or jdbc Exception  in Method getByCode", he);
-        return null;
-    }         catch(Exception e){
-        logger.debug("Exception in getByCode", e);
-        return null;
-    }
-        
+        logger.debug("variable passed to getByCode: " + code);
+        try {
+            Session sess = this.getDBSession().getSession();
+            Language lang = (Language) sess.createCriteria(LanguageImpl.class)
+                    .add(Restrictions.eq("code", code))
+                    .uniqueResult();
+            logger.debug(lang);
+            return lang;
+        } catch (NonUniqueResultException ne) {
+            logger.error("getByCode returned more than one object", ne);
+            return null;
+        } catch (HibernateException he) {
+            logger.error("Persistence or jdbc Exception  in Method getByCode", he);
+            return null;
+        } catch (Exception e) {
+            logger.error("Exception in getByCode", e);
+            return null;
+        }
+
     }
 }
