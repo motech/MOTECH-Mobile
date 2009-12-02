@@ -1,15 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.imp;
 
-/**
+/*
+ * IncMessageSessionStatus is an enumeration that describes the state of an instance of IncomingSessionImpl object
+ * Status can be Started or ended or stopped
  *
- * @author jojo
+ * Date: Dec 02, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public enum IncMessageSessionStatus {
-    STARTED, ENDED, STOPPED;
 
+    STARTED, ENDED, STOPPED;
 }
