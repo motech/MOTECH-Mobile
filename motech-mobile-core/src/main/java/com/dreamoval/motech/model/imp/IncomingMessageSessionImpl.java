@@ -1,6 +1,5 @@
 package com.dreamoval.motech.model.imp;
 
-import com.dreamoval.motech.model.dao.imp.IncomingMessageSession;
 import java.util.Date;
 
 /*

@@ -2,17 +2,17 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="GatewayResponseImpl" table="gateway_response">
-    <property name="gatewayMessageId" type="string" column="gateway_message_id"/>
-    <property name="requestId" type="string" column="request_id"/>
-    <property name="recipientNumber" type="string" column="recipient_number"/>
-    <property name="messageStatus" type="mStatus" access="field" column="message_status"/>
-    <property name="responseText" type="string" column="response_text" length="700"/>
-    <property name="dateCreated" column="date_created" type="timestamp" />
-    <property name="lastModified" generated="always" update="false" insert="false" >
-            <column name="last_modified" default="current_timestamp" sql-type="timestamp" />
+    <property column="gateway_message_id" name="gatewayMessageId" type="string"/>
+    <property column="request_id" name="requestId" type="string"/>
+    <property column="recipient_number" name="recipientNumber" type="string"/>
+    <property access="field" column="message_status" name="messageStatus" type="mStatus"/>
+    <property column="response_text" length="700" name="responseText" type="string"/>
+    <property column="date_created" name="dateCreated" type="timestamp"/>
+    <property generated="always" insert="false" name="lastModified" update="false">
+      <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>
-    <many-to-one class="GatewayRequestImpl" name="gatewayRequest" column="message_id" />
-    <set name="transitions" cascade="all">
+    <many-to-one class="GatewayRequestImpl" column="message_id" name="gatewayRequest"/>
+    <set cascade="all" name="transitions">
       <key column="gateway_response_id"/>
       <one-to-many class="TransitionImpl"/>
     </set>
