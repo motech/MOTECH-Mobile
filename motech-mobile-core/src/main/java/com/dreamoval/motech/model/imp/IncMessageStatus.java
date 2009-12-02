@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.model.dao.imp;
+package com.dreamoval.motech.model.imp;
 
 /**
  *
