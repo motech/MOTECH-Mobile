@@ -33,6 +33,11 @@ public interface IncomingMessage {
      */
     public IncMessageStatus getMessageStatus();
 
+    /*
+     * @return incomingMessageResponse
+     */
+    public IncomingMessageResponse getIncomingMessageResponse();
+
     /**
      * @param content the content to set
      */
@@ -57,5 +62,10 @@ public interface IncomingMessage {
      * @param messageStatus the messageStaus to set
      */
     public void setMessageStatus(IncMessageStatus messageStatus);
+    
+    /**
+     * @param messageStatus the messageStaus to set
+     */
+    public void setIncomingMessageResponse(IncomingMessageResponse incomingmessageResponse);
 
 }

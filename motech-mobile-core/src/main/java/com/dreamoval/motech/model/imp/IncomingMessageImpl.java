@@ -15,6 +15,7 @@ public class IncomingMessageImpl implements IncomingMessage {
     private Date dateCreated;
     private Date lastModified;
     private IncomingMessageSession incomingMsgSession;
+    private IncomingMessageResponse incomingmessageResponse;
     private IncMessageStatus messageStatus;
 
 
@@ -86,5 +87,19 @@ public class IncomingMessageImpl implements IncomingMessage {
      */
     public void setMessageStatus(IncMessageStatus messageStatus) {
         this.messageStatus = messageStatus;
+    }
+
+    /**
+     * @return the incomingmessageResponse
+     */
+    public IncomingMessageResponse getIncomingMessageResponse() {
+        return incomingmessageResponse;
+    }
+
+    /**
+     * @param incomingmessageResponse the incomingmessageResponse to set
+     */
+    public void setIncomingMessageResponse(IncomingMessageResponse incomingmessageResponse) {
+        this.incomingmessageResponse = incomingmessageResponse;
     }
 }
