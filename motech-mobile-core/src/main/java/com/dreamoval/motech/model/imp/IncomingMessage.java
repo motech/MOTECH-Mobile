@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
@@ -16,31 +11,51 @@ public interface IncomingMessage {
     /**
      * @return the content
      */
-    String getContent();
+    public String getContent();
 
     /**
      * @return the dateCreated
      */
-    Date getDateCreated();
+    public Date getDateCreated();
 
     /**
      * @return the lastModified
      */
-    Date getLastModified();
+    public Date getLastModified();
+
+    /**
+     * @return the incomingMessageSession
+     */
+    public IncomingMessageSession getIncomingMsgSession();
+
+    /**
+     * @return the messageStatus
+     */
+    public IncMessageStatus getMessageStatus();
 
     /**
      * @param content the content to set
      */
-    void setContent(String content);
+    public void setContent(String content);
 
     /**
      * @param dateCreated the dateCreated to set
      */
-    void setDateCreated(Date dateCreated);
+    public void setDateCreated(Date dateCreated);
 
     /**
      * @param lastModified the lastModified to set
      */
-    void setLastModified(Date lastModified);
+    public void setLastModified(Date lastModified);
+
+    /**
+     * @param incomingMsgSession the incomingMsgSession to set
+     */
+    public void setIncomingMsgSession(IncomingMessageSession incomingMsgSession);
+
+    /**
+     * @param messageStatus the messageStaus to set
+     */
+    public void setMessageStatus(IncMessageStatus messageStatus);
 
 }

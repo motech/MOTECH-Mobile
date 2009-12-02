@@ -14,6 +14,9 @@ public class IncomingMessageImpl implements IncomingMessage {
     private String content;
     private Date dateCreated;
     private Date lastModified;
+    private IncomingMessageSession incomingMsgSession;
+    private IncMessageStatus messageStatus;
+
 
     /**
      * @return the content
@@ -55,5 +58,33 @@ public class IncomingMessageImpl implements IncomingMessage {
      */
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    /**
+     * @return the incomingMsgSession
+     */
+    public IncomingMessageSession getIncomingMsgSession() {
+        return incomingMsgSession;
+    }
+
+    /**
+     * @param incomingMsgSession the incomingMsgSession to set
+     */
+    public void setIncomingMsgSession(IncomingMessageSession incomingMsgSession) {
+        this.incomingMsgSession = incomingMsgSession;
+    }
+
+    /**
+     * @return the messageStatus
+     */
+    public IncMessageStatus getMessageStatus() {
+        return messageStatus;
+    }
+
+    /**
+     * @param messageStatus the messageStatus to set
+     */
+    public void setMessageStatus(IncMessageStatus messageStatus) {
+        this.messageStatus = messageStatus;
     }
 }
