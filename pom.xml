@@ -111,7 +111,7 @@
     </build>
     <modules>
         <module>motech-mobile-core</module>
-      <!--<module>motech-mobile-imp</module>-->
+        <module>motech-mobile-imp</module>
         <module>motech-mobile-omp</module>
         <module>motech-mobile-omi</module>
         <module>motech-mobile-webapp</module>
