@@ -1,4 +1,4 @@
-package com.dreamoval.motech.model.dao.imp;
+package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
 
