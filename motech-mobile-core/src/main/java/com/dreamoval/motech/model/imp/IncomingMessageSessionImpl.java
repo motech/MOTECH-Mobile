@@ -1,6 +1,8 @@
 package com.dreamoval.motech.model.imp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /*
  * IncomingMessageSessionImpl is the implementation of the IncomingMessageSession interface
@@ -16,6 +18,8 @@ public class IncomingMessageSessionImpl implements IncomingMessageSession {
   private Date dateEnded;
   private Date lastActivity;
   private String formCode;
+  private List<IncomingMessage> incomingMessages = new ArrayList<IncomingMessage>();
+  private IncMessageSessionStatus messageSessionStatus;
 
     /**
      * @return the requesterPhone
@@ -86,5 +90,35 @@ public class IncomingMessageSessionImpl implements IncomingMessageSession {
     public void setFormCode(String formCode) {
         this.formCode = formCode;
     }
+
+    /**
+     * @return the incomingMessages
+     */
+    public List<IncomingMessage> getIncomingMessages() {
+        return incomingMessages;
+    }
+
+    /**
+     * @param incomingMessages the incomingMessages to set
+     */
+    public void setIncomingMessages(List<IncomingMessage> incomingMessages) {
+        this.incomingMessages = incomingMessages;
+    }
+
+    /**
+     * @return the messageSessionStatus
+     */
+    public IncMessageSessionStatus getMessageSessionStatus() {
+        return messageSessionStatus;
+    }
+
+    /**
+     * @param messageSessionStatus the messageSessionStatus to set
+     */
+    public void setMessageSessionStatus(IncMessageSessionStatus messageSessionStatus) {
+        this.messageSessionStatus = messageSessionStatus;
+    }
+
+    
   
 }

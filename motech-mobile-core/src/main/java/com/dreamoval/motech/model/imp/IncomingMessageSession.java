@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,51 +12,60 @@ public interface IncomingMessageSession {
     /**
      * @return the dateCreated
      */
-    Date getDateCreated();
+    public Date getDateCreated();
 
     /**
      * @return the dateEnded
      */
-    Date getDateEnded();
+    public Date getDateEnded();
 
     /**
      * @return the formCode
      */
-    String getFormCode();
+    public String getFormCode();
 
     /**
      * @return the lastActivity
      */
-    Date getLastActivity();
+    public Date getLastActivity();
 
     /**
      * @return the requesterPhone
      */
-    String getRequesterPhone();
+    public String getRequesterPhone();
+
+    /**
+     * @return the incomingMessages
+     */
+    public List<IncomingMessage> getIncomingMessages();
+
+    /**
+     * @return the messageSessionStatus
+     */
+    public IncMessageSessionStatus getMessageSessionStatus();
 
     /**
      * @param dateCreated the dateCreated to set
      */
-    void setDateCreated(Date dateCreated);
+    public void setDateCreated(Date dateCreated);
 
     /**
      * @param dateEnded the dateEnded to set
      */
-    void setDateEnded(Date dateEnded);
+    public void setDateEnded(Date dateEnded);
 
     /**
      * @param formCode the formCode to set
      */
-    void setFormCode(String formCode);
+    public void setFormCode(String formCode);
 
     /**
      * @param lastActivity the lastActivity to set
      */
-    void setLastActivity(Date lastActivity);
+    public void setLastActivity(Date lastActivity);
 
     /**
      * @param requesterPhone the requesterPhone to set
      */
-    void setRequesterPhone(String requesterPhone);
-
+    public void setRequesterPhone(String requesterPhone);
 }
