@@ -76,6 +76,8 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
      <bean id="incomingMessage" class="com.dreamoval.motech.model.imp.IncomingMessageImpl" scope="prototype">
     </bean>
+     <bean id="incomingMessageResponse" class="com.dreamoval.motech.model.imp.IncomingMessageResponseImpl" scope="prototype">
+    </bean>
     <!-- End of Model-->
 
     <!-- Data Access -->
@@ -148,6 +150,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     </bean>
 
     <bean id="incomingMessageDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageDAOImpl" scope="prototype">
+    </bean>
+
+    <bean id="incomingMessageResponseDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageResponseDAOImpl" scope="prototype">
     </bean>
     <!-- End of Data Access-->
 

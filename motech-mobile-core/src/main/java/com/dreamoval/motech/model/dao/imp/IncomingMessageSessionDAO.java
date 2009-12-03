@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.dao.imp;
 
 import com.dreamoval.motech.core.dao.GenericDAO;
 import com.dreamoval.motech.model.imp.IncomingMessageSession;
 
-/**
+/*
+ * IncomingMessageSessionDAO is an interface that defines Operations on IncomingMessageSession Pojo
  *
- * @author jojo
+ * Date: Dec 03, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessageSessionDAO<T extends IncomingMessageSession> extends GenericDAO<T>{
-
+public interface IncomingMessageSessionDAO<T extends IncomingMessageSession> extends GenericDAO<T> {
 }
