@@ -143,6 +143,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="gatewayRequestDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDetailsDAOImpl" scope="prototype">
     </bean>
     
+    <bean id="incomingMessageSessionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageSessionDAOImpl" scope="prototype">
+    </bean>
+
 
     <!-- End of Data Access -->
 
