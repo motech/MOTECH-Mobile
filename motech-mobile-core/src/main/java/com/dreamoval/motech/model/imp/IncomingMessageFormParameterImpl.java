@@ -12,7 +12,7 @@ import java.util.Date;
 public class IncomingMessageFormParameterImpl implements IncomingMessageFormParameter {
 
     private IncomingMessageForm incomingMsgForm;
-//    private IncomingMessageParameterDefinition incomingMsgParamDefinition;
+    private IncomingMessageFormParameterDefinition incomingMsgFormParamDefinition;
     private String value;
     private int errCode;
     private String errText;
@@ -116,6 +116,20 @@ public class IncomingMessageFormParameterImpl implements IncomingMessageFormPara
      */
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    /**
+     * @return the incomingMsgFormParamDefinition
+     */
+    public IncomingMessageFormParameterDefinition getIncomingMsgFormParamDefinition() {
+        return incomingMsgFormParamDefinition;
+    }
+
+    /**
+     * @param incomingMsgFormParamDefinition the incomingMsgFormParamDefinition to set
+     */
+    public void setIncomingMsgFormParamDefinition(IncomingMessageFormParameterDefinition incomingMsgFormParamDefinition) {
+        this.incomingMsgFormParamDefinition = incomingMsgFormParamDefinition;
     }
 
 }
