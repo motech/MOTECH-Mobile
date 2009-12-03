@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implements IncomingMessageFormDefinition {
 
-    private String form_code;
+    private String formCode;
     private Date dateCreated;
     private Date lastModified;
     private Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition = new HashSet<IncomingMessageFormParameterDefinition>();
@@ -22,15 +22,15 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
     /**
      * @return the form_code
      */
-    public String getForm_code() {
-        return form_code;
+    public String getFormCode() {
+        return formCode;
     }
 
     /**
      * @param form_code the form_code to set
      */
-    public void setForm_code(String form_code) {
-        this.form_code = form_code;
+    public void setFormCode(String form_code) {
+        this.formCode = form_code;
     }
 
     /**

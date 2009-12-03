@@ -16,9 +16,9 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
     public Date getDateCreated();
 
     /**
-     * @return the form_code
+     * @return the formCode
      */
-    public String getForm_code();
+    public String getFormCode();
 
     /**
      * @return the lastModified
@@ -36,9 +36,9 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
     public void setDateCreated(Date dateCreated);
 
     /**
-     * @param form_code the form_code to set
+     * @param formCode the formCode to set
      */
-    public void setForm_code(String form_code);
+    public void setFormCode(String formCode);
 
     /**
      * @param lastModified the lastModified to set
