@@ -241,7 +241,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     }
 
     /**
-     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageSessionDAO(com.dreamoval.motech.core.service.MotechContext)  }
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageDAO(com.dreamoval.motech.core.service.MotechContext)  }
      */
     public IncomingMessageSessionDAO createIncomingMessageSessionDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageSessionDAO instance");
@@ -251,7 +251,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     }
 
     /**
-     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageSessionDAO(com.dreamoval.motech.core.service.MotechContext)  }
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageDAO(com.dreamoval.motech.core.service.MotechContext)  }
      */
     public IncomingMessageDAO createIncomingMessageDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageSessionDAO instance");
