@@ -1,9 +1,10 @@
 package com.dreamoval.motech.model.imp;
 
+import com.dreamoval.motech.core.model.MotechEntity;
 import java.util.Date;
 import java.util.Set;
 
-public interface IncomingMessageForm {
+public interface IncomingMessageForm extends MotechEntity {
 
     /**
      * @return the dateCreated

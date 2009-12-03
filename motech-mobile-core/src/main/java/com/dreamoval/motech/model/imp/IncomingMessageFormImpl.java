@@ -1,5 +1,6 @@
 package com.dreamoval.motech.model.imp;
 
+import com.dreamoval.motech.core.model.MotechEntityImpl;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import java.util.Set;
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class IncomingMessageFormImpl implements IncomingMessageForm {
+public class IncomingMessageFormImpl extends MotechEntityImpl implements IncomingMessageForm {
 
     private IncomingMessageFormDefinition incomingMsgFormDefinition;
     private Date dateCreated;
