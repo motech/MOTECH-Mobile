@@ -19,10 +19,12 @@ public class StatusHandlerImpl implements StatusHandler {
      *
      * @see StatusHandler.handleStatus
      */
-    public void handleStatus(GatewayResponse response){
+    public void handleStatus(GatewayResponse response) {
         List<StatusAction> actions = actionRegister.get(response.getMessageStatus());
-        for(StatusAction action : actions){
-            action.doAction(response);
+        if (actions != null) {
+            for (StatusAction action : actions) {
+                action.doAction(response);
+            }
         }
     }
 
@@ -30,7 +32,7 @@ public class StatusHandlerImpl implements StatusHandler {
      *
      * @see StatusHandler.registerStatusAction
      */
-    public boolean registerStatusAction(MStatus status, StatusAction action){
+    public boolean registerStatusAction(MStatus status, StatusAction action) {
         return actionRegister.get(status).add(action);
     }
 
