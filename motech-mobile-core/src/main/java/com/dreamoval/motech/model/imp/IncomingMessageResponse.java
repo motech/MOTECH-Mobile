@@ -4,13 +4,14 @@
  */
 package com.dreamoval.motech.model.imp;
 
+import com.dreamoval.motech.core.model.MotechEntity;
 import java.util.Date;
 
 /**
  *
  * @author jojo
  */
-public interface IncomingMessageResponse {
+public interface IncomingMessageResponse extends MotechEntity{
 
     /**
      * @return the content
