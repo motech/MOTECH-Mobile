@@ -2,86 +2,85 @@ package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
 
-
 public interface IncomingMessageFormParameter {
 
     /**
      * @return the dateCreated
      */
-    Date getDateCreated();
+    public Date getDateCreated();
 
     /**
      * @return the errCode
      */
-    int getErrCode();
+    public int getErrCode();
 
     /**
      * @return the errText
      */
-    String getErrText();
+    public String getErrText();
 
     /**
      * @return the incomingMsgForm
      */
-    IncomingMessageForm getIncomingMsgForm();
+    public IncomingMessageForm getIncomingMsgForm();
 
     /**
      * @return the lastModified
      */
-    Date getLastModified();
+    public Date getLastModified();
 
     /**
      * @return the messageFormParamStatus
      */
-    IncMessageFormParameterStatus getMessageFormParamStatus();
+    public IncMessageFormParameterStatus getMessageFormParamStatus();
 
     /**
      * @return the value
      */
-    String getValue();
+    public String getValue();
 
     /**
      * @return the value incomingMsgFormParamDefinition
      */
-    IncomingMessageFormParameterDefinition getIncomingMsgFormParamDefinition();
+    public IncomingMessageFormParameterDefinition getIncomingMsgFormParamDefinition();
 
     /**
      * @param dateCreated the dateCreated to set
      */
-    void setDateCreated(Date dateCreated);
+    public void setDateCreated(Date dateCreated);
 
     /**
      * @param errCode the errCode to set
      */
-    void setErrCode(int errCode);
+    public void setErrCode(int errCode);
 
     /**
      * @param errText the errText to set
      */
-    void setErrText(String errText);
+    public void setErrText(String errText);
 
     /**
      * @param incomingMsgForm the incomingMsgForm to set
      */
-    void setIncomingMsgForm(IncomingMessageForm incomingMsgForm);
+    public void setIncomingMsgForm(IncomingMessageForm incomingMsgForm);
 
     /**
      * @param lastModified the lastModified to set
      */
-    void setLastModified(Date lastModified);
+    public void setLastModified(Date lastModified);
 
     /**
      * @param messageFormParamStatus the messageFormParamStatus to set
      */
-    void setMessageFormParamStatus(IncMessageFormParameterStatus messageFormParamStatus);
+    public void setMessageFormParamStatus(IncMessageFormParameterStatus messageFormParamStatus);
 
     /**
      * @param value the value to set
      */
-    void setValue(String value);
+    public void setValue(String value);
 
     /**
      * @param incomingMsgFormParamDefinition the incomingMsgFormParamDefinition to set
      */
-    void setIncomingMsgFormParamDefinition(IncomingMessageFormParameterDefinition incomingMsgFormParamDefinition);
+    public void setIncomingMsgFormParamDefinition(IncomingMessageFormParameterDefinition incomingMsgFormParamDefinition);
 }
