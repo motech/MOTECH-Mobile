@@ -17,7 +17,7 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
     private String formCode;
     private Date dateCreated;
     private Date lastModified;
-    private Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition = new HashSet<IncomingMessageFormParameterDefinition>();
+    private Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinitions = new HashSet<IncomingMessageFormParameterDefinition>();
 
     /**
      * @return the form_code
@@ -64,15 +64,15 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
     /**
      * @return the incomingMsgParamDefinition
      */
-    public Set<IncomingMessageFormParameterDefinition> getIncomingMsgParamDefinition() {
-        return incomingMsgParamDefinition;
+    public Set<IncomingMessageFormParameterDefinition> getIncomingMsgParamDefinitions() {
+        return incomingMsgParamDefinitions;
     }
 
     /**
      * @param incomingMsgParamDefinition the incomingMsgParamDefinition to set
      */
-    public void setIncomingMsgParamDefinition(Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition) {
-        this.incomingMsgParamDefinition = incomingMsgParamDefinition;
+    public void setIncomingMsgParamDefinitions(Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition) {
+        this.incomingMsgParamDefinitions = incomingMsgParamDefinition;
     }
 
    

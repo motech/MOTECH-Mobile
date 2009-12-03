@@ -28,7 +28,7 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
     /**
      * @return the incomingMsgParamDefinition
      */
-    public Set<IncomingMessageFormParameterDefinition> getIncomingMsgParamDefinition();
+    public Set<IncomingMessageFormParameterDefinition> getIncomingMsgParamDefinitions();
 
     /**
      * @param dateCreated the dateCreated to set
@@ -48,5 +48,5 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
     /**
      * @param incomingMsgParamDefinition the incomingMsgParamDefinition to set
      */
-    public void setIncomingMsgParamDefinition(Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition);
+    public void setIncomingMsgParamDefinitions(Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition);
 }

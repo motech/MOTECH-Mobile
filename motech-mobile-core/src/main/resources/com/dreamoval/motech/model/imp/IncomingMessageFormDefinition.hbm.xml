@@ -7,5 +7,9 @@
     <property generated="always" insert="false" name="lastModified" type="timestamp" update="false">
       <column default="current_timestamp" name="last_modified"/>
     </property>
+    <set name="incomingMsgParamDefinitions" cascade="save-update">
+        <key column="incoming_message_form_definition_id" />
+        <one-to-many class="IncomingMessageFormParameterDefinitionImpl" />
+    </set>
   </union-subclass>
 </hibernate-mapping>
