@@ -15,6 +15,7 @@ public class IncomingMessageResponseImpl extends MotechEntityImpl implements Inc
     private IncomingMessage incomingMessage;
     private String content;
     private Date dateCreated;
+    private Date lastModified;
     private IncMessageResponseStatus messageResponseStatus;
 
     /**
@@ -71,5 +72,19 @@ public class IncomingMessageResponseImpl extends MotechEntityImpl implements Inc
      */
     public void setMessageResponseStatus(IncMessageResponseStatus messageResponseStatus) {
         this.messageResponseStatus = messageResponseStatus;
+    }
+
+    /**
+     * @return the lastModified
+     */
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    /**
+     * @param lastModified the lastModified to set
+     */
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 }

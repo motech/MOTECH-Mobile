@@ -34,6 +34,11 @@ public interface IncomingMessageResponse extends MotechEntity{
     public IncMessageResponseStatus getMessageResponseStatus();
 
     /**
+     * @return the lastModified
+     */
+    public Date getLastModified();
+
+    /**
      * @param content the content to set
      */
     public void setContent(String content);
@@ -52,4 +57,10 @@ public interface IncomingMessageResponse extends MotechEntity{
      * @param messageResponseStatus the messageResponseStatus to set
      */
     public void setMessageResponseStatus(IncMessageResponseStatus messageResponseStatus);
+
+     /**
+     * @param lastModified the lastModified to set
+     */
+    public void setLastModified(Date lastModified);
+    
 }

@@ -109,6 +109,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/core/model/NotificationType.hbm.xml</value>
                 <value>com/dreamoval/motech/model/imp/IncomingMessageSession.hbm.xml</value>
                 <value>com/dreamoval/motech/model/imp/IncomingMessage.hbm.xml</value>
+                <value>com/dreamoval/motech/model/imp/IncomingMessageResponse.hbm.xml</value>
             </list>
         </property>
     </bean>
