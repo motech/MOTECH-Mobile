@@ -38,6 +38,11 @@ public interface IncomingMessage {
      */
     public IncomingMessageResponse getIncomingMessageResponse();
 
+    /*
+     * @return incomingMessageForm
+     */
+    public IncomingMessageForm getIncomingMessageForm();
+
     /**
      * @param content the content to set
      */
@@ -59,13 +64,18 @@ public interface IncomingMessage {
     public void setIncomingMsgSession(IncomingMessageSession incomingMsgSession);
 
     /**
-     * @param messageStatus the messageStaus to set
+     * @param messageStatus the messageStatus to set
      */
     public void setMessageStatus(IncMessageStatus messageStatus);
     
     /**
-     * @param messageStatus the messageStaus to set
+     * @param IncomingMessageResponse the incomingMessageResponse to set
      */
     public void setIncomingMessageResponse(IncomingMessageResponse incomingmessageResponse);
+
+    /**
+     * @param IncomingMessageForm the incomingMessageForm to set
+     */
+    public void setIncomingMessageForm(IncomingMessageForm incomingMessageForm);
 
 }
