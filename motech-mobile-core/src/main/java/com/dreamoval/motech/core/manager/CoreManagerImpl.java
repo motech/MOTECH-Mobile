@@ -19,6 +19,8 @@ import com.dreamoval.motech.core.model.NotificationType;
 import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.util.MotechIDGenerator;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
+import com.dreamoval.motech.model.imp.IncomingMessageSession;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -130,6 +132,16 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     }
 
     /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageSession()   }
+     */
+    public IncomingMessageSession createIncomingMessageSession() {
+        logger.info("Creating IncomingMessageSession instance");
+        IncomingMessageSession result = (IncomingMessageSession) getInstance("incomingMessageSession", IncomingMessageSession.class);
+
+        return result;
+    }
+
+    /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createGatewayRequestDAO(com.dreamoval.motech.core.service.MotechContext)  }
      */
     public GatewayRequestDAO createGatewayRequestDAO(MotechContext motechContext) {
@@ -214,6 +226,16 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         NotificationTypeDAO nDAO = (NotificationTypeDAO) getInstance("notificationTypeDAO", NotificationTypeDAO.class);
         nDAO.setDBSession(motechContext.getDBSession());
         return nDAO;
+    }
+
+    /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageSessionDAO(com.dreamoval.motech.core.service.MotechContext)  }
+     */
+    public IncomingMessageSessionDAO createIncomingMessageSessionDAO(MotechContext motechContext) {
+        logger.info("Creating IncomingMessageSessionDAO instance");
+         IncomingMessageSessionDAO imsDAO = (IncomingMessageSessionDAO) getInstance("notificationTypeDAO", IncomingMessageSessionDAO.class);
+        imsDAO.setDBSession(motechContext.getDBSession());
+        return imsDAO;
     }
 
     /**
