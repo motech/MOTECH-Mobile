@@ -2,76 +2,75 @@ package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
 
-
 public interface IncomingMessageFormParameterDefinition {
 
     /**
      * @return the dateCreated
      */
-    Date getDateCreated();
+    public Date getDateCreated();
 
     /**
      * @return the IncomingMsgFormDefinition
      */
-    IncomingMessageFormDefinition getIncomingMsgFormDefinition();
+    public IncomingMessageFormDefinition getIncomingMsgFormDefinition();
 
     /**
      * @return the lastModified
      */
-    Date getLastModified();
+    public Date getLastModified();
 
     /**
      * @return the length
      */
-    int getLength();
+    public int getLength();
 
     /**
      * @return the name
      */
-    String getName();
+    public String getName();
 
     /**
      * @return the paramType
      */
-    String getParamType();
+    public String getParamType();
 
     /**
      * @return the required
      */
-    boolean isRequired();
+    public boolean isRequired();
 
     /**
      * @param dateCreated the dateCreated to set
      */
-    void setDateCreated(Date dateCreated);
+    public void setDateCreated(Date dateCreated);
 
     /**
      * @param IncomingMsgFormDefinition the IncomingMsgFormDefinition to set
      */
-    void setIncomingMsgFormDefinition(IncomingMessageFormDefinition IncomingMsgFormDefinition);
+    public void setIncomingMsgFormDefinition(IncomingMessageFormDefinition IncomingMsgFormDefinition);
 
     /**
      * @param lastModified the lastModified to set
      */
-    void setLastModified(Date lastModified);
+    public void setLastModified(Date lastModified);
 
     /**
      * @param length the length to set
      */
-    void setLength(int length);
+    public void setLength(int length);
 
     /**
      * @param name the name to set
      */
-    void setName(String name);
+    public void setName(String name);
 
     /**
      * @param paramType the paramType to set
      */
-    void setParamType(String paramType);
+    public void setParamType(String paramType);
 
     /**
      * @param required the required to set
      */
-    void setRequired(boolean required);
+    public void setRequired(boolean required);
 }
