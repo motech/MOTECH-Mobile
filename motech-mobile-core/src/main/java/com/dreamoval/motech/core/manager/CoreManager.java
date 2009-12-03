@@ -18,7 +18,9 @@ import com.dreamoval.motech.core.model.MessageTemplate;
 import com.dreamoval.motech.core.model.NotificationType;
 import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
+import com.dreamoval.motech.model.imp.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageSession;
 import java.io.Serializable;
 
@@ -92,6 +94,12 @@ public interface CoreManager extends Serializable {
     public IncomingMessageSession createIncomingMessageSession();
 
     /**
+     *  Creates a new instance of IncomingMessage
+     * @return the newly created IncomingMessage
+     */
+    public IncomingMessage createIncomingMessage();
+
+    /**
      * Creates a new instance of GatewayRequestDAO
      * @param motechContext takes a instance of MotechContext
      * @return The newly created instance of GatewayRequestDAO
@@ -153,6 +161,13 @@ public interface CoreManager extends Serializable {
      * @return the newly created IncomingMessageSessionDAO
      */
     public IncomingMessageSessionDAO createIncomingMessageSessionDAO(MotechContext motechContext);
+
+    /**
+     * Creates a new instance of IncomingMessageDAO
+     * @param motechContext takes a instance of MotechContext
+     * @return the newly created IncomingMessageDAO
+     */
+    public IncomingMessageDAO createIncomingMessageDAO(MotechContext motechContext);
 
     /**
      * @return the sessionContainer
