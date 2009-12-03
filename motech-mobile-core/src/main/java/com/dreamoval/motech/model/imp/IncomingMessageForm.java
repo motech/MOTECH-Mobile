@@ -1,6 +1,7 @@
 package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
+import java.util.Set;
 
 
 public interface IncomingMessageForm {
@@ -26,6 +27,11 @@ public interface IncomingMessageForm {
     IncMessageFormStatus getMessageStatus();
 
     /**
+     * @return the incomingMsgFormParameters
+     */
+    Set<IncomingMessageFormParameter> getIncomingMsgFormParameters( );
+
+    /**
      * @param dateCreated the dateCreated to set
      */
     void setDateCreated(Date dateCreated);
@@ -44,4 +50,9 @@ public interface IncomingMessageForm {
      * @param messageStatus the messageStatus to set
      */
     void setMessageStatus(IncMessageFormStatus messageStatus);
+
+    /**
+     * @param incomingMsgFormParameters the incomingMsgFormParameters to set
+     */
+    void setIncomingMsgFormParameters(Set<IncomingMessageFormParameter> incomingMsgFormParameters);
 }

@@ -1,6 +1,7 @@
 package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
+import java.util.Set;
 
 /*
  * IncomingMessageFormImpl is the implementation of the IncomingMessageForm interface
@@ -15,6 +16,7 @@ public class IncomingMessageFormImpl implements IncomingMessageForm {
     private Date dateCreated;
     private Date lastModified;
     private IncMessageFormStatus messageStatus;
+    private Set<IncomingMessageFormParameter> incomingMsgFormParameters;
 
     /**
      * @return the incomingMsgFormDefinition
@@ -70,6 +72,20 @@ public class IncomingMessageFormImpl implements IncomingMessageForm {
      */
     public void setMessageStatus(IncMessageFormStatus messageStatus) {
         this.messageStatus = messageStatus;
+    }
+
+    /**
+     * @return the incomingMsgFormParameters
+     */
+    public Set<IncomingMessageFormParameter> getIncomingMsgFormParameters() {
+        return incomingMsgFormParameters;
+    }
+
+    /**
+     * @param incomingMsgFormParameters the incomingMsgFormParameters to set
+     */
+    public void setIncomingMsgFormParameters(Set<IncomingMessageFormParameter> incomingMsgFormParameters) {
+        this.incomingMsgFormParameters = incomingMsgFormParameters;
     }
     
 }
