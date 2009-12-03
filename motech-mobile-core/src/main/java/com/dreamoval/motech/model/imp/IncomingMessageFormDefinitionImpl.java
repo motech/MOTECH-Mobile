@@ -1,6 +1,8 @@
 package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
  * IncomingMessageFormDefinitionImpl is the implementation of the IncomingMessageFormDefinitionImpl interface
@@ -14,6 +16,7 @@ public class IncomingMessageFormDefinitionImpl implements IncomingMessageFormDef
     private String form_code;
     private Date dateCreated;
     private Date lastModified;
+    private Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition = new HashSet<IncomingMessageFormParameterDefinition>();
 
     /**
      * @return the form_code
@@ -56,5 +59,21 @@ public class IncomingMessageFormDefinitionImpl implements IncomingMessageFormDef
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
     }
+
+    /**
+     * @return the incomingMsgParamDefinition
+     */
+    public Set<IncomingMessageFormParameterDefinition> getIncomingMsgParamDefinition() {
+        return incomingMsgParamDefinition;
+    }
+
+    /**
+     * @param incomingMsgParamDefinition the incomingMsgParamDefinition to set
+     */
+    public void setIncomingMsgParamDefinition(Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition) {
+        this.incomingMsgParamDefinition = incomingMsgParamDefinition;
+    }
+
+   
     
 }

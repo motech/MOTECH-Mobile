@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.imp;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -29,6 +25,11 @@ public interface IncomingMessageFormDefinition {
     Date getLastModified();
 
     /**
+     * @return the incomingMsgParamDefinition
+     */
+    Set<IncomingMessageFormParameterDefinition> getIncomingMsgParamDefinition( );
+
+    /**
      * @param dateCreated the dateCreated to set
      */
     void setDateCreated(Date dateCreated);
@@ -43,4 +44,8 @@ public interface IncomingMessageFormDefinition {
      */
     void setLastModified(Date lastModified);
 
+    /**
+     * @param incomingMsgParamDefinition the incomingMsgParamDefinition to set
+     */
+    void setIncomingMsgParamDefinition(Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition);
 }
