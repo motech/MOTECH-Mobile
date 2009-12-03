@@ -20,10 +20,12 @@ import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDefinitionDAO;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageFormParameterDefinitionDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageResponseDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.model.imp.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
+import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
 import com.dreamoval.motech.model.imp.IncomingMessageSession;
 import java.io.Serializable;
@@ -116,6 +118,12 @@ public interface CoreManager extends Serializable {
     public IncomingMessageFormDefinition createIncomingMessageFormDefinition();
 
     /**
+     *  Creates a new instance of IncomingMessageFormParameterDefinition
+     * @return the newly created IncomingMessageFormParameterDefinition
+     */
+    public IncomingMessageFormParameterDefinition createIncomingMessageFormParameterDefinition();
+
+    /**
      * Creates a new instance of GatewayRequestDAO
      * @param motechContext takes a instance of MotechContext
      * @return The newly created instance of GatewayRequestDAO
@@ -198,6 +206,13 @@ public interface CoreManager extends Serializable {
      * @return the newly created IncomingMessageFormDefinitionDAO
      */
     public IncomingMessageFormDefinitionDAO createIncomingMessageFormDefinitionDAO(MotechContext motechContext);
+
+    /**
+     * Creates a new instance of IncomingMessageFormParameterDefintionDAO
+     * @param motechContext takes a instance of MotechContext
+     * @return the newly created IncomingMessageFormParameterDefinitionDAO
+     */
+    public IncomingMessageFormParameterDefinitionDAO createIncomingMessageFormParameterDefinitionDAO(MotechContext motechContext);
 
     /**
      * @return the sessionContainer
