@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dreamoval.motech.model.imp">
+  <union-subclass extends="com.dreamoval.motech.core.model.MotechEntityImpl" name="IncomingMessageSession" table="incoming_message_session">
+    <property column="requester_phone" name="requesterPhone" type="string" length="20"/> 
+    <property column="form_code" name="formCode" type="string" length="15"/>
+    <property column="date_started" name="dateStarted" type="timestamp"/>
+    <property column="date_ended" name="dateEnded" type="timestamp"/>
+    <property name="lastActivity" type="timestamp" generated="always" update="false" insert="false">
+        <column name="last_activity" default="current_timestamp"/>
+    </property>
+    <!--<property access="field" column="message_session_status" name="messageSessionStatus" type="incMessageSessionStatus" />-->
+  </union-subclass>
+</hibernate-mapping>

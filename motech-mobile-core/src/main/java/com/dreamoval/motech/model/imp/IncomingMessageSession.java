@@ -11,9 +11,9 @@ import java.util.List;
 public interface IncomingMessageSession extends MotechEntity{
 
     /**
-     * @return the dateCreated
+     * @return the dateStarted
      */
-    public Date getDateCreated();
+    public Date getDateStarted();
 
     /**
      * @return the dateEnded
@@ -46,9 +46,9 @@ public interface IncomingMessageSession extends MotechEntity{
     public IncMessageSessionStatus getMessageSessionStatus();
 
     /**
-     * @param dateCreated the dateCreated to set
+     * @param dateStarted the dateCreated to set
      */
-    public void setDateCreated(Date dateCreated);
+    public void setDateStarted(Date dateStarted);
 
     /**
      * @param dateEnded the dateEnded to set
@@ -69,4 +69,9 @@ public interface IncomingMessageSession extends MotechEntity{
      * @param requesterPhone the requesterPhone to set
      */
     public void setRequesterPhone(String requesterPhone);
+
+     /**
+     * @param messageSessionStatus the messageSessionStatus to set
+     */
+    public void setMessageSessionStatus(IncMessageSessionStatus messageSessionStatus);
 }

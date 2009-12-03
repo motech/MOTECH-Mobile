@@ -15,7 +15,7 @@ import java.util.List;
 public class IncomingMessageSessionImpl extends MotechEntityImpl implements IncomingMessageSession {
 
   private String requesterPhone;
-  private Date dateCreated;
+  private Date dateStarted;
   private Date dateEnded;
   private Date lastActivity;
   private String formCode;
@@ -39,15 +39,15 @@ public class IncomingMessageSessionImpl extends MotechEntityImpl implements Inco
     /**
      * @return the dateCreated
      */
-    public Date getDateCreated() {
-        return dateCreated;
+    public Date getDateStarted() {
+        return dateStarted;
     }
 
     /**
-     * @param dateCreated the dateCreated to set
+     * @param dateStarted the dateCreated to set
      */
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateStarted(Date dateStarted) {
+        this.dateStarted = dateStarted;
     }
 
     /**

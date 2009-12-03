@@ -71,6 +71,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="notificationType" class="com.dreamoval.motech.core.model.NotificationTypeImpl" scope="prototype">
     </bean>
 
+    <bean id="incomingMessageSession" class="com.dreamoval.motech.model.imp.IncomingMessageSessionImpl" scope="prototype">
+    </bean>
+
     <!-- End of Model -->
 
     <!-- Data Access  -->
@@ -101,6 +104,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/core/model/Language.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/MessageTemplate.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/NotificationType.hbm.xml</value>
+                <value>com/dreamoval/motech/model/imp/IncomingMessageSession.hbm.xml</value>
             </list>
         </property>
     </bean>
