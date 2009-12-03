@@ -3,6 +3,7 @@
 <hibernate-mapping package="com.dreamoval.motech.model.imp">
     <union-subclass extends="com.dreamoval.motech.core.model.MotechEntityImpl" name="IncomingMessageImpl" table="incoming_message">
          <many-to-one class="IncomingMessageSessionImpl" column="incoming_message_session_id" name="incomingMsgSession"/>
+         <many-to-one class="IncomingMessageResponseImpl" column="incoming_message_response_id" name="incomingMessageResponse" cascade="all" unique="true" />
         <property column="message_content" name="content" type="string" length="700"/>
         <property column="date_created" name="dateCreated" type="timestamp"/>
         <property name="lastModified" type="timestamp" generated="always" update="false" insert="false">

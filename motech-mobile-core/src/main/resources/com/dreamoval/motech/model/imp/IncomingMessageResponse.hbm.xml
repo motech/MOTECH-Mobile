@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.model.imp">
     <union-subclass extends="com.dreamoval.motech.core.model.MotechEntityImpl" name="IncomingMessageResponseImpl" table="incoming_message_response">
-         <many-to-one class="IncomingMessageImpl" column="incoming_message_id" name="incomingMessage"/>
+         <one-to-one class="IncomingMessageImpl" name="incomingMessage" property-ref="incomingMessageResponse"/>
         <property column="response_content" name="content" type="string" length="700"/>
         <property column="date_created" name="dateCreated" type="timestamp"/>
         <property name="lastModified" type="timestamp" generated="always" update="false" insert="false">
