@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.model.imp">
-    <union-subclass extends="com.dreamoval.motech.core.model.MotechEntityImpl" name="IncomingMessageFormDefinitionImpl" table="incoming_message_form_definition">
-        <property column="form_code" name="formCode" type="string" length="15" unique="true"/>
-        <property column="date_created" name="dateCreated" type="timestamp"/>
-        <property name="lastModified" type="timestamp" generated="always" update="false" insert="false">
-            <column name="last_modified" default="current_timestamp"/>
-        </property>
-    </union-subclass>
+  <union-subclass extends="com.dreamoval.motech.core.model.MotechEntityImpl" name="IncomingMessageFormDefinitionImpl" table="incoming_message_form_definition">
+    <property column="form_code" length="15" name="formCode" type="string" unique="true"/>
+    <property column="date_created" name="dateCreated" type="timestamp"/>
+    <property generated="always" insert="false" name="lastModified" type="timestamp" update="false">
+      <column default="current_timestamp" name="last_modified"/>
+    </property>
+  </union-subclass>
 </hibernate-mapping>

@@ -7,13 +7,13 @@
   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="messageType">
     <param name="enumClassname">com.dreamoval.motech.core.model.MessageType</param>
   </typedef>
-   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageSessionStatus">
+  <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageSessionStatus">
     <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageSessionStatus</param>
   </typedef>
-   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageStatus">
+  <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageStatus">
     <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageStatus</param>
   </typedef>
-   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageResponseStatus">
+  <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageResponseStatus">
     <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageResponseStatus</param>
   </typedef>
   <class abstract="true" name="MotechEntityImpl" polymorphism="explicit">

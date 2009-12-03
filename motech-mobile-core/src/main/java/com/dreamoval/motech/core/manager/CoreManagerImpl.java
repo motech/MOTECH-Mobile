@@ -20,9 +20,11 @@ import com.dreamoval.motech.core.model.Transition;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.util.MotechIDGenerator;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDefinitionDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageResponseDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.model.imp.IncomingMessage;
+import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
 import com.dreamoval.motech.model.imp.IncomingMessageSession;
 import org.apache.log4j.Logger;
@@ -166,6 +168,16 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     }
 
     /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#   }
+     */
+    public IncomingMessageFormDefinition createIncomingMessageFormDefinition() {
+        logger.info("Creating IncomingMessageFormDefinition instance");
+        IncomingMessageFormDefinition result = (IncomingMessageFormDefinition) getInstance("incomingMessageFormDefinition", IncomingMessageFormDefinition.class);
+
+        return result;
+    }
+
+    /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createGatewayRequestDAO(com.dreamoval.motech.core.service.MotechContext)  }
      */
     public GatewayRequestDAO createGatewayRequestDAO(MotechContext motechContext) {
@@ -278,6 +290,16 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageResponseDAO createIncomingMessageResponseDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageResponseDAO instance");
          IncomingMessageResponseDAO imDAO = (IncomingMessageResponseDAO) getInstance("incomingMessageResponseDAO", IncomingMessageResponseDAO.class);
+        imDAO.setDBSession(motechContext.getDBSession());
+        return imDAO;
+    }
+
+    /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageResponseDAO(com.dreamoval.motech.core.service.MotechContext)  }
+     */
+    public IncomingMessageFormDefinitionDAO createIncomingMessageFormDefinitionDAO(MotechContext motechContext) {
+        logger.info("Creating IncomingMessageFormDefinitionDAO instance");
+         IncomingMessageFormDefinitionDAO imDAO = (IncomingMessageFormDefinitionDAO) getInstance("incomingMessageFormDefinitionDAO", IncomingMessageFormDefinitionDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }
