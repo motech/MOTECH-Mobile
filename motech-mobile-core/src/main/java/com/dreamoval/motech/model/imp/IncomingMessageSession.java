@@ -1,5 +1,6 @@
 package com.dreamoval.motech.model.imp;
 
+import com.dreamoval.motech.core.model.MotechEntity;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  *
  * @author jojo
  */
-public interface IncomingMessageSession {
+public interface IncomingMessageSession extends MotechEntity{
 
     /**
      * @return the dateCreated

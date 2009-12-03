@@ -1,5 +1,6 @@
 package com.dreamoval.motech.model.imp;
 
+import com.dreamoval.motech.core.model.MotechEntityImpl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * Date: Dec 02, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class IncomingMessageSessionImpl implements IncomingMessageSession {
+public class IncomingMessageSessionImpl extends MotechEntityImpl implements IncomingMessageSession {
 
   private String requesterPhone;
   private Date dateCreated;
