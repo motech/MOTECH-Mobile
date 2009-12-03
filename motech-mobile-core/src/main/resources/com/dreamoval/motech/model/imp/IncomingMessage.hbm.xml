@@ -8,6 +8,6 @@
         <property name="lastModified" type="timestamp" generated="always" update="false" insert="false">
             <column name="last_modified" default="current_timestamp"/>
         </property>
-        <!--<property access="field" column="message_status" name="messageStatus" type="incMessageStatus" />-->
+        <property access="field" column="message_status" name="messageStatus" type="incMessageStatus" />
     </union-subclass>
 </hibernate-mapping>

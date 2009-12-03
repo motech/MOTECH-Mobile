@@ -14,6 +14,6 @@
             <list-index column="position" />
             <one-to-many class="IncomingMessageImpl" />
         </list>
-        <!--<property access="field" column="message_session_status" name="messageSessionStatus" type="incMessageSessionStatus" />-->
+        <property access="field" column="message_session_status" name="messageSessionStatus" type="incMessageSessionStatus" />
     </union-subclass>
 </hibernate-mapping>
