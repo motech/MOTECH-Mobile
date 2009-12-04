@@ -173,6 +173,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <bean id="incomingMessageFormParameterDefinitionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormParameterDefinitionDAOImpl" scope="prototype">
     </bean>
+
+    <bean id="incomingMessageFormDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormDAOImpl" scope="prototype">
+    </bean>
     <!-- End of Data Access-->
 
     <!-- Services -->

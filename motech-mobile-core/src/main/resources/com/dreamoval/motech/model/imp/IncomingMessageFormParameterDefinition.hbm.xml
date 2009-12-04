@@ -6,7 +6,7 @@
     <property column="name" length="50" name="name" type="string"/>
     <property column="parameter_type" length="50" name="paramType" type="string"/>
     <property column="lenght" name="length" type="integer"/>
-    <property column="required" name="required" type="boolean" />
+    <property column="required" name="required" type="boolean"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>
     <property generated="always" insert="false" name="lastModified" type="timestamp" update="false">
       <column default="current_timestamp" name="last_modified"/>
