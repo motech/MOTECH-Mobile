@@ -89,6 +89,9 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="incomingMessageForm" class="com.dreamoval.motech.model.imp.IncomingMessageFormImpl" scope="prototype">
     </bean>
 
+    <bean id="incomingMessageFormParameter" class="com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl" scope="prototype">
+    </bean>
+
     <!-- End of Model -->
 
     <!-- Data Access  -->
@@ -125,6 +128,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/model/imp/IncomingMessageFormDefinition.hbm.xml</value>
                 <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameterDefinition.hbm.xml</value>
                 <value>com/dreamoval/motech/model/imp/IncomingMessageForm.hbm.xml</value>
+                <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameter.hbm.xml</value>
             </list>
         </property>
     </bean>
