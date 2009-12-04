@@ -22,12 +22,14 @@ import com.dreamoval.motech.core.util.MotechIDGenerator;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDefinitionDAO;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageFormParameterDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormParameterDefinitionDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageResponseDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.model.imp.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageForm;
 import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
+import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
 import com.dreamoval.motech.model.imp.IncomingMessageSession;
@@ -190,12 +192,23 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
 
         return result;
     }
+
     /**
      * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageForm()    }
      */
     public IncomingMessageForm createIncomingMessageForm() {
         logger.info("Creating IncomingMessageForm instance");
         IncomingMessageForm result = (IncomingMessageForm) getInstance("incomingMessageForm", IncomingMessageForm.class);
+
+        return result;
+    }
+
+    /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageFormParameter()    }
+     */
+    public IncomingMessageFormParameter createIncomingMessageFormParameter() {
+        logger.info("Creating IncomingMessageFormParameter instance");
+        IncomingMessageFormParameter result = (IncomingMessageFormParameter) getInstance("incomingMessageFormParameter", IncomingMessageFormParameter.class);
 
         return result;
     }
@@ -343,6 +356,16 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormDAO createIncomingMessageFormDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageFormDAO instance");
          IncomingMessageFormDAO imDAO = (IncomingMessageFormDAO) getInstance("incomingMessageFormDAO", IncomingMessageFormDAO.class);
+        imDAO.setDBSession(motechContext.getDBSession());
+        return imDAO;
+    }
+
+    /**
+     * @see {@link com.dreamoval.motech.core.manager.CoreManager#createIncomingMessageFormParameterDAO(com.dreamoval.motech.core.service.MotechContext)  }
+     */
+    public IncomingMessageFormParameterDAO createIncomingMessageFormParameterDAO(MotechContext motechContext) {
+        logger.info("Creating IncomingMessageFormParameterDAO instance");
+         IncomingMessageFormParameterDAO imDAO = (IncomingMessageFormParameterDAO) getInstance("incomingMessageFormParameterDAO", IncomingMessageFormParameterDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }
