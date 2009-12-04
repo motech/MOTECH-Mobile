@@ -7,6 +7,10 @@
     <property generated="always" insert="false" name="lastModified" type="timestamp" update="false">
       <column default="current_timestamp" name="last_modified"/>
     </property>
+    <set name="incomingMsgFormParameters">
+        <key column="incoming_message_form_id" />
+        <one-to-many class="IncomingMessageFormParameterImpl" />
+    </set>
     <property access="field" column="message_form_status" name="messageFormStatus" type="incMessageFormStatus"/>
   </union-subclass>
 </hibernate-mapping>
