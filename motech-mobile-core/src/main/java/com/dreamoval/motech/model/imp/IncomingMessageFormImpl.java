@@ -16,7 +16,7 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     private IncomingMessageFormDefinition incomingMsgFormDefinition;
     private Date dateCreated;
     private Date lastModified;
-    private IncMessageFormStatus messageStatus;
+    private IncMessageFormStatus messageFormStatus;
     private Set<IncomingMessageFormParameter> incomingMsgFormParameters;
 
     /**
@@ -64,15 +64,15 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     /**
      * @return the messageStatus
      */
-    public IncMessageFormStatus getMessageStatus() {
-        return messageStatus;
+    public IncMessageFormStatus getMessageFormStatus() {
+        return messageFormStatus;
     }
 
     /**
-     * @param messageStatus the messageStatus to set
+     * @param messageFormStatus the messageStatus to set
      */
-    public void setMessageStatus(IncMessageFormStatus messageStatus) {
-        this.messageStatus = messageStatus;
+    public void setMessageFormStatus(IncMessageFormStatus messageFormStatus) {
+        this.messageFormStatus = messageFormStatus;
     }
 
     /**

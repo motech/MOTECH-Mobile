@@ -16,6 +16,12 @@
   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageResponseStatus">
     <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageResponseStatus</param>
   </typedef>
+  <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageFormStatus">
+    <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageFormStatus</param>
+  </typedef>
+  <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageFormParameterStatus">
+    <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageFormParameterStatus</param>
+  </typedef>
   <class abstract="true" name="MotechEntityImpl" polymorphism="explicit">
     <id name="id">
       <generator class="assigned"/>
