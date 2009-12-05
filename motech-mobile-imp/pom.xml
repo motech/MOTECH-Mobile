@@ -19,8 +19,12 @@
         </dependency>
         <dependency>
             <groupId>com.dreamoval.motech</groupId>
+            <artifactId>motech-mobile-core</artifactId>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.dreamoval.motech</groupId>
             <artifactId>motech-mobile-omp</artifactId>
-            <version>1.0-M3-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -77,3 +81,4 @@
         </dependency>
     </dependencies>
 </project>
+
