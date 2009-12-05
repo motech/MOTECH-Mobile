@@ -3,28 +3,33 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.imp.util;
+package com.dreamoval.motech.imp.serivce;
 
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.imp.util.CommandAction;
+import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import com.dreamoval.motech.model.imp.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
+import java.util.Map;
 
 /**
- * Handles construction and processing of a new IncomingMessageForm
- *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
-public class FormCommandAction implements CommandAction{
+public class IMPServiceImpl implements IMPService {
     private CoreManager coreManager;
     private IncomingMessageParser parser;
-    
+    private Map<String, CommandAction> cmdActionMap;
     /**
-     * 
-     * @see CommandAction.execute
+     *
+     * @see IMPService.processRequest
      */
-    public IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String processRequest(String message, String requesterPhone){
+        String command = parser.getCommand(message);
+        IncomingMessage inMsg = parser.parseRequest(message);
+
+        IncomingMessageResponse response = cmdActionMap.get(command).execute(inMsg, requesterPhone);
+        return response.getContent();
     }
 
     /**
@@ -55,4 +60,17 @@ public class FormCommandAction implements CommandAction{
         this.parser = parser;
     }
 
+    /**
+     * @return the cmdActionMap
+     */
+    public Map<String, CommandAction> getCmdActionMap() {
+        return cmdActionMap;
+    }
+
+    /**
+     * @param cmdActionMap the cmdActionMap to set
+     */
+    public void setCmdActionMap(Map<String, CommandAction> cmdActionMap) {
+        this.cmdActionMap = cmdActionMap;
+    }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+    <import resource="classpath:META-INF/core-config.xml" />
+
+    <bean id="impService" class="com.dreamoval.motech.imp.serivce.IMPServiceImpl">
+        <property name="coreManager" ref="coreManager" />
+        <property name="parser" ref="imParser" />
+        <property name="cmdActionMap">
+            <map key-type="java.lang.String">
+                <entry key="" value-ref="updateCmdAxn" />
+                <entry key="*fc*" value-ref="formCmdAxn" />
+                <entry key="*stop*" value-ref="stopCmdAxn" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
+
+    <bean id="imParser" class="com.dreamoval.motech.imp.util.IncomingMessageParserImpl" >
+        <property name="coreManager" ref="coreManager" />
+    </bean>
+
+    <bean id="formCmdAxn" class="com.dreamoval.motech.imp.util.FormCommandAction">
+        <property name="coreManager" ref="coreManager" />
+        <property name="parser" ref="imParser" />
+    </bean>
+
+    <bean id="updateCmdAxn" class="com.dreamoval.motech.imp.util.UpdateCommandAction">
+        <property name="coreManager" ref="coreManager" />
+        <property name="parser" ref="imParser" />
+    </bean>
+
+    <bean id="stopCmdAxn" class="com.dreamoval.motech.imp.util.StopCommandAction">
+        <property name="coreManager" ref="coreManager" />
+    </bean>
+
+</beans>

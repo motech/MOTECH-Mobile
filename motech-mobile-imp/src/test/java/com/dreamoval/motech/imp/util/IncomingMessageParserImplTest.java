@@ -5,19 +5,55 @@
 
 package com.dreamoval.motech.imp.util;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.model.imp.IncomingMessage;
+import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
+import com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl;
+import com.dreamoval.motech.model.imp.IncomingMessageImpl;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.motechproject.ws.NameValuePair;
+import static org.easymock.EasyMock.*;
 
 /**
  *
  * @author user
  */
 public class IncomingMessageParserImplTest {
-
+    CoreManager mockCore;
+    IncomingMessageParserImpl instance;
+    
     public IncomingMessageParserImplTest() {
+    }
+
+    @Before
+    public void setup(){
+        mockCore = createMock(CoreManager.class);
+        
+        instance = new IncomingMessageParserImpl();
+        instance.setCoreManager(mockCore);
+    }
+
+    /**
+     * Test of parseRequest method, of class IncomingMessageParserImpl.
+     */
+    @Test
+    public void testParseRequest() {
+        System.out.println("parseRequest");
+        String message = "*fc* 1 type=test, message=Test,, Tester";
+
+        expect(
+                mockCore.createIncomingMessage()
+                ).andReturn(new IncomingMessageImpl());
+
+        replay(mockCore);
+        IncomingMessage result = instance.parseRequest(message);
+        verify(mockCore);
+
+        assertNotNull(result);
+        assertEquals(message, result.getContent());
     }
 
     /**
@@ -27,14 +63,13 @@ public class IncomingMessageParserImplTest {
     public void testGetComand() {
         System.out.println("getComand");
         String message = "*fc* 1 type=test, message=Test,, Tester";
-        IncomingMessageParserImpl instance = new IncomingMessageParserImpl();
         
         String expResult = "*fc*";
         String result = instance.getCommand(message);
         assertEquals(expResult, result);
 
         message = "*STOP* processing this conversation";
-        expResult = "*STOP*";
+        expResult = "*stop*";
         result = instance.getCommand(message);
         assertEquals(expResult, result);
 
@@ -51,7 +86,6 @@ public class IncomingMessageParserImplTest {
     public void testGetFormCode() {
         System.out.println("getFormCode");
         String message = "*fc* 1 type=test, message=Test,, Tester";
-        IncomingMessageParserImpl instance = new IncomingMessageParserImpl();
         String expResult = "1";
         String result = instance.getFormCode(message);
         assertEquals(expResult, result);
@@ -65,15 +99,41 @@ public class IncomingMessageParserImplTest {
         System.out.println("getParams");
         String message = "*fc* 1 type=test, message=Test,, Dream Tester, dob = 01/01/01, due-date=right. now, test_format=all";
 
-        Set<NameValuePair> expResult = new HashSet<NameValuePair>();
-        expResult.add(new NameValuePair("type","test"));
-        expResult.add(new NameValuePair("message","Test, Dream Tester"));
-        expResult.add(new NameValuePair("dob","01/01/01"));
-        expResult.add(new NameValuePair("due-date","right now"));
-        expResult.add(new NameValuePair("test_format","all"));
+        List<IncomingMessageFormParameter> expResult = new ArrayList<IncomingMessageFormParameter>();
 
-        IncomingMessageParserImpl instance = new IncomingMessageParserImpl();
-        Set<NameValuePair> result = instance.getParams(message);
+        IncomingMessageFormParameter param1 = new IncomingMessageFormParameterImpl();
+        param1.setName("type");
+        param1.setValue("test");
+        expResult.add(param1);
+
+        IncomingMessageFormParameter param2 = new IncomingMessageFormParameterImpl();
+        param1.setName("message");
+        param1.setValue("Test, Dream Tester");
+        expResult.add(param2);
+
+        IncomingMessageFormParameter param3 = new IncomingMessageFormParameterImpl();
+        param1.setName("dob");
+        param1.setValue("01/01/01");
+        expResult.add(param3);
+
+        IncomingMessageFormParameter param4 = new IncomingMessageFormParameterImpl();
+        param1.setName("due-date");
+        param1.setValue("right now");
+        expResult.add(param4);
+
+        IncomingMessageFormParameter param5 = new IncomingMessageFormParameterImpl();
+        param1.setName("test_format");
+        param1.setValue("all");
+        expResult.add(param5);
+
+        expect(
+                mockCore.createIncomingMessageFormParameter()
+                ).andReturn(new IncomingMessageFormParameterImpl()).times(expResult.size());
+
+        replay(mockCore);
+        List<IncomingMessageFormParameter> result = instance.getParams(message);
+        verify(mockCore);
+        
         assertNotNull(result);
         assertTrue(result.size() == expResult.size());
     }

@@ -35,6 +35,12 @@ public interface IncomingMessageFormParameter extends MotechEntity{
      */
     public IncMessageFormParameterStatus getMessageFormParamStatus();
 
+
+    /**
+     * @return the name
+     */
+    public String getName();
+
     /**
      * @return the value
      */
@@ -74,6 +80,13 @@ public interface IncomingMessageFormParameter extends MotechEntity{
      * @param messageFormParamStatus the messageFormParamStatus to set
      */
     public void setMessageFormParamStatus(IncMessageFormParameterStatus messageFormParamStatus);
+
+
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name);
 
     /**
      * @param value the value to set

@@ -14,6 +14,7 @@ public class IncomingMessageFormParameterImpl extends MotechEntityImpl implement
 
     private IncomingMessageForm incomingMsgForm;
     private IncomingMessageFormParameterDefinition incomingMsgFormParamDefinition;
+    private String name;
     private String value;
     private int errCode;
     private String errText;
@@ -131,6 +132,20 @@ public class IncomingMessageFormParameterImpl extends MotechEntityImpl implement
      */
     public void setIncomingMsgFormParamDefinition(IncomingMessageFormParameterDefinition incomingMsgFormParamDefinition) {
         this.incomingMsgFormParamDefinition = incomingMsgFormParamDefinition;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

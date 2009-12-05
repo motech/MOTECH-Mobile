@@ -5,14 +5,23 @@
 
 package com.dreamoval.motech.imp.util;
 
-import java.util.Set;
-import org.motechproject.ws.NameValuePair;
+import com.dreamoval.motech.model.imp.IncomingMessage;
+import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
+import java.util.List;
 
 /**
  *
  * @author user
  */
 public interface IncomingMessageParser {
+
+    /**
+     * Generates an IncomingMessage from a message request
+     * @param message content of request
+     * @return the generated IncomingMessag object
+     */
+    IncomingMessage parseRequest(String message);
+
     /**
      * Extracts command part of message
      * @param message the text to parse
@@ -32,5 +41,5 @@ public interface IncomingMessageParser {
      * @param message the text to parse
      * @return the message parameters
      */
-    Set<NameValuePair> getParams(String message);
+    List<IncomingMessageFormParameter> getParams(String message);
 }

@@ -1,8 +1,13 @@
 package com.dreamoval.motech.imp.util;
 
-import java.util.HashSet;
-import java.util.Set;
-import org.motechproject.ws.NameValuePair;
+import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
+import com.dreamoval.motech.model.imp.IncMessageStatus;
+import com.dreamoval.motech.model.imp.IncomingMessage;
+import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.regex.*;
 
 /**
@@ -13,9 +18,23 @@ import java.util.regex.*;
  */
 public class IncomingMessageParserImpl implements IncomingMessageParser {
 
+    private CoreManager coreManager;
+
     private static final String CMD_REGEX = "^\\*\\w+\\*";
     private static final String FC_REGEX = "^\\*\\w+\\*\\s*\\d+";
-    private static final String PARAM_REGEX = "[a-zA-Z0-9_\\-]+\\s*=([a-zA-Z0-9_\\-\\s/.](,,)*)+";//"[a-zA-Z0-9_\\-]+\\s*=\\s*\\w+((\\s*,,)*\\s*\\w+)*";
+    private static final String PARAM_REGEX = "[a-zA-Z0-9_\\-]+\\s*=([a-zA-Z0-9_\\-\\s/.](,,)*)+";
+
+    /**
+     * @see IncomingMessageParser.parseRequest
+     */
+    public IncomingMessage parseRequest(String message){
+        IncomingMessage inMsg = coreManager.createIncomingMessage();
+        inMsg.setContent(message.trim());
+        inMsg.setDateCreated(new Date());
+        inMsg.setMessageStatus(IncMessageStatus.PROCESSING);
+
+        return inMsg;
+    }
 
     /**
      *
@@ -25,12 +44,12 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         String command = "";
 
         Pattern pattern = Pattern.compile(CMD_REGEX);
-        Matcher matcher = pattern.matcher(message);
+        Matcher matcher = pattern.matcher(message.trim());
 
         if (matcher.find()) {
             command = matcher.group();
         }
-        return command;
+        return command.toLowerCase();
     }
 
     /**
@@ -42,7 +61,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         String formCode = "";
 
         Pattern pattern = Pattern.compile(FC_REGEX);
-        Matcher matcher = pattern.matcher(message);
+        Matcher matcher = pattern.matcher(message.trim());
 
         if (matcher.find()) {
             command = matcher.group();
@@ -58,11 +77,11 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getParams
      */
-    public Set<NameValuePair> getParams(String message) {
-        Set<NameValuePair> params = new HashSet<NameValuePair>();
+    public List<IncomingMessageFormParameter> getParams(String message) {
+        List<IncomingMessageFormParameter> params = new ArrayList<IncomingMessageFormParameter>();
 
         Pattern pattern = Pattern.compile(PARAM_REGEX);
-        Matcher matcher = pattern.matcher(message);
+        Matcher matcher = pattern.matcher(message.trim());
 
         while (matcher.find()) {
 
@@ -70,15 +89,31 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
 
             param = param.trim();
             param = param.replace(",,", ",");
-            String[] nvpArr = param.split("=");
+            String[] paramArr = param.split("=");
 
-            if (nvpArr.length == 2) {
-                NameValuePair nvp = new NameValuePair();
-                nvp.setName(nvpArr[0].trim());
-                nvp.setValue(nvpArr[1].trim());
-                params.add(nvp);
+            if (paramArr.length == 2) {
+                IncomingMessageFormParameter imParam = coreManager.createIncomingMessageFormParameter();
+                imParam.setDateCreated(new Date());
+                imParam.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+                imParam.setName(paramArr[0].trim());
+                imParam.setValue(paramArr[1].trim());
+                params.add(imParam);
             }
         }
         return params;
+    }
+
+    /**
+     * @return the coreManager
+     */
+    public CoreManager getCoreManager() {
+        return coreManager;
+    }
+
+    /**
+     * @param coreManager the coreManager to set
+     */
+    public void setCoreManager(CoreManager coreManager) {
+        this.coreManager = coreManager;
     }
 }
