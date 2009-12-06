@@ -18,8 +18,10 @@ import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
 /**
+ * Test for IncomingMessageParserImpl class
  *
- * @author user
+ *  Date : Dec 5, 2009
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
 public class IncomingMessageParserImplTest {
     CoreManager mockCore;

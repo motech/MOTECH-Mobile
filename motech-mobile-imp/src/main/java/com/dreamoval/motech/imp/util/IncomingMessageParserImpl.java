@@ -22,7 +22,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
 
     private static final String CMD_REGEX = "^\\*\\w+\\*";
     private static final String FC_REGEX = "^\\*\\w+\\*\\s*\\d+";
-    private static final String PARAM_REGEX = "[a-zA-Z0-9_\\-]+\\s*=([a-zA-Z0-9_\\-\\s/.](,,)*)+";
+    private static final String PARAM_REGEX = "[a-zA-Z0-9_\\-]+\\s*=([a-zA-Z0-9_\\-\\s/.'](,,)*)+";
 
     /**
      * @see IncomingMessageParser.parseRequest

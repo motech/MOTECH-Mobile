@@ -15,9 +15,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 /**
+ * Test for IMPManagerImpl class
+ *
  *  Date : Dec 5, 2009
- * @author joseph Djomeda (joseph@dreamoval.com)
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/imp-config.xml"})
 public class IMPManagerImplTest {
