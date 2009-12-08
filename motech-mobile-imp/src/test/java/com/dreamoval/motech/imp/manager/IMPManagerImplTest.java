@@ -6,6 +6,8 @@
 package com.dreamoval.motech.imp.manager;
 
 import com.dreamoval.motech.imp.serivce.IMPService;
+import com.dreamoval.motech.imp.util.IncomingMessageFormParameterValidator;
+import com.dreamoval.motech.imp.util.IncomingMessageFormValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,6 +51,28 @@ public class IMPManagerImplTest {
         System.out.println("createIncomingMessageParser");
 
         IncomingMessageParser result = impManager.createIncomingMessageParser();
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of createIncomingMessageFormValidator method, of class IMPManagerImpl.
+     */
+    @Test
+    public void testCreateIncomingMessageFormValidator() {
+        System.out.println("createIncomingMessageFormValidator");
+
+        IncomingMessageFormValidator result = impManager.createIncomingMessageFormValidator();
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of createIncomingMessageFormParameterValidator method, of class IMPManagerImpl.
+     */
+    @Test
+    public void testCreateIncomingMessageFormParameterValidator() {
+        System.out.println("createIncomingMessageFormParameterValidator");
+
+        IncomingMessageFormParameterValidator result = impManager.createIncomingMessageFormParameterValidator();
         assertNotNull(result);
     }
 

@@ -137,7 +137,7 @@ public class IncomingMessageParserImplTest {
         verify(mockCore);
         
         assertNotNull(result);
-        assertTrue(result.size() == expResult.size());
+        assertEquals(result.size(), expResult.size());
     }
 
 }

@@ -24,7 +24,7 @@ public class IMPServiceImpl implements IMPService {
      *
      * @see IMPService.processRequest
      */
-    public String processRequest(String message, String requesterPhone){
+    public synchronized String processRequest(String message, String requesterPhone){
         String command = parser.getCommand(message);
         IncomingMessage inMsg = parser.parseRequest(message);
 

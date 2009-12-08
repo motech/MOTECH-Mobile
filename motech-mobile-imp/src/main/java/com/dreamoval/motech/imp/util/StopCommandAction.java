@@ -6,8 +6,16 @@
 package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
+import com.dreamoval.motech.model.imp.IncMessageResponseStatus;
+import com.dreamoval.motech.model.imp.IncMessageSessionStatus;
 import com.dreamoval.motech.model.imp.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
+import com.dreamoval.motech.model.imp.IncomingMessageSession;
+import java.util.Date;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Cancels processing of an IncomingMessageForm
@@ -22,8 +30,30 @@ public class StopCommandAction implements CommandAction{
      * 
      * @see CommandAction.execute
      */
-    public IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
+        MotechContext context = coreManager.createMotechContext();
+        
+        ///TODO fetch current open session for requester
+        IncomingMessageSession imSession = coreManager.createIncomingMessageSession();
+        imSession.setDateEnded(new Date());
+        imSession.setLastActivity(new Date());
+        imSession.setMessageSessionStatus(IncMessageSessionStatus.STOPPED);
+
+        IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
+        response.setContent("Form processing stopped successfully");
+        response.setDateCreated(new Date());
+        response.setIncomingMessage(message);
+        response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
+        
+        message.setIncomingMessageResponse(response);
+        imSession.getIncomingMessages().add(message);
+
+        IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
+        Transaction tx = ((Session)sessionDao.getDBSession().getSession()).beginTransaction();
+        sessionDao.save(imSession);
+        tx.commit();
+
+        return response;
     }
 
     /**

@@ -6,6 +6,8 @@
 package com.dreamoval.motech.imp.manager;
 
 import com.dreamoval.motech.imp.serivce.IMPService;
+import com.dreamoval.motech.imp.util.IncomingMessageFormParameterValidator;
+import com.dreamoval.motech.imp.util.IncomingMessageFormValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 
 /**
@@ -25,5 +27,17 @@ public interface IMPManager {
      * @return the created IncomingMessageParser
      */
     IncomingMessageParser createIncomingMessageParser();
+
+    /**
+     * Creates a wired IncomingMessageFormParameter instance
+     * @return the created IncomingMessageFormParameter
+     */
+    IncomingMessageFormValidator createIncomingMessageFormValidator();
+
+    /**
+     * Creates a wired IncomingMessageFormParameterValidator instance
+     * @return the created IncomingMessageFormParameterValidator
+     */
+    IncomingMessageFormParameterValidator createIncomingMessageFormParameterValidator();
 
 }

@@ -17,8 +17,7 @@ public interface IncomingMessageFormParameterValidator {
      * Validates an IncomingMessageFormParameter
      * 
      * @param param the IncomingMessageFormParameter object to validate
-     * @return the validated IncomingMessageFormParameter
+     * @return the boolean indicating whether the parameter is valid or not
      */
-    IncomingMessageFormParameter validate(IncomingMessageFormParameter param);
-
+    boolean validate(IncomingMessageFormParameter param);
 }

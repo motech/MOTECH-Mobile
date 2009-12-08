@@ -44,37 +44,45 @@ public class IncomingMessageFormParameterValidatorImplTest {
         param.getIncomingMsgFormParamDefinition().setLength(30);
         param.setValue("Test,Tester");
         
-        IncomingMessageFormParameter result = imParamValidator.validate(param);
-        assertEquals(result.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
+        boolean expResult = true;
+        boolean result = imParamValidator.validate(param);
+
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
         param.setValue("06-12-09");
 
         result = imParamValidator.validate(param);
-        assertEquals(result.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
         param.setValue("2009.12.6");
 
         result = imParamValidator.validate(param);
-        assertEquals(result.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
         param.setValue("6/12/2009");
 
         result = imParamValidator.validate(param);
-        assertEquals(result.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
 //        param.getIncomingMsgFormParamDefinition().setParamType("DATE");
 //        param.getIncomingMsgFormParamDefinition().setLength(10);
 //        param.setValue("06-2009-12");
 //
+//        expResult = false;
 //        result = imParamValidator.validate(param);
-//        assertEquals(result.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
-//        assertEquals(result.getErrCode(), 0);
-//        assertEquals(result.getErrText(), "wrong format");
+//        assertEquals(result, expResult);
+//        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
+//        assertEquals(param.getErrCode(), 1);
+//        assertEquals(param.getErrText(), "wrong format");
     }
 }

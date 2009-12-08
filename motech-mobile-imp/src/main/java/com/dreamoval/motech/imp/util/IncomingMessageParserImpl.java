@@ -27,7 +27,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
     /**
      * @see IncomingMessageParser.parseRequest
      */
-    public IncomingMessage parseRequest(String message){
+    public synchronized IncomingMessage parseRequest(String message){
         IncomingMessage inMsg = coreManager.createIncomingMessage();
         inMsg.setContent(message.trim());
         inMsg.setDateCreated(new Date());
@@ -40,7 +40,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getComand
      */
-    public String getCommand(String message) {
+    public synchronized String getCommand(String message) {
         String command = "";
 
         Pattern pattern = Pattern.compile(CMD_REGEX);
@@ -56,7 +56,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getFormCode
      */
-    public String getFormCode(String message) {
+    public synchronized String getFormCode(String message) {
         String command = "";
         String formCode = "";
 
@@ -77,16 +77,14 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getParams
      */
-    public List<IncomingMessageFormParameter> getParams(String message) {
+    public synchronized List<IncomingMessageFormParameter> getParams(String message) {
         List<IncomingMessageFormParameter> params = new ArrayList<IncomingMessageFormParameter>();
 
         Pattern pattern = Pattern.compile(PARAM_REGEX);
         Matcher matcher = pattern.matcher(message.trim());
 
         while (matcher.find()) {
-
             String param = matcher.group();
-
             param = param.trim();
             param = param.replace(",,", ",");
             String[] paramArr = param.split("=");

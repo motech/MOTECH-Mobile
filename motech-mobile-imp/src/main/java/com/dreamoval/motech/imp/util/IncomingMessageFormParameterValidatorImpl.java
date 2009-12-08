@@ -23,7 +23,7 @@ public class IncomingMessageFormParameterValidatorImpl implements IncomingMessag
     /**
      * @see IncomingMessageFormParameterValidator.validate
      */
-    public IncomingMessageFormParameter validate(IncomingMessageFormParameter param){
+    public synchronized boolean validate(IncomingMessageFormParameter param){
         String paramRegex = getParamTypeMap().get(param.getIncomingMsgFormParamDefinition().getParamType());
 
         System.out.println("Type: " + param.getIncomingMsgFormParamDefinition().getParamType());
@@ -32,17 +32,17 @@ public class IncomingMessageFormParameterValidatorImpl implements IncomingMessag
         System.out.println("---------------------------------------------------------");
 
         if(!param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.NEW)){
-            return param;
+            return param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID);
         }
 
-        if(!Pattern.matches(paramRegex, param.getValue().trim().toLowerCase())){
-            param.setErrCode(0);
-            param.setErrText("wrong format");
+        if(!Pattern.matches(paramRegex, param.getValue().trim())){
+            param.setErrCode(1);
+            param.setErrText(param.getName() + "=wrong format");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         }
         else if(param.getValue().trim().length() > param.getIncomingMsgFormParamDefinition().getLength()){
-            param.setErrCode(1);
-            param.setErrText("too long");
+            param.setErrCode(2);
+            param.setErrText(param.getName() + "=too long");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         }
         else{
@@ -50,7 +50,7 @@ public class IncomingMessageFormParameterValidatorImpl implements IncomingMessag
         }
 
         param.setLastModified(new Date());
-        return param;
+        return param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID);
     }
 
     /**
