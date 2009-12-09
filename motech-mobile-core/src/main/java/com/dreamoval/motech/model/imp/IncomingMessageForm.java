@@ -2,7 +2,7 @@ package com.dreamoval.motech.model.imp;
 
 import com.dreamoval.motech.core.model.MotechEntity;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 public interface IncomingMessageForm extends MotechEntity {
 
@@ -29,7 +29,7 @@ public interface IncomingMessageForm extends MotechEntity {
     /**
      * @return the incomingMsgFormParameters
      */
-    public Set<IncomingMessageFormParameter> getIncomingMsgFormParameters();
+    public List<IncomingMessageFormParameter> getIncomingMsgFormParameters();
 
     /**
      * @param dateCreated the dateCreated to set
@@ -54,5 +54,5 @@ public interface IncomingMessageForm extends MotechEntity {
     /**
      * @param incomingMsgFormParameters the incomingMsgFormParameters to set
      */
-    public void setIncomingMsgFormParameters(Set<IncomingMessageFormParameter> incomingMsgFormParameters);
+    public void setIncomingMsgFormParameters(List<IncomingMessageFormParameter> incomingMsgFormParameters);
 }

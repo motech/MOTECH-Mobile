@@ -1,7 +1,9 @@
 package com.dreamoval.motech.model.imp;
 
 import com.dreamoval.motech.core.model.MotechEntityImpl;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /*
@@ -17,7 +19,7 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     private Date dateCreated;
     private Date lastModified;
     private IncMessageFormStatus messageFormStatus;
-    private Set<IncomingMessageFormParameter> incomingMsgFormParameters;
+    private List<IncomingMessageFormParameter> incomingMsgFormParameters = new ArrayList<IncomingMessageFormParameter>();
 
     /**
      * @return the incomingMsgFormDefinition
@@ -78,15 +80,17 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     /**
      * @return the incomingMsgFormParameters
      */
-    public Set<IncomingMessageFormParameter> getIncomingMsgFormParameters() {
+    public List<IncomingMessageFormParameter> getIncomingMsgFormParameters() {
         return incomingMsgFormParameters;
     }
 
     /**
      * @param incomingMsgFormParameters the incomingMsgFormParameters to set
      */
-    public void setIncomingMsgFormParameters(Set<IncomingMessageFormParameter> incomingMsgFormParameters) {
+    public void setIncomingMsgFormParameters(List<IncomingMessageFormParameter> incomingMsgFormParameters) {
         this.incomingMsgFormParameters = incomingMsgFormParameters;
     }
+
+    
     
 }

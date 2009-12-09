@@ -15,6 +15,7 @@ import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinitionImpl;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl;
+import java.util.ArrayList;
 import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,7 +72,7 @@ public class IncomingMessageFormValidatorImplTest {
         param2.setName("age");
 
         IncomingMessageForm form = new IncomingMessageFormImpl();
-        form.setIncomingMsgFormParameters(new HashSet<IncomingMessageFormParameter>());
+        form.setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
         form.setIncomingMsgFormDefinition(formDef);
         form.getIncomingMsgFormParameters().add(param2);
         

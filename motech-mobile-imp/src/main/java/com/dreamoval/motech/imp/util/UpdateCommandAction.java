@@ -19,8 +19,8 @@ import com.dreamoval.motech.model.imp.IncomingMessageForm;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
 import com.dreamoval.motech.model.imp.IncomingMessageSession;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -60,7 +60,7 @@ public class UpdateCommandAction implements CommandAction{
         form.setIncomingMsgFormDefinition(oldForm.getIncomingMsgFormDefinition());
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.setDateCreated(new Date());
-        form.setIncomingMsgFormParameters(new HashSet<IncomingMessageFormParameter>());
+        form.setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
 
         for(IncomingMessageFormParameter param : oldForm.getIncomingMsgFormParameters()){
             if(param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID))

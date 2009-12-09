@@ -21,8 +21,8 @@ import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
 import com.dreamoval.motech.model.imp.IncomingMessageSession;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -65,7 +65,7 @@ public class FormCommandAction implements CommandAction{
         form.setIncomingMsgFormDefinition(formDefn);
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.setDateCreated(new Date());
-        form.setIncomingMsgFormParameters(new HashSet<IncomingMessageFormParameter>());
+        form.setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
         form.getIncomingMsgFormParameters().addAll(parser.getParams(message.getContent()));
 
         IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO(context);
