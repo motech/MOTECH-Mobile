@@ -2,6 +2,7 @@ package com.dreamoval.motech.model.dao.imp;
 
 import com.dreamoval.motech.core.dao.GenericDAO;
 import com.dreamoval.motech.model.imp.IncomingMessageSession;
+import java.util.List;
 
 /*
  * IncomingMessageSessionDAO is an interface that defines Operations on IncomingMessageSession Pojo
@@ -10,4 +11,11 @@ import com.dreamoval.motech.model.imp.IncomingMessageSession;
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface IncomingMessageSessionDAO<T extends IncomingMessageSession> extends GenericDAO<T> {
+
+    /**
+     * Method to provide a list of IncomingMessageSession object based on requestedphone
+     * @param requesterPhone the requestedphone to pass
+     * @return List of IncomingMessageSession
+     */
+    public List<IncomingMessageSession> getIncomingMsgSessionByRequestedPhone(String requesterPhone);
 }
