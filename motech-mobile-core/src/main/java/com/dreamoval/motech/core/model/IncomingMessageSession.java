@@ -1,6 +1,6 @@
-package com.dreamoval.motech.model.imp;
+package com.dreamoval.motech.core.model;
 
-import com.dreamoval.motech.core.model.MotechEntity;
+import com.dreamoval.motech.model.imp.IncomingMessage;
 import java.util.Date;
 import java.util.List;
 

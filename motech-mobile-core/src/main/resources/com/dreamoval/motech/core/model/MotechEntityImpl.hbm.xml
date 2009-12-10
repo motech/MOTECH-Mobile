@@ -8,7 +8,7 @@
     <param name="enumClassname">com.dreamoval.motech.core.model.MessageType</param>
   </typedef>
   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageSessionStatus">
-    <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageSessionStatus</param>
+    <param name="enumClassname">com.dreamoval.motech.core.model.IncMessageSessionStatus</param>
   </typedef>
   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageStatus">
     <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageStatus</param>

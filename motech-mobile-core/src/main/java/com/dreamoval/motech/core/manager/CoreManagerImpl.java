@@ -32,7 +32,7 @@ import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
-import com.dreamoval.motech.model.imp.IncomingMessageSession;
+import com.dreamoval.motech.core.model.IncomingMessageSession;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -305,7 +305,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      */
     public IncomingMessageSessionDAO createIncomingMessageSessionDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageSessionDAO instance");
-         IncomingMessageSessionDAO imsDAO = (IncomingMessageSessionDAO) getInstance("incomingMessageSessionDAO", IncomingMessageSessionDAO.class);
+        IncomingMessageSessionDAO imsDAO = (IncomingMessageSessionDAO) getInstance("incomingMessageSessionDAO", IncomingMessageSessionDAO.class);
         imsDAO.setDBSession(motechContext.getDBSession());
         return imsDAO;
     }
@@ -315,7 +315,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      */
     public IncomingMessageDAO createIncomingMessageDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageDAO instance");
-         IncomingMessageDAO imDAO = (IncomingMessageDAO) getInstance("incomingMessageDAO", IncomingMessageDAO.class);
+        IncomingMessageDAO imDAO = (IncomingMessageDAO) getInstance("incomingMessageDAO", IncomingMessageDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }
@@ -325,7 +325,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      */
     public IncomingMessageResponseDAO createIncomingMessageResponseDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageResponseDAO instance");
-         IncomingMessageResponseDAO imDAO = (IncomingMessageResponseDAO) getInstance("incomingMessageResponseDAO", IncomingMessageResponseDAO.class);
+        IncomingMessageResponseDAO imDAO = (IncomingMessageResponseDAO) getInstance("incomingMessageResponseDAO", IncomingMessageResponseDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }
@@ -335,7 +335,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      */
     public IncomingMessageFormDefinitionDAO createIncomingMessageFormDefinitionDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageFormDefinitionDAO instance");
-         IncomingMessageFormDefinitionDAO imDAO = (IncomingMessageFormDefinitionDAO) getInstance("incomingMessageFormDefinitionDAO", IncomingMessageFormDefinitionDAO.class);
+        IncomingMessageFormDefinitionDAO imDAO = (IncomingMessageFormDefinitionDAO) getInstance("incomingMessageFormDefinitionDAO", IncomingMessageFormDefinitionDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }
@@ -345,7 +345,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      */
     public IncomingMessageFormParameterDefinitionDAO createIncomingMessageFormParameterDefinitionDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageFormParameterDefinitionDAO instance");
-         IncomingMessageFormParameterDefinitionDAO imDAO = (IncomingMessageFormParameterDefinitionDAO) getInstance("incomingMessageFormParameterDefinitionDAO", IncomingMessageFormDefinitionDAO.class);
+        IncomingMessageFormParameterDefinitionDAO imDAO = (IncomingMessageFormParameterDefinitionDAO) getInstance("incomingMessageFormParameterDefinitionDAO", IncomingMessageFormDefinitionDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }
@@ -355,7 +355,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      */
     public IncomingMessageFormDAO createIncomingMessageFormDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageFormDAO instance");
-         IncomingMessageFormDAO imDAO = (IncomingMessageFormDAO) getInstance("incomingMessageFormDAO", IncomingMessageFormDAO.class);
+        IncomingMessageFormDAO imDAO = (IncomingMessageFormDAO) getInstance("incomingMessageFormDAO", IncomingMessageFormDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }
@@ -365,7 +365,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      */
     public IncomingMessageFormParameterDAO createIncomingMessageFormParameterDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageFormParameterDAO instance");
-         IncomingMessageFormParameterDAO imDAO = (IncomingMessageFormParameterDAO) getInstance("incomingMessageFormParameterDAO", IncomingMessageFormParameterDAO.class);
+        IncomingMessageFormParameterDAO imDAO = (IncomingMessageFormParameterDAO) getInstance("incomingMessageFormParameterDAO", IncomingMessageFormParameterDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }
@@ -408,6 +408,4 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         logger.debug("Calling getInstance");
         return applicationContext.getBean(beanName, reqType);
     }
-
-
 }

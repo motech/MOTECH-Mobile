@@ -71,7 +71,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="notificationType" class="com.dreamoval.motech.core.model.NotificationTypeImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageSession" class="com.dreamoval.motech.model.imp.IncomingMessageSessionImpl" scope="prototype">
+     <bean id="incomingMessageSession" class="com.dreamoval.motech.core.model.IncomingMessageSessionImpl" scope="prototype">
     </bean>
 
      <bean id="incomingMessage" class="com.dreamoval.motech.model.imp.IncomingMessageImpl" scope="prototype">
@@ -91,6 +91,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
      <bean id="incomingMessageFormParameter" class="com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl" scope="prototype">
     </bean>
+    
     
     <!-- End of Model-->
 
@@ -122,13 +123,13 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/core/model/Language.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/MessageTemplate.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/NotificationType.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageSession.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessage.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageResponse.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/IncomingMessageSession.hbm.xml</value>
+               <!-- <value>com/dreamoval/motech/model/imp/IncomingMessage.hbm.xml</value>
+                <value>com/dreamoval/motech/model/imp/IncomingMessageResponse.hbm.xml</value> -->
                 <value>com/dreamoval/motech/model/imp/IncomingMessageFormDefinition.hbm.xml</value>
                 <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameterDefinition.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageForm.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameter.hbm.xml</value>
+              <!--  <value>com/dreamoval/motech/model/imp/IncomingMessageForm.hbm.xml</value>
+                <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameter.hbm.xml</value>-->
             </list>
         </property>
     </bean>

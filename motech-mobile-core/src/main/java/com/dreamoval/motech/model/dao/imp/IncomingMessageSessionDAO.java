@@ -1,7 +1,7 @@
 package com.dreamoval.motech.model.dao.imp;
 
 import com.dreamoval.motech.core.dao.GenericDAO;
-import com.dreamoval.motech.model.imp.IncomingMessageSession;
+import com.dreamoval.motech.core.model.IncomingMessageSession;
 import java.util.List;
 
 /*
@@ -18,4 +18,6 @@ public interface IncomingMessageSessionDAO<T extends IncomingMessageSession> ext
      * @return List of IncomingMessageSession
      */
     public List<IncomingMessageSession> getIncomingMsgSessionByRequestedPhone(String requesterPhone);
+
+
 }

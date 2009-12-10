@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
+
   - author Henry Sampson (henry@dreamoval.com)
   - author Joseph Djomeda (joseph@dreamoval.com)
+
+
 -->
-
-
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
@@ -31,8 +31,8 @@
 
     <context:annotation-config />
     <tx:annotation-driven />
-    
-    <!-- Spring specific -->
+
+    <!--Spring specific-->
     <bean id="propertyConfigurer"
 class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -43,7 +43,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         </property>
     </bean>
 
-    <!-- Model  -->
+    <!-- Model -->
 
     <bean id="sessionContainer" class="com.dreamoval.motech.core.dao.hibernate.HibernateUtils">
         <constructor-arg ref="sessionFactory" />
@@ -71,30 +71,31 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="notificationType" class="com.dreamoval.motech.core.model.NotificationTypeImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageSession" class="com.dreamoval.motech.model.imp.IncomingMessageSessionImpl" scope="prototype">
+     <bean id="incomingMessageSession" class="com.dreamoval.motech.core.model.IncomingMessageSessionImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessage" class="com.dreamoval.motech.model.imp.IncomingMessageImpl" scope="prototype">
+     <bean id="incomingMessage" class="com.dreamoval.motech.model.imp.IncomingMessageImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageResponse" class="com.dreamoval.motech.model.imp.IncomingMessageResponseImpl" scope="prototype">
+     <bean id="incomingMessageResponse" class="com.dreamoval.motech.model.imp.IncomingMessageResponseImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageFormDefinition" class="com.dreamoval.motech.model.imp.IncomingMessageFormDefinitionImpl" scope="prototype">
+     <bean id="incomingMessageFormDefinition" class="com.dreamoval.motech.model.imp.IncomingMessageFormDefinitionImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageFormParameterDefinition" class="com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinitionImpl" scope="prototype">
+     <bean id="incomingMessageFormParameterDefinition" class="com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinitionImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageForm" class="com.dreamoval.motech.model.imp.IncomingMessageFormImpl" scope="prototype">
+     <bean id="incomingMessageForm" class="com.dreamoval.motech.model.imp.IncomingMessageFormImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageFormParameter" class="com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl" scope="prototype">
+     <bean id="incomingMessageFormParameter" class="com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl" scope="prototype">
     </bean>
 
-    <!-- End of Model -->
 
-    <!-- Data Access  -->
+    <!-- End of Model-->
+
+    <!-- Data Access -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}" />
         <property name="url" value="${jdbc.url}"/>
@@ -122,13 +123,13 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/core/model/Language.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/MessageTemplate.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/NotificationType.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageSession.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessage.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageResponse.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/IncomingMessageSession.hbm.xml</value>
+               <!-- <value>com/dreamoval/motech/model/imp/IncomingMessage.hbm.xml</value>
+                <value>com/dreamoval/motech/model/imp/IncomingMessageResponse.hbm.xml</value> -->
                 <value>com/dreamoval/motech/model/imp/IncomingMessageFormDefinition.hbm.xml</value>
                 <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameterDefinition.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageForm.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameter.hbm.xml</value>
+              <!--  <value>com/dreamoval/motech/model/imp/IncomingMessageForm.hbm.xml</value>
+                <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameter.hbm.xml</value>-->
             </list>
         </property>
     </bean>
@@ -145,7 +146,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <bean id="gatewayResponseDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
     </bean>
-    
+
     <bean id="transitionDAO" class="com.dreamoval.motech.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
     </bean>
 
@@ -162,30 +163,31 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <bean id="gatewayRequestDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDetailsDAOImpl" scope="prototype">
     </bean>
-    
+
+
     <bean id="incomingMessageSessionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageSessionDAOImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageDAOImpl" scope="prototype">
+    <bean id="incomingMessageDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageDAOImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageResponseDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageResponseDAOImpl" scope="prototype">
+    <bean id="incomingMessageResponseDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageResponseDAOImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormDefinitionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormDefinitionDAOImpl" scope="prototype">
+    <bean id="incomingMessageFormDefinitionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormDefinitionDAOImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormParameterDefinitionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormParameterDefinitionDAOImpl" scope="prototype">
+    <bean id="incomingMessageFormParameterDefinitionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormParameterDefinitionDAOImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormDAOImpl" scope="prototype">
+    <bean id="incomingMessageFormDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormDAOImpl" scope="prototype">
     </bean>
 
      <bean id="incomingMessageFormParameterDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormParameterDAOImpl" scope="prototype">
     </bean>
-    <!-- End of Data Access -->
+    <!-- End of Data Access-->
 
-    <!-- Services  -->
+    <!-- Services -->
 
     <bean id="motechContext" class="com.dreamoval.motech.core.service.MotechContextImpl" destroy-method="cleanUp" scope="prototype">
         <property name="DBSession" ref="dBSession"/>
@@ -198,10 +200,5 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="coreManager" class="com.dreamoval.motech.core.manager.CoreManagerImpl">
         <property name="sessionContainer" ref="sessionContainer"/>
     </bean>
-    <!-- End of Managers  -->
-
-    <!-- Configuration -->
-   
-    <!-- End of Configuration -->
-
-    </beans>
+    <!-- End of Managers -->
+</beans>

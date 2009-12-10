@@ -31,7 +31,7 @@ import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
-import com.dreamoval.motech.model.imp.IncomingMessageSession;
+import com.dreamoval.motech.core.model.IncomingMessageSession;
 import java.io.Serializable;
 
 /**
@@ -243,6 +243,7 @@ public interface CoreManager extends Serializable {
      * @return the newly created IncomingMessageFormParameterDAO
      */
     public IncomingMessageFormParameterDAO createIncomingMessageFormParameterDAO(MotechContext motechContext);
+
 
     /**
      * @return the sessionContainer

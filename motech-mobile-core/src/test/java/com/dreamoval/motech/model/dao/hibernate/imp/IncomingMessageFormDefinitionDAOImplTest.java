@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -28,7 +23,6 @@ public class IncomingMessageFormDefinitionDAOImplTest {
 
     @Autowired
     CoreManager coreManager;
-
     IncomingMessageFormDefinitionDAO imfDAO;
 
     public IncomingMessageFormDefinitionDAOImplTest() {
@@ -55,10 +49,9 @@ public class IncomingMessageFormDefinitionDAOImplTest {
     public void testGetByCode() {
         System.out.println("getByCode");
         String formCode = "TC";
-        
+
         IncomingMessageFormDefinition result = imfDAO.getByCode(formCode);
         assertNotNull(result);
         assertEquals(result.getFormCode(), "TC");
     }
-
 }

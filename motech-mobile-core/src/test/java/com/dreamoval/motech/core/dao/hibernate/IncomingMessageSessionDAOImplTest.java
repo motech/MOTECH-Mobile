@@ -1,10 +1,10 @@
-package com.dreamoval.motech.model.dao.hibernate.imp;
+package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
-import com.dreamoval.motech.model.imp.IncomingMessageSession;
-import com.dreamoval.motech.model.imp.IncomingMessageSessionImpl;
+import com.dreamoval.motech.core.model.IncomingMessageSession;
+import com.dreamoval.motech.core.model.IncomingMessageSessionImpl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  *
  * @author joseph Djomeda (joseph@dreamoval.com)
- * @Date 
+ * @Date
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
@@ -41,7 +41,7 @@ public class IncomingMessageSessionDAOImplTest {
     private IncomingMessageSession ims2;
     @Autowired
     private IncomingMessageSession ims3;
-    
+
     String requesterPhone = "2233445566";
 
     public IncomingMessageSessionDAOImplTest() {
@@ -53,13 +53,13 @@ public class IncomingMessageSessionDAOImplTest {
 
     @AfterClass
     public static void tearDownClass() throws Exception {
-       
-        
+
+
     }
 
     @Before
     public void setUp() {
-        
+
         MotechContext tc = coreManager.createMotechContext();
         imsDAO = coreManager.createIncomingMessageSessionDAO(tc);
 
@@ -75,7 +75,7 @@ public class IncomingMessageSessionDAOImplTest {
         ims2.setFormCode("fc_ims2");
         ims2.setLastActivity(new Date());
         ims2.setRequesterPhone(requesterPhone);
-        
+
         ims3.setId(9089L);
         ims3.setDateStarted(new Date());
         ims3.setFormCode("fc_ims3");
@@ -99,9 +99,9 @@ public class IncomingMessageSessionDAOImplTest {
         imsDAO.delete(ims3);
         tx.commit();
     }
-    
-    
-    
+
+
+
     /**
      * Test of save method, of class IncomingMessageSessionDAOImpl.
      */
@@ -111,13 +111,16 @@ public class IncomingMessageSessionDAOImplTest {
 
         Session session = ((Session) imsDAO.getDBSession().getSession());
         Transaction tx = session.beginTransaction();
-        imsDAO.delete(ims1);
+        imsDAO.save(ims1);
         tx.commit();
 
-        session.beginTransaction();
+      
         IncomingMessageSession fromdb = (IncomingMessageSession) session.get(IncomingMessageSessionImpl.class, ims1.getId());
-        session.getTransaction().commit();
-        Assert.assertNull(fromdb);
+
+        Assert.assertNotNull(fromdb);
+        Assert.assertEquals(fromdb, ims1);
+        Assert.assertEquals(fromdb.getId(), ims1.getId());
+        System.out.println("the formcode: " + fromdb.getFormCode());
 
 
     }
@@ -126,21 +129,21 @@ public class IncomingMessageSessionDAOImplTest {
     /**
      * Test of getIncomingMdgSessionByRequestedPhone method, of class IncomingMessageSessionDAOImpl.
      */
- 
-    @Test
-    public void testGetIncomingMsgSessionByRequestedPhone() {
-        System.out.println("getIncomingMsgSessionByRequestedPhone IncomingMessageSession");
-       
-        List<IncomingMessageSession> expResult = new ArrayList<IncomingMessageSession>();
-        expResult.add(ims2);
-        expResult.add(ims3);
-        List<IncomingMessageSession> result = imsDAO.getIncomingMsgSessionByRequestedPhone(requesterPhone);
-        Assert.assertFalse(result.isEmpty());
-        Assert.assertEquals(expResult.size(), result.size());
-        Assert.assertTrue(result.contains(ims2));
-        Assert.assertTrue(result.contains(ims3));
 
-    }
+//    @Test
+//    public void testGetIncomingMsgSessionByRequestedPhone() {
+//        System.out.println("getIncomingMsgSessionByRequestedPhone IncomingMessageSession");
+//
+//        List<IncomingMessageSession> expResult = new ArrayList<IncomingMessageSession>();
+//        expResult.add(ims2);
+//        expResult.add(ims3);
+//        List<IncomingMessageSession> result = imsDAO.getIncomingMsgSessionByRequestedPhone(requesterPhone);
+//        Assert.assertFalse(result.isEmpty());
+//        Assert.assertEquals(expResult.size(), result.size());
+//        Assert.assertTrue(result.contains(ims2));
+//        Assert.assertTrue(result.contains(ims3));
+//
+//    }
 
 
 //    /**
@@ -163,6 +166,6 @@ public class IncomingMessageSessionDAOImplTest {
 //
 //
 //    }
-    
-    
+
+
 }
