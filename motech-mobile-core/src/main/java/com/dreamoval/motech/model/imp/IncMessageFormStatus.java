@@ -8,5 +8,5 @@ package com.dreamoval.motech.model.imp;
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public enum IncMessageFormStatus {
-    NEW, VALID, INVALID;
+    NEW, VALID, INVALID, SERVER_VALID, SERVER_INVALID;
 }
