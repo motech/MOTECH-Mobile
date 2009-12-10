@@ -6,6 +6,7 @@
 package com.dreamoval.motech.imp.manager;
 
 import com.dreamoval.motech.imp.serivce.IMPService;
+import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageFormParameterValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageFormValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
@@ -22,7 +23,6 @@ import static org.junit.Assert.*;
  *  Date : Dec 5, 2009
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/imp-config.xml"})
 public class IMPManagerImplTest {
@@ -73,6 +73,17 @@ public class IMPManagerImplTest {
         System.out.println("createIncomingMessageFormParameterValidator");
 
         IncomingMessageFormParameterValidator result = impManager.createIncomingMessageFormParameterValidator();
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of createIncomingMessageFormParameterValidator method, of class IMPManagerImpl.
+     */
+    @Test
+    public void testCreateCommandAction() {
+        System.out.println("createCommandAction");
+
+        CommandAction result = impManager.createCommandAction();
         assertNotNull(result);
     }
 

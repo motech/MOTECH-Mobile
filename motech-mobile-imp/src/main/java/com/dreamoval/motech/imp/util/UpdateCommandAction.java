@@ -5,6 +5,7 @@
 package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.IncMessageSessionStatus;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDAO;
@@ -12,7 +13,6 @@ import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
 import com.dreamoval.motech.model.imp.IncMessageFormStatus;
 import com.dreamoval.motech.model.imp.IncMessageResponseStatus;
-import com.dreamoval.motech.core.model.IncMessageSessionStatus;
 import com.dreamoval.motech.model.imp.IncMessageStatus;
 import com.dreamoval.motech.model.imp.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageForm;

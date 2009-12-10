@@ -67,34 +67,16 @@ public class IncomingMessageFormParameterValidatorImplTest {
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
         param.setName("date");
-        param.setValue("06-12-09");
+        param.setValue("06/12/2009");
 
         result = imParamValidator.validate(param);
-        assertEquals(result, expResult);
+        assertTrue(result);
         assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
-        param.setValue("2009.12.6");
-
-        result = imParamValidator.validate(param);
-        assertEquals(result, expResult);
-        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
-
-        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
-        param.getIncomingMsgFormParamDefinition().setParamType("DATE");
-        param.getIncomingMsgFormParamDefinition().setLength(10);
-        param.setValue("6/12/2009");
-
-        result = imParamValidator.validate(param);
-        assertEquals(result, expResult);
-        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
-
-        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
-        param.getIncomingMsgFormParamDefinition().setParamType("DATE");
-        param.getIncomingMsgFormParamDefinition().setLength(10);
-        param.setValue("06-2009-12");
+        param.setValue("06-12-2009");
 
         expResult = false;
         result = imParamValidator.validate(param);

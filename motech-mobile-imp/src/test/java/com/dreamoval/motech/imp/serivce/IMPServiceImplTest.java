@@ -6,6 +6,7 @@
 package com.dreamoval.motech.imp.serivce;
 
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.imp.manager.IMPManager;
 import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import com.dreamoval.motech.model.imp.IncomingMessage;
@@ -24,8 +25,8 @@ import static org.easymock.EasyMock.*;
  * @author Kofi A.  Asamoah (yoofi@dreamoval.com)
  */
 public class IMPServiceImplTest {
+    IMPManager mockImp;
     CoreManager mockCore;
-    Map mockCmdAxnMap;
     CommandAction mockCmdAxn;
     IncomingMessageParser mockParser;
 
@@ -39,12 +40,12 @@ public class IMPServiceImplTest {
         mockCore = createMock(CoreManager.class);
         mockParser = createMock(IncomingMessageParser.class);
         mockCmdAxn = createMock(CommandAction.class);
-        mockCmdAxnMap = createMock(Map.class);
+        mockImp = createMock(IMPManager.class);
 
         instance = new IMPServiceImpl();
         instance.setParser(mockParser);
         instance.setCoreManager(mockCore);
-        instance.setCmdActionMap(mockCmdAxnMap);
+        instance.setImpManager(mockImp);
     }
 
     /**
@@ -61,21 +62,18 @@ public class IMPServiceImplTest {
         response.setContent(expResult);
 
         expect(
-                mockParser.getCommand((String) anyObject())
-                ).andReturn("*stop*");
-        expect(
                 mockParser.parseRequest((String) anyObject())
                 ).andReturn(new IncomingMessageImpl());
         expect(
-                mockCmdAxnMap.get((String) anyObject())
+                mockImp.createCommandAction()
                 ).andReturn(mockCmdAxn);
         expect(
                 mockCmdAxn.execute((IncomingMessage) anyObject(), (String) anyObject())
                 ).andReturn(response);
 
-        replay(mockParser, mockCmdAxnMap, mockCmdAxn);
+        replay(mockParser, mockImp, mockCmdAxn);
         String result = instance.processRequest(message, requesterPhone);
-        verify(mockParser, mockCmdAxnMap, mockCmdAxn);
+        verify(mockParser, mockImp, mockCmdAxn);
 
         assertEquals(expResult, result);
     }

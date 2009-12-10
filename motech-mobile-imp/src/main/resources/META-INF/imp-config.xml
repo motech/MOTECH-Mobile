@@ -22,20 +22,26 @@
 
     <bean id="impService" class="com.dreamoval.motech.imp.serivce.IMPServiceImpl">
         <property name="coreManager" ref="coreManager" />
+        <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
-        <property name="cmdActionMap">
+        <!--<property name="cmdActionMap">
             <map key-type="java.lang.String">
                 <entry key="" value-ref="updateCmdAxn" />
                 <entry key="*fc*" value-ref="formCmdAxn" />
                 <entry key="*stop*" value-ref="stopCmdAxn" />
             </map>
-        </property>
+        </property>-->
     </bean>
 
     <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
 
     <bean id="imParser" class="com.dreamoval.motech.imp.util.IncomingMessageParserImpl" >
         <property name="coreManager" ref="coreManager" />
+        <property name="separator" value="=" />
+        <property name="delimiter" value="\n" />
+        <property name="cmdRegex" value="^[tT](ype|YPE)" />
+        <property name="typeRegex" value="^[tT](ype|YPE)\s*=\s*\w+" />
+        <property name="paramRegex" value="[a-zA-Z0-9_\-]+\s*=([a-zA-Z0-9_\-\s/.'])+" />
     </bean>
 
     <bean id="formCmdAxn" class="com.dreamoval.motech.imp.util.FormCommandAction">
@@ -65,7 +71,8 @@
                 <entry key="ALPHA" value="[a-zA-Z.,'\-\s]+" />
                 <entry key="ALPHANUM" value="[a-zA-Z0-9.,'\-\_\s]+" />
                 <entry key="BOOLEAN" value="true|false|yes|no|1|0" />
-                <entry key="DATE" value="((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)[\- /.](0?[1-9]|1[012])[\- /.]((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)" />
+                <entry key="DATE" value="dd/MM/yyyy" />
+                <!--((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)[\- /.](0?[1-9]|1[012])\2((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)-->
                 <entry key="NUMERIC" value="\d+" />
             </map>
         </property>

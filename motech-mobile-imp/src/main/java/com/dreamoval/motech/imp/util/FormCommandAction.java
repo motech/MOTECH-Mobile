@@ -2,17 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.IncMessageSessionStatus;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
 import com.dreamoval.motech.model.imp.IncMessageFormStatus;
 import com.dreamoval.motech.model.imp.IncMessageResponseStatus;
-import com.dreamoval.motech.core.model.IncMessageSessionStatus;
 import com.dreamoval.motech.model.imp.IncMessageStatus;
 import com.dreamoval.motech.model.imp.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageForm;
@@ -22,7 +21,7 @@ import com.dreamoval.motech.model.imp.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 import java.util.ArrayList;
 import java.util.Date;
-import org.hibernate.Session;
+import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
 
 /**
@@ -31,11 +30,13 @@ import org.hibernate.Transaction;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
-public class FormCommandAction implements CommandAction{
+public class FormCommandAction implements CommandAction {
+
     private CoreManager coreManager;
     private IncomingMessageParser parser;
     private IncomingMessageFormValidator formValidator;
-    
+    private static Logger logger = Logger.getLogger(FormCommandAction.class);
+
     /**
      * 
      * @see CommandAction.execute
@@ -43,11 +44,47 @@ public class FormCommandAction implements CommandAction{
     public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
         MotechContext context = coreManager.createMotechContext();
 
-        ///TODO check for existing conversation if found, return error
-        IncomingMessageSession imSession = coreManager.createIncomingMessageSession();
+        logger.info("Initializing session");
+        IncomingMessageSession imSession = initializeSession(message, requesterPhone, context);
 
+        logger.info("Generating form");
+        IncomingMessageForm form = initializeForm(message, imSession.getFormCode(), context);
+
+        logger.info("Validating form");
+        formValidator.validate(form);
+        message.setIncomingMessageForm(form);
+
+        logger.info("Preparing response");
+        IncomingMessageResponse response = prepareResponse(message);
+
+        logger.info("Saving request");
+        message.setIncomingMessageResponse(response);
+        message.setMessageStatus(IncMessageStatus.PROCESSED);
+        message.setLastModified(new Date());
+
+        imSession.setDateEnded(new Date());
+        imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
+
+        IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
+        Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
+        tx.begin();
+        sessionDao.save(imSession);
+        tx.commit();
+
+        return response;
+    }
+
+    /**
+     * Initializes a request session conversation
+     * @param message Incoming message
+     * @param requesterPhone phone number of requester
+     * @param context the context of the request
+     * @return the initialized session
+     */
+    public synchronized IncomingMessageSession initializeSession(IncomingMessage message, String requesterPhone, MotechContext context) {
         String formCode = parser.getFormCode(message.getContent());
-        imSession = coreManager.createIncomingMessageSession();
+
+        IncomingMessageSession imSession = coreManager.createIncomingMessageSession();
         imSession.setFormCode(formCode);
         imSession.setRequesterPhone(requesterPhone);
         imSession.setMessageSessionStatus(IncMessageSessionStatus.STARTED);
@@ -56,14 +93,25 @@ public class FormCommandAction implements CommandAction{
         imSession.getIncomingMessages().add(message);
 
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
-        Transaction tx = ((Session)sessionDao.getDBSession().getSession()).beginTransaction();
+        Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
+        tx.begin();
         sessionDao.save(imSession);
         tx.commit();
 
-        ///TODO fetch form definition by code
-        IncomingMessageFormDefinition formDefn = coreManager.createIncomingMessageFormDefinition();
-        
-        IncomingMessageForm form = coreManager.createIncomingMessageForm();        
+        return imSession;
+    }
+
+    /**
+     * Initializes a request form
+     * @param message the request message
+     * @param formCode the type of form
+     * @param context the context of the request
+     * @return
+     */
+    public synchronized IncomingMessageForm initializeForm(IncomingMessage message, String formCode, MotechContext context) {
+        IncomingMessageFormDefinition formDefn = coreManager.createIncomingMessageFormDefinitionDAO(context).getByCode(formCode);
+
+        IncomingMessageForm form = coreManager.createIncomingMessageForm();
         form.setIncomingMsgFormDefinition(formDefn);
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.setDateCreated(new Date());
@@ -71,40 +119,44 @@ public class FormCommandAction implements CommandAction{
         form.getIncomingMsgFormParameters().addAll(parser.getParams(message.getContent()));
 
         IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO(context);
-        tx = ((Session)formDao.getDBSession().getSession()).beginTransaction();
-        sessionDao.save(form);
+        Transaction tx = (Transaction) formDao.getDBSession().getTransaction();
+        tx.begin();
+        formDao.save(form);
         tx.commit();
+
+        return form;
+    }
+
+    /**
+     * Prepares a response to a request message
+     * @param message the message to respond to
+     * @return the response to the message
+     */
+    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message) {
+        IncomingMessageForm form = message.getIncomingMessageForm();
 
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
         response.setDateCreated(new Date());
         response.setIncomingMessage(message);
 
-        if(formValidator.validate(form)){
-            response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
-            response.setContent("Data saved successfully.");
+        if (form == null) {
+            response.setContent("Invalid request");
+            return response;
+        }
 
-            imSession.setDateEnded(new Date());
-            imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
+        if (form.getMessageFormStatus().equals(IncMessageFormStatus.VALID)) {
+            response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
+            response.setContent("Saved");
         } else {
-            String responseText = "Errors: ";
+            String responseText = "Errors:";
             for (IncomingMessageFormParameter inParam : form.getIncomingMsgFormParameters()) {
                 if (inParam.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID)) {
-                    responseText += inParam.getErrText() + ',';
+                    responseText += '\n'+inParam.getErrText();
                 }
             }
             response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
             response.setContent(responseText);
         }
-        message.setIncomingMessageResponse(response);
-        message.setIncomingMessageForm(form);
-
-        message.setMessageStatus(IncMessageStatus.PROCESSED);
-        message.setLastModified(new Date());
-
-        tx = ((Session) sessionDao.getDBSession().getSession()).beginTransaction();
-        sessionDao.save(imSession);
-        tx.commit();
-
         return response;
     }
 
@@ -149,5 +201,4 @@ public class FormCommandAction implements CommandAction{
     public void setFormValidator(IncomingMessageFormValidator formValidator) {
         this.formValidator = formValidator;
     }
-
 }

@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
@@ -23,9 +27,13 @@ import static org.easymock.EasyMock.*;
  *  Date : Dec 5, 2009
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:META-INF/imp-config.xml"})
 public class IncomingMessageParserImplTest {
     CoreManager mockCore;
-    IncomingMessageParserImpl instance;
+
+    @Autowired
+    IncomingMessageParserImpl imParser;
     
     public IncomingMessageParserImplTest() {
     }
@@ -33,9 +41,7 @@ public class IncomingMessageParserImplTest {
     @Before
     public void setup(){
         mockCore = createMock(CoreManager.class);
-        
-        instance = new IncomingMessageParserImpl();
-        instance.setCoreManager(mockCore);
+        imParser.setCoreManager(mockCore);
     }
 
     /**
@@ -44,14 +50,14 @@ public class IncomingMessageParserImplTest {
     @Test
     public void testParseRequest() {
         System.out.println("parseRequest");
-        String message = "*fc* 1 type=test, message=Test,, Tester";
+        String message = "Type=GENERAL\naction=test\nmessage=Test,, Tester";
 
         expect(
                 mockCore.createIncomingMessage()
                 ).andReturn(new IncomingMessageImpl());
 
         replay(mockCore);
-        IncomingMessage result = instance.parseRequest(message);
+        IncomingMessage result = imParser.parseRequest(message);
         verify(mockCore);
 
         assertNotNull(result);
@@ -64,20 +70,15 @@ public class IncomingMessageParserImplTest {
     @Test
     public void testGetComand() {
         System.out.println("getComand");
-        String message = "*fc* 1 type=test, message=Test,, Tester";
+        String message = "Type=GENERAL\naction=test\nmessage=Test,, Tester";
         
-        String expResult = "*fc*";
-        String result = instance.getCommand(message);
+        String expResult = "type";
+        String result = imParser.getCommand(message);
         assertEquals(expResult, result);
 
-        message = "*STOP* processing this conversation";
-        expResult = "*stop*";
-        result = instance.getCommand(message);
-        assertEquals(expResult, result);
-
-        message = "1 *fc*";
+        message = "someting=test Type";
         expResult = "";
-        result = instance.getCommand(message);
+        result = imParser.getCommand(message);
         assertEquals(expResult, result);
     }
 
@@ -87,9 +88,9 @@ public class IncomingMessageParserImplTest {
     @Test
     public void testGetFormCode() {
         System.out.println("getFormCode");
-        String message = "*fc* 1 type=test, message=Test,, Tester";
-        String expResult = "1";
-        String result = instance.getFormCode(message);
+        String message = "Type=GENERAL\naction=test\nmessage=Test,, Tester";
+        String expResult = "GENERAL";
+        String result = imParser.getFormCode(message);
         assertEquals(expResult, result);
     }
 
@@ -99,7 +100,7 @@ public class IncomingMessageParserImplTest {
     @Test
     public void testGetParams() {
         System.out.println("getParams");
-        String message = "*fc* 1 type=test, message=Test,, Dream Tester, dob = 01/01/01, due-date=right. now, test_format=all";
+        String message = "Type=GENERAL\naction=test\nmessage=Test, Dream Tester\ndob = 01/01/01\ndue-date=right. now\ntest_format=all";
 
         List<IncomingMessageFormParameter> expResult = new ArrayList<IncomingMessageFormParameter>();
 
@@ -133,7 +134,7 @@ public class IncomingMessageParserImplTest {
                 ).andReturn(new IncomingMessageFormParameterImpl()).times(expResult.size());
 
         replay(mockCore);
-        List<IncomingMessageFormParameter> result = instance.getParams(message);
+        List<IncomingMessageFormParameter> result = imParser.getParams(message);
         verify(mockCore);
         
         assertNotNull(result);

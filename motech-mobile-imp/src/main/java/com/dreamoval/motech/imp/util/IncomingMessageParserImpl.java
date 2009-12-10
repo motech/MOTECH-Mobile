@@ -19,15 +19,16 @@ import java.util.regex.*;
 public class IncomingMessageParserImpl implements IncomingMessageParser {
 
     private CoreManager coreManager;
-
-    private static final String CMD_REGEX = "^\\*\\w+\\*";
-    private static final String FC_REGEX = "^\\*\\w+\\*\\s*\\d+";
-    private static final String PARAM_REGEX = "[a-zA-Z0-9_\\-]+\\s*=([a-zA-Z0-9_\\-\\s/.'](,,)*)+";
+    private String separator;
+    private String delimiter;
+    private String cmdRegex;
+    private String typeRegex;
+    private String paramRegex;
 
     /**
      * @see IncomingMessageParser.parseRequest
      */
-    public synchronized IncomingMessage parseRequest(String message){
+    public synchronized IncomingMessage parseRequest(String message) {
         IncomingMessage inMsg = coreManager.createIncomingMessage();
         inMsg.setContent(message.trim());
         inMsg.setDateCreated(new Date());
@@ -43,7 +44,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
     public synchronized String getCommand(String message) {
         String command = "";
 
-        Pattern pattern = Pattern.compile(CMD_REGEX);
+        Pattern pattern = Pattern.compile(cmdRegex);
         Matcher matcher = pattern.matcher(message.trim());
 
         if (matcher.find()) {
@@ -60,14 +61,14 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         String command = "";
         String formCode = "";
 
-        Pattern pattern = Pattern.compile(FC_REGEX);
+        Pattern pattern = Pattern.compile(typeRegex);
         Matcher matcher = pattern.matcher(message.trim());
 
         if (matcher.find()) {
             command = matcher.group();
-            String[] formCodeParts = command.trim().split("\\s+");
+            String[] formCodeParts = command.trim().split("=");
             if (formCodeParts.length == 2) {
-                formCode = formCodeParts[1];
+                formCode = formCodeParts[1].trim();
             }
         }
         return formCode;
@@ -79,22 +80,36 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      */
     public synchronized List<IncomingMessageFormParameter> getParams(String message) {
         List<IncomingMessageFormParameter> params = new ArrayList<IncomingMessageFormParameter>();
+        List<String> pList = new ArrayList<String>();
 
-        Pattern pattern = Pattern.compile(PARAM_REGEX);
-        Matcher matcher = pattern.matcher(message.trim());
+        if (delimiter != null && !delimiter.equals("")) {
+            String[] paramArr = message.split(delimiter);
+            for(String p : paramArr){
+                if(!Pattern.matches(typeRegex, p))
+                    pList.add(p);
+            }
+        }
+        else {
+            Pattern pattern = Pattern.compile(paramRegex);
+            Matcher matcher = pattern.matcher(message.trim());
 
-        while (matcher.find()) {
-            String param = matcher.group();
+            while (matcher.find()) {
+                String match = matcher.group();
+                pList.add(match);
+            }
+        }
+
+        for (String param : pList) {
             param = param.trim();
-            param = param.replace(",,", ",");
-            String[] paramArr = param.split("=");
+            param = param.replace(delimiter+delimiter, delimiter);
+            String[] paramParts = param.split(separator);
 
-            if (paramArr.length == 2) {
+            if (paramParts.length == 2) {
                 IncomingMessageFormParameter imParam = coreManager.createIncomingMessageFormParameter();
                 imParam.setDateCreated(new Date());
                 imParam.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
-                imParam.setName(paramArr[0].trim());
-                imParam.setValue(paramArr[1].trim());
+                imParam.setName(paramParts[0].trim());
+                imParam.setValue(paramParts[1].trim());
                 params.add(imParam);
             }
         }
@@ -102,16 +117,44 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
     }
 
     /**
-     * @return the coreManager
-     */
-    public CoreManager getCoreManager() {
-        return coreManager;
-    }
-
-    /**
      * @param coreManager the coreManager to set
      */
     public void setCoreManager(CoreManager coreManager) {
         this.coreManager = coreManager;
+    }
+
+    /**
+     * @param delimeter the delimeter to set
+     */
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
+
+    /**
+     * @param cmdRegex the cmdRegex to set
+     */
+    public void setCmdRegex(String cmdRegex) {
+        this.cmdRegex = cmdRegex;
+    }
+
+    /**
+     * @param typeRegex the typeRegex to set
+     */
+    public void setTypeRegex(String typeRegex) {
+        this.typeRegex = typeRegex;
+    }
+
+    /**
+     * @param paramRegex the paramRegex to set
+     */
+    public void setParamRegex(String paramRegex) {
+        this.paramRegex = paramRegex;
+    }
+
+    /**
+     * @param separator the separator to set
+     */
+    public void setSeparator(String separator) {
+        this.separator = separator;
     }
 }

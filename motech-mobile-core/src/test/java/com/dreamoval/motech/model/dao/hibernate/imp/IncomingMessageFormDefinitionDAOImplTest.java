@@ -34,9 +34,9 @@ public class IncomingMessageFormDefinitionDAOImplTest {
         imfDAO = coreManager.createIncomingMessageFormDefinitionDAO(mCtx);
 
         IncomingMessageFormDefinition fdef = coreManager.createIncomingMessageFormDefinition();
-        fdef.setFormCode("TC");
+        fdef.setFormCode("TEST_FORM");
 
-        Transaction tx = (Transaction) imfDAO.getDBSession().getTransaction();
+        Transaction tx = (Transaction)imfDAO.getDBSession().getTransaction();
         tx.begin();
         imfDAO.save(fdef);
         tx.commit();
@@ -48,10 +48,10 @@ public class IncomingMessageFormDefinitionDAOImplTest {
     @Test
     public void testGetByCode() {
         System.out.println("getByCode");
-        String formCode = "TC";
+        String formCode = "TEST_FORM";
 
         IncomingMessageFormDefinition result = imfDAO.getByCode(formCode);
         assertNotNull(result);
-        assertEquals(result.getFormCode(), "TC");
+        assertEquals(result.getFormCode(), "TEST_FORM");
     }
 }
