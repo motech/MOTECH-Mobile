@@ -26,11 +26,6 @@ public class IncomingMessageFormParameterValidatorImpl implements IncomingMessag
     public synchronized boolean validate(IncomingMessageFormParameter param){
         String paramRegex = getParamTypeMap().get(param.getIncomingMsgFormParamDefinition().getParamType());
 
-        System.out.println("Type: " + param.getIncomingMsgFormParamDefinition().getParamType());
-        System.out.println("Regex: " + paramRegex);
-        System.out.println("Value: " + param.getValue());
-        System.out.println("---------------------------------------------------------");
-
         if(!param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.NEW)){
             return param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID);
         }

@@ -42,7 +42,8 @@ public class IncomingMessageFormParameterValidatorImplTest {
         param.setIncomingMsgFormParamDefinition(new IncomingMessageFormParameterDefinitionImpl());
         param.getIncomingMsgFormParamDefinition().setParamType("ALPHA");
         param.getIncomingMsgFormParamDefinition().setLength(30);
-        param.setValue("Test,Tester");
+        param.setName("name");
+        param.setValue("O'Test,Dream-Tester Test");
         
         boolean expResult = true;
         boolean result = imParamValidator.validate(param);
@@ -50,14 +51,29 @@ public class IncomingMessageFormParameterValidatorImplTest {
         assertEquals(result, expResult);
         assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.getIncomingMsgFormParamDefinition().setParamType("ALPHA");
+        param.getIncomingMsgFormParamDefinition().setLength(10);
+        param.setName("name");
+        param.setValue("tester1234");
+
+        result = imParamValidator.validate(param);
+        assertFalse(result);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
+        assertEquals(param.getErrCode(), 1);
+        assertEquals(param.getErrText(), "name=wrong format");
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
+        param.setName("date");
         param.setValue("06-12-09");
 
         result = imParamValidator.validate(param);
         assertEquals(result, expResult);
         assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
         param.setValue("2009.12.6");
@@ -66,6 +82,7 @@ public class IncomingMessageFormParameterValidatorImplTest {
         assertEquals(result, expResult);
         assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
         param.setValue("6/12/2009");
@@ -74,15 +91,77 @@ public class IncomingMessageFormParameterValidatorImplTest {
         assertEquals(result, expResult);
         assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
 
-//        param.getIncomingMsgFormParamDefinition().setParamType("DATE");
-//        param.getIncomingMsgFormParamDefinition().setLength(10);
-//        param.setValue("06-2009-12");
-//
-//        expResult = false;
-//        result = imParamValidator.validate(param);
-//        assertEquals(result, expResult);
-//        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
-//        assertEquals(param.getErrCode(), 1);
-//        assertEquals(param.getErrText(), "wrong format");
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.getIncomingMsgFormParamDefinition().setParamType("DATE");
+        param.getIncomingMsgFormParamDefinition().setLength(10);
+        param.setValue("06-2009-12");
+
+        expResult = false;
+        result = imParamValidator.validate(param);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
+        assertEquals(param.getErrCode(), 1);
+        assertEquals(param.getErrText(), "date=wrong format");
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.getIncomingMsgFormParamDefinition().setParamType("NUMERIC");
+        param.getIncomingMsgFormParamDefinition().setLength(10);
+        param.setName("age");
+        param.setValue("06-2009-12");
+
+        expResult = false;
+        result = imParamValidator.validate(param);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
+        assertEquals(param.getErrCode(), 1);
+        assertEquals(param.getErrText(), "age=wrong format");
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.getIncomingMsgFormParamDefinition().setParamType("NUMERIC");
+        param.getIncomingMsgFormParamDefinition().setLength(3);
+        param.setName("age");
+        param.setValue("2009");
+
+        expResult = false;
+        result = imParamValidator.validate(param);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
+        assertEquals(param.getErrCode(), 2);
+        assertEquals(param.getErrText(), "age=too long");
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.getIncomingMsgFormParamDefinition().setParamType("NUMERIC");
+        param.getIncomingMsgFormParamDefinition().setLength(10);
+        param.setName("age");
+        param.setValue("30");
+
+        expResult = true;
+        result = imParamValidator.validate(param);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.getIncomingMsgFormParamDefinition().setParamType("BOOLEAN");
+        param.getIncomingMsgFormParamDefinition().setLength(5);
+        param.setName("registered");
+        param.setValue("yup");
+
+        expResult = false;
+        result = imParamValidator.validate(param);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
+        assertEquals(param.getErrCode(), 1);
+        assertEquals(param.getErrText(), "registered=wrong format");
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.getIncomingMsgFormParamDefinition().setParamType("BOOLEAN");
+        param.getIncomingMsgFormParamDefinition().setLength(5);
+        param.setName("registered");
+        param.setValue("1");
+
+        expResult = true;
+        result = imParamValidator.validate(param);
+        assertEquals(result, expResult);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
     }
 }

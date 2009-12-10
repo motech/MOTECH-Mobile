@@ -12,4 +12,5 @@ import com.dreamoval.motech.model.imp.IncomingMessageFormImpl;
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public class IncomingMessageFormDAOImpl extends HibernateGenericDAOImpl<IncomingMessageFormImpl> implements IncomingMessageFormDAO<IncomingMessageFormImpl>{
+    
 }

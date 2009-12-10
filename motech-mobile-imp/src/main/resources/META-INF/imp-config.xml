@@ -65,7 +65,7 @@
                 <entry key="ALPHA" value="[a-zA-Z.,'\-\s]+" />
                 <entry key="ALPHANUM" value="[a-zA-Z0-9.,'\-\_\s]+" />
                 <entry key="BOOLEAN" value="true|false|yes|no|1|0" />
-                <entry key="DATE" value="((0?[1-9]|[12][0-9]|3[01])|(19|20)?\\d\\d)[\\- /.](0?[1-9]|1[012])[\\- /.]((0?[1-9]|[12][0-9]|3[01])|(19|20)?\\d\\d)" />
+                <entry key="DATE" value="((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)[\- /.](0?[1-9]|1[012])[\- /.]((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)" />
                 <entry key="NUMERIC" value="\d+" />
             </map>
         </property>
