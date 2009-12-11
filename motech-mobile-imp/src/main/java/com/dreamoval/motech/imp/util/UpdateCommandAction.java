@@ -98,7 +98,7 @@ public class UpdateCommandAction implements CommandAction {
         response.setDateCreated(new Date());
         response.setIncomingMessage(message);
 
-        if (getFormValidator().validate(form)) {
+        if (getFormValidator().validate(form, requesterPhone)) {
             response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
             response.setContent("Data saved successfully.");
 

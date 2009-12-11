@@ -63,6 +63,8 @@
     <bean id="imFormValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormValidatorImpl">
         <property name="imParamValidator" ref="imParamValidator" />
         <property name="coreManager" ref="coreManager" />
+        <property name="regWS" ref="registrarClient" />
+        <property name="dateFormat" value="dd/MM/yyyy" />
     </bean>
 
     <bean id="imParamValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormParameterValidatorImpl">
@@ -70,7 +72,7 @@
             <map>
                 <entry key="ALPHA" value="[a-zA-Z.,'\-\s]+" />
                 <entry key="ALPHANUM" value="[a-zA-Z0-9.,'\-\_\s]+" />
-                <entry key="BOOLEAN" value="true|false|yes|no|1|0" />
+                <entry key="BOOLEAN" value="true|false" />
                 <entry key="DATE" value="dd/MM/yyyy" />
                 <!--((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)[\- /.](0?[1-9]|1[012])\2((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)-->
                 <entry key="NUMERIC" value="\d+" />
@@ -78,4 +80,14 @@
         </property>
     </bean>
 
+    <bean id="registrarClient"
+            class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+            <property name="serviceInterface" value="org.motechproject.ws.server.RegistrarService" />
+            <property name="wsdlDocumentUrl"
+                    value="http://localhost:8080/openmrs/ws/RegistrarService?wsdl" />
+            <property name="namespaceUri" value="http://server.ws.motechproject.org/" />
+            <property name="serviceName" value="RegistrarWebServiceService" />
+            <property name="portName" value="RegistrarWebServicePort" />
+            <property name="lookupServiceOnStartup" value="false" />
+    </bean>
 </beans>

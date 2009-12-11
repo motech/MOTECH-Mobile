@@ -51,7 +51,7 @@ public class FormCommandAction implements CommandAction {
         IncomingMessageForm form = initializeForm(message, imSession.getFormCode(), context);
 
         logger.info("Validating form");
-        formValidator.validate(form);
+        formValidator.validate(form, requesterPhone);
         message.setIncomingMessageForm(form);
 
         logger.info("Preparing response");
@@ -144,19 +144,18 @@ public class FormCommandAction implements CommandAction {
             return response;
         }
 
-        if (form.getMessageFormStatus().equals(IncMessageFormStatus.VALID)) {
-            response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
+        if (form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID)) {
             response.setContent("Saved");
         } else {
             String responseText = "Errors:";
             for (IncomingMessageFormParameter inParam : form.getIncomingMsgFormParameters()) {
                 if (inParam.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID)) {
-                    responseText += '\n'+inParam.getErrText();
+                    responseText += '\n' + inParam.getErrText();
                 }
             }
-            response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
             response.setContent(responseText);
         }
+        response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
         return response;
     }
 

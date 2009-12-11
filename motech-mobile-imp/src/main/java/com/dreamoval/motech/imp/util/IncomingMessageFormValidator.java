@@ -19,6 +19,6 @@ public interface IncomingMessageFormValidator {
      * @param form the form to validate
      * @return the validated form
      */
-    boolean validate(IncomingMessageForm form);
+    boolean validate(IncomingMessageForm form, String requesterPhone);
 
 }

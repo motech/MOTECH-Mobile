@@ -150,7 +150,7 @@ public class FormCommandActionTest {
 
         //Validate form
         expect(
-                mockValidator.validate((IncomingMessageForm)anyObject())
+                mockValidator.validate((IncomingMessageForm)anyObject(), (String)anyObject())
                 ).andReturn(Boolean.TRUE);
 
         //Prepare response
@@ -310,7 +310,7 @@ public class FormCommandActionTest {
 
         //Test for valid form
         message.setIncomingMessageForm(new IncomingMessageFormImpl());
-        message.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.VALID);
+        message.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
         reset(mockCore);
 
         expect(
@@ -325,7 +325,7 @@ public class FormCommandActionTest {
         assertNotNull(result);
         assertEquals(result.getContent(), expResult);
 
-        //Test for valid form
+        //Test for invalid form
         IncomingMessageFormParameter param1 = new IncomingMessageFormParameterImpl();
         param1.setName("name");
         param1.setErrText("name=wrong format");

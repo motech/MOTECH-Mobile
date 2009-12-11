@@ -139,7 +139,7 @@ public class IncomingMessageFormParameterValidatorImplTest {
         param.getIncomingMsgFormParamDefinition().setParamType("BOOLEAN");
         param.getIncomingMsgFormParamDefinition().setLength(5);
         param.setName("registered");
-        param.setValue("1");
+        param.setValue("false");
 
         expResult = true;
         result = imParamValidator.validate(param);
