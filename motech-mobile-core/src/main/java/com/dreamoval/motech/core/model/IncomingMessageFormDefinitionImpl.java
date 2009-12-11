@@ -1,6 +1,5 @@
 package com.dreamoval.motech.core.model;
 
-import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

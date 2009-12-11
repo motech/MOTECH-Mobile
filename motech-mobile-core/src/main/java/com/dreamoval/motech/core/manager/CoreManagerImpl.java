@@ -30,7 +30,7 @@ import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageForm;
 import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
-import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
+import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 import org.apache.log4j.Logger;
@@ -345,7 +345,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
      */
     public IncomingMessageFormParameterDefinitionDAO createIncomingMessageFormParameterDefinitionDAO(MotechContext motechContext) {
         logger.info("Creating IncomingMessageFormParameterDefinitionDAO instance");
-        IncomingMessageFormParameterDefinitionDAO imDAO = (IncomingMessageFormParameterDefinitionDAO) getInstance("incomingMessageFormParameterDefinitionDAO", IncomingMessageFormDefinitionDAO.class);
+        IncomingMessageFormParameterDefinitionDAO imDAO = (IncomingMessageFormParameterDefinitionDAO) getInstance("incomingMessageFormParameterDefinitionDAO", IncomingMessageFormParameterDefinitionDAO.class);
         imDAO.setDBSession(motechContext.getDBSession());
         return imDAO;
     }

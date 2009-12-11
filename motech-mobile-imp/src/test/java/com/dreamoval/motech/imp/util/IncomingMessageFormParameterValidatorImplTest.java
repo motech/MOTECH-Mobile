@@ -7,7 +7,7 @@ package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
-import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinitionImpl;
+import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinitionImpl;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;

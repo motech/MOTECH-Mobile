@@ -1,4 +1,4 @@
-package com.dreamoval.motech.model.imp;
+package com.dreamoval.motech.core.model;
 
 import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
 import com.dreamoval.motech.core.model.MotechEntityImpl;

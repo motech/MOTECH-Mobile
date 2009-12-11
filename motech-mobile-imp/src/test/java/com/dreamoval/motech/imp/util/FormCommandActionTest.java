@@ -18,7 +18,7 @@ import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
 import com.dreamoval.motech.model.imp.IncMessageFormStatus;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageForm;
-import com.dreamoval.motech.model.imp.IncomingMessageFormDefinitionImpl;
+import com.dreamoval.motech.core.model.IncomingMessageFormDefinitionImpl;
 import com.dreamoval.motech.model.imp.IncomingMessageFormImpl;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl;
