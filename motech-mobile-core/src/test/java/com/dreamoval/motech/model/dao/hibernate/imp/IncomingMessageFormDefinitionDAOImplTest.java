@@ -5,6 +5,7 @@ import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDefinitionDAO;
 import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,8 @@ public class IncomingMessageFormDefinitionDAOImplTest {
     @Autowired
     CoreManager coreManager;
     IncomingMessageFormDefinitionDAO imfDAO;
+    IncomingMessageFormDefinition fdef;
+    String formCode = "TESTFORM";
 
     public IncomingMessageFormDefinitionDAOImplTest() {
     }
@@ -33,8 +36,8 @@ public class IncomingMessageFormDefinitionDAOImplTest {
         MotechContext mCtx = coreManager.createMotechContext();
         imfDAO = coreManager.createIncomingMessageFormDefinitionDAO(mCtx);
 
-        IncomingMessageFormDefinition fdef = coreManager.createIncomingMessageFormDefinition();
-        fdef.setFormCode("TEST_FORM");
+        fdef = coreManager.createIncomingMessageFormDefinition();
+        fdef.setFormCode(formCode);
 
         Transaction tx = (Transaction)imfDAO.getDBSession().getTransaction();
         tx.begin();
@@ -42,16 +45,22 @@ public class IncomingMessageFormDefinitionDAOImplTest {
         tx.commit();
     }
 
+    @After
+    public void tearDown() {
+        Transaction tx = (Transaction)imfDAO.getDBSession().getTransaction();
+        tx.begin();
+        imfDAO.delete(fdef);
+        tx.commit();
+    }
     /**
      * Test of getByCode method, of class IncomingMessageFormDefinitionDAOImpl.
      */
     @Test
     public void testGetByCode() {
         System.out.println("getByCode");
-        String formCode = "TEST_FORM";
 
         IncomingMessageFormDefinition result = imfDAO.getByCode(formCode);
         assertNotNull(result);
-        assertEquals(result.getFormCode(), "TEST_FORM");
+        assertEquals(result.getFormCode(), formCode);
     }
 }

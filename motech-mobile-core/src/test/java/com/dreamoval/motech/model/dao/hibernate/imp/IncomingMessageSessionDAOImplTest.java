@@ -1,13 +1,11 @@
-package com.dreamoval.motech.core.dao.hibernate;
+package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 import com.dreamoval.motech.core.model.IncomingMessageSessionImpl;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.After;

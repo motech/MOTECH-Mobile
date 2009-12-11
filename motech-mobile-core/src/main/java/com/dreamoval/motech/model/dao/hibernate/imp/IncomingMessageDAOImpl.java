@@ -2,8 +2,8 @@ package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.dao.hibernate.HibernateGenericDAOImpl;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
-import com.dreamoval.motech.model.imp.IncomingMessage;
-import com.dreamoval.motech.model.imp.IncomingMessageImpl;
+import com.dreamoval.motech.core.model.IncomingMessage;
+import com.dreamoval.motech.core.model.IncomingMessageImpl;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 import java.util.List;
 import org.apache.log4j.Logger;

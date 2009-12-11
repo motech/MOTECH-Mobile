@@ -74,7 +74,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
      <bean id="incomingMessageSession" class="com.dreamoval.motech.core.model.IncomingMessageSessionImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessage" class="com.dreamoval.motech.model.imp.IncomingMessageImpl" scope="prototype">
+     <bean id="incomingMessage" class="com.dreamoval.motech.core.model.IncomingMessageImpl" scope="prototype">
     </bean>
 
      <bean id="incomingMessageResponse" class="com.dreamoval.motech.model.imp.IncomingMessageResponseImpl" scope="prototype">
@@ -124,8 +124,8 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/core/model/MessageTemplate.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/NotificationType.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/IncomingMessageSession.hbm.xml</value>
-               <!-- <value>com/dreamoval/motech/model/imp/IncomingMessage.hbm.xml</value>
-                <value>com/dreamoval/motech/model/imp/IncomingMessageResponse.hbm.xml</value> -->
+                <value>com/dreamoval/motech/core/model/IncomingMessage.hbm.xml</value>
+               <!-- <value>com/dreamoval/motech/model/imp/IncomingMessageResponse.hbm.xml</value> -->
                 <value>com/dreamoval/motech/model/imp/IncomingMessageFormDefinition.hbm.xml</value>
                 <value>com/dreamoval/motech/model/imp/IncomingMessageFormParameterDefinition.hbm.xml</value>
               <!--  <value>com/dreamoval/motech/model/imp/IncomingMessageForm.hbm.xml</value>

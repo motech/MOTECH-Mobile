@@ -10,7 +10,7 @@ import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.model.imp.IncMessageResponseStatus;
 import com.dreamoval.motech.core.model.IncMessageSessionStatus;
-import com.dreamoval.motech.model.imp.IncomingMessage;
+import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 import java.util.Date;

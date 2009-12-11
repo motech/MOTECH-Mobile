@@ -1,4 +1,4 @@
-package com.dreamoval.motech.model.imp;
+package com.dreamoval.motech.core.model;
 
 /*
  * IncMessageStatus is an enumeration that describes the state of an instance of IncomingMessageImpl object

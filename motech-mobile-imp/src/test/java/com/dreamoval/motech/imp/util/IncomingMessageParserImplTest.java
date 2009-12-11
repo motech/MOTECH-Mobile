@@ -6,10 +6,10 @@
 package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.model.imp.IncomingMessage;
+import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl;
-import com.dreamoval.motech.model.imp.IncomingMessageImpl;
+import com.dreamoval.motech.core.model.IncomingMessageImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;

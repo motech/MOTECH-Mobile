@@ -1,7 +1,7 @@
 package com.dreamoval.motech.model.dao.imp;
 
 import com.dreamoval.motech.core.dao.GenericDAO;
-import com.dreamoval.motech.model.imp.IncomingMessage;
+import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 
 /*

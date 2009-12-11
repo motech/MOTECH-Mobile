@@ -5,7 +5,7 @@
 
 package com.dreamoval.motech.imp.util;
 
-import com.dreamoval.motech.model.imp.IncomingMessage;
+import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageResponse;
 
 /**
