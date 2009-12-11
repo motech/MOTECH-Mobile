@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.model.imp">
   <union-subclass extends="com.dreamoval.motech.core.model.MotechEntityImpl" name="IncomingMessageFormParameterDefinitionImpl" table="incoming_message_form_parameter_definition">
-    <many-to-one class="IncomingMessageFormDefinitionImpl" column="incoming_message_form_definition_id" name="IncomingMsgFormDefinition"/>
+    <many-to-one class="com.dreamoval.motech.core.model.IncomingMessageFormDefinitionImpl" column="incoming_message_form_definition_id" name="IncomingMsgFormDefinition"/>
     <property column="name" length="50" name="name" type="string"/>
     <property column="parameter_type" length="50" name="paramType" type="string"/>
     <property column="lenght" name="length" type="integer"/>

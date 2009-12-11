@@ -28,7 +28,7 @@ import com.dreamoval.motech.model.dao.imp.IncomingMessageResponseDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.imp.IncomingMessageForm;
-import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
+import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;

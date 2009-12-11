@@ -1,6 +1,6 @@
-package com.dreamoval.motech.model.imp;
+package com.dreamoval.motech.core.model;
 
-import com.dreamoval.motech.core.model.MotechEntityImpl;
+import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -74,7 +74,4 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
     public void setIncomingMsgParamDefinitions(Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition) {
         this.incomingMsgParamDefinitions = incomingMsgParamDefinition;
     }
-
-   
-    
 }

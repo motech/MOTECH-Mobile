@@ -3,7 +3,7 @@ package com.dreamoval.motech.model.dao.hibernate.imp;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDefinitionDAO;
-import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
+import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
 import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
