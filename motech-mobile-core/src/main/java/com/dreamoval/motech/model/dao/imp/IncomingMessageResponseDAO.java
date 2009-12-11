@@ -1,7 +1,7 @@
 package com.dreamoval.motech.model.dao.imp;
 
 import com.dreamoval.motech.core.dao.GenericDAO;
-import com.dreamoval.motech.model.imp.IncomingMessageResponse;
+import com.dreamoval.motech.core.model.IncomingMessageResponse;
 
 /*
  * IncomingMessageResponseDAO is an interface that defines Operations on IncomingMessageResponse Pojo

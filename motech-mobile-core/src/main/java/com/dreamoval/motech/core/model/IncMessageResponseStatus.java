@@ -1,4 +1,4 @@
-package com.dreamoval.motech.model.imp;
+package com.dreamoval.motech.core.model;
 
 /*
  * IncMessageResponseStatus is an enumeration that describes the state of an instance of IncomingMessageResponse object

@@ -14,7 +14,7 @@
     <param name="enumClassname">com.dreamoval.motech.core.model.IncMessageStatus</param>
   </typedef>
   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageResponseStatus">
-    <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageResponseStatus</param>
+    <param name="enumClassname">com.dreamoval.motech.core.model.IncMessageResponseStatus</param>
   </typedef>
   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageFormStatus">
     <param name="enumClassname">com.dreamoval.motech.model.imp.IncMessageFormStatus</param>

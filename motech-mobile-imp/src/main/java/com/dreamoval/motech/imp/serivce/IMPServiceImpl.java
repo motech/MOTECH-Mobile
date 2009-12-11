@@ -10,7 +10,7 @@ import com.dreamoval.motech.imp.manager.IMPManager;
 import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import com.dreamoval.motech.core.model.IncomingMessage;
-import com.dreamoval.motech.model.imp.IncomingMessageResponse;
+import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import java.util.Map;
 
 /**

@@ -30,7 +30,7 @@ import com.dreamoval.motech.model.imp.IncomingMessageForm;
 import com.dreamoval.motech.model.imp.IncomingMessageFormDefinition;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameterDefinition;
-import com.dreamoval.motech.model.imp.IncomingMessageResponse;
+import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 import java.io.Serializable;
 

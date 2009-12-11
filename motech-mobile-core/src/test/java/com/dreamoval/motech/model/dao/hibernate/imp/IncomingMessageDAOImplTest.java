@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -33,17 +28,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
 public class IncomingMessageDAOImplTest {
 
-     @Autowired
+    @Autowired
     CoreManager coreManager;
     IncomingMessageDAO imDAO;
-
     @Autowired
     private IncomingMessage im1;
     @Autowired
     private IncomingMessage im2;
     @Autowired
     private IncomingMessage im3;
-    
+
     public IncomingMessageDAOImplTest() {
     }
 
@@ -58,7 +52,7 @@ public class IncomingMessageDAOImplTest {
     @Before
     public void setUp() {
 
-         MotechContext tc = coreManager.createMotechContext();
+        MotechContext tc = coreManager.createMotechContext();
         imDAO = coreManager.createIncomingMessageDAO(tc);
 
 
@@ -67,18 +61,7 @@ public class IncomingMessageDAOImplTest {
         im1.setLastModified(new Date());
         im1.setMessageStatus(IncMessageStatus.PROCESSING);
 
-         Session session = ((Session) imDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
-        imDAO.save(im1);
-        tx.commit();
-
-
-        IncomingMessage fromdb = (IncomingMessage) session.get(IncomingMessageImpl.class, im1.getId());
-
-        Assert.assertNotNull(fromdb);
-        Assert.assertEquals(fromdb, im1);
-        Assert.assertEquals(fromdb.getId(), im1.getId());
-        System.out.println("the form content: " + fromdb.getContent());
+       
 
     }
 
@@ -92,7 +75,17 @@ public class IncomingMessageDAOImplTest {
     @Test
     public void testSave() {
         System.out.println("IncomingMessageDAOImpl save");
-       
-    }
+        Session session = ((Session) imDAO.getDBSession().getSession());
+        Transaction tx = session.beginTransaction();
+        imDAO.save(im1);
+        tx.commit();
 
+
+        IncomingMessage fromdb = (IncomingMessage) session.get(IncomingMessageImpl.class, im1.getId());
+
+        Assert.assertNotNull(fromdb);
+        Assert.assertEquals(fromdb, im1);
+        Assert.assertEquals(fromdb.getId(), im1.getId());
+        System.out.println("the form content: " + fromdb.getContent());
+    }
 }

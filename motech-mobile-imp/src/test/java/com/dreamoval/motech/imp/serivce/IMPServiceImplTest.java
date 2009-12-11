@@ -11,7 +11,7 @@ import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
-import com.dreamoval.motech.model.imp.IncomingMessageResponseImpl;
+import com.dreamoval.motech.core.model.IncomingMessageResponseImpl;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;

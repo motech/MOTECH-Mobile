@@ -1,18 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.dreamoval.motech.model.imp;
+package com.dreamoval.motech.core.model;
 
-import com.dreamoval.motech.core.model.IncomingMessage;
-import com.dreamoval.motech.core.model.MotechEntity;
 import java.util.Date;
 
 /**
  *
  * @author jojo
  */
-public interface IncomingMessageResponse extends MotechEntity{
+public interface IncomingMessageResponse extends MotechEntity {
 
     /**
      * @return the content
@@ -59,9 +53,8 @@ public interface IncomingMessageResponse extends MotechEntity{
      */
     public void setMessageResponseStatus(IncMessageResponseStatus messageResponseStatus);
 
-     /**
+    /**
      * @param lastModified the lastModified to set
      */
     public void setLastModified(Date lastModified);
-    
 }

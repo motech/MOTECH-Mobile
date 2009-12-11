@@ -1,8 +1,8 @@
 package com.dreamoval.motech.model.dao.hibernate.imp;
 
-import com.dreamoval.motech.core.dao.GenericDAO;
 import com.dreamoval.motech.core.dao.hibernate.HibernateGenericDAOImpl;
-import com.dreamoval.motech.model.imp.IncomingMessageResponseImpl;
+import com.dreamoval.motech.core.model.IncomingMessageResponseImpl;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageResponseDAO;
 
 /*
  * IncomingMessageResponseDAOImpl is the implementation class of the  interface
@@ -11,5 +11,5 @@ import com.dreamoval.motech.model.imp.IncomingMessageResponseImpl;
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class IncomingMessageResponseDAOImpl extends HibernateGenericDAOImpl<IncomingMessageResponseImpl> implements GenericDAO<IncomingMessageResponseImpl> {
+public class IncomingMessageResponseDAOImpl extends HibernateGenericDAOImpl<IncomingMessageResponseImpl> implements IncomingMessageResponseDAO<IncomingMessageResponseImpl> {
 }
