@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dreamoval.motech.core.model">
+  <union-subclass extends="MotechEntityImpl" name="IncomingMessageFormImpl" table="incoming_message_form">
+    <!--<many-to-one class="IncomingMessageFormDefinitionImpl" column="incoming_message_form_definition_id" name="incomingMsgFormDefinition" not-null="true"/>-->
+    <property column="date_created" name="dateCreated" type="timestamp"/>
+    <property generated="always" insert="false" name="lastModified" type="timestamp" update="false">
+      <column default="current_timestamp" name="last_modified"/>
+    </property>
+   <!-- <list name="incomingMsgFormParameters" table="inc_message_form_parameter">
+      <key column="incoming_message_form_id"/>
+      <list-index column="position"/>
+      <one-to-many class="IncomingMessageFormParameterImpl"/>
+    </list>-->
+    <property access="field" column="message_form_status" name="messageFormStatus" type="incMessageFormStatus"/>
+  </union-subclass>
+</hibernate-mapping>

@@ -2,7 +2,7 @@ package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.dao.hibernate.HibernateGenericDAOImpl;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDAO;
-import com.dreamoval.motech.model.imp.IncomingMessageFormImpl;
+import com.dreamoval.motech.core.model.IncomingMessageFormImpl;
 
 /*
  * IncomingMessageFormDAOImpl is the implementation class of the  interface

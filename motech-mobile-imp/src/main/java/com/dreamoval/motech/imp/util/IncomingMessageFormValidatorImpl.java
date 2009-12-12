@@ -6,8 +6,8 @@ package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
-import com.dreamoval.motech.model.imp.IncMessageFormStatus;
-import com.dreamoval.motech.model.imp.IncomingMessageForm;
+import com.dreamoval.motech.core.model.IncMessageFormStatus;
+import com.dreamoval.motech.core.model.IncomingMessageForm;
 import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinition;
 import java.text.ParseException;

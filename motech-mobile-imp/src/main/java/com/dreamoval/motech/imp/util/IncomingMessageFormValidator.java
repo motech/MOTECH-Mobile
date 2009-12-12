@@ -5,7 +5,7 @@
 
 package com.dreamoval.motech.imp.util;
 
-import com.dreamoval.motech.model.imp.IncomingMessageForm;
+import com.dreamoval.motech.core.model.IncomingMessageForm;
 
 /**
  *
