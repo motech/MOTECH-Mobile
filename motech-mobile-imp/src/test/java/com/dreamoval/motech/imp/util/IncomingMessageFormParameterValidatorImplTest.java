@@ -5,10 +5,10 @@
 
 package com.dreamoval.motech.imp.util;
 
-import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
-import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
+import com.dreamoval.motech.core.model.IncMessageFormParameterStatus;
+import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinitionImpl;
-import com.dreamoval.motech.model.imp.IncomingMessageFormParameterImpl;
+import com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

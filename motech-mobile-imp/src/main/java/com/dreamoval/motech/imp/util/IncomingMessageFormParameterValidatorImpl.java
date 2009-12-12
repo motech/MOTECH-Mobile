@@ -4,8 +4,8 @@
  */
 package com.dreamoval.motech.imp.util;
 
-import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
-import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
+import com.dreamoval.motech.core.model.IncMessageFormParameterStatus;
+import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

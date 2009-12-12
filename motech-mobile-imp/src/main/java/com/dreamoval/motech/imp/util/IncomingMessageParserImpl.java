@@ -1,10 +1,10 @@
 package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.model.imp.IncMessageFormParameterStatus;
+import com.dreamoval.motech.core.model.IncMessageFormParameterStatus;
 import com.dreamoval.motech.core.model.IncMessageStatus;
 import com.dreamoval.motech.core.model.IncomingMessage;
-import com.dreamoval.motech.model.imp.IncomingMessageFormParameter;
+import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
