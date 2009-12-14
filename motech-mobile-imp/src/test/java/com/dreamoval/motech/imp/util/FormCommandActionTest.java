@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.dao.DBSession;
@@ -325,7 +321,7 @@ public class FormCommandActionTest {
         assertNotNull(result);
         assertEquals(result.getContent(), expResult);
 
-        //Test for invalid form
+        //Test for locally invalid form
         IncomingMessageFormParameter param1 = new IncomingMessageFormParameterImpl();
         param1.setName("name");
         param1.setErrText("name=wrong format");
@@ -352,6 +348,29 @@ public class FormCommandActionTest {
         verify(mockCore);
 
         expResult = "Errors:\nname=wrong format\nage=too long";
+        assertNotNull(result);
+        assertEquals(result.getContent(), expResult);
+
+        //Test for server invalid form
+        param2.setName("age");
+        param2.setErrText("age=server error");
+        param2.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
+
+        message.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+        message.getIncomingMessageForm().setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
+        message.getIncomingMessageForm().getIncomingMsgFormParameters().add(param2);
+
+        reset(mockCore);
+
+        expect(
+                mockCore.createIncomingMessageResponse()
+                ).andReturn(new IncomingMessageResponseImpl());
+
+        replay(mockCore);
+        result = instance.prepareResponse(message);
+        verify(mockCore);
+
+        expResult = "Errors:\nage=server error";
         assertNotNull(result);
         assertEquals(result.getContent(), expResult);
     }

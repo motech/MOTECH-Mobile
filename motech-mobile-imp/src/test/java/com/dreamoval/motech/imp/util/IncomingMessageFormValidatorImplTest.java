@@ -20,11 +20,7 @@ import java.util.Date;
 import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.motechproject.ws.server.RegistrarService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
@@ -32,15 +28,12 @@ import static org.easymock.EasyMock.*;
  *
  * @author user
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/imp-config.xml"})
 public class IncomingMessageFormValidatorImplTest {
     CoreManager mockCore;
     RegistrarService mockRegSvc;
     IncomingMessageFormParameterValidator mockParamValidator;
 
-    @Autowired
-    IncomingMessageFormValidatorImpl imFormValidator;
+    IncomingMessageFormValidatorImpl instance;
 
     public IncomingMessageFormValidatorImplTest() {
     }
@@ -51,9 +44,11 @@ public class IncomingMessageFormValidatorImplTest {
         mockRegSvc = createMock(RegistrarService.class);
         mockParamValidator = createMock(IncomingMessageFormParameterValidator.class);
 
-        imFormValidator.setCoreManager(mockCore);
-        imFormValidator.setImParamValidator(mockParamValidator);
-        imFormValidator.setRegWS(mockRegSvc);
+        instance = new IncomingMessageFormValidatorImpl();
+        instance.setDateFormat("dd/MM/yyyy");
+        instance.setCoreManager(mockCore);
+        instance.setImParamValidator(mockParamValidator);
+        instance.setRegWS(mockRegSvc);
     }
 
     /**
@@ -143,7 +138,7 @@ public class IncomingMessageFormValidatorImplTest {
                 ).andReturn(true).times(5);
 
         replay(mockCore, mockParamValidator);
-        boolean result = imFormValidator.validate(form, reqPhone);
+        boolean result = instance.validate(form, reqPhone);
         verify(mockCore, mockParamValidator);
         
         assertEquals(expResult, result);
@@ -167,7 +162,7 @@ public class IncomingMessageFormValidatorImplTest {
                 ).andReturn(false).times(5);
         
         replay(mockCore, mockParamValidator);
-        result = imFormValidator.validate(form, reqPhone);
+        result = instance.validate(form, reqPhone);
         verify(mockCore, mockParamValidator);
 
         assertEquals(expResult, result);
@@ -194,7 +189,7 @@ public class IncomingMessageFormValidatorImplTest {
                 ).andReturn(true).times(5);
 
         replay(mockCore, mockParamValidator);
-        result = imFormValidator.validate(form, reqPhone);
+        result = instance.validate(form, reqPhone);
         verify(mockCore, mockParamValidator);
 
         assertEquals(expResult, result);
@@ -224,7 +219,7 @@ public class IncomingMessageFormValidatorImplTest {
         expectLastCall();
 
         replay(mockCore, mockParamValidator, mockRegSvc);
-        result = imFormValidator.validate(form, reqPhone);
+        result = instance.validate(form, reqPhone);
         verify(mockCore, mockParamValidator, mockRegSvc);
 
         assertEquals(expResult, result);

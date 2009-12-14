@@ -14,12 +14,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.DeliveryTime;
 import org.motechproject.ws.Gender;
 import org.motechproject.ws.MediaType;
 import org.motechproject.ws.server.RegistrarService;
+import org.motechproject.ws.server.ValidationError;
+import org.motechproject.ws.server.ValidationException;
 
 /**
  * Validate an IncominMessageForm
@@ -97,38 +100,52 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         String code = form.getIncomingMsgFormDefinition().getFormCode();
 
         ///TODO lookup params in map and set service arguments
-        if (code.equals("GENREAL")) {
-            //regWS.recordGeneralVisit(reqPhone, reqPhone, Gender.MALE, Integer.MIN_VALUE, Integer.MIN_VALUE, expResult, null);
-            form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
-        }
-        else if (code.equals("MATERNAL")) {
+        if (code.equals("GENERAL")) {
+            try {
+                regWS.recordGeneralVisit(paramMap.get("clinic").getValue(), paramMap.get("patient_serial").getValue(), Gender.valueOf(paramMap.get("gender").getValue()), Integer.valueOf(paramMap.get("age").getValue()), Integer.valueOf(paramMap.get("diagnosis").getValue()), Boolean.valueOf(paramMap.get("referral").getValue()), dFormat.parse(paramMap.get("date").getValue()));
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                List<ValidationError> errors = ex.getFaultInfo().getErrors();
+                for (ValidationError error : errors) {
+                    for (IncomingMessageFormParameter param : form.getIncomingMsgFormParameters()) {
+                        if (param.getName().toLowerCase().equals(error.getField().toLowerCase())) {
+                            param.setErrCode(error.getCode());
+                            param.setErrText("server error");
+                            param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
+                        }
+                    }
+                }
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            }
+        } else if (code.equals("MATERNAL")) {
             try {
                 regWS.recordMaternalVisit(requesterPhone, dFormat.parse(paramMap.get("date").getValue()), paramMap.get("serial_id").getValue(), Boolean.valueOf(paramMap.get("tetanus").getValue()), Boolean.valueOf(paramMap.get("ipt").getValue()), Boolean.valueOf(paramMap.get("itn").getValue()), Integer.valueOf(paramMap.get("visit_number").getValue()), Boolean.valueOf(paramMap.get("on_arv").getValue()), Boolean.valueOf(paramMap.get("pre_pmtct").getValue()), Boolean.valueOf(paramMap.get("test_pmtct").getValue()), Boolean.valueOf(paramMap.get("post_pmtct").getValue()), Double.valueOf(paramMap.get("haemo_36_wks").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
-                ///TODO parser excepton for error information
+                ///TODO parse excepton for error information
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             }
-        }
-        else if (code.equals("PATIENT")) {
+        } else if (code.equals(
+                "PATIENT")) {
             try {
                 regWS.registerPatient(requesterPhone, paramMap.get("serial_id").getValue(), paramMap.get("name").getValue(), paramMap.get("community").getValue(), paramMap.get("location").getValue(), dFormat.parse(paramMap.get("dob").getValue()), Gender.valueOf(paramMap.get("gender").getValue()), Integer.valueOf(paramMap.get("nhis").getValue()), paramMap.get("mobile").getValue(), ContactNumberType.valueOf(paramMap.get("contact_type").getValue()), paramMap.get("lang").getValue(), MediaType.valueOf(paramMap.get("medium").getValue()), DeliveryTime.valueOf(paramMap.get("deliv_time").getValue()), null);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
-                ///TODO parser excepton for error information
+                ///TODO parse excepton for error information
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             }
-        }
-        else if (code.equals("PREGNANCY")) {
+        } else if (code.equals(
+                "PREGNANCY")) {
             try {
                 regWS.registerPregnancy(requesterPhone, dFormat.parse(paramMap.get("date").getValue()), paramMap.get("serial_id").getValue(), dFormat.parse(paramMap.get("due_date").getValue()), Integer.valueOf(paramMap.get("parity").getValue()), Double.valueOf(paramMap.get("haemoglobin").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
-                ///TODO parser excepton for error information
+                ///TODO parse excepton for error information
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             }
         }
-
         return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
     }
 

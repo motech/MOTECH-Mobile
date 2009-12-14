@@ -149,7 +149,7 @@ public class FormCommandAction implements CommandAction {
         } else {
             String responseText = "Errors:";
             for (IncomingMessageFormParameter inParam : form.getIncomingMsgFormParameters()) {
-                if (inParam.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID)) {
+                if (inParam.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID) || inParam.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.SERVER_INVALID)) {
                     responseText += '\n' + inParam.getErrText();
                 }
             }
