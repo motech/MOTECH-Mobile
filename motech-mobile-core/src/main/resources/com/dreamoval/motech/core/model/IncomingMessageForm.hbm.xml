@@ -12,6 +12,7 @@
       <list-index column="position"/>
       <one-to-many class="IncomingMessageFormParameterImpl"/>
     </list>-->
+    
     <property access="field" column="message_form_status" name="messageFormStatus" type="incMessageFormStatus"/>
   </union-subclass>
 </hibernate-mapping>
