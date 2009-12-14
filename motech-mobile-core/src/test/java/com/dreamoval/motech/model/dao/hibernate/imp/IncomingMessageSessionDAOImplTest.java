@@ -99,7 +99,6 @@ public class IncomingMessageSessionDAOImplTest {
     }
 
 
-
     /**
      * Test of save method, of class IncomingMessageSessionDAOImpl.
      */

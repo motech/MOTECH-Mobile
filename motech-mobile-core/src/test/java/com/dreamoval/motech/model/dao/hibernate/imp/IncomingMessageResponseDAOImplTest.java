@@ -41,7 +41,6 @@ public class IncomingMessageResponseDAOImplTest {
         MotechContext tc = coreManager.createMotechContext();
         imrDAO = coreManager.createIncomingMessageResponseDAO(tc);
 
-
         imr1.setId(876L);
         imr1.setContent("content for imr1");
         imr1.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
