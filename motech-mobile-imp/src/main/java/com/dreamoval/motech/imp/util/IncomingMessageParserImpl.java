@@ -7,7 +7,9 @@ import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.*;
 
 /**
@@ -78,8 +80,8 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getParams
      */
-    public synchronized List<IncomingMessageFormParameter> getParams(String message) {
-        List<IncomingMessageFormParameter> params = new ArrayList<IncomingMessageFormParameter>();
+    public synchronized Map<String, IncomingMessageFormParameter> getParams(String message) {
+        Map<String, IncomingMessageFormParameter> params = new HashMap<String, IncomingMessageFormParameter>();
         List<String> pList = new ArrayList<String>();
 
         if (delimiter != null && !delimiter.equals("")) {
@@ -110,7 +112,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
                 imParam.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
                 imParam.setName(paramParts[0].trim());
                 imParam.setValue(paramParts[1].trim());
-                params.add(imParam);
+                params.put(imParam.getName(), imParam);
             }
         }
         return params;

@@ -2,6 +2,7 @@ package com.dreamoval.motech.core.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface IncomingMessageForm extends MotechEntity {
 
@@ -28,7 +29,7 @@ public interface IncomingMessageForm extends MotechEntity {
     /**
      * @return the incomingMsgFormParameters
      */
-    public List<IncomingMessageFormParameter> getIncomingMsgFormParameters();
+    public Map<String, IncomingMessageFormParameter> getIncomingMsgFormParameters();
 
     /**
      * @param dateCreated the dateCreated to set
@@ -53,5 +54,5 @@ public interface IncomingMessageForm extends MotechEntity {
     /**
      * @param incomingMsgFormParameters the incomingMsgFormParameters to set
      */
-    public void setIncomingMsgFormParameters(List<IncomingMessageFormParameter> incomingMsgFormParameters);
+    public void setIncomingMsgFormParameters(Map<String, IncomingMessageFormParameter> incomingMsgFormParameters);
 }

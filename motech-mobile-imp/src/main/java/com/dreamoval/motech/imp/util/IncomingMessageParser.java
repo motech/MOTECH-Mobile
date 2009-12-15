@@ -8,6 +8,7 @@ package com.dreamoval.motech.imp.util;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -41,5 +42,5 @@ public interface IncomingMessageParser {
      * @param message the text to parse
      * @return the message parameters
      */
-    List<IncomingMessageFormParameter> getParams(String message);
+    Map<String,IncomingMessageFormParameter> getParams(String message);
 }

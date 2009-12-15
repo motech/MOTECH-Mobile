@@ -12,6 +12,7 @@ import com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -134,7 +135,7 @@ public class IncomingMessageParserImplTest {
                 ).andReturn(new IncomingMessageFormParameterImpl()).times(expResult.size());
 
         replay(mockCore);
-        List<IncomingMessageFormParameter> result = imParser.getParams(message);
+        Map<String,IncomingMessageFormParameter> result = imParser.getParams(message);
         verify(mockCore);
         
         assertNotNull(result);

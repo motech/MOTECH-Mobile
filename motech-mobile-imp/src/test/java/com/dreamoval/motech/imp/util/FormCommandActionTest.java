@@ -22,6 +22,7 @@ import com.dreamoval.motech.core.model.IncomingMessageImpl;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageResponseImpl;
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
@@ -123,7 +124,7 @@ public class FormCommandActionTest {
                 ).andReturn(msgForm);
         expect(
                 mockParser.getParams((String)anyObject())
-                ).andReturn(new ArrayList<IncomingMessageFormParameter>());
+                ).andReturn(new HashMap<String,IncomingMessageFormParameter>());
         expect(
                 mockCore.createIncomingMessageFormDAO((MotechContext)anyObject())
                 ).andReturn(mockFormDao);
@@ -255,7 +256,7 @@ public class FormCommandActionTest {
                 ).andReturn(new IncomingMessageFormImpl());
         expect(
                 mockParser.getParams((String)anyObject())
-                ).andReturn(new ArrayList<IncomingMessageFormParameter>());
+                ).andReturn(new HashMap<String,IncomingMessageFormParameter>());
         expect(
                 mockCore.createIncomingMessageFormDAO((MotechContext)anyObject())
                 ).andReturn(mockFormDao);
@@ -333,9 +334,9 @@ public class FormCommandActionTest {
         param2.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
 
         message.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.INVALID);
-        message.getIncomingMessageForm().setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
-        message.getIncomingMessageForm().getIncomingMsgFormParameters().add(param1);
-        message.getIncomingMessageForm().getIncomingMsgFormParameters().add(param2);
+        message.getIncomingMessageForm().setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
+        message.getIncomingMessageForm().getIncomingMsgFormParameters().put(param1.getName(),param1);
+        message.getIncomingMessageForm().getIncomingMsgFormParameters().put(param2.getName(),param2);
 
         reset(mockCore);
 
@@ -347,7 +348,7 @@ public class FormCommandActionTest {
         result = instance.prepareResponse(message);
         verify(mockCore);
 
-        expResult = "Errors:\nname=wrong format\nage=too long";
+        expResult = "Errors:\nage=too long\nname=wrong format";
         assertNotNull(result);
         assertEquals(result.getContent(), expResult);
 
@@ -357,8 +358,8 @@ public class FormCommandActionTest {
         param2.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
 
         message.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-        message.getIncomingMessageForm().setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
-        message.getIncomingMessageForm().getIncomingMsgFormParameters().add(param2);
+        message.getIncomingMessageForm().setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
+        message.getIncomingMessageForm().getIncomingMsgFormParameters().put(param2.getName(),param2);
 
         reset(mockCore);
 

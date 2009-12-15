@@ -19,8 +19,9 @@ import com.dreamoval.motech.core.model.IncomingMessageForm;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -80,15 +81,15 @@ public class UpdateCommandAction implements CommandAction {
         form.setIncomingMsgFormDefinition(oldForm.getIncomingMsgFormDefinition());
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.setDateCreated(new Date());
-        form.setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
+        form.setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
 
-        for (IncomingMessageFormParameter param : oldForm.getIncomingMsgFormParameters()) {
-            if (param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID)) {
-                form.getIncomingMsgFormParameters().add(param);
+        for (Entry<String,IncomingMessageFormParameter> entry : oldForm.getIncomingMsgFormParameters().entrySet()) {
+            if (entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID)) {
+                form.getIncomingMsgFormParameters().put(entry.getKey(), entry.getValue());
             }
         }
 
-        form.getIncomingMsgFormParameters().addAll(parser.getParams(message.getContent()));
+        form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent()));
 
         tx = ((Session) formDao.getDBSession().getSession()).beginTransaction();
         sessionDao.save(form);
@@ -106,9 +107,9 @@ public class UpdateCommandAction implements CommandAction {
             imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
         } else {
             String responseText = "Errors: ";
-            for (IncomingMessageFormParameter inParam : form.getIncomingMsgFormParameters()) {
-                if (inParam.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID)) {
-                    responseText += inParam.getErrText() + ',';
+            for (Entry<String,IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
+                if (entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID)) {
+                    responseText += entry.getValue().getErrText() + ',';
                 }
             }
             response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);

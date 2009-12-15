@@ -19,8 +19,9 @@ import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
 
@@ -115,8 +116,8 @@ public class FormCommandAction implements CommandAction {
         form.setIncomingMsgFormDefinition(formDefn);
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.setDateCreated(new Date());
-        form.setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
-        form.getIncomingMsgFormParameters().addAll(parser.getParams(message.getContent()));
+        form.setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
+        form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent()));
 
         IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO(context);
         Transaction tx = (Transaction) formDao.getDBSession().getTransaction();
@@ -148,9 +149,9 @@ public class FormCommandAction implements CommandAction {
             response.setContent("Saved");
         } else {
             String responseText = "Errors:";
-            for (IncomingMessageFormParameter inParam : form.getIncomingMsgFormParameters()) {
-                if (inParam.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID) || inParam.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.SERVER_INVALID)) {
-                    responseText += '\n' + inParam.getErrText();
+            for (Entry<String,IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
+                if (entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID) || entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.SERVER_INVALID)) {
+                    responseText += '\n' + entry.getValue().getErrText();
                 }
             }
             response.setContent(responseText);

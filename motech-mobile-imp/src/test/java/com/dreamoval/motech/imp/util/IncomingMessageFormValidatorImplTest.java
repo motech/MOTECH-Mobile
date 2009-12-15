@@ -15,8 +15,8 @@ import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinitionImpl;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
@@ -120,12 +120,12 @@ public class IncomingMessageFormValidatorImplTest {
         param5.setValue("abc");
 
         IncomingMessageForm form = new IncomingMessageFormImpl();
-        form.setIncomingMsgFormParameters(new ArrayList<IncomingMessageFormParameter>());
+        form.setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
         form.setIncomingMsgFormDefinition(formDef);
-        form.getIncomingMsgFormParameters().add(param1);
-        form.getIncomingMsgFormParameters().add(param2);
-        form.getIncomingMsgFormParameters().add(param3);
-        form.getIncomingMsgFormParameters().add(param4);
+        form.getIncomingMsgFormParameters().put(param1.getName(),param1);
+        form.getIncomingMsgFormParameters().put(param2.getName(),param2);
+        form.getIncomingMsgFormParameters().put(param3.getName(),param3);
+        form.getIncomingMsgFormParameters().put(param4.getName(),param4);
         
         //Test with required param missing
         boolean expResult = false;
@@ -135,7 +135,7 @@ public class IncomingMessageFormValidatorImplTest {
                 ).andReturn(new IncomingMessageFormParameterImpl());
         expect(
                 mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
-                ).andReturn(true).times(5);
+                ).andReturn(true).times(4);
 
         replay(mockCore, mockParamValidator);
         boolean result = instance.validate(form, reqPhone);
@@ -149,11 +149,11 @@ public class IncomingMessageFormValidatorImplTest {
         //Test with invalid params
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.getIncomingMsgFormParameters().clear();
-        form.getIncomingMsgFormParameters().add(param1);
-        form.getIncomingMsgFormParameters().add(param2);
-        form.getIncomingMsgFormParameters().add(param3);
-        form.getIncomingMsgFormParameters().add(param4);
-        form.getIncomingMsgFormParameters().add(param5);
+        form.getIncomingMsgFormParameters().put(param1.getName(),param1);
+        form.getIncomingMsgFormParameters().put(param2.getName(),param2);
+        form.getIncomingMsgFormParameters().put(param3.getName(),param3);
+        form.getIncomingMsgFormParameters().put(param4.getName(),param4);
+        form.getIncomingMsgFormParameters().put(param5.getName(),param5);
 
         reset(mockCore, mockParamValidator);
 
@@ -174,11 +174,11 @@ public class IncomingMessageFormValidatorImplTest {
         param5.setValue("10");
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.getIncomingMsgFormParameters().clear();
-        form.getIncomingMsgFormParameters().add(param1);
-        form.getIncomingMsgFormParameters().add(param2);
-        form.getIncomingMsgFormParameters().add(param3);
-        form.getIncomingMsgFormParameters().add(param4);
-        form.getIncomingMsgFormParameters().add(param5);
+        form.getIncomingMsgFormParameters().put(param1.getName(),param1);
+        form.getIncomingMsgFormParameters().put(param2.getName(),param2);
+        form.getIncomingMsgFormParameters().put(param3.getName(),param3);
+        form.getIncomingMsgFormParameters().put(param4.getName(),param4);
+        form.getIncomingMsgFormParameters().put(param5.getName(),param5);
 
         expResult = false;
 
@@ -201,11 +201,11 @@ public class IncomingMessageFormValidatorImplTest {
         formDef.setFormCode("PREGNANCY");
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.getIncomingMsgFormParameters().clear();
-        form.getIncomingMsgFormParameters().add(param1);
-        form.getIncomingMsgFormParameters().add(param2);
-        form.getIncomingMsgFormParameters().add(param3);
-        form.getIncomingMsgFormParameters().add(param4);
-        form.getIncomingMsgFormParameters().add(param5);
+        form.getIncomingMsgFormParameters().put(param1.getName(),param1);
+        form.getIncomingMsgFormParameters().put(param2.getName(),param2);
+        form.getIncomingMsgFormParameters().put(param3.getName(),param3);
+        form.getIncomingMsgFormParameters().put(param4.getName(),param4);
+        form.getIncomingMsgFormParameters().put(param5.getName(),param5);
 
         expResult = true;
 

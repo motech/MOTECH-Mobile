@@ -1,8 +1,9 @@
 package com.dreamoval.motech.core.model;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
  * IncomingMessageFormImpl is the implementation of the IncomingMessageForm interface
@@ -17,7 +18,7 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     private Date dateCreated;
     private Date lastModified;
     private IncMessageFormStatus messageFormStatus;
-    private List<IncomingMessageFormParameter> incomingMsgFormParameters = new ArrayList<IncomingMessageFormParameter>();
+    private Map<String,IncomingMessageFormParameter> incomingMsgFormParameters = new HashMap<String,IncomingMessageFormParameter>();
 
     /**
      * @return the incomingMsgFormDefinition
@@ -78,16 +79,17 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     /**
      * @return the incomingMsgFormParameters
      */
-    public List<IncomingMessageFormParameter> getIncomingMsgFormParameters() {
+    public Map<String, IncomingMessageFormParameter> getIncomingMsgFormParameters() {
         return incomingMsgFormParameters;
     }
 
     /**
      * @param incomingMsgFormParameters the incomingMsgFormParameters to set
      */
-    public void setIncomingMsgFormParameters(List<IncomingMessageFormParameter> incomingMsgFormParameters) {
+    public void setIncomingMsgFormParameters(Map<String, IncomingMessageFormParameter> incomingMsgFormParameters) {
         this.incomingMsgFormParameters = incomingMsgFormParameters;
     }
+
 
     
     
