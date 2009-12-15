@@ -33,7 +33,7 @@ public class IncomingMessageFormDAOImplTest {
     CoreManager coreManager;
 
     IncomingMessageFormDAO imfDAO;
-    
+
     @Autowired
     private IncomingMessageForm imf1;
     @Autowired

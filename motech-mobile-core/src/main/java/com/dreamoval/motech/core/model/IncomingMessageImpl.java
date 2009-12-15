@@ -1,19 +1,18 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package com.dreamoval.motech.core.model;
 
-import com.dreamoval.motech.model.imp.*;
-import com.dreamoval.motech.core.model.IncomingMessageSession;
-import com.dreamoval.motech.core.model.MotechEntityImpl;
 import java.util.Date;
 
-/*
- * IncomingMessageImpl is the implementation of the IncomingMessage interface
- * which is the actually mapped class in the hibernate.It provides properties to handle IncomingMessage operations
+/**
  *
- * Date: Dec 02, 2009
+ * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public class IncomingMessageImpl extends MotechEntityImpl implements IncomingMessage {
-
     private String content;
     private Date dateCreated;
     private Date lastModified;
@@ -21,7 +20,6 @@ public class IncomingMessageImpl extends MotechEntityImpl implements IncomingMes
     private IncomingMessageResponse incomingMessageResponse;
     private IncomingMessageForm incomingMessageForm;
     private IncMessageStatus messageStatus;
-
 
     /**
      * @return the content
@@ -80,31 +78,17 @@ public class IncomingMessageImpl extends MotechEntityImpl implements IncomingMes
     }
 
     /**
-     * @return the messageStatus
-     */
-    public IncMessageStatus getMessageStatus() {
-        return messageStatus;
-    }
-
-    /**
-     * @param messageStatus the messageStatus to set
-     */
-    public void setMessageStatus(IncMessageStatus messageStatus) {
-        this.messageStatus = messageStatus;
-    }
-
-    /**
-     * @return the incomingmessageResponse
+     * @return the incomingMessageResponse
      */
     public IncomingMessageResponse getIncomingMessageResponse() {
         return incomingMessageResponse;
     }
 
     /**
-     * @param incomingmessageResponse the incomingmessageResponse to set
+     * @param incomingMessageResponse the incomingMessageResponse to set
      */
-    public void setIncomingMessageResponse(IncomingMessageResponse incomingmessageResponse) {
-        this.incomingMessageResponse = incomingmessageResponse;
+    public void setIncomingMessageResponse(IncomingMessageResponse incomingMessageResponse) {
+        this.incomingMessageResponse = incomingMessageResponse;
     }
 
     /**
@@ -120,4 +104,19 @@ public class IncomingMessageImpl extends MotechEntityImpl implements IncomingMes
     public void setIncomingMessageForm(IncomingMessageForm incomingMessageForm) {
         this.incomingMessageForm = incomingMessageForm;
     }
+
+    /**
+     * @return the messageStatus
+     */
+    public IncMessageStatus getMessageStatus() {
+        return messageStatus;
+    }
+
+    /**
+     * @param messageStatus the messageStatus to set
+     */
+    public void setMessageStatus(IncMessageStatus messageStatus) {
+        this.messageStatus = messageStatus;
+    }
+
 }

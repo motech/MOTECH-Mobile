@@ -45,7 +45,7 @@ public class IncomingMessageResponseDAOImplTest {
         imr1.setContent("content for imr1");
         imr1.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
 
-       
+
 
     }
 

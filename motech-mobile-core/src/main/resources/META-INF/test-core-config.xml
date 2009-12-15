@@ -91,8 +91,8 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
      <bean id="incomingMessageFormParameter" class="com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl" scope="prototype">
     </bean>
-    
-    
+
+
     <!-- End of Model-->
 
     <!-- Data Access -->
@@ -123,11 +123,11 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
                 <value>com/dreamoval/motech/core/model/Language.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/MessageTemplate.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/NotificationType.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageSession.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/IncomingMessageSession.hbm.xml</value> 
                 <value>com/dreamoval/motech/core/model/IncomingMessage.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageResponse.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/IncomingMessageResponse.hbm.xml</value> 
                 <value>com/dreamoval/motech/core/model/IncomingMessageFormDefinition.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageFormParameterDefinition.hbm.xml</value>
+                <value>com/dreamoval/motech/core/model/IncomingMessageFormParameterDefinition.hbm.xml</value> 
                 <value>com/dreamoval/motech/core/model/IncomingMessageForm.hbm.xml</value>
                 <value>com/dreamoval/motech/core/model/IncomingMessageFormParameter.hbm.xml</value>
             </list>

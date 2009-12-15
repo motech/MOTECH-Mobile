@@ -92,7 +92,6 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
      <bean id="incomingMessageFormParameter" class="com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl" scope="prototype">
     </bean>
 
-
     <!-- End of Model-->
 
     <!-- Data Access -->

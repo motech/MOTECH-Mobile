@@ -30,7 +30,7 @@ public class IncomingMessageFormParameterDefinitionDAOImplTest {
 
     @Autowired
     CoreManager coreManager;
-    
+
     IncomingMessageFormParameterDefinitionDAO impdDAO;
 
     @Autowired

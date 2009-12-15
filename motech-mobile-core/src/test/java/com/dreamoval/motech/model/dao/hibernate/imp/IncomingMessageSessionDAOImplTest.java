@@ -2,9 +2,9 @@ package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.service.MotechContext;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 import com.dreamoval.motech.core.model.IncomingMessageSessionImpl;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -111,7 +111,7 @@ public class IncomingMessageSessionDAOImplTest {
         imsDAO.save(ims1);
         tx.commit();
 
-      
+
         IncomingMessageSession fromdb = (IncomingMessageSession) session.get(IncomingMessageSessionImpl.class, ims1.getId());
 
         Assert.assertNotNull(fromdb);

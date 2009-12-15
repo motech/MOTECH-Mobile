@@ -1,84 +1,87 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package com.dreamoval.motech.core.model;
 
-import com.dreamoval.motech.model.imp.*;
-import com.dreamoval.motech.core.model.IncomingMessageSession;
-import com.dreamoval.motech.core.model.MotechEntity;
 import java.util.Date;
 
 /**
  *
- * @author jojo
+ * Date: Dec 14, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessage extends MotechEntity {
+public interface IncomingMessage  extends MotechEntity{
 
     /**
      * @return the content
      */
-    public String getContent();
+    String getContent();
 
     /**
      * @return the dateCreated
      */
-    public Date getDateCreated();
+    Date getDateCreated();
+
+    /**
+     * @return the incomingMessageForm
+     */
+    IncomingMessageForm getIncomingMessageForm();
+
+    /**
+     * @return the incomingMessageResponse
+     */
+    IncomingMessageResponse getIncomingMessageResponse();
+
+    /**
+     * @return the incomingMsgSession
+     */
+    IncomingMessageSession getIncomingMsgSession();
 
     /**
      * @return the lastModified
      */
-    public Date getLastModified();
-
-    /**
-     * @return the incomingMessageSession
-     */
-    public IncomingMessageSession getIncomingMsgSession();
+    Date getLastModified();
 
     /**
      * @return the messageStatus
      */
-    public IncMessageStatus getMessageStatus();
-
-    /*
-     * @return incomingMessageResponse
-     */
-    public IncomingMessageResponse getIncomingMessageResponse();
-
-    /*
-     * @return incomingMessageForm
-     */
-    public IncomingMessageForm getIncomingMessageForm();
+    IncMessageStatus getMessageStatus();
 
     /**
      * @param content the content to set
      */
-    public void setContent(String content);
+    void setContent(String content);
 
     /**
      * @param dateCreated the dateCreated to set
      */
-    public void setDateCreated(Date dateCreated);
+    void setDateCreated(Date dateCreated);
 
     /**
-     * @param lastModified the lastModified to set
+     * @param incomingMessageForm the incomingMessageForm to set
      */
-    public void setLastModified(Date lastModified);
+    void setIncomingMessageForm(IncomingMessageForm incomingMessageForm);
+
+    /**
+     * @param incomingMessageResponse the incomingMessageResponse to set
+     */
+    void setIncomingMessageResponse(IncomingMessageResponse incomingMessageResponse);
 
     /**
      * @param incomingMsgSession the incomingMsgSession to set
      */
-    public void setIncomingMsgSession(IncomingMessageSession incomingMsgSession);
+    void setIncomingMsgSession(IncomingMessageSession incomingMsgSession);
+
+    /**
+     * @param lastModified the lastModified to set
+     */
+    void setLastModified(Date lastModified);
 
     /**
      * @param messageStatus the messageStatus to set
      */
-    public void setMessageStatus(IncMessageStatus messageStatus);
-    
-    /**
-     * @param IncomingMessageResponse the incomingMessageResponse to set
-     */
-    public void setIncomingMessageResponse(IncomingMessageResponse incomingmessageResponse);
-
-    /**
-     * @param IncomingMessageForm the incomingMessageForm to set
-     */
-    public void setIncomingMessageForm(IncomingMessageForm incomingMessageForm);
+    void setMessageStatus(IncMessageStatus messageStatus);
 
 }

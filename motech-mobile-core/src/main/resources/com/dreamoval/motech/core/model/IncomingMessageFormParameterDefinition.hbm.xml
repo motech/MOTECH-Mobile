@@ -8,8 +8,8 @@
     <property column="lenght" name="length" type="integer"/>
     <property column="required" name="required" type="boolean"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>
-    <property generated="always" insert="false" name="lastModified" type="timestamp" update="false">
-      <column default="current_timestamp" name="last_modified"/>
+    <property generated="always" insert="false" name="lastModified" update="false">
+      <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>
   </union-subclass>
 </hibernate-mapping>

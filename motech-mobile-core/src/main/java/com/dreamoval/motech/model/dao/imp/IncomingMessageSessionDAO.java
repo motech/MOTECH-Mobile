@@ -18,6 +18,4 @@ public interface IncomingMessageSessionDAO<T extends IncomingMessageSession> ext
      * @return List of IncomingMessageSession
      */
     public List<IncomingMessageSession> getIncomingMsgSessionByRequestedPhone(String requesterPhone);
-
-
 }

@@ -4,8 +4,8 @@
   <union-subclass extends="MotechEntityImpl" name="IncomingMessageFormDefinitionImpl" table="incoming_message_form_definition">
     <property column="form_code" length="15" name="formCode" type="string" unique="true"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>
-    <property generated="always" insert="false" name="lastModified" type="timestamp" update="false">
-      <column default="current_timestamp" name="last_modified"/>
+    <property generated="always" insert="false" name="lastModified" update="false">
+      <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>
     <!--<set cascade="save-update" name="incomingMsgParamDefinitions">
       <key column="incoming_message_form_definition_id"/>

@@ -7,8 +7,8 @@
     <many-to-one cascade="all" class="IncomingMessageResponseImpl" column="incoming_message_response_id" name="incomingMessageResponse" unique="true"/>-->
     <property column="message_content" length="700" name="content" type="string"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>
-    <property generated="always" insert="false" name="lastModified" type="timestamp" update="false">
-      <column default="current_timestamp" name="last_modified"/>
+    <property generated="always" insert="false" name="lastModified" update="false">
+      <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>
     <property access="field" column="message_status" name="messageStatus" type="incMessageStatus"/>
   </union-subclass>

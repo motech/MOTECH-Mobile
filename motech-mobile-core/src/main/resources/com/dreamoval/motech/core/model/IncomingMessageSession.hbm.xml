@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
-  <union-subclass extends="MotechEntityImpl" name="IncomingMessageSessionImpl" table="incoming_message_session">
+  <union-subclass extends="MotechEntityImpl" name="IncomingMessageSessionImpl" table="incomingmessagesession">
     <property column="requester_phone" length="20" name="requesterPhone" type="string"/>
     <property column="form_code" length="15" name="formCode" type="string"/>
     <property column="date_started" name="dateStarted" type="timestamp"/>
     <property column="date_ended" name="dateEnded" type="timestamp"/>
-    <property generated="always" insert="false" name="lastActivity" type="timestamp" update="false">
-      <column default="current_timestamp" name="last_activity"/>
+    <property generated="always" insert="false" name="lastActivity" update="false">
+      <column default="current_timestamp" name="last_activity" sql-type="timestamp"/>
     </property>
-    <!-- <list cascade="save-update" inverse="true" name="incomingMessages" table="incoming_messages">
+    <!--<list cascade="save-update" inverse="true" name="incomingMessages" table="incoming_messages_list">
       <key column="incoming_message_session_id"/>
       <list-index column="position"/>
       <one-to-many class="IncomingMessageImpl"/>
