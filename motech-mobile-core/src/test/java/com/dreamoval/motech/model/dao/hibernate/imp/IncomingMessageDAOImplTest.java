@@ -82,10 +82,10 @@ public class IncomingMessageDAOImplTest {
         ims1.setMessageSessionStatus(IncMessageSessionStatus.STARTED);
         ims1.setLastActivity(new Date());
 
-        Session session = ((Session) imsDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
-        imsDAO.save(ims1);
-        tx.commit();
+//        Session session = ((Session) imsDAO.getDBSession().getSession());
+//        Transaction tx = session.beginTransaction();
+//        imsDAO.save(ims1);
+//        tx.commit();
 
     }
 
@@ -100,7 +100,7 @@ public class IncomingMessageDAOImplTest {
     public void testSave() {
         System.out.println("IncomingMessageDAOImpl save");
         Session session = ((Session) imDAO.getDBSession().getSession());
-        ims1.addIncomingMessage(im1);
+//        ims1.addIncomingMessage(im1);
         Transaction tx = session.beginTransaction();
         imDAO.save(im1);
         tx.commit();
@@ -111,6 +111,9 @@ public class IncomingMessageDAOImplTest {
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(fromdb, im1);
         Assert.assertEquals(fromdb.getId(), im1.getId());
+//        Assert.assertEquals(fromdb.getIncomingMsgSession(), im1.getIncomingMsgSession());
+//        Assert.assertEquals(fromdb.getIncomingMsgSession().getId(), im1.getIncomingMsgSession().getId());
+//        Assert.assertEquals(fromdb.getIncomingMsgSession().getIncomingMessages(), im1.getIncomingMsgSession().getIncomingMessages());
         System.out.println("the form content: " + fromdb.getContent());
     }
 

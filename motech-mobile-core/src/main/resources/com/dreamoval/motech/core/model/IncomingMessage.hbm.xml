@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="IncomingMessageImpl" table="incoming_message">
-    <many-to-one class="IncomingMessageSessionImpl" column="incoming_message_session_id" name="incomingMsgSession" not-null="true" />
+    <many-to-one class="IncomingMessageSessionImpl" column="incoming_message_session_id" name="incomingMsgSession"  />
     <!-- <many-to-one class="IncomingMessageFormImpl" column="incoming_message_form_id" name="incomingMessageForm"/>
     <many-to-one cascade="all" class="IncomingMessageResponseImpl" column="incoming_message_response_id" name="incomingMessageResponse" unique="true"/>-->
     <property column="message_content" length="700" name="content" type="string"/>
