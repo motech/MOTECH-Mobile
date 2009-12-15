@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="IncomingMessageFormParameterImpl" table="incoming_message_form_parameter">
-    <!--<many-to-one class="IncomingMessageFormParameterDefinitionImpl" column="incoming_message_from_message_definition_id" name="incomingMsgFormParamDefinition"/>
-    <many-to-one class="IncomingMessageFormImpl" column="incoming_message_form_id" name="incomingMsgForm"/>-->
+    <many-to-one class="IncomingMessageFormParameterDefinitionImpl" column="incoming_message_from_message_definition_id" name="incomingMsgFormParamDefinition"/>
+    <many-to-one class="IncomingMessageFormImpl" column="incoming_message_form_id" name="incomingMsgForm"/>
     <property column="name" length="100" name="name" type="string"/>
     <property column="value" length="100" name="value" type="string"/>
     <property column="err_code" name="errCode" type="integer"/>
