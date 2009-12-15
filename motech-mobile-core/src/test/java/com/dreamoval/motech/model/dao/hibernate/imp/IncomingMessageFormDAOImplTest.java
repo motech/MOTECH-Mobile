@@ -3,9 +3,11 @@ package com.dreamoval.motech.model.dao.hibernate.imp;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.IncMessageFormStatus;
 import com.dreamoval.motech.core.model.IncomingMessageForm;
+import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
 import com.dreamoval.motech.core.model.IncomingMessageFormImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDAO;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDefinitionDAO;
 import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -33,6 +35,10 @@ public class IncomingMessageFormDAOImplTest {
     CoreManager coreManager;
 
     IncomingMessageFormDAO imfDAO;
+    IncomingMessageFormDefinitionDAO imfdDAO;
+
+    @Autowired
+    private IncomingMessageFormDefinition imfd1;
 
     @Autowired
     private IncomingMessageForm imf1;
@@ -57,17 +63,33 @@ public class IncomingMessageFormDAOImplTest {
 
         MotechContext tc = coreManager.createMotechContext();
         imfDAO = coreManager.createIncomingMessageFormDAO(tc);
+        imfdDAO = coreManager.createIncomingMessageFormDefinitionDAO(tc);
 
 
         imf1.setId(987L);
         imf1.setDateCreated(new Date());
         imf1.setMessageFormStatus(IncMessageFormStatus.NEW);
 
+        imfd1.setId(65L);
+        imfd1.setFormCode("test_formdef");
+        imfd1.setDateCreated(new Date());
+
+        Session session = ((Session) imfdDAO.getDBSession().getSession());
+        Transaction tx = session.beginTransaction();
+        imfdDAO.save(imfd1);
+        tx.commit();
+
 
     }
 
     @After
     public void tearDown() {
+         Session session = ((Session) imfdDAO.getDBSession().getSession());
+        Transaction tx = session.beginTransaction();
+        imfDAO.delete(imf1);
+        imfdDAO.delete(imfd1);
+        tx.commit();
+
     }
 
      @Test
@@ -75,6 +97,7 @@ public class IncomingMessageFormDAOImplTest {
         System.out.println("IncomingMessageFormDAOImpl save");
         Session session = ((Session) imfDAO.getDBSession().getSession());
         Transaction tx = session.beginTransaction();
+        imf1.setIncomingMsgFormDefinition(imfd1);
         imfDAO.save(imf1);
         tx.commit();
 
