@@ -70,7 +70,24 @@ public interface IncomingMessageSession extends MotechEntity{
     public void setRequesterPhone(String requesterPhone);
 
      /**
+     * @param incomingMessages the incomingMessages to set
+     */
+    public void setIncomingMessages(List<IncomingMessage> incomingMessages);
+
+     /**
      * @param messageSessionStatus the messageSessionStatus to set
      */
     public void setMessageSessionStatus(IncMessageSessionStatus messageSessionStatus);
+
+    /**
+     * Helper Method to add IncomingMessage to IncomingMessageSession
+     * @param msg the IncomingMessage to add
+     */
+    public void addIncomingMessage(IncomingMessage msg);
+
+    /**
+     * Helper method to remove IncomingMessage from IncomingMessageSession
+     * @param msg the IncomingMessage to add
+     */
+    public void removeIncomingMessage(IncomingMessage msg);
 }

@@ -7,10 +7,13 @@ package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.IncMessageSessionStatus;
 import com.dreamoval.motech.core.model.IncMessageStatus;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
+import com.dreamoval.motech.core.model.IncomingMessageSession;
 import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -37,6 +40,12 @@ public class IncomingMessageDAOImplTest {
      @Autowired
     CoreManager coreManager;
     IncomingMessageDAO imDAO;
+    IncomingMessageSessionDAO imsDAO;
+
+    @Autowired
+    private IncomingMessageSession ims1;
+
+
     @Autowired
     private IncomingMessage im1;
     @Autowired
@@ -59,12 +68,25 @@ public class IncomingMessageDAOImplTest {
     public void setUp() {
         MotechContext tc = coreManager.createMotechContext();
         imDAO = coreManager.createIncomingMessageDAO(tc);
+        imsDAO = coreManager.createIncomingMessageSessionDAO(tc);
 
 
         im1.setId(987L);
         im1.setContent("content im1");
         im1.setLastModified(new Date());
         im1.setMessageStatus(IncMessageStatus.PROCESSING);
+
+        ims1.setId(923L);
+        ims1.setFormCode("code_IM");
+        ims1.setRequesterPhone("1122334455");
+        ims1.setMessageSessionStatus(IncMessageSessionStatus.STARTED);
+        ims1.setLastActivity(new Date());
+
+        Session session = ((Session) imsDAO.getDBSession().getSession());
+        Transaction tx = session.beginTransaction();
+        imsDAO.save(ims1);
+        tx.commit();
+
     }
 
     @After
@@ -78,6 +100,7 @@ public class IncomingMessageDAOImplTest {
     public void testSave() {
         System.out.println("IncomingMessageDAOImpl save");
         Session session = ((Session) imDAO.getDBSession().getSession());
+        ims1.addIncomingMessage(im1);
         Transaction tx = session.beginTransaction();
         imDAO.save(im1);
         tx.commit();

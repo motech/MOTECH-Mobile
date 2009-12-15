@@ -119,6 +119,17 @@ public class IncomingMessageSessionImpl extends MotechEntityImpl implements Inco
         this.messageSessionStatus = messageSessionStatus;
     }
 
-    
+
+    public void addIncomingMessage(IncomingMessage msg) {
+        this.incomingMessages.add(msg);
+        msg.setIncomingMsgSession(this);
+    }
+
+    public void removeIncomingMessage(IncomingMessage msg) {
+     if(this.incomingMessages.contains(msg)) {
+         msg.setIncomingMsgSession(null);
+        this.incomingMessages.remove(msg);
+     }
+    }
   
 }
