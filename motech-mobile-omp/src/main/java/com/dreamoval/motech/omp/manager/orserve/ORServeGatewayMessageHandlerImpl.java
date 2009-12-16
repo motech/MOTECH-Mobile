@@ -22,9 +22,9 @@ import org.apache.log4j.Logger;
 public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
 
     private CoreManager coreManager;
-    private static Logger logger = Logger.getLogger(ORServeGatewayMessageHandlerImpl.class);
     private Map<MStatus, String> codeStatusMap;
     private Map<MStatus, String> codeResponseMap;
+    private static Logger logger = Logger.getLogger(ORServeGatewayMessageHandlerImpl.class);
 
     /**
      *
@@ -50,8 +50,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
             String[] responseParts = line.split(" ");            
 
             if(responseParts[0].equalsIgnoreCase("ID:")){
-                GatewayResponse response = getCoreManager().createGatewayResponse(context);
-                
+                GatewayResponse response = getCoreManager().createGatewayResponse(context);                
                 response.setGatewayMessageId(responseParts[1]);
                 response.setRequestId(message.getRequestId());
                 response.setMessageStatus(MStatus.PENDING);

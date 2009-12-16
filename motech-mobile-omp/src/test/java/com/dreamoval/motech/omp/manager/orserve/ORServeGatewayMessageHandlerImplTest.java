@@ -8,7 +8,6 @@ import com.dreamoval.motech.core.model.GatewayResponse;
 import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
-import com.dreamoval.motech.omp.manager.GatewayMessageHandler;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 /**
- * Unit test fo the ORServeGaewayMessageHanlerImpl class
+ * Unit test for the ORServeGatewayMessageHandlerImpl class
  * 
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
@@ -31,7 +30,7 @@ public class ORServeGatewayMessageHandlerImplTest {
     CoreManager mockCoreManager;
     
     @Autowired
-    GatewayMessageHandler messageHandler;
+    ORServeGatewayMessageHandlerImpl messageHandler;
     
     public ORServeGatewayMessageHandlerImplTest() {
     }
