@@ -58,7 +58,6 @@
         <dependency>
             <groupId>com.dreamoval.motech</groupId>
             <artifactId>motech-mobile-core</artifactId>
-            <version>1.0-M2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
