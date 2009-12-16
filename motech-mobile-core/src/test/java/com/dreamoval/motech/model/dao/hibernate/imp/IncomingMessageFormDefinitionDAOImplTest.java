@@ -62,5 +62,6 @@ public class IncomingMessageFormDefinitionDAOImplTest {
         IncomingMessageFormDefinition result = imfDAO.getByCode(formCode);
         assertNotNull(result);
         assertEquals(result.getFormCode(), formCode);
+         System.out.println(result.toString());
     }
 }

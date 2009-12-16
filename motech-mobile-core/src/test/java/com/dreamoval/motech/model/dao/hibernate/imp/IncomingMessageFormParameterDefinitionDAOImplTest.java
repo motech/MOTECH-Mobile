@@ -86,6 +86,8 @@ public class IncomingMessageFormParameterDefinitionDAOImplTest {
         Assert.assertEquals(fromdb, impd1);
         Assert.assertEquals(fromdb.getId(), impd1.getId());
         System.out.println("the form content: " + fromdb.getId());
+        System.out.println( fromdb.toString());
+
     }
 
 }
