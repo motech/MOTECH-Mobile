@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Set;
@@ -13,12 +12,26 @@ import java.util.Set;
  */
 public interface Language extends MotechEntity {
 
-    String getCode();
-    String getName();
-    String getDescription();
-    Set<MessageRequest> getMessageRequests();
-    void setMessageRequests(Set<MessageRequest> messageRequests);
-    void setCode(String code);
-    void setName(String name);
-    void setDescription(String description);
+    public String getCode();
+
+    public String getName();
+
+    public String getDescription();
+
+    public Set<MessageRequest> getMessageRequests();
+
+    public void setMessageRequests(Set<MessageRequest> messageRequests);
+
+    public void setCode(String code);
+
+    public void setName(String name);
+
+    public void setDescription(String description);
+
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 }

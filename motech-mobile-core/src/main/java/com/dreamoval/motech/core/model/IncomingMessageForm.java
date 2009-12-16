@@ -55,4 +55,10 @@ public interface IncomingMessageForm extends MotechEntity {
      * @param incomingMsgFormParameters the incomingMsgFormParameters to set
      */
     public void setIncomingMsgFormParameters(Map<String, IncomingMessageFormParameter> incomingMsgFormParameters);
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 }

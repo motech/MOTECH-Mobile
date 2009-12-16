@@ -151,4 +151,11 @@ public interface GatewayRequest extends MotechEntity {
      * @param  List the List of GatewayResponse to pass
      */
     public void removeResponse(List<GatewayResponse> responses);
+
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 }

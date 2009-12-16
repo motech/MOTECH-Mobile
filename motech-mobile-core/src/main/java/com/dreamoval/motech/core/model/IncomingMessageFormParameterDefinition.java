@@ -75,4 +75,11 @@ public interface IncomingMessageFormParameterDefinition extends MotechEntity{
      * @param required the required to set
      */
     public void setRequired(boolean required);
+
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 }

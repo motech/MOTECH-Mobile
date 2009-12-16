@@ -66,4 +66,11 @@ public interface MessageTemplate extends MotechEntity{
      * @param template the template to set
      */
     void setTemplate(String template);
+
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 }

@@ -96,4 +96,11 @@ public interface IncomingMessageFormParameter extends MotechEntity{
      * @param incomingMsgFormParamDefinition the incomingMsgFormParamDefinition to set
      */
     public void setIncomingMsgFormParamDefinition(IncomingMessageFormParameterDefinition incomingMsgFormParamDefinition);
+
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 }

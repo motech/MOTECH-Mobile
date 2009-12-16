@@ -114,7 +114,8 @@ public class IncomingMessageDAOImplTest {
 //        Assert.assertEquals(fromdb.getIncomingMsgSession(), im1.getIncomingMsgSession());
 //        Assert.assertEquals(fromdb.getIncomingMsgSession().getId(), im1.getIncomingMsgSession().getId());
 //        Assert.assertEquals(fromdb.getIncomingMsgSession().getIncomingMessages(), im1.getIncomingMsgSession().getIncomingMessages());
-        System.out.println("the form content: " + fromdb.getContent());
+        System.out.println("the form content:\n " + fromdb.getContent());
+
     }
 
 }

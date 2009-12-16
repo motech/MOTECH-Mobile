@@ -280,6 +280,8 @@ public class GatewayRequestDAOImplTest {
         Assert.assertEquals(md1.getMessage(), result.getMessage());
         Assert.assertEquals(md1.getRecipientsNumber(), result.getRecipientsNumber());
         Assert.assertEquals(md1.getDateFrom(), result.getDateFrom());
+
+         System.out.println(result.toString());
     }
 
     /**

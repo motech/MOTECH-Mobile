@@ -90,4 +90,11 @@ public interface IncomingMessageSession extends MotechEntity{
      * @param msg the IncomingMessage to add
      */
     public void removeIncomingMessage(IncomingMessage msg);
+
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 }

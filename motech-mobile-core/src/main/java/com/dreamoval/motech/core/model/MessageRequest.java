@@ -73,4 +73,11 @@ public interface MessageRequest extends MotechEntity {
     public void setPersInfos(Set persInfos);
 
     public void setLastModified(Date lastModified);
+
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 }

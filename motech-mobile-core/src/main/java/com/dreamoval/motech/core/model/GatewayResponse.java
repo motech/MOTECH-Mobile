@@ -110,4 +110,12 @@ public interface GatewayResponse extends MotechEntity {
      * @param  date the date to set
      */
     public void setDateCreated(Date date);
+
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
+
 }

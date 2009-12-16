@@ -83,5 +83,11 @@ public interface IncomingMessage  extends MotechEntity{
      * @param messageStatus the messageStatus to set
      */
     void setMessageStatus(IncMessageStatus messageStatus);
+    /**
+     * Helper method to display string value of all properties of the object
+     * @return formated string value of all properties
+     */
+    @Override
+    public String toString();
 
 }
