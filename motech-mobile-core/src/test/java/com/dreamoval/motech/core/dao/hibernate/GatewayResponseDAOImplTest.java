@@ -172,7 +172,7 @@ public class GatewayResponseDAOImplTest {
         Assert.assertEquals(rd1.getId(), fromdb.getId());
         Assert.assertEquals(rd1.getRecipientNumber(), fromdb.getRecipientNumber());
         Assert.assertEquals(rd1.getRecipientNumber(), fromdb.getRecipientNumber());
-
+        System.out.println(fromdb.toString());
     }
 
     @Test

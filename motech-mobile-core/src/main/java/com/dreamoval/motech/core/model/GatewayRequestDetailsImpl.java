@@ -91,4 +91,30 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
             this.gatewayRequests.remove(gatewayRequest);
         }
     }
+
+    @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        String newLine = System.getProperty("line.separator");
+
+       if(this != null) {
+           sb.append((this.getId()!= null) ? "key=Id               value=" + this.getId().toString() : "Id is null ");
+           sb.append(newLine);
+           sb.append((this.message != null) ? "key=message          value=" + this.message : "message is null  ");
+           sb.append(newLine);
+           sb.append((this.numberOfPages != -1 ) ? "key=numberOfPages          value=" + this.numberOfPages : "numberOfPages is null ");
+           sb.append(newLine);
+           sb.append((this.gatewayRequests.isEmpty() ) ? "key=gatewayRequests          length=" + Integer.toString(this.gatewayRequests.size()) : "gatewayRequests is empty ");
+           sb.append(newLine);
+           sb.append((this.messageType != null) ? "key=messageType          value=" + this.messageType.toString() : "messageType is null ");
+           sb.append(newLine);
+
+           return sb.toString();
+
+       } else {
+           return "Object is null";
+       }
+
+
+    }
 }

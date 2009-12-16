@@ -177,4 +177,39 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
     }
+    
+    
+     @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        String newLine = System.getProperty("line.separator");
+     
+       if(this != null) {
+           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+           sb.append(newLine);
+           sb.append((this.gatewayRequest != null) ? "key=gatewayRequest.Id value=" + this.gatewayRequest.getId() : "gatewayRequest.Id is null ");
+           sb.append(newLine);
+           sb.append((this.requestId != null) ? "key=requestId value=" + this.requestId : "requestId is null ");
+           sb.append(newLine);
+           sb.append((this.gatewayMessageId != null) ? "key=gatewayMessageID value=" + this.gatewayMessageId : "gatewayMessageId is null  ");
+           sb.append(newLine);
+           sb.append((this.recipientNumber != null) ? "key=recipientNumber value=" + this.recipientNumber : "recipientNumber is null ");
+           sb.append(newLine); 
+           sb.append((this.responseText != null ) ? "key=tryNumber.Id value=" + this.responseText : "responseText is null ");
+           sb.append(newLine);
+           sb.append((this.dateCreated != null) ? "key=dateSent value=" + this.dateCreated.toString() : "dateCreate is null ");
+           sb.append(newLine);
+           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
+           sb.append(newLine);
+           sb.append((this.messageStatus != null) ? "key=messageStatus value=" + this.messageStatus.toString() : "messageStatus is null ");
+           sb.append(newLine);
+          
+           return sb.toString();
+     
+       } else {
+           return "Object is null";
+       }
+
+        
+    }
 }

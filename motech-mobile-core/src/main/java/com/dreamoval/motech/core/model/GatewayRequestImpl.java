@@ -269,7 +269,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
            sb.append(newLine);
            sb.append((this.dateFrom != null) ? "key=dateFrom value=" + this.dateFrom.toString() : "dateFrom is null ");
            sb.append(newLine);
-           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.dateFrom.toString() : "lastModified is null ");
+           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
            sb.append(newLine);
            sb.append((this.messageStatus != null) ? "key=messageStatus value=" + this.messageStatus.toString() : "messageStatus is null ");
            sb.append(newLine);

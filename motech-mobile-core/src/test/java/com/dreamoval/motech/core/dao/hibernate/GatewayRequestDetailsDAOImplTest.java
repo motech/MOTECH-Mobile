@@ -107,6 +107,7 @@ public class GatewayRequestDetailsDAOImplTest {
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(grd1, fromdb);
         Assert.assertEquals(grd1.getId(), fromdb.getId());
+        System.out.println(fromdb.toString());
     }
 
     /**
@@ -130,7 +131,8 @@ public class GatewayRequestDetailsDAOImplTest {
         Assert.assertEquals(grd1, fromdb);
         Assert.assertEquals(2, fromdb.getGatewayRequests().size());
         Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr1));
-        Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr2));
+        Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr2)); 
+        
     }
 
     /**
