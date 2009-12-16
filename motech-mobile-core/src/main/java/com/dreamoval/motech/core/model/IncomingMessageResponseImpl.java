@@ -86,4 +86,34 @@ public class IncomingMessageResponseImpl extends MotechEntityImpl implements Inc
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
     }
+
+
+    @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        String newLine = System.getProperty("line.separator");
+
+       if(this != null) {
+           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+           sb.append(newLine);
+           sb.append((this.content != null) ? "key=name value=" + this.content : "content is null  ");
+           sb.append(newLine);
+
+           sb.append((this.incomingMessage != null) ? "key=IncomingMessage.Id value=" + this.incomingMessage.getId() : "incomingMessage.Id is null ");
+           sb.append(newLine);
+           sb.append((this.dateCreated != null) ? "key=dateCreated value=" + this.dateCreated.toString() : "dateCreated is null ");
+           sb.append(newLine);
+           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
+           sb.append(newLine);
+           sb.append((this.messageResponseStatus != null) ? "key=messageResponseStatus value=" + this.messageResponseStatus.toString() : "messageResponseStatus is null ");
+           sb.append(newLine);
+
+           return sb.toString();
+
+       } else {
+           return "Object is null";
+       }
+
+
+    }
 }

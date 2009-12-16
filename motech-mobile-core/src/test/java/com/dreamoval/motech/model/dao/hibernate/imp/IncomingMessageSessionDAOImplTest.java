@@ -118,6 +118,7 @@ public class IncomingMessageSessionDAOImplTest {
         Assert.assertEquals(fromdb, ims1);
         Assert.assertEquals(fromdb.getId(), ims1.getId());
         System.out.println("the formcode: " + fromdb.getFormCode());
+        System.out.println(fromdb.toString());
 
 
     }

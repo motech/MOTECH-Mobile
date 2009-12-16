@@ -108,5 +108,6 @@ public class IncomingMessageFormDAOImplTest {
         Assert.assertEquals(fromdb, imf1);
         Assert.assertEquals(fromdb.getId(), imf1.getId());
         System.out.println("the form date created: " + fromdb.getDateCreated());
+        System.out.println(fromdb.toString());
     }
 }

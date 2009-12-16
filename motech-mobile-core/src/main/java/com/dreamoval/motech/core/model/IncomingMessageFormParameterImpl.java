@@ -147,4 +147,39 @@ public class IncomingMessageFormParameterImpl extends MotechEntityImpl implement
         this.name = name;
     }
 
+    @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        String newLine = System.getProperty("line.separator");
+        
+       if(this != null) {
+           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+           sb.append(newLine);
+           sb.append((this.name != null) ? "key=name value=" + this.name : "message is null  ");
+           sb.append(newLine);
+           sb.append((this.value != null) ? "key=value value=" + this.value : "value is null ");
+           sb.append(newLine);
+           sb.append((this.errCode != -1 ) ? "key=errCode value=" + Integer.toString(this.errCode) : "errCode is null ");
+           sb.append(newLine);
+           sb.append((this.errText != null) ? "key=errText value=" + this.errText : "errText is null ");
+           sb.append(newLine);
+           sb.append((this.incomingMsgForm != null) ? "key=IncomingMessageForm.Id value=" + this.incomingMsgForm.getId() : "IncomingMessageForm.Id is null ");
+           sb.append(newLine);
+           sb.append((this.incomingMsgFormParamDefinition != null) ? "key=IncomingMsgFormDefinition.Id value=" + this.incomingMsgFormParamDefinition.getId() : "incomingMessageFormDefinition.Id is null ");
+           sb.append(newLine);
+           sb.append((this.dateCreated != null) ? "key=dateCreated value=" + this.dateCreated.toString() : "dateCreated is null ");
+           sb.append(newLine);
+           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
+           sb.append(newLine);
+           sb.append((this.messageFormParamStatus != null) ? "key=messageFormParamStatus value=" + this.messageFormParamStatus.toString() : "messageFormParamStatus is null ");
+           sb.append(newLine);
+          
+           return sb.toString();
+     
+       } else {
+           return "Object is null";
+       }
+
+        
+    }
 }

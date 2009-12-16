@@ -72,6 +72,7 @@ public class IncomingMessageResponseDAOImplTest {
         Assert.assertEquals(fromdb, imr1);
         Assert.assertEquals(fromdb.getId(), imr1.getId());
         System.out.println("the form content: " + fromdb.getContent());
+        System.out.println(fromdb.toString());
     }
 
 }

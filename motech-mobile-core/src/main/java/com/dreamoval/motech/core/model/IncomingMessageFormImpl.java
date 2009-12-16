@@ -2,7 +2,7 @@ package com.dreamoval.motech.core.model;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 
 /*
@@ -91,6 +91,45 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     }
 
 
-    
+    @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        String newLine = System.getProperty("line.separator");
+
+       if(this != null) {
+           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+           sb.append(newLine);
+
+           sb.append((this.incomingMsgFormDefinition != null) ? "key=IncomingMessageFormDefinition.Id value=" + this.incomingMsgFormDefinition.getId() : "IncomingMessageFormDefinition.Id is null ");
+           sb.append(newLine);
+
+           sb.append((this.incomingMsgFormParameters.isEmpty() ) ? "key=IncomingMessageFormParameters length=" + Integer.toString(this.incomingMsgFormParameters.size()) : "IncomingMessageFormParameters is empty ");
+           sb.append(newLine);
+
+           for(Iterator it =this.incomingMsgFormParameters.entrySet().iterator(); it.hasNext();){
+               Map.Entry  entry = (Map.Entry) it.next();
+               String key = (String) entry.getKey();
+               IncomingMessageFormParameter  resp = (IncomingMessageFormParameter) entry.getValue();
+
+               sb.append((resp != null ) ? "key="+key+" value=" + resp.getId().toString() : "IncomingMessageFormParameter.Id is null ");
+               sb.append(newLine);
+           }
+
+
+           sb.append((this.dateCreated != null) ? "key=dateCreated value=" + this.dateCreated.toString() : "dateCreated is null ");
+           sb.append(newLine);
+           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
+           sb.append(newLine);
+           sb.append((this.messageFormStatus != null) ? "key=messageFormStatus value=" + this.messageFormStatus.toString() : "messageFormStatus is null ");
+           sb.append(newLine);
+
+           return sb.toString();
+
+       } else {
+           return "Object is null";
+       }
+
+
+    }
     
 }

@@ -240,7 +240,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     public String toString(){
         StringBuffer sb = new StringBuffer();
         String newLine = System.getProperty("line.separator");
-        String tryNumbers = Integer.toString(this.tryNumber);
+        
        if(this != null) {
            sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
            sb.append(newLine);
@@ -252,7 +252,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
            sb.append(newLine);
            sb.append((this.gatewayRequestDetails != null) ? "key=gatewayRequestDetails.Id value=" + this.gatewayRequestDetails.getId() : "gatewayRequestDetails.Id is null ");
            sb.append(newLine);
-           sb.append((this.tryNumber != -1 ) ? "key=tryNumber.Id value=" + this.tryNumber : "tryNumber is null ");
+           sb.append((this.tryNumber != -1 ) ? "key=tryNumber.Id value=" + Integer.toString(this.tryNumber) : "tryNumber is null ");
            sb.append(newLine);
            sb.append((this.responseDetails.isEmpty() ) ? "key=responseDetails length=" + Integer.toString(this.responseDetails.size()) : "responseDetails is empty ");
            sb.append(newLine);

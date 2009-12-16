@@ -80,5 +80,7 @@ public class IncomingMessageFormParameterDAOImplTest {
         Assert.assertEquals(fromdb, imfp1);
         Assert.assertEquals(fromdb.getId(), imfp1.getId());
         System.out.println("the form parameter error text: " + fromdb.getErrText());
+        System.out.println(fromdb.toString());
+
     }
 }
