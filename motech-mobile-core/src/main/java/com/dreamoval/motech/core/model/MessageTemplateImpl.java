@@ -90,5 +90,34 @@ public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemp
     public void setTemplate(String template) {
         this.template = template;
     }
-    
+
+
+    @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        String newLine = System.getProperty("line.separator");
+
+       if(this != null) {
+           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+           sb.append(newLine);
+           sb.append((this.language != null) ? "key=Language.Id value=" + this.language.getId() : "Language is null ");
+           sb.append(newLine);
+           sb.append((this.notificationType != null) ? "key=NotificationType.Id value=" + this.notificationType.getId() : "NotificationType is null ");
+           sb.append(newLine);
+           sb.append((this.template != null) ? "key=template value=" + this.template : "template is null  ");
+           sb.append(newLine);
+
+           sb.append((this.dateCreated != null) ? "key=dateCreated value=" + this.dateCreated.toString() : "dateCreated is null ");
+           sb.append(newLine);
+           sb.append((this.messageType != null) ? "key=messageType value=" + this.messageType.toString() : "messageType is null ");
+           sb.append(newLine);
+
+
+           return sb.toString();
+
+       } else {
+           return "Object is null";
+       }
+
+    }
 }

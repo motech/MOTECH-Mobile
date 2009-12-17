@@ -6,6 +6,7 @@
 package com.dreamoval.motech.core.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -62,5 +63,36 @@ public class NotificationTypeImpl extends MotechEntityImpl implements Notificati
     public void setMessageTemplates(Set<MessageTemplate> messageTemplates) {
         this.messageTemplates = messageTemplates;
     }
-    
+
+     @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        String newLine = System.getProperty("line.separator");
+
+       if(this != null) {
+           sb.append((this.getId()!= null) ? "key=Id--------------------value=" + this.getId().toString() : "Id is null ");
+           sb.append(newLine);
+           sb.append((this.name != null) ? "key=recipientsNumber value=" + this.name : "name is null ");
+           sb.append(newLine);
+           sb.append((this.description != null) ? "key=description value=" + this.description : "description is null ");
+           sb.append(newLine);
+
+           sb.append((this.messageTemplates.isEmpty() ) ? "key=messageTemplates length=" + Integer.toString(this.messageTemplates.size()) : "responseDetails is empty ");
+           sb.append(newLine);
+
+           for(Iterator it =this.messageTemplates.iterator(); it.hasNext();){
+               MessageTemplate  resp = (MessageTemplate) it.next();
+               sb.append((resp != null ) ? "key=MessageTemplate.Id value=" + resp.getId().toString() : "MessageTemplate.Id is null ");
+               sb.append(newLine);
+           }
+
+
+           return sb.toString();
+
+       } else {
+           return "Object is null";
+       }
+
+
+    }
 }
