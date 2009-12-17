@@ -6,6 +6,7 @@
 package com.dreamoval.motech.core.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -77,5 +78,37 @@ public class LanguageImpl extends  MotechEntityImpl implements Language{
         this.messageRequests = messageRequests;
     }
 
-    
+   @Override
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        String newLine = System.getProperty("line.separator");
+
+       if(this != null) {
+           sb.append((this.getId()!= null) ? "key=Id--------------------value=" + this.getId().toString() : "Id is null ");
+           sb.append(newLine);
+           sb.append((this.code != null) ? "key=code------------------value=" + this.code : "code is null  ");
+           sb.append(newLine);
+           sb.append((this.name != null) ? "key=recipientsNumber value=" + this.name : "name is null ");
+           sb.append(newLine);
+           sb.append((this.description != null) ? "key=description value=" + this.description : "description is null ");
+           sb.append(newLine);
+
+           sb.append((this.messageRequests.isEmpty() ) ? "key=messageRequests length=" + Integer.toString(this.messageRequests.size()) : "responseDetails is empty ");
+           sb.append(newLine);
+
+           for(Iterator it =this.messageRequests.iterator(); it.hasNext();){
+               MessageRequest  resp = (MessageRequest) it.next();
+               sb.append((resp != null ) ? "key=MessageRequest.Id value=" + resp.getId().toString() : "MessageRequest.Id is null ");
+               sb.append(newLine);
+           }
+
+
+           return sb.toString();
+
+       } else {
+           return "Object is null";
+       }
+
+
+    }
 }

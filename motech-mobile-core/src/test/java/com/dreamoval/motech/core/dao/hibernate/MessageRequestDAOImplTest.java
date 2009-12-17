@@ -172,6 +172,7 @@ public class MessageRequestDAOImplTest {
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(t, fromdb.getMessageType());
         Assert.assertEquals(lg1.getCode(), fromdb.getLanguage().getCode());
+        System.out.println(fromdb.toString());
     }
 
     /**

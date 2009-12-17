@@ -112,7 +112,7 @@ public class LanguageDAOImplTest {
         Assert.assertEquals(l1.getCode(), fromdb.getCode());
         Assert.assertEquals(l1.getName(), fromdb.getName());
         Assert.assertEquals(l1.getDescription(), fromdb.getDescription());
-
+        System.out.println(fromdb.toString());
     }
 
     /**
