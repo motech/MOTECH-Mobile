@@ -12,6 +12,7 @@ package com.dreamoval.motech.model.imp;
 public enum ParameterType {
             DATE,
             ALPHA,
+            GENDER,
             NUMERIC,
             BOOLEAN,
             ALPHANUMERIC

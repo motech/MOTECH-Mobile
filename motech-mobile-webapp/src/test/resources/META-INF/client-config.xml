@@ -7,8 +7,6 @@
        http://cxf.apache.org/jaxws
        http://cxf.apache.org/schema/jaxws.xsd">
 
-    <import resource="classpath:META-INF/omi-config.xml" />
-      
     <bean id="client" class="org.motechproject.ws.mobile.MessageService"
         factory-bean="clientFactory" factory-method="create" />
 

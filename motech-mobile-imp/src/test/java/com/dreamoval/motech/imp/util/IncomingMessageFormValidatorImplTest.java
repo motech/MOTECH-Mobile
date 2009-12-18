@@ -45,7 +45,7 @@ public class IncomingMessageFormValidatorImplTest {
         mockParamValidator = createMock(IncomingMessageFormParameterValidator.class);
 
         instance = new IncomingMessageFormValidatorImpl();
-        instance.setDateFormat("dd/MM/yyyy");
+        instance.setDateFormat("dd.MM.yyyy");
         instance.setCoreManager(mockCore);
         instance.setImParamValidator(mockParamValidator);
         instance.setRegWS(mockRegSvc);
@@ -101,7 +101,7 @@ public class IncomingMessageFormValidatorImplTest {
 
         IncomingMessageFormParameterImpl param1 = new IncomingMessageFormParameterImpl();
         param1.setName("date");
-        param1.setValue("13/12/2009");
+        param1.setValue("13.12.2009");
 
         IncomingMessageFormParameterImpl param2 = new IncomingMessageFormParameterImpl();
         param2.setName("serial_id");
@@ -109,7 +109,7 @@ public class IncomingMessageFormValidatorImplTest {
 
         IncomingMessageFormParameterImpl param3 = new IncomingMessageFormParameterImpl();
         param3.setName("due_date");
-        param3.setValue("12/07/2010");
+        param3.setValue("12.07.2010");
 
         IncomingMessageFormParameterImpl param4 = new IncomingMessageFormParameterImpl();
         param4.setName("parity");

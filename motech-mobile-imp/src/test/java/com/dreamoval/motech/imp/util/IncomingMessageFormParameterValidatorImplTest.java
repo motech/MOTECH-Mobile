@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/imp-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/imp-test-config.xml"})
 public class IncomingMessageFormParameterValidatorImplTest {
     @Autowired
     IncomingMessageFormParameterValidator imParamValidator;
@@ -67,7 +67,7 @@ public class IncomingMessageFormParameterValidatorImplTest {
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
         param.getIncomingMsgFormParamDefinition().setLength(10);
         param.setName("date");
-        param.setValue("06/12/2009");
+        param.setValue("06.12.2009");
 
         result = imParamValidator.validate(param);
         assertTrue(result);
@@ -139,7 +139,7 @@ public class IncomingMessageFormParameterValidatorImplTest {
         param.getIncomingMsgFormParamDefinition().setParamType("BOOLEAN");
         param.getIncomingMsgFormParamDefinition().setLength(5);
         param.setName("registered");
-        param.setValue("false");
+        param.setValue("n");
 
         expResult = true;
         result = imParamValidator.validate(param);

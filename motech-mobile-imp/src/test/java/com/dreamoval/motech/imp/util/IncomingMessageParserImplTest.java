@@ -29,7 +29,7 @@ import static org.easymock.EasyMock.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/imp-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/imp-test-config.xml"})
 public class IncomingMessageParserImplTest {
     CoreManager mockCore;
 
@@ -117,7 +117,7 @@ public class IncomingMessageParserImplTest {
 
         IncomingMessageFormParameter param3 = new IncomingMessageFormParameterImpl();
         param1.setName("dob");
-        param1.setValue("01/01/01");
+        param1.setValue("01.01.01");
         expResult.add(param3);
 
         IncomingMessageFormParameter param4 = new IncomingMessageFormParameterImpl();

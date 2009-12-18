@@ -72,6 +72,10 @@
           <artifactId>motech-mobile-omi</artifactId>
         </dependency>
         <dependency>
+          <groupId>com.dreamoval.motech</groupId>
+          <artifactId>motech-mobile-imp</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-wsapi</artifactId>
         </dependency>
@@ -147,6 +151,19 @@
 
     <build>
         <finalName>motech-mobile-webapp</finalName>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/main/webapp/WEB-INF</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*-config.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
 
     <profiles>

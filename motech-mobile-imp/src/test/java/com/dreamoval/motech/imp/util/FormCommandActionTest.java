@@ -21,7 +21,6 @@ import com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageResponseImpl;
-import java.util.ArrayList;
 import java.util.HashMap;
 import org.hibernate.Transaction;
 import org.junit.Before;

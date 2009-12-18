@@ -5,12 +5,14 @@
 
 package com.dreamoval.motech.itests;
 
+import com.dreamoval.motech.imp.serivce.IMPServiceImpl;
 import com.dreamoval.motech.omi.service.OMIService;
 import com.dreamoval.motech.omp.service.MessagingService;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+import javax.annotation.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,18 +34,21 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/client-config.xml"})
+@ContextConfiguration(locations = {"classpath:webapp-config.xml",
+                                    "classpath:META-INF/client-config.xml"})
 public class MessageServiceImplITCase {
 
 
     Properties testProps;
 
-    @Autowired
+    @Resource
     MessageService client;
     @Autowired
     OMIService omiService;
     @Autowired
     MessagingService smsService;
+    @Autowired
+    IMPServiceImpl impService;
     
 
     public MessageServiceImplITCase() {
@@ -233,4 +238,21 @@ public class MessageServiceImplITCase {
         System.out.println("processMessageRetries");
         omiService.processMessageRetries();
     }
+
+//    @Test
+//    public void testProcessRequest(){
+//        System.out.println("processRequest");
+//
+//        String request = "Type=GeneralOPD\nFacilityID=7\nDate=01.10.2009\nSerialNo=102\nSex=M\nDoB=24.09.1990\nDiagnosis=5\nReferral=No";
+//        String number = "555555555";
+//
+//        String expResult = "Errors:\nReferral=wrong format";
+//        String result = impService.processRequest(request, number);
+//        assertEquals(result,expResult);
+//
+//        request = "Type=GeneralOPD\nFacilityID=7\nDate=01.10.2009\nSerialNo=102\nSex=M\nDoB=24.09.1990\nDiagnosis=5\nReferral=N";
+//        expResult = "Errors:\nSerialNo=server error";
+//        result = impService.processRequest(request, number);
+//        assertEquals(result,expResult);
+//    }
 }

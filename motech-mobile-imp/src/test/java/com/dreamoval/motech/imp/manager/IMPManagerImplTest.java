@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/imp-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/imp-test-config.xml"})
 public class IMPManagerImplTest {
     @Autowired
     IMPManager impManager;
