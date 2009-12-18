@@ -21,10 +21,13 @@ import static org.junit.Assert.*;
  * Unit test for the ORServeGatewayMessageHandlerImpl class
  * 
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
+ * @author Henry Sampson (henry@dreamoval.com)
+ *
  * Date Created Aug 10, 2009
+ * Last Updated Dec 18, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/omp-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/test-omp-config.xml"})
 public class ORServeGatewayMessageHandlerImplTest {
 
     CoreManager mockCoreManager;

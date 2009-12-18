@@ -28,7 +28,7 @@ import static org.easymock.EasyMock.*;
  * Date Created Dec 16, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/omp-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/test-omp-config.xml"})
 public class DummyGatewayMessageHandlerImplTest {
     CoreManager mockCoreManager;
 

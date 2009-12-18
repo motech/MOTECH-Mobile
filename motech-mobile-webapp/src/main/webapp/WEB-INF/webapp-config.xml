@@ -35,7 +35,18 @@
     <import resource="classpath:META-INF/omi-config.xml" />
     <import resource="classpath:META-INF/imp-config.xml" />
       
-    <jaxws:endpoint id="messageService"
+       <!--Motech Settings-->
+    <bean id="propertyConfigurer"
+class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:WEB-INF/motech-settings.properties</value>
+            </list>
+        </property>
+    </bean>
+
+      
+      <jaxws:endpoint id="messageService"
                       implementor="#messageWebServiceBean"
                       address="/messaging">
     </jaxws:endpoint>
@@ -61,4 +72,18 @@
         </cxf:features>
     </cxf:bus>
 
+    <!--Web Beans for handling requests -->
+    <bean id="iMRWorkerBean" class="com.dreamoval.motech.web.IncomingMessageRequestWorkerImpl">
+        <property name="impManager" ref="impManager"/>
+        <property name="webSettings" ref="webSettingsBean"/>
+    </bean>
+
+    <bean id="webSettingsBean" class="com.dreamoval.motech.web.MotechWebSettingsImpl">
+        <property name="incomingMessageFromParam" value="${com.dreamoval.motech.web.incomingMessageFromParam}"/>
+        <property name="incomingMessageTextParam" value="${com.dreamoval.motech.web.incomingMessageTextParam}"/>
+        <property name="unknownIMRMessage" value="${com.dreamoval.motech.web.error.UnknownRequest}"/>
+    </bean>
+
+    <!--Manager -->
+    <bean id="webManagerBean" class="com.dreamoval.motech.web.manager.WebManagerImpl"/>
 </beans>

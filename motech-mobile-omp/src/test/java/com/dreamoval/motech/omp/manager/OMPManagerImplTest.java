@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/omp-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/test-omp-config.xml"})
 public class OMPManagerImplTest {
 
     @Autowired

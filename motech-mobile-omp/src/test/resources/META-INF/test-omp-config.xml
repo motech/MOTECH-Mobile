@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:flow="http://www.springframework.org/schema/webflow-config"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-1.0.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+
+   <!--Spring specific-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:clickatell.properties</value>
+                <value>classpath:orserve.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="date" class="java.util.Date" scope="prototype" />
+
+    <bean id="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl" scope="prototype">
+        <property name="codeStatusMap">
+            <map>
+                <entry key="DELIVERED" value="004,DELIVRD" />
+                <entry key="FAILED" value="001,005,007,105,106,107,113,114,201,202,ERROR,REJECTED" />
+                <entry key="RETRY" value="009,012,103,104,301,302,failed,UNDELIV" />
+                <entry key="PENDING" value="002,003,008,011,PROCESSED," />
+                <entry key="CANCELLED" value="006" />
+                <entry key="EXPIRED" value="010,115,116,120" />
+            </map>
+        </property>
+        <property name="codeResponseMap">
+            <map>
+                <entry key="FAILED" value="005,102,105,106,107,110,111,202,305,112,113,114,552,201,failed,param,param:" />
+                <entry key="RETRY" value="001,002,003,004,007,101,101p,101t,101u,103,104,108,109,301,302,304,400,401,500,501,502" />
+                <entry key="EXPIRED" value="115,116,120" />
+                <entry key="CANNOT_CONNECT" value="901" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="dummyManager" class="com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl">
+        <property name="messageHandler" ref="dummyHandler" />
+    </bean>
+
+    <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
+        <property name="codeStatusMap">
+            <map>
+                <entry key="DELIVERED" value="004,DELIVRD" />
+                <entry key="FAILED" value="001,005,007,105,106,107,113,114,201,202,ERROR,REJECTED" />
+                <entry key="RETRY" value="009,012,103,104,301,302,failed,UNDELIV" />
+                <entry key="PENDING" value="002,003,008,011,PROCESSED," />
+                <entry key="CANCELLED" value="006" />
+                <entry key="EXPIRED" value="010,115,116,120" />
+            </map>
+        </property>
+        <property name="codeResponseMap">
+            <map>
+                <entry key="FAILED" value="005,102,105,106,107,110,111,202,305,112,113,114,552,201,failed,param,param:" />
+                <entry key="RETRY" value="001,002,003,004,007,101,101p,101t,101u,103,104,108,109,301,302,304,400,401,500,501,502" />
+                <entry key="EXPIRED" value="115,116,120" />
+                <entry key="CANNOT_CONNECT" value="901" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="gatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayManagerImpl">
+        <property name="productCode" value="nu-ob-demo" />
+        <property name="senderId" value="MoTeCH" />
+        <property name="messageHandler" ref="messageHandler" />
+    </bean>
+
+
+    <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
+    </bean>
+
+    <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSMessagingServiceImpl">
+        <property name="cache" ref="smsCache" />
+        <property name="gatewayManager" ref="dummyManager" />
+    </bean>
+
+    <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />
+</beans>

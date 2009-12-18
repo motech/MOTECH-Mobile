@@ -2,6 +2,10 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>MoTeCH Mobile Web</display-name>
 
+    <servlet-mapping>
+        <servlet-name>IncomingMessageServlet</servlet-name>
+        <url-pattern>/incomingmessage</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -47,6 +51,10 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>IncomingMessageServlet</servlet-name>
+        <servlet-class>com.dreamoval.motech.web.IncomingMessageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/webservices/*</url-pattern>

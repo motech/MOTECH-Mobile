@@ -10,7 +10,6 @@ import static org.easymock.EasyMock.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Unit test for the ReportStatusActionImpl class

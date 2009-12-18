@@ -1,6 +1,5 @@
 package com.dreamoval.motech.omi.manager;
 
-import static org.easymock.EasyMock.*;
 
 import org.junit.Before;
 import org.junit.Test;

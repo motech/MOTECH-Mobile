@@ -24,16 +24,6 @@
     
     <import resource="classpath:META-INF/omp-config.xml" />
 
-    <!--Spring specific-->
-    <bean id="omiPropertyConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:omi.settings.properties</value>
-            </list>
-        </property>
-    </bean>
-    
     <bean name="storeManager" class="com.dreamoval.motech.omi.manager.MessageStoreManagerImpl">
         <property name="coreManager" ref="coreManager" />
     </bean>

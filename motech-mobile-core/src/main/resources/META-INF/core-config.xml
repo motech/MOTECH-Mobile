@@ -32,17 +32,6 @@
     <context:annotation-config />
     <tx:annotation-driven />
 
-    <!--Spring specific-->
-    <bean id="propertyConfigurer"
-class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:hsql.hibernate.properties</value>
-                <value>classpath:hsql.jdbc.properties</value>
-            </list>
-        </property>
-    </bean>
-
     <!-- Model -->
 
     <bean id="sessionContainer" class="com.dreamoval.motech.core.dao.hibernate.HibernateUtils">

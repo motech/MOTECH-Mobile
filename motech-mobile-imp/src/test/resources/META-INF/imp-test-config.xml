@@ -18,10 +18,7 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-    <import resource="classpath:META-INF/core-config.xml" />
-
     <bean id="impService" class="com.dreamoval.motech.imp.serivce.IMPServiceImpl">
-        <property name="coreManager" ref="coreManager" />
         <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
         <!--<property name="cmdActionMap">
@@ -36,7 +33,6 @@
     <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
 
     <bean id="imParser" class="com.dreamoval.motech.imp.util.IncomingMessageParserImpl" >
-        <property name="coreManager" ref="coreManager" />
         <property name="separator" value="=" />
         <property name="delimiter" value="\n" />
         <property name="cmdRegex" value="^[tT](ype|YPE)" />
@@ -46,23 +42,19 @@
 
     <bean id="formCmdAxn" class="com.dreamoval.motech.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
-        <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
     <bean id="updateCmdAxn" class="com.dreamoval.motech.imp.util.UpdateCommandAction">
         <property name="formValidator" ref="imFormValidator" />
-        <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
     <bean id="stopCmdAxn" class="com.dreamoval.motech.imp.util.StopCommandAction">
-        <property name="coreManager" ref="coreManager" />
     </bean>
 
     <bean id="imFormValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormValidatorImpl">
         <property name="imParamValidator" ref="imParamValidator" />
-        <property name="coreManager" ref="coreManager" />
         <property name="regWS" ref="registrarClient" />
         <property name="dateFormat" value="dd/MM/yyyy" />
     </bean>
