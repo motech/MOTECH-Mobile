@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
@@ -72,6 +73,8 @@ public class FormCommandAction implements CommandAction {
         sessionDao.save(imSession);
         tx.commit();
 
+        context.cleanUp();
+        
         return response;
     }
 
@@ -99,6 +102,9 @@ public class FormCommandAction implements CommandAction {
         sessionDao.save(imSession);
         tx.commit();
 
+        if(context.getDBSession() != null)
+            ((Session)context.getDBSession().getSession()).clear();
+        
         return imSession;
     }
 
@@ -124,6 +130,9 @@ public class FormCommandAction implements CommandAction {
         tx.begin();
         formDao.save(form);
         tx.commit();
+
+        if(context.getDBSession() != null)
+            ((Session)context.getDBSession().getSession()).clear();
 
         return form;
     }
@@ -157,6 +166,7 @@ public class FormCommandAction implements CommandAction {
             response.setContent(responseText);
         }
         response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
+        
         return response;
     }
 

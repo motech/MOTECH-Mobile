@@ -259,3 +259,14 @@ insert into message_template(id, notification_type, message_type, language, temp
 insert into message_template(id, notification_type, message_type, language, template ,date_created ) values (199,53,'TEXT',2,'Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.@@','2009-10-06');
 insert into message_template(id, notification_type, message_type, language, template ,date_created ) values (200,53,'TEXT',3,'Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.##','2009-10-06');
 
+/*Data for the table `incoming_message_form_definition` */
+insert into `incoming_message_form_definition` (`id`,`form_code`,`date_created`,`last_modified`) values (785688106549491,'GeneralOPD','2009-12-18 11:04:20','2009-12-18 11:04:20');
+
+/*Data for the table `incoming_message_form_parameter_definition` */
+insert into `incoming_message_form_parameter_definition` (`id`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (44780981663901,785688106549491,'DoB','DATE',10,true,'2009-12-18 11:04:20','2009-12-18 11:04:20');
+insert into `incoming_message_form_parameter_definition` (`id`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (125568987021450,785688106549491,'Referral','BOOLEAN',1,true,'2009-12-18 11:04:20','2009-12-18 11:04:20');
+insert into `incoming_message_form_parameter_definition` (`id`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (359809010998245,785688106549491,'FacilityID','NUMERIC',10,true,'2009-12-18 11:04:20','2009-12-18 11:04:20');
+insert into `incoming_message_form_parameter_definition` (`id`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (409624894059308,785688106549491,'Date','DATE',10,true,'2009-12-18 11:04:20','2009-12-18 11:04:20');
+insert into `incoming_message_form_parameter_definition` (`id`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (447236646138029,785688106549491,'SerialNo','ALPHANUM',20,true,'2009-12-18 11:04:20','2009-12-18 11:04:20');
+insert into `incoming_message_form_parameter_definition` (`id`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (447617060511586,785688106549491,'Diagnosis','NUMERIC',3,true,'2009-12-18 11:04:20','2009-12-18 11:04:20');
+insert into `incoming_message_form_parameter_definition` (`id`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (964559790068935,785688106549491,'Sex','GENDER',1,true,'2009-12-18 11:04:20','2009-12-18 11:04:20');

@@ -239,7 +239,7 @@ public class FormCommandActionTest {
         IncomingMessage message = new IncomingMessageImpl();
         message.setContent("test content");
         String formCode = "GENERAL";
-        MotechContext context = null;
+        MotechContext context = new MotechContextImpl();
 
         mockFormDefDao = createMock(IncomingMessageFormDefinitionDAO.class);
         mockFormDao = createMock(IncomingMessageFormDAO.class);

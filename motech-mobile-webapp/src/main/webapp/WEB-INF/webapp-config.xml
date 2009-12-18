@@ -28,26 +28,37 @@
        http://cxf.apache.org/jaxws
        http://cxf.apache.org/schemas/jaxws.xsd">
 
-      <import resource="classpath:META-INF/cxf/cxf.xml" />
-      <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
-      <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-      <import resource="classpath:META-INF/omi-config.xml" />
-      <import resource="classpath:META-INF/imp-config.xml" />
+    <import resource="classpath:META-INF/omi-config.xml" />
+    <import resource="classpath:META-INF/imp-config.xml" />
       
-      <jaxws:endpoint id="messageService"
+    <jaxws:endpoint id="messageService"
                       implementor="#messageWebServiceBean"
                       address="/messaging">
-      </jaxws:endpoint>
+    </jaxws:endpoint>
 
-      <bean id="messageWebServiceBean" class="com.dreamoval.motech.omi.ws.MessageServiceImpl">
+    <bean id="messageWebServiceBean" class="com.dreamoval.motech.omi.ws.MessageServiceImpl">
         <property name="omiManager" ref="omiManager"/>
-      </bean>
+    </bean>
 
+    <bean id="registrarClient"
+            class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+        <property name="serviceInterface" value="org.motechproject.ws.server.RegistrarService" />
+        <property name="wsdlDocumentUrl"
+                    value="http://localhost:8080/openmrs/ws/RegistrarService?wsdl" />
+        <property name="namespaceUri" value="http://server.ws.motechproject.org/" />
+        <property name="serviceName" value="RegistrarWebServiceService" />
+        <property name="portName" value="RegistrarWebServicePort" />
+        <property name="lookupServiceOnStartup" value="false" />
+    </bean>
+    
     <cxf:bus>
-      <cxf:features>
-         <cxf:logging />
-      </cxf:features>
+        <cxf:features>
+            <cxf:logging />
+        </cxf:features>
     </cxf:bus>
 
 </beans>

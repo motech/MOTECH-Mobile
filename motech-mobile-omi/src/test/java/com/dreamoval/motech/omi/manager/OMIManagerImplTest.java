@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/omi-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/omi-test-config.xml"})
 public class OMIManagerImplTest {
 
     @Autowired
