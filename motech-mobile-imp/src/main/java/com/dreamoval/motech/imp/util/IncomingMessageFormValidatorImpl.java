@@ -86,7 +86,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         ///TODO lookup params in map and set service arguments
         if (code.equals("GENERAL")) {
             try {
-                regWS.recordGeneralVisit(form.getIncomingMsgFormParameters().get("clinic").getValue(), form.getIncomingMsgFormParameters().get("patient_serial").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("gender").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("age").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("referral").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()));
+                regWS.recordGeneralVisit(Integer.valueOf(form.getIncomingMsgFormParameters().get("FacilityId").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("Date").getValue()), form.getIncomingMsgFormParameters().get("SerialNo").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("Sex").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("DoB").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("Diagnosis").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("Referral").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);

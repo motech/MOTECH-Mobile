@@ -50,6 +50,11 @@ public class IncomingMessageFormParameterValidatorImpl implements IncomingMessag
             param.setErrText(param.getName() + "=too long");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
+            if(param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("BOOLEAN"))
+                param.setValue(param.getValue().toLowerCase().equals("y") ? "true" : "false");
+            else if(param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("GENDER"))
+                param.setValue(param.getValue().toLowerCase().equals("m") ? "MALE" : "FEMALE");
+
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
         }
 
