@@ -52,15 +52,6 @@ public class OMIServiceImpl implements OMIService {
     private int maxTries;
 
     public OMIServiceImpl() {
-        Properties settings = new Properties();
-
-        try {
-            settings.load(getClass().getResourceAsStream("/omi.settings.properties"));
-        } catch (IOException ex) {
-            logger.error(ex.getMessage());
-        }
-        defaultLang = settings.getProperty("defaultLang", "en");
-        maxTries = Integer.valueOf(settings.getProperty("maxTries", "3"));
     }
 
     /**String
@@ -206,15 +197,15 @@ public class OMIServiceImpl implements OMIService {
         }
 
         Map<Boolean, Set<GatewayResponse>> responses = msgSvc.sendMessage(gwReq, context);
-        
+
         Boolean falseBool = new Boolean(false);
-        if(responses.containsKey(falseBool)){
-            Set<GatewayResponse> resps= responses.get(falseBool);
-            for(GatewayResponse gp: resps){
+        if (responses.containsKey(falseBool)) {
+            Set<GatewayResponse> resps = responses.get(falseBool);
+            for (GatewayResponse gp : resps) {
                 statHandler.handleStatus(gp);
             }
         }
-        
+
         logger.info("Updating MessageRequest...");
         message.setDateProcessed(new Date());
         message.setStatus(MStatus.PENDING);
@@ -295,7 +286,7 @@ public class OMIServiceImpl implements OMIService {
     public void processMessageRetries() {
         MotechContext mc = coreManager.createMotechContext();
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-        
+
         logger.info("Fetching messages marked for retry...");
         List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndTryNumber(MStatus.RETRY, maxTries);
 
@@ -316,7 +307,7 @@ public class OMIServiceImpl implements OMIService {
                 if (mc.getDBSession() != null) {
                     ((Session) mc.getDBSession().getSession()).evict(message);
                 }
-                
+
                 message.setTryNumber(message.getTryNumber() + 1);
 
                 GatewayRequestDetails gwReqDet = (GatewayRequestDetails) gwReqDao.getById(message.getId());
@@ -336,7 +327,7 @@ public class OMIServiceImpl implements OMIService {
                 if (mc.getDBSession() != null) {
                     ((Session) mc.getDBSession().getSession()).evict(gwReqDet);
                 }
-                
+
                 message.setStatus(MStatus.PENDING);
             }
 
@@ -359,7 +350,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Initializing MessageRequestDAO...");
         logger.info("fetching updated message responses...");
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-      
+
         List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndTryNumber(MStatus.PENDING, maxTries);
 
         if (messages != null) {
@@ -374,8 +365,9 @@ public class OMIServiceImpl implements OMIService {
                 GatewayResponse response = gwRespDao.getByRequestIdAndTryNumber(message.getRequestId(), message.getTryNumber());
 
                 if (response != null) {
-                    if(response.getMessageStatus() == MStatus.RETRY && message.getTryNumber() >= maxTries)
+                    if (response.getMessageStatus() == MStatus.RETRY && message.getTryNumber() >= maxTries) {
                         response.setMessageStatus(MStatus.FAILED);
+                    }
 
                     statHandler.handleStatus(response);
 

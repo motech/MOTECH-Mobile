@@ -33,6 +33,8 @@
         <property name="coreManager" ref="coreManager" />
         <property name="storeManager" ref="storeManager" />
         <property name="statHandler" ref="statusHandler" />
+        <property name="defaultLang" value="${omi.settings.defaultLang}" />
+        <property name="maxTries" value="${omi.settings.maxTries}" />
     </bean>
 
     <bean name="omiManager" class="com.dreamoval.motech.omi.manager.OMIManagerImpl" />

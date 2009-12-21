@@ -40,7 +40,7 @@
 class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:WEB-INF/motech-settings.properties</value>
+                <value>classpath:motech-settings.properties</value>
             </list>
         </property>
     </bean>

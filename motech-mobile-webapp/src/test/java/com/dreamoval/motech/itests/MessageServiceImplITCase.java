@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:webapp-config.xml",
+@ContextConfiguration(locations = {"classpath:WEB-INF/webapp-config.xml",
                                     "classpath:META-INF/client-config.xml"})
 public class MessageServiceImplITCase {
 

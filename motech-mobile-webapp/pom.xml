@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dreamoval.motech</groupId>
@@ -157,10 +158,11 @@
                 <filtering>true</filtering>
             </testResource>
             <testResource>
-                <directory>src/main/webapp/WEB-INF</directory>
+                <directory>src/main/webapp</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>**/*-config.xml</include>
+                    <include>WEB-INF/*</include>
+                    <include>**/*.properties</include>
                 </includes>
             </testResource>
         </testResources>
@@ -238,8 +240,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
         <tomcat.home>${env.CATALINA_HOME}</tomcat.home>
         <web.context>${project.parent.artifactId}</web.context>
     </properties>
 </project>
-

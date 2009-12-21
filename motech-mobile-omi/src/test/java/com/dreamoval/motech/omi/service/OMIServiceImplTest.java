@@ -92,6 +92,8 @@ public class OMIServiceImplTest {
         instance.setOmpManager(mockOMP);
         instance.setStoreManager(mockStore);
         instance.setStatHandler(mockHandler);
+        instance.setMaxTries(3);
+        instance.setDefaultLang("en");
     }
 
     /**
