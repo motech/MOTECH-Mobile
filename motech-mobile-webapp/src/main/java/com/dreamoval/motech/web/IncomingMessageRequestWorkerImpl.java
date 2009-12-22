@@ -19,7 +19,7 @@ public class IncomingMessageRequestWorkerImpl implements IncomingMessageRequestW
     private IMPManager impManager;
     private MotechWebSettings webSettings;
 
-    public synchronized String doRequest(Map<String, String> params) {
+    public synchronized String doRequest(Map<String, String[]> params) {
         String result = "No Response";
 
         if(params != null){
@@ -29,10 +29,11 @@ public class IncomingMessageRequestWorkerImpl implements IncomingMessageRequestW
 
                 IMPService impService = getImpManager().createIMPService();
 
-                String number = params.get(webSettings.getIncomingMessageFromParam());
-                String text = params.get(webSettings.getIncomingMessageTextParam());
-
-                result = impService.processRequest(number, text);
+                String[] number = params.get(webSettings.getIncomingMessageFromParam());
+                String[] text = params.get(webSettings.getIncomingMessageTextParam());
+                
+                //TODO Check the array length so it doesn't break disgracefully
+                result = impService.processRequest(number[0], text[0]);
             }else{
                 result = webSettings.getUnknownIMRMessage();
             }

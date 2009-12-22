@@ -22,7 +22,7 @@ public interface IncomingMessageRequestWorker extends Serializable {
      * @param params a map of parameters sent to the Servlet
      * @return the reply to send to the requestor
      */
-    public String doRequest(Map<String, String> params);
+    public String doRequest(Map<String, String[]> params);
 
     /**
      * @return the impManager
