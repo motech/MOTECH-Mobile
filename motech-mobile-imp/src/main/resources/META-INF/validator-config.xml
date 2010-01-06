@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+       
+    
+    <bean id="imFormValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormValidatorImpl">
+        <property name="coreManager" ref="coreManager" />
+        <property name="regWS" ref="registrarClient" />
+        <property name="dateFormat" value="${imp.validator.dateFormat}" />
+        <property name="paramValidators">
+            <map key-type="java.lang.String">
+                <entry key="ALPHA">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.alphaExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                    </list>
+                </entry>
+                <entry key="ALPHANUM">
+                    <list>
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.alphaNumExpression}" />
+                    </bean>
+                    <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                    </list>
+                </entry>
+                <entry key="DATE">
+                    <list>
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.dateFormat}" />
+                    </bean>
+                    <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

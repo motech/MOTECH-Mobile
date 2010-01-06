@@ -9,6 +9,7 @@ Without this configuration present, some functionality in the IDE may be limited
     <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
         <config-files>
             <config-file>src/main/resources/newSpringXMLConfig.xml</config-file>
+            <config-file>src/test/resources/META-INF/omp-test-config.xml</config-file>
         </config-files>
         <config-file-groups/>
     </spring-data>

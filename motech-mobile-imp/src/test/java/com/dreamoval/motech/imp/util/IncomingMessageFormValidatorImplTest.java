@@ -15,14 +15,17 @@ import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinitionImpl;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.ws.server.RegistrarService;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
+import org.motechproject.ws.server.ValidationException;
 
 /**
  *
@@ -32,6 +35,7 @@ public class IncomingMessageFormValidatorImplTest {
     CoreManager mockCore;
     RegistrarService mockRegSvc;
     IncomingMessageFormParameterValidator mockParamValidator;
+    Map<String, List<IncomingMessageFormParameterValidator>> mockValidators;
 
     IncomingMessageFormValidatorImpl instance;
 
@@ -40,14 +44,16 @@ public class IncomingMessageFormValidatorImplTest {
 
     @Before
     public void setUp() {
+        mockValidators = createMock(Map.class);
         mockCore = createMock(CoreManager.class);
         mockRegSvc = createMock(RegistrarService.class);
         mockParamValidator = createMock(IncomingMessageFormParameterValidator.class);
 
+        //instance.setImParamValidator(mockParamValidator);
         instance = new IncomingMessageFormValidatorImpl();
+        instance.setParamValidators(mockValidators);
         instance.setDateFormat("dd.MM.yyyy");
         instance.setCoreManager(mockCore);
-        instance.setImParamValidator(mockParamValidator);
         instance.setRegWS(mockRegSvc);
     }
 
@@ -55,77 +61,44 @@ public class IncomingMessageFormValidatorImplTest {
      * Test of validate method, of class IncomingMessageFormValidatorImpl.
      */
     @Test
-    public void testValidate() {
+    public void testValidate() throws ValidationException {
         System.out.println("validate");
 
         String reqPhone = "000000000000";
 
+        List<IncomingMessageFormParameterValidator> validators = new ArrayList<IncomingMessageFormParameterValidator>();
+        validators.add(mockParamValidator);
+
         IncomingMessageFormParameterDefinitionImpl pDef1 = new IncomingMessageFormParameterDefinitionImpl();
         pDef1.setRequired(true);
-        pDef1.setParamType("DATE");
+        pDef1.setParamType("ALPHANUM");
         pDef1.setLength(10);
-        pDef1.setName("date");
+        pDef1.setName("chpsId");
 
         IncomingMessageFormParameterDefinitionImpl pDef2 = new IncomingMessageFormParameterDefinitionImpl();
         pDef2.setRequired(true);
         pDef2.setParamType("ALPHANUM");
         pDef2.setLength(20);
-        pDef2.setName("serial_id");
-
-        IncomingMessageFormParameterDefinitionImpl pDef3 = new IncomingMessageFormParameterDefinitionImpl();
-        pDef3.setRequired(true);
-        pDef3.setParamType("DATE");
-        pDef3.setLength(10);
-        pDef3.setName("due_date");
-
-        IncomingMessageFormParameterDefinitionImpl pDef4 = new IncomingMessageFormParameterDefinitionImpl();
-        pDef4.setRequired(true);
-        pDef4.setParamType("NUMERIC");
-        pDef4.setLength(1);
-        pDef4.setName("parity");
-
-        IncomingMessageFormParameterDefinitionImpl pDef5 = new IncomingMessageFormParameterDefinitionImpl();
-        pDef5.setRequired(true);
-        pDef5.setParamType("NUMERIC");
-        pDef5.setLength(10);
-        pDef5.setName("haemoglobin");
+        pDef2.setName("patientRegNum");
 
         IncomingMessageFormDefinition formDef = new IncomingMessageFormDefinitionImpl();
         formDef.setFormCode("NONE");
         formDef.setIncomingMsgParamDefinitions(new HashSet<IncomingMessageFormParameterDefinition>());
         formDef.getIncomingMsgParamDefinitions().add(pDef1);
         formDef.getIncomingMsgParamDefinitions().add(pDef2);
-        formDef.getIncomingMsgParamDefinitions().add(pDef3);
-        formDef.getIncomingMsgParamDefinitions().add(pDef4);
-        formDef.getIncomingMsgParamDefinitions().add(pDef5);
 
         IncomingMessageFormParameterImpl param1 = new IncomingMessageFormParameterImpl();
-        param1.setName("date");
-        param1.setValue("13.12.2009");
+        param1.setName("chpsId");
+        param1.setValue("testchps");
 
         IncomingMessageFormParameterImpl param2 = new IncomingMessageFormParameterImpl();
-        param2.setName("serial_id");
-        param2.setValue("tester007");
-
-        IncomingMessageFormParameterImpl param3 = new IncomingMessageFormParameterImpl();
-        param3.setName("due_date");
-        param3.setValue("12.07.2010");
-
-        IncomingMessageFormParameterImpl param4 = new IncomingMessageFormParameterImpl();
-        param4.setName("parity");
-        param4.setValue("1");
-
-        IncomingMessageFormParameterImpl param5 = new IncomingMessageFormParameterImpl();
-        param5.setName("haemoglobin");
-        param5.setValue("abc");
+        param2.setName("patientRegNum");
+        param2.setValue("testpatient");
 
         IncomingMessageForm form = new IncomingMessageFormImpl();
         form.setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
         form.setIncomingMsgFormDefinition(formDef);
         form.getIncomingMsgFormParameters().put(param1.getName(),param1);
-        form.getIncomingMsgFormParameters().put(param2.getName(),param2);
-        form.getIncomingMsgFormParameters().put(param3.getName(),param3);
-        form.getIncomingMsgFormParameters().put(param4.getName(),param4);
         
         //Test with required param missing
         boolean expResult = false;
@@ -134,97 +107,75 @@ public class IncomingMessageFormValidatorImplTest {
                 mockCore.createIncomingMessageFormParameter()
                 ).andReturn(new IncomingMessageFormParameterImpl());
         expect(
-                mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
-                ).andReturn(true).times(4);
-
-        replay(mockCore, mockParamValidator);
-        boolean result = instance.validate(form, reqPhone);
-        verify(mockCore, mockParamValidator);
-        
-        assertEquals(expResult, result);
-        assertEquals(param2.getIncomingMsgFormParamDefinition(), pDef2);
-        assertTrue(form.getIncomingMsgFormParameters().size() == 5);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.INVALID);
-
-        //Test with invalid params
-        form.setMessageFormStatus(IncMessageFormStatus.NEW);
-        form.getIncomingMsgFormParameters().clear();
-        form.getIncomingMsgFormParameters().put(param1.getName(),param1);
-        form.getIncomingMsgFormParameters().put(param2.getName(),param2);
-        form.getIncomingMsgFormParameters().put(param3.getName(),param3);
-        form.getIncomingMsgFormParameters().put(param4.getName(),param4);
-        form.getIncomingMsgFormParameters().put(param5.getName(),param5);
-
-        reset(mockCore, mockParamValidator);
-
+                mockValidators.get(anyObject())
+                ).andReturn(validators);
         expect(
                 mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
-                ).andReturn(false).times(5);
-        
-        replay(mockCore, mockParamValidator);
-        result = instance.validate(form, reqPhone);
-        verify(mockCore, mockParamValidator);
+                ).andReturn(true);
 
+        replay(mockCore, mockParamValidator, mockValidators);
+        boolean result = instance.validate(form, reqPhone);
+        verify(mockCore, mockParamValidator, mockValidators);
+        
         assertEquals(expResult, result);
-        assertEquals(param2.getIncomingMsgFormParamDefinition(), pDef2);
-        assertTrue(form.getIncomingMsgFormParameters().size() == 5);
+        assertEquals(param1.getIncomingMsgFormParamDefinition(), pDef1);
+        assertTrue(form.getIncomingMsgFormParameters().size() == 2);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.INVALID);
 
         //Test with valid form on mobile
-        param5.setValue("10");
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.getIncomingMsgFormParameters().clear();
         form.getIncomingMsgFormParameters().put(param1.getName(),param1);
         form.getIncomingMsgFormParameters().put(param2.getName(),param2);
-        form.getIncomingMsgFormParameters().put(param3.getName(),param3);
-        form.getIncomingMsgFormParameters().put(param4.getName(),param4);
-        form.getIncomingMsgFormParameters().put(param5.getName(),param5);
 
         expResult = false;
 
-        reset(mockCore, mockParamValidator);
+        reset(mockCore, mockParamValidator, mockValidators);
 
         expect(
+                mockValidators.get(anyObject())
+                ).andReturn(validators).times(2);
+        expect(
                 mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
-                ).andReturn(true).times(5);
+                ).andReturn(true).times(2);
 
-        replay(mockCore, mockParamValidator);
+        replay(mockCore, mockParamValidator, mockValidators);
         result = instance.validate(form, reqPhone);
-        verify(mockCore, mockParamValidator);
+        verify(mockCore, mockParamValidator, mockValidators);
 
         assertEquals(expResult, result);
         assertEquals(param2.getIncomingMsgFormParamDefinition(), pDef2);
-        assertTrue(form.getIncomingMsgFormParameters().size() == 5);
+        assertTrue(form.getIncomingMsgFormParameters().size() == 2);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.VALID);
 
         //Test with valid form on mobile and server
-        formDef.setFormCode("PREGNANCY");
+        formDef.setFormCode("CANCEL");
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.getIncomingMsgFormParameters().clear();
         form.getIncomingMsgFormParameters().put(param1.getName(),param1);
         form.getIncomingMsgFormParameters().put(param2.getName(),param2);
-        form.getIncomingMsgFormParameters().put(param3.getName(),param3);
-        form.getIncomingMsgFormParameters().put(param4.getName(),param4);
-        form.getIncomingMsgFormParameters().put(param5.getName(),param5);
 
         expResult = true;
 
-        reset(mockCore, mockParamValidator);
+        reset(mockCore, mockParamValidator, mockValidators);
 
         expect(
+                mockValidators.get(anyObject())
+                ).andReturn(validators).times(2);
+        expect(
                 mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
-                ).andReturn(true).times(5);
+                ).andReturn(true).times(2);
 
-        mockRegSvc.registerPregnancy((String)anyObject(), (Date)anyObject(), (String)anyObject(), (Date)anyObject(), anyInt(), anyDouble());
+        mockRegSvc.stopPregnancyProgram((String)anyObject(), (String)anyObject());
         expectLastCall();
 
-        replay(mockCore, mockParamValidator, mockRegSvc);
+        replay(mockCore, mockParamValidator, mockRegSvc, mockValidators);
         result = instance.validate(form, reqPhone);
-        verify(mockCore, mockParamValidator, mockRegSvc);
+        verify(mockCore, mockParamValidator, mockRegSvc, mockValidators);
 
         assertEquals(expResult, result);
         assertEquals(param2.getIncomingMsgFormParamDefinition(), pDef2);
-        assertTrue(form.getIncomingMsgFormParameters().size() == 5);
+        assertTrue(form.getIncomingMsgFormParameters().size() == 2);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
     }
 

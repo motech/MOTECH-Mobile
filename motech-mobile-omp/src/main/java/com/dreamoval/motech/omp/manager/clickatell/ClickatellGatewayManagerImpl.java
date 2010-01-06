@@ -16,7 +16,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Date;
-import java.util.Properties;
 import java.util.Set;
 import org.apache.log4j.Logger;
 
@@ -28,16 +27,14 @@ import org.apache.log4j.Logger;
  */
 public class ClickatellGatewayManagerImpl implements GatewayManager{
 
-    private static String BASEURL = "https://api.clickatell.com/http/";
-
-    private String postData;
+    private String baseUrl = "https://api.clickatell.com/http/";
     private String apiId;
     private String user;
     private String password;
     private String sender;
     private String deliveryAcknowledge;
     private String callback;
-    private Properties clickProps;
+    private String postData;
     private GatewayMessageHandler messageHandler;
     private static Logger logger = Logger.getLogger(ClickatellGatewayManagerImpl.class);
 
@@ -66,7 +63,7 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
         URLConnection conn;
         
         try {
-            url = new URL(BASEURL + "sendmsg");
+            url = new URL(baseUrl + "sendmsg");
             conn = url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         } 
@@ -125,7 +122,7 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
         URLConnection conn;
 
         try {
-            url = new URL(BASEURL + "querymsg");
+            url = new URL(baseUrl + "querymsg");
             conn = url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         }
@@ -225,6 +222,13 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
 
     public void setCallback(String callback) {
         this.callback = callback;
+    }
+
+    /**
+     * @param baseUrl the baseUrl to set
+     */
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
 }

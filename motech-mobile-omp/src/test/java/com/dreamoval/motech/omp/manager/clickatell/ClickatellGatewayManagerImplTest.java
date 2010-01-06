@@ -82,14 +82,8 @@ public class ClickatellGatewayManagerImplTest {
         GatewayResponseImpl response = new GatewayResponseImpl();
         response.setGatewayMessageId("testId");
 
-        //expect(
-        //        mockHandler.parseMessageStatus((String) anyObject())
-        //        ).andReturn(MStatus.DELIVERED);
-        //replay(mockHandler);
-
         String result = instance.getMessageStatus(response);
         assertNotNull(result);
-        //verify(mockHandler);
     }
 
     /**

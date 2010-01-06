@@ -31,7 +31,7 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      */
     public GatewayMessageHandler createGatewayMessageHandler() {
         try{
-            return (GatewayMessageHandler)context.getBean("messageHandler");
+            return (GatewayMessageHandler)context.getBean("orserveHandler");
         }
         catch(Exception ex){
             logger.error("GatewayMessageHandler creation failed", ex);
@@ -44,7 +44,7 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
      */
     public GatewayManager createGatewayManager() {
         try{
-            return (GatewayManager)context.getBean("gatewayManager");
+            return (GatewayManager)context.getBean("orserveGateway");
         }
         catch(Exception ex){
             logger.fatal("GatewayManager creation failed", ex);

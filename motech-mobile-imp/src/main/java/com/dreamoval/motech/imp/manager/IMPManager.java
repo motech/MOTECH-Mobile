@@ -39,7 +39,7 @@ public interface IMPManager {
      * Creates a wired IncomingMessageFormParameterValidator instance
      * @return the created IncomingMessageFormParameterValidator
      */
-    IncomingMessageFormParameterValidator createIncomingMessageFormParameterValidator();
+    //IncomingMessageFormParameterValidator createIncomingMessageFormParameterValidator();
 
     /**
      * Creates a wired CommandAction instance

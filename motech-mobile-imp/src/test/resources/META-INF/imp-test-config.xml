@@ -18,7 +18,23 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
+    <import resource="classpath:META-INF/core-config.xml" />
+    <import resource="classpath:META-INF/validator-test-config.xml" />
+
+    <!--Spring specific-->
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:mysql.hibernate.properties</value>
+                <value>classpath:mysql.jdbc.properties</value>
+                <value>classpath:imp.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <bean id="impService" class="com.dreamoval.motech.imp.serivce.IMPServiceImpl">
+        <property name="coreManager" ref="coreManager" />
         <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
         <!--<property name="cmdActionMap">
@@ -33,52 +49,36 @@
     <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
 
     <bean id="imParser" class="com.dreamoval.motech.imp.util.IncomingMessageParserImpl" >
-        <property name="separator" value="=" />
-        <property name="delimiter" value="\n" />
-        <property name="cmdRegex" value="^[tT](ype|YPE)" />
-        <property name="typeRegex" value="^[tT](ype|YPE)\s*=\s*\w+" />
-        <property name="paramRegex" value="[a-zA-Z0-9_\-]+\s*=([a-zA-Z0-9_\-\s/.'])+" />
+        <property name="coreManager" ref="coreManager" />
+        <property name="separator" value="${imp.form.param.valueSparator}" />
+        <property name="delimiter" value="${imp.form.param.delimiter}" />
+        <property name="cmdRegex" value="${imp.form.commandExpression}" />
+        <property name="typeRegex" value="${imp.form.typeExpression}" />
+        <property name="paramRegex" value="${imp.form.paramExpression}" />
     </bean>
 
     <bean id="formCmdAxn" class="com.dreamoval.motech.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
+        <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
     <bean id="updateCmdAxn" class="com.dreamoval.motech.imp.util.UpdateCommandAction">
         <property name="formValidator" ref="imFormValidator" />
+        <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
     <bean id="stopCmdAxn" class="com.dreamoval.motech.imp.util.StopCommandAction">
-    </bean>
-
-    <bean id="imFormValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormValidatorImpl">
-        <property name="imParamValidator" ref="imParamValidator" />
-        <property name="regWS" ref="registrarClient" />
-        <property name="dateFormat" value="dd/MM/yyyy" />
-    </bean>
-
-    <bean id="imParamValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormParameterValidatorImpl">
-        <property name="paramTypeMap">
-            <map>
-                <entry key="ALPHA" value="[a-zA-Z.,'\-\s]+" />
-                <entry key="ALPHANUM" value="[a-zA-Z0-9.,'\-\_\s]+" />
-                <entry key="BOOLEAN" value="Y|y|N|n" />
-                <entry key="GENDER" value="M|m|F|f" />
-                <entry key="DATE" value="dd.MM.yyyy" />
-                <!--((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)[\- /.](0?[1-9]|1[012])\2((0?[1-9]|[12][0-9]|3[01])|(19|20)?\d\d)-->
-                <entry key="NUMERIC" value="\d+" />
-            </map>
-        </property>
+        <property name="coreManager" ref="coreManager" />
     </bean>
 
     <bean id="registrarClient"
             class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
             <property name="serviceInterface" value="org.motechproject.ws.server.RegistrarService" />
             <property name="wsdlDocumentUrl"
-                    value="http://localhost:8080/openmrs/ws/RegistrarService?wsdl" />
-            <property name="namespaceUri" value="http://server.ws.motechproject.org/" />
+                    value="${registrar.webservice.wsdlUrl}" />
+            <property name="namespaceUri" value="${registrar.webservice.namespaceUri}" />
             <property name="serviceName" value="RegistrarWebServiceService" />
             <property name="portName" value="RegistrarWebServicePort" />
             <property name="lookupServiceOnStartup" value="false" />

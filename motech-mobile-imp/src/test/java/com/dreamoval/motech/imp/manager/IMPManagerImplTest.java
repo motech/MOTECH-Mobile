@@ -68,13 +68,13 @@ public class IMPManagerImplTest {
     /**
      * Test of createIncomingMessageFormParameterValidator method, of class IMPManagerImpl.
      */
-    @Test
-    public void testCreateIncomingMessageFormParameterValidator() {
-        System.out.println("createIncomingMessageFormParameterValidator");
-
-        IncomingMessageFormParameterValidator result = impManager.createIncomingMessageFormParameterValidator();
-        assertNotNull(result);
-    }
+//    @Test
+//    public void testCreateIncomingMessageFormParameterValidator() {
+//        System.out.println("createIncomingMessageFormParameterValidator");
+//
+//        IncomingMessageFormParameterValidator result = impManager.createIncomingMessageFormParameterValidator();
+//        assertNotNull(result);
+//    }
 
     /**
      * Test of createIncomingMessageFormParameterValidator method, of class IMPManagerImpl.

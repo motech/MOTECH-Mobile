@@ -7,7 +7,6 @@ package com.dreamoval.motech.imp.manager;
 
 import com.dreamoval.motech.imp.serivce.IMPService;
 import com.dreamoval.motech.imp.util.CommandAction;
-import com.dreamoval.motech.imp.util.IncomingMessageFormParameterValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageFormValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import org.springframework.beans.BeansException;
@@ -51,9 +50,9 @@ public class IMPManagerImpl implements ApplicationContextAware, IMPManager{
      * Creates a wired IncomingMessageFormParameterValidator instance
      * @return the created IncomingMessageFormParameterValidator
      */
-    public IncomingMessageFormParameterValidator createIncomingMessageFormParameterValidator(){
-        return (IncomingMessageFormParameterValidator)context.getBean("imParamValidator");
-    }
+//    public IncomingMessageFormParameterValidator createIncomingMessageFormParameterValidator(){
+//        return (IncomingMessageFormParameterValidator)context.getBean("imParamValidator");
+//    }
 
     public CommandAction createCommandAction() {
         return (CommandAction)context.getBean("formCmdAxn");
