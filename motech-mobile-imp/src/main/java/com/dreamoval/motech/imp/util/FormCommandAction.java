@@ -124,7 +124,7 @@ public class FormCommandAction implements CommandAction {
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.setDateCreated(new Date());
         form.setIncomingMsgFormParameters(new HashMap<String, IncomingMessageFormParameter>());
-        form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent(), context));
+        form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent()));
 
         IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO(context);
         Transaction tx = (Transaction) formDao.getDBSession().getTransaction();
@@ -164,7 +164,7 @@ public class FormCommandAction implements CommandAction {
             String responseText = "Errors:";
             for (Entry<String, IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
                 if (entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID) || entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.SERVER_INVALID)) {
-                    responseText += '\n' + entry.getValue().getErrText();
+                    responseText += '\n' + entry.getValue().getName() + "=" + entry.getValue().getErrText();
                 }
             }
             response.setContent(responseText);

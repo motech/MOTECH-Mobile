@@ -36,6 +36,7 @@ public class IncomingMessageFormDefinitionDAOImpl extends HibernateGenericDAOImp
 
             IncomingMessageFormDefinition definition = (IncomingMessageFormDefinition)sess.createCriteria(this.getPersistentClass())
                     .add(code)
+                    .setMaxResults(1)
                     .uniqueResult();
 
             logger.debug(definition);

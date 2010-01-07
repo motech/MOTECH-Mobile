@@ -26,12 +26,12 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                 param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
             } catch (ParseException ex) {
                 param.setErrCode(1);
-                param.setErrText(param.getName() + "=wrong format");
+                param.setErrText("wrong format");
                 param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
             }
         } else if (!Pattern.matches(expression, param.getValue().trim())) {
             param.setErrCode(1);
-            param.setErrText(param.getName() + "=wrong format");
+            param.setErrText("wrong format");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);

@@ -7,7 +7,6 @@ package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
-import com.dreamoval.motech.core.service.MotechContext;
 import java.util.Map;
 
 /**
@@ -42,5 +41,5 @@ public interface IncomingMessageParser {
      * @param message the text to parse
      * @return the message parameters
      */
-    Map<String,IncomingMessageFormParameter> getParams(String message, MotechContext context);
+    Map<String,IncomingMessageFormParameter> getParams(String message);
 }

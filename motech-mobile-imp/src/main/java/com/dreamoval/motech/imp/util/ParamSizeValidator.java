@@ -19,7 +19,7 @@ public class ParamSizeValidator implements IncomingMessageFormParameterValidator
 
         if (param.getValue().trim().length() > param.getIncomingMsgFormParamDefinition().getLength()) {
             param.setErrCode(2);
-            param.setErrText(param.getName() + "=too long");
+            param.setErrText("too long");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         }
 

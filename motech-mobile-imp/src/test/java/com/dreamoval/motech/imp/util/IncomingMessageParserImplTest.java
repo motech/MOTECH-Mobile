@@ -5,19 +5,14 @@
 
 package com.dreamoval.motech.imp.util;
 
-import com.dreamoval.motech.core.dao.DBSession;
 import com.dreamoval.motech.core.manager.CoreManager;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
-import com.dreamoval.motech.core.service.MotechContext;
-import com.dreamoval.motech.core.service.MotechContextImpl;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageFormParameterDAO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -106,16 +101,12 @@ public class IncomingMessageParserImplTest {
     @Test
     public void testGetParams() {
         System.out.println("getParams");
-        String message = "Type=GENERAL\naction=test\nmessage=Test, Dream Tester\ndob = 01/01/01\ndue-date=right. now\ntest_format=all";
+        String message = "Type=GENERAL\naction=test\nmessage=Test, Dream Tester\ndob = 01.01.01\ndue-date=right. now\ntest_format=all";
 
         List<IncomingMessageFormParameter> expResult = new ArrayList<IncomingMessageFormParameter>();
 
-        Transaction mockTrans = createMock(Transaction.class);
-        DBSession mockSess = createMock(DBSession.class);
-        IncomingMessageFormParameterDAO mockImParamDao = createMock(IncomingMessageFormParameterDAO.class);
-
         IncomingMessageFormParameter param1 = new IncomingMessageFormParameterImpl();
-        param1.setName("type");
+        param1.setName("action");
         param1.setValue("test");
         expResult.add(param1);
 
@@ -131,7 +122,7 @@ public class IncomingMessageParserImplTest {
 
         IncomingMessageFormParameter param4 = new IncomingMessageFormParameterImpl();
         param1.setName("due-date");
-        param1.setValue("right now");
+        param1.setValue("right. now");
         expResult.add(param4);
 
         IncomingMessageFormParameter param5 = new IncomingMessageFormParameterImpl();
@@ -142,29 +133,10 @@ public class IncomingMessageParserImplTest {
         expect(
                 mockCore.createIncomingMessageFormParameter()
                 ).andReturn(new IncomingMessageFormParameterImpl()).times(expResult.size());
-        expect(
-                mockCore.createIncomingMessageFormParameterDAO((MotechContext)anyObject())
-                ).andReturn(mockImParamDao);
-        expect(
-                mockImParamDao.getDBSession()
-                ).andReturn(mockSess);
-        expect(
-                mockSess.getTransaction()
-                ).andReturn(mockTrans);
 
-        mockTrans.begin();
-        expectLastCall();
-
-        expect(
-                mockImParamDao.save((IncomingMessageFormParameter)anyObject())
-                ).andReturn(param1).times(expResult.size());
-
-        mockTrans.commit();
-        expectLastCall();
-
-        replay(mockCore,mockImParamDao,mockSess,mockTrans);
-        Map<String,IncomingMessageFormParameter> result = imParser.getParams(message, new MotechContextImpl());
-        verify(mockCore,mockImParamDao,mockSess,mockTrans);
+        replay(mockCore);
+        Map<String,IncomingMessageFormParameter> result = imParser.getParams(message);
+        verify(mockCore);
         
         assertNotNull(result);
         assertEquals(result.size(), expResult.size());

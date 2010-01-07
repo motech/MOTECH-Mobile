@@ -122,7 +122,7 @@ public class FormCommandActionTest {
                 mockCore.createIncomingMessageForm()
                 ).andReturn(msgForm);
         expect(
-                mockParser.getParams((String)anyObject(), (MotechContext)anyObject())
+                mockParser.getParams((String)anyObject())
                 ).andReturn(new HashMap<String,IncomingMessageFormParameter>());
         expect(
                 mockCore.createIncomingMessageFormDAO((MotechContext)anyObject())
@@ -254,7 +254,7 @@ public class FormCommandActionTest {
                 mockCore.createIncomingMessageForm()
                 ).andReturn(new IncomingMessageFormImpl());
         expect(
-                mockParser.getParams((String)anyObject(), (MotechContext)anyObject())
+                mockParser.getParams((String)anyObject())
                 ).andReturn(new HashMap<String,IncomingMessageFormParameter>());
         expect(
                 mockCore.createIncomingMessageFormDAO((MotechContext)anyObject())
@@ -324,12 +324,12 @@ public class FormCommandActionTest {
         //Test for locally invalid form
         IncomingMessageFormParameter param1 = new IncomingMessageFormParameterImpl();
         param1.setName("name");
-        param1.setErrText("name=wrong format");
+        param1.setErrText("wrong format");
         param1.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
 
         IncomingMessageFormParameter param2 = new IncomingMessageFormParameterImpl();
         param2.setName("age");
-        param2.setErrText("age=too long");
+        param2.setErrText("too long");
         param2.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
 
         message.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.INVALID);
@@ -353,7 +353,7 @@ public class FormCommandActionTest {
 
         //Test for server invalid form
         param2.setName("age");
-        param2.setErrText("age=server error");
+        param2.setErrText("server error");
         param2.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
 
         message.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);

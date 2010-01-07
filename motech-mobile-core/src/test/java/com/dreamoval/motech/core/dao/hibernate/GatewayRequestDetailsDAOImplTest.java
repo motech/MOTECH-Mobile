@@ -13,6 +13,7 @@ import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.core.service.MotechContext;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -89,6 +90,14 @@ public class GatewayRequestDetailsDAOImplTest {
 
     }
 
+    @After
+    public void tearDown(){
+        Session session = (Session) grDao.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        grDao.delete(grd1);
+        tx.commit();
+    }
+    
     /**
      * Test of save method, of class GatewayRequestDetailsDAOImpl.
      */

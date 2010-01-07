@@ -22,7 +22,7 @@ public class ParamRangeValidator implements IncomingMessageFormParameterValidato
 
         if (value < minValue || value > maxValue) {
             param.setErrCode(3);
-            param.setErrText(param.getName() + "=out of range");
+            param.setErrText("out of range");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         }
         else

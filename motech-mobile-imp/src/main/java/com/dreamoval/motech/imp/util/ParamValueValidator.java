@@ -23,7 +23,7 @@ public class ParamValueValidator implements IncomingMessageFormParameterValidato
 
         if (!values.contains(param.getValue().trim())) {
             param.setErrCode(3);
-            param.setErrText(param.getName() + "=out of range");
+            param.setErrText("out of range");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else if (conversions.containsKey(param.getValue().trim())) {
             param.setValue(conversions.get(param.getValue()));

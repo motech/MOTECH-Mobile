@@ -38,16 +38,16 @@ public class IncomingMessageFormParameterValidatorImpl implements IncomingMessag
                 param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
             } catch (ParseException ex) {
                 param.setErrCode(1);
-                param.setErrText(param.getName() + "=wrong format");
+                param.setErrText("wrong format");
                 param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
             }
         } else if (!Pattern.matches(paramRegex, param.getValue().trim())) {
             param.setErrCode(1);
-            param.setErrText(param.getName() + "=wrong format");
+            param.setErrText("wrong format");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else if (param.getValue().trim().length() > param.getIncomingMsgFormParamDefinition().getLength()) {
             param.setErrCode(2);
-            param.setErrText(param.getName() + "=too long");
+            param.setErrText("too long");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
             if(param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("BOOLEAN"))

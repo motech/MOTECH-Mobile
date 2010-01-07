@@ -5,8 +5,6 @@ import com.dreamoval.motech.core.model.IncMessageFormParameterStatus;
 import com.dreamoval.motech.core.model.IncMessageStatus;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
-import com.dreamoval.motech.core.service.MotechContext;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageFormParameterDAO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.*;
 import org.apache.log4j.Logger;
-import org.hibernate.Transaction;
 
 /**
  * Converts IncomingMessages into IncomingMessageForms
@@ -86,7 +83,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getParams
      */
-    public synchronized Map<String, IncomingMessageFormParameter> getParams(String message, MotechContext context) {
+    public synchronized Map<String, IncomingMessageFormParameter> getParams(String message) {
         Map<String, IncomingMessageFormParameter> params = new HashMap<String, IncomingMessageFormParameter>();
         List<String> pList = new ArrayList<String>();
 
@@ -100,18 +97,12 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         } else {
             Pattern pattern = Pattern.compile(paramRegex);
             Matcher matcher = pattern.matcher(message.trim());
-
+            
             while (matcher.find()) {
                 String match = matcher.group();
                 pList.add(match);
             }
         }
-
-        IncomingMessageFormParameterDAO imParamDao = coreManager.createIncomingMessageFormParameterDAO(context);
-        Transaction tx = (Transaction) imParamDao.getDBSession().getTransaction();
-
-        try {
-            tx.begin();
 
             for (String param : pList) {
                 param = param.trim();
@@ -125,15 +116,8 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
                     imParam.setName(paramParts[0].trim());
                     imParam.setValue(paramParts[1].trim());
                     params.put(imParam.getName(), imParam);
-
-                    imParamDao.save(imParam);
                 }
             }
-            tx.commit();
-        } catch (Exception ex) {
-            logger.error("Error saving form parameters", ex);
-            tx.rollback();
-        }
         
         return params;
     }

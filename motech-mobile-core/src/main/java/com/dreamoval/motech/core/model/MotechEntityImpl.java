@@ -9,7 +9,7 @@ package com.dreamoval.motech.core.model;
  */
 public abstract class MotechEntityImpl implements MotechEntity {
     private Long id;
-    private int version = 0;
+    private int version = -1;
     /**
      * @see {@link com.dreamoval..motech.core.model.MotechEntity#getId()}
      */
