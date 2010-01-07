@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
@@ -37,15 +32,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
 public class IncomingMessageDAOImplTest {
 
-     @Autowired
+    @Autowired
     CoreManager coreManager;
     IncomingMessageDAO imDAO;
     IncomingMessageSessionDAO imsDAO;
-
     @Autowired
     private IncomingMessageSession ims1;
-
-
     @Autowired
     private IncomingMessage im1;
     @Autowired
@@ -93,7 +85,7 @@ public class IncomingMessageDAOImplTest {
     public void tearDown() {
     }
 
-     /**
+    /**
      * Test of save method, of class IncomingMessageDAOImpl.
      */
     @Test
@@ -118,5 +110,4 @@ public class IncomingMessageDAOImplTest {
         System.out.println(fromdb.toString());
 
     }
-
 }

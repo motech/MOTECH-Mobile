@@ -26,4 +26,16 @@ public interface MotechEntity extends Serializable {
      * @param id the id to set
      */
     public void setId(Long id);
+
+    /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
+
+
 }

@@ -150,11 +150,18 @@ public class GatewayResponseDAOImplTest {
     @After
     public void teardown(){
         
-        Session session = (Session) rDDAO.getDBSession().getSession();
+        Session session = (Session) grDAO.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
-        grDAO.delete(rd7);
-        rDDAO.delete(rq1);
-        tx.commit();;
+        rDDAO.delete(rd1);
+        rDDAO.delete(rd2);
+        rDDAO.delete(rd3);
+        rDDAO.delete(rd4);
+        rDDAO.delete(rd5);
+        rDDAO.delete(rd7);
+        rDDAO.delete(rd8);
+        grDAO.delete(rq1);
+
+        tx.commit();
     }
 
 

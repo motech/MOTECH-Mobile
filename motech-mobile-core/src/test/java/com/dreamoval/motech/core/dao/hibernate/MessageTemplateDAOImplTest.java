@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -118,7 +119,7 @@ public class MessageTemplateDAOImplTest {
         mt5.setLanguage(l1);
         mt5.setMessageType(type);
         mt5.setTemplate("template for message 5");
-
+               
         Session session = (Session) ntDao.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
         lDao.save(l1);
@@ -132,6 +133,23 @@ public class MessageTemplateDAOImplTest {
         tx.commit();
     }
 
+    @After
+    public void tearDown() {
+     Session session = (Session) ntDao.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        mtDao.delete(mt1);
+        mtDao.delete(mt2);
+        mtDao.delete(mt3);
+        mtDao.delete(mt4);
+        mtDao.delete(mt5);
+        ntDao.delete(nt1);
+        ntDao.delete(nt2);
+        ntDao.delete(nt3);
+        lDao.delete(l1);
+        lDao.delete(l2);
+        tx.commit();
+    }
+    
     /**
      * Test of save method, of class MessagTemplateDAOImpl.
      */
@@ -180,20 +198,7 @@ public class MessageTemplateDAOImplTest {
 
     }
 
-    /**
-     * Test of delete method, of class MessagTemplateDAOImpl.
-     */
-    @Test
-    public void testDelete() {
-        System.out.println("test MessageTemplate delete");
-        Session session = (Session) mtDao.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
-        mtDao.delete(mt4);
-        tx.commit();
-
-        MessageTemplate fromdb = (MessageTemplate) session.get(MessageTemplateImpl.class, mt4.getId());
-        Assert.assertNull(fromdb);
-    }
+  
 
     /**
      * Test of save method with update purpose, of class MessagTemplateDAOImpl.
@@ -203,23 +208,29 @@ public class MessageTemplateDAOImplTest {
         System.out.println("test MessageTemplateDAO update");
         String alttemplate = "altered template";
         Date altdate = new Date();
-        mt5.setDateCreated(altdate);
-        mt5.setMessageType(type);
-        mt5.setNotificationType(nt2);
-        mt5.setTemplate(alttemplate);
+
         Session session = (Session) mtDao.getDBSession().getSession();
+
+        MessageTemplate fromdb1 = (MessageTemplateImpl) session.get(MessageTemplateImpl.class, mt5.getId());
+        fromdb1.setDateCreated(altdate);
+        fromdb1.setMessageType(type);
+        fromdb1.setNotificationType(nt2);
+        fromdb1.setTemplate(alttemplate);
+
         Transaction tx = session.beginTransaction();
-        mtDao.save(mt5);
+        mtDao.save(fromdb1);
         tx.commit();
 
-        MessageTemplate fromdb = (MessageTemplateImpl) session.get(MessageTemplateImpl.class, mt5.getId());
+
+        MessageTemplate fromdb = (MessageTemplateImpl) session.get(MessageTemplateImpl.class, fromdb1.getId());
+
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(mt5, fromdb);
         Assert.assertEquals(nt2, fromdb.getNotificationType());
         Assert.assertEquals(alttemplate, fromdb.getTemplate());
         Assert.assertEquals(altdate, fromdb.getDateCreated());
     }
-
+    
     /**
      * Test of findByExample method, of class MessagTemplateDAOImpl.
      */
@@ -234,5 +245,19 @@ public class MessageTemplateDAOImplTest {
         Assert.assertEquals(expResult, result);
         Assert.assertEquals(expResult.size(), result.size());
 
+    }
+    /**
+     * Test of delete method, of class MessagTemplateDAOImpl.
+     */
+    @Test
+    public void testDelete() {
+        System.out.println("test MessageTemplate delete");
+        Session session = (Session) mtDao.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        mtDao.delete(mt4);
+        tx.commit();
+
+        MessageTemplate fromdb = (MessageTemplate) session.get(MessageTemplateImpl.class, mt4.getId());
+        Assert.assertNull(fromdb);
     }
 }

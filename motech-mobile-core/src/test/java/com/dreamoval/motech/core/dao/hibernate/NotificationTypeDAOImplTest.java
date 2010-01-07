@@ -1,5 +1,3 @@
-
-
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.NotificationTypeDAO;
@@ -10,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,11 +27,9 @@ public class NotificationTypeDAOImplTest {
 
     public NotificationTypeDAOImplTest() {
     }
-
     NotificationTypeDAO nDao;
     @Autowired
     CoreManager coreManager;
-    
     @Autowired
     NotificationType nt1;
     @Autowired
@@ -45,8 +42,6 @@ public class NotificationTypeDAOImplTest {
     NotificationType nt5;
     @Autowired
     NotificationType nt6;
-
-
 
     @Before
     public void setUp() {
@@ -79,21 +74,32 @@ public class NotificationTypeDAOImplTest {
         tx.commit();
     }
 
+    @After
+    public void tearDown() {
+        Session session = (Session) nDao.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        nDao.delete(nt1);
+        nDao.delete(nt2);
+        nDao.delete(nt3);
+        nDao.delete(nt4);
+        tx.commit();
+    }
+
     /**
      * Test of save method, of NotificationTypeDAOImpl.
      */
     @Test
-    public void testSave(){
-            System.out.println("test save NotificationType");
-            Session session = (Session) nDao.getDBSession().getSession();
-            Transaction tx = session.beginTransaction();
-            nDao.save(nt1);
-            tx.commit();
+    public void testSave() {
+        System.out.println("test save NotificationType");
+        Session session = (Session) nDao.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        nDao.save(nt1);
+        tx.commit();
 
-            session.beginTransaction();
-            NotificationType fromdb = (NotificationType) session.get(NotificationTypeImpl.class, nt1.getId());
-            session.getTransaction().commit();
-            Assert.assertNotNull(fromdb);
+        session.beginTransaction();
+        NotificationType fromdb = (NotificationType) session.get(NotificationTypeImpl.class, nt1.getId());
+        session.getTransaction().commit();
+        Assert.assertNotNull(fromdb);
     }
 
     /**
@@ -102,7 +108,7 @@ public class NotificationTypeDAOImplTest {
     @Test
     public void testUpdate() {
         System.out.print("test NotificationType update");
-        String altname ="altered name 2";
+        String altname = "altered name 2";
         String description = "description";
         nt2.setName(altname);
         nt2.setDescription(description);
@@ -117,7 +123,7 @@ public class NotificationTypeDAOImplTest {
         Assert.assertEquals(description, fromdb.getDescription());
     }
 
-     /**
+    /**
      * Test of delete method, of NotificationTypeDAOImpl.
      */
     @Test
@@ -131,12 +137,12 @@ public class NotificationTypeDAOImplTest {
         NotificationType fromdb = (NotificationTypeImpl) session.get(NotificationTypeImpl.class, nt3.getId());
         Assert.assertNull(fromdb);
     }
-    
-     /**
+
+    /**
      * Test of getAll method, of NotificationTypeDAOImpl.
      */
     @Test
-    public void testGetAll(){
+    public void testGetAll() {
         System.out.print("test NotificationType delete");
         List all = new ArrayList();
         all.add(nt2);
@@ -148,36 +154,34 @@ public class NotificationTypeDAOImplTest {
         Assert.assertTrue(allfromdb.contains(nt2));
         Assert.assertTrue(allfromdb.contains(nt3));
         Assert.assertTrue(allfromdb.contains(nt4));
-     
+
     }
 
-     /**
+    /**
      * Test of getById method, of NotificationTypeDAOImpl.
      */
-   @Test
-   public void testGetById() {
-       System.out.print("test NotificationType getById");
-       NotificationType fromdb = (NotificationTypeImpl) nDao.getById(nt3.getId());
-       Assert.assertNotNull(fromdb);
-       Assert.assertEquals(fromdb, nt3);
-       Assert.assertEquals(fromdb.getId(), nt3.getId());
-   }
+    @Test
+    public void testGetById() {
+        System.out.print("test NotificationType getById");
+        NotificationType fromdb = (NotificationTypeImpl) nDao.getById(nt3.getId());
+        Assert.assertNotNull(fromdb);
+        Assert.assertEquals(fromdb, nt3);
+        Assert.assertEquals(fromdb.getId(), nt3.getId());
+    }
 
     /**
      * Test of findByExample  method, of NotificationTypeDAOImpl.
      */
-   @Test
-   public void testFindByExample() {
-       System.out.println("test NotificationType findByExample");
-       List expResult = new ArrayList();
-       expResult.add(nt3);
-       nt6.setName(nt3.getName());
-       nt6.setDescription(nt3.getDescription());
-       List result = nDao.findByExample(nt6);
-       Assert.assertNotNull(result);
-       Assert.assertEquals(expResult, result);
-       
-   }
+    @Test
+    public void testFindByExample() {
+        System.out.println("test NotificationType findByExample");
+        List expResult = new ArrayList();
+        expResult.add(nt3);
+        nt6.setName(nt3.getName());
+        nt6.setDescription(nt3.getDescription());
+        List result = nDao.findByExample(nt6);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(expResult, result);
 
-
+    }
 }

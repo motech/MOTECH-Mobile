@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Transaction;
+import org.junit.After;
 
 /**
  *  Date : Aug 4, 2009
@@ -83,7 +84,17 @@ public class TransitionDAOImplTest {
         tx.commit();
     }
 
-//    @Ignore
+    @After
+    public void tearDown() {
+        Transaction tx = ((Session) tDAO.getDBSession().getSession()).beginTransaction();
+        tDAO.delete(t1);
+        tDAO.delete(t2);
+        tDAO.delete(t3);
+        tDAO.delete(t4);
+        tDAO.delete(t5);
+        tx.commit();
+    }
+
     @Test
     public void testSave() {
         System.out.println("Save Transition");

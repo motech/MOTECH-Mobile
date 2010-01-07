@@ -169,6 +169,17 @@ public class GatewayRequestDAOImplTest {
 
     @After
     public void tearDown() {
+        Transaction tx = ((Session) mDDAO.getDBSession().getSession()).beginTransaction();
+
+        mDDAO.delete(md1);
+        mDDAO.delete(md2);
+        mDDAO.delete(md3);
+        mDDAO.delete(md4);
+        mDDAO.delete(md5);
+        mDDAO.delete(md6);
+
+        tx.commit();
+
     }
 
     public void setUpInitialData() {

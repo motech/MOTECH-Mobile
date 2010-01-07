@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -156,6 +157,21 @@ public class MessageRequestDAOImplTest {
         expResult.add(mr3);
     }
 
+    @After
+    public void tearDown() {
+        Session session = (Session) lDAO.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+        mrDAO.delete(mr1);
+        mrDAO.delete(mr2);
+        mrDAO.delete(mr3);
+        mrDAO.delete(mr4);
+        mrDAO.delete(mr5);
+        lDAO.delete(lg1);
+        ntDao.delete(nt1);
+        
+        tx.commit();
+    }
+
     /**
      * Test of save method, of class MessageRequestDAOImpl.
      */
@@ -172,7 +188,6 @@ public class MessageRequestDAOImplTest {
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(t, fromdb.getMessageType());
         Assert.assertEquals(lg1.getCode(), fromdb.getLanguage().getCode());
-        System.out.println(fromdb.toString());
     }
 
     /**
@@ -183,21 +198,17 @@ public class MessageRequestDAOImplTest {
         System.out.println("getMsgRequestByStatusAndSchedule");
 
         List result = mrDAO.getMsgRequestByStatusAndSchedule(sta, schedule);
-        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isEmpty());
         Assert.assertEquals(expResult.size(), result.size());
         Assert.assertTrue(result.contains(mr2));
         Assert.assertTrue(result.contains(mr3));
-        Assert.assertEquals(expResult, result);
-
     }
 
-
-
-     /**
+    /**
      * Test of delete method, of class MessageRequestDAOImpl.
      */
     @Test
-    public void testDelete(){
+    public void testDelete() {
         System.out.println("test MessageRequest delete");
         Session session = (Session) mrDAO.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
@@ -222,9 +233,10 @@ public class MessageRequestDAOImplTest {
         Assert.assertEquals(expResult, result);
         Assert.assertTrue(result.contains(mr4));
         Assert.assertTrue(result.contains(mr5));
-      
+
     }
-        /**
+
+    /**
      * Test of getById method, of class MessageRequestDAOImpl.
      */
     @Test
@@ -251,6 +263,6 @@ public class MessageRequestDAOImplTest {
         Assert.assertEquals(expResult.size(), result.size());
         Assert.assertEquals(true, result.contains(mr4));
         Assert.assertEquals(true, result.contains(mr5));
-        
+
     }
 }

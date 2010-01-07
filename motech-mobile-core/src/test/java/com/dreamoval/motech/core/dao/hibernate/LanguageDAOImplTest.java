@@ -46,7 +46,6 @@ public class LanguageDAOImplTest {
     @Autowired
     CoreManager coreManager;
     String code;
-    
     MotechContext mc;
 
     @Before
@@ -80,16 +79,24 @@ public class LanguageDAOImplTest {
 
 
         Session session = (Session) lDao.getDBSession().getSession();
-        
+
         Transaction tx = session.beginTransaction();
         lDao.save(l2);
         lDao.save(l3);
         lDao.save(l4);
         tx.commit();
     }
-    
+
     @After
-    public void cleanUp(){
+    public void tearDown() {
+        Session session = (Session) lDao.getDBSession().getSession();
+        Transaction tx = session.beginTransaction();
+
+        lDao.delete(l1);
+        lDao.delete(l2);
+        lDao.delete(l3);
+        lDao.delete(l4);
+        tx.commit();
         mc.cleanUp();
     }
 
