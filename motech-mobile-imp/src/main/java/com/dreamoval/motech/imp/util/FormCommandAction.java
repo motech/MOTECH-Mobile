@@ -67,6 +67,10 @@ public class FormCommandAction implements CommandAction {
         imSession.setDateEnded(new Date());
         imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
 
+        if (context.getDBSession() != null) {
+            ((Session) context.getDBSession().getSession()).clear();
+        }
+
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
         Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
         tx.begin();
@@ -74,7 +78,7 @@ public class FormCommandAction implements CommandAction {
         tx.commit();
 
         context.cleanUp();
-        
+
         return response;
     }
 
@@ -102,9 +106,6 @@ public class FormCommandAction implements CommandAction {
         sessionDao.save(imSession);
         tx.commit();
 
-        if(context.getDBSession() != null)
-            ((Session)context.getDBSession().getSession()).clear();
-        
         return imSession;
     }
 
@@ -122,17 +123,20 @@ public class FormCommandAction implements CommandAction {
         form.setIncomingMsgFormDefinition(formDefn);
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.setDateCreated(new Date());
-        form.setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
-        form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent()));
+        form.setIncomingMsgFormParameters(new HashMap<String, IncomingMessageFormParameter>());
+        form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent(), context));
 
         IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO(context);
         Transaction tx = (Transaction) formDao.getDBSession().getTransaction();
-        tx.begin();
-        formDao.save(form);
-        tx.commit();
-
-        if(context.getDBSession() != null)
-            ((Session)context.getDBSession().getSession()).clear();
+        
+        try {
+            tx.begin();
+            formDao.save(form);
+            tx.commit();
+        } catch (Exception ex) {
+            logger.error("Error initializing form", ex);
+            tx.rollback();
+        }
 
         return form;
     }
@@ -158,7 +162,7 @@ public class FormCommandAction implements CommandAction {
             response.setContent("Saved");
         } else {
             String responseText = "Errors:";
-            for (Entry<String,IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
+            for (Entry<String, IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
                 if (entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID) || entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.SERVER_INVALID)) {
                     responseText += '\n' + entry.getValue().getErrText();
                 }
@@ -166,7 +170,7 @@ public class FormCommandAction implements CommandAction {
             response.setContent(responseText);
         }
         response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
-        
+
         return response;
     }
 

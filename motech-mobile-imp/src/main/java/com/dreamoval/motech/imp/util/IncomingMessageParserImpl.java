@@ -5,12 +5,16 @@ import com.dreamoval.motech.core.model.IncMessageFormParameterStatus;
 import com.dreamoval.motech.core.model.IncMessageStatus;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageFormParameterDAO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.*;
+import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
 
 /**
  * Converts IncomingMessages into IncomingMessageForms
@@ -26,6 +30,8 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
     private String cmdRegex;
     private String typeRegex;
     private String paramRegex;
+
+    private static Logger logger = Logger.getLogger(IncomingMessageParserImpl.class);
 
     /**
      * @see IncomingMessageParser.parseRequest
@@ -80,18 +86,18 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getParams
      */
-    public synchronized Map<String, IncomingMessageFormParameter> getParams(String message) {
+    public synchronized Map<String, IncomingMessageFormParameter> getParams(String message, MotechContext context) {
         Map<String, IncomingMessageFormParameter> params = new HashMap<String, IncomingMessageFormParameter>();
         List<String> pList = new ArrayList<String>();
 
         if (delimiter != null && !delimiter.equals("")) {
             String[] paramArr = message.split(delimiter);
-            for(String p : paramArr){
-                if(!Pattern.matches(typeRegex, p))
+            for (String p : paramArr) {
+                if (!Pattern.matches(typeRegex, p)) {
                     pList.add(p);
+                }
             }
-        }
-        else {
+        } else {
             Pattern pattern = Pattern.compile(paramRegex);
             Matcher matcher = pattern.matcher(message.trim());
 
@@ -101,20 +107,34 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
             }
         }
 
-        for (String param : pList) {
-            param = param.trim();
-            param = param.replace(delimiter+delimiter, delimiter);
-            String[] paramParts = param.split(separator);
+        IncomingMessageFormParameterDAO imParamDao = coreManager.createIncomingMessageFormParameterDAO(context);
+        Transaction tx = (Transaction) imParamDao.getDBSession().getTransaction();
 
-            if (paramParts.length == 2) {
-                IncomingMessageFormParameter imParam = coreManager.createIncomingMessageFormParameter();
-                imParam.setDateCreated(new Date());
-                imParam.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
-                imParam.setName(paramParts[0].trim());
-                imParam.setValue(paramParts[1].trim());
-                params.put(imParam.getName(), imParam);
+        try {
+            tx.begin();
+
+            for (String param : pList) {
+                param = param.trim();
+                param = param.replace(delimiter + delimiter, delimiter);
+                String[] paramParts = param.split(separator);
+
+                if (paramParts.length == 2) {
+                    IncomingMessageFormParameter imParam = coreManager.createIncomingMessageFormParameter();
+                    imParam.setDateCreated(new Date());
+                    imParam.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+                    imParam.setName(paramParts[0].trim());
+                    imParam.setValue(paramParts[1].trim());
+                    params.put(imParam.getName(), imParam);
+
+                    imParamDao.save(imParam);
+                }
             }
+            tx.commit();
+        } catch (Exception ex) {
+            logger.error("Error saving form parameters", ex);
+            tx.rollback();
         }
+        
         return params;
     }
 

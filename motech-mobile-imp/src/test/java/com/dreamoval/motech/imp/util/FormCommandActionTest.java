@@ -122,7 +122,7 @@ public class FormCommandActionTest {
                 mockCore.createIncomingMessageForm()
                 ).andReturn(msgForm);
         expect(
-                mockParser.getParams((String)anyObject())
+                mockParser.getParams((String)anyObject(), (MotechContext)anyObject())
                 ).andReturn(new HashMap<String,IncomingMessageFormParameter>());
         expect(
                 mockCore.createIncomingMessageFormDAO((MotechContext)anyObject())
@@ -254,7 +254,7 @@ public class FormCommandActionTest {
                 mockCore.createIncomingMessageForm()
                 ).andReturn(new IncomingMessageFormImpl());
         expect(
-                mockParser.getParams((String)anyObject())
+                mockParser.getParams((String)anyObject(), (MotechContext)anyObject())
                 ).andReturn(new HashMap<String,IncomingMessageFormParameter>());
         expect(
                 mockCore.createIncomingMessageFormDAO((MotechContext)anyObject())

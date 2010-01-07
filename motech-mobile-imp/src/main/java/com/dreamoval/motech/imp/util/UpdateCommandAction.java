@@ -89,7 +89,7 @@ public class UpdateCommandAction implements CommandAction {
             }
         }
 
-        form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent()));
+        form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent(), context));
 
         tx = ((Session) formDao.getDBSession().getSession()).beginTransaction();
         sessionDao.save(form);

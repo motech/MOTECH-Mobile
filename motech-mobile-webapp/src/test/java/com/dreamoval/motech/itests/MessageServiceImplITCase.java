@@ -239,20 +239,20 @@ public class MessageServiceImplITCase {
         omiService.processMessageRetries();
     }
 
-//    @Test
-//    public void testProcessRequest(){
-//        System.out.println("processRequest");
-//
-//        String request = "Type=GeneralOPD\nFacilityID=7\nDate=01.10.2009\nSerialNo=102\nSex=M\nDoB=24.09.1990\nDiagnosis=5\nReferral=No";
-//        String number = "555555555";
-//
-//        String expResult = "Errors:\nReferral=wrong format";
-//        String result = impService.processRequest(request, number);
-//        assertEquals(result,expResult);
-//
-//        request = "Type=GeneralOPD\nFacilityID=7\nDate=01.10.2009\nSerialNo=102\nSex=M\nDoB=24.09.1990\nDiagnosis=5\nReferral=N";
-//        expResult = "Errors:\nSerialNo=server error";
-//        result = impService.processRequest(request, number);
-//        assertEquals(result,expResult);
-//    }
+    @Test
+    public void testProcessRequest(){
+        System.out.println("processRequest");
+
+        String request = "Type=GeneralOPD\nFacilityID=7\nDate=01.10.2009\nSerialNo=102\nSex=M\nDoB=24.09.1990\nDiagnosis=5\nReferral=No";
+        String number = "555555555";
+
+        String expResult = "Errors:\nReferral=wrong format";
+        String result = impService.processRequest(request, number);
+        assertEquals(result,expResult);
+
+        request = "Type=GeneralOPD\nFacilityID=7\nDate=01.10.2009\nSerialNo=102\nSex=M\nDoB=24.09.1990\nDiagnosis=5\nReferral=N";
+        expResult = "Errors:";
+        result = impService.processRequest(request, number);
+        assertEquals(result,expResult);
+    }
 }

@@ -11,8 +11,7 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
-       
-    
+           
     <bean id="imFormValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormValidatorImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="regWS" ref="registrarClient" />
@@ -41,6 +40,50 @@
                         <property name="expression" value="${imp.validator.dateFormat}" />
                     </bean>
                     <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                    </list>
+                </entry>
+                <entry key="NUMERIC">
+                    <list>
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.numericExpression}" />
+                    </bean>
+                    <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                    </list>
+                </entry>
+                <entry key="GENDER">
+                    <list>
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.genderExpression}" />
+                    </bean>
+                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                        <property name="values" value="m,M,f,F" />
+                        <property name="conversions">
+                            <map>
+                                <entry key="m" value="MALE" />
+                                <entry key="M" value="MALE" />
+                                <entry key="f" value="FEMALE" />
+                                <entry key="F" value="FEMALE" />
+                            </map>
+                        </property>
+                    </bean>
+                    </list>
+                </entry>
+                <entry key="BOOLEAN">
+                    <list>
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.yesNoExpression}" />
+                    </bean>
+                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                        <property name="values" value="y,Y,n,N" />
+                        <property name="conversions">
+                            <map>
+                                <entry key="y" value="true" />
+                                <entry key="Y" value="true" />
+                                <entry key="n" value="false" />
+                                <entry key="N" value="false" />
+                            </map>
+                        </property>
+                    </bean>
                     </list>
                 </entry>
             </map>

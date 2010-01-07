@@ -40,7 +40,6 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      * @see IncomingMessageFormValidator.validate
      */
     public synchronized boolean validate(IncomingMessageForm form, String requesterPhone) {
-        boolean isFormValid = true;
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
 
         for (IncomingMessageFormParameterDefinition paramDef : form.getIncomingMsgFormDefinition().getIncomingMsgParamDefinitions()) {
@@ -52,7 +51,6 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     if (!validator.validate(form.getIncomingMsgFormParameters().get(paramDef.getName()))) {
                         form.setMessageFormStatus(IncMessageFormStatus.INVALID);
                         form.setLastModified(new Date());
-
                         break;
                     }
                 }

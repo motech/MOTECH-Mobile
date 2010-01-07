@@ -7,7 +7,6 @@ package com.dreamoval.motech.web;
 
 import com.dreamoval.motech.imp.manager.IMPManager;
 import com.dreamoval.motech.imp.serivce.IMPService;
-import com.dreamoval.motech.web.manager.WebManager;
 import java.util.Map;
 
 /**
@@ -33,7 +32,7 @@ public class IncomingMessageRequestWorkerImpl implements IncomingMessageRequestW
                 String[] text = params.get(webSettings.getIncomingMessageTextParam());
                 
                 //TODO Check the array length so it doesn't break disgracefully
-                result = impService.processRequest(number[0], text[0]);
+                result = impService.processRequest(text[0], number[0]);
             }else{
                 result = webSettings.getUnknownIMRMessage();
             }
