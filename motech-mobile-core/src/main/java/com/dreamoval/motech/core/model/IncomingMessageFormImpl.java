@@ -19,7 +19,7 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     private Date lastModified;
     private IncMessageFormStatus messageFormStatus;
     private Map<String,IncomingMessageFormParameter> incomingMsgFormParameters = new HashMap<String,IncomingMessageFormParameter>();
-
+    
     /**
      * @return the incomingMsgFormDefinition
      */
@@ -131,5 +131,5 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
 
 
     }
-    
+   
 }

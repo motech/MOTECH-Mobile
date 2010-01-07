@@ -55,4 +55,26 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
      */
     @Override
     public String toString();
+
+    /**
+     * @return the incomingMessageForms
+     */
+    Set<IncomingMessageForm> getIncomingMessageForms();
+
+    /**
+     * @param incomingMessageForms the incomingMessageForms to set
+     */
+    void setIncomingMessageForms(Set<IncomingMessageForm> incomingMessageForms);
+
+    /**
+     * Helper method to add IncomingMesasgeForm to IncomingMessageFormDefinition
+     * @param form the IncomingMessageForm object to add
+     */
+    void addIncomingMessageForm(IncomingMessageForm form);
+
+    /**
+     * Helper method to remove IncomingMesasgeForm to IncomingMessageFormDefinition
+     * @param form the IncomingMessageForm object to remove
+     */
+    void removeIncomingMessageForm(IncomingMessageForm form);
 }

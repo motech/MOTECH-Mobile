@@ -18,6 +18,7 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
     private Date dateCreated;
     private Date lastModified;
     private Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinitions = new HashSet<IncomingMessageFormParameterDefinition>();
+    private Set<IncomingMessageForm> incomingMessageForms = new HashSet<IncomingMessageForm>();
 
     /**
      * @return the form_code
@@ -102,6 +103,40 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
        }
 
 
+    }
+
+    /**
+     * @return the incomingMessageForms
+     */
+    public Set<IncomingMessageForm> getIncomingMessageForms() {
+        return incomingMessageForms;
+    }
+
+    /**
+     * @param incomingMessageForms the incomingMessageForms to set
+     */
+    public void setIncomingMessageForms(Set<IncomingMessageForm> incomingMessageForms) {
+        this.incomingMessageForms = incomingMessageForms;
+    }
+
+    /**
+     * Helper method to add IncomingMesasgeForm to IncomingMessageFormDefinition
+     * @param form the IncomingMessageForm object to add
+     */
+    public  void addIncomingMessageForm(IncomingMessageForm form){
+        this.incomingMessageForms.add(form);
+        form.setIncomingMsgFormDefinition(this);
+    }
+
+    /**
+     * Helper method to remove IncomingMesasgeForm to IncomingMessageFormDefinition
+     * @param form the IncomingMessageForm object to remove
+     */
+    public void removeIncomingMessageForm(IncomingMessageForm form){
+        if(this.incomingMessageForms.contains(form)){
+            form.setIncomingMsgFormDefinition(null);
+            this.incomingMessageForms.remove(form);
+        }
     }
 
 }

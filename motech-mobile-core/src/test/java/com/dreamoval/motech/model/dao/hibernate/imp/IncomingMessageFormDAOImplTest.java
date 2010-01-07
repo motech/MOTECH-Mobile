@@ -85,7 +85,7 @@ public class IncomingMessageFormDAOImplTest {
     @After
     public void tearDown() {
          Session session = ((Session) imfdDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
+        Transaction tx = session.beginTransaction(); 
         imfDAO.delete(imf1);
         imfdDAO.delete(imfd1);
         tx.commit();
@@ -97,7 +97,7 @@ public class IncomingMessageFormDAOImplTest {
         System.out.println("IncomingMessageFormDAOImpl save");
         Session session = ((Session) imfDAO.getDBSession().getSession());
         Transaction tx = session.beginTransaction();
-        imf1.setIncomingMsgFormDefinition(imfd1);
+        imfd1.addIncomingMessageForm(imf1);
         imfDAO.save(imf1);
         tx.commit();
 
