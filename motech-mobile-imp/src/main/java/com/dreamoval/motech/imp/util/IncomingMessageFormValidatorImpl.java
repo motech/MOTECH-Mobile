@@ -121,7 +121,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
-        } else if (code.equalsIgnoreCase("CANCEL")) {
+        } else if (code.equalsIgnoreCase("PregnancyStop")) {
             try {
                 regWS.stopPregnancyProgram(form.getIncomingMsgFormParameters().get("chpsId").getValue(), form.getIncomingMsgFormParameters().get("patientRegNum").getValue());
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
@@ -153,7 +153,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
-        } else if (code.equalsIgnoreCase("CHILD")) {
+        } else if (code.equalsIgnoreCase("RegChild")) {
             try {
                 regWS.registerChild(form.getIncomingMsgFormParameters().get("chpsId").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("regDate").getValue()), form.getIncomingMsgFormParameters().get("motherRegNum").getValue(), form.getIncomingMsgFormParameters().get("childRegNum").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()), Gender.valueOf(form.getIncomingMsgFormParameters().get("childGender").getValue()), form.getIncomingMsgFormParameters().get("childFirstName").getValue(), form.getIncomingMsgFormParameters().get("nhis").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("nhisExp").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
@@ -187,7 +187,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
-        } else if (code.equalsIgnoreCase("EDIT")) {
+        } else if (code.equalsIgnoreCase("EditPatient")) {
             try {
                 regWS.editPatient(form.getIncomingMsgFormParameters().get("chpsId").getValue(), form.getIncomingMsgFormParameters().get("patientRegNum").getValue(), form.getIncomingMsgFormParameters().get("primaryPhone").getValue(), ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("primaryPhoneType").getValue()), form.getIncomingMsgFormParameters().get("secondaryPhone").getValue(), ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryPhoneType").getValue()), form.getIncomingMsgFormParameters().get("nhis").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("nhisExp").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);

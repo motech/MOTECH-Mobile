@@ -149,7 +149,7 @@ public class IncomingMessageFormValidatorImplTest {
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.VALID);
 
         //Test with valid form on mobile and server
-        formDef.setFormCode("CANCEL");
+        formDef.setFormCode("PregnancyStop");
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.getIncomingMsgFormParameters().clear();
         form.getIncomingMsgFormParameters().put(param1.getName(),param1);
