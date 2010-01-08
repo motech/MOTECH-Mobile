@@ -159,7 +159,7 @@ public class FormCommandAction implements CommandAction {
         }
 
         if (form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID)) {
-            response.setContent("Saved");
+            response.setContent("Data saved successfully");
         } else {
             String responseText = "Errors:";
             for (Entry<String, IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {

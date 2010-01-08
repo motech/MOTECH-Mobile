@@ -16,6 +16,13 @@
         <property name="coreManager" ref="coreManager" />
         <property name="regWS" ref="registrarClient" />
         <property name="dateFormat" value="${imp.validator.dateFormat}" />
+        <property name="serverErrors">
+            <map>
+                <entry key="1" value="not found" />
+                <entry key="2" value="in use" />
+                <entry key="3" value="missing" />
+            </map>
+        </property>
         <property name="paramValidators">
             <map key-type="java.lang.String">
                 <entry key="ALPHA">

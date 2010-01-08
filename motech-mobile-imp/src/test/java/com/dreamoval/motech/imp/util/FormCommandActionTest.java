@@ -317,7 +317,7 @@ public class FormCommandActionTest {
         result = instance.prepareResponse(message);
         verify(mockCore);
 
-        expResult = "Saved";
+        expResult = "Data saved successfully";
         assertNotNull(result);
         assertEquals(result.getContent(), expResult);
 
