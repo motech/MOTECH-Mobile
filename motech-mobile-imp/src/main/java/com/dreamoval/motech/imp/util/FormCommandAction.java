@@ -19,6 +19,7 @@ import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageResponseDAO;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -57,7 +58,7 @@ public class FormCommandAction implements CommandAction {
         message.setIncomingMessageForm(form);
 
         logger.info("Preparing response");
-        IncomingMessageResponse response = prepareResponse(message);
+        IncomingMessageResponse response = prepareResponse(message, context);
 
         logger.info("Saving request");
         message.setIncomingMessageResponse(response);
@@ -146,7 +147,7 @@ public class FormCommandAction implements CommandAction {
      * @param message the message to respond to
      * @return the response to the message
      */
-    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message) {
+    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message, MotechContext context) {
         IncomingMessageForm form = message.getIncomingMessageForm();
 
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
@@ -170,6 +171,18 @@ public class FormCommandAction implements CommandAction {
             response.setContent(responseText);
         }
         response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
+
+        IncomingMessageResponseDAO responseDao = coreManager.createIncomingMessageResponseDAO(context);
+        Transaction tx = (Transaction) responseDao.getDBSession().getTransaction();
+
+        try {
+            tx.begin();
+            responseDao.save(response);
+            tx.commit();
+        } catch (Exception ex) {
+            logger.error("Error initializing form", ex);
+            tx.rollback();
+        }
 
         return response;
     }

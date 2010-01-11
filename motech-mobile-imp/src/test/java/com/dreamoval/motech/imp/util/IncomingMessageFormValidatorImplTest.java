@@ -98,7 +98,7 @@ public class IncomingMessageFormValidatorImplTest {
         IncomingMessageForm form = new IncomingMessageFormImpl();
         form.setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
         form.setIncomingMsgFormDefinition(formDef);
-        form.getIncomingMsgFormParameters().put(param1.getName(),param1);
+        form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
         
         //Test with required param missing
         boolean expResult = false;
@@ -125,8 +125,8 @@ public class IncomingMessageFormValidatorImplTest {
         //Test with valid form on mobile
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.getIncomingMsgFormParameters().clear();
-        form.getIncomingMsgFormParameters().put(param1.getName(),param1);
-        form.getIncomingMsgFormParameters().put(param2.getName(),param2);
+        form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
+        form.getIncomingMsgFormParameters().put(param2.getName().toLowerCase(),param2);
 
         expResult = false;
 
@@ -152,8 +152,8 @@ public class IncomingMessageFormValidatorImplTest {
         formDef.setFormCode("PregnancyStop");
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.getIncomingMsgFormParameters().clear();
-        form.getIncomingMsgFormParameters().put(param1.getName(),param1);
-        form.getIncomingMsgFormParameters().put(param2.getName(),param2);
+        form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
+        form.getIncomingMsgFormParameters().put(param2.getName().toLowerCase(),param2);
 
         expResult = true;
 

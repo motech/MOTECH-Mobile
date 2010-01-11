@@ -46,12 +46,12 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
 
         for (IncomingMessageFormParameterDefinition paramDef : form.getIncomingMsgFormDefinition().getIncomingMsgParamDefinitions()) {
-            if (form.getIncomingMsgFormParameters().containsKey(paramDef.getName())) {
-                form.getIncomingMsgFormParameters().get(paramDef.getName()).setIncomingMsgFormParamDefinition(paramDef);
+            if (form.getIncomingMsgFormParameters().containsKey(paramDef.getName().toLowerCase())) {
+                form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()).setIncomingMsgFormParamDefinition(paramDef);
                 form.setLastModified(new Date());
 
-                for (IncomingMessageFormParameterValidator validator : paramValidators.get(paramDef.getParamType())) {
-                    if (!validator.validate(form.getIncomingMsgFormParameters().get(paramDef.getName()))) {
+                for (IncomingMessageFormParameterValidator validator : paramValidators.get(paramDef.getParamType().toUpperCase())) {
+                    if (!validator.validate(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()))) {
                         form.setMessageFormStatus(IncMessageFormStatus.INVALID);
                         form.setLastModified(new Date());
                         break;
@@ -70,7 +70,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 param.setErrText("missing");
                 param.setErrCode(0);
 
-                form.getIncomingMsgFormParameters().put(paramDef.getName(), param);
+                form.getIncomingMsgFormParameters().put(paramDef.getName().toLowerCase(), param);
             }
         }
 
@@ -89,7 +89,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
         if (code.equalsIgnoreCase("GeneralOPD")) {
             try {
-                regWS.recordGeneralVisit(Integer.valueOf(form.getIncomingMsgFormParameters().get("FacilityId").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("Date").getValue()), form.getIncomingMsgFormParameters().get("SerialNo").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("Sex").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("DoB").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("Diagnosis").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("Referral").getValue()));
+                regWS.recordGeneralVisit(Integer.valueOf(form.getIncomingMsgFormParameters().get("facilityid").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("serialno").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("sex").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("referral").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -123,7 +123,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             }
         } else if (code.equalsIgnoreCase("PregnancyStop")) {
             try {
-                regWS.stopPregnancyProgram(form.getIncomingMsgFormParameters().get("chpsId").getValue(), form.getIncomingMsgFormParameters().get("patientRegNum").getValue());
+                regWS.stopPregnancyProgram(form.getIncomingMsgFormParameters().get("chpsid").getValue(), form.getIncomingMsgFormParameters().get("patientregnum").getValue());
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ValidationException ex) {
                 List<ValidationError> errors = ex.getFaultInfo().getErrors();
@@ -155,7 +155,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             }
         } else if (code.equalsIgnoreCase("RegChild")) {
             try {
-                regWS.registerChild(form.getIncomingMsgFormParameters().get("chpsId").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("regDate").getValue()), form.getIncomingMsgFormParameters().get("motherRegNum").getValue(), form.getIncomingMsgFormParameters().get("childRegNum").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()), Gender.valueOf(form.getIncomingMsgFormParameters().get("childGender").getValue()), form.getIncomingMsgFormParameters().get("childFirstName").getValue(), form.getIncomingMsgFormParameters().get("nhis").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("nhisExp").getValue()));
+                regWS.registerChild(form.getIncomingMsgFormParameters().get("chpsid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("regdate").getValue()), form.getIncomingMsgFormParameters().get("motherregnum").getValue(), form.getIncomingMsgFormParameters().get("childregnum").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()), Gender.valueOf(form.getIncomingMsgFormParameters().get("childgender").getValue()), form.getIncomingMsgFormParameters().get("childfirstname").getValue(), form.getIncomingMsgFormParameters().get("nhis").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexp").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -189,7 +189,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             }
         } else if (code.equalsIgnoreCase("EditPatient")) {
             try {
-                regWS.editPatient(form.getIncomingMsgFormParameters().get("chpsId").getValue(), form.getIncomingMsgFormParameters().get("patientRegNum").getValue(), form.getIncomingMsgFormParameters().get("primaryPhone").getValue(), ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("primaryPhoneType").getValue()), form.getIncomingMsgFormParameters().get("secondaryPhone").getValue(), ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryPhoneType").getValue()), form.getIncomingMsgFormParameters().get("nhis").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("nhisExp").getValue()));
+                regWS.editPatient(form.getIncomingMsgFormParameters().get("chpsid").getValue(), form.getIncomingMsgFormParameters().get("patientregnum").getValue(), form.getIncomingMsgFormParameters().get("primaryphone").getValue(), ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("primaryphonetype").getValue()), form.getIncomingMsgFormParameters().get("secondaryphone").getValue(), ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue()), form.getIncomingMsgFormParameters().get("nhis").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexp").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);

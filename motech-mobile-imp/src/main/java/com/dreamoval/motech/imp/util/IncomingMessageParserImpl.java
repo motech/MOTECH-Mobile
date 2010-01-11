@@ -27,7 +27,6 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
     private String cmdRegex;
     private String typeRegex;
     private String paramRegex;
-
     private static Logger logger = Logger.getLogger(IncomingMessageParserImpl.class);
 
     /**
@@ -97,28 +96,28 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         } else {
             Pattern pattern = Pattern.compile(paramRegex);
             Matcher matcher = pattern.matcher(message.trim());
-            
+
             while (matcher.find()) {
                 String match = matcher.group();
                 pList.add(match);
             }
         }
 
-            for (String param : pList) {
-                param = param.trim();
-                param = param.replace(delimiter + delimiter, delimiter);
-                String[] paramParts = param.split(separator);
+        for (String param : pList) {
+            param = param.trim();
+            param = param.replace(delimiter + delimiter, delimiter);
+            String[] paramParts = param.split(separator);
 
-                if (paramParts.length == 2) {
-                    IncomingMessageFormParameter imParam = coreManager.createIncomingMessageFormParameter();
-                    imParam.setDateCreated(new Date());
-                    imParam.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
-                    imParam.setName(paramParts[0].trim());
-                    imParam.setValue(paramParts[1].trim());
-                    params.put(imParam.getName(), imParam);
-                }
+            if (paramParts.length == 2) {
+                IncomingMessageFormParameter imParam = coreManager.createIncomingMessageFormParameter();
+                imParam.setDateCreated(new Date());
+                imParam.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+                imParam.setName(paramParts[0].trim());
+                imParam.setValue(paramParts[1].trim());
+                params.put(imParam.getName().toLowerCase(), imParam);
             }
-        
+        }
+
         return params;
     }
 
