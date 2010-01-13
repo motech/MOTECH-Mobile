@@ -261,7 +261,7 @@ insert into message_template(id, notification_type, message_type, language, temp
 
 /*Data for the table incoming_message_form_definition */
 
-insert into incoming_message_form_definition (id,obj_vesion,form_code,date_created) values (254657657567688,0,'RegChild','2010-01-08 14:40:15');
+insert into incoming_message_form_definition (id,obj_vesion,form_code,date_created) values (254657657567688,0,'RegisterChild','2010-01-08 14:40:15');
 insert into incoming_message_form_definition (id,obj_vesion,form_code,date_created) values (597658468478768,0,'PregnancyStop','2010-01-08 14:19:05');
 insert into incoming_message_form_definition (id,obj_vesion,form_code,date_created) values (678565673457657,0,'EditPatient','2010-01-08 14:41:23');
 insert into incoming_message_form_definition (id,obj_vesion,form_code,date_created) values (785688106549491,0,'GeneralOPD','2009-12-18 11:04:20');

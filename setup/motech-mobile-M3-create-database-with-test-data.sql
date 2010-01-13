@@ -136,7 +136,7 @@ CREATE TABLE `incoming_message_form_definition` (
 
 /*Data for the table `incoming_message_form_definition` */
 
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (254657657567688,0,'RegChild','2010-01-08 14:40:15','2010-01-08 15:22:53');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (254657657567688,0,'RegisterChild','2010-01-08 14:40:15','2010-01-08 15:22:53');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (597658468478768,0,'PregnancyStop','2010-01-08 14:19:05','2010-01-08 15:22:53');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (678565673457657,0,'EditPatient','2010-01-08 14:41:23','2010-01-08 15:22:53');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785688106549491,0,'GeneralOPD','2009-12-18 11:04:20','2010-01-08 15:22:53');
