@@ -30,8 +30,10 @@ import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
 /**
+ * Test for FormCommandAction class
  *
- * @author user
+ *  Date : Dec 6, 2009
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
 public class FormCommandActionTest {
 
@@ -81,10 +83,6 @@ public class FormCommandActionTest {
         mockValidator = createMock(IncomingMessageFormValidator.class);
         mockFormDefDao = createMock(IncomingMessageFormDefinitionDAO.class);
         instance.setFormValidator(mockValidator);
-
-        expect(
-                mockCore.createMotechContext()
-                ).andReturn(context);
 
         //Initialize Session
         expect(
@@ -199,7 +197,7 @@ public class FormCommandActionTest {
         
 
         replay(mockCore,mockParser,mockSessDao,mockSession,mockTrans,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
-        IncomingMessageResponse result = instance.execute(message, requesterPhone);
+        IncomingMessageResponse result = instance.execute(message, requesterPhone, context);
         verify(mockCore,mockParser,mockSessDao,mockSession,mockTrans,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
 
         assertNotNull(result);

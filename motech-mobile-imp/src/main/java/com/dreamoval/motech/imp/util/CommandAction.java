@@ -7,6 +7,7 @@ package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
+import com.dreamoval.motech.core.service.MotechContext;
 
 /**
  * Processes a requested action on an IncomingMessage object
@@ -23,5 +24,5 @@ public interface CommandAction {
      * @param requesterPhone Phone number by which the request was made
      * @return IncomingMessageResponse generated as a result of command execution
      */
-    IncomingMessageResponse execute(IncomingMessage message, String requesterPhone);
+    IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context);
 }

@@ -41,9 +41,7 @@ public class UpdateCommandAction implements CommandAction {
      *
      * @see CommandAction.execute
      */
-    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
-        MotechContext context = coreManager.createMotechContext();
-
+    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context) {
         //TODO fetch current open session by requester
         IncomingMessageSession imSession = coreManager.createIncomingMessageSession();
         if (imSession == null) {

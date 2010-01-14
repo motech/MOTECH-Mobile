@@ -268,7 +268,7 @@ insert into incoming_message_form_definition (id,obj_vesion,form_code,date_creat
 
 /*Data for the table incoming_message_form_parameter_definition */
 
-insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (834459078775,0,678565673457657,'secondaryPhoneType','ALPHA',10,false,'2010-01-08 15:02:43');
+insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (834459078775,0,678565673457657,'secondaryPhoneType','PHONETYPE',10,false,'2010-01-08 15:02:43');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (3245464634645,0,254657657567688,'chpsId','ALPHANUM',20,true,'2010-01-08 14:54:14');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (4564564645577,0,597658468478768,'chpsId','ALPHANUM',20,true,'2010-01-08 14:46:33');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (6378978445645,0,678565673457657,'secondaryPhone','NUMERIC',15,false,'2010-01-08 15:02:43');
@@ -291,6 +291,6 @@ insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_m
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (409624894059308,0,785688106549491,'Date','DATE',10,true,'2009-12-18 11:04:20');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (447236646138029,0,785688106549491,'SerialNo','ALPHANUM',20,true,'2009-12-18 11:04:20');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (447617060511586,0,785688106549491,'Diagnosis','NUMERIC',3,true,'2009-12-18 11:04:20');
-insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (535767567677889,0,678565673457657,'primaryPhoneType','ALPHA',10,false,'2010-01-08 15:02:43');
+insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (535767567677889,0,678565673457657,'primaryPhoneType','PHONETYPE',10,false,'2010-01-08 15:02:43');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (876875676546456,0,597658468478768,'patientRegNum','ALPHANUM',20,true,'2010-01-08 14:46:33');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created) values (964559790068935,0,785688106549491,'Sex','GENDER',1,true,'2009-12-18 11:04:20');

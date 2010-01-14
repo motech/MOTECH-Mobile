@@ -30,9 +30,7 @@ public class StopCommandAction implements CommandAction{
      * 
      * @see CommandAction.execute
      */
-    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
-        MotechContext context = coreManager.createMotechContext();
-        
+    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context) {
         ///TODO fetch current open session for requester
         IncomingMessageSession imSession = coreManager.createIncomingMessageSession();
         imSession.setDateEnded(new Date());

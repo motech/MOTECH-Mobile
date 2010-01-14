@@ -18,15 +18,24 @@ public class ParamRangeValidator implements IncomingMessageFormParameterValidato
     private Float maxValue;
 
     public boolean validate(IncomingMessageFormParameter param) {
-        Float value = Float.parseFloat(param.getValue());
+        Float value;
+        
+        try {
+            value = Float.parseFloat(param.getValue());
+        } catch (NumberFormatException ex) {
+            param.setErrCode(1);
+            param.setErrText("wrong format");
+            param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
+            return false;
+        }
 
         if (value < minValue || value > maxValue) {
             param.setErrCode(3);
             param.setErrText("out of range");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
-        }
-        else
+        } else {
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
+        }
 
         param.setLastModified(new Date());
         return param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID);

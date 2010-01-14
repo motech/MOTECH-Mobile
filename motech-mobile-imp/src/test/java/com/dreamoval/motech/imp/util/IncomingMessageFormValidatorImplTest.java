@@ -28,8 +28,10 @@ import static org.easymock.EasyMock.*;
 import org.motechproject.ws.server.ValidationException;
 
 /**
+ * Test for IncomingMessageFormValidatorImpl class
  *
- * @author user
+ *  Date : Dec 6, 2009
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
 public class IncomingMessageFormValidatorImplTest {
     CoreManager mockCore;
@@ -107,7 +109,7 @@ public class IncomingMessageFormValidatorImplTest {
                 mockCore.createIncomingMessageFormParameter()
                 ).andReturn(new IncomingMessageFormParameterImpl());
         expect(
-                mockValidators.get(anyObject())
+                mockValidators.get((String)anyObject())
                 ).andReturn(validators);
         expect(
                 mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
@@ -133,7 +135,7 @@ public class IncomingMessageFormValidatorImplTest {
         reset(mockCore, mockParamValidator, mockValidators);
 
         expect(
-                mockValidators.get(anyObject())
+                mockValidators.get((String)anyObject())
                 ).andReturn(validators).times(2);
         expect(
                 mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
@@ -160,7 +162,7 @@ public class IncomingMessageFormValidatorImplTest {
         reset(mockCore, mockParamValidator, mockValidators);
 
         expect(
-                mockValidators.get(anyObject())
+                mockValidators.get((String)anyObject())
                 ).andReturn(validators).times(2);
         expect(
                 mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())

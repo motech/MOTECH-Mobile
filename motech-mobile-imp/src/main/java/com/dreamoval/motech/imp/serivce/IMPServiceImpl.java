@@ -11,7 +11,10 @@ import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
+import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import java.util.Map;
+import org.hibernate.Transaction;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
@@ -27,9 +30,18 @@ public class IMPServiceImpl implements IMPService {
      * @see IMPService.processRequest
      */
     public synchronized String processRequest(String message, String requesterPhone){
+        MotechContext context = coreManager.createMotechContext();
         IncomingMessage inMsg = parser.parseRequest(message);
 
-        IncomingMessageResponse response = impManager.createCommandAction().execute(inMsg, requesterPhone);
+        IncomingMessageDAO msgDao = coreManager.createIncomingMessageDAO(context);
+        Transaction tx = (Transaction) msgDao.getDBSession().getTransaction();
+        tx.begin();
+        msgDao.save(inMsg);
+        tx.commit();
+
+        IncomingMessageResponse response = impManager.createCommandAction().execute(inMsg, requesterPhone, context);
+        //context.cleanUp();
+        
         return response.getContent();
     }
 

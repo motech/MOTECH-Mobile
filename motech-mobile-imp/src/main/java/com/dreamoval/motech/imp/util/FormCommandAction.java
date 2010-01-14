@@ -44,9 +44,7 @@ public class FormCommandAction implements CommandAction {
      * 
      * @see CommandAction.execute
      */
-    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
-        MotechContext context = coreManager.createMotechContext();
-
+    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context) {
         logger.info("Initializing session");
         IncomingMessageSession imSession = initializeSession(message, requesterPhone, context);
 
@@ -68,17 +66,16 @@ public class FormCommandAction implements CommandAction {
         imSession.setDateEnded(new Date());
         imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
 
-        if (context.getDBSession() != null) {
-            ((Session) context.getDBSession().getSession()).clear();
-        }
-
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
         Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
-        tx.begin();
-        sessionDao.save(imSession);
-        tx.commit();
-
-        context.cleanUp();
+        try {
+            tx.begin();
+            sessionDao.save(imSession);
+            tx.commit();
+        } catch (Exception ex) {
+            logger.error("Error finalizing incoming message session", ex);
+            tx.rollback();
+        }
 
         return response;
     }
@@ -103,9 +100,15 @@ public class FormCommandAction implements CommandAction {
 
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
         Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
-        tx.begin();
-        sessionDao.save(imSession);
-        tx.commit();
+
+        try {
+            tx.begin();
+            sessionDao.save(imSession);
+            tx.commit();
+        } catch (Exception ex) {
+            logger.error("Error initializing incoming message session", ex);
+            tx.rollback();
+        }
 
         return imSession;
     }
@@ -129,7 +132,7 @@ public class FormCommandAction implements CommandAction {
 
         IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO(context);
         Transaction tx = (Transaction) formDao.getDBSession().getTransaction();
-        
+
         try {
             tx.begin();
             formDao.save(form);

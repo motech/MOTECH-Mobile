@@ -79,12 +79,11 @@
                         <property name="expression" value="${imp.validator.genderExpression}" />
                     </bean>
                     <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
-                        <property name="values" value="m,M,f,F" />
+                        <property name="values" value="M,F" />
+                        <property name="caseSensitive" value="false" />
                         <property name="conversions">
                             <map>
-                                <entry key="m" value="MALE" />
                                 <entry key="M" value="MALE" />
-                                <entry key="f" value="FEMALE" />
                                 <entry key="F" value="FEMALE" />
                             </map>
                         </property>
@@ -97,15 +96,25 @@
                         <property name="expression" value="${imp.validator.yesNoExpression}" />
                     </bean>
                     <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
-                        <property name="values" value="y,Y,n,N" />
+                        <property name="values" value="Y,N" />
+                        <property name="caseSensitive" value="false" />
                         <property name="conversions">
                             <map>
-                                <entry key="y" value="true" />
                                 <entry key="Y" value="true" />
-                                <entry key="n" value="false" />
                                 <entry key="N" value="false" />
                             </map>
                         </property>
+                    </bean>
+                    </list>
+                </entry>
+                <entry key="PHONETYPE">
+                    <list>
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.phoneTypeExpression}" />
+                    </bean>
+                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                        <property name="values" value="PERSONAL,SHARED" />
+                        <property name="caseSensitive" value="false" />
                     </bean>
                     </list>
                 </entry>

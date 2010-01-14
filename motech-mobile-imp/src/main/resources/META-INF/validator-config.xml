@@ -93,6 +93,17 @@
                     </bean>
                     </list>
                 </entry>
+                <entry key="PHONETYPE">
+                    <list>
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.phoneTypeExpression}" />
+                    </bean>
+                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                        <property name="values" value="PERSONAL,SHARED" />
+                        <property name="caseSensitive" value="false" />
+                    </bean>
+                    </list>
+                </entry>
             </map>
         </property>
     </bean>
