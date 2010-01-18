@@ -22,7 +22,9 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
     public boolean validate(IncomingMessageFormParameter param) {
         if (param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("DATE")) {
             try {
-                new SimpleDateFormat(expression).parse(param.getValue());
+                SimpleDateFormat dFormat = new SimpleDateFormat(expression);
+                dFormat.setLenient(false);
+                dFormat.parse(param.getValue());
                 param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
             } catch (ParseException ex) {
                 param.setErrCode(1);

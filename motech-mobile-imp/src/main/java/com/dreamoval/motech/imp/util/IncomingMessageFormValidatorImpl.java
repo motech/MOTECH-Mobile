@@ -81,6 +81,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
     public boolean serverValidate(IncomingMessageForm form, String requesterPhone) {
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
+        dFormat.setLenient(false);
+        
         if (!form.getMessageFormStatus().equals(IncMessageFormStatus.VALID)) {
             return false;
         }

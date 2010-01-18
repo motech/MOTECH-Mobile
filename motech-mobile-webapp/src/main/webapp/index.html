@@ -1,23 +1,81 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>IMP Test Page</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <link href="resources/css/mobile.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="resources/js/ajax.js"></script>
+        <title>MoTeCH Mobile</title>
     </head>
+
     <body>
-        <h1>IMP Test Page</h1>
-        <form method="GET" action="incomingmessage">
-            Sender Number: <input type="text" name="from" id="from" />
-            <br />
-            Message:
-            <br />
-            <textarea cols="30" rows="10" name="text" id="text"></textarea>
-            <br />
-            <input type="submit" value="send" />
+        <form id="reqFrm" action="incomingmessage" method="post">
+            <table  cellpadding="0" cellspacing="0" style="width: 261px; height: 420px;" class="mobileBKG">
+                <!-- MSTableType="layout" -->
+                <tr>
+                    <td colspan="3" style="height: 43px;" valign="top" class="bodyTextLarge center">
+                        <strong>IMP Test Page</strong></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td style="height: 25px">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td valign="top" id="tdScreen" class="bodyTextSmall" style="height: 184;">
+                        <table style="width: 114px; padding-left: 10;" cellpadding="0" cellspacing="1">
+                            <tr>
+                                <td class="right bodyTextSmall"></td>
+                                <td style="height: 17px"></td>
+                            </tr>
+                            <tr>
+                                <td class="right bodyTextSmall" style="width: 29px">From:</td>
+                                <td style="width: 102px;">
+                                    <input name="from" type="text" tabindex="1"  style="height: 17px; width: 100px" class="bodyTextSmall" /></td>
+                            </tr>
+                            <tr>
+
+                                <td class="right bodyTextSmall" style="width: 29px">To:</td>
+                                <td style="width: 102px">
+                                    <input name="to" type="text" tabindex="2"  style="height: 17px; width: 100px" class="bodyTextSmall" /></td>
+                            </tr>
+                            <tr>
+                                <td class="right bodyTextSmall" style="width: 29px" valign="top">SMS:</td>
+                                <td style="width: 102px">
+                                    <textarea name="text" class="bodyTextSmall" style="height: 95px; width: 100px;" tabindex="3" ></textarea></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table cellpadding="0" cellspacing="0" style="width: 99%; height: 30px">
+                                        <tr>
+                                            <td class="bodyTextSmall"><strong>
+                                                    <a href="javascript:void(0)" onclick="makeRequest('incomingmessage', 'tdScreen', 'POST', getFormValues(document.getElementById('reqFrm')), '<div style=\'padding-left: 10px; padding-top: 30px;\'>Text message sent successfully!<br /><br /><br />Please wait for your response...</div>');">send</a></strong> </td>
+                                            <td class="bodyTextSmall right">
+                                                <a href="javascript:void(0);" onclick="document.getElementById('reqFrm').reset();"><strong>cancel</strong></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bodyTextSmall">&nbsp;</td>
+                                            <td class="bodyTextSmall right">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="height: 151px">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="width: 58px">&nbsp;</td>
+                    <td style="width: 143px; vertical-align: top;">
+                        <input type="button" onclick="makeRequest('incomingmessage', 'tdScreen', 'POST', getFormValues(document.getElementById('reqFrm')), '<div style=\'padding-left: 10px; padding-top: 30px;\'>Text message sent successfully!<br /><br /><br />Please wait for your response...</div>');"
+                               style="padding-left: 25px; width: 20px; height: 15px; border-style: none; cursor: pointer; background-color: transparent;"/>
+                        <input type="button" onclick="document.getElementById('reqFrm').reset();"
+                               style="float: right; padding-right: 25px; width: 20px; height: 15px; border-style: none; cursor: pointer; background-color: transparent;" />
+                    </td>
+                    <td style="height: 227px; width: 60px">&nbsp;</td>
+                </tr>
+            </table>
         </form>
     </body>
 </html>

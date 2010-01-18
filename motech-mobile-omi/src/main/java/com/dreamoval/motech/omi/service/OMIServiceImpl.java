@@ -18,12 +18,10 @@ import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omi.manager.StatusHandler;
 import com.dreamoval.motech.omp.manager.OMPManager;
 import com.dreamoval.motech.omp.service.MessagingService;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -58,7 +56,7 @@ public class OMIServiceImpl implements OMIService {
      *
      * @see OMIService.sendPatientMessage
      */
-    public MessageStatus savePatientMessageRequest(String messageId, NameValuePair[] personalInfo, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
+    public synchronized MessageStatus savePatientMessageRequest(String messageId, NameValuePair[] personalInfo, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
         logger.info("Constructing MessageRequest object...");
 
         MotechContext mc = coreManager.createMotechContext();
@@ -112,7 +110,7 @@ public class OMIServiceImpl implements OMIService {
      *logger
      * @see OMIService.sendCHPSMessage
      */
-    public MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
+    public synchronized MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
         logger.info("Constructing MessageDetails object...");
 
 
@@ -230,7 +228,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.processMessageRequests
      */
-    public void processMessageRequests() {
+    public synchronized void processMessageRequests() {
         MotechContext mc = coreManager.createMotechContext();
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
@@ -283,7 +281,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.processMessageRetries
      */
-    public void processMessageRetries() {
+    public synchronized void processMessageRetries() {
         MotechContext mc = coreManager.createMotechContext();
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
 
@@ -344,7 +342,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.getMessageResponses
      */
-    public void getMessageResponses() {
+    public synchronized void getMessageResponses() {
         MotechContext mc = coreManager.createMotechContext();
 
         logger.info("Initializing MessageRequestDAO...");

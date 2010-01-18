@@ -34,10 +34,10 @@ public class ParamExpressionValidatorTest {
         param.setValue("2010.12.10");
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
         param.setIncomingMsgFormParamDefinition(new IncomingMessageFormParameterDefinitionImpl());
-        param.getIncomingMsgFormParamDefinition().setParamType("NUMERIC");
+        param.getIncomingMsgFormParamDefinition().setParamType("DATE");
 
         ParamExpressionValidator instance = new ParamExpressionValidator();
-        instance.setExpression("[0-9]+(.[0-9]+)?");
+        instance.setExpression("dd.MM.yyyy");
 
         boolean expResult = false;
         boolean result = instance.validate(param);
@@ -47,7 +47,7 @@ public class ParamExpressionValidatorTest {
         assertEquals(param.getErrText(), "wrong format");
 
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
-        param.setValue("10.25");
+        param.setValue("10.12.2010");
 
         expResult = true;
         result = instance.validate(param);

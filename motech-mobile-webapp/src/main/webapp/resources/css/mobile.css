@@ -1,0 +1,71 @@
+/*------------------------------------------------------------------------
+# Copyright (C) 2010 DreamOval Ltd. All Rights Reserved.
+# Author: Charles Hansen-Quao, DreamOval Ltd.
+# This file may not be redistributed in whole or significant part.
+-------------------------------------------------------------------------*/
+
+
+
+a{
+	font-family: Arial,sans-serif; font-size: 8pt; 	font-weight: normal; color: #757472; text-decoration:none;
+}
+
+.mobileBKG{
+	background-image:url('../images/Nokia_6300_slim_mobile_phone.jpg');
+        background-position: center center;
+        background-repeat: no-repeat;
+}
+
+.center{
+	text-align: center;
+}
+.right{
+	text-align:right;
+}
+
+.left{
+	text-align:left;
+}
+
+.leftIndent{
+	margin-left: 3px;
+}
+
+.bodyTextLarge{
+	font-family: Arial,sans-serif;
+        font-size: 15pt;
+        font-weight: normal;
+        color: #757472;
+}
+
+.bodyTextSmall{
+	font-family: Arial,sans-serif;
+        font-size: 8pt;
+        font-weight: normal;
+        color: #757472;
+}
+
+.tinyText{
+	font-family: Arial,sans-serif;
+        font-size: 7pt;
+        font-weight: normal;
+        color: #757472;
+}
+
+.form1 {
+	font-family: Tahoma,sans-serif;
+	font-size: 8pt;
+	font-weight: normal;
+	color: #515756;
+	border: 1px solid #82C0D9;
+	background-color: #FFFFFF;
+}
+
+.form2 {
+	font-family: Tahoma,sans-serif;
+	font-size: 7pt;
+	font-weight: bold;
+	color: #000000;
+	border: 1px solid #82C0D9;
+	background-color: #F2F2F2;
+}
