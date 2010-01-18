@@ -99,7 +99,7 @@
                         <property name="expression" value="${imp.validator.phoneTypeExpression}" />
                     </bean>
                     <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
-                        <property name="values" value="PERSONAL,SHARED" />
+                        <property name="values" value="HOUSEHOLD,PERSONAL,PUBLIC," />
                         <property name="caseSensitive" value="false" />
                     </bean>
                     </list>
