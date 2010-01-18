@@ -170,6 +170,9 @@ public class FormCommandAction implements CommandAction {
                     responseText += '\n' + entry.getValue().getName() + "=" + entry.getValue().getErrText();
                 }
             }
+            if(responseText.equals("Errors:")){
+                responseText = "An error occurred on the server. Please try again.";
+            }
             response.setContent(responseText);
         }
         response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
