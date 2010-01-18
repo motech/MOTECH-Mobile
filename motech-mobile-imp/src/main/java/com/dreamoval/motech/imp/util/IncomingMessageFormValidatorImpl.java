@@ -99,8 +99,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 List<ValidationError> errors = ex.getFaultInfo().getErrors();
 
                 for (ValidationError error : errors) {
-                    if (form.getIncomingMsgFormParameters().containsKey(error.getField())) {
-                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField());
+                    if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
+                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField().toLowerCase());
                         param.setErrCode(error.getCode());
                         if (serverErrors.containsKey(error.getCode())) {
                             param.setErrText(serverErrors.get(error.getCode()));
@@ -131,8 +131,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 List<ValidationError> errors = ex.getFaultInfo().getErrors();
 
                 for (ValidationError error : errors) {
-                    if (form.getIncomingMsgFormParameters().containsKey(error.getField())) {
-                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField());
+                    if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
+                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField().toLowerCase());
                         param.setErrCode(error.getCode());
                         if (serverErrors.containsKey(error.getCode())) {
                             param.setErrText(serverErrors.get(error.getCode()));
@@ -165,8 +165,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 List<ValidationError> errors = ex.getFaultInfo().getErrors();
 
                 for (ValidationError error : errors) {
-                    if (form.getIncomingMsgFormParameters().containsKey(error.getField())) {
-                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField());
+                    if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
+                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField().toLowerCase());
                         param.setErrCode(error.getCode());
                         if (serverErrors.containsKey(error.getCode())) {
                             param.setErrText(serverErrors.get(error.getCode()));
@@ -199,8 +199,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 List<ValidationError> errors = ex.getFaultInfo().getErrors();
 
                 for (ValidationError error : errors) {
-                    if (form.getIncomingMsgFormParameters().containsKey(error.getField())) {
-                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField());
+                    if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
+                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField().toLowerCase());
                         param.setErrCode(error.getCode());
                         if (serverErrors.containsKey(error.getCode())) {
                             param.setErrText(serverErrors.get(error.getCode()));
