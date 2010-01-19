@@ -13,7 +13,7 @@
             <table  cellpadding="0" cellspacing="0" style="width: 261px; height: 420px;" class="mobileBKG">
                 <!-- MSTableType="layout" -->
                 <tr>
-                    <td colspan="3" style="height: 43px;" valign="top" class="bodyTextLarge center">
+                    <td colspan="3" style="height: 43px" valign="top" class="bodyTextLarge center">
                         <strong>IMP Test Page</strong></td>
                 </tr>
                 <tr>
@@ -24,26 +24,26 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td valign="top" id="tdScreen" class="bodyTextSmall" style="height: 184;">
-                        <table style="width: 114px; padding-left: 10;" cellpadding="0" cellspacing="1">
+                        <table style="width: 114px; padding-left: 7;" cellpadding="0" cellspacing="1">
                             <tr>
                                 <td class="right bodyTextSmall"></td>
                                 <td style="height: 17px"></td>
                             </tr>
                             <tr>
-                                <td class="right bodyTextSmall" style="width: 29px">From:</td>
-                                <td style="width: 102px;">
-                                    <input name="from" type="text" tabindex="1"  style="height: 17px; width: 100px" class="bodyTextSmall" /></td>
+                                <!--<td class="right bodyTextSmall" style="width: 29px">From:</td>-->
+                                <td style="width: 102px;" colspan="2">
+                                    <input name="from" value="From:" type="text" tabindex="1"  style="height: 20px; width: 130px" class="bodyTextSmall" onfocus="if(this.value == 'From:') this.value = '';" /></td>
                             </tr>
-                            <tr>
+                            <!--<tr>
 
                                 <td class="right bodyTextSmall" style="width: 29px">To:</td>
                                 <td style="width: 102px">
                                     <input name="to" type="text" tabindex="2"  style="height: 17px; width: 100px" class="bodyTextSmall" /></td>
-                            </tr>
+                            </tr>-->
                             <tr>
-                                <td class="right bodyTextSmall" style="width: 29px" valign="top">SMS:</td>
-                                <td style="width: 102px">
-                                    <textarea name="text" class="bodyTextSmall" style="height: 95px; width: 100px;" tabindex="3" ></textarea></td>
+                                <!--<td class="right bodyTextSmall" style="width: 29px" valign="top">SMS:</td>-->
+                                <td style="width: 102px" colspan="2">
+                                    <textarea name="text" class="bodyTextSmall" style="height: 110px; width: 130px;" tabindex="3" onfocus="if(this.innerHTML == 'Type Message:') this.innerHTML = '';">Type Message:</textarea></td>
                             </tr>
                             <tr>
                                 <td colspan="2">
