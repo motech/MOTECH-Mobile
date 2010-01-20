@@ -7,7 +7,7 @@
     <property generated="always" insert="false" name="lastModified" update="false">
       <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>
-     <map name="incomingMsgFormParameters" table="inc_message_form_parameter">
+     <map name="incomingMsgFormParameters" table="inc_message_form_parameter" cascade="save-update delete-orphan" inverse="true">
       <key column="incoming_message_form_id"/>
       <map-key type="string" column="name" />
       <one-to-many class="IncomingMessageFormParameterImpl"/>

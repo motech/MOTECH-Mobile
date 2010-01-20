@@ -61,4 +61,18 @@ public interface IncomingMessageForm extends MotechEntity {
      */
     @Override
     public String toString();
+
+    /**
+     * Helper method to add IncomingMessageFormParameter to IncomingMessageForm
+     * @param key key of the map
+     * @param param the IncomingMessageFormParameter to add
+     */
+    void addIncomingMsgFormParam(String key, IncomingMessageFormParameter param);
+
+    /**
+     * Helper method to remover IncomingMessageFormParameter to IncomingMessageForm
+     * @param key key of the map
+     * @param param the IncomingMessageFormParameter to remove
+     */
+    void removeIncomingMsgFormParm(String key);
 }

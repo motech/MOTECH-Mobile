@@ -90,6 +90,25 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
         this.incomingMsgFormParameters = incomingMsgFormParameters;
     }
 
+    /**
+     * Helper method to add IncomingMessageFormParameter to IncomingMessageForm
+     * @param key key of the map
+     * @param param the IncomingMessageFormParameter to add
+     */
+    public void addIncomingMsgFormParam(String key, IncomingMessageFormParameter param){
+        this.incomingMsgFormParameters.put(key, param);
+        param.setIncomingMsgForm(this);
+    }
+    /**
+     * Helper method to remover IncomingMessageFormParameter to IncomingMessageForm
+     * @param key key of the map
+     * @param param the IncomingMessageFormParameter to remove
+     */
+     public void removeIncomingMsgFormParm(String key){
+         if(this.incomingMsgFormParameters.containsKey(key)){
+             this.incomingMsgFormParameters.remove(key);
+         }
+     }
 
     @Override
     public String toString(){

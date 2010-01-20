@@ -274,7 +274,8 @@ public class GatewayResponseDAOImplTest {
         Assert.assertNotNull(result);
         Assert.assertEquals(rd8, result);
         Assert.assertEquals(rd8.getId(), result.getId());
-
+        System.out.println("====================================================================================================");
+        System.out.println(result.toString());
 
     }
 
