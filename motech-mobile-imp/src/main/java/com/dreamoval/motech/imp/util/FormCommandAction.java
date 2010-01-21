@@ -44,20 +44,28 @@ public class FormCommandAction implements CommandAction {
      * @see CommandAction.execute
      */
     public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context) {
+        IncomingMessageResponse response;
+        
         logger.info("Initializing session");
         IncomingMessageSession imSession = initializeSession(message, requesterPhone, context);
 
         logger.info("Generating form");
         IncomingMessageForm form = initializeForm(message, imSession.getFormCode(), context);
+        if (form == null) {
+            response = coreManager.createIncomingMessageResponse();
+            response.setContent("Errors: Unknown Form!\n\n'Type' parameter missing or invalid.");
+            response.setIncomingMessage(message);
+            response.setDateCreated(new Date());
+            response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
+        } else {
+            logger.info("Validating form");
+            formValidator.validate(form, requesterPhone);
+            message.setIncomingMessageForm(form);
 
-        logger.info("Validating form");
-        formValidator.validate(form, requesterPhone);
-        message.setIncomingMessageForm(form);
-
-        logger.info("Preparing response");
-        IncomingMessageResponse response = prepareResponse(message, context);
-        response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
-
+            logger.info("Preparing response");
+            response = prepareResponse(message, context);
+            response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
+        }
         logger.info("Saving request");
         message.setIncomingMessageResponse(response);
         message.setMessageStatus(IncMessageStatus.PROCESSED);
@@ -123,6 +131,10 @@ public class FormCommandAction implements CommandAction {
     public synchronized IncomingMessageForm initializeForm(IncomingMessage message, String formCode, MotechContext context) {
         IncomingMessageFormDefinition formDefn = coreManager.createIncomingMessageFormDefinitionDAO(context).getByCode(formCode);
 
+        if (formDefn == null) {
+            return null;
+        }
+
         IncomingMessageForm form = coreManager.createIncomingMessageForm();
         form.setIncomingMsgFormDefinition(formDefn);
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
@@ -171,7 +183,7 @@ public class FormCommandAction implements CommandAction {
                     responseText += '\n' + entry.getValue().getName() + "=" + entry.getValue().getErrText();
                 }
             }
-            if(responseText.equals("Errors:")){
+            if (responseText.equals("Errors:")) {
                 responseText = "An error occurred on the server. Please try again.";
             }
             response.setContent(responseText);

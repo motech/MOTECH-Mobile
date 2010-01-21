@@ -56,10 +56,10 @@ function makeRequest(serverPage, objID, method, params, loadingHTML)
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4){
                 if(xmlhttp.status == 200) {
-                    obj.innerHTML = '<div style=\'padding-left: 10px; padding-top: 20px;\'>'+xmlhttp.responseText.replace('\n','<br />','g', 'm')+'</div>';
+                    obj.innerHTML = '<div style=\'padding-left: 10px; padding-right: 5px; padding-top: 20px;\'>'+xmlhttp.responseText.replace('\n','<br />','g', 'm')+'</div>';
                 }
                 else
-                    obj.innerHTML = '<div style=\'padding-left: 10px; padding-top: 20px; width: 120px;\'>An error occurred! Please try again.</div>';
+                    obj.innerHTML = '<div style=\'padding-left: 10px; padding-right: 5px; padding-top: 20px; width: 120px;\'>An error occurred! Please try again.</div>';
             }
         }
         xmlhttp.send(params);
