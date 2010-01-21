@@ -56,6 +56,7 @@ public class FormCommandAction implements CommandAction {
 
         logger.info("Preparing response");
         IncomingMessageResponse response = prepareResponse(message, context);
+        response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
 
         logger.info("Saving request");
         message.setIncomingMessageResponse(response);
