@@ -57,19 +57,23 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                         break;
                     }
                 }
-            } else if (paramDef.isRequired()) {
-                form.setMessageFormStatus(IncMessageFormStatus.INVALID);
-                form.setLastModified(new Date());
-
+            } else {
                 IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
-                param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
+                param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
                 param.setIncomingMsgFormParamDefinition(paramDef);
                 param.setName(paramDef.getName());
                 param.setDateCreated(new Date());
                 param.setIncomingMsgForm(form);
-                param.setErrText("missing");
-                param.setErrCode(0);
+                param.setValue(null);
 
+                if (paramDef.isRequired()) {
+                    param.setErrCode(0);
+                    param.setErrText("missing");
+                    param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
+                    form.setMessageFormStatus(IncMessageFormStatus.INVALID);
+                }
+                
+                form.setLastModified(new Date());
                 form.getIncomingMsgFormParameters().put(paramDef.getName().toLowerCase(), param);
             }
         }
@@ -82,7 +86,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
     public boolean serverValidate(IncomingMessageForm form, String requesterPhone) {
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
         dFormat.setLenient(false);
-        
+
         if (!form.getMessageFormStatus().equals(IncMessageFormStatus.VALID)) {
             return false;
         }
@@ -191,7 +195,11 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             }
         } else if (code.equalsIgnoreCase("EditPatient")) {
             try {
-                regWS.editPatient(form.getIncomingMsgFormParameters().get("chpsid").getValue(), form.getIncomingMsgFormParameters().get("patientregnum").getValue(), form.getIncomingMsgFormParameters().get("primaryphone").getValue(), ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("primaryphonetype").getValue()), form.getIncomingMsgFormParameters().get("secondaryphone").getValue(), ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue()), form.getIncomingMsgFormParameters().get("nhis").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexp").getValue()));
+                Date nhisExp = (form.getIncomingMsgFormParameters().get("nhisexp").getValue() != null) ? dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexp").getValue()) : null;
+                ContactNumberType priNumType = (form.getIncomingMsgFormParameters().get("primaryphonetype").getValue() != null) ? ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("primaryphonetype").getValue()) : null;
+                ContactNumberType secNumType = (form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue() != null) ? ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue()) : null;
+
+                regWS.editPatient(form.getIncomingMsgFormParameters().get("chpsid").getValue(), form.getIncomingMsgFormParameters().get("patientregnum").getValue(), form.getIncomingMsgFormParameters().get("primaryphone").getValue(), priNumType, form.getIncomingMsgFormParameters().get("secondaryphone").getValue(), secNumType, form.getIncomingMsgFormParameters().get("nhis").getValue(), nhisExp);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
