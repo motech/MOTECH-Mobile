@@ -40,7 +40,6 @@ public class IMPServiceImpl implements IMPService {
         tx.commit();
 
         IncomingMessageResponse response = impManager.createCommandAction().execute(inMsg, requesterPhone, context);
-        //context.cleanUp();
         
         return response.getContent();
     }

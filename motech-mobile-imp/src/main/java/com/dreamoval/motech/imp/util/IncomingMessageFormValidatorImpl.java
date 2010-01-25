@@ -33,7 +33,6 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
     private String dateFormat;
     private RegistrarService regWS;
     private CoreManager coreManager;
-    //private IncomingMessageFormParameterValidator imParamValidator;
     private Map<String, List<IncomingMessageFormParameterValidator>> paramValidators;
     private Map<Integer, String> serverErrors;
     private static Logger logger = Logger.getLogger(IncomingMessageFormValidatorImpl.class);
@@ -235,12 +234,6 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
     }
 
-    /**
-     * @param imParamValidator the imParamValidator to set
-     */
-//    public void setImParamValidator(IncomingMessageFormParameterValidator imParamValidator) {
-//        this.imParamValidator = imParamValidator;
-//    }
     /**
      * @return the coreManager
      */

@@ -46,14 +46,6 @@ public class IMPManagerImpl implements ApplicationContextAware, IMPManager{
         return (IncomingMessageFormValidator)context.getBean("imFormValidator");
     }
 
-    /**
-     * Creates a wired IncomingMessageFormParameterValidator instance
-     * @return the created IncomingMessageFormParameterValidator
-     */
-//    public IncomingMessageFormParameterValidator createIncomingMessageFormParameterValidator(){
-//        return (IncomingMessageFormParameterValidator)context.getBean("imParamValidator");
-//    }
-
     public CommandAction createCommandAction() {
         return (CommandAction)context.getBean("formCmdAxn");
     }

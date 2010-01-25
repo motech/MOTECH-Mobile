@@ -90,7 +90,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
         catch(MotechException me){          
             logger.error("Error sending message", me);
             messageDetails.setMessageStatus(MStatus.SCHEDULED);
-            //workaround for sending info back to log service
+
             GatewayMessageHandler orHandler = gatewayManager.getMessageHandler();
             responseList = orHandler.parseMessageResponse(messageDetails, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage(), context);
             result.put(new Boolean(false), responseList);
