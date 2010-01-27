@@ -1,10 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.util;
-
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;
@@ -30,8 +24,7 @@ public class StringEnumUserType implements EnhancedUserType, ParameterizedType {
         String enumClassName = parameters.getProperty("enumClassname");
         try {
             enumClass = ReflectHelper.classForName(enumClassName);
-        }
-        catch (ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             throw new HibernateException("Enum class not found", cnfe);
         }
     }
@@ -41,7 +34,7 @@ public class StringEnumUserType implements EnhancedUserType, ParameterizedType {
     }
 
     public int[] sqlTypes() {
-        return new int[] { Hibernate.STRING.sqlType() };
+        return new int[]{Hibernate.STRING.sqlType()};
     }
 
     public boolean isMutable() {
@@ -65,7 +58,7 @@ public class StringEnumUserType implements EnhancedUserType, ParameterizedType {
     }
 
     public boolean equals(Object x, Object y) {
-        return x==y;
+        return x == y;
     }
 
     public int hashCode(Object x) {
@@ -77,28 +70,26 @@ public class StringEnumUserType implements EnhancedUserType, ParameterizedType {
     }
 
     public String objectToSQLString(Object value) {
-        return '\'' + ( (Enum) value ).name() + '\'';
+        return '\'' + ((Enum) value).name() + '\'';
     }
 
     public String toXMLString(Object value) {
-        return ( (Enum) value ).name();
+        return ((Enum) value).name();
     }
 
     public Object nullSafeGet(ResultSet rs, String[] names, Object owner)
             throws SQLException {
-        String name = rs.getString( names[0] );
+        String name = rs.getString(names[0]);
         return rs.wasNull() ? null : Enum.valueOf(enumClass, name);
     }
 
     public void nullSafeSet(PreparedStatement st, Object value, int index)
             throws SQLException {
-        if (value==null) {
+        if (value == null) {
             st.setNull(index, Hibernate.STRING.sqlType());
-        }
-        else {
-            st.setString( index, ( (Enum) value ).name() );
+        } else {
+            st.setString(index, ((Enum) value).name());
         }
     }
-
 }
 
