@@ -16,7 +16,8 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author user
+ * @author joseph Djomeda (joseph@dreamoval.com)
+ * @Date Dec 11, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})

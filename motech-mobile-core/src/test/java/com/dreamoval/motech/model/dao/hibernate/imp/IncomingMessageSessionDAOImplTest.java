@@ -123,47 +123,4 @@ public class IncomingMessageSessionDAOImplTest {
 
     }
 
-
-    /**
-     * Test of getIncomingMdgSessionByRequestedPhone method, of class IncomingMessageSessionDAOImpl.
-     */
-
-//    @Test
-//    public void testGetIncomingMsgSessionByRequestedPhone() {
-//        System.out.println("getIncomingMsgSessionByRequestedPhone IncomingMessageSession");
-//
-//        List<IncomingMessageSession> expResult = new ArrayList<IncomingMessageSession>();
-//        expResult.add(ims2);
-//        expResult.add(ims3);
-//        List<IncomingMessageSession> result = imsDAO.getIncomingMsgSessionByRequestedPhone(requesterPhone);
-//        Assert.assertFalse(result.isEmpty());
-//        Assert.assertEquals(expResult.size(), result.size());
-//        Assert.assertTrue(result.contains(ims2));
-//        Assert.assertTrue(result.contains(ims3));
-//
-//    }
-
-
-//    /**
-//     * Test of delete method, of class IncomingMessageSessionDAOImpl.
-//     */
-//    @Ignore
-//    @Test
-//    public void testDelete() {
-//        System.out.println("Delete");
-//
-//        Session session = ((Session) mDDAO.getDBSession().getSession());
-//        Transaction tx = session.beginTransaction();
-//        mDDAO.delete(md2);
-//        tx.commit();
-//
-//        session.beginTransaction();
-//        GatewayRequest fromdb = (GatewayRequestImpl) session.get(GatewayRequestImpl.class, md2.getId());
-//        session.getTransaction().commit();
-//        Assert.assertNull(fromdb);
-//
-//
-//    }
-
-
 }

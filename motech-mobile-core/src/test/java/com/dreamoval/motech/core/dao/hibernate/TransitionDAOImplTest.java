@@ -180,10 +180,9 @@ public class TransitionDAOImplTest {
         Assert.assertEquals(true, allfromdb.contains(t3));
         Assert.assertEquals(true, allfromdb.contains(t4));
         Assert.assertEquals(true, allfromdb.contains(t5));
-//          Assert.assertEquals(true, allfromdb.contains(t1));
+
     }
 
-//    @Ignore
     @Test
     public void testFindByExample() {
         t6.setTransactionType("update");

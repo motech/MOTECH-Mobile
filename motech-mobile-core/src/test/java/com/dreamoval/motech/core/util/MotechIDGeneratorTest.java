@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.util;
 
 import org.junit.After;
@@ -46,5 +41,4 @@ public class MotechIDGeneratorTest {
         System.out.println("ID: " + result);
         assertNotNull(result);
     }
-
 }

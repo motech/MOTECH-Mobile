@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dreamoval.motech.core.dao.hibernate;
 
 import com.dreamoval.motech.core.dao.GatewayRequestDetailsDAO;
@@ -44,7 +40,6 @@ public class GatewayRequestDetailsDAOImplTest {
     GatewayRequestDetails grd2;
     @Autowired
     GatewayRequestDetails grd3;
-
     @Autowired
     GatewayRequestDetails grd4;
     @Autowired
@@ -54,7 +49,7 @@ public class GatewayRequestDetailsDAOImplTest {
 
     @Before
     public void setUp() {
-        MotechContext mc = coreManager.createMotechContext() ;
+        MotechContext mc = coreManager.createMotechContext();
         grDao = coreManager.createGatewayRequestDetailsDAO(mc);
         grd1.setId(343L);
         grd1.setMessage("message to send");
@@ -86,18 +81,18 @@ public class GatewayRequestDetailsDAOImplTest {
         grd5.setMessageType(MessageType.TEXT);
         grd5.setNumberOfPages(2);
 
-     
+
 
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         Session session = (Session) grDao.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
         grDao.delete(grd1);
         tx.commit();
     }
-    
+
     /**
      * Test of save method, of class GatewayRequestDetailsDAOImpl.
      */
@@ -140,8 +135,8 @@ public class GatewayRequestDetailsDAOImplTest {
         Assert.assertEquals(grd1, fromdb);
         Assert.assertEquals(2, fromdb.getGatewayRequests().size());
         Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr1));
-        Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr2)); 
-        
+        Assert.assertEquals(true, fromdb.getGatewayRequests().contains(gr2));
+
     }
 
     /**
@@ -156,7 +151,7 @@ public class GatewayRequestDetailsDAOImplTest {
         grd5.setMessage(alteredmsg);
         grd5.setNumberOfPages(altnumofpage);
 
-        Session session = (Session)grDao.getDBSession().getSession();
+        Session session = (Session) grDao.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
         session.save(grd5);
         tx.commit();

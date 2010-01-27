@@ -21,7 +21,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
- * @author jojo
+ * @author joseph Djomeda (joseph@dreamoval.com)
+ * @Date Dec 11, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
