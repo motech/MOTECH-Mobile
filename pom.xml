@@ -519,9 +519,9 @@
         </profile>
     </profiles>
     <scm>
-        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/branches/motech-mobile-1.0-M2</url>
-        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/motech-mobile-1.0-M2</connection>
-        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/motech-mobile-1.0-M2</developerConnection>
+        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/branches/1.0-M3</url>
+        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/1.0-M3</connection>
+        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/1.0-M3</developerConnection>
     </scm>
 
 </project>
