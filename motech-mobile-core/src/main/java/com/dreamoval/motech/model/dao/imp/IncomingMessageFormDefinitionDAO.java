@@ -10,6 +10,6 @@ import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface IncomingMessageFormDefinitionDAO<T extends IncomingMessageFormDefinition> extends GenericDAO<T> {
-    
+
     IncomingMessageFormDefinition getByCode(String formCode);
 }
