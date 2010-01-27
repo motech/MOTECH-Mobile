@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * IncomingMessageSession class is a POJO to hold IncomingMessageSession information for data storage and manipulation
+ * IncomingMessageSession interface is a POJO to hold IncomingMessageSession information for data storage and manipulation
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */

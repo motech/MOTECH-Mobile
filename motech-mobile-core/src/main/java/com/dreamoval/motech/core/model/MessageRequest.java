@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- *  MessageRequest class is a POJO to hold MessageRequest information for data storage and manipulation
+ *  MessageRequest interface is a POJO to hold MessageRequest information for data storage and manipulation
  *  Date : Sep 25, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */

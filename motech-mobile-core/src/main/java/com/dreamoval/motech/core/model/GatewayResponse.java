@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * ResponseDetails class is a POJO to hold and manipulate ResponseDetails to be persited in the database
+ * ResponseDetails interface is a POJO to hold and manipulate ResponseDetails to be persited in the database
  * It contains properties like recipient's number and message delivery status
  * 
  * Date: Jul 24, 2009

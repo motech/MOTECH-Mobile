@@ -3,7 +3,7 @@ package com.dreamoval.motech.core.model;
 import java.util.Set;
 
 /**
- * Language class is a POJO to hold Language information for data storage and manipulation
+ * Language interface is a POJO to hold Language information for data storage and manipulation
  * Date: Sep 27, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */

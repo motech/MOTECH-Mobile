@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  *
- * MessageDetails class is a POJO to hold MessageDetails information for data storage and manipulation
+ * MessageDetails interface is a POJO to hold MessageDetails information for data storage and manipulation
  * It has properties for example the text message itself or the numberofpages of that sms text in case it's
  * sms send
  *

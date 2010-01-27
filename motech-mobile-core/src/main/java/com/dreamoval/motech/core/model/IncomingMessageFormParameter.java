@@ -3,7 +3,7 @@ package com.dreamoval.motech.core.model;
 import java.util.Date;
 
 /**
- * IncomingMessageFormParameter class is a POJO to hold IncomingMessageFormParameter information for data storage and manipulation
+ * IncomingMessageFormParameter interface is a POJO to hold IncomingMessageFormParameter information for data storage and manipulation
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
