@@ -4,8 +4,9 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- *
- * @author jojo
+ * IncomingMessageFormDefinition class is a POJO to hold IncomingMessageFormDefinition information for data storage and manipulation
+ * Date: Dec 14, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface IncomingMessageFormDefinition extends MotechEntity {
 

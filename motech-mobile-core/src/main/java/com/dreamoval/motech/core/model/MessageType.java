@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 /**
- *
- * @author Jojo
+ * MessageType is an enumeration that describe the state of MessageRequest of GatewayRequest objects
+ * Date Sep 27, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public enum MessageType {
-    TEXT, VOICE
 
+    TEXT, VOICE
 }

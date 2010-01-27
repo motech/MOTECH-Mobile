@@ -1,18 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
 
 /**
- *
+ * IncomingMessageImpl class is an implementation of IncomingMessage interface'
+ * which is actually mapped in hibernate.It provides properties to handle incomingMessage
+ * operations
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public class IncomingMessageImpl extends MotechEntityImpl implements IncomingMessage {
+
     private String content;
     private Date dateCreated;
     private Date lastModified;
@@ -119,36 +117,35 @@ public class IncomingMessageImpl extends MotechEntityImpl implements IncomingMes
         this.messageStatus = messageStatus;
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer sb = new StringBuffer();
         String newLine = System.getProperty("line.separator");
 
-       if(this != null) {
-           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
-           sb.append(newLine);
-           sb.append((this.content != null) ? "key=content value=" + this.content : "content is null  ");
-           sb.append(newLine);
-          
-           sb.append((this.incomingMessageForm != null) ? "key=IncomingMessageForm.Id value=" + this.incomingMessageForm.getId() : "incomingMessageForm.Id is null ");
-           sb.append(newLine);
-           sb.append((this.incomingMessageResponse != null) ? "key=IncomingMessageResponse.Id value=" + this.incomingMessageResponse.getId() : "incomingMessageResponse.Id is null ");
-           sb.append(newLine);
-           sb.append((this.incomingMsgSession != null) ? "key=IncomingMsgSession.Id value=" + this.incomingMsgSession.getId() : "incomingMsgSession.Id is null ");
-           sb.append(newLine);
-           sb.append((this.dateCreated != null) ? "key=dateCreated value=" + this.dateCreated.toString() : "dateCreated is null ");
-           sb.append(newLine);
-           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
-           sb.append(newLine);
-           sb.append((this.messageStatus != null) ? "key=messageStatus value=" + this.messageStatus.toString() : "messageStatus is null ");
-           sb.append(newLine);
+        if (this != null) {
+            sb.append((this.getId() != null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+            sb.append(newLine);
+            sb.append((this.content != null) ? "key=content value=" + this.content : "content is null  ");
+            sb.append(newLine);
 
-           return sb.toString();
+            sb.append((this.incomingMessageForm != null) ? "key=IncomingMessageForm.Id value=" + this.incomingMessageForm.getId() : "incomingMessageForm.Id is null ");
+            sb.append(newLine);
+            sb.append((this.incomingMessageResponse != null) ? "key=IncomingMessageResponse.Id value=" + this.incomingMessageResponse.getId() : "incomingMessageResponse.Id is null ");
+            sb.append(newLine);
+            sb.append((this.incomingMsgSession != null) ? "key=IncomingMsgSession.Id value=" + this.incomingMsgSession.getId() : "incomingMsgSession.Id is null ");
+            sb.append(newLine);
+            sb.append((this.dateCreated != null) ? "key=dateCreated value=" + this.dateCreated.toString() : "dateCreated is null ");
+            sb.append(newLine);
+            sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
+            sb.append(newLine);
+            sb.append((this.messageStatus != null) ? "key=messageStatus value=" + this.messageStatus.toString() : "messageStatus is null ");
+            sb.append(newLine);
 
-       } else {
-           return "Object is null";
-       }
+            return sb.toString();
+
+        } else {
+            return "Object is null";
+        }
 
 
     }

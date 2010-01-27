@@ -1,20 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
 
 /**
+ * MessageTemplateImpl class is an implementation of MessageTemplate interface which is
+ * mapped in hibernate.It provides properties to handle MessageTemplate operations
  *  Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemplate  {
+public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemplate {
+
     public MessageTemplateImpl() {
     }
-
     private NotificationType notificationType;
     private Language language;
     private Date dateCreated;
@@ -91,33 +88,32 @@ public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemp
         this.template = template;
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer sb = new StringBuffer();
         String newLine = System.getProperty("line.separator");
 
-       if(this != null) {
-           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
-           sb.append(newLine);
-           sb.append((this.language != null) ? "key=Language.Id value=" + this.language.getId() : "Language is null ");
-           sb.append(newLine);
-           sb.append((this.notificationType != null) ? "key=NotificationType.Id value=" + this.notificationType.getId() : "NotificationType is null ");
-           sb.append(newLine);
-           sb.append((this.template != null) ? "key=template value=" + this.template : "template is null  ");
-           sb.append(newLine);
+        if (this != null) {
+            sb.append((this.getId() != null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+            sb.append(newLine);
+            sb.append((this.language != null) ? "key=Language.Id value=" + this.language.getId() : "Language is null ");
+            sb.append(newLine);
+            sb.append((this.notificationType != null) ? "key=NotificationType.Id value=" + this.notificationType.getId() : "NotificationType is null ");
+            sb.append(newLine);
+            sb.append((this.template != null) ? "key=template value=" + this.template : "template is null  ");
+            sb.append(newLine);
 
-           sb.append((this.dateCreated != null) ? "key=dateCreated value=" + this.dateCreated.toString() : "dateCreated is null ");
-           sb.append(newLine);
-           sb.append((this.messageType != null) ? "key=messageType value=" + this.messageType.toString() : "messageType is null ");
-           sb.append(newLine);
+            sb.append((this.dateCreated != null) ? "key=dateCreated value=" + this.dateCreated.toString() : "dateCreated is null ");
+            sb.append(newLine);
+            sb.append((this.messageType != null) ? "key=messageType value=" + this.messageType.toString() : "messageType is null ");
+            sb.append(newLine);
 
 
-           return sb.toString();
+            return sb.toString();
 
-       } else {
-           return "Object is null";
-       }
+        } else {
+            return "Object is null";
+        }
 
     }
 }

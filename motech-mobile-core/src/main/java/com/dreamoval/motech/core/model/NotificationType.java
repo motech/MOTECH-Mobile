@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Set;
 
 /**
+ * Notification interface is a POJO that holds NotificationType information for storage and manipulation
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
@@ -34,6 +30,7 @@ public interface NotificationType extends MotechEntity {
     void setName(String name);
 
     Set<MessageTemplate> getMessageTemplates();
+
     void setMessageTemplates(Set<MessageTemplate> messageTemplate);
 
     /**
@@ -42,5 +39,4 @@ public interface NotificationType extends MotechEntity {
      */
     @Override
     public String toString();
-
 }

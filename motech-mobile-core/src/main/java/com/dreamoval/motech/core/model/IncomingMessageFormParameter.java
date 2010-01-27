@@ -2,7 +2,12 @@ package com.dreamoval.motech.core.model;
 
 import java.util.Date;
 
-public interface IncomingMessageFormParameter extends MotechEntity{
+/**
+ * IncomingMessageFormParameter class is a POJO to hold IncomingMessageFormParameter information for data storage and manipulation
+ * Date: Dec 14, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
+ */
+public interface IncomingMessageFormParameter extends MotechEntity {
 
     /**
      * @return the dateCreated
@@ -33,7 +38,6 @@ public interface IncomingMessageFormParameter extends MotechEntity{
      * @return the messageFormParamStatus
      */
     public IncMessageFormParameterStatus getMessageFormParamStatus();
-
 
     /**
      * @return the name
@@ -79,8 +83,6 @@ public interface IncomingMessageFormParameter extends MotechEntity{
      * @param messageFormParamStatus the messageFormParamStatus to set
      */
     public void setMessageFormParamStatus(IncMessageFormParameterStatus messageFormParamStatus);
-
-
 
     /**
      * @param name the name to set

@@ -3,8 +3,9 @@ package com.dreamoval.motech.core.model;
 import java.util.Date;
 
 /**
- *
- * @author jojo
+ * IncomingMessageFormResponse class is a POJO to hold IncomingMessageResponse information for data storage and manipulation
+ * Date: Dec 14, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface IncomingMessageResponse extends MotechEntity {
 

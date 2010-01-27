@@ -1,10 +1,13 @@
 package com.dreamoval.motech.core.model;
 
-import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
-import com.dreamoval.motech.core.model.MotechEntity;
 import java.util.Date;
 
-public interface IncomingMessageFormParameterDefinition extends MotechEntity{
+/**
+ * IncomingMessageFormParameterDefinition class is a POJO to hold IncomingMessageFormParameterDefinition information for data storage and manipulation
+ * Date: Dec 14, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
+ */
+public interface IncomingMessageFormParameterDefinition extends MotechEntity {
 
     /**
      * @return the dateCreated

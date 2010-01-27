@@ -1,10 +1,11 @@
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
+ * MesasgeRequestImpl class is an implementation of MessageRequest interface which is actually
+ * mapped in hibernate.It provides properties to handle MessageRequest operations
  *  Date : Sep 25, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
@@ -209,7 +210,6 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
         this.requestId = requestId;
     }
 
-
     /**
      * @return the persInfos
      */
@@ -253,51 +253,50 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer sb = new StringBuffer();
         String newLine = System.getProperty("line.separator");
 
-       if(this != null) {
-           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
-           sb.append(newLine);
-           sb.append((this.language != null) ? "key=Language.Id value=" + this.language.getId() : "Language is null ");
-           sb.append(newLine);
-           sb.append((this.notificationType != null) ? "key=NotificationType.Id value=" + this.notificationType.getId() : "NotificationType is null ");
-           sb.append(newLine);
-           sb.append((this.recipientName != null) ? "key=message value=" + this.recipientName : "recipientName is null  ");
-           sb.append(newLine);
-           sb.append((this.recipientNumber != null) ? "key=recipientNumber value=" + this.recipientNumber : "recipientNumber is null ");
-           sb.append(newLine);
-           sb.append((this.requestId != null) ? "key=requestId value=" + this.requestId : "requestId is null ");
-           sb.append(newLine);
-           sb.append((this.p13nData != null) ? "key=p13nData value=" + this.p13nData : "p13nData is null ");
-           sb.append(newLine);
+        if (this != null) {
+            sb.append((this.getId() != null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+            sb.append(newLine);
+            sb.append((this.language != null) ? "key=Language.Id value=" + this.language.getId() : "Language is null ");
+            sb.append(newLine);
+            sb.append((this.notificationType != null) ? "key=NotificationType.Id value=" + this.notificationType.getId() : "NotificationType is null ");
+            sb.append(newLine);
+            sb.append((this.recipientName != null) ? "key=message value=" + this.recipientName : "recipientName is null  ");
+            sb.append(newLine);
+            sb.append((this.recipientNumber != null) ? "key=recipientNumber value=" + this.recipientNumber : "recipientNumber is null ");
+            sb.append(newLine);
+            sb.append((this.requestId != null) ? "key=requestId value=" + this.requestId : "requestId is null ");
+            sb.append(newLine);
+            sb.append((this.p13nData != null) ? "key=p13nData value=" + this.p13nData : "p13nData is null ");
+            sb.append(newLine);
 
 //           sb.append((this.persInfos.isEmpty() ) ? "key=persInfos length=" + Integer.toString(this.persInfos.size()) : "persInfos is empty ");
 //           sb.append(newLine);
 
 
-           sb.append((this.schedule != null) ? "key=schedule value=" + this.schedule.toString() : "schedule is null ");
-           sb.append(newLine);
-           sb.append((this.dateTo != null) ? "key=dateTo value=" + this.dateTo.toString() : "dateTo is null ");
-           sb.append(newLine);
-           sb.append((this.dateFrom != null) ? "key=dateFrom value=" + this.dateFrom.toString() : "dateFrom is null ");
-           sb.append(newLine);
-           sb.append((this.dateProcessed != null) ? "key=dateProcessed value=" + this.dateProcessed.toString() : "dateProcessed is null ");
-           sb.append(newLine);
-           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
-           sb.append(newLine);
-           sb.append((this.messageType != null) ? "key=messageType value=" + this.messageType.toString() : "messageType is null ");
-           sb.append(newLine);
-           sb.append((this.status != null) ? "key=status value=" + this.status.toString() : "status is null ");
-           sb.append(newLine);
+            sb.append((this.schedule != null) ? "key=schedule value=" + this.schedule.toString() : "schedule is null ");
+            sb.append(newLine);
+            sb.append((this.dateTo != null) ? "key=dateTo value=" + this.dateTo.toString() : "dateTo is null ");
+            sb.append(newLine);
+            sb.append((this.dateFrom != null) ? "key=dateFrom value=" + this.dateFrom.toString() : "dateFrom is null ");
+            sb.append(newLine);
+            sb.append((this.dateProcessed != null) ? "key=dateProcessed value=" + this.dateProcessed.toString() : "dateProcessed is null ");
+            sb.append(newLine);
+            sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
+            sb.append(newLine);
+            sb.append((this.messageType != null) ? "key=messageType value=" + this.messageType.toString() : "messageType is null ");
+            sb.append(newLine);
+            sb.append((this.status != null) ? "key=status value=" + this.status.toString() : "status is null ");
+            sb.append(newLine);
 
-           return sb.toString();
+            return sb.toString();
 
-       } else {
-           return "Object is null";
-       }
+        } else {
+            return "Object is null";
+        }
 
     }
-
 }

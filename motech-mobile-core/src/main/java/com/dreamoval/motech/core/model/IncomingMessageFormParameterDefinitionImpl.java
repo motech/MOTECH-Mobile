@@ -117,35 +117,35 @@ public class IncomingMessageFormParameterDefinitionImpl extends MotechEntityImpl
         this.lastModified = lastModified;
     }
 
-      @Override
-    public String toString(){
+    @Override
+    public String toString() {
         StringBuffer sb = new StringBuffer();
         String newLine = System.getProperty("line.separator");
-        
-       if(this != null) {
-           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
-           sb.append(newLine);
-           sb.append((this.name != null) ? "key=name value=" + this.name : "name is null  ");
-           sb.append(newLine);
-           sb.append("key=required value=" + this.required);
-           sb.append(newLine);
-           sb.append((this.paramType != null) ? "key=paramType value=" + this.paramType : "paramType is null ");
-           sb.append(newLine);
-           sb.append((this.IncomingMsgFormDefinition != null) ? "key=IncomingMessageFormDefinition.Id value=" + this.IncomingMsgFormDefinition.getId() : "gatewayRequestDetails.Id is null ");
-           sb.append(newLine);
-           sb.append((this.length != -1 ) ? "key=length value=" + this.length : "length is null ");
-           sb.append(newLine);
 
-           sb.append((this.dateCreated != null) ? "key=dateCreate value=" + this.dateCreated.toString() : "dateCreated is null ");
-           sb.append(newLine);
-           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
-           sb.append(newLine);
+        if (this != null) {
+            sb.append((this.getId() != null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+            sb.append(newLine);
+            sb.append((this.name != null) ? "key=name value=" + this.name : "name is null  ");
+            sb.append(newLine);
+            sb.append("key=required value=" + this.required);
+            sb.append(newLine);
+            sb.append((this.paramType != null) ? "key=paramType value=" + this.paramType : "paramType is null ");
+            sb.append(newLine);
+            sb.append((this.IncomingMsgFormDefinition != null) ? "key=IncomingMessageFormDefinition.Id value=" + this.IncomingMsgFormDefinition.getId() : "gatewayRequestDetails.Id is null ");
+            sb.append(newLine);
+            sb.append((this.length != -1) ? "key=length value=" + this.length : "length is null ");
+            sb.append(newLine);
 
-           return sb.toString();
+            sb.append((this.dateCreated != null) ? "key=dateCreate value=" + this.dateCreated.toString() : "dateCreated is null ");
+            sb.append(newLine);
+            sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
+            sb.append(newLine);
 
-       } else {
-           return "Object is null";
-       }
+            return sb.toString();
+
+        } else {
+            return "Object is null";
+        }
 
 
     }

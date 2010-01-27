@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 import java.util.HashSet;
@@ -10,15 +5,18 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- *  Date : Sep 27, 2009
+ * LanguageImpl class is an implementation of the Language interface which is actuaally
+ * mapped in hibernate.It provides properties to handle Language operations
+ * Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class LanguageImpl extends  MotechEntityImpl implements Language{
+public class LanguageImpl extends MotechEntityImpl implements Language {
 
     private String code;
     private String name;
     private String description;
     private Set<MessageRequest> messageRequests = new HashSet<MessageRequest>();
+
     public LanguageImpl() {
     }
 

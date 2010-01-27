@@ -1,5 +1,3 @@
-
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
@@ -13,6 +11,7 @@ import java.util.Date;
  */
 //TODO eventualy refactor Transition class to logs
 public interface Transition extends MotechEntity {
+
     /**
      * @return the responseId
      */

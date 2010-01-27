@@ -1,9 +1,13 @@
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
+/**
+ * IncomingMessageForm class is a POJO to hold IncomingMessageForm information for data storage and manipulation
+ * Date: Dec 14, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
+ */
 public interface IncomingMessageForm extends MotechEntity {
 
     /**
@@ -55,6 +59,7 @@ public interface IncomingMessageForm extends MotechEntity {
      * @param incomingMsgFormParameters the incomingMsgFormParameters to set
      */
     public void setIncomingMsgFormParameters(Map<String, IncomingMessageFormParameter> incomingMsgFormParameters);
+
     /**
      * Helper method to display string value of all properties of the object
      * @return formated string value of all properties

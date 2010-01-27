@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
 
 /**
- *
+ * IncomingMessage class is a POJO to hold IncomingMessage information for data storage and manipulation
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */

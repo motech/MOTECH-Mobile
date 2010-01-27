@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
 
 /**
+ * MessageTemplate interface is a POJO to hold information for storage and manipulations
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
-public interface MessageTemplate extends MotechEntity{
+public interface MessageTemplate extends MotechEntity {
 
     /**
      * @return the date_created
@@ -32,13 +28,13 @@ public interface MessageTemplate extends MotechEntity{
      *
      * @return the message_type
      */
-   MessageType getMessageType();
+    MessageType getMessageType();
 
-   /**
-    *
-    * @return the template
-    */
-   String getTemplate();
+    /**
+     *
+     * @return the template
+     */
+    String getTemplate();
 
     /**
      * @param date_created the date_created to set

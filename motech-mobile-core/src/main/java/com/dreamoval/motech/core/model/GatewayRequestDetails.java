@@ -3,6 +3,7 @@ package com.dreamoval.motech.core.model;
 import java.util.Set;
 
 /**
+ * MessageRequestDetails class is a POJO to hold MessageRequestDetails information for data storage and manipulation
  *  Date : Sep 24, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */

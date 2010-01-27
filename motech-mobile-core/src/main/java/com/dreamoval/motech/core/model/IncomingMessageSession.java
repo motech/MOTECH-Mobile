@@ -4,10 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author jojo
+ * IncomingMessageSession class is a POJO to hold IncomingMessageSession information for data storage and manipulation
+ * Date: Dec 14, 2009
+ * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessageSession extends MotechEntity{
+public interface IncomingMessageSession extends MotechEntity {
 
     /**
      * @return the dateStarted
@@ -69,12 +70,12 @@ public interface IncomingMessageSession extends MotechEntity{
      */
     public void setRequesterPhone(String requesterPhone);
 
-     /**
+    /**
      * @param incomingMessages the incomingMessages to set
      */
     public void setIncomingMessages(List<IncomingMessage> incomingMessages);
 
-     /**
+    /**
      * @param messageSessionStatus the messageSessionStatus to set
      */
     public void setMessageSessionStatus(IncMessageSessionStatus messageSessionStatus);

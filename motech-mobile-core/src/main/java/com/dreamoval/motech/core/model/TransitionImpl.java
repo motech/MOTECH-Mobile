@@ -1,5 +1,3 @@
-
-
 package com.dreamoval.motech.core.model;
 
 import java.util.Date;
@@ -8,14 +6,15 @@ import java.util.Date;
  * Date :Aug 4, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class TransitionImpl extends MotechEntityImpl implements Transition{
-    
+public class TransitionImpl extends MotechEntityImpl implements Transition {
+
     private GatewayResponse gatewayResponse;
     private String transactionType;
     private String transactionDescription;
     private Date transactionDate;
 
-    public TransitionImpl(){}
+    public TransitionImpl() {
+    }
 
     /**
      * @return the responseId

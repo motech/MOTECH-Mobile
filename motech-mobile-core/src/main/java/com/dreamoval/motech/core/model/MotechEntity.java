@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.model;
 
 import java.io.Serializable;
@@ -17,12 +12,12 @@ import java.io.Serializable;
  */
 public interface MotechEntity extends Serializable {
 
-     /**
+    /**
      * @return the id
      */
     public Long getId();
 
-     /**
+    /**
      * @param id the id to set
      */
     public void setId(Long id);
@@ -36,6 +31,4 @@ public interface MotechEntity extends Serializable {
      * @param version the version to set
      */
     void setVersion(int version);
-
-
 }

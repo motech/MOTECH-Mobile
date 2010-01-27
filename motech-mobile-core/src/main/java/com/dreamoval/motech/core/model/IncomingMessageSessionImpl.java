@@ -14,13 +14,13 @@ import java.util.List;
  */
 public class IncomingMessageSessionImpl extends MotechEntityImpl implements IncomingMessageSession {
 
-  private String requesterPhone;
-  private Date dateStarted;
-  private Date dateEnded;
-  private Date lastActivity;
-  private String formCode;
-  private List<IncomingMessage> incomingMessages = new ArrayList<IncomingMessage>();
-  private IncMessageSessionStatus messageSessionStatus;
+    private String requesterPhone;
+    private Date dateStarted;
+    private Date dateEnded;
+    private Date lastActivity;
+    private String formCode;
+    private List<IncomingMessage> incomingMessages = new ArrayList<IncomingMessage>();
+    private IncMessageSessionStatus messageSessionStatus;
 
     /**
      * @return the requesterPhone
@@ -120,56 +120,54 @@ public class IncomingMessageSessionImpl extends MotechEntityImpl implements Inco
         this.messageSessionStatus = messageSessionStatus;
     }
 
-
     public void addIncomingMessage(IncomingMessage msg) {
         this.incomingMessages.add(msg);
         msg.setIncomingMsgSession(this);
     }
 
     public void removeIncomingMessage(IncomingMessage msg) {
-     if(this.incomingMessages.contains(msg)) {
-         msg.setIncomingMsgSession(null);
-        this.incomingMessages.remove(msg);
-     }
+        if (this.incomingMessages.contains(msg)) {
+            msg.setIncomingMsgSession(null);
+            this.incomingMessages.remove(msg);
+        }
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer sb = new StringBuffer();
         String newLine = System.getProperty("line.separator");
 
-       if(this != null) {
-           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
-           sb.append(newLine);
-           sb.append((this.requesterPhone != null) ? "key=requestedPhone value=" + this.requesterPhone : "requesterPhone is null  ");
-           sb.append(newLine);
-           sb.append((this.formCode != null) ? "key=formCode value=" + this.formCode : "formCode is null ");
-           sb.append(newLine);
+        if (this != null) {
+            sb.append((this.getId() != null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+            sb.append(newLine);
+            sb.append((this.requesterPhone != null) ? "key=requestedPhone value=" + this.requesterPhone : "requesterPhone is null  ");
+            sb.append(newLine);
+            sb.append((this.formCode != null) ? "key=formCode value=" + this.formCode : "formCode is null ");
+            sb.append(newLine);
 
-           sb.append((this.incomingMessages.isEmpty() ) ? "key=incomingMessages length=" + Integer.toString(this.incomingMessages.size()) : "incomingMessages is empty ");
-           sb.append(newLine);
+            sb.append((this.incomingMessages.isEmpty()) ? "key=incomingMessages length=" + Integer.toString(this.incomingMessages.size()) : "incomingMessages is empty ");
+            sb.append(newLine);
 
-           for(Iterator it =this.incomingMessages.iterator(); it.hasNext();){
-               IncomingMessage  resp = (IncomingMessage) it.next();
-               sb.append((resp != null ) ? "key=incomingMessage.Id value=" + resp.getId().toString() : "incomingMessages.Id is null ");
-               sb.append(newLine);
-           }
+            for (Iterator it = this.incomingMessages.iterator(); it.hasNext();) {
+                IncomingMessage resp = (IncomingMessage) it.next();
+                sb.append((resp != null) ? "key=incomingMessage.Id value=" + resp.getId().toString() : "incomingMessages.Id is null ");
+                sb.append(newLine);
+            }
 
-           sb.append((this.dateStarted != null) ? "key=dateStarted value=" + this.dateStarted.toString() : "dateStarted is null ");
-           sb.append(newLine);
-           sb.append((this.dateEnded != null) ? "key=dateEnded value=" + this.dateEnded.toString() : "dateEnded is null ");
-           sb.append(newLine);
-           sb.append((this.lastActivity != null) ? "key=lastActivity value=" + this.lastActivity.toString() : "lastActivity is null ");
-           sb.append(newLine);
-           sb.append((this.messageSessionStatus != null) ? "key=messageSessionStatus value=" + this.messageSessionStatus.toString() : "messageSessionStatus is null ");
-           sb.append(newLine);
+            sb.append((this.dateStarted != null) ? "key=dateStarted value=" + this.dateStarted.toString() : "dateStarted is null ");
+            sb.append(newLine);
+            sb.append((this.dateEnded != null) ? "key=dateEnded value=" + this.dateEnded.toString() : "dateEnded is null ");
+            sb.append(newLine);
+            sb.append((this.lastActivity != null) ? "key=lastActivity value=" + this.lastActivity.toString() : "lastActivity is null ");
+            sb.append(newLine);
+            sb.append((this.messageSessionStatus != null) ? "key=messageSessionStatus value=" + this.messageSessionStatus.toString() : "messageSessionStatus is null ");
+            sb.append(newLine);
 
-           return sb.toString();
+            return sb.toString();
 
-       } else {
-           return "Object is null";
-       }
+        } else {
+            return "Object is null";
+        }
 
 
     }
