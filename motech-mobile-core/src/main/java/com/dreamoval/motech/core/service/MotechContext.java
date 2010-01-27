@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.core.service;
 
 import com.dreamoval.motech.core.dao.DBSession;
@@ -17,7 +12,7 @@ import java.io.Serializable;
  * @author Henry Sampson
  * Date Created 31-07-2009
  */
-public interface MotechContext<S, TX> extends Serializable{
+public interface MotechContext<S, TX> extends Serializable {
 
     /**
      * Sets the DB Session for the context
