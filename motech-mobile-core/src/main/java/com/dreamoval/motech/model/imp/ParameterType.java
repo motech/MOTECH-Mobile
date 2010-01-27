@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.dreamoval.motech.model.imp;
 
 /**
+ * ParameterType is an enumeration that describe the state of various objects
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
