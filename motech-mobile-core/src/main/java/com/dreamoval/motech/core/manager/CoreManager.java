@@ -1,15 +1,9 @@
 package com.dreamoval.motech.core.manager;
 
-import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.core.dao.*;
 import com.dreamoval.motech.core.model.*;
 import com.dreamoval.motech.core.service.MotechContext;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDAO;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDefinitionDAO;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageFormParameterDAO;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageFormParameterDefinitionDAO;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageResponseDAO;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
+import com.dreamoval.motech.model.dao.imp.*;
 
 import java.io.Serializable;
 

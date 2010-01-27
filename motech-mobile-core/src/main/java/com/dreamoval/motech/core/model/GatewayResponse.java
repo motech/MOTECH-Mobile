@@ -117,5 +117,4 @@ public interface GatewayResponse extends MotechEntity {
      */
     @Override
     public String toString();
-
 }

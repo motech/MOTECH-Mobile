@@ -29,9 +29,7 @@ public class LanguageDAOImpl extends HibernateGenericDAOImpl<LanguageImpl> imple
         logger.debug("variable passed to getByCode: " + code);
         try {
             Session sess = this.getDBSession().getSession();
-            Language lang = (Language) sess.createCriteria(LanguageImpl.class)
-                    .add(Restrictions.eq("code", code))
-                    .uniqueResult();
+            Language lang = (Language) sess.createCriteria(LanguageImpl.class).add(Restrictions.eq("code", code)).uniqueResult();
             logger.debug(lang);
             return lang;
         } catch (NonUniqueResultException ne) {

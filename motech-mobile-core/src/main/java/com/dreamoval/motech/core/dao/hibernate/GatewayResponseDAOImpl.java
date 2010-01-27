@@ -30,12 +30,10 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
 
     public GatewayResponseDAOImpl() {
     }
-
-    /**
-     * Retrieve the most recent GatewayResponse Object based on the request id and the fact its status is not pending nor processing
-     * @param requestId the requestId to pass
-     * @return GatewayResponse object
+    /*
+     * @see {@link com.dreamoval.motech.core.dao.GatewayResponseDAO#getMostRecentResponseByRequestId(java.lang.String) }
      */
+
     public GatewayResponse getMostRecentResponseByRequestId(String requestId) {
         logger.debug("variable passed to getMostRecentResponseByRequestId: " + requestId);
 
@@ -46,16 +44,12 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
             Criterion notprocessing = Restrictions.ne("messageStatus", MStatus.PROCESSING);
             LogicalExpression andExp = Restrictions.and(notpending, notprocessing);
 
-            List responses = sess.createCriteria(this.getPersistentClass())
-                    .add(andExp)
-                    .add(Restrictions.eq("requestId", requestId))
-                    .addOrder(Order.desc("dateCreated"))
-                    .list();
+            List responses = sess.createCriteria(this.getPersistentClass()).add(andExp).add(Restrictions.eq("requestId", requestId)).addOrder(Order.desc("dateCreated")).list();
 
             logger.debug(responses);
 
             return responses != null && responses.size() > 0 ? (GatewayResponse) responses.get(0) : null;
-            
+
         } catch (HibernateException he) {
 
             logger.error("Persistence or JDBC Exception in getMostRecentResponseByRequestId", he);
@@ -67,25 +61,24 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
         }
     }
 
+    /**
+     * @see {@link com.dreamoval.motech.core.dao.GatewayResponseDAO#getByRequestIdAndTryNumber(java.lang.String, int) }
+     */
     public GatewayResponse getByRequestIdAndTryNumber(String requestId, int tryNumber) {
         logger.debug("variable passed to getByRequestIdAndTryNumber. requestId: " + requestId + " and tryNumber: " + tryNumber);
 
         try {
 
-        Session session = this.getDBSession().getSession();
-        GatewayResponse response = null;
-        String query = "from GatewayResponseImpl g where g.requestId = :reqId and g.gatewayRequest.messageStatus != :status and g.gatewayRequest.tryNumber= :trynum ";
+            Session session = this.getDBSession().getSession();
+            GatewayResponse response = null;
+            String query = "from GatewayResponseImpl g where g.requestId = :reqId and g.gatewayRequest.messageStatus != :status and g.gatewayRequest.tryNumber= :trynum ";
 
-        response = (GatewayResponse) session.createQuery(query)
-                .setParameter("reqId", requestId)
-                .setParameter("trynum", tryNumber)
-                .setParameter("status", MStatus.PENDING)
-                .setMaxResults(1).uniqueResult();
-        logger.debug(response);
-        
-        return response;
-        
-        } catch(NonUniqueResultException nu){
+            response = (GatewayResponse) session.createQuery(query).setParameter("reqId", requestId).setParameter("trynum", tryNumber).setParameter("status", MStatus.PENDING).setMaxResults(1).uniqueResult();
+            logger.debug(response);
+
+            return response;
+
+        } catch (NonUniqueResultException nu) {
             logger.error("Exception in method getByRequestIdAndTryNumber.getByRequestIdAndTryNumber returns more than 1 result ", nu);
             return null;
         } catch (HibernateException he) {

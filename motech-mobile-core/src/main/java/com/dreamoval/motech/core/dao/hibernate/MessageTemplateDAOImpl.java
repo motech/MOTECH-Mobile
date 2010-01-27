@@ -27,15 +27,11 @@ public class MessageTemplateDAOImpl extends HibernateGenericDAOImpl<MessageTempl
      */
     public MessageTemplate getTemplateByLangNotifMType(Language lang, NotificationType notif, MessageType type) {
 
-        logger.debug("variables passed to getTemplateByLangNotifMType. language: " + lang + "And NotificationType: " +  notif + "And MessageType: " + type);
+        logger.debug("variables passed to getTemplateByLangNotifMType. language: " + lang + "And NotificationType: " + notif + "And MessageType: " + type);
         try {
             Session sess = this.getDBSession().getSession();
-            MessageTemplate template = (MessageTemplate) sess.createCriteria(MessageTemplateImpl.class)
-                    .add(Restrictions.eq("language", lang))
-                    .add(Restrictions.eq("notificationType", notif))
-                    .add(Restrictions.eq("messageType", type))
-                    .uniqueResult();
-            
+            MessageTemplate template = (MessageTemplate) sess.createCriteria(MessageTemplateImpl.class).add(Restrictions.eq("language", lang)).add(Restrictions.eq("notificationType", notif)).add(Restrictions.eq("messageType", type)).uniqueResult();
+
             logger.debug(template);
 
             return template;

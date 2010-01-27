@@ -235,51 +235,50 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
         this.lastModified = lastModified;
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer sb = new StringBuffer();
         String newLine = System.getProperty("line.separator");
-        
-       if(this != null) {
-           sb.append((this.getId()!= null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
-           sb.append(newLine);
-           sb.append((this.message != null) ? "key=message value=" + this.message : "message is null  ");
-           sb.append(newLine);
-           sb.append((this.recipientsNumber != null) ? "key=recipientsNumber value=" + this.recipientsNumber : "recipientsNumber is null ");
-           sb.append(newLine);
-           sb.append((this.requestId != null) ? "key=requestId value=" + this.requestId : "requestId is null ");
-           sb.append(newLine);
-           sb.append((this.gatewayRequestDetails != null) ? "key=gatewayRequestDetails.Id value=" + this.gatewayRequestDetails.getId() : "gatewayRequestDetails.Id is null ");
-           sb.append(newLine);
-           sb.append((this.tryNumber != -1 ) ? "key=tryNumber.Id value=" + Integer.toString(this.tryNumber) : "tryNumber is null ");
-           sb.append(newLine);
-           sb.append((this.responseDetails.isEmpty() ) ? "key=responseDetails length=" + Integer.toString(this.responseDetails.size()) : "responseDetails is empty ");
-           sb.append(newLine);
 
-           for(Iterator it =this.responseDetails.iterator(); it.hasNext();){
-               GatewayResponse  resp = (GatewayResponse) it.next();
-               sb.append((resp != null ) ? "key=GatewayResponse.Id value=" + resp.getId().toString() : "GatewayResponse.Id is null ");
-               sb.append(newLine);
-           }
+        if (this != null) {
+            sb.append((this.getId() != null) ? "key=Id value=" + this.getId().toString() : "Id is null ");
+            sb.append(newLine);
+            sb.append((this.message != null) ? "key=message value=" + this.message : "message is null  ");
+            sb.append(newLine);
+            sb.append((this.recipientsNumber != null) ? "key=recipientsNumber value=" + this.recipientsNumber : "recipientsNumber is null ");
+            sb.append(newLine);
+            sb.append((this.requestId != null) ? "key=requestId value=" + this.requestId : "requestId is null ");
+            sb.append(newLine);
+            sb.append((this.gatewayRequestDetails != null) ? "key=gatewayRequestDetails.Id value=" + this.gatewayRequestDetails.getId() : "gatewayRequestDetails.Id is null ");
+            sb.append(newLine);
+            sb.append((this.tryNumber != -1) ? "key=tryNumber.Id value=" + Integer.toString(this.tryNumber) : "tryNumber is null ");
+            sb.append(newLine);
+            sb.append((this.responseDetails.isEmpty()) ? "key=responseDetails length=" + Integer.toString(this.responseDetails.size()) : "responseDetails is empty ");
+            sb.append(newLine);
 
-           sb.append((this.dateSent != null) ? "key=dateSent value=" + this.dateSent.toString() : "dateSent is null ");
-           sb.append(newLine);
-           sb.append((this.dateTo != null) ? "key=dateTo value=" + this.dateTo.toString() : "dateTo is null ");
-           sb.append(newLine);
-           sb.append((this.dateFrom != null) ? "key=dateFrom value=" + this.dateFrom.toString() : "dateFrom is null ");
-           sb.append(newLine);
-           sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
-           sb.append(newLine);
-           sb.append((this.messageStatus != null) ? "key=messageStatus value=" + this.messageStatus.toString() : "messageStatus is null ");
-           sb.append(newLine);
-          
-           return sb.toString();
-     
-       } else {
-           return "Object is null";
-       }
+            for (Iterator it = this.responseDetails.iterator(); it.hasNext();) {
+                GatewayResponse resp = (GatewayResponse) it.next();
+                sb.append((resp != null) ? "key=GatewayResponse.Id value=" + resp.getId().toString() : "GatewayResponse.Id is null ");
+                sb.append(newLine);
+            }
 
-        
+            sb.append((this.dateSent != null) ? "key=dateSent value=" + this.dateSent.toString() : "dateSent is null ");
+            sb.append(newLine);
+            sb.append((this.dateTo != null) ? "key=dateTo value=" + this.dateTo.toString() : "dateTo is null ");
+            sb.append(newLine);
+            sb.append((this.dateFrom != null) ? "key=dateFrom value=" + this.dateFrom.toString() : "dateFrom is null ");
+            sb.append(newLine);
+            sb.append((this.lastModified != null) ? "key=lastModified value=" + this.lastModified.toString() : "lastModified is null ");
+            sb.append(newLine);
+            sb.append((this.messageStatus != null) ? "key=messageStatus value=" + this.messageStatus.toString() : "messageStatus is null ");
+            sb.append(newLine);
+
+            return sb.toString();
+
+        } else {
+            return "Object is null";
+        }
+
+
     }
 }

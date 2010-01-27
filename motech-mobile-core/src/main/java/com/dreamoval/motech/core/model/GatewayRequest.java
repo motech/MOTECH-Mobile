@@ -121,12 +121,11 @@ public interface GatewayRequest extends MotechEntity {
      * @param MStatus the status to set
      */
     public void setMessageStatus(MStatus status);
-    
+
     /**
      * @param lastModified lastModified to set
      */
     public void setLastModified(Date lastModified);
-
 
     /**
      * Helper method to add a GatewayResponse Object to GatewayRequest

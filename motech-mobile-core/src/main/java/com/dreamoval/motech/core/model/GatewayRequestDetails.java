@@ -59,6 +59,7 @@ public interface GatewayRequestDetails extends MotechEntity {
      * @param gatewayRequest GatewayRequest to remove
      */
     void removeGatewayRequest(GatewayRequest gatewayRequest);
+
     /**
      * Helper method to display string value of all properties of the object
      * @return formated string value of all properties
