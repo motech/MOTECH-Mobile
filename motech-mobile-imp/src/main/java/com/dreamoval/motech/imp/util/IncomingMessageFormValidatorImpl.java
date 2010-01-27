@@ -99,30 +99,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
-                List<ValidationError> errors = ex.getFaultInfo().getErrors();
-
-                for (ValidationError error : errors) {
-                    if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
-                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField().toLowerCase());
-                        param.setErrCode(error.getCode());
-                        if (serverErrors.containsKey(error.getCode())) {
-                            param.setErrText(serverErrors.get(error.getCode()));
-                        } else {
-                            param.setErrText("server error");
-                        }
-                        param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
-                    } else {
-                        IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
-                        param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
-                        param.setName(error.getField());
-                        param.setDateCreated(new Date());
-                        param.setIncomingMsgForm(form);
-                        param.setErrText("missing");
-                        param.setErrCode(error.getCode());
-
-                        form.getIncomingMsgFormParameters().put(error.getField(), param);
-                    }
-                }
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -131,30 +108,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.stopPregnancyProgram(form.getIncomingMsgFormParameters().get("chpsid").getValue(), form.getIncomingMsgFormParameters().get("patientregnum").getValue());
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ValidationException ex) {
-                List<ValidationError> errors = ex.getFaultInfo().getErrors();
-
-                for (ValidationError error : errors) {
-                    if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
-                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField().toLowerCase());
-                        param.setErrCode(error.getCode());
-                        if (serverErrors.containsKey(error.getCode())) {
-                            param.setErrText(serverErrors.get(error.getCode()));
-                        } else {
-                            param.setErrText("server error");
-                        }
-                        param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
-                    } else {
-                        IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
-                        param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
-                        param.setName(error.getField());
-                        param.setDateCreated(new Date());
-                        param.setIncomingMsgForm(form);
-                        param.setErrText("missing");
-                        param.setErrCode(error.getCode());
-
-                        form.getIncomingMsgFormParameters().put(error.getField(), param);
-                    }
-                }
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -165,30 +119,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
-                List<ValidationError> errors = ex.getFaultInfo().getErrors();
-
-                for (ValidationError error : errors) {
-                    if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
-                        IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField().toLowerCase());
-                        param.setErrCode(error.getCode());
-                        if (serverErrors.containsKey(error.getCode())) {
-                            param.setErrText(serverErrors.get(error.getCode()));
-                        } else {
-                            param.setErrText("server error");
-                        }
-                        param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
-                    } else {
-                        IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
-                        param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
-                        param.setName(error.getField());
-                        param.setDateCreated(new Date());
-                        param.setIncomingMsgForm(form);
-                        param.setErrText("missing");
-                        param.setErrCode(error.getCode());
-
-                        form.getIncomingMsgFormParameters().put(error.getField(), param);
-                    }
-                }
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -203,7 +134,16 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
-                List<ValidationError> errors = ex.getFaultInfo().getErrors();
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }
+        return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
+    }
+
+    public void parseValidationErrors(IncomingMessageForm form, ValidationException ex){
+        List<ValidationError> errors = ex.getFaultInfo().getErrors();
 
                 for (ValidationError error : errors) {
                     if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
@@ -227,11 +167,6 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                         form.getIncomingMsgFormParameters().put(error.getField(), param);
                     }
                 }
-            } catch (Exception ex) {
-                logger.error("Server validation of form failed", ex);
-            }
-        }
-        return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
     }
 
     /**
