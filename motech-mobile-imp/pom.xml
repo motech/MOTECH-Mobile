@@ -3,13 +3,13 @@
     <groupId>com.dreamoval.motech</groupId>
     <artifactId>motech-mobile-imp</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-M3-SNAPSHOT</version>
+    <version>1.0-M4-SNAPSHOT</version>
     <name>MoTeCH Mobile IMP</name>
     <url>https://motech.rcg.usm.maine.edu/redmine</url>
     <parent>
         <groupId>com.dreamoval</groupId>
         <artifactId>motech-mobile</artifactId>
-        <version>1.0-M3-SNAPSHOT</version>
+        <version>1.0-M4-SNAPSHOT</version>
     </parent>
     <build>
         <plugins>
