@@ -32,12 +32,10 @@
         <dependency>
             <groupId>com.dreamoval.motech</groupId>
             <artifactId>motech-mobile-core</artifactId>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.dreamoval.motech</groupId>
             <artifactId>motech-mobile-omp</artifactId>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>

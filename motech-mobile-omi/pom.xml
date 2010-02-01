@@ -10,7 +10,6 @@
     <parent>
         <groupId>com.dreamoval</groupId>
         <artifactId>motech-mobile</artifactId>
-        <version>1.0-M3-SNAPSHOT</version>
     </parent>
     <dependencies>
         <dependency>
@@ -20,8 +19,6 @@
         <dependency>
             <groupId>com.dreamoval.motech</groupId>
             <artifactId>motech-mobile-omp</artifactId>
-            <version>1.0-M3-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
