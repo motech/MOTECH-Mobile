@@ -75,12 +75,15 @@ public class IMPServiceImplTest {
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
         expect(
+                mockCore.createIncomingMessageDAO((MotechContext)anyObject())
+                ).andReturn(mockMsgDao);
+        expect(
+                mockMsgDao.getByContent((String)anyObject())
+                ).andReturn(null);
+        expect(
                 mockParser.parseRequest((String) anyObject())
                 ).andReturn(new IncomingMessageImpl());
 
-        expect(
-                mockCore.createIncomingMessageDAO((MotechContext)anyObject())
-                ).andReturn(mockMsgDao);
         expect(
                 mockMsgDao.getDBSession()
                 ).andReturn(mockSession);

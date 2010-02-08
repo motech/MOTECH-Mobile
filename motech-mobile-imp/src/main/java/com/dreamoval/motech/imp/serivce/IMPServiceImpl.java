@@ -31,9 +31,14 @@ public class IMPServiceImpl implements IMPService {
      */
     public synchronized String processRequest(String message, String requesterPhone){
         MotechContext context = coreManager.createMotechContext();
-        IncomingMessage inMsg = parser.parseRequest(message);
-
         IncomingMessageDAO msgDao = coreManager.createIncomingMessageDAO(context);
+        IncomingMessage inMsg = msgDao.getByContent(message);
+
+        if(inMsg != null)
+            return "Error:\nThis form has already been processed!";
+
+        inMsg = parser.parseRequest(message);
+
         Transaction tx = (Transaction) msgDao.getDBSession().getTransaction();
         tx.begin();
         msgDao.save(inMsg);

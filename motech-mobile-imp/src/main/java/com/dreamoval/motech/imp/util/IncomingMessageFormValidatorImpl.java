@@ -18,6 +18,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.Gender;
+import org.motechproject.ws.HIVStatus;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationError;
 import org.motechproject.ws.server.ValidationException;
@@ -94,7 +95,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
         if (code.equalsIgnoreCase("GeneralOPD")) {
             try {
-                regWS.recordGeneralVisit(Integer.valueOf(form.getIncomingMsgFormParameters().get("facilityid").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("serialno").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("sex").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("referral").getValue()));
+                regWS.recordGeneralVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("serialno").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("sex").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("insured").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("referral").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -130,6 +131,21 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 ContactNumberType secNumType = (form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue() != null) ? ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue()) : null;
 
                 regWS.editPatient(form.getIncomingMsgFormParameters().get("chpsid").getValue(), form.getIncomingMsgFormParameters().get("patientregnum").getValue(), form.getIncomingMsgFormParameters().get("primaryphone").getValue(), priNumType, form.getIncomingMsgFormParameters().get("secondaryphone").getValue(), secNumType, form.getIncomingMsgFormParameters().get("nhis").getValue(), nhisExp);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("ANC")) {
+            try {
+                Date nhisExp = (form.getIncomingMsgFormParameters().get("nhisexp").getValue() != null) ? dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexp").getValue()) : null;
+                ContactNumberType priNumType = (form.getIncomingMsgFormParameters().get("primaryphonetype").getValue() != null) ? ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("primaryphonetype").getValue()) : null;
+                ContactNumberType secNumType = (form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue() != null) ? ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue()) : null;
+
+                regWS.recordMotherANCVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("patientid").getValue(), Integer.parseInt(form.getIncomingMsgFormParameters().get("visitnumber").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("iptdose").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("itnuse").getValue()), HIVStatus.valueOf(form.getIncomingMsgFormParameters().get("hivstatus").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);

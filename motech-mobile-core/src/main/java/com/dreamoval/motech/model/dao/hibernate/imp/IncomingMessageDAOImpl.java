@@ -1,8 +1,14 @@
 package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.dao.hibernate.HibernateGenericDAOImpl;
+import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * IncomingMessageDAOImpl is the implementation class of the  interface
@@ -11,4 +17,33 @@ import com.dreamoval.motech.core.model.IncomingMessageImpl;
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMessageImpl> implements IncomingMessageDAO<IncomingMessageImpl> {
+
+    private static Logger logger = Logger.getLogger(IncomingMessageDAOImpl.class);
+
+    public IncomingMessage getByContent(String content) {
+        logger.debug("variable passed to IncomingMessage.getByContent: " + content);
+
+        try {
+
+            Session sess = this.getDBSession().getSession();
+            Criterion code = Restrictions.eq("content", content);
+
+            IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
+                    .add(code)
+                    .setMaxResults(1)
+                    .uniqueResult();
+
+            logger.debug(message);
+
+            return message;
+
+        } catch (HibernateException he) {
+
+            logger.error("Persistence or JDBC Exception in getByCode", he);
+            return null;
+        } catch (Exception ex) {
+            logger.error("Exception in getByCode", ex);
+            return null;
+        }
+    }
 }

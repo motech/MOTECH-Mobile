@@ -104,6 +104,24 @@
                     </bean>
                     </list>
                 </entry>
+                <entry key="CASESTATUS">
+                    <list>
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.caseStatusExpression}" />
+                    </bean>
+                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                        <property name="values" value="o,O,n,N" />
+                        <property name="conversions">
+                            <map>
+                                <entry key="n" value="NEW" />
+                                <entry key="N" value="NEW" />
+                                <entry key="o" value="OLD" />
+                                <entry key="F" value="OLD" />
+                            </map>
+                        </property>
+                    </bean>
+                    </list>
+                </entry>
             </map>
         </property>
     </bean>

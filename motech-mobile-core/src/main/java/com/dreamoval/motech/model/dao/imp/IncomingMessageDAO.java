@@ -9,4 +9,5 @@ import com.dreamoval.motech.core.model.IncomingMessage;
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface IncomingMessageDAO<T extends IncomingMessage> extends GenericDAO<T> {
+    IncomingMessage getByContent(String content);
 }
