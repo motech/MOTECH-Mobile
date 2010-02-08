@@ -191,6 +191,52 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
+        }else if (code.equalsIgnoreCase("Death")) {
+            try {
+                regWS.recordDeath(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("motechid").getValue(), Integer.parseInt(form.getIncomingMsgFormParameters().get("cause").getValue()));
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("Child")) {
+            try {
+                regWS.recordChildPNCVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("motechid").getValue(), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("bcg").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("opvdose").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("pentadose").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("yellowfever").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("csm").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("ipti").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("vitamina").getValue()));
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("ChildOPD")) {
+            Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondaryDiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("serialnumber").getValue()) : null;
+            try {
+                regWS.recordChildVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("serialnumber").getValue(), form.getIncomingMsgFormParameters().get("motechid").getValue(), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("casestatus").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), secondDiag, Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue()));
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("MotherOPD")) {
+            Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondaryDiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("serialnumber").getValue()) : null;
+            try {
+                regWS.recordChildVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("serialnumber").getValue(), form.getIncomingMsgFormParameters().get("motechid").getValue(), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("casestatus").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), secondDiag, Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue()));
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
         }
         return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
     }
