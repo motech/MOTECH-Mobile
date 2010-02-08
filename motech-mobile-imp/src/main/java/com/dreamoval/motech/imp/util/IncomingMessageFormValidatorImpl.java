@@ -16,7 +16,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
+import org.motechproject.ws.BirthOutcome;
 import org.motechproject.ws.ContactNumberType;
+import org.motechproject.ws.DeliveredBy;
 import org.motechproject.ws.Gender;
 import org.motechproject.ws.HIVStatus;
 import org.motechproject.ws.server.RegistrarService;
@@ -146,6 +148,41 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 ContactNumberType secNumType = (form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue() != null) ? ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue()) : null;
 
                 regWS.recordMotherANCVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("patientid").getValue(), Integer.parseInt(form.getIncomingMsgFormParameters().get("visitnumber").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("iptdose").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("itnuse").getValue()), HIVStatus.valueOf(form.getIncomingMsgFormParameters().get("hivstatus").getValue()));
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("Abortion")) {
+            try {
+                regWS.recordPregnancyTermination(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("patientid").getValue(), Integer.parseInt(form.getIncomingMsgFormParameters().get("abortiontype").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("complications").getValue()));
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("Delivery")) {
+            try {
+                String c2Name = (form.getIncomingMsgFormParameters().get("facilityid") != null) ? form.getIncomingMsgFormParameters().get("facilityid").getValue() : null;
+                
+                regWS.recordPregnancyDelivery(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("dod").getValue()), form.getIncomingMsgFormParameters().get("motechid").getValue(), Integer.parseInt(form.getIncomingMsgFormParameters().get("mod").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("ood").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("location").getValue()), DeliveredBy.valueOf(form.getIncomingMsgFormParameters().get("deliveredBy").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("maternaldeath").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("cause").getValue()), BirthOutcome.valueOf(form.getIncomingMsgFormParameters().get("c1birthoutcome").getValue()), form.getIncomingMsgFormParameters().get("c1motechid").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("c1sex").getValue()), form.getIncomingMsgFormParameters().get("c1name").getValue(), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("c1opv").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("c1bcg").getValue()), BirthOutcome.valueOf(form.getIncomingMsgFormParameters().get("c2birthoutcome").getValue()), form.getIncomingMsgFormParameters().get("c2motechid").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("c2sex").getValue()), c2Name, Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("c2opv").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("c2bcg").getValue()));
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("PPC")) {
+            try {
+                regWS.recordMotherPPCVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("motechid").getValue(), Integer.parseInt(form.getIncomingMsgFormParameters().get("visitno").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("vita").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
