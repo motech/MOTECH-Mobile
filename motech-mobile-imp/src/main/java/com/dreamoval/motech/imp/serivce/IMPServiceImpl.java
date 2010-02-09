@@ -13,6 +13,7 @@ import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
+import java.util.List;
 import java.util.Map;
 import org.hibernate.Transaction;
 
@@ -47,6 +48,17 @@ public class IMPServiceImpl implements IMPService {
         IncomingMessageResponse response = impManager.createCommandAction().execute(inMsg, requesterPhone, context);
         
         return response.getContent();
+    }
+
+    /**
+     *
+     * @see IMPService.processMultiRequests
+     */
+    public List<FormRequest> processMultiRequests(List<FormRequest> requests) {
+        for(FormRequest fReq : requests){
+            fReq.setResponse(processRequest(fReq.getMessage(), fReq.getSenderNumber()));
+        }
+        return requests;
     }
 
     /**

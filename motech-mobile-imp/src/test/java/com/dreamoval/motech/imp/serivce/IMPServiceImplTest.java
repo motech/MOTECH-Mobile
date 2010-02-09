@@ -16,6 +16,8 @@ import com.dreamoval.motech.core.model.IncomingMessageResponseImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
@@ -112,5 +114,67 @@ public class IMPServiceImplTest {
         verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
 
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of processMultiRequests method, of class IMPServiceImpl.
+     */
+    @Test
+    public void testProcessMultiRequests() {
+        System.out.println("processMultiRequests");
+        List<FormRequest> requests = new ArrayList<FormRequest>();
+        requests.add(new FormRequest("Test message 1","first","","001"));
+        requests.add(new FormRequest("Test message 2","second","","002"));
+        requests.add(new FormRequest("Test message 3","third","","003"));
+
+        String content = "Test response";
+        IncomingMessageResponseImpl response = new IncomingMessageResponseImpl();
+        response.setContent(content);
+
+        expect(
+                mockCore.createMotechContext()
+                ).andReturn(new MotechContextImpl()).times(requests.size());
+        expect(
+                mockCore.createIncomingMessageDAO((MotechContext)anyObject())
+                ).andReturn(mockMsgDao).times(requests.size());
+        expect(
+                mockMsgDao.getByContent((String)anyObject())
+                ).andReturn(null).times(requests.size());
+        expect(
+                mockParser.parseRequest((String) anyObject())
+                ).andReturn(new IncomingMessageImpl()).times(requests.size());
+
+        expect(
+                mockMsgDao.getDBSession()
+                ).andReturn(mockSession).times(requests.size());
+        expect(
+                mockSession.getTransaction()
+                ).andReturn(mockTrans).times(requests.size());
+
+        mockTrans.begin();
+        expectLastCall().times(requests.size());
+
+        expect(
+                mockMsgDao.save((IncomingMessage) anyObject())
+                ).andReturn(null).times(requests.size());
+
+        mockTrans.commit();
+        expectLastCall().times(requests.size());
+        expect(
+                mockImp.createCommandAction()
+                ).andReturn(mockCmdAxn).times(requests.size());
+        expect(
+                mockCmdAxn.execute((IncomingMessage) anyObject(), (String) anyObject(), (MotechContext)anyObject())
+                ).andReturn(response).times(requests.size());
+
+        replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+        List<FormRequest> result = instance.processMultiRequests(requests);
+        verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+
+        assertNotNull(result);
+        assertEquals(result.size(), 3);
+        assertEquals(result.get(0).getResponse(), content);
+        assertEquals(result.get(1).getResponse(), content);
+        assertEquals(result.get(2).getResponse(), content);
     }
 }

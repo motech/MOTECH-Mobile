@@ -5,6 +5,8 @@
 
 package com.dreamoval.motech.imp.serivce;
 
+import java.util.List;
+
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
@@ -19,4 +21,10 @@ public interface IMPService {
      */
     String processRequest(String message, String requesterPhone);
 
+    /**
+     * Processes multiple incoming message requests
+     * @param requests list of requests to process
+     * @return list of requests with the associated responses
+     */
+    List<FormRequest> processMultiRequests(List<FormRequest> requests);
 }
