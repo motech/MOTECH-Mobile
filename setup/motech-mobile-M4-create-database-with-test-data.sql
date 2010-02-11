@@ -128,6 +128,7 @@ CREATE TABLE `incoming_message_form_definition` (
   `id` bigint(20) NOT NULL,
   `obj_vesion` int(11) NOT NULL DEFAULT '0',
   `form_code` varchar(15) DEFAULT NULL,
+  `duplicatable` varchar(255) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -136,19 +137,19 @@ CREATE TABLE `incoming_message_form_definition` (
 
 /*Data for the table `incoming_message_form_definition` */
 
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (254657657567688,0,'RegisterChildU5','2010-01-08 14:40:15','2010-01-08 15:22:53');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (597658468478768,0,'PregnancyStop','2010-01-08 14:19:05','2010-01-08 15:22:53');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (678565673457657,0,'EditPatient','2010-01-08 14:41:23','2010-01-08 15:22:53');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785688106549491,0,'GeneralOPD','2009-12-18 11:04:20','2010-01-08 15:22:53');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640001,0,'ANC','2010-02-03 09:02:20','2010-02-03 09:02:20');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640002,0,'Abortion','2010-02-03 09:04:02','2010-02-03 09:04:02');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640093,0,'Delivery','2010-02-03 09:04:02','2010-02-03 09:04:02');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640094,0,'PPC','2010-02-03 09:07:04','2010-02-03 09:07:04');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640095,0,'Death','2010-02-03 09:07:04','2010-02-03 09:07:4');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640096,0,'Child','2010-02-03 09:10:23','2010-02-03 09:10:23');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640097,0,'ChildOPD','2010-02-03 09:10:25','2010-02-03 09:10:25');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640098,0,'MotherOPD','2010-02-03 09:10:20','2010-02-03 09:10:20');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`date_created`,`last_modified`) values (785739375640099,0,'RegisterChild','2010-02-03 09:10:20','2010-02-03 09:10:20');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (254657657567688,0,'RegisterChildU5','ALLOWED','2010-01-08 14:40:15','2010-01-08 15:22:53');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (597658468478768,0,'PregnancyStop','ALLOWED','2010-01-08 14:19:05','2010-01-08 15:22:53');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (678565673457657,0,'EditPatient','ALLOWED','2010-01-08 14:41:23','2010-01-08 15:22:53');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785688106549491,0,'GeneralOPD','ALLOWED','2009-12-18 11:04:20','2010-01-08 15:22:53');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640001,0,'ANC','ALLOWED','2010-02-03 09:02:20','2010-02-03 09:02:20');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640002,0,'Abortion','ALLOWED','2010-02-03 09:04:02','2010-02-03 09:04:02');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640093,0,'Delivery','ALLOWED','2010-02-03 09:04:02','2010-02-03 09:04:02');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640094,0,'PPC','ALLOWED','2010-02-03 09:07:04','2010-02-03 09:07:04');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640095,0,'Death','ALLOWED','2010-02-03 09:07:04','2010-02-03 09:07:4');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640096,0,'Child','ALLOWED','2010-02-03 09:10:23','2010-02-03 09:10:23');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640097,0,'ChildOPD','ALLOWED','2010-02-03 09:10:25','2010-02-03 09:10:25');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640098,0,'MotherOPD','ALLOWED','2010-02-03 09:10:20','2010-02-03 09:10:20');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640099,0,'RegisterChild','ALLOWED','2010-02-03 09:10:20','2010-02-03 09:10:20');
 
 /*Table structure for table `incoming_message_form_parameter` */
 

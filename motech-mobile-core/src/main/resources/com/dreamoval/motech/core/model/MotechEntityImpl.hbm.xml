@@ -22,6 +22,9 @@
   <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="incMessageFormParameterStatus">
     <param name="enumClassname">com.dreamoval.motech.core.model.IncMessageFormParameterStatus</param>
   </typedef>
+  <typedef class="com.dreamoval.motech.core.util.StringEnumUserType" name="Duplicatable">
+    <param name="enumClassname">com.dreamoval.motech.core.model.Duplicatable</param>
+  </typedef>
   <class abstract="true" name="MotechEntityImpl" polymorphism="explicit">
     <id name="id">
       <generator class="assigned"/>

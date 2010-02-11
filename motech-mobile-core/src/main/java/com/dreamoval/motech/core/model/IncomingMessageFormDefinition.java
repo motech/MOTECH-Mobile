@@ -78,4 +78,14 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
      * @param form the IncomingMessageForm object to remove
      */
     void removeIncomingMessageForm(IncomingMessageForm form);
+
+    /**
+     * @return the duplicatable
+     */
+    Duplicatable getDuplicatable();
+
+    /**
+     * @param duplicatable the duplicatable to set
+     */
+    void setDuplicatable(Duplicatable duplicatable);
 }
