@@ -29,7 +29,7 @@ public interface GenericDAO<T> {
      * @param exampleInstance
      * @return List of entity type T
      */
-    List<T> findByExample(T exampleInstance);
+    List<T> findByExample(T exampleInstance, String... excludeProperty);
 
     /**
      * Gets a particular entity of type T by id

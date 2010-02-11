@@ -132,13 +132,15 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
      *  @see {@link com.dreamoval.motech.core.dao.GenericDAO#findByExample(java.lang.Object) 
      */
     @SuppressWarnings("unchecked")
-    public List<T> findByExample(T exampleInstance) {
+    public List<T> findByExample(T exampleInstance, String... excludeProperty) {
         logger.info("Calling findByExample");
         Criteria crit = getDBSession().getSession().createCriteria(getPersistentClass());
         Example example = Example.create(exampleInstance);
-//        for (String exclude : excludeProperty) {
-//            example.excludeProperty(exclude);
-//        }
+        if (excludeProperty.length != 0) {
+            for (String exclude : excludeProperty) {
+                example.excludeProperty(exclude);
+            }
+        }
         crit.add(example);
         return crit.list();
     }
