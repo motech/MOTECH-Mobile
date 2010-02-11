@@ -2,6 +2,7 @@ package com.dreamoval.motech.model.dao.imp;
 
 import com.dreamoval.motech.core.dao.GenericDAO;
 import com.dreamoval.motech.core.model.IncomingMessage;
+import java.util.Date;
 
 /**
  * IncomingMessageDAO is an interface that defines Operations on IncomingMessage Pojo
@@ -10,4 +11,6 @@ import com.dreamoval.motech.core.model.IncomingMessage;
  */
 public interface IncomingMessageDAO<T extends IncomingMessage> extends GenericDAO<T> {
     IncomingMessage getByContent(String content);
+
+    IncomingMessage getByContentBefore(String content, Date beforeDate);
 }

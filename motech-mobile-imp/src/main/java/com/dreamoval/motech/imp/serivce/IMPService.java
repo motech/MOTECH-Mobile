@@ -19,12 +19,12 @@ public interface IMPService {
      * @param requesterPhone the phone number through which the request was made
      * @return the response of the request
      */
-    String processRequest(String message, String requesterPhone);
+    String processRequest(String message, String requesterPhone, boolean isDemo);
 
     /**
      * Processes multiple incoming message requests
      * @param requests list of requests to process
      * @return list of requests with the associated responses
      */
-    List<FormRequest> processMultiRequests(List<FormRequest> requests);
+    List<FormRequest> processMultiRequests(List<FormRequest> requests, boolean isDemo);
 }

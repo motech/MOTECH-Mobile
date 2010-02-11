@@ -4,6 +4,7 @@ import com.dreamoval.motech.core.dao.hibernate.HibernateGenericDAOImpl;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
+import java.util.Date;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -30,6 +31,33 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
 
             IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
                     .add(code)
+                    .setMaxResults(1)
+                    .uniqueResult();
+
+            logger.debug(message);
+
+            return message;
+
+        } catch (HibernateException he) {
+
+            logger.error("Persistence or JDBC Exception in getByCode", he);
+            return null;
+        } catch (Exception ex) {
+            logger.error("Exception in getByCode", ex);
+            return null;
+        }
+    }
+
+    public IncomingMessage getByContentBefore(String content, Date beforeDate) {
+        logger.debug("variable passed to IncomingMessage.getByContent: " + content);
+
+        try {
+
+            Session sess = this.getDBSession().getSession();
+
+            IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
+                    .add(Restrictions.eq("content", content))
+                    .add(Restrictions.gt("dateCreated", beforeDate))
                     .setMaxResults(1)
                     .uniqueResult();
 

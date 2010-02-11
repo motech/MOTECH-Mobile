@@ -32,7 +32,7 @@ public class IncomingMessageRequestWorkerImpl implements IncomingMessageRequestW
                 String[] text = params.get(webSettings.getIncomingMessageTextParam());
                 
                 //TODO Check the array length so it doesn't break disgracefully
-                result = impService.processRequest(text[0], number[0]);
+                result = impService.processRequest(text[0], number[0], false);
             }else{
                 result = webSettings.getUnknownIMRMessage();
             }

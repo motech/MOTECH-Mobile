@@ -24,6 +24,10 @@
         <property name="coreManager" ref="coreManager" />
         <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
+        <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
+        <property name="demoMsgType" value="${imp.demo.messageType}" />
+        <property name="demoProvider" value="${imp.demo.provider}" />
+        <property name="demoSender" value="${imp.demo.senderAddr}" />
     </bean>
 
     <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
