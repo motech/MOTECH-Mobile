@@ -30,16 +30,13 @@ public class IncomingMessageFormParameterDefinitionDAOImplTest {
 
     @Autowired
     CoreManager coreManager;
-
     IncomingMessageFormParameterDefinitionDAO impdDAO;
-
     @Autowired
     private IncomingMessageFormParameterDefinition impd1;
     @Autowired
     private IncomingMessageFormParameterDefinition impd2;
     @Autowired
     private IncomingMessageFormParameterDefinition impd3;
-
 
     public IncomingMessageFormParameterDefinitionDAOImplTest() {
     }
@@ -71,7 +68,10 @@ public class IncomingMessageFormParameterDefinitionDAOImplTest {
     public void tearDown() {
     }
 
-   @Test
+    /**
+     * Test of save method, of class IncomingMessageFormParameterDefinitionDAOImpl.
+     */
+    @Test
     public void testSave() {
         System.out.println("save IncomingMessageFromParameterDefinition");
         Session session = ((Session) impdDAO.getDBSession().getSession());
@@ -86,8 +86,7 @@ public class IncomingMessageFormParameterDefinitionDAOImplTest {
         Assert.assertEquals(fromdb, impd1);
         Assert.assertEquals(fromdb.getId(), impd1.getId());
         System.out.println("the form content: " + fromdb.getId());
-        System.out.println( fromdb.toString());
+        System.out.println(fromdb.toString());
 
     }
-
 }

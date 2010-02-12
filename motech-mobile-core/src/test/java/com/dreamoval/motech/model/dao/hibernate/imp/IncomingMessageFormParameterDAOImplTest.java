@@ -66,6 +66,9 @@ public class IncomingMessageFormParameterDAOImplTest {
     public void tearDown() {
     }
 
+    /**
+     * Test of save method, of class IncomingMessageFormParameterDAOImpl.
+     */
     @Test
     public void testSave() {
         System.out.println("IncomingMessageFormParameterDAOImpl save");

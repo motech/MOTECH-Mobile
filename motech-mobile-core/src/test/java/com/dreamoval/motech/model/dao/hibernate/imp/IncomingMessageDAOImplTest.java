@@ -142,8 +142,11 @@ public class IncomingMessageDAOImplTest {
 
     }
 
+    /**
+     * Test of save method with IncominingForm, of class IncomingMessageDAOImpl.
+     */
     @Test
-    public void testWithIncomingForm() {
+    public void testSaveWithIncomingForm() {
         System.out.println("IncomingMessageDAOImpl save with IncomingMessageForm");
         Session session = ((Session) imDAO.getDBSession().getSession());
         im2.setIncomingMessageForm(imf2);
@@ -161,8 +164,11 @@ public class IncomingMessageDAOImplTest {
 
     }
 
+    /**
+     * Test of save method with IncomingMessageSession, of class IncomingMessageDAOImpl.
+     */
     @Test
-    public void testWithIncomingMessageSession() {
+    public void testSaveWithIncomingMessageSession() {
         System.out.println("IncomingMessageDAOImpl save with Session");
         Session session = ((Session) imDAO.getDBSession().getSession());
         ims1.addIncomingMessage(im1);
@@ -183,8 +189,11 @@ public class IncomingMessageDAOImplTest {
 
     }
 
+    /**
+     * Test of save method with IncomingMessageResponse, of class IncomingMessageDAOImpl.
+     */
     @Test
-    public void testWithIncomingMessageResponse() {
+    public void testSaveWithIncomingMessageResponse() {
         System.out.println("IncomingMessageDAOImpl save with IncomingMessageResponse");
         Session session = ((Session) imDAO.getDBSession().getSession());
         im3.setIncomingMessageResponse(imfr3);

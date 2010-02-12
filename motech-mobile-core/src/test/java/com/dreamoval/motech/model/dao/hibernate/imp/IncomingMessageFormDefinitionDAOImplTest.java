@@ -26,7 +26,10 @@ public class IncomingMessageFormDefinitionDAOImplTest {
     @Autowired
     CoreManager coreManager;
     IncomingMessageFormDefinitionDAO imfDAO;
-    IncomingMessageFormDefinition fdef;
+    @Autowired
+    IncomingMessageFormDefinition fdef1;
+    
+    IncomingMessageFormDefinition fdef2;
     String formCode = "TESTFORM";
 
     public IncomingMessageFormDefinitionDAOImplTest() {
@@ -37,12 +40,12 @@ public class IncomingMessageFormDefinitionDAOImplTest {
         MotechContext mCtx = coreManager.createMotechContext();
         imfDAO = coreManager.createIncomingMessageFormDefinitionDAO(mCtx);
 
-        fdef = coreManager.createIncomingMessageFormDefinition();
-        fdef.setFormCode(formCode);
+        fdef1 = coreManager.createIncomingMessageFormDefinition();
+        fdef1.setFormCode(formCode);
 
         Transaction tx = (Transaction)imfDAO.getDBSession().getTransaction();
         tx.begin();
-        imfDAO.save(fdef);
+        imfDAO.save(fdef1);
         tx.commit();
     }
 
@@ -50,7 +53,7 @@ public class IncomingMessageFormDefinitionDAOImplTest {
     public void tearDown() {
         Transaction tx = (Transaction)imfDAO.getDBSession().getTransaction();
         tx.begin();
-        imfDAO.delete(fdef);
+        imfDAO.delete(fdef1);
         tx.commit();
     }
     /**

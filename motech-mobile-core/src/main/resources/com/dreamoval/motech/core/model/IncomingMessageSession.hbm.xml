@@ -9,7 +9,7 @@
     <property generated="always" insert="false" name="lastActivity" update="false">
       <column default="current_timestamp" name="last_activity" sql-type="timestamp"/>
     </property>
-   <!-- <list cascade="save-update" name="incomingMessages" table="incoming_messages_list">
+    <!-- <list cascade="save-update" name="incomingMessages" table="incoming_messages_list">
       <key not-null="true">
           <column name="incoming_message_session_id" />
       </key>
