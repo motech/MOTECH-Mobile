@@ -115,7 +115,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
-        } else if (code.equalsIgnoreCase("RegisterChild")) {
+        } else if (code.equalsIgnoreCase("RegisterChildU5")) {
             try {
                 regWS.registerChild(form.getIncomingMsgFormParameters().get("chpsid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("regdate").getValue()), form.getIncomingMsgFormParameters().get("motherregnum").getValue(), form.getIncomingMsgFormParameters().get("childregnum").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()), Gender.valueOf(form.getIncomingMsgFormParameters().get("childgender").getValue()), form.getIncomingMsgFormParameters().get("childfirstname").getValue(), form.getIncomingMsgFormParameters().get("nhis").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexp").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
