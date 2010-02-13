@@ -97,7 +97,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
         if (code.equalsIgnoreCase("GeneralOPD")) {
             try {
-                Integer diag2 = form.getIncomingMsgFormParameters().containsKey("secondarydiagnosis") ? Integer.valueOf(form.getIncomingMsgFormParameters().get("secondaryDiagnosis").getValue()) : null;
+                Integer diag2 = form.getIncomingMsgFormParameters().containsKey("secondarydiagnosis") ? Integer.valueOf(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
 
                 regWS.recordGeneralVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("serialno").getValue(), Gender.valueOf(form.getIncomingMsgFormParameters().get("sex").getValue()), dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("insured").getValue()), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("newcase").getValue()), Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), diag2, Boolean.valueOf(form.getIncomingMsgFormParameters().get("referral").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
@@ -224,7 +224,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 logger.error("Server validation of form failed", ex);
             }
         }else if (code.equalsIgnoreCase("ChildOPD")) {
-            Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondaryDiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("serialnumber").getValue()) : null;
+            Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondarydiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
             try {
                 regWS.recordChildVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("serialnumber").getValue(), form.getIncomingMsgFormParameters().get("motechid").getValue(), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("casestatus").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), secondDiag, Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
@@ -236,7 +236,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 logger.error("Server validation of form failed", ex);
             }
         }else if (code.equalsIgnoreCase("MotherOPD")) {
-            Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondaryDiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("serialnumber").getValue()) : null;
+            Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondarydiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
             try {
                 regWS.recordChildVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("serialnumber").getValue(), form.getIncomingMsgFormParameters().get("motechid").getValue(), Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("casestatus").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("diagnosis").getValue()), secondDiag, Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
