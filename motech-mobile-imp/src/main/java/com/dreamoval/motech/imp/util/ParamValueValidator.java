@@ -22,8 +22,9 @@ public class ParamValueValidator implements IncomingMessageFormParameterValidato
     public boolean validate(IncomingMessageFormParameter param) {
         String value = caseSensitive ? param.getValue().trim() : param.getValue().trim().toUpperCase();
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
+        param.setValue(value);
 
-        if (!values.contains(value)) {
+        if (!values.isEmpty() && !values.contains(value)) {
             param.setErrCode(3);
             param.setErrText("out of range");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
