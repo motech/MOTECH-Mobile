@@ -58,11 +58,6 @@
                     <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
                         <property name="values" value="" />
                         <property name="caseSensitive" value="false" />
-                        <property name="conversions">
-                            <map>
-                                <entry key="NA" value="null" />
-                            </map>
-                        </property>
                     </bean>
                     </list>
                 </entry>

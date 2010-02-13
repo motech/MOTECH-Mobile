@@ -37,6 +37,8 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
+            if(param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("NUMERIC") && param.getValue().equalsIgnoreCase("NA"))
+                param.setValue(null);
         }
 
         param.setLastModified(new Date());
