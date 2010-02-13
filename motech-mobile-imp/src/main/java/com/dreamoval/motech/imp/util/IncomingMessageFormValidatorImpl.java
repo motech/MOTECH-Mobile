@@ -148,7 +148,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             }
         }else if (code.equalsIgnoreCase("ANC")) {
             try {
-                regWS.recordMotherANCVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("motechid").getValue(), Integer.parseInt(form.getIncomingMsgFormParameters().get("visitno").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("iptdose").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("itnuse").getValue()), HIVStatus.valueOf(form.getIncomingMsgFormParameters().get("hivresult").getValue()));
+                regWS.recordMotherANCVisit(form.getIncomingMsgFormParameters().get("facilityid").getValue(), dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue()), form.getIncomingMsgFormParameters().get("motechid").getValue(), Integer.parseInt(form.getIncomingMsgFormParameters().get("visitno").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()), Integer.parseInt(form.getIncomingMsgFormParameters().get("iptdose").getValue()), Boolean.valueOf(form.getIncomingMsgFormParameters().get("itn").getValue()), HIVStatus.valueOf(form.getIncomingMsgFormParameters().get("hivresult").getValue()));
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
