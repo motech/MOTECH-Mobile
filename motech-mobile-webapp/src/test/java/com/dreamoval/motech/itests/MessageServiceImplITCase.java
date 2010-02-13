@@ -243,14 +243,14 @@ public class MessageServiceImplITCase {
     public void testProcessRequest(){
         System.out.println("processRequest");
 
-        String request = "Type=GeneralOPD\nFacilityId=7\nDate=01/10/2009\nSerialNo=102\nSex=M\nDoB=24/09/1990\nDiagnosis=5\nReferral=No";
+        String request = "Type=GeneralOPD\nFacilityId=7\nDate=01/10/2009\nSerialNo=102\nSex=M\nDoB=24/09/1990\nDiagnosis=5\nReferral=No\nInsured=Y\nCaseStatus=N";
         String number = "555555555";
 
         String expResult = "Errors:\nReferral=wrong format";
         String result = impService.processRequest(request, number, false);
         assertEquals(result,expResult);
 
-        request = "Type=GeneralOPD\nFacilityId=7\nDate=01/10/2009\nSerialNo=102\nSex=M\nDoB=24/09/1990\nDiagnosis=5\nReferral=N";
+        request = "Type=GeneralOPD\nFacilityId=7\nDate=01/10/2009\nSerialNo=102\nSex=M\nDoB=24/09/1990\nDiagnosis=5\nReferral=N\nInsured=Y\nCaseStatus=N";
         expResult = "An error occurred on the server. Please try again.";
         result = impService.processRequest(request, number, false);
         assertEquals(result,expResult);

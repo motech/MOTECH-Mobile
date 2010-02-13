@@ -137,7 +137,7 @@
                         <property name="expression" value="${imp.validator.alphaExpression}" />
                     </bean>
                     <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
-                        <property name="values" value="p,n,na" />
+                        <property name="values" value="P,N,NA" />
                         <property name="caseSensitive" value="false" />
                     </bean>
                     </list>
