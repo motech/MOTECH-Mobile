@@ -137,6 +137,7 @@ CREATE TABLE `incoming_message_form_definition` (
 
 /*Data for the table `incoming_message_form_definition` */
 
+/*Data Entry Forms*/
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (254657657567688,0,'RegisterChildU5','DISALLOWED','2010-01-08 14:40:15','2010-01-08 15:22:53');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (597658468478768,0,'PregnancyStop','DISALLOWED','2010-01-08 14:19:05','2010-01-08 15:22:53');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (678565673457657,0,'EditPatient','TIME_BOUND','2010-01-08 14:41:23','2010-01-08 15:22:53');
@@ -150,6 +151,9 @@ insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`d
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640097,0,'ChildOPD','TIME_BOUND','2010-02-03 09:10:25','2010-02-03 09:10:25');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640098,0,'MotherOPD','TIME_BOUND','2010-02-03 09:10:20','2010-02-03 09:10:20');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640099,0,'RegisterChild','DISALLOWED','2010-02-03 09:10:20','2010-02-03 09:10:20');
+
+/*Data Query Forms*/
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`duplicatable`,`date_created`,`last_modified`) values (785739375640100,0,'ANCDefault','ALLOWED','2010-02-15 18:33:20','2010-02-15 18:33:20');
 
 /*Table structure for table `incoming_message_form_parameter` */
 
@@ -328,6 +332,10 @@ insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`inc
 insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923335,0,785739375640098,'Diagnosis','NUMERIC',2,true,'2010-02-03 10:29:14','2010-02-03 10:29:14');
 insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923336,0,785739375640098,'secondaryDiagnosis','NUMERIC',2,false,'2010-02-03 10:29:14','2010-02-03 10:29:14');
 insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923337,0,785739375640098,'referral','BOOLEAN',1,true,'2010-02-03 10:29:14','2010-02-03 10:29:14');
+
+/*Params for ANCDefault*/
+insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923338,0,785739375640100,'facilityId','NUMERIC',10,true,'2010-02-15 18:35:14','2010-02-15 18:35:14');
+insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923339,0,785739375640100,'chpsId','ALPHANUM',20,true,'2010-02-15 18:35:14','2010-02-15 18:35:14');
 
 /*Table structure for table `incoming_message_response` */
 
