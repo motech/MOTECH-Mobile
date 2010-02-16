@@ -7,6 +7,7 @@ package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.model.IncMessageFormParameterStatus;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
+import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinitionImpl;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl;
 import java.util.HashMap;
 import org.junit.Test;
@@ -31,6 +32,8 @@ public class ParamValueValidatorTest {
         System.out.println("validate");
 
         IncomingMessageFormParameter param = new IncomingMessageFormParameterImpl();
+        param.setIncomingMsgFormParamDefinition(new IncomingMessageFormParameterDefinitionImpl());
+        param.getIncomingMsgFormParamDefinition().setParamType("BOOLEAN");
         param.setValue("y");
 
         ParamValueValidator instance = new ParamValueValidator();

@@ -7,10 +7,13 @@ package com.dreamoval.motech.imp.serivce;
 
 import com.dreamoval.motech.core.dao.DBSession;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.Duplicatable;
 import com.dreamoval.motech.imp.manager.IMPManager;
 import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import com.dreamoval.motech.core.model.IncomingMessage;
+import com.dreamoval.motech.core.model.IncomingMessageFormDefinitionImpl;
+import com.dreamoval.motech.core.model.IncomingMessageFormImpl;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
 import com.dreamoval.motech.core.model.IncomingMessageResponseImpl;
 import com.dreamoval.motech.core.service.MotechContext;
@@ -81,7 +84,7 @@ public class IMPServiceImplTest {
                 mockCore.createIncomingMessageDAO((MotechContext)anyObject())
                 ).andReturn(mockMsgDao);
         expect(
-                mockMsgDao.getByContentBefore((String)anyObject(), (Date)anyObject())
+                mockMsgDao.getByContentNonDuplicatable((String)anyObject())
                 ).andReturn(null);
         expect(
                 mockParser.parseRequest((String) anyObject())
@@ -123,6 +126,9 @@ public class IMPServiceImplTest {
 
         IncomingMessage inMsg = new IncomingMessageImpl();
         inMsg.setContent(message);
+        inMsg.setIncomingMessageForm(new IncomingMessageFormImpl());
+        inMsg.getIncomingMessageForm().setIncomingMsgFormDefinition(new IncomingMessageFormDefinitionImpl());
+        inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().setDuplicatable(Duplicatable.DISALLOWED);
         
         expect(
                 mockCore.createMotechContext()
@@ -131,7 +137,7 @@ public class IMPServiceImplTest {
                 mockCore.createIncomingMessageDAO((MotechContext)anyObject())
                 ).andReturn(mockMsgDao);
         expect(
-                mockMsgDao.getByContentBefore((String)anyObject(), (Date)anyObject())
+                mockMsgDao.getByContentNonDuplicatable((String)anyObject())
                 ).andReturn(inMsg);
 
         replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
@@ -163,7 +169,7 @@ public class IMPServiceImplTest {
                 mockCore.createIncomingMessageDAO((MotechContext)anyObject())
                 ).andReturn(mockMsgDao).times(requests.size());
         expect(
-                mockMsgDao.getByContentBefore((String)anyObject(), (Date)anyObject())
+                mockMsgDao.getByContentNonDuplicatable((String)anyObject())
                 ).andReturn(null).times(requests.size());
         expect(
                 mockParser.parseRequest((String) anyObject())

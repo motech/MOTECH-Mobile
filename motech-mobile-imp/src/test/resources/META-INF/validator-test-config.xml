@@ -67,10 +67,10 @@
                 </entry>
                 <entry key="DATE">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
-                        <property name="expression" value="${imp.validator.dateFormat}" />
-                    </bean>
                     <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <property name="expression" value="${imp.validator.dateExpression}" />
+                    </bean>
                     </list>
                 </entry>
                 <entry key="GENDER">

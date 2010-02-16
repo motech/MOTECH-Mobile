@@ -37,7 +37,7 @@ public class ParamExpressionValidatorTest {
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
 
         ParamExpressionValidator instance = new ParamExpressionValidator();
-        instance.setExpression("dd.MM.yyyy");
+        instance.setExpression("(0[1-9]|[12][0-9]|3[01])[\\- /.]?(0[1-9]|1[012])[\\- /.]?(19|20)?\\d\\d");
 
         boolean expResult = false;
         boolean result = instance.validate(param);
@@ -47,7 +47,33 @@ public class ParamExpressionValidatorTest {
         assertEquals(param.getErrText(), "wrong format");
 
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.setValue("10|02|1998");
+
+        expResult = false;
+        result = instance.validate(param);
+        assertEquals(expResult, result);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
+        assertEquals(param.getErrCode(), 1);
+        assertEquals(param.getErrText(), "wrong format");
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
         param.setValue("10.12.2010");
+
+        expResult = true;
+        result = instance.validate(param);
+        assertEquals(expResult, result);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.setValue("10-12-10");
+
+        expResult = true;
+        result = instance.validate(param);
+        assertEquals(expResult, result);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
+
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.setValue("10122010");
 
         expResult = true;
         result = instance.validate(param);

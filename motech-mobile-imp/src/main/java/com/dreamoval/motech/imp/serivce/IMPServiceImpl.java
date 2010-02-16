@@ -6,6 +6,7 @@
 package com.dreamoval.motech.imp.serivce;
 
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.Duplicatable;
 import com.dreamoval.motech.imp.manager.IMPManager;
 import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
@@ -45,10 +46,15 @@ public class IMPServiceImpl implements IMPService {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MINUTE, 0 - duplicatePeriod);
         Date beforeDate = cal.getTime();
-        IncomingMessage inMsg = msgDao.getByContentBefore(message, beforeDate);
+        IncomingMessage inMsg = msgDao.getByContentNonDuplicatable(message);
 
         if(inMsg != null && inMsg.getContent().equalsIgnoreCase(message))
-            return "Error:\nThis form has already been processed!";
+        {
+            if(inMsg.getIncomingMessageForm() != null){
+                if(inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.DISALLOWED || (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.TIME_BOUND && inMsg.getDateCreated().after(beforeDate)))
+                    return "Error:\nThis form has already been processed!";
+            }
+        }
 
         inMsg = parser.parseRequest(message);
 

@@ -12,5 +12,7 @@ import java.util.Date;
 public interface IncomingMessageDAO<T extends IncomingMessage> extends GenericDAO<T> {
     IncomingMessage getByContent(String content);
 
+    IncomingMessage getByContentNonDuplicatable(String content);
+
     IncomingMessage getByContentBefore(String content, Date beforeDate);
 }

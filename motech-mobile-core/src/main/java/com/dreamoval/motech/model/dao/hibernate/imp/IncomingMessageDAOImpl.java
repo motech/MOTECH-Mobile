@@ -1,6 +1,7 @@
 package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.dao.hibernate.HibernateGenericDAOImpl;
+import com.dreamoval.motech.core.model.Duplicatable;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
@@ -9,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -58,6 +60,34 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
             IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
                     .add(Restrictions.eq("content", content))
                     .add(Restrictions.gt("dateCreated", beforeDate))
+                    .setMaxResults(1)
+                    .uniqueResult();
+
+            logger.debug(message);
+
+            return message;
+
+        } catch (HibernateException he) {
+
+            logger.error("Persistence or JDBC Exception in getByCode", he);
+            return null;
+        } catch (Exception ex) {
+            logger.error("Exception in getByCode", ex);
+            return null;
+        }
+    }
+
+    public IncomingMessage getByContentNonDuplicatable(String content) {
+        logger.debug("variable passed to IncomingMessage.getByContent: " + content);
+
+        try {
+
+            Session sess = this.getDBSession().getSession();
+
+            IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
+                    .add(Restrictions.eq("content", content))
+                    //.add(Restrictions.ne("duplicatable", Duplicatable.ALLOWED))
+                    .addOrder(Order.desc("dateCreated"))
                     .setMaxResults(1)
                     .uniqueResult();
 

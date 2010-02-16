@@ -11,6 +11,6 @@ package com.dreamoval.motech.core.model;
  */
 public enum Duplicatable {
     ALLOWED,
-    DESALLOWED,
+    DISALLOWED,
     TIME_BOUND;
 }
