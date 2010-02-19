@@ -128,6 +128,7 @@ CREATE TABLE `incoming_message_form_definition` (
   `id` bigint(20) NOT NULL,
   `obj_vesion` int(11) NOT NULL DEFAULT '0',
   `form_code` varchar(15) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL,
   `duplicatable` varchar(255) DEFAULT NULL,
   `date_created` datetime DEFAULT NULL,
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
