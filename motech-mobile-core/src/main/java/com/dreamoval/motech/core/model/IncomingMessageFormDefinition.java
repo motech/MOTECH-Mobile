@@ -88,4 +88,14 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
      * @param duplicatable the duplicatable to set
      */
     void setDuplicatable(Duplicatable duplicatable);
+
+    /**
+     * @return the type
+     */
+    IncMessageFormDefinitionType getType();
+
+    /**
+     * @param type the type to set
+     */
+    void setType(IncMessageFormDefinitionType type);
 }

@@ -3,6 +3,7 @@
 <hibernate-mapping package="com.dreamoval.motech.core.model">
   <union-subclass extends="MotechEntityImpl" name="IncomingMessageFormDefinitionImpl" table="incoming_message_form_definition">
     <property column="form_code" length="15" name="formCode" type="string" unique="true"/>
+       <property column="type" name="type" type="incMessageFormDefinitionType"/>
     <property column="duplicatable" name="duplicatable" type="Duplicatable"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>
     <property generated="always" insert="false" name="lastModified" update="false">
