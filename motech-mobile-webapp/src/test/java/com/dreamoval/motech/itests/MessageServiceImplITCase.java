@@ -140,8 +140,8 @@ public class MessageServiceImplITCase {
         NameValuePair[] personalInfo = new NameValuePair[]{attrib};
         
         Patient patient = new Patient();
-        patient.setName("Test patient");
-        patient.setSerialNumber("TS000000001");
+        patient.setPreferredName("Test patient");
+        patient.setMotechId("TS000000001");
         Patient[] patientList = new Patient[]{patient};
         
         MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 5L, serviceDate, serviceDate);
@@ -160,8 +160,8 @@ public class MessageServiceImplITCase {
         MediaType messageType = MediaType.TEXT;       
         
         Patient patient = new Patient();
-        patient.setName("Test patient");
-        patient.setSerialNumber("TS000000001");
+        patient.setPreferredName("Test patient");
+        patient.setMotechId("TS000000001");
         Patient[] patientList = new Patient[]{patient};
         
         MessageStatus result = client.sendCHPSMessage(messageId, null, workerNumber, patientList, "kas", messageType, 6L, serviceDate, serviceDate);
@@ -201,8 +201,8 @@ public class MessageServiceImplITCase {
         NameValuePair[] personalInfo = new NameValuePair[]{attrib};
         
         Patient patient = new Patient();
-        patient.setName("Test patient");
-        patient.setSerialNumber("TS000000001");
+        patient.setPreferredName("Test patient");
+        patient.setMotechId("TS000000001");
         Patient[] patientList = new Patient[]{patient};
         
         MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 8L, serviceDate, serviceDate);
