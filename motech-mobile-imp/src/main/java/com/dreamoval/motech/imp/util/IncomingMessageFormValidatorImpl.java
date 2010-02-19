@@ -10,6 +10,8 @@ import com.dreamoval.motech.core.model.IncMessageFormStatus;
 import com.dreamoval.motech.core.model.IncomingMessageForm;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinition;
+import com.dreamoval.motech.omi.manager.MessageFormatter;
+import com.dreamoval.motech.omi.manager.OMIManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,10 +19,12 @@ import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.BirthOutcome;
+import org.motechproject.ws.Care;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.DeliveredBy;
 import org.motechproject.ws.Gender;
 import org.motechproject.ws.HIVStatus;
+import org.motechproject.ws.Patient;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationError;
 import org.motechproject.ws.server.ValidationException;
@@ -35,6 +39,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
     private String dateFormat;
     private RegistrarService regWS;
+    private OMIManager omiManager;
     private CoreManager coreManager;
     private Map<String, List<IncomingMessageFormParameterValidator>> paramValidators;
     private Map<Integer, String> serverErrors;
@@ -44,7 +49,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      * 
      * @see IncomingMessageFormValidator.validate
      */
-    public synchronized boolean validate(IncomingMessageForm form, String requesterPhone) {
+    public synchronized String validate(IncomingMessageForm form, String requesterPhone) {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
 
         for (IncomingMessageFormParameterDefinition paramDef : form.getIncomingMsgFormDefinition().getIncomingMsgParamDefinitions()) {
@@ -80,17 +85,17 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             }
         }
 
-        serverValidate(form, requesterPhone);
+        return serverValidate(form, requesterPhone);
 
-        return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
+        //return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
     }
 
-    public boolean serverValidate(IncomingMessageForm form, String requesterPhone) {
+    public String serverValidate(IncomingMessageForm form, String requesterPhone) {
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
         dFormat.setLenient(true);
 
         if (!form.getMessageFormStatus().equals(IncMessageFormStatus.VALID)) {
-            return false;
+            return form.getMessageFormStatus().toString();
         }
 
         String code = form.getIncomingMsgFormDefinition().getFormCode();
@@ -337,8 +342,191 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
+        }else if (code.equalsIgnoreCase("ANCDefault")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+                
+                Care[] care = regWS.queryANCDefaulters(facilityId, chpsid);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+
+                String response = "";
+                for(Care c : care){
+                    response += formatter.formatDefaulterMessage(c) + "\n\n";
+                }
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("TTDefault")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+
+                Care[] care = regWS.queryTTDefaulters(facilityId, chpsid);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+
+                String response = "";
+                for(Care c : care){
+                    response += formatter.formatDefaulterMessage(c) + "\n\n";
+                }
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("PPCDefault")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+
+                Care[] care = regWS.queryPPCDefaulters(facilityId, chpsid);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+
+                String response = "";
+                for(Care c : care){
+                    response += formatter.formatDefaulterMessage(c) + "\n\n";
+                }
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("PNCDefault")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+
+                Care[] care = regWS.queryPNCDefaulters(facilityId, chpsid);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+
+                String response = "";
+                for(Care c : care){
+                    response += formatter.formatDefaulterMessage(c) + "\n\n";
+                }
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("CWCDefault")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+
+                Care[] care = regWS.queryCWCDefaulters(facilityId, chpsid);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+
+                String response = "";
+                for(Care c : care){
+                    response += formatter.formatDefaulterMessage(c) + "\n\n";
+                }
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("UpcomingDeliveries")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+
+                Patient[] patients = regWS.queryUpcomingDeliveries(facilityId, chpsid);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+                String response = formatter.formatDeliveriesMessage("Upcoming", patients);
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("RecentDeliveries")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+
+                Patient[] patients = regWS.queryRecentDeliveries(facilityId, chpsid);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+                String response = formatter.formatDeliveriesMessage("Recent", patients);
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("OverdueDeliveries")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+
+                Patient[] patients = regWS.queryOverdueDeliveries(facilityId, chpsid);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+                String response = formatter.formatDeliveriesMessage("Overdue", patients);
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("UpcomingCare")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+                String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
+
+                Patient patient = regWS.queryUpcomingCare(facilityId, chpsid, motechId);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+                String response = formatter.formatUpcomingCaresMessage(patient);
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        }else if (code.equalsIgnoreCase("ViewPatient")) {
+            try {
+                String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
+
+                Patient patient = regWS.queryPatient(chpsid, motechId);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+                String response = formatter.formatPatientDetailsMessage(patient);
+                return response;
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
+        } else if (code.equalsIgnoreCase("FindMoTeCHID")) {
+            try {
+                String chpsId = form.getIncomingMsgFormParameters().get("chpsid").getValue();
+                String firstName = form.getIncomingMsgFormParameters().get("firstname").getValue();
+                String lastName = form.getIncomingMsgFormParameters().get("lastname").getValue();
+                String preferredName = form.getIncomingMsgFormParameters().get("preferredname").getValue();
+                Date dob = dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue());
+                String nhis = form.getIncomingMsgFormParameters().get("nhis").getValue();
+                String phone = form.getIncomingMsgFormParameters().get("nhis").getValue();
+                
+                Patient[] patients = regWS.queryMotechId(chpsId, firstName, lastName, preferredName, dob, nhis, phone);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+
+                MessageFormatter formatter = omiManager.createMessageFormatter();
+                String response = formatter.formatMatchingPatientsMessage(patients);
+                return response;
+            } catch (ParseException ex) {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (Exception ex) {
+                logger.error("Server validation of form failed", ex);
+            }
         }
-        return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
+        return form.getMessageFormStatus().toString();
+        //return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
     }
 
     public void parseValidationErrors(IncomingMessageForm form, ValidationException ex){
@@ -415,5 +603,12 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      */
     public void setServerErrors(Map<Integer, String> serverErrors) {
         this.serverErrors = serverErrors;
+    }
+
+    /**
+     * @param omiManager the omiManager to set
+     */
+    public void setOmiManager(OMIManager omiManager) {
+        this.omiManager = omiManager;
     }
 }

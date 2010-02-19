@@ -51,6 +51,20 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
             logger.error("MessageStoreManager creation failed", ex);
             return null;
         }
-    }   
+    }
+
+    /**
+     * creates a MessageFormatter object
+     * @return the created MessageFormatter object
+     */
+    public MessageFormatter createMessageFormatter() {
+        try{
+            return (MessageFormatter)context.getBean("messageFormatter");
+        }
+        catch(Exception ex){
+            logger.error("MessageFormatter creation failed", ex);
+            return null;
+        }
+    }
 
 }

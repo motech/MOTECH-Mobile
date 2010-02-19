@@ -5,13 +5,12 @@
 package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.IncMessageSessionStatus;
-import com.dreamoval.motech.core.service.MotechContext;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDAO;
-import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
+import com.dreamoval.motech.core.model.IncMessageFormDefinitionType;
 import com.dreamoval.motech.core.model.IncMessageFormParameterStatus;
+import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.model.IncMessageFormStatus;
 import com.dreamoval.motech.core.model.IncMessageResponseStatus;
+import com.dreamoval.motech.core.model.IncMessageSessionStatus;
 import com.dreamoval.motech.core.model.IncMessageStatus;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageForm;
@@ -19,7 +18,9 @@ import com.dreamoval.motech.core.model.IncomingMessageFormDefinition;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageFormDAO;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageResponseDAO;
+import com.dreamoval.motech.model.dao.imp.IncomingMessageSessionDAO;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -45,7 +46,7 @@ public class FormCommandAction implements CommandAction {
      */
     public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context) {
         IncomingMessageResponse response;
-        
+
         logger.info("Initializing session");
         IncomingMessageSession imSession = initializeSession(message, requesterPhone, context);
 
@@ -59,12 +60,20 @@ public class FormCommandAction implements CommandAction {
             response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
         } else {
             logger.info("Validating form");
-            formValidator.validate(form, requesterPhone);
+            String result = formValidator.validate(form, requesterPhone);
             message.setIncomingMessageForm(form);
 
             logger.info("Preparing response");
-            response = prepareResponse(message, context);
-            response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
+            if (form.getIncomingMsgFormDefinition().getType() == IncMessageFormDefinitionType.QUERY && form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID)) {
+                response = coreManager.createIncomingMessageResponse();
+                response.setContent(result);
+                response.setIncomingMessage(message);
+                response.setDateCreated(new Date());
+                response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
+            } else {
+                response = prepareResponse(message, context);
+                response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
+            }
         }
         logger.info("Saving request");
         message.setIncomingMessageResponse(response);

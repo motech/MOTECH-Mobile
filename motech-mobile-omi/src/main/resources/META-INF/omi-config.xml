@@ -28,6 +28,11 @@
         <property name="coreManager" ref="coreManager" />
     </bean>
 
+    <bean name="messageFormatter" class="com.dreamoval.motech.omi.manager.SMSMessageFormatterImpl">
+        <property name="omiManager" ref="omiManager" />
+        <property name="dateFormat" value="${omi.settings.dateFormat}" />
+    </bean>
+
     <bean name="omiService" class="com.dreamoval.motech.omi.service.OMIServiceImpl">
         <property name="ompManager" ref="ompManager" />
         <property name="coreManager" ref="coreManager" />

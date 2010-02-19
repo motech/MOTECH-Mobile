@@ -2,6 +2,7 @@ package com.dreamoval.motech.imp.util;
 
 import com.dreamoval.motech.core.dao.DBSession;
 import com.dreamoval.motech.core.manager.CoreManager;
+import com.dreamoval.motech.core.model.IncMessageFormDefinitionType;
 import com.dreamoval.motech.core.model.IncomingMessageSession;
 import com.dreamoval.motech.core.model.IncomingMessageSessionImpl;
 import com.dreamoval.motech.core.service.MotechContext;
@@ -70,12 +71,17 @@ public class FormCommandActionTest {
    @Test
     public void testExecute() {
         System.out.println("execute");
-        IncomingMessage message = new IncomingMessageImpl();
+        
         String requesterPhone = "000000000000";
+        IncomingMessage message = new IncomingMessageImpl();
         MotechContext context = new MotechContextImpl();
         String expResult = "An error occurred on the server. Please try again.";
+        
         IncomingMessageFormImpl msgForm = new IncomingMessageFormImpl();
         msgForm.setMessageFormStatus(IncMessageFormStatus.VALID);
+        
+        IncomingMessageFormDefinitionImpl formDefn = new IncomingMessageFormDefinitionImpl();
+        formDefn.setType(IncMessageFormDefinitionType.ENCOUNTER);
 
         mockFormDao = createMock(IncomingMessageFormDAO.class);
         mockSessDao = createMock(IncomingMessageSessionDAO.class);
@@ -118,7 +124,7 @@ public class FormCommandActionTest {
                 ).andReturn(mockFormDefDao);
         expect(
                 mockFormDefDao.getByCode((String) anyObject())
-                ).andReturn(new IncomingMessageFormDefinitionImpl());
+                ).andReturn(formDefn);
         expect(
                 mockCore.createIncomingMessageForm()
                 ).andReturn(msgForm);
@@ -148,7 +154,7 @@ public class FormCommandActionTest {
         //Validate form
         expect(
                 mockValidator.validate((IncomingMessageForm)anyObject(), (String)anyObject())
-                ).andReturn(Boolean.TRUE);
+                ).andReturn("");
 
         //Prepare response
         expect(

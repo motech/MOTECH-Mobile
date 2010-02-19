@@ -103,7 +103,7 @@ public class IncomingMessageFormValidatorImplTest {
         form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
         
         //Test with required param missing
-        boolean expResult = false;
+        String expResult = "INVALID";
 
         expect(
                 mockCore.createIncomingMessageFormParameter()
@@ -116,7 +116,7 @@ public class IncomingMessageFormValidatorImplTest {
                 ).andReturn(true);
 
         replay(mockCore, mockParamValidator, mockValidators);
-        boolean result = instance.validate(form, reqPhone);
+        String result = instance.validate(form, reqPhone);
         verify(mockCore, mockParamValidator, mockValidators);
         
         assertEquals(expResult, result);
@@ -130,7 +130,7 @@ public class IncomingMessageFormValidatorImplTest {
         form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
         form.getIncomingMsgFormParameters().put(param2.getName().toLowerCase(),param2);
 
-        expResult = false;
+        expResult = "VALID";
 
         reset(mockCore, mockParamValidator, mockValidators);
 
@@ -157,7 +157,7 @@ public class IncomingMessageFormValidatorImplTest {
         form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
         form.getIncomingMsgFormParameters().put(param2.getName().toLowerCase(),param2);
 
-        expResult = true;
+        expResult = "SERVER_VALID";
 
         reset(mockCore, mockParamValidator, mockValidators);
 

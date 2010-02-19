@@ -19,6 +19,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <import resource="classpath:META-INF/core-config.xml" />
+    <import resource="classpath:META-INF/omi-config.xml" />
     <import resource="classpath:META-INF/validator-test-config.xml" />
 
     <!--Spring specific-->

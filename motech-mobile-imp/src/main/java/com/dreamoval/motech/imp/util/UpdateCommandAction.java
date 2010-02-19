@@ -97,22 +97,7 @@ public class UpdateCommandAction implements CommandAction {
         response.setDateCreated(new Date());
         response.setIncomingMessage(message);
 
-        if (getFormValidator().validate(form, requesterPhone)) {
-            response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
-            response.setContent("Data saved successfully.");
-
-            imSession.setDateEnded(new Date());
-            imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
-        } else {
-            String responseText = "Errors: ";
-            for (Entry<String,IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
-                if (entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID)) {
-                    responseText += entry.getValue().getErrText() + ',';
-                }
-            }
-            response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
-            response.setContent(responseText);
-        }
+        
         message.setIncomingMessageResponse(response);
         message.setIncomingMessageForm(form);
 

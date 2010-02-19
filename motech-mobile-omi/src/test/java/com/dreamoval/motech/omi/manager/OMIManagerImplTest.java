@@ -44,4 +44,14 @@ public class OMIManagerImplTest {
         assertNotNull(result);
     }
 
+    /**
+     * Test of createMessageFormatter method, of class OMIManagerImpl.
+     */
+    @Test
+    public void testCreateMessageFormatter() {
+        System.out.println("createMessageFormatter");
+        MessageFormatter result = omiManager.createMessageFormatter();
+        assertNotNull(result);
+    }
+
 }

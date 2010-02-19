@@ -1,7 +1,6 @@
 package com.dreamoval.motech.model.dao.hibernate.imp;
 
 import com.dreamoval.motech.core.dao.hibernate.HibernateGenericDAOImpl;
-import com.dreamoval.motech.core.model.Duplicatable;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
 import com.dreamoval.motech.core.model.IncomingMessageImpl;
@@ -86,7 +85,6 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
 
             IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
                     .add(Restrictions.eq("content", content))
-                    //.add(Restrictions.ne("duplicatable", Duplicatable.ALLOWED))
                     .addOrder(Order.desc("dateCreated"))
                     .setMaxResults(1)
                     .uniqueResult();

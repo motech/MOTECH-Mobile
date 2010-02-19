@@ -26,4 +26,10 @@ public interface OMIManager {
      * @return the MessageStoreManager object
      */
     MessageStoreManager createMessageStoreManager();
+
+    /**
+     * creates a MessageFormatter object
+     * @return the created MessageFormatter object
+     */
+    MessageFormatter createMessageFormatter();
 }

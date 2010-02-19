@@ -32,6 +32,7 @@
         <property name="coreManager" ref="coreManager" />
         <property name="regWS" ref="registrarClient" />
         <property name="dateFormat" value="${imp.validator.dateFormat}" />
+        <property name="omiManager" ref="omiManager" />
         <property name="serverErrors">
             <map>
                 <entry key="1" value="not found" />

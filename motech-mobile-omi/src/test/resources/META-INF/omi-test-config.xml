@@ -35,6 +35,11 @@
     <bean name="storeManager" class="com.dreamoval.motech.omi.manager.MessageStoreManagerImpl">
     </bean>
 
+    <bean name="messageFormatter" class="com.dreamoval.motech.omi.manager.SMSMessageFormatterImpl">
+        <property name="omiManager" ref="omiManager" />
+        <property name="dateFormat" value="${omi.settings.dateFormat}" />
+    </bean>
+
     <bean name="omiService" class="com.dreamoval.motech.omi.service.OMIServiceImpl">
         <property name="storeManager" ref="storeManager" />
         <property name="statHandler" ref="statusHandler" />
