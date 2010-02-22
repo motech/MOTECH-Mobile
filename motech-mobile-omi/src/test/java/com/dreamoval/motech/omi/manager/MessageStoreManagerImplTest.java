@@ -14,6 +14,7 @@ import com.dreamoval.motech.core.model.MessageTemplate;
 import com.dreamoval.motech.core.model.MessageTemplateImpl;
 import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.core.model.NotificationType;
+import com.dreamoval.motech.core.model.NotificationTypeImpl;
 import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.core.service.MotechContextImpl;
 import java.util.HashSet;
@@ -68,7 +69,9 @@ public class MessageStoreManagerImplTest {
         
         MessageRequest message = new MessageRequestImpl();
         Language defaultLang = new LanguageImpl();
+
         message.setPersInfos(new HashSet<NameValuePair>());
+        message.setNotificationType(new NotificationTypeImpl());
 
         expect(
                 mockCore.createMessageTemplateDAO((MotechContext) anyObject())
@@ -151,6 +154,8 @@ public class MessageStoreManagerImplTest {
         
         MessageRequest message = new MessageRequestImpl();
         Language defaultLang = new LanguageImpl();
+
+        message.setNotificationType(new NotificationTypeImpl());
         
         expect(
                 mockCore.createMessageTemplateDAO((MotechContext) anyObject())

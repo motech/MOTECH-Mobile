@@ -34,6 +34,7 @@
     </bean>
 
     <bean name="omiService" class="com.dreamoval.motech.omi.service.OMIServiceImpl">
+        <property name="omiManager" ref="omiManager" />
         <property name="ompManager" ref="ompManager" />
         <property name="coreManager" ref="coreManager" />
         <property name="storeManager" ref="storeManager" />
