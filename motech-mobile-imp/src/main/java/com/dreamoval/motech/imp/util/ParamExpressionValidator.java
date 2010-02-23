@@ -22,27 +22,13 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
     private static Logger logger = Logger.getLogger(ParamExpressionValidator.class);
 
     public boolean validate(IncomingMessageFormParameter param) {
-//        if (param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("DATE")) {
-//            try {
-//                SimpleDateFormat dFormat = new SimpleDateFormat(expression);
-//                dFormat.setLenient(false);
-//                dFormat.parse(param.getValue());
-//                param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
-//            } catch (ParseException ex) {
-//                param.setErrCode(1);
-//                param.setErrText("wrong format");
-//                param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
-//            }
-//        } else
         if (!Pattern.matches(expression, param.getValue().trim())) {
             param.setErrCode(1);
             param.setErrText("wrong format");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
-            if(param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("NUMERIC") && param.getValue().equalsIgnoreCase("NA"))
-                param.setValue("");
-            else if (param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("DATE") && param.getValue().matches("\\d+")){
+            if (param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("DATE") && param.getValue().matches("\\d+")){
                 try {
                     SimpleDateFormat dFormat = new SimpleDateFormat("ddmmyy");
                     Date val = dFormat.parse(param.getValue());

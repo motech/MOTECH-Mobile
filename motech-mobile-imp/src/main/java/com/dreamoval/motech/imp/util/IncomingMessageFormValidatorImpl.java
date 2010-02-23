@@ -350,6 +350,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Care[] care = regWS.queryANCDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(care == null)
+                    return "No ANC Defaulters for this clinic";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
 
                 String response = "";
@@ -359,6 +362,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("TTDefault")) {
             try {
@@ -368,6 +373,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Care[] care = regWS.queryTTDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(care == null)
+                    return "No TT Defaulters for this clinic";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
 
                 String response = "";
@@ -377,6 +385,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("PPCDefault")) {
             try {
@@ -386,6 +396,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Care[] care = regWS.queryPPCDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(care == null)
+                    return "No PPC Defaulters for this clinic";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
 
                 String response = "";
@@ -395,6 +408,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("PNCDefault")) {
             try {
@@ -404,6 +419,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Care[] care = regWS.queryPNCDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(care == null)
+                    return "No PNC Defaulters for this clinic";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
 
                 String response = "";
@@ -413,6 +431,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("CWCDefault")) {
             try {
@@ -422,6 +442,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Care[] care = regWS.queryCWCDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(care == null)
+                    return "No CWC Defaulters for this clinic";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
 
                 String response = "";
@@ -431,6 +454,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("UpcomingDeliveries")) {
             try {
@@ -440,11 +465,16 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Patient[] patients = regWS.queryUpcomingDeliveries(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(patients == null)
+                    return "No upcoming deliveries for this clinic";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Upcoming", patients);
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("RecentDeliveries")) {
             try {
@@ -454,11 +484,16 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Patient[] patients = regWS.queryRecentDeliveries(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(patients == null)
+                    return "No recent deliveries for this clinic";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Recent", patients);
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("OverdueDeliveries")) {
             try {
@@ -468,11 +503,16 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Patient[] patients = regWS.queryOverdueDeliveries(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(patients == null)
+                    return "No patients with overdue deliveries for this clinic";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Overdue", patients);
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("UpcomingCare")) {
             try {
@@ -483,11 +523,16 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Patient patient = regWS.queryUpcomingCare(facilityId, chpsid, motechId);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(patient == null)
+                    return "No upcoming care required for this patient";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatUpcomingCaresMessage(patient);
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }else if (code.equalsIgnoreCase("ViewPatient")) {
             try {
@@ -497,11 +542,16 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Patient patient = regWS.queryPatient(chpsid, motechId);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(patient == null)
+                    return "No matching patients";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatPatientDetailsMessage(patient);
                 return response;
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         } else if (code.equalsIgnoreCase("FindMoTeCHID")) {
             try {
@@ -516,6 +566,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Patient[] patients = regWS.queryMotechId(chpsId, firstName, lastName, preferredName, dob, nhis, phone);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
+                if(patients == null)
+                    return "No matching patients";
+
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatMatchingPatientsMessage(patients);
                 return response;
@@ -523,6 +576,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+                return "An error occurred on the server";
             }
         }
         return form.getMessageFormStatus().toString();

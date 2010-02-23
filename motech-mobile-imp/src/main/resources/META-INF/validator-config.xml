@@ -59,6 +59,11 @@
                     <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
                         <property name="values" value="" />
                         <property name="caseSensitive" value="false" />
+                        <property name="conversions">
+                            <map>
+                                <entry key="NA" value="" />
+                            </map>
+                        </property>
                     </bean>
                     </list>
                 </entry>
@@ -133,7 +138,7 @@
                         <property name="expression" value="${imp.validator.alphaExpression}" />
                     </bean>
                     <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
-                        <property name="values" value="p,P,n,N,na,NA" />
+                        <property name="values" value="P,N,NA" />
                         <property name="caseSensitive" value="false" />
                     </bean>
                     </list>
