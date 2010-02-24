@@ -12,6 +12,7 @@ import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.omi.manager.MessageFormatter;
 import com.dreamoval.motech.omi.manager.OMIManager;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -116,6 +117,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordGeneralVisit(chpsId, date, serialNo, gender, birthDate, insured, newCase, diag, diag2, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -149,6 +151,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.registerChild(chpsId, motherReg, childReg, birthDate, gender, childFName, nhis, nhisExp);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -169,6 +172,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.editPatient(chpsId, patientReg, priPhone, priNumType, secPhone, secNumType, nhis, nhisExp);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -189,6 +193,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordMotherANCVisit(chpsId, date, motechId, visitNo, ttDose, iptDose, itn, hivRes);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -206,6 +211,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordPregnancyTermination(chpsId, date, motechId, abortionType, complications);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -239,6 +245,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordPregnancyDelivery(chpsid, delivDate, motechId, mod, ood, location, deliverer, maternalDeath, cause, c1BirthOut, c1Id, c1sex, c1Name, c1opv, c1bcg, c2BO, c2MotechId, c2Sex, c2Name, c2OPV, c2BCG);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -257,6 +264,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordMotherPPCVisit(chpsid, date, motechId, visitNo, vitA, ttDose);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -273,6 +281,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordDeath(chpsid, date, motechId, cause);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -296,6 +305,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordChildPNCVisit(chpsId, date, motechId, bcg, opv, penta, yellowFever, csm, measles, ipti, vitA);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -316,6 +326,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordChildVisit(chpsid, date, serialNo, motechId, caseStatus, diag, secondDiag, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -336,6 +347,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 regWS.recordChildVisit(chpsid, date, serialNo, motechId, caseStatus, diag, secondDiag, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (ValidationException ex) {
                 parseValidationErrors(form, ex);
@@ -573,6 +585,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String response = formatter.formatMatchingPatientsMessage(patients);
                 return response;
             } catch (ParseException ex) {
+                logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);

@@ -28,9 +28,18 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
-            if (param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("DATE") && param.getValue().matches("\\d+")){
+            if (param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("DATE")){
                 try {
-                    SimpleDateFormat dFormat = new SimpleDateFormat("ddmmyy");
+                    String dateInputFormat = "";
+
+                    if(Pattern.matches("(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])(19|20)?\\d\\d", param.getValue()))
+                        dateInputFormat = "ddmmyyyy";
+                    else if(Pattern.matches("(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)?\\d\\d", param.getValue()))
+                        dateInputFormat = "dd-mm-yyyy";
+                    else if(Pattern.matches("(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)?\\d\\d", param.getValue()))
+                        dateInputFormat = "dd.mm.yyyy";
+
+                    SimpleDateFormat dFormat = new SimpleDateFormat(dateInputFormat);
                     Date val = dFormat.parse(param.getValue());
                     dFormat.applyPattern("dd/mm/yyyy");
                     param.setValue(dFormat.format(val));
