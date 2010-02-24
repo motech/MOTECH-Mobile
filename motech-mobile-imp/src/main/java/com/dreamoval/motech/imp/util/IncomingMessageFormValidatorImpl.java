@@ -12,7 +12,6 @@ import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.omi.manager.MessageFormatter;
 import com.dreamoval.motech.omi.manager.OMIManager;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -529,13 +528,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         }else if (code.equalsIgnoreCase("UpcomingCare")) {
             try {
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
-                String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
+                String facilityId = form.getIncomingMsgFormParameters().containsKey("facilityid") ? form.getIncomingMsgFormParameters().get("facilityid").getValue() : null;
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
 
                 Patient patient = regWS.queryUpcomingCare(facilityId, chpsid, motechId);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
-                if(patient == null)
+                if(patient == null || patient.getCares() == null)
                     return "No upcoming care required for this patient";
 
                 MessageFormatter formatter = omiManager.createMessageFormatter();
@@ -568,12 +567,12 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         } else if (code.equalsIgnoreCase("FindMoTeCHID")) {
             try {
                 String chpsId = form.getIncomingMsgFormParameters().get("chpsid").getValue();
-                String firstName = form.getIncomingMsgFormParameters().get("firstname").getValue();
-                String lastName = form.getIncomingMsgFormParameters().get("lastname").getValue();
-                String preferredName = form.getIncomingMsgFormParameters().get("preferredname").getValue();
-                Date dob = dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue());
-                String nhis = form.getIncomingMsgFormParameters().get("nhis").getValue();
-                String phone = form.getIncomingMsgFormParameters().get("nhis").getValue();
+                String firstName = form.getIncomingMsgFormParameters().containsKey("firstname") ? form.getIncomingMsgFormParameters().get("firstname").getValue() : null;
+                String lastName = form.getIncomingMsgFormParameters().containsKey("lastname") ? form.getIncomingMsgFormParameters().get("lastname").getValue() : null;
+                String preferredName = form.getIncomingMsgFormParameters().containsKey("prefferedname") ? form.getIncomingMsgFormParameters().get("preferredname").getValue() : null;
+                Date dob = form.getIncomingMsgFormParameters().containsKey("dob") ? dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()) : null;
+                String nhis = form.getIncomingMsgFormParameters().containsKey("nhis") ? form.getIncomingMsgFormParameters().get("nhis").getValue() : null;
+                String phone = form.getIncomingMsgFormParameters().containsKey("phone") ? form.getIncomingMsgFormParameters().get("phone").getValue() : null;
                 
                 Patient[] patients = regWS.queryMotechId(chpsId, firstName, lastName, preferredName, dob, nhis, phone);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
