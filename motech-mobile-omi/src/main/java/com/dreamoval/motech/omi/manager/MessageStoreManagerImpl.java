@@ -101,8 +101,9 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         for(NameValuePair detail : templateParams){
             tag = "<"+ detail.getName() + ">";
             value = detail.getValue();
-                    
-            template = template.replaceAll(tag, value);
+
+            if(value != null && !value.isEmpty())
+                template = template.replaceAll(tag, value);
         }
         
         return template;

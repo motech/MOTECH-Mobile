@@ -139,7 +139,7 @@ CREATE TABLE `incoming_message_form_definition` (
 /*Data for the table `incoming_message_form_definition` */
 
 /*Data Entry Forms*/
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (254657657567688,0,'RegisterChildU5','ENCOUNTER','DISALLOWED','2010-01-08 14:40:15','2010-01-08 15:22:53');
+insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (254657657567688,0,'RegisterChild','ENCOUNTER','DISALLOWED','2010-01-08 14:40:15','2010-01-08 15:22:53');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (597658468478768,0,'PregnancyStop','ENCOUNTER','DISALLOWED','2010-01-08 14:19:05','2010-01-08 15:22:53');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (678565673457657,0,'EditPatient','ENCOUNTER','TIME_BOUND','2010-01-08 14:41:23','2010-01-08 15:22:53');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (785688106549491,0,'GeneralOPD','ENCOUNTER','TIME_BOUND','2009-12-18 11:04:20','2010-01-08 15:22:53');
@@ -151,7 +151,6 @@ insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`t
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (785739375640096,0,'Child','ENCOUNTER','TIME_BOUND','2010-02-03 09:10:23','2010-02-03 09:10:23');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (785739375640097,0,'ChildOPD','ENCOUNTER','TIME_BOUND','2010-02-03 09:10:25','2010-02-03 09:10:25');
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (785739375640098,0,'MotherOPD','ENCOUNTER','TIME_BOUND','2010-02-03 09:10:20','2010-02-03 09:10:20');
-insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (785739375640099,0,'RegisterChild','ENCOUNTER','DISALLOWED','2010-02-03 09:10:20','2010-02-03 09:10:20');
 
 /*Data Query Forms*/
 insert into `incoming_message_form_definition` (`id`,`obj_vesion`,`form_code`,`type`,`duplicatable`,`date_created`,`last_modified`) values (785739375640100,0,'ANCDefault','QUERY','ALLOWED','2010-02-15 18:33:20','2010-02-15 18:33:20');
@@ -371,7 +370,7 @@ insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`inc
 insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923355,0,785739375640108,'chpsId','ALPHANUM',20,true,'2010-02-15 18:35:14','2010-02-15 18:35:14');
 
 /*Params for ViewPatients*/
-insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923356,0,785739375640109,'motechId','ALHPANUM',20,true,'2010-02-15 18:35:14','2010-02-15 18:35:14');
+insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923356,0,785739375640109,'motechId','ALPHANUM',20,true,'2010-02-15 18:35:14','2010-02-15 18:35:14');
 insert into `incoming_message_form_parameter_definition` (`id`,`obj_vesion`,`incoming_message_form_definition_id`,`name`,`parameter_type`,`lenght`,`required`,`date_created`,`last_modified`) values (695474663923357,0,785739375640109,'chpsId','ALPHANUM',20,true,'2010-02-15 18:35:14','2010-02-15 18:35:14');
 
 /*Params for FindMoTeCHID*/

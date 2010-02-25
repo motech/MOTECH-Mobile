@@ -32,7 +32,7 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                 try {
                     String dateInputFormat = "";
                     if (!Pattern.matches("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\\d\\d", param.getValue())) {
-                        if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])(19|20)?\\d\\d", param.getValue())) {
+                        if (Pattern.matches("\\d+", param.getValue())) {
                             dateInputFormat = "ddmmyyyy";
                         } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)?\\d\\d", param.getValue())) {
                             dateInputFormat = "dd-mm-yyyy";

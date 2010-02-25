@@ -6,6 +6,7 @@
 package com.dreamoval.motech.omi.manager;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -64,6 +65,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
      */
     public String formatDeliveriesMessage(String type, Patient[] patients){
         int num = 0;
+        String edd;
         String message = "";
         String template = type + " Deliveries:";
 
@@ -72,7 +74,8 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for(Patient p : patients){
-            data.add(new NameValuePair("EDD"+num, dFormat.format(p.getEstimateDueDate())));
+            edd = (p.getEstimateDueDate() == null) ? "" : dFormat.format(p.getEstimateDueDate());
+            data.add(new NameValuePair("EDD"+num, edd));
             data.add(new NameValuePair("PreferredName"+num, p.getPreferredName()));
             data.add(new NameValuePair("LastName"+num, p.getLastName()));
             data.add(new NameValuePair("MoTeCHID"+num, p.getMotechId()));
@@ -102,6 +105,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
      */
     public String formatUpcomingCaresMessage(Patient patient){
         int num = 0;
+        String careDate;
         String message = "";
         String template = "Upcoming care for "+patient.getPreferredName()+patient.getLastName()+":";
 
@@ -110,8 +114,9 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for(Care c : patient.getCares()){
+            careDate = c.getDate() == null ? "" : dFormat.format(c.getDate());
             data.add(new NameValuePair("Care"+num, c.getName()));
-            data.add(new NameValuePair("Date"+num, dFormat.format(c.getDate())));
+            data.add(new NameValuePair("Date"+num, careDate));
 
             template += "\n<Care"
                     + num
@@ -132,6 +137,8 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
     public String formatMatchingPatientsMessage(Patient[] patients){
         int num = 0;
         String message = "";
+        String sex = "";
+        String birthDate = "";
         String template = "Matching Patients:";
 
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
@@ -139,10 +146,12 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for(Patient p : patients){
+            birthDate = p.getBirthDate() == null ? "" : dFormat.format(p.getBirthDate());
+            sex = p.getSex() == null ? "" : p.getSex().toString();
             data.add(new NameValuePair("PreferredName"+num, p.getPreferredName()));
             data.add(new NameValuePair("LastName"+num, p.getLastName()));
-            data.add(new NameValuePair("DoB"+num, dFormat.format(p.getEstimateDueDate())));
-            data.add(new NameValuePair("Sex"+num, p.getSex().toString()));
+            data.add(new NameValuePair("DoB"+num, birthDate));
+            data.add(new NameValuePair("Sex"+num, sex));
             data.add(new NameValuePair("Community"+num, p.getCommunity()));
             data.add(new NameValuePair("MoTeCHID"+num, p.getMotechId()));
 
@@ -171,10 +180,15 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
      * @param see MessageFormatter.formatPatientDetailsMessage
      */
     public String formatPatientDetailsMessage(Patient patient){
+        SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
+        
         String message = "";
         String template = "";
+        String edd = patient.getEstimateDueDate() == null ? "" : dFormat.format(patient.getEstimateDueDate());
+        String dob = patient.getBirthDate() == null ? "" : dFormat.format(patient.getBirthDate());
+        String age = patient.getAge() == null ? "" : patient.getAge().toString();
+        String sex = patient.getSex() == null ? "" : patient.getSex().toString();
 
-        SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
 
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
@@ -182,12 +196,12 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         data.add(new NameValuePair("FirstName", patient.getFirstName()));
         data.add(new NameValuePair("LastName", patient.getLastName()));
         data.add(new NameValuePair("PreferredName", patient.getPreferredName()));
-        data.add(new NameValuePair("Sex", patient.getSex().toString()));
-        data.add(new NameValuePair("DoB", dFormat.format(patient.getEstimateDueDate())));
-        data.add(new NameValuePair("Age", patient.getAge().toString()));
+        data.add(new NameValuePair("Sex", sex));
+        data.add(new NameValuePair("DoB", dob));
+        data.add(new NameValuePair("Age", age));
         data.add(new NameValuePair("Community", patient.getCommunity()));
         data.add(new NameValuePair("PhoneNumber", patient.getPhoneNumber()));
-        data.add(new NameValuePair("EDD", dFormat.format(patient.getEstimateDueDate())));
+        data.add(new NameValuePair("EDD", edd));
 
         template += "MoTeCH ID<MoTeCHID>\nFirstName=<FirstName>\nLastName=<LastName>\nPreferredName=<PreferredName>\nSex=<Sex>\nDoB=<DoB>\nAge=<Age>\nCommunity=<Community>\nPhoneNumber=<PhoneNumber>\nEDD=<EDD>";
 
