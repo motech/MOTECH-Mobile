@@ -41,6 +41,21 @@
         <property name="paramRegex" value="${imp.form.paramExpression}" />
     </bean>
 
+    <bean id="imXMLParser" class="com.dreamoval.motech.imp.util.IncomingMessageXMLParserImpl">
+        <property name="coreManager" ref="coreManager" />
+        <property name="messageParser" ref="imParser" />
+        <property name="separator" value="${imp.form.param.valueSparator}" />
+        <property name="delimiter" value="${imp.form.param.delimiter}" />
+        <property name="formTypeTagName" value="${imp.xmlparser.formTypeTagName}" />
+        <property name="xmlUtil" ref="xmlUtil" />
+        <property name="formTypeLookup" >
+            <map>
+                <entry key="data_entry" value="Type"/>
+                <entry key="query" value="Query"/>
+            </map>
+        </property>
+    </bean>
+
     <bean id="formCmdAxn" class="com.dreamoval.motech.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="coreManager" ref="coreManager" />
@@ -56,4 +71,6 @@
     <bean id="stopCmdAxn" class="com.dreamoval.motech.imp.util.StopCommandAction">
         <property name="coreManager" ref="coreManager" />
     </bean>
+
+    <bean id="xmlUtil" class="com.dreamoval.motech.imp.util.XMLUtil" />
 </beans>

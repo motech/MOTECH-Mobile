@@ -148,6 +148,14 @@
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.motechproject.mforms</groupId>
+            <artifactId>xforms-server</artifactId>
+        </dependency>
+        <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jzlib</artifactId>
+            </dependency>
     </dependencies>
 
     <build>

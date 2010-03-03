@@ -9,6 +9,7 @@ import com.dreamoval.motech.imp.serivce.IMPService;
 import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageFormValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
+import com.dreamoval.motech.imp.util.IncomingMessageXMLParser;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -36,6 +37,15 @@ public class IMPManagerImpl implements ApplicationContextAware, IMPManager{
      */
     public IncomingMessageParser createIncomingMessageParser(){
         return (IncomingMessageParser)context.getBean("imParser");
+    }
+
+    /**
+     * Returns the spring managed instance of IncomingMessageXMLParser
+     *
+     * @return an instance of IncomingMessageXMLParser
+     */
+    public IncomingMessageXMLParser createIncomingMessageXMLParser(){
+        return (IncomingMessageXMLParser)context.getBean("imXMLParser");
     }
 
     /**

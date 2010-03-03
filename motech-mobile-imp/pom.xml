@@ -1,5 +1,6 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
     <groupId>com.dreamoval.motech</groupId>
     <artifactId>motech-mobile-imp</artifactId>
     <packaging>jar</packaging>
@@ -94,6 +95,14 @@
         <dependency>
             <groupId>org.opensymphony.quartz</groupId>
             <artifactId>quartz</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject.mforms</groupId>
+            <artifactId>xforms-server</artifactId>
         </dependency>
     </dependencies>
 </project>

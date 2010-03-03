@@ -5,7 +5,11 @@
 
 package com.dreamoval.motech.imp.serivce;
 
+import com.dreamoval.motech.imp.util.exception.MotechParseException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import org.jdom.JDOMException;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
@@ -27,4 +31,16 @@ public interface IMPService {
      * @return list of requests with the associated responses
      */
     List<FormRequest> processMultiRequests(List<FormRequest> requests, boolean isDemo);
+
+    /**
+     * <p>Processes xForms as Motech Forms by converting them to SMS format. It then goes through normal
+     * SMS processing.</p>
+     *
+     * @param xForms
+     * @return a List of responses
+     * @throws org.jdom.JDOMException
+     * @throws java.io.IOException
+     * @throws com.dreamoval.motech.imp.util.exception.MotechParseException
+     */
+    ArrayList<String> processXForms(ArrayList<String> xForms) throws JDOMException, IOException, MotechParseException;
 }

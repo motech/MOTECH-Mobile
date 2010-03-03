@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,6 +47,7 @@ public class ORServeGatewayManagerImplTest {
     /**
      * Test of sendMessage method, of class ORServeGatewayManagerImpl.
      */
+    @Ignore
     @Test
     public void testSendMessage() {
         System.out.println("sendMessage");
@@ -71,6 +73,7 @@ public class ORServeGatewayManagerImplTest {
     /**
      * Test of getMessageStatus method, of class ORServeGatewayManagerImpl.
      */
+    @Ignore
     @Test
     public void testGetMessageStatus() {
         System.out.println("getMessageStatus");        
@@ -85,6 +88,7 @@ public class ORServeGatewayManagerImplTest {
     /**
      * Test of mapMessageStatus method, of class ClickatellGatewayManagerImpl.
      */
+    @Ignore
     @Test
     public void testMapMessageStatus() {
         System.out.println("mapMessageStatus");

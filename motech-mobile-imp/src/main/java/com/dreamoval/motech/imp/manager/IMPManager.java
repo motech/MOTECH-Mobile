@@ -9,6 +9,7 @@ import com.dreamoval.motech.imp.serivce.IMPService;
 import com.dreamoval.motech.imp.util.CommandAction;
 import com.dreamoval.motech.imp.util.IncomingMessageFormValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
+import com.dreamoval.motech.imp.util.IncomingMessageXMLParser;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
@@ -39,5 +40,12 @@ public interface IMPManager {
      * @return the created CommandAction
      */
     CommandAction createCommandAction();
+
+    /**
+     * Returns the spring managed instance of IncomingMessageXMLParser
+     *
+     * @return an instance of IncomingMessageXMLParser
+     */
+    IncomingMessageXMLParser createIncomingMessageXMLParser();
 
 }

@@ -13,12 +13,17 @@ import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import com.dreamoval.motech.core.model.IncomingMessage;
 import com.dreamoval.motech.core.model.IncomingMessageResponse;
 import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.imp.util.IncomingMessageXMLParser;
+import com.dreamoval.motech.imp.util.exception.MotechParseException;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Transaction;
+import org.jdom.JDOMException;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
@@ -33,6 +38,7 @@ public class IMPServiceImpl implements IMPService {
     private CoreManager coreManager;
     private IncomingMessageParser parser;
     private Map<String, CommandAction> cmdActionMap;
+    private IncomingMessageXMLParser xmlParser;
 
     /**
      *
@@ -80,6 +86,38 @@ public class IMPServiceImpl implements IMPService {
             fReq.setResponse(processRequest(fReq.getMessage(), fReq.getSenderNumber(), isDemo));
         }
         return requests;
+    }
+
+    public String processRequest(String message){
+        String result = null;
+
+        //TODO Funtionality for processing java forms
+
+        return result;
+    }
+
+    /**
+     * <p>Processes xForms as Motech Forms by converting them to SMS format. It then goes through normal
+     * SMS processing.</p>
+     *
+     * @param xForms
+     * @return a List of responses
+     * @throws org.jdom.JDOMException
+     * @throws java.io.IOException
+     * @throws com.dreamoval.motech.imp.util.exception.MotechParseException
+     */
+    public ArrayList<String> processXForms(ArrayList<String> xForms) throws JDOMException, IOException, MotechParseException{
+        ArrayList<String> result = null;
+
+        if (xForms != null){
+            result = new ArrayList<String>();
+            ArrayList<String> smses = xmlParser.parseXML(xForms);
+            for (String sms : smses){
+                result.add(processRequest(sms));
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -164,5 +202,19 @@ public class IMPServiceImpl implements IMPService {
      */
     public void setDemoSender(String demoSender) {
         this.demoSender = demoSender;
+    }
+
+    /**
+     * @return the xmlParser
+     */
+    public IncomingMessageXMLParser getXmlParser() {
+        return xmlParser;
+    }
+
+    /**
+     * @param xmlParser the xmlParser to set
+     */
+    public void setXmlParser(IncomingMessageXMLParser xmlParser) {
+        this.xmlParser = xmlParser;
     }
 }

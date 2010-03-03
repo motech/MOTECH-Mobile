@@ -29,9 +29,6 @@
             <goals>
                 <goal>install</goal>
             </goals>
-            <properties>
-                <enableIT>True</enableIT>
-            </properties>
         </action>
         <action>
             <actionName>rebuild</actionName>
@@ -42,9 +39,6 @@
                 <goal>clean</goal>
                 <goal>install</goal>
             </goals>
-            <properties>
-                <enableIT>True</enableIT>
-            </properties>
         </action>
         <action>
             <actionName>test</actionName>
@@ -53,6 +47,14 @@
             </packagings>
             <goals>
                 <goal>test</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Build project for commit</actionName>
+            <displayName>Build project for commit</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
             </goals>
             <properties>
                 <enableIT>True</enableIT>
