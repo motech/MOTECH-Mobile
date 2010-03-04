@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+    <bean name="stopPregnancyProgramSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="stopPregnancyProgram" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="motechId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+    
+    <bean name="recordGeneralVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordGeneralVisit" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="serialNo" value="java.lang.String" />
+                <entry key="sex" value="org.motechproject.ws.Gender" />
+                <entry key="dob" value="java.util.Date" />
+                <entry key="insured" value="java.lang.Boolean" />
+                <entry key="newCase" value="java.lang.Boolean" />
+                <entry key="diagnosis" value="java.lang.Integer" />
+                <entry key="secondaryDiagnosis" value="java.lang.Integer" />
+                <entry key="referral" value="java.lang.Boolean" />
+            </map>
+        </property>
+    </bean>
+</beans>
