@@ -28,6 +28,7 @@
         <property name="demoMsgType" value="${imp.demo.messageType}" />
         <property name="demoProvider" value="${imp.demo.provider}" />
         <property name="demoSender" value="${imp.demo.senderAddr}" />
+        <property name="formProcessSuccess" value="${imp.form.successResponse}" />
     </bean>
 
     <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
@@ -73,4 +74,8 @@
     </bean>
 
     <bean id="xmlUtil" class="com.dreamoval.motech.imp.util.XMLUtil" />
+
+    <bean id="oxdFormDefService" class="com.dreamoval.motech.imp.serivce.oxd.FormDefinitionServiceImpl">
+        <property name="oxdFormDefResourceName" value="${imp.oxd.oxdFormDefsResourceName}"/>
+    </bean>
 </beans>

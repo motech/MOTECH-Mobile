@@ -39,6 +39,7 @@ public class IMPServiceImpl implements IMPService {
     private IncomingMessageParser parser;
     private Map<String, CommandAction> cmdActionMap;
     private IncomingMessageXMLParser xmlParser;
+    private String formProcessSuccess;
 
     /**
      *
@@ -115,6 +116,35 @@ public class IMPServiceImpl implements IMPService {
             for (String sms : smses){
                 result.add(processRequest(sms));
             }
+        }
+
+        return result;
+    }
+
+    /**
+     * Validates and processes an xForm.
+     *
+     * @param xForm the XForm to be validated and processed
+     * @return ok if successful otherwise the specifics of the error for reporting
+     * @throws org.jdom.JDOMException
+     * @throws java.io.IOException
+     * @throws com.dreamoval.motech.imp.util.exception.MotechParseException
+     */
+    public String processXForm(String xForm) throws JDOMException, IOException, MotechParseException{
+        String result = null;
+
+        if(xForm != null){
+            result = processXFormSMS(xmlParser.toSMSMessage(xForm));
+        }
+
+        return result;
+    }
+
+    private String processXFormSMS(String xFormSMS){
+        String result = null;
+
+        if(xFormSMS != null){
+            
         }
 
         return result;
@@ -216,5 +246,19 @@ public class IMPServiceImpl implements IMPService {
      */
     public void setXmlParser(IncomingMessageXMLParser xmlParser) {
         this.xmlParser = xmlParser;
+    }
+
+    /**
+     * @return the formProcessSuccess
+     */
+    public String getFormProcessSuccess() {
+        return formProcessSuccess;
+    }
+
+    /**
+     * @param formProcessSuccess the formProcessSuccess to set
+     */
+    public void setFormProcessSuccess(String formProcessSuccess) {
+        this.formProcessSuccess = formProcessSuccess;
     }
 }

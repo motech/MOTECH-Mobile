@@ -99,4 +99,14 @@ public interface IncomingMessageXMLParser {
      * @param xmlUtil the xmlUtil to set
      */
     void setXmlUtil(XMLUtil xmlUtil);
+
+    /**
+     * Returns a String similar to SMS forms represnting the xml argument passed
+     *
+     * @param xml the XML to parse
+     * @return a string representing a name/value pair or xml-element/value[CDATA]
+     * @throws org.jdom.JDOMException thrown if an error occurs while parsing the XML a Document
+     * @throws java.io.IOException thrown if an error occurs `reading the file or stream
+     */
+    String toSMSMessage(String xml) throws JDOMException, IOException, MotechParseException;
 }

@@ -4,10 +4,11 @@
  */
 package com.dreamoval.motech.web;
 
-import com.dreamoval.motech.web.oxd.FormDefinitionService;
-import com.dreamoval.motech.web.oxd.FormDefinitionServiceImpl;
-import com.dreamoval.motech.web.oxd.StudyProcessor;
+import com.dreamoval.motech.imp.serivce.IMPService;
+import com.dreamoval.motech.imp.serivce.oxd.FormDefinitionService;
+import com.dreamoval.motech.imp.serivce.oxd.StudyProcessor;
 
+import com.dreamoval.motech.imp.util.exception.MotechParseException;
 import com.jcraft.jzlib.JZlib;
 import com.jcraft.jzlib.ZOutputStream;
 import java.io.DataInputStream;
@@ -16,31 +17,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.fcitmuk.epihandy.EpihandyXformSerializer;
+import org.jdom.JDOMException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  *
- * @author administrator
+ * @author Henry Sampson (henry@dreamoval.com) and Brent Atkinson
  */
 public class OXDFormUploadServlet extends HttpServlet {
 
     private static Logger log = Logger.getLogger(OXDFormUploadServlet.class);
-    FormDefinitionService formService;
-
-    @Override
-	public void init() throws ServletException {
-		// Normally we'd wire this service in using dependency injection
-		FormDefinitionServiceImpl fds = new FormDefinitionServiceImpl();
-		fds.setExportStream(getClass().getResourceAsStream("/SampleStudy.xml"));
-		formService = fds;
-	}
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -51,11 +45,18 @@ public class OXDFormUploadServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        FormDefinitionService formService;
+        IMPService impService;
+
         InputStream input = request.getInputStream();
         OutputStream output = response.getOutputStream();
 
         WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         StudyProcessor studyProcessor = (StudyProcessor) context.getBean("studyProcessor");
+
+        formService = (FormDefinitionService) context.getBean("oxdFormService");
+        impService = (IMPService) context.getBean("impService");
 
         // Wrap the streams for compression
         ZOutputStream zOutput = new ZOutputStream(output,
@@ -72,6 +73,7 @@ public class OXDFormUploadServlet extends HttpServlet {
 
         byte action = dataInput.readByte();
 
+        //TODO Authentication of usename and password. Possible M6 enhancement
         log.info("uploading: name=" + name + ", password=" + password + ", serializer=" + serializer + ", locale=" + locale + ", action=" + action);
 
         EpihandyXformSerializer serObj = new EpihandyXformSerializer();
@@ -89,36 +91,51 @@ public class OXDFormUploadServlet extends HttpServlet {
 
         log.debug("upload contains: studies=" + studyForms.length + ", forms=" + numForms);
 
+        //Starting processing here
+        int faultyForms = 0;
+        if (studyForms != null && numForms > 0) {
+            for (int i = 0; i < studyForms.length; i++) {
+                for (int j = 0; j < studyForms[i].length; j++) {
+                    try {
+                        studyForms[i][j] = impService.processXForm(studyForms[i][j]);
+                    } catch (JDOMException ex) {
+                        log.error(ex.getMessage());
+                        studyForms[i][j] = ex.getMessage();
+                    } catch (MotechParseException ex) {
+                        log.error(ex.getMessage());
+                        studyForms[i][j] = ex.getMessage();
+                    } catch (IOException ex) {
+                        log.error(ex.getMessage());
+                        studyForms[i][j] = ex.getMessage();
+                    } catch (Exception ex){
+                        log.error(ex.getMessage());
+                        studyForms[i][j] = ex.getMessage();
+                    }
+                    if(!studyForms[i][j].equalsIgnoreCase(impService.getFormProcessSuccess())){
+                        faultyForms++;
+                    }
+                }
+            }
+        }
+
+        //Return reult via zOutput stre4am
+
         // Write out usual upload response
         dataOutput.writeByte(1);
 
-        // Write out upload status (# forms handled, # of forms failed, failure
-        // messages)
-        dataOutput.writeByte(numForms);
-        if (numForms > 1) {
-
-            int pickedForm = (int) (Math.random() * numForms);
-
-            dataOutput.writeByte(1); // forms in error
-
-            int form = 0;
+        dataOutput.writeByte((byte)studyProcessor.getNumForms());
+        dataOutput.writeByte((byte)faultyForms);
+        
             for (int s = 0; s < studyForms.length; s++) {
                 for (int f = 0; f < studyForms[s].length; f++) {
-                    log.info("uploaded form:\n" + studyForms[s][f]);
-                    if (form == pickedForm) {
-                        log.debug("returning error in form " + pickedForm + ": s=" + s + ", f=" + f);
+                    if (!studyForms[s][f].equalsIgnoreCase(impService.getFormProcessSuccess())) {
                         dataOutput.writeByte((byte) s);
                         dataOutput.writeByte((byte) f);
-                    //dataOutput.writeUTF(GENERIC_ERROR);
+                        dataOutput.writeUTF(studyForms[s][f]);
                     }
-                    form++;
                 }
             }
-        } else {
-            log.info("only one form, returning no errors:\n" + studyForms[0][0]);
-            dataOutput.writeByte(0);
-        }
-
+        
         dataOutput.flush();
         zOutput.finish();
 

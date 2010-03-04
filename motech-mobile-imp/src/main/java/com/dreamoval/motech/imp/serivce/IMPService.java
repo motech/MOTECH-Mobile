@@ -43,4 +43,25 @@ public interface IMPService {
      * @throws com.dreamoval.motech.imp.util.exception.MotechParseException
      */
     ArrayList<String> processXForms(ArrayList<String> xForms) throws JDOMException, IOException, MotechParseException;
+
+    /**
+     * Validates and processes an xForm.
+     *
+     * @param xForm the XForm to be validated and processed
+     * @return ok if successful otherwise the specifics of the error for reporting
+     * @throws org.jdom.JDOMException
+     * @throws java.io.IOException
+     * @throws com.dreamoval.motech.imp.util.exception.MotechParseException
+     */
+    String processXForm(String xForm) throws JDOMException, IOException, MotechParseException;
+
+    /**
+     * @return the formProcessSuccess
+     */
+    String getFormProcessSuccess();
+
+    /**
+     * @param formProcessSuccess the formProcessSuccess to set
+     */
+    void setFormProcessSuccess(String formProcessSuccess);
 }
