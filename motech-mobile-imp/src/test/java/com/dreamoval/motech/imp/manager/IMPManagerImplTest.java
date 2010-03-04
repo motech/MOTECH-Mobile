@@ -7,7 +7,6 @@ package com.dreamoval.motech.imp.manager;
 
 import com.dreamoval.motech.imp.serivce.IMPService;
 import com.dreamoval.motech.imp.util.CommandAction;
-import com.dreamoval.motech.imp.util.IncomingMessageFormParameterValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageFormValidator;
 import com.dreamoval.motech.imp.util.IncomingMessageParser;
 import org.junit.Test;

@@ -12,11 +12,15 @@ import com.dreamoval.motech.core.model.IncomingMessageFormParameter;
 import com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinition;
 import com.dreamoval.motech.omi.manager.MessageFormatter;
 import com.dreamoval.motech.omi.manager.OMIManager;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.BirthOutcome;
 import org.motechproject.ws.Care;
@@ -43,6 +47,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
     private CoreManager coreManager;
     private Map<String, List<IncomingMessageFormParameterValidator>> paramValidators;
     private Map<Integer, String> serverErrors;
+    private Map<String, MethodSignature> serviceMethods;
     private static Logger logger = Logger.getLogger(IncomingMessageFormValidatorImpl.class);
 
     /**
@@ -88,18 +93,19 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             logger.fatal("Error validating form", ex);
             return "Could not process your form. Please try again.";
         }
-        return serverValidate(form, requesterPhone);
 
+        if (!form.getMessageFormStatus().equals(IncMessageFormStatus.VALID)) {
+            return form.getMessageFormStatus().toString();
+        }
+
+        //return serverValidate(form, requesterPhone);
+        return (String) callRegistrarServiceMethod(form);
         //return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
     }
 
     public String serverValidate(IncomingMessageForm form, String requesterPhone) {
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
         dFormat.setLenient(true);
-
-        if (!form.getMessageFormStatus().equals(IncMessageFormStatus.VALID)) {
-            return form.getMessageFormStatus().toString();
-        }
 
         String code = form.getIncomingMsgFormDefinition().getFormCode();
 
@@ -650,13 +656,76 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         }
     }
 
+    protected Object callRegistrarServiceMethod(IncomingMessageForm form) {
+        Object result = null;
+        MethodSignature mSig;
+
+        SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
+        dFormat.setLenient(true);
+
+        if (serviceMethods.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
+            mSig = serviceMethods.get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
+        } else {
+            return form.getMessageFormStatus().toString();
+        }
+
+        String methodName = mSig.getMethodName();
+        Class[] paramTypes = new Class[mSig.getMethodParams().size()];
+        Object[] paramObjs = new Object[mSig.getMethodParams().size()];
+
+        int idx = 0;
+
+        try {
+            for (Entry<String, Class> e : mSig.getMethodParams().entrySet()) {
+                paramTypes[idx] = e.getValue();
+                if (form.getIncomingMsgFormParameters().containsKey(e.getKey().toLowerCase())) {
+                    if (e.getValue().equals(Date.class)) {
+                        paramObjs[idx] = dFormat.parse(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
+                    } else if (e.getValue().isEnum()) {
+                        paramObjs[idx] = Enum.valueOf(e.getValue(), form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
+                    } else if (e.getValue().equals(String.class)) {
+                        paramObjs[idx] = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue();
+                    } else {
+                        Constructor constr = e.getValue().getConstructor(String.class);
+                        paramObjs[idx] = constr.newInstance(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
+                    }
+                } else {
+                    paramObjs[idx] = null;
+                }
+                idx++;
+            }
+            Method method = regWS.getClass().getDeclaredMethod(methodName, paramTypes);
+            result = method.invoke(regWS, paramObjs);
+            form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
+        } catch (NoSuchMethodException ex) {
+            logger.fatal("Could not find web service method " + methodName, ex);
+        } catch (SecurityException ex) {
+            logger.fatal("Could not access method " + methodName + " due to SecurityException", ex);
+        } catch (IllegalAccessException ex) {
+            logger.fatal("Could not invoke method " + methodName + " due to IllegalAccessException", ex);
+        } catch (InvocationTargetException ex) {
+            if (ex.getCause().getClass().equals(ValidationException.class)) {
+                parseValidationErrors(form, (ValidationException) ex.getCause());
+            } else {
+                logger.fatal("Could not invoke method " + methodName + " due to InvocationTargetException", ex);
+            }
+        } catch (Exception ex) {
+            logger.error("Form could not be processed on server", ex);
+            form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            return "An error occurred on the server";
+        }
+
+        if (mSig.getReturnType() != null) {
+            result = mSig.getReturnType().cast(result);
+        }
+        return form.getMessageFormStatus().toString();
+    }
+
     /**
      * @return the coreManager
      */
     public CoreManager getCoreManager() {
         return coreManager;
-
-
     }
 
     /**
@@ -704,5 +773,12 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      */
     public void setOmiManager(OMIManager omiManager) {
         this.omiManager = omiManager;
+    }
+
+    /**
+     * @param serviceMethods the serviceMethods to set
+     */
+    public void setServiceMethods(Map<String, MethodSignature> serviceMethods) {
+        this.serviceMethods = serviceMethods;
     }
 }

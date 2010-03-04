@@ -51,12 +51,22 @@ public class IncomingMessageFormValidatorImplTest {
         mockRegSvc = createMock(RegistrarService.class);
         mockParamValidator = createMock(IncomingMessageFormParameterValidator.class);
 
+        MethodSignature mSig = new MethodSignature();
+        mSig.setMethodName("stopPregnancyProgram");
+        mSig.setMethodParams(new HashMap<String, Class>(2));
+        mSig.getMethodParams().put("chpsId", String.class);
+        mSig.getMethodParams().put("motechId", String.class);
+
+        Map<String, MethodSignature> signatures = new HashMap<String, MethodSignature>(1);
+        signatures.put("PREGNANCYSTOP", mSig);
+
         //instance.setImParamValidator(mockParamValidator);
         instance = new IncomingMessageFormValidatorImpl();
         instance.setParamValidators(mockValidators);
         instance.setDateFormat("dd.MM.yyyy");
         instance.setCoreManager(mockCore);
         instance.setRegWS(mockRegSvc);
+        instance.setServiceMethods(signatures);
     }
 
     /**
@@ -180,5 +190,4 @@ public class IncomingMessageFormValidatorImplTest {
         assertTrue(form.getIncomingMsgFormParameters().size() == 2);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
     }
-
 }

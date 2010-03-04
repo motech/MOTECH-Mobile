@@ -11,7 +11,9 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
-           
+
+     <import resource="classpath:META-INF/registrar-services.xml" />
+
     <bean id="imFormValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormValidatorImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="regWS" ref="registrarClient" />
@@ -165,6 +167,12 @@
                     </bean>
                     </list>
                 </entry>
+            </map>
+        </property>
+        <property name="serviceMethods">
+            <map key-type="java.lang.String" value-type="com.dreamoval.motech.imp.util.MethodSignature">
+                <entry key="PREGNANCYSTOP" value-ref="stopPregnancyProgramSignatureBean" />
+                <entry key="GENERALOPD" value-ref="recordGeneralVisitSignatureBean" />
             </map>
         </property>
     </bean>

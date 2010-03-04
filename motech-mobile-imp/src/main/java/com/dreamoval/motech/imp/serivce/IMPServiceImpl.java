@@ -92,9 +92,9 @@ public class IMPServiceImpl implements IMPService {
     public String processRequest(String message){
         String result = null;
 
-        //TODO Funtionality for processing java forms
-
-        return result;
+        result = processRequest(message, null, false);
+        
+        return result.equalsIgnoreCase("Data saved successfully") ? formProcessSuccess : result;
     }
 
     /**
@@ -136,7 +136,6 @@ public class IMPServiceImpl implements IMPService {
         if(xForm != null){
             result = processXFormSMS(xmlParser.toSMSMessage(xForm));
         }
-
         return result;
     }
 
@@ -150,7 +149,7 @@ public class IMPServiceImpl implements IMPService {
         String result = null;
 
         if(xFormSMS != null){
-            
+            result = processRequest(xFormSMS);
         }
 
         return result;
