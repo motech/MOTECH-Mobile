@@ -140,6 +140,12 @@ public class IMPServiceImpl implements IMPService {
         return result;
     }
 
+    /**
+     * Processes motech mobile understandable name/value pair SMS
+     *
+     * @param xFormSMS 
+     * @return ok if processing is successfully otherwise error message
+     */
     private String processXFormSMS(String xFormSMS){
         String result = null;
 
