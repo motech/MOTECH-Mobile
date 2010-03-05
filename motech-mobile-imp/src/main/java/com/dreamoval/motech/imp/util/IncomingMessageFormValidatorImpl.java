@@ -98,8 +98,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             return form.getMessageFormStatus().toString();
         }
 
-        //return serverValidate(form, requesterPhone);
-        return (String) callRegistrarServiceMethod(form);
+        return serverValidate(form, requesterPhone);
+        //return (String) callRegistrarServiceMethod(form);
         //return form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID);
     }
 
@@ -656,7 +656,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         }
     }
 
-    protected Object callRegistrarServiceMethod(IncomingMessageForm form) {
+    protected String callRegistrarServiceMethod(IncomingMessageForm form) {
         Object result = null;
         MethodSignature mSig;
 
