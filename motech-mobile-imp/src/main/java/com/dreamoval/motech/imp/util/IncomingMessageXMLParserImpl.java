@@ -81,7 +81,8 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
         doc = saxb.build(in);
 
         Element root = doc.getRootElement();
-        String formType = getXmlUtil().getElement(doc, formTypeTagName).getText();
+        Element formTypeElement = getXmlUtil().getElement(doc, formTypeTagName);
+        String formType = formTypeElement == null ? null : formTypeElement.getText();
 
         if (formType == null || formType.trim().equals("")) {
             String error = "Empty or No form type defined in xml with root element: " + root.getName() + " and id: " + root.getAttributeValue("id");

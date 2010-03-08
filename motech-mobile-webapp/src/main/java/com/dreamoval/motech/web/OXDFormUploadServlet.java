@@ -55,7 +55,7 @@ public class OXDFormUploadServlet extends HttpServlet {
         WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         StudyProcessor studyProcessor = (StudyProcessor) context.getBean("studyProcessor");
 
-        formService = (FormDefinitionService) context.getBean("oxdFormService");
+        formService = (FormDefinitionService) context.getBean("oxdFormDefService");
         impService = (IMPService) context.getBean("impService");
 
         // Wrap the streams for compression
@@ -111,7 +111,7 @@ public class OXDFormUploadServlet extends HttpServlet {
                         log.error(ex.getMessage());
                         studyForms[i][j] = ex.getMessage();
                     }
-                    if(!studyForms[i][j].equalsIgnoreCase(impService.getFormProcessSuccess())){
+                    if(!impService.getFormProcessSuccess().equalsIgnoreCase(studyForms[i][j])){
                         faultyForms++;
                     }
                 }
@@ -128,7 +128,7 @@ public class OXDFormUploadServlet extends HttpServlet {
         
             for (int s = 0; s < studyForms.length; s++) {
                 for (int f = 0; f < studyForms[s].length; f++) {
-                    if (!studyForms[s][f].equalsIgnoreCase(impService.getFormProcessSuccess())) {
+                    if (!impService.getFormProcessSuccess().equalsIgnoreCase(studyForms[s][f])) {
                         dataOutput.writeByte((byte) s);
                         dataOutput.writeByte((byte) f);
                         dataOutput.writeUTF(studyForms[s][f]);
