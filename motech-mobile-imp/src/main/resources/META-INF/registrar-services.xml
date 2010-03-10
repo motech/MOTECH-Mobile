@@ -39,4 +39,287 @@
             </map>
         </property>
     </bean>
+
+    <bean name="recordMotherANCVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordMotherANCVisit" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="motechId" value="java.lang.String" />
+                <entry key="visitNo" value="java.lang.Integer" />
+                <entry key="ttDose" value="java.lang.Integer" />
+                <entry key="iptDose" value="java.lang.Integer" />
+                <entry key="itn" value="java.lang.Boolean" />
+                <entry key="hivResult" value="org.motechproject.ws.HIVStatus" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="registerChildSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="registerChild" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="motherMotechId" value="java.lang.String" />
+                <entry key="childMotechId" value="java.lang.String" />
+                <entry key="dob" value="java.util.Date" />
+                <entry key="sex" value="org.motechproject.ws.Gender" />
+                <entry key="firstName" value="java.lang.String" />
+                <entry key="nhis#" value="java.lang.String" />
+                <entry key="nhisExpiration" value="java.util.Date" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="editPatientSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="editPatient" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="patientRegNum" value="java.lang.String" />
+                <entry key="primaryPhone" value="java.lang.String" />
+                <entry key="primaryPhoneType" value="org.motechproject.ws.ContactNumberType" />
+                <entry key="secondaryPhone" value="java.lang.String" />
+                <entry key="secondaryPhoneType" value="org.motechproject.ws.ContactNumberType" />
+                <entry key="nhis#" value="java.lang.String" />
+                <entry key="nhisExp" value="java.util.Date" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="recordPregnancyTerminationSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordPregnancyTermination" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="motechId" value="java.lang.String" />
+                <entry key="abortionType" value="java.lang.Integer" />
+                <entry key="complications" value="java.lang.Integer" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="recordPregnancyDeliverySignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordPregnancyDelivery" />
+        <property name="methodParams">
+            <map key-type="java.lang.String" value-type="java.lang.Class">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="motechId" value="java.lang.String" />
+                <entry key="mod" value="java.lang.Integer" />
+                <entry key="ood" value="java.lang.Integer" />
+                <entry key="location" value="java.lang.Integer" />
+                <entry key="deliveredBy" value="org.motechproject.ws.DeliveredBy" />
+                <entry key="maternalDeath" value="java.lang.Boolean" />
+                <entry key="cause" value="java.lang.Integer" />
+                <entry key="c1BirthOutcome" value="org.motechproject.ws.BirthOutcome" />
+                <entry key="c1MotechId" value="java.lang.String" />
+                <entry key="c1Sex" value="org.motechproject.ws.Gender" />
+                <entry key="c1Name" value="java.lang.String" />
+                <entry key="c1OPV" value="java.lang.Boolean" />
+                <entry key="c1BCG" value="java.lang.Boolean" />
+                <entry key="c2BirthOutcome" value="org.motechproject.ws.BirthOutcome" />
+                <entry key="c2MotechId" value="java.lang.String" />
+                <entry key="c2Sex" value="org.motechproject.ws.Gender" />
+                <entry key="c2Name" value="java.lang.String" />
+                <entry key="c2OPV" value="java.lang.Boolean" />
+                <entry key="c2BCG" value="java.lang.Boolean" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="recordMotherPPCVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordMotherPPCVisit" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="motechId" value="java.lang.String" />
+                <entry key="visitNo" value="java.lang.Integer" />
+                <entry key="vitA" value="java.lang.Boolean" />
+                <entry key="ttDose" value="java.lang.Integer" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="recordDeathSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordDeath" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="motechId" value="java.lang.String" />
+                <entry key="cause" value="java.lang.Integer" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="recordChildPNCVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordChildPNCVisit" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="motechId" value="java.lang.String" />
+                <entry key="bcg" value="java.lang.Boolean" />
+                <entry key="opv" value="java.lang.Integer" />
+                <entry key="penta" value="java.lang.Integer" />
+                <entry key="yellowFever" value="java.lang.Boolean" />
+                <entry key="csm" value="java.lang.Boolean" />
+                <entry key="measles" value="java.lang.Boolean" />
+                <entry key="ipti" value="java.lang.Boolean" />
+                <entry key="vitA" value="java.lang.Boolean" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="recordChildVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordChildVisit" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="serialNo" value="java.lang.String" />
+                <entry key="motechId" value="java.lang.String" />
+                <entry key="newCase" value="java.lang.Boolean" />
+                <entry key="diagnosis" value="java.lang.Integer" />
+                <entry key="secondaryDiagnosis" value="java.lang.Integer" />
+                <entry key="referral" value="java.lang.Boolean" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="recordMotherVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="recordMotherVisit" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="serialNo" value="java.lang.String" />
+                <entry key="motechId" value="java.lang.String" />
+                <entry key="newCase" value="java.lang.Boolean" />
+                <entry key="diagnosis" value="java.lang.Integer" />
+                <entry key="secondaryDiagnosis" value="java.lang.Integer" />
+                <entry key="referral" value="java.lang.Boolean" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryANCDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryANCDefaulters" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryTTDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryTTDefaulters" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryPPCDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryPPCDefaulters" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryPNCDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryPNCDefaulters" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryCWCDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryCWCDefaulters" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryUpcomingDeliveriesSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryUpcomingDeliveries" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryRecentDeliveriesSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryRecentDeliveries" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryOverdueDeliveriesSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryOverdueDeliveries" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryUpcomingCareSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryUpcomingCare" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="facilityId" value="java.lang.String" />
+                <entry key="motechId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryPatientSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryPatient" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="motechId" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="queryMotechIdSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+        <property name="methodName" value="queryMotechId" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.String" />
+                <entry key="firstName" value="java.lang.String" />
+                <entry key="lastName" value="java.lang.String" />
+                <entry key="preferredName" value="java.lang.String" />
+                <entry key="dob" value="java.util.Date" />
+                <entry key="nhis" value="java.lang.String" />
+                <entry key="phone" value="java.lang.String" />
+            </map>
+        </property>
+    </bean>
 </beans>

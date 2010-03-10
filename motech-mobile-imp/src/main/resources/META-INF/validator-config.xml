@@ -173,6 +173,27 @@
             <map key-type="java.lang.String" value-type="com.dreamoval.motech.imp.util.MethodSignature">
                 <entry key="PREGNANCYSTOP" value-ref="stopPregnancyProgramSignatureBean" />
                 <entry key="GENERALOPD" value-ref="recordGeneralVisitSignatureBean" />
+                <entry key="REGISTERCHILD" value-ref="registerChildSignatureBean" />
+                <entry key="EDITPATIENT" value-ref="editPatientSignatureBean" />
+                <entry key="ANC" value-ref="recordMotherANCVisitSignatureBean" />
+                <entry key="ABORTION" value-ref="recordPregnancyTerminationSignatureBean" />
+                <entry key="DELIVERY" value-ref="recordPregnancyDeliverySignatureBean" />
+                <entry key="PPC" value-ref="recordMotherPPCVisitSignatureBean" />
+                <entry key="DEATH" value-ref="recordDeathSignatureBean" />
+                <entry key="CHILD" value-ref="recordChildPNCVisitSignatureBean" />
+                <entry key="CHILDOPD" value-ref="recordChildVisitSignatureBean" />
+                <entry key="MOTHEROPD" value-ref="recordMotherVisitSignatureBean" />
+                <entry key="ANCDEFAULT" value-ref="queryANCDefaultersSignatureBean" />
+                <entry key="TTDEFAULT" value-ref="queryTTDefaultersSignatureBean" />
+                <entry key="PPCDEFAULT" value-ref="queryPPCDefaultersSignatureBean" />
+                <entry key="PNCDEFAULT" value-ref="queryPNCDefaultersSignatureBean" />
+                <entry key="CWCDEFAULT" value-ref="queryCWCDefaultersSignatureBean" />
+                <entry key="UPCOMINGDELIVERIES" value-ref="queryUpcomingDeliveriesSignatureBean" />
+                <entry key="RECENTDELIVERIES" value-ref="queryRecentDeliveriesSignatureBean" />
+                <entry key="OVERDUEDELIVERIES" value-ref="queryOverdueDeliveriesSignatureBean" />
+                <entry key="UPCOMINGCARE" value-ref="queryUpcomingCareSignatureBean" />
+                <entry key="VIEWPATIENT" value-ref="queryPatientSignatureBean" />
+                <entry key="FINDMOTECHID" value-ref="queryMotechIdSignatureBean" />
             </map>
         </property>
     </bean>

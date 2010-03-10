@@ -351,7 +351,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Boolean referral = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue());
                 Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondarydiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
 
-                regWS.recordChildVisit(chpsid, date, serialNo, motechId, caseStatus, diag, secondDiag, referral);
+                regWS.recordMotherVisit(chpsid, date, serialNo, motechId, caseStatus, diag, secondDiag, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
