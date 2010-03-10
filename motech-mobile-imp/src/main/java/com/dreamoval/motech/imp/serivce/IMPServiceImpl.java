@@ -23,6 +23,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.hibernate.Transaction;
 import org.jdom.JDOMException;
 
@@ -36,11 +38,13 @@ public class IMPServiceImpl implements IMPService {
     private String demoProvider;
     private String demoSender;
     private IMPManager impManager;
+    private OMIManager omiManager;
     private CoreManager coreManager;
     private IncomingMessageParser parser;
     private Map<String, CommandAction> cmdActionMap;
     private IncomingMessageXMLParser xmlParser;
     private String formProcessSuccess;
+    private String senderExpression;
 
     /**
      *
@@ -92,9 +96,21 @@ public class IMPServiceImpl implements IMPService {
 
     public String processRequest(String message){
         String result = null;
+        String phoneData = "";
 
-        result = processRequest(message, null, false);
-        return result.equalsIgnoreCase("Data saved successfully") ? formProcessSuccess : result;
+        Pattern p = Pattern.compile(senderExpression);
+        Matcher m = p.matcher(message);
+        phoneData = m.group();
+        String phoneNumber = (phoneData.indexOf("=") > 0) ? phoneData.split("=")[1] : "";
+
+        result = processRequest(message, phoneNumber, false);
+
+        if(result.equalsIgnoreCase("Data saved successfully") && !phoneNumber.isEmpty()){
+            omiManager.createOMIService().sendMessage(result, phoneNumber);
+            return formProcessSuccess;
+        }
+        else
+            return result;
     }
 
     /**
@@ -265,5 +281,12 @@ public class IMPServiceImpl implements IMPService {
      */
     public void setFormProcessSuccess(String formProcessSuccess) {
         this.formProcessSuccess = formProcessSuccess;
+    }
+
+    /**
+     * @param senderExpression the senderExpression to set
+     */
+    public void setSenderExpression(String senderExpression) {
+        this.senderExpression = senderExpression;
     }
 }

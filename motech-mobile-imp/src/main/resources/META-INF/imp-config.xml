@@ -30,6 +30,7 @@
         <property name="demoSender" value="${imp.demo.senderAddr}" />
         <property name="formProcessSuccess" value="${imp.form.successResponse}" />
         <property name="xmlParser" ref="imXMLParser" />
+        <property name="senderExpression" value="${imp.oxd.senderExpression}" />
     </bean>
 
     <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
