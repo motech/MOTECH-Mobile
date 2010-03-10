@@ -103,6 +103,17 @@ public class MessageServiceImpl implements MessageService {
     }
 
     /**
+     *
+     * @see MessageService.sendMessage
+     */
+    @WebMethod
+    public MessageStatus sendMessage(@WebParam(name = "content") String content,
+                                     @WebParam(name = "recipient") String recipient) {
+        logger.info("Processing request...");
+        return this.omiManager.createOMIService().sendMessage(content, recipient);
+    }
+
+    /**
      * @return the omiManager
      */
     @WebMethod(exclude = true)

@@ -111,6 +111,15 @@ public interface OMIService {
     MessageStatus sendUpcomingCaresMessage(String messageId, String workerNumber, Patient patient, MediaType messageType, Date startDate, Date endDate);
 
     /**
+     * Sends an SMS message
+     *
+     * @param content the message to send
+     * @param recipient the phone number to receive the message
+     * @return
+     */
+    MessageStatus sendMessage(String content, String recipient);
+
+    /**
      * Processes stored MessageRequests into GatewayRequests and schedules them for delivery on the OMP
      */
     void processMessageRequests();

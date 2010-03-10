@@ -16,6 +16,7 @@ import com.dreamoval.motech.core.service.MotechContext;
 import com.dreamoval.motech.imp.util.IncomingMessageXMLParser;
 import com.dreamoval.motech.imp.util.exception.MotechParseException;
 import com.dreamoval.motech.model.dao.imp.IncomingMessageDAO;
+import com.dreamoval.motech.omi.manager.OMIManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -93,7 +94,6 @@ public class IMPServiceImpl implements IMPService {
         String result = null;
 
         result = processRequest(message, null, false);
-        
         return result.equalsIgnoreCase("Data saved successfully") ? formProcessSuccess : result;
     }
 

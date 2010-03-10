@@ -14,6 +14,7 @@ import com.dreamoval.motech.core.model.MStatus;
 import com.dreamoval.motech.core.model.MessageType;
 import com.dreamoval.motech.core.model.NotificationType;
 import com.dreamoval.motech.core.service.MotechContext;
+import com.dreamoval.motech.core.util.MotechIDGenerator;
 import com.dreamoval.motech.omi.manager.MessageFormatter;
 import com.dreamoval.motech.omi.manager.MessageStoreManager;
 import com.dreamoval.motech.omi.manager.OMIManager;
@@ -287,6 +288,30 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("Messages sent successfully");
         return MessageStatus.valueOf(message.getStatus().toString());
+    }
+
+    public synchronized MessageStatus sendMessage(String content, String recipient) {
+        logger.info("Constructing MessageDetails object...");
+
+        MotechContext mc = coreManager.createMotechContext();
+        String requestId = String.valueOf(MotechIDGenerator.generateID());
+
+        MessageRequest messageRequest = coreManager.createMessageRequest(mc);
+        messageRequest.setTryNumber(1);
+        messageRequest.setRequestId(requestId);
+        messageRequest.setDateFrom(null);
+        messageRequest.setDateTo(null);
+        messageRequest.setRecipientNumber(recipient);
+        messageRequest.setNotificationType(null);
+        messageRequest.setMessageType(MessageType.TEXT);
+        messageRequest.setLanguage(null);
+        messageRequest.setStatus(MStatus.QUEUED);
+        messageRequest.setDateCreated(new Date());
+
+        logger.info("MessageRequest object successfully constructed");
+        logger.debug(messageRequest);
+
+        return sendMessage(messageRequest, content, mc);
     }
 
     /**
