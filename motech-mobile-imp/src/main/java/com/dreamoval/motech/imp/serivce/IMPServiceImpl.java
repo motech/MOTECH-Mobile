@@ -105,12 +105,7 @@ public class IMPServiceImpl implements IMPService {
 
         result = processRequest(message, phoneNumber, false);
 
-        if(result.equalsIgnoreCase("Data saved successfully") && !phoneNumber.isEmpty()){
-            omiManager.createOMIService().sendMessage(result, phoneNumber);
-            return formProcessSuccess;
-        }
-        else
-            return result;
+        return result.equalsIgnoreCase("Data saved successfully")? formProcessSuccess : result;
     }
 
     /**
