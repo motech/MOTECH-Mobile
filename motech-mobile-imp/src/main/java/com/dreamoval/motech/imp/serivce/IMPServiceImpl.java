@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.dreamoval.motech.imp.serivce;
 
 import com.dreamoval.motech.core.manager.CoreManager;
@@ -33,6 +32,7 @@ import org.jdom.JDOMException;
  *  Date : Dec 5, 2009
  */
 public class IMPServiceImpl implements IMPService {
+
     private int duplicatePeriod;
     private String demoMsgType;
     private String demoProvider;
@@ -50,7 +50,7 @@ public class IMPServiceImpl implements IMPService {
      *
      * @see IMPService.processRequest
      */
-    public synchronized String processRequest(String message, String requesterPhone, boolean isDemo){
+    public synchronized String processRequest(String message, String requesterPhone, boolean isDemo) {
         String demoResp = "{" + demoMsgType + "}{" + demoProvider + "}{" + demoSender + "}{" + requesterPhone + "}";
         MotechContext context = coreManager.createMotechContext();
         IncomingMessageDAO msgDao = coreManager.createIncomingMessageDAO(context);
@@ -60,11 +60,11 @@ public class IMPServiceImpl implements IMPService {
         Date beforeDate = cal.getTime();
         IncomingMessage inMsg = msgDao.getByContentNonDuplicatable(message);
 
-        if(inMsg != null && inMsg.getContent().equalsIgnoreCase(message))
-        {
-            if(inMsg.getIncomingMessageForm() != null){
-                if(inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.DISALLOWED || (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.TIME_BOUND && inMsg.getDateCreated().after(beforeDate)))
+        if (inMsg != null && inMsg.getContent().equalsIgnoreCase(message)) {
+            if (inMsg.getIncomingMessageForm() != null) {
+                if (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.DISALLOWED || (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.TIME_BOUND && inMsg.getDateCreated().after(beforeDate))) {
                     return "Error:\nThis form has already been processed!";
+                }
             }
         }
 
@@ -77,9 +77,10 @@ public class IMPServiceImpl implements IMPService {
 
         IncomingMessageResponse response = impManager.createCommandAction().execute(inMsg, requesterPhone, context);
 
-        if(isDemo)
+        if (isDemo) {
             return demoResp + "{" + response.getContent() + "}";
-        
+        }
+
         return response.getContent();
     }
 
@@ -88,24 +89,28 @@ public class IMPServiceImpl implements IMPService {
      * @see IMPService.processMultiRequests
      */
     public List<FormRequest> processMultiRequests(List<FormRequest> requests, boolean isDemo) {
-        for(FormRequest fReq : requests){
+        for (FormRequest fReq : requests) {
             fReq.setResponse(processRequest(fReq.getMessage(), fReq.getSenderNumber(), isDemo));
         }
         return requests;
     }
 
-    public String processRequest(String message){
+    public String processRequest(String message) {
         String result = null;
         String phoneData = "";
 
         Pattern p = Pattern.compile(senderExpression);
         Matcher m = p.matcher(message);
-        phoneData = m.group();
-        String phoneNumber = (phoneData.indexOf("=") > 0) ? phoneData.split("=")[1] : "";
+        if (m.find()) {
+            phoneData = m.group();
 
-        result = processRequest(message, phoneNumber, false);
+            String phoneNumber = (phoneData.indexOf("=") > 0) ? phoneData.split("=")[1] : "";
 
-        return result.equalsIgnoreCase("Data saved successfully")? formProcessSuccess : result;
+            result = processRequest(message, phoneNumber, false);
+        } else {
+            result = "No response phone found";
+        }
+        return result.toLowerCase().indexOf("error") > 0 ? result : formProcessSuccess;
     }
 
     /**
@@ -118,13 +123,13 @@ public class IMPServiceImpl implements IMPService {
      * @throws java.io.IOException
      * @throws com.dreamoval.motech.imp.util.exception.MotechParseException
      */
-    public ArrayList<String> processXForms(ArrayList<String> xForms) throws JDOMException, IOException, MotechParseException{
+    public ArrayList<String> processXForms(ArrayList<String> xForms) throws JDOMException, IOException, MotechParseException {
         ArrayList<String> result = null;
 
-        if (xForms != null){
+        if (xForms != null) {
             result = new ArrayList<String>();
             ArrayList<String> smses = xmlParser.parseXML(xForms);
-            for (String sms : smses){
+            for (String sms : smses) {
                 result.add(processRequest(sms));
             }
         }
@@ -141,10 +146,10 @@ public class IMPServiceImpl implements IMPService {
      * @throws java.io.IOException
      * @throws com.dreamoval.motech.imp.util.exception.MotechParseException
      */
-    public String processXForm(String xForm) throws JDOMException, IOException, MotechParseException{
+    public String processXForm(String xForm) throws JDOMException, IOException, MotechParseException {
         String result = null;
 
-        if(xForm != null){
+        if (xForm != null) {
             result = processXFormSMS(xmlParser.toSMSMessage(xForm));
         }
         return result;
@@ -156,10 +161,10 @@ public class IMPServiceImpl implements IMPService {
      * @param xFormSMS 
      * @return ok if processing is successfully otherwise error message
      */
-    private String processXFormSMS(String xFormSMS){
+    private String processXFormSMS(String xFormSMS) {
         String result = null;
 
-        if(xFormSMS != null){
+        if (xFormSMS != null) {
             result = processRequest(xFormSMS);
         }
 

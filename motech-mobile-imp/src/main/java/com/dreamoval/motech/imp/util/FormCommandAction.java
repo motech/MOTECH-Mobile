@@ -193,7 +193,7 @@ public class FormCommandAction implements CommandAction {
                 }
             }
             if (responseText.equals("Errors:")) {
-                responseText = "An error occurred on the server. Please try again.";
+                responseText = "An unexpected error occurred! Please try again.";
             }
             response.setContent(responseText);
         }

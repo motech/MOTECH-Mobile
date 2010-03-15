@@ -75,7 +75,7 @@ public class FormCommandActionTest {
         String requesterPhone = "000000000000";
         IncomingMessage message = new IncomingMessageImpl();
         MotechContext context = new MotechContextImpl();
-        String expResult = "An error occurred on the server. Please try again.";
+        String expResult = "An unexpected error occurred! Please try again.";
         
         IncomingMessageFormImpl msgForm = new IncomingMessageFormImpl();
         msgForm.setMessageFormStatus(IncMessageFormStatus.VALID);

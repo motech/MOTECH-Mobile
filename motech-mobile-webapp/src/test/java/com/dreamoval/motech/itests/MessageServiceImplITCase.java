@@ -251,7 +251,7 @@ public class MessageServiceImplITCase {
         assertEquals(result,expResult);
 
         request = "Type=GeneralOPD\nCHPSID=123ABC\nDate=02-03-2010\nSerialNo=ANC123\nSex=f\nDoB=28/05/1981\nInsured=y\nNewCase=n\nDiagnosis=35\nSecondaryDiagnosis=14\nReferral=y";
-        expResult = "An error occurred on the server. Please try again.";
+        expResult = "An unexpected error occurred! Please try again.";
         result = impService.processRequest(request, number, false);
         assertEquals(result,expResult);
     }

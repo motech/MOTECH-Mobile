@@ -41,7 +41,7 @@ public class ParamRangeValidatorTest {
         assertEquals(expResult, result);
         assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.INVALID);
         assertEquals(param.getErrCode(), 3);
-        assertEquals(param.getErrText(), "out of range");
+        assertEquals(param.getErrText(), "too large");
 
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
         instance.setMaxValue(20f);

@@ -29,9 +29,13 @@ public class ParamRangeValidator implements IncomingMessageFormParameterValidato
             return false;
         }
 
-        if (value < minValue || value > maxValue) {
+        if (minValue != null && value < minValue){
             param.setErrCode(3);
-            param.setErrText("out of range");
+            param.setErrText("too small");
+            param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
+        } else if (maxValue != null && value > maxValue){
+            param.setErrCode(3);
+            param.setErrText("too large");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);

@@ -32,20 +32,26 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                 try {
                     String dateInputFormat = "";
                     if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd/mm/yyyy";
-                    }
-                    else if (Pattern.matches("\\d+", param.getValue())) {
-                        dateInputFormat = "ddmmyyyy";
+                        dateInputFormat = "dd/MM/yyyy";
+                    } else if (Pattern.matches("\\d+", param.getValue())) {
+                        dateInputFormat = "ddMMyyyy";
                     } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd-mm-yyyy";
+                        dateInputFormat = "dd-MM-yyyy";
                     } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd.mm.yyyy";
+                        dateInputFormat = "dd.MM.yyyy";
                     }
 
                     SimpleDateFormat dFormat = new SimpleDateFormat(dateInputFormat);
                     Date val = dFormat.parse(param.getValue());
-                    dFormat.applyPattern("dd/mm/yyyy");
-                    param.setValue(dFormat.format(val));
+
+                    if (val.after(new Date())) {
+                        param.setErrCode(1);
+                        param.setErrText("invalid date");
+                        param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
+                    } else {
+                        dFormat.applyPattern("dd/MM/yyyy");
+                        param.setValue(dFormat.format(val));
+                    }
                 } catch (ParseException ex) {
                     logger.error("Invalid date format - " + param.getValue(), ex);
 
