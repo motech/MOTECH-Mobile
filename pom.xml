@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dreamoval</groupId>
     <artifactId>motech-mobile</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-M4-SNAPSHOT</version>
+    <version>1.0-M4</version>
     <name>MoTeCH Mobile</name>
     <url>https://motech.rcg.usm.maine.edu/redmine/projects/show/motech-mobile</url>
 
@@ -209,22 +208,22 @@
             <dependency>
                 <groupId>com.dreamoval.motech</groupId>
                 <artifactId>motech-mobile-core</artifactId>
-                <version>1.0-M4-SNAPSHOT</version>
+                <version>1.0-M4</version>
             </dependency>
             <dependency>
                 <groupId>com.dreamoval.motech</groupId>
                 <artifactId>motech-mobile-omp</artifactId>
-                <version>1.0-M4-SNAPSHOT</version>
+                <version>1.0-M4</version>
             </dependency>
             <dependency>
                 <groupId>com.dreamoval.motech</groupId>
                 <artifactId>motech-mobile-omi</artifactId>
-                <version>1.0-M4-SNAPSHOT</version>
+                <version>1.0-M4</version>
             </dependency>
             <dependency>
                 <groupId>com.dreamoval.motech</groupId>
                 <artifactId>motech-mobile-imp</artifactId>
-                <version>1.0-M4-SNAPSHOT</version>
+                <version>1.0-M4</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject</groupId>
@@ -532,9 +531,9 @@
         </profile>
     </profiles>
     <scm>
-        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/branches/1.0-M4</url>
-        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/1.0-M4</connection>
-        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/1.0-M4</developerConnection>
+        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/tags/motech-mobile-1.0-M4</url>
+        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/tags/motech-mobile-1.0-M4</connection>
+        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/tags/motech-mobile-1.0-M4</developerConnection>
     </scm>
 
 </project>
