@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 public class ParamExpressionValidator implements IncomingMessageFormParameterValidator {
 
     private String expression;
+    private String dateFormat;
     private static Logger logger = Logger.getLogger(ParamExpressionValidator.class);
 
     public boolean validate(IncomingMessageFormParameter param) {
@@ -30,7 +31,7 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
-            if (paramType.endsWith("DATE")) {
+            if (paramType.indexOf("DATE") >= 0) {
                 try {
                     String dateInputFormat = "";
                     if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\\d\\d", param.getValue())) {
@@ -46,16 +47,17 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                     }
 
                     SimpleDateFormat dFormat = new SimpleDateFormat(dateInputFormat);
+                    dFormat.setLenient(true);
                     Date val = dFormat.parse(param.getValue());
 
-                    if (paramType.contentEquals("DATE") && val.after(new Date())) {
+                    if (paramType.equalsIgnoreCase("DATE") && val.after(new Date())) {
                         param.setErrCode(1);
                         param.setErrText("invalid date");
                         param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
-                    } else {
-                        dFormat.applyPattern("dd/MM/yyyy");
-                        param.setValue(dFormat.format(val));
                     }
+                    
+                    dFormat.applyPattern(dateFormat);
+                    param.setValue(dFormat.format(val));
                 } catch (ParseException ex) {
                     logger.error("Invalid date format - " + param.getValue(), ex);
 
@@ -75,5 +77,12 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
      */
     public void setExpression(String expression) {
         this.expression = expression;
+    }
+
+    /**
+     * @param dateFormat the dateFormat to set
+     */
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
     }
 }

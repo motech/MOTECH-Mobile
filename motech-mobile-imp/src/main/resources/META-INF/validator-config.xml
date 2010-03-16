@@ -49,6 +49,7 @@
                         <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
                         <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
                             <property name="expression" value="${imp.validator.dateExpression}" />
+                            <property name="dateFormat" value="${imp.validator.dateFormat}" />
                         </bean>
                     </list>
                 </entry>
@@ -57,6 +58,7 @@
                         <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
                         <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
                             <property name="expression" value="${imp.validator.dateExpression}" />
+                            <property name="dateFormat" value="${imp.validator.dateFormat}" />
                         </bean>
                     </list>
                 </entry>

@@ -58,11 +58,16 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         try {
             for (IncomingMessageFormParameterDefinition paramDef : form.getIncomingMsgFormDefinition().getIncomingMsgParamDefinitions()) {
+
+                paramDef.getParamType();
+
                 if (form.getIncomingMsgFormParameters().containsKey(paramDef.getName().toLowerCase())) {
                     form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()).setIncomingMsgFormParamDefinition(paramDef);
                     form.setLastModified(new Date());
 
-                    for (IncomingMessageFormParameterValidator validator : paramValidators.get(paramDef.getParamType().toUpperCase())) {
+                    List<IncomingMessageFormParameterValidator> validators = paramValidators.get(paramDef.getParamType().toUpperCase());
+                    
+                    for (IncomingMessageFormParameterValidator validator : validators) {
                         if (!validator.validate(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()))) {
                             form.setMessageFormStatus(IncMessageFormStatus.INVALID);
                             form.setLastModified(new Date());
@@ -151,9 +156,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String childReg = form.getIncomingMsgFormParameters().get("childmotechid").getValue();
                 Date birthDate = dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue());
                 Gender gender = Gender.valueOf(form.getIncomingMsgFormParameters().get("sex").getValue());
-                String childFName = form.getIncomingMsgFormParameters().get("firstname").getValue();
-                String nhis = form.getIncomingMsgFormParameters().get("nhis#").getValue();
-                Date nhisExp = dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexpiration").getValue());
+                String childFName = form.getIncomingMsgFormParameters().containsKey("firstname") ? form.getIncomingMsgFormParameters().get("firstname").getValue() : null;
+                String nhis = form.getIncomingMsgFormParameters().containsKey("nhis") ? form.getIncomingMsgFormParameters().get("nhis#").getValue() : null;
+                Date nhisExp = form.getIncomingMsgFormParameters().containsKey("nhisexpiration") ? dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexpiration").getValue()) : null;
 
                 regWS.registerChild(chpsId, motherReg, childReg, birthDate, gender, childFName, nhis, nhisExp);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
