@@ -89,7 +89,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         if (delimiter != null && !delimiter.equals("")) {
             String[] paramArr = message.split(delimiter);
             for (String p : paramArr) {
-                if (!Pattern.matches(typeRegex, p)) {
+                if (Pattern.matches(paramRegex, p) && !Pattern.matches(typeRegex, p)) {
                     pList.add(p);
                 }
             }

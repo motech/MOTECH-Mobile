@@ -37,7 +37,7 @@ public class ParamExpressionValidatorTest {
         param.getIncomingMsgFormParamDefinition().setParamType("DATE");
 
         ParamExpressionValidator instance = new ParamExpressionValidator();
-        instance.setExpression("(0[1-9]|[12][0-9]|3[01])[\\- /.]?(0[1-9]|1[012])[\\- /.]?(19|20)?\\d\\d");
+        instance.setExpression("(0[1-9]|[12][0-9]|3[01])[\\-/. ]?(0[1-9]|1[012])[\\-/. ]?(19|20)?\\d\\d");
 
         boolean expResult = false;
         boolean result = instance.validate(param);

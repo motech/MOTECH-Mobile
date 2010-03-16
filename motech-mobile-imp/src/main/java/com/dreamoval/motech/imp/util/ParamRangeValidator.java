@@ -19,6 +19,9 @@ public class ParamRangeValidator implements IncomingMessageFormParameterValidato
 
     public boolean validate(IncomingMessageFormParameter param) {
         Float value;
+
+        if(param.getValue().isEmpty())
+            return true;
         
         try {
             value = Float.parseFloat(param.getValue());

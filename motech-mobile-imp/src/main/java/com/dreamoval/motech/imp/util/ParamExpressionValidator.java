@@ -22,13 +22,15 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
     private static Logger logger = Logger.getLogger(ParamExpressionValidator.class);
 
     public boolean validate(IncomingMessageFormParameter param) {
+        String paramType = param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase();
+
         if (!Pattern.matches(expression, param.getValue().trim())) {
             param.setErrCode(1);
             param.setErrText("wrong format");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         } else {
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
-            if (param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase().equals("DATE")) {
+            if (paramType.endsWith("DATE")) {
                 try {
                     String dateInputFormat = "";
                     if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\\d\\d", param.getValue())) {
@@ -39,12 +41,14 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                         dateInputFormat = "dd-MM-yyyy";
                     } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)?\\d\\d", param.getValue())) {
                         dateInputFormat = "dd.MM.yyyy";
+                    } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01]) (0[1-9]|1[012]) (19|20)?\\d\\d", param.getValue())) {
+                        dateInputFormat = "dd MM yyyy";
                     }
 
                     SimpleDateFormat dFormat = new SimpleDateFormat(dateInputFormat);
                     Date val = dFormat.parse(param.getValue());
 
-                    if (val.after(new Date())) {
+                    if (paramType.contentEquals("DATE") && val.after(new Date())) {
                         param.setErrCode(1);
                         param.setErrText("invalid date");
                         param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);

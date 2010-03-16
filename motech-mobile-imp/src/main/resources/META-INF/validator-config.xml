@@ -52,6 +52,14 @@
                         </bean>
                     </list>
                 </entry>
+                <entry key="EXPIRYDATE">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.dateExpression}" />
+                        </bean>
+                    </list>
+                </entry>
                 <entry key="NUMERIC">
                     <list>
                         <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
@@ -164,6 +172,300 @@
                         <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
                             <property name="values" value="A,FSB,MSB" />
                             <property name="caseSensitive" value="false" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="ANCVISIT">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="12" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="TTDOSE">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="5" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="IPTDOSE">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="4" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="ABORTIONTYPE">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="3" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="ABORTIONCOMPLICATIONS">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="4" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="MOD">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="4" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="OOD">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="3" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="LOCATION">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="3" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="MATERNALDEATHCAUSE">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="6" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="PPCVISIT">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="3" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="DEATHCAUSE">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="3" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="OPVDOSE">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="0" />
+                            <property name="maxValue" value="3" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="PENTADOSE">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="3" />
+                        </bean>
+                    </list>
+                </entry>
+                <entry key="DIAGNOSIS">
+                    <list>
+                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                            <property name="expression" value="${imp.validator.numericExpression}" />
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                            <property name="values" value="" />
+                            <property name="caseSensitive" value="false" />
+                            <property name="conversions">
+                                <map>
+                                    <entry key="NA" value="" />
+                                </map>
+                            </property>
+                        </bean>
+                        <bean class="com.dreamoval.motech.imp.util.ParamRangeValidator">
+                            <property name="minValue" value="1" />
+                            <property name="maxValue" value="75" />
                         </bean>
                     </list>
                 </entry>
