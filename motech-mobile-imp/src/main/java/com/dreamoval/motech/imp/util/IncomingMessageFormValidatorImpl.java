@@ -386,6 +386,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -411,6 +413,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -436,6 +440,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -461,6 +467,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -486,6 +494,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -507,6 +517,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Upcoming", patients);
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -528,6 +540,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Recent", patients);
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -549,6 +563,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Overdue", patients);
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -574,6 +590,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatUpcomingCaresMessage(patient);
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -595,6 +613,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatPatientDetailsMessage(patient);
                 return response;
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -624,6 +644,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
+            } catch (ValidationException ex) {
+                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
