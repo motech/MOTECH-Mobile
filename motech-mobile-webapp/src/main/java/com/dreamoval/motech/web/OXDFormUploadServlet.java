@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
-import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -99,16 +98,16 @@ public class OXDFormUploadServlet extends HttpServlet {
                     try {
                         studyForms[i][j] = impService.processXForm(studyForms[i][j]);
                     } catch (JDOMException ex) {
-                        log.error(ex.getMessage());
+                        log.error(ex.getMessage(), ex);
                         studyForms[i][j] = ex.getMessage();
                     } catch (MotechParseException ex) {
-                        log.error(ex.getMessage());
+                        log.error(ex.getMessage(), ex);
                         studyForms[i][j] = ex.getMessage();
                     } catch (IOException ex) {
-                        log.error(ex.getMessage());
+                        log.error(ex.getMessage(), ex);
                         studyForms[i][j] = ex.getMessage();
                     } catch (Exception ex){
-                        log.error(ex.getMessage());
+                        log.error(ex.getMessage(), ex);
                         studyForms[i][j] = ex.getMessage();
                     }
                     if(!impService.getFormProcessSuccess().equalsIgnoreCase(studyForms[i][j])){
