@@ -35,15 +35,15 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                 try {
                     String dateInputFormat = "";
                     if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd/MM/yyyy";
+                        dateInputFormat = "dd/MM/yy";
                     } else if (Pattern.matches("\\d+", param.getValue())) {
-                        dateInputFormat = "ddMMyyyy";
+                        dateInputFormat = "ddMMyy";
                     } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd-MM-yyyy";
+                        dateInputFormat = "dd-MM-yy";
                     } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd.MM.yyyy";
+                        dateInputFormat = "dd.MM.yy";
                     } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01]) (0[1-9]|1[012]) (19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd MM yyyy";
+                        dateInputFormat = "dd MM yy";
                     }
 
                     SimpleDateFormat dFormat = new SimpleDateFormat(dateInputFormat);

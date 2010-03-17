@@ -260,8 +260,6 @@ insert into message_template(id, notification_type, message_type, language, temp
 insert into message_template(id, notification_type, message_type, language, template ,date_created ) values (200,53,'TEXT',3,'Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.##','2009-10-06');
 
 
-/*Data for the table incoming_message_form_definition */
-
 /*Data Entry Forms*/
 insert into incoming_message_form_definition (id,obj_vesion,form_code,type,duplicatable,date_created,last_modified) values (254657657567688,0,'RegisterChild','ENCOUNTER','DISALLOWED','2010-01-08 14:40:15','2010-01-08 15:22:53');
 insert into incoming_message_form_definition (id,obj_vesion,form_code,type,duplicatable,date_created,last_modified) values (597658468478768,0,'PregnancyStop','ENCOUNTER','DISALLOWED','2010-01-08 14:19:05','2010-01-08 15:22:53');
@@ -288,7 +286,6 @@ insert into incoming_message_form_definition (id,obj_vesion,form_code,type,dupli
 insert into incoming_message_form_definition (id,obj_vesion,form_code,type,duplicatable,date_created,last_modified) values (785739375640108,0,'UpcomingCare','QUERY','ALLOWED','2010-02-15 18:33:20','2010-02-15 18:33:20');
 insert into incoming_message_form_definition (id,obj_vesion,form_code,type,duplicatable,date_created,last_modified) values (785739375640109,0,'ViewPatient','QUERY','ALLOWED','2010-02-15 18:33:20','2010-02-15 18:33:20');
 insert into incoming_message_form_definition (id,obj_vesion,form_code,type,duplicatable,date_created,last_modified) values (785739375640110,0,'FindMoTeCHID','QUERY','ALLOWED','2010-02-15 18:33:20','2010-02-15 18:33:20');
-
 
 
 /*Data for the table incoming_message_form_parameter_definition */
@@ -321,7 +318,7 @@ insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_m
 
 /*Params for EditPatient*/
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created,last_modified) values (7765435645455,0,678565673457657,'chpsId','ALPHANUM',20,true,'2010-01-08 15:02:43','2010-01-08 15:22:53');
-insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created,last_modified) values (15674564545534,0,678565673457657,'patientRegNum','ALPHANUM',20,false,'2010-01-08 15:02:43','2010-01-08 15:22:53');
+insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created,last_modified) values (15674564545534,0,678565673457657,'patientRegNum','ALPHANUM',20,true,'2010-01-08 15:02:43','2010-01-08 15:22:53');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created,last_modified) values (93786634412380,0,678565673457657,'primaryPhone','NUMERIC',15,false,'2010-01-08 15:02:43','2010-01-08 15:22:54');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created,last_modified) values (535767567677889,0,678565673457657,'primaryPhoneType','PHONETYPE',10,false,'2010-01-08 15:02:43','2010-01-08 15:22:54');
 insert into incoming_message_form_parameter_definition (id,obj_vesion,incoming_message_form_definition_id,name,parameter_type,lenght,required,date_created,last_modified) values (834459078775,0,678565673457657,'secondaryPhoneType','PHONETYPE',10,false,'2010-01-08 15:02:43','2010-01-08 15:22:53');
