@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.motechproject.mobile.core.model">
+  <union-subclass extends="MotechEntityImpl" lazy="false" name="GatewayRequestDetailsImpl" table="gateway_request_details">
+    <property access="field" column="message_type" name="messageType" type="messageType"/>
+    <property column="message" length="700" name="message" type="string"/>
+    <property column="number_of_pages" name="numberOfPages" type="integer"/>
+    <set cascade="all" name="gatewayRequests">
+      <key column="request_details_id"/>
+      <one-to-many class="GatewayRequestImpl"/>
+    </set>
+  </union-subclass>
+</hibernate-mapping>

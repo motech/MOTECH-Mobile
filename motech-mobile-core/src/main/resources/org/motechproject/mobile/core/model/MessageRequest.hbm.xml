@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.motechproject.mobile.core.model">
+  <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="message_request">
+    <property column="request_id" name="requestId" type="string"/>
+    <many-to-one class="NotificationTypeImpl" column="notification_type_id" name="notificationType"/>
+    <many-to-one class="LanguageImpl" column="language_id" name="language"/>
+    <property column="message_type" name="messageType" type="messageType"/>
+    <property column="schedule" name="schedule" type="date"/>
+    <property column="p113_nData" name="p13nData" type="string"/>
+    <property column="recipient_number" name="recipientNumber" type="string"/>
+    <property column="date_from" name="dateFrom" type="timestamp"/>
+    <property column="date_to" name="dateTo" type="timestamp"/>
+    <property column="date_created" name="dateCreated" type="timestamp"/>
+    <property column="date_processed" name="dateProcessed" type="timestamp"/>
+    <property access="field" column="status" name="status" type="mStatus"/>
+    <property column="max_try_number" name="tryNumber"/>
+    <property generated="always" insert="false" name="lastModified" update="false">
+      <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
+    </property>
+    <set name="persInfos" table="personalization_info">
+      <key column="requestId"/>
+      <composite-element class="org.motechproject.ws.NameValuePair">
+        <property column="name" name="name" not-null="true" type="string"/>
+        <property column="value" name="value" not-null="true" type="string"/>
+      </composite-element>
+    </set>
+  </union-subclass>
+</hibernate-mapping>

@@ -34,51 +34,51 @@
 
     <!-- Model -->
 
-    <bean id="sessionContainer" class="com.dreamoval.motech.core.dao.hibernate.HibernateUtils">
+    <bean id="sessionContainer" class="org.motechproject.mobile.core.dao.hibernate.HibernateUtils">
         <constructor-arg ref="sessionFactory" />
     </bean>
 
-    <bean id="gatewayRequest" class="com.dreamoval.motech.core.model.GatewayRequestImpl" scope="prototype">
+    <bean id="gatewayRequest" class="org.motechproject.mobile.core.model.GatewayRequestImpl" scope="prototype">
     </bean>
 
-    <bean id="gatewayResponse" class="com.dreamoval.motech.core.model.GatewayResponseImpl" scope="prototype">
+    <bean id="gatewayResponse" class="org.motechproject.mobile.core.model.GatewayResponseImpl" scope="prototype">
     </bean>
 
-    <bean id="transition" class="com.dreamoval.motech.core.model.TransitionImpl" scope="prototype">
+    <bean id="transition" class="org.motechproject.mobile.core.model.TransitionImpl" scope="prototype">
     </bean>
-    <bean id="gatewayRequestDetails" class="com.dreamoval.motech.core.model.GatewayRequestDetailsImpl" scope="prototype">
-    </bean>
-
-    <bean id="messageRequest" class="com.dreamoval.motech.core.model.MessageRequestImpl" scope="prototype">
+    <bean id="gatewayRequestDetails" class="org.motechproject.mobile.core.model.GatewayRequestDetailsImpl" scope="prototype">
     </bean>
 
-    <bean id="language" class="com.dreamoval.motech.core.model.LanguageImpl" scope="prototype">
+    <bean id="messageRequest" class="org.motechproject.mobile.core.model.MessageRequestImpl" scope="prototype">
     </bean>
 
-    <bean id="messageTemplate" class="com.dreamoval.motech.core.model.MessageTemplateImpl" scope="prototype">
-    </bean>
-    <bean id="notificationType" class="com.dreamoval.motech.core.model.NotificationTypeImpl" scope="prototype">
+    <bean id="language" class="org.motechproject.mobile.core.model.LanguageImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageSession" class="com.dreamoval.motech.core.model.IncomingMessageSessionImpl" scope="prototype">
+    <bean id="messageTemplate" class="org.motechproject.mobile.core.model.MessageTemplateImpl" scope="prototype">
+    </bean>
+    <bean id="notificationType" class="org.motechproject.mobile.core.model.NotificationTypeImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessage" class="com.dreamoval.motech.core.model.IncomingMessageImpl" scope="prototype">
+     <bean id="incomingMessageSession" class="org.motechproject.mobile.core.model.IncomingMessageSessionImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageResponse" class="com.dreamoval.motech.core.model.IncomingMessageResponseImpl" scope="prototype">
+     <bean id="incomingMessage" class="org.motechproject.mobile.core.model.IncomingMessageImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormDefinition" class="com.dreamoval.motech.core.model.IncomingMessageFormDefinitionImpl" scope="prototype">
+     <bean id="incomingMessageResponse" class="org.motechproject.mobile.core.model.IncomingMessageResponseImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormParameterDefinition" class="com.dreamoval.motech.core.model.IncomingMessageFormParameterDefinitionImpl" scope="prototype">
+     <bean id="incomingMessageFormDefinition" class="org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageForm" class="com.dreamoval.motech.core.model.IncomingMessageFormImpl" scope="prototype">
+     <bean id="incomingMessageFormParameterDefinition" class="org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinitionImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormParameter" class="com.dreamoval.motech.core.model.IncomingMessageFormParameterImpl" scope="prototype">
+     <bean id="incomingMessageForm" class="org.motechproject.mobile.core.model.IncomingMessageFormImpl" scope="prototype">
+    </bean>
+
+     <bean id="incomingMessageFormParameter" class="org.motechproject.mobile.core.model.IncomingMessageFormParameterImpl" scope="prototype">
     </bean>
 
     <!-- End of Model-->
@@ -102,22 +102,22 @@
         </property>
         <property name="mappingResources">
             <list>
-                <value>com/dreamoval/motech/core/model/MotechEntityImpl.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/GatewayRequest.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/GatewayResponse.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/Transition.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/GatewayRequestDetails.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/MessageRequest.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/Language.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/MessageTemplate.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/NotificationType.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageSession.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessage.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageResponse.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageFormDefinition.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageFormParameterDefinition.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageForm.hbm.xml</value>
-                <value>com/dreamoval/motech/core/model/IncomingMessageFormParameter.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/MotechEntityImpl.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/GatewayRequest.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/GatewayResponse.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/Transition.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/GatewayRequestDetails.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/MessageRequest.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/Language.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/MessageTemplate.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/NotificationType.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageSession.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessage.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageResponse.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageFormDefinition.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageFormParameterDefinition.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageForm.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageFormParameter.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -126,58 +126,58 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <bean id="dBSession" class="com.dreamoval.motech.core.dao.HibernateDBSessionImpl" scope="prototype">
+    <bean id="dBSession" class="org.motechproject.mobile.core.dao.HibernateDBSessionImpl" scope="prototype">
     </bean>
 
-    <bean id="gatewayRequestDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDAOImpl" scope="prototype">
+    <bean id="gatewayRequestDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayRequestDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="gatewayResponseDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
+    <bean id="gatewayResponseDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="transitionDAO" class="com.dreamoval.motech.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
+    <bean id="transitionDAO" class="org.motechproject.mobile.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="messageRequestDAO" class="com.dreamoval.motech.core.dao.hibernate.MessageRequestDAOImpl" scope="prototype">
+    <bean id="messageRequestDAO" class="org.motechproject.mobile.core.dao.hibernate.MessageRequestDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="languageDAO" class="com.dreamoval.motech.core.dao.hibernate.LanguageDAOImpl" scope="prototype">
+    <bean id="languageDAO" class="org.motechproject.mobile.core.dao.hibernate.LanguageDAOImpl" scope="prototype">
     </bean>
-    <bean id="messageTemplateDAO" class="com.dreamoval.motech.core.dao.hibernate.MessageTemplateDAOImpl" scope="prototype">
-    </bean>
-
-    <bean id="notificationTypeDAO" class="com.dreamoval.motech.core.dao.hibernate.NotificationTypeDAOImpl" scope="prototype">
+    <bean id="messageTemplateDAO" class="org.motechproject.mobile.core.dao.hibernate.MessageTemplateDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="gatewayRequestDetailsDAO" class="com.dreamoval.motech.core.dao.hibernate.GatewayRequestDetailsDAOImpl" scope="prototype">
+    <bean id="notificationTypeDAO" class="org.motechproject.mobile.core.dao.hibernate.NotificationTypeDAOImpl" scope="prototype">
+    </bean>
+
+    <bean id="gatewayRequestDetailsDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayRequestDetailsDAOImpl" scope="prototype">
     </bean>
 
 
-    <bean id="incomingMessageSessionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageSessionDAOImpl" scope="prototype">
+    <bean id="incomingMessageSessionDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageSessionDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageDAOImpl" scope="prototype">
+    <bean id="incomingMessageDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageResponseDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageResponseDAOImpl" scope="prototype">
+    <bean id="incomingMessageResponseDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageResponseDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageFormDefinitionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormDefinitionDAOImpl" scope="prototype">
+    <bean id="incomingMessageFormDefinitionDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormDefinitionDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageFormParameterDefinitionDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormParameterDefinitionDAOImpl" scope="prototype">
+    <bean id="incomingMessageFormParameterDefinitionDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormParameterDefinitionDAOImpl" scope="prototype">
     </bean>
 
-    <bean id="incomingMessageFormDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormDAOImpl" scope="prototype">
+    <bean id="incomingMessageFormDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormDAOImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormParameterDAO" class="com.dreamoval.motech.model.dao.hibernate.imp.IncomingMessageFormParameterDAOImpl" scope="prototype">
+     <bean id="incomingMessageFormParameterDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormParameterDAOImpl" scope="prototype">
     </bean>
     <!-- End of Data Access-->
 
     <!-- Services -->
 
-    <bean id="motechContext" class="com.dreamoval.motech.core.service.MotechContextImpl" destroy-method="cleanUp" scope="prototype">
+    <bean id="motechContext" class="org.motechproject.mobile.core.service.MotechContextImpl" destroy-method="cleanUp" scope="prototype">
         <property name="DBSession" ref="dBSession"/>
     </bean>
 
@@ -185,7 +185,7 @@
 
     <!-- Managers -->
 
-    <bean id="coreManager" class="com.dreamoval.motech.core.manager.CoreManagerImpl">
+    <bean id="coreManager" class="org.motechproject.mobile.core.manager.CoreManagerImpl">
         <property name="sessionContainer" ref="sessionContainer"/>
     </bean>
     <!-- End of Managers -->

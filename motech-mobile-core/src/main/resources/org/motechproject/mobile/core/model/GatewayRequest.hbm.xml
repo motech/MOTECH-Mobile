@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.motechproject.mobile.core.model">
+  <union-subclass extends="MotechEntityImpl" name="GatewayRequestImpl" table="gateway_request">
+    <many-to-one class="GatewayRequestDetailsImpl" column="request_details_id" name="gatewayRequestDetails"/>
+    <property column="recipients_number" name="recipientsNumber" type="string"/>
+    <property column="date_sent" name="dateSent" type="timestamp"/>
+    <property column="date_from" name="dateFrom" type="timestamp"/>
+    <property column="date_to" name="dateTo" type="timestamp"/>
+    <property column="try_number" name="tryNumber" type="integer"/>
+    <property column="message" length="700" name="message" type="string"/>
+    <property column="request_id" name="requestId" type="string"/>
+    <property access="field" column="message_status" name="messageStatus" type="mStatus"/>
+    <property generated="always" insert="false" name="lastModified" update="false">
+      <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
+    </property>
+    <set cascade="all" inverse="true" name="responseDetails">
+      <key column="message_id"/>
+      <one-to-many class="GatewayResponseImpl"/>
+    </set>
+  </union-subclass>
+</hibernate-mapping>
