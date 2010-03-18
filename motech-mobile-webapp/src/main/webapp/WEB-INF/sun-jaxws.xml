@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <endpoints version="2.0" xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
-  <endpoint implementation="com.dreamoval.motech.omi.ws.MessageServiceImpl" name="messagingService" url-pattern="/messagingService"/>
-  <endpoint implementation="com.dreamoval.motech.omi.ws.MessageServiceImpl" name="MessageServiceImplService" url-pattern="/MessageServiceImplService"/>
+  <endpoint implementation="org.motechproject.mobile.omi.ws.MessageServiceImpl" name="messagingService" url-pattern="/messagingService"/>
+  <endpoint implementation="org.motechproject.mobile.omi.ws.MessageServiceImpl" name="MessageServiceImplService" url-pattern="/MessageServiceImplService"/>
 </endpoints>

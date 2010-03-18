@@ -3,11 +3,11 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.itests;
+package org.motechproject.mobile.itests;
 
-import com.dreamoval.motech.imp.serivce.IMPServiceImpl;
-import com.dreamoval.motech.omi.service.OMIService;
-import com.dreamoval.motech.omp.service.MessagingService;
+import org.motechproject.mobile.imp.serivce.IMPServiceImpl;
+import org.motechproject.mobile.omi.service.OMIService;
+import org.motechproject.mobile.omp.service.MessagingService;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;

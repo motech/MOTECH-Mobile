@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.web;
+package org.motechproject.mobile.web;
 
-import com.dreamoval.motech.imp.manager.IMPManager;
-import com.dreamoval.motech.imp.serivce.IMPService;
+import org.motechproject.mobile.imp.manager.IMPManager;
+import org.motechproject.mobile.imp.serivce.IMPService;
 import java.util.Map;
 
 /**

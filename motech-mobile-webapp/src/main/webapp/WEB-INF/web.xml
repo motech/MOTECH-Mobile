@@ -34,7 +34,7 @@
     </servlet>
     <servlet>
         <servlet-name>OXDFormUploadServlet</servlet-name>
-        <servlet-class>com.dreamoval.motech.web.OXDFormUploadServlet</servlet-class>
+        <servlet-class>org.motechproject.mobile.web.OXDFormUploadServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>OXDFormUploadServlet</servlet-name>
@@ -68,7 +68,7 @@
 
     <servlet>
         <servlet-name>IMPServlet</servlet-name>
-        <servlet-class>com.dreamoval.motech.web.IncomingMessageServlet</servlet-class>
+        <servlet-class>org.motechproject.mobile.web.IncomingMessageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IMPServlet</servlet-name>

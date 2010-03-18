@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.web;
+package org.motechproject.mobile.web;
 
-import com.dreamoval.motech.web.manager.WebManager;
+import org.motechproject.mobile.web.manager.WebManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

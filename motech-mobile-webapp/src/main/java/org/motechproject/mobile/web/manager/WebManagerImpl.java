@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.web.manager;
+package org.motechproject.mobile.web.manager;
 
-import com.dreamoval.motech.web.IncomingMessageRequestWorker;
+import org.motechproject.mobile.web.IncomingMessageRequestWorker;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

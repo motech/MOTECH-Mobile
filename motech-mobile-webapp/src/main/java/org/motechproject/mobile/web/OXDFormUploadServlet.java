@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dreamoval.motech.web;
+package org.motechproject.mobile.web;
 
-import com.dreamoval.motech.imp.serivce.IMPService;
-import com.dreamoval.motech.imp.serivce.oxd.FormDefinitionService;
-import com.dreamoval.motech.imp.serivce.oxd.StudyProcessor;
+import org.motechproject.mobile.imp.serivce.IMPService;
+import org.motechproject.mobile.imp.serivce.oxd.FormDefinitionService;
+import org.motechproject.mobile.imp.serivce.oxd.StudyProcessor;
 
-import com.dreamoval.motech.imp.util.exception.MotechParseException;
+import org.motechproject.mobile.imp.util.exception.MotechParseException;
 import com.jcraft.jzlib.JZlib;
 import com.jcraft.jzlib.ZOutputStream;
 import java.io.DataInputStream;
