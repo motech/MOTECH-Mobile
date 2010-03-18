@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-    <bean name="stopPregnancyProgramSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="stopPregnancyProgramSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="stopPregnancyProgram" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -22,7 +22,7 @@
         </property>
     </bean>
     
-    <bean name="recordGeneralVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordGeneralVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordGeneralVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -40,7 +40,7 @@
         </property>
     </bean>
 
-    <bean name="recordMotherANCVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordMotherANCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordMotherANCVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -56,7 +56,7 @@
         </property>
     </bean>
 
-    <bean name="registerChildSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="registerChildSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="registerChild" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -72,7 +72,7 @@
         </property>
     </bean>
 
-    <bean name="editPatientSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="editPatientSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="editPatient" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -88,7 +88,7 @@
         </property>
     </bean>
 
-    <bean name="recordPregnancyTerminationSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordPregnancyTerminationSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordPregnancyTermination" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -101,7 +101,7 @@
         </property>
     </bean>
 
-    <bean name="recordPregnancyDeliverySignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordPregnancyDeliverySignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordPregnancyDelivery" />
         <property name="methodParams">
             <map key-type="java.lang.String" value-type="java.lang.Class">
@@ -130,7 +130,7 @@
         </property>
     </bean>
 
-    <bean name="recordMotherPPCVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordMotherPPCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordMotherPPCVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -144,7 +144,7 @@
         </property>
     </bean>
 
-    <bean name="recordDeathSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordDeathSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordDeath" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -156,7 +156,7 @@
         </property>
     </bean>
 
-    <bean name="recordChildPNCVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordChildPNCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordChildPNCVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -175,7 +175,7 @@
         </property>
     </bean>
 
-    <bean name="recordChildVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordChildVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordChildVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -191,7 +191,7 @@
         </property>
     </bean>
 
-    <bean name="recordMotherVisitSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="recordMotherVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordMotherVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -207,7 +207,7 @@
         </property>
     </bean>
 
-    <bean name="queryANCDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryANCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryANCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -217,7 +217,7 @@
         </property>
     </bean>
 
-    <bean name="queryTTDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryTTDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryTTDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -227,7 +227,7 @@
         </property>
     </bean>
 
-    <bean name="queryPPCDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryPPCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryPPCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -237,7 +237,7 @@
         </property>
     </bean>
 
-    <bean name="queryPNCDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryPNCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryPNCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -247,7 +247,7 @@
         </property>
     </bean>
 
-    <bean name="queryCWCDefaultersSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryCWCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryCWCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -257,7 +257,7 @@
         </property>
     </bean>
 
-    <bean name="queryUpcomingDeliveriesSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryUpcomingDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryUpcomingDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -267,7 +267,7 @@
         </property>
     </bean>
 
-    <bean name="queryRecentDeliveriesSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryRecentDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryRecentDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -277,7 +277,7 @@
         </property>
     </bean>
 
-    <bean name="queryOverdueDeliveriesSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryOverdueDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryOverdueDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -287,7 +287,7 @@
         </property>
     </bean>
 
-    <bean name="queryUpcomingCareSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryUpcomingCareSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryUpcomingCare" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -298,7 +298,7 @@
         </property>
     </bean>
 
-    <bean name="queryPatientSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryPatientSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryPatient" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -308,7 +308,7 @@
         </property>
     </bean>
 
-    <bean name="queryMotechIdSignatureBean" class="com.dreamoval.motech.imp.util.MethodSignature">
+    <bean name="queryMotechIdSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryMotechId" />
         <property name="methodParams">
             <map key-type="java.lang.String">

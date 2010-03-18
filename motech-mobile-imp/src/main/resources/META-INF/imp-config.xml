@@ -20,7 +20,7 @@
 
     <import resource="classpath:META-INF/validator-config.xml" />
 
-    <bean id="impService" class="com.dreamoval.motech.imp.serivce.IMPServiceImpl">
+    <bean id="impService" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
@@ -33,9 +33,9 @@
         <property name="senderExpression" value="${imp.oxd.senderExpression}" />
     </bean>
 
-    <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
+    <bean id="impManager" class="org.motechproject.mobile.imp.manager.IMPManagerImpl" />
 
-    <bean id="imParser" class="com.dreamoval.motech.imp.util.IncomingMessageParserImpl" >
+    <bean id="imParser" class="org.motechproject.mobile.imp.util.IncomingMessageParserImpl" >
         <property name="coreManager" ref="coreManager" />
         <property name="separator" value="${imp.form.param.valueSparator}" />
         <property name="delimiter" value="${imp.form.param.delimiter}" />
@@ -44,7 +44,7 @@
         <property name="paramRegex" value="${imp.form.paramExpression}" />
     </bean>
 
-    <bean id="imXMLParser" class="com.dreamoval.motech.imp.util.IncomingMessageXMLParserImpl">
+    <bean id="imXMLParser" class="org.motechproject.mobile.imp.util.IncomingMessageXMLParserImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="messageParser" ref="imParser" />
         <property name="separator" value="${imp.form.param.valueSparator}" />
@@ -59,26 +59,26 @@
         </property>
     </bean>
 
-    <bean id="formCmdAxn" class="com.dreamoval.motech.imp.util.FormCommandAction">
+    <bean id="formCmdAxn" class="org.motechproject.mobile.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
-    <bean id="updateCmdAxn" class="com.dreamoval.motech.imp.util.UpdateCommandAction">
+    <bean id="updateCmdAxn" class="org.motechproject.mobile.imp.util.UpdateCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
-    <bean id="stopCmdAxn" class="com.dreamoval.motech.imp.util.StopCommandAction">
+    <bean id="stopCmdAxn" class="org.motechproject.mobile.imp.util.StopCommandAction">
         <property name="coreManager" ref="coreManager" />
     </bean>
 
-    <bean id="xmlUtil" class="com.dreamoval.motech.imp.util.XMLUtil" />
+    <bean id="xmlUtil" class="org.motechproject.mobile.imp.util.XMLUtil" />
 
-    <bean id="oxdFormDefService" class="com.dreamoval.motech.imp.serivce.oxd.FormDefinitionServiceImpl">
+    <bean id="oxdFormDefService" class="org.motechproject.mobile.imp.serivce.oxd.FormDefinitionServiceImpl">
         <property name="oxdFormDefResourceName" value="${imp.oxd.oxdFormDefsResourceName}"/>
     </bean>
-    <bean id="studyProcessor" class="com.dreamoval.motech.imp.serivce.oxd.StudyProcessor" scope="prototype"/>
+    <bean id="studyProcessor" class="org.motechproject.mobile.imp.serivce.oxd.StudyProcessor" scope="prototype"/>
 </beans>
