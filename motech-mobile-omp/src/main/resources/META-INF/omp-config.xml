@@ -26,7 +26,7 @@
     
     <bean id="date" class="java.util.Date" scope="prototype" />
 
-    <bean id="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl" scope="prototype">
+    <bean id="dummyHandler" class="org.motechproject.mobile.omp.manager.DummyGatewayMessageHandlerImpl" scope="prototype">
         <property name="coreManager" ref="coreManager" />
         <property name="codeStatusMap">
             <map>
@@ -48,11 +48,11 @@
         </property>
     </bean>
 
-    <bean id="dummyManager" class="com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl">
+    <bean id="dummyManager" class="org.motechproject.mobile.omp.manager.DummyGatewayManagerImpl">
         <property name="messageHandler" ref="dummyHandler" />
     </bean>
     
-    <bean id="messageHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
+    <bean id="messageHandler" class="org.motechproject.mobile.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
         <property name="coreManager" ref="coreManager" />
         <property name="codeStatusMap">
             <map>
@@ -74,24 +74,24 @@
         </property>
     </bean>
     
-    <bean id="gatewayManager" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayManagerImpl">
+    <bean id="gatewayManager" class="org.motechproject.mobile.omp.manager.orserve.ORServeGatewayManagerImpl">
         <property name="productCode" value="nu-ob-demo" />
         <property name="senderId" value="MoTeCH" />
         <property name="messageHandler" ref="messageHandler" />
     </bean>
     
 
-    <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
+    <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />
     </bean>
 
-    <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSMessagingServiceImpl">
+    <bean id="smsService" class="org.motechproject.mobile.omp.service.SMSMessagingServiceImpl">
         <property name="cache" ref="smsCache" />
         <property name="gatewayManager" ref="dummyManager" />
         <property name="coreManager" ref="coreManager" />
     </bean>
 
-    <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />
+    <bean name="ompManager" class="org.motechproject.mobile.omp.manager.OMPManagerImpl" />
     
     <!--Scheduling-->
         <!--Job-->
