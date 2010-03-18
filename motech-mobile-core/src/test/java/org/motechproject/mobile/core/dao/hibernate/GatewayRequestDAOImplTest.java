@@ -1,13 +1,13 @@
-package com.dreamoval.motech.core.dao.hibernate;
+package org.motechproject.mobile.core.dao.hibernate;
 
-import com.dreamoval.motech.core.dao.GatewayRequestDAO;
-import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.GatewayRequest;
-import com.dreamoval.motech.core.model.GatewayRequestDetails;
-import com.dreamoval.motech.core.model.GatewayRequestImpl;
-import com.dreamoval.motech.core.model.GatewayResponse;
-import com.dreamoval.motech.core.model.MStatus;
-import com.dreamoval.motech.core.model.MessageType;
+import org.motechproject.mobile.core.dao.GatewayRequestDAO;
+import org.motechproject.mobile.core.manager.CoreManager;
+import org.motechproject.mobile.core.model.GatewayRequest;
+import org.motechproject.mobile.core.model.GatewayRequestDetails;
+import org.motechproject.mobile.core.model.GatewayRequestImpl;
+import org.motechproject.mobile.core.model.GatewayResponse;
+import org.motechproject.mobile.core.model.MStatus;
+import org.motechproject.mobile.core.model.MessageType;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

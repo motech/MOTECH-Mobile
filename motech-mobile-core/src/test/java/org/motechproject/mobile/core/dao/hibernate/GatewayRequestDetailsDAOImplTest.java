@@ -1,12 +1,12 @@
-package com.dreamoval.motech.core.dao.hibernate;
+package org.motechproject.mobile.core.dao.hibernate;
 
-import com.dreamoval.motech.core.dao.GatewayRequestDetailsDAO;
-import com.dreamoval.motech.core.manager.CoreManager;
-import com.dreamoval.motech.core.model.GatewayRequest;
-import com.dreamoval.motech.core.model.GatewayRequestDetails;
-import com.dreamoval.motech.core.model.GatewayRequestDetailsImpl;
-import com.dreamoval.motech.core.model.MessageType;
-import com.dreamoval.motech.core.service.MotechContext;
+import org.motechproject.mobile.core.dao.GatewayRequestDetailsDAO;
+import org.motechproject.mobile.core.manager.CoreManager;
+import org.motechproject.mobile.core.model.GatewayRequest;
+import org.motechproject.mobile.core.model.GatewayRequestDetails;
+import org.motechproject.mobile.core.model.GatewayRequestDetailsImpl;
+import org.motechproject.mobile.core.model.MessageType;
+import org.motechproject.mobile.core.service.MotechContext;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.After;
