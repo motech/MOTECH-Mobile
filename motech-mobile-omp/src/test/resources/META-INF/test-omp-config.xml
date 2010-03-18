@@ -35,11 +35,11 @@
 
     <bean id="date" class="java.util.Date" scope="prototype" />
 
-    <bean id="dummyGateway" class="com.dreamoval.motech.omp.manager.DummyGatewayManagerImpl">
+    <bean id="dummyGateway" class="org.motechproject.mobile.omp.manager.DummyGatewayManagerImpl">
         <property name="messageHandler" ref="dummyHandler" />
     </bean>
 
-    <bean id="dummyHandler" class="com.dreamoval.motech.omp.manager.DummyGatewayMessageHandlerImpl" scope="prototype">
+    <bean id="dummyHandler" class="org.motechproject.mobile.omp.manager.DummyGatewayMessageHandlerImpl" scope="prototype">
         <property name="codeStatusMap">
             <map>
                 <entry key="DELIVERED" value="004,DELIVRD" />
@@ -60,7 +60,7 @@
         </property>
     </bean>
 
-    <bean id="orserveHandler" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
+    <bean id="orserveHandler" class="org.motechproject.mobile.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
         <property name="codeStatusMap">
             <map>
                 <entry key="DELIVERED" value="004,DELIVRD" />
@@ -81,13 +81,13 @@
         </property>
     </bean>
 
-    <bean id="orserveGateway" class="com.dreamoval.motech.omp.manager.orserve.ORServeGatewayManagerImpl">
+    <bean id="orserveGateway" class="org.motechproject.mobile.omp.manager.orserve.ORServeGatewayManagerImpl">
         <property name="productCode" value="${orserve.gateway.productCode}" />
         <property name="senderId" value="${orserve.gateway.senderId}" />
         <property name="messageHandler" ref="orserveHandler" />
     </bean>
 
-    <bean id="clickatellHandler" class="com.dreamoval.motech.omp.manager.clickatell.ClickatellGatewayManagerImpl" scope="prototype">
+    <bean id="clickatellHandler" class="org.motechproject.mobile.omp.manager.clickatell.ClickatellGatewayManagerImpl" scope="prototype">
         <property name="codeStatusMap">
             <map>
                 <entry key="DELIVERED" value="004" />
@@ -108,7 +108,7 @@
         </property>
     </bean>
 
-    <bean id="clickGateway" class="com.dreamoval.motech.omp.manager.clickatell.ClickatellGatewayManagerImpl">
+    <bean id="clickGateway" class="org.motechproject.mobile.omp.manager.clickatell.ClickatellGatewayManagerImpl">
         <property name="apiId" value="${clickatell.gateway.apiId}" />
         <property name="user" value="${clickatell.gateway.user}" />
         <property name="password" value="${clickatell.gateway.password}" />
@@ -118,13 +118,13 @@
         <property name="baseUrl" value="${clickatell.gateway.baseUrl}" />
     </bean>
 
-    <bean id="smsCache" class="com.dreamoval.motech.omp.service.SMSCacheServiceImpl">
+    <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
     </bean>
 
-    <bean id="smsService" class="com.dreamoval.motech.omp.service.SMSMessagingServiceImpl">
+    <bean id="smsService" class="org.motechproject.mobile.omp.service.SMSMessagingServiceImpl">
         <property name="cache" ref="smsCache" />
         <property name="gatewayManager" ref="dummyGateway" />
     </bean>
 
-    <bean name="ompManager" class="com.dreamoval.motech.omp.manager.OMPManagerImpl" />
+    <bean name="ompManager" class="org.motechproject.mobile.omp.manager.OMPManagerImpl" />
 </beans>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.dreamoval.motech</groupId>
+    <groupId>org.motechproject.mobile</groupId>
     <artifactId>motech-mobile-webapp</artifactId>
     <packaging>war</packaging>
     <version>1.0-M5-SNAPSHOT</version>
     <name>MoTeCH Mobile WebApp</name>
     <url>http://maven.apache.org</url>
     <parent>
-        <groupId>com.dreamoval</groupId>
+        <groupId>org.motechproject.mobile</groupId>
         <artifactId>motech-mobile</artifactId>
         <version>1.0-M5-SNAPSHOT</version>
     </parent>
@@ -61,19 +61,19 @@
             <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
-          <groupId>com.dreamoval.motech</groupId>
+          <groupId>org.motechproject.mobile</groupId>
           <artifactId>motech-mobile-core</artifactId>
         </dependency>
         <dependency>
-          <groupId>com.dreamoval.motech</groupId>
+          <groupId>org.motechproject.mobile</groupId>
           <artifactId>motech-mobile-omp</artifactId>
         </dependency>
         <dependency>
-          <groupId>com.dreamoval.motech</groupId>
+          <groupId>org.motechproject.mobile</groupId>
           <artifactId>motech-mobile-omi</artifactId>
         </dependency>
         <dependency>
-          <groupId>com.dreamoval.motech</groupId>
+          <groupId>org.motechproject.mobile</groupId>
           <artifactId>motech-mobile-imp</artifactId>
         </dependency>
         <dependency>
