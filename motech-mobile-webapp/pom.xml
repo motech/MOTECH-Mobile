@@ -8,7 +8,7 @@
     <name>MoTeCH Mobile WebApp</name>
     <url>http://maven.apache.org</url>
     <parent>
-        <groupId>org.motechproject.mobile</groupId>
+        <groupId>org.motechproject</groupId>
         <artifactId>motech-mobile</artifactId>
         <version>1.0-M5-SNAPSHOT</version>
     </parent>
