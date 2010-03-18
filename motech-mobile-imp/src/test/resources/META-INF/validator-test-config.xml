@@ -13,7 +13,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
            
     <!--
-    <bean id="imParamValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormParameterValidatorImpl">
+    <bean id="imParamValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormParameterValidatorImpl">
         <property name="paramTypeMap">
             <map>
                 <entry key="ALPHA" value="[a-zA-Z.,'\-\s]+" />
@@ -27,7 +27,7 @@
     </bean>
     -->
 
-    <bean id="imFormValidator" class="com.dreamoval.motech.imp.util.IncomingMessageFormValidatorImpl">
+    <bean id="imFormValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
         <!--<property name="imParamValidator" ref="imParamValidator" />-->
         <property name="coreManager" ref="coreManager" />
         <property name="regWS" ref="registrarClient" />
@@ -44,27 +44,27 @@
             <map key-type="java.lang.String">
                 <entry key="ALPHA">
                     <list>
-                        <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                        <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                             <property name="expression" value="${imp.validator.alphaExpression}" />
                         </bean>
-                        <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                        <bean class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
                     </list>
                 </entry>
                 <entry key="ALPHANUM">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.alphaNumExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
+                    <bean class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
                     </list>
                 </entry>
                 <entry key="NUMERIC">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.numericExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
-                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
+                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
                         <property name="values" value="" />
                         <property name="caseSensitive" value="false" />
                         <property name="conversions">
@@ -77,8 +77,8 @@
                 </entry>
                 <entry key="DATE">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamSizeValidator" />
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.dateExpression}" />
                         <property name="dateFormat" value="${imp.validator.dateFormat}" />
                     </bean>
@@ -86,10 +86,10 @@
                 </entry>
                 <entry key="GENDER">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.genderExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
                         <property name="values" value="M,F" />
                         <property name="caseSensitive" value="false" />
                         <property name="conversions">
@@ -103,10 +103,10 @@
                 </entry>
                 <entry key="BOOLEAN">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.yesNoExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
                         <property name="values" value="Y,N" />
                         <property name="caseSensitive" value="false" />
                         <property name="conversions">
@@ -120,10 +120,10 @@
                 </entry>
                 <entry key="PHONETYPE">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.phoneTypeExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
                         <property name="values" value="HOUSEHOLD,PERSONAL,PUBLIC" />
                         <property name="caseSensitive" value="false" />
                     </bean>
@@ -131,10 +131,10 @@
                 </entry>
                 <entry key="CASESTATUS">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.alphaExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
                         <property name="values" value="o,O,n,N" />
                         <property name="conversions">
                             <map>
@@ -149,10 +149,10 @@
                 </entry>
                 <entry key="HIVSTATUS">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.alphaExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
                         <property name="values" value="P,N,NA" />
                         <property name="caseSensitive" value="false" />
                     </bean>
@@ -160,10 +160,10 @@
                 </entry>
                 <entry key="DELIVERER">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.alphaExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
                         <property name="values" value="D,M,CHO,TTBA,UTBA,O" />
                         <property name="caseSensitive" value="false" />
                     </bean>
@@ -171,10 +171,10 @@
                 </entry>
                 <entry key="BIRTHOUTCOME">
                     <list>
-                    <bean class="com.dreamoval.motech.imp.util.ParamExpressionValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                         <property name="expression" value="${imp.validator.alphaExpression}" />
                     </bean>
-                    <bean class="com.dreamoval.motech.imp.util.ParamValueValidator">
+                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
                         <property name="values" value="A,FSB,MSB" />
                         <property name="caseSensitive" value="false" />
                     </bean>

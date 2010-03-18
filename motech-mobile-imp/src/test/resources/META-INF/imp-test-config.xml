@@ -34,7 +34,7 @@
         </property>
     </bean>
 
-    <bean id="impService" class="com.dreamoval.motech.imp.serivce.IMPServiceImpl">
+    <bean id="impService" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
@@ -52,9 +52,9 @@
         </property>-->
     </bean>
 
-    <bean id="impManager" class="com.dreamoval.motech.imp.manager.IMPManagerImpl" />
+    <bean id="impManager" class="org.motechproject.mobile.imp.manager.IMPManagerImpl" />
 
-    <bean id="imParser" class="com.dreamoval.motech.imp.util.IncomingMessageParserImpl" >
+    <bean id="imParser" class="org.motechproject.mobile.imp.util.IncomingMessageParserImpl" >
         <property name="coreManager" ref="coreManager" />
         <property name="separator" value="${imp.form.param.valueSparator}" />
         <property name="delimiter" value="${imp.form.param.delimiter}" />
@@ -63,19 +63,19 @@
         <property name="paramRegex" value="${imp.form.paramExpression}" />
     </bean>
 
-    <bean id="formCmdAxn" class="com.dreamoval.motech.imp.util.FormCommandAction">
+    <bean id="formCmdAxn" class="org.motechproject.mobile.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
-    <bean id="updateCmdAxn" class="com.dreamoval.motech.imp.util.UpdateCommandAction">
+    <bean id="updateCmdAxn" class="org.motechproject.mobile.imp.util.UpdateCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
-    <bean id="stopCmdAxn" class="com.dreamoval.motech.imp.util.StopCommandAction">
+    <bean id="stopCmdAxn" class="org.motechproject.mobile.imp.util.StopCommandAction">
         <property name="coreManager" ref="coreManager" />
     </bean>
 
