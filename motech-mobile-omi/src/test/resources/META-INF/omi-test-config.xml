@@ -32,31 +32,31 @@
         </property>
     </bean>
 
-    <bean name="storeManager" class="com.dreamoval.motech.omi.manager.MessageStoreManagerImpl">
+    <bean name="storeManager" class="org.motechproject.mobile.omi.manager.MessageStoreManagerImpl">
     </bean>
 
-    <bean name="messageFormatter" class="com.dreamoval.motech.omi.manager.SMSMessageFormatterImpl">
+    <bean name="messageFormatter" class="org.motechproject.mobile.omi.manager.SMSMessageFormatterImpl">
         <property name="omiManager" ref="omiManager" />
         <property name="dateFormat" value="${omi.settings.dateFormat}" />
     </bean>
 
-    <bean name="omiService" class="com.dreamoval.motech.omi.service.OMIServiceImpl">
+    <bean name="omiService" class="org.motechproject.mobile.omi.service.OMIServiceImpl">
         <property name="omiManager" ref="omiManager" />
         <property name="storeManager" ref="storeManager" />
         <property name="statHandler" ref="statusHandler" />
     </bean>
 
-    <bean name="omiManager" class="com.dreamoval.motech.omi.manager.OMIManagerImpl" />
+    <bean name="omiManager" class="org.motechproject.mobile.omi.manager.OMIManagerImpl" />
 
-    <bean id="logStatAction" class="com.dreamoval.motech.omi.manager.LogStatusActionImpl">
+    <bean id="logStatAction" class="org.motechproject.mobile.omi.manager.LogStatusActionImpl">
         <property name="regWs" ref="registrarClient" />
     </bean>
 
-    <bean id="rptStatAction" class="com.dreamoval.motech.omi.manager.ReportStatusActionImpl">
+    <bean id="rptStatAction" class="org.motechproject.mobile.omi.manager.ReportStatusActionImpl">
         <property name="regWs" ref="registrarClient" />
     </bean>
 
-    <bean id="statusHandler" class="com.dreamoval.motech.omi.manager.StatusHandlerImpl">
+    <bean id="statusHandler" class="org.motechproject.mobile.omi.manager.StatusHandlerImpl">
         <property name="actionRegister">
             <map>
                 <entry key="DELIVERED">
