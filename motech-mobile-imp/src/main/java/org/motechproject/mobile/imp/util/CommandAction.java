@@ -3,11 +3,11 @@
  * and open the template in the editor.
  */
 
-package com.dreamoval.motech.imp.util;
+package org.motechproject.mobile.imp.util;
 
-import com.dreamoval.motech.core.model.IncomingMessage;
-import com.dreamoval.motech.core.model.IncomingMessageResponse;
-import com.dreamoval.motech.core.service.MotechContext;
+import org.motechproject.mobile.core.model.IncomingMessage;
+import org.motechproject.mobile.core.model.IncomingMessageResponse;
+import org.motechproject.mobile.core.service.MotechContext;
 
 /**
  * Processes a requested action on an IncomingMessage object
