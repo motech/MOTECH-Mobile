@@ -49,6 +49,7 @@ public class IncomingMessageXMLParserImplTest {
         xmlParser.setSeparator("=");
         xmlParser.setFormTypeTagName("formType");
         xmlParser.setXmlUtil(new XMLUtil());
+        xmlParser.setFormNameTagName("formName");
         Map<String, String> lookup = new HashMap<String, String>();
         lookup.put("data", "Type");
         xmlParser.setFormTypeLookup(lookup);
@@ -62,7 +63,7 @@ public class IncomingMessageXMLParserImplTest {
     public void testToSMSMessage() throws Exception{
         System.out.println("toSMSMessage");
 
-        String xml = "<?xml version='1.0' encoding='UTF-8' ?><patientreg description-template=\"${/patientreg/lastname}$ in ${/patientreg/continent}$\" id=\"1\" name=\"Patient Registration\" xmlns:xf=\"http://www.w3.org/2002/xforms\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><patientid>123</patientid><title>mrs</title><firstname>Test</firstname><lastname>Test</lastname><sex>female</sex><birthdate>1990-06-03</birthdate><weight>40</weight><height>20</height><pregnant>false</pregnant><continent>africa</continent><country>uganda</country><district>mbale</district><formType>data</formType></patientreg>";
+        String xml = "<?xml version='1.0' encoding='UTF-8' ?><patientreg description-template=\"${/patientreg/lastname}$ in ${/patientreg/continent}$\" id=\"1\" name=\"Patient Registration\" xmlns:xf=\"http://www.w3.org/2002/xforms\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><patientid>123</patientid><title>mrs</title><firstname>Test</firstname><lastname>Test</lastname><sex>female</sex><birthdate>1990-06-03</birthdate><weight>40</weight><height>20</height><pregnant>false</pregnant><continent>africa</continent><country>uganda</country><district>mbale</district><formType>data</formType><formName>patientreg</formName></patientreg>";
 
 
         String expResult = "Type=patientreg\npatientid=123\ntitle=mrs\nfirstname=Test\nlastname=Test\nsex=female\nbirthdate=1990-06-03\nweight=40\nheight=20\npregnant=false\ncontinent=africa\ncountry=uganda\ndistrict=mbale";

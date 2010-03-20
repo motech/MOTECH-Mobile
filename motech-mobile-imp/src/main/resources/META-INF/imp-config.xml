@@ -50,6 +50,7 @@
         <property name="separator" value="${imp.form.param.valueSparator}" />
         <property name="delimiter" value="${imp.xform.param.delimiter}" />
         <property name="formTypeTagName" value="${imp.xmlparser.formTypeTagName}" />
+        <property name="formNameTagName" value="${imp.xmlparser.formNameTagName}" />
         <property name="xmlUtil" ref="xmlUtil" />
         <property name="formTypeLookup" >
             <map>

@@ -109,4 +109,14 @@ public interface IncomingMessageXMLParser {
      * @throws java.io.IOException thrown if an error occurs `reading the file or stream
      */
     String toSMSMessage(String xml) throws JDOMException, IOException, MotechParseException;
+
+    /**
+     * @return the formNameTagName
+     */
+    String getFormNameTagName();
+
+    /**
+     * @param formNameTagName the formNameTagName to set
+     */
+    void setFormNameTagName(String formNameTagName);
 }

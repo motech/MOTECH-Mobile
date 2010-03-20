@@ -5,7 +5,6 @@
 package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.IncMessageFormStatus;
 import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.imp.util.exception.MotechParseException;
@@ -13,7 +12,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
@@ -35,6 +33,7 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
     private String separator;
     private String delimiter;
     private String formTypeTagName;
+    private String formNameTagName;
     private Map<String, String> formTypeLookup;
     private XMLUtil xmlUtil;
 
@@ -98,12 +97,18 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
             throw new MotechParseException(error);
         }
 
-        result += formTypeFieldName + getSeparator() + root.getName();
+        Element formNameElement = xmlUtil.getElement(doc, formNameTagName);
+        
+        if(formNameElement == null){
+            throw new MotechParseException("No element (representing the Form Name) found by name " + formNameTagName);
+        }
+
+        result += formTypeFieldName + getSeparator() + formNameElement.getText();
 
         List children = root.getChildren();
         for (Object o : children) {
             Element child = (Element) o;
-            if (!child.getName().equalsIgnoreCase(formTypeTagName)) {
+            if (!(child.getName().equalsIgnoreCase(formTypeTagName) || child.getName().equalsIgnoreCase(formNameTagName))) {
                 result += getDelimiter() + child.getName() + getSeparator() + child.getText();
             }
         }
@@ -214,5 +219,19 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
      */
     public void setXmlUtil(XMLUtil xmlUtil) {
         this.xmlUtil = xmlUtil;
+    }
+
+    /**
+     * @return the formNameTagName
+     */
+    public String getFormNameTagName() {
+        return formNameTagName;
+    }
+
+    /**
+     * @param formNameTagName the formNameTagName to set
+     */
+    public void setFormNameTagName(String formNameTagName) {
+        this.formNameTagName = formNameTagName;
     }
 }
