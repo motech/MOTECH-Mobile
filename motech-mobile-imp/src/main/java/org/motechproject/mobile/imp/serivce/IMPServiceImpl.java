@@ -108,9 +108,9 @@ public class IMPServiceImpl implements IMPService {
 
             result = processRequest(message, phoneNumber, false);
         } else {
-            result = "No response phone found";
+            result = "Error: No response phone number found";
         }
-        return result.toLowerCase().indexOf("error") > 0 ? result : formProcessSuccess;
+        return result.toLowerCase().indexOf("error") < 0 ? formProcessSuccess : result;
     }
 
     /**
