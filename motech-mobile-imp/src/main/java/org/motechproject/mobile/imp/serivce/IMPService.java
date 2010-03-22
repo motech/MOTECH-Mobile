@@ -8,8 +8,8 @@ package org.motechproject.mobile.imp.serivce;
 import org.motechproject.mobile.imp.util.exception.MotechParseException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import org.jdom.JDOMException;
+import org.motechproject.mobile.core.model.IncomingMessageResponse;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
@@ -23,14 +23,7 @@ public interface IMPService {
      * @param requesterPhone the phone number through which the request was made
      * @return the response of the request
      */
-    String processRequest(String message, String requesterPhone, boolean isDemo);
-
-    /**
-     * Processes multiple incoming message requests
-     * @param requests list of requests to process
-     * @return list of requests with the associated responses
-     */
-    List<FormRequest> processMultiRequests(List<FormRequest> requests, boolean isDemo);
+    IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo);
 
     /**
      * <p>Processes xForms as Motech Forms by converting them to SMS format. It then goes through normal
@@ -64,4 +57,24 @@ public interface IMPService {
      * @param formProcessSuccess the formProcessSuccess to set
      */
     void setFormProcessSuccess(String formProcessSuccess);
+
+    /**
+     * @param maxConcat the maxConcat to set
+     */
+    void setMaxConcat(int maxConcat);
+
+    /**
+     * @param charsPerSMS the charsPerSMS to set
+     */
+    void setCharsPerSMS(int charsPerSMS);
+
+    /**
+     * @param concatAllowance the concatAllowance to set
+     */
+    void setConcatAllowance(int concatAllowance);
+
+    /**
+     * @param maxSMS the maxSMS to set
+     */
+    void setMaxSMS(int maxSMS);
 }

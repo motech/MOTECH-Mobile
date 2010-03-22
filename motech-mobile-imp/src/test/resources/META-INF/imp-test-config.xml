@@ -39,10 +39,14 @@
         <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
         <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
-        <property name="demoMsgType" value="${imp.demo.messageType}" />
-        <property name="demoProvider" value="${imp.demo.provider}" />
-        <property name="demoSender" value="${imp.demo.senderAddr}" />
-        <property name="senderExpression" value="${imp.oxd.senderExpression}" />
+        <property name="formProcessSuccess" value="${imp.form.successResponse}" />
+        <property name="xmlParser" ref="imXMLParser" />
+        <property name="senderFieldName" value="${imp.oxd.senderField}" />
+        <property name="queryExpression" value="${imp.oxd.queryExpression}" />
+        <property name="concatAllowance" value="${imp.response.concatAllowance}" />
+        <property name="charsPerSMS" value="${imp.response.charsPerSMS}" />
+        <property name="maxConcat" value="${imp.response.maxConcat}" />
+        <property name="maxSMS" value="${imp.response.maxSMS}" />
         <!--<property name="cmdActionMap">
             <map key-type="java.lang.String">
                 <entry key="" value-ref="updateCmdAxn" />
@@ -63,6 +67,22 @@
         <property name="paramRegex" value="${imp.form.paramExpression}" />
     </bean>
 
+    <bean id="imXMLParser" class="org.motechproject.mobile.imp.util.IncomingMessageXMLParserImpl">
+        <property name="coreManager" ref="coreManager" />
+        <property name="messageParser" ref="imParser" />
+        <property name="separator" value="${imp.form.param.valueSparator}" />
+        <property name="delimiter" value="${imp.xform.param.delimiter}" />
+        <property name="formTypeTagName" value="${imp.xmlparser.formTypeTagName}" />
+        <property name="formNameTagName" value="${imp.xmlparser.formNameTagName}" />
+        <property name="xmlUtil" ref="xmlUtil" />
+        <property name="formTypeLookup" >
+            <map>
+                <entry key="data_entry" value="Type"/>
+                <entry key="query" value="Query"/>
+            </map>
+        </property>
+    </bean>
+
     <bean id="formCmdAxn" class="org.motechproject.mobile.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="coreManager" ref="coreManager" />
@@ -78,6 +98,18 @@
     <bean id="stopCmdAxn" class="org.motechproject.mobile.imp.util.StopCommandAction">
         <property name="coreManager" ref="coreManager" />
     </bean>
+
+    <bean id="xmlUtil" class="org.motechproject.mobile.imp.util.XMLUtil" />
+
+    <bean id="oxdFormDefService" class="org.motechproject.mobile.imp.serivce.oxd.FormDefinitionServiceImpl">
+        <property name="oxdFormDefResources">
+            <list>
+                <value>${imp.oxd.oxdFormDefsResource1}</value>
+                <value>${imp.oxd.oxdFormDefsResource2}</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="studyProcessor" class="org.motechproject.mobile.imp.serivce.oxd.StudyProcessor" scope="prototype"/>
 
     <bean id="registrarClient"
             class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">

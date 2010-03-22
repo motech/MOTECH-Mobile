@@ -25,12 +25,14 @@
         <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
         <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
-        <property name="demoMsgType" value="${imp.demo.messageType}" />
-        <property name="demoProvider" value="${imp.demo.provider}" />
-        <property name="demoSender" value="${imp.demo.senderAddr}" />
         <property name="formProcessSuccess" value="${imp.form.successResponse}" />
         <property name="xmlParser" ref="imXMLParser" />
-        <property name="senderExpression" value="${imp.oxd.senderExpression}" />
+        <property name="senderFieldName" value="${imp.oxd.senderField}" />
+        <property name="queryExpression" value="${imp.oxd.queryExpression}" />
+        <property name="concatAllowance" value="${imp.response.concatAllowance}" />
+        <property name="charsPerSMS" value="${imp.response.charsPerSMS}" />
+        <property name="maxConcat" value="${imp.response.maxConcat}" />
+        <property name="maxSMS" value="${imp.response.maxSMS}" />
     </bean>
 
     <bean id="impManager" class="org.motechproject.mobile.imp.manager.IMPManagerImpl" />

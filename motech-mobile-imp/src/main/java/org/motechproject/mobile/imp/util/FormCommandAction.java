@@ -70,6 +70,8 @@ public class FormCommandAction implements CommandAction {
                 response.setIncomingMessage(message);
                 response.setDateCreated(new Date());
                 response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
+
+                //send query response to phone
             } else {
                 response = prepareResponse(message, context);
                 response.setMessageResponseStatus(IncMessageResponseStatus.SENT);

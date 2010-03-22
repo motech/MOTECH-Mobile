@@ -24,7 +24,7 @@ public interface MessageStoreManager {
      * @param messageData the MessageRequest object containing details of the message to construct
      * @return the constructed GatewayRequest object
      */
-    public GatewayRequest constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang);
+    GatewayRequest constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang);
 
     /**
      * Constructs a personalized message from the provided template and parameters
@@ -33,7 +33,7 @@ public interface MessageStoreManager {
      * @param templateParams
      * @return
      */
-    public String parseTemplate(String template, Set<NameValuePair> templateParams);
+    String parseTemplate(String template, Set<NameValuePair> templateParams);
     
     /**
      * Fetches a template for specific message types from the message store
@@ -41,18 +41,33 @@ public interface MessageStoreManager {
      * @param messageData information on the template to select
      * @return the template matching the message information
      */
-    public String fetchTemplate(MessageRequest messageData, MotechContext context, Language defaultLang);
+    String fetchTemplate(MessageRequest messageData, MotechContext context, Language defaultLang);
     
     
     /**
      * 
      * @return the coreManager
      */
-    public CoreManager getCoreManager();
+    CoreManager getCoreManager();
 
     /**
      * 
      * @param coreManager the CoreManager to set
      */
-    public void setCoreManager(CoreManager coreManager);
+    void setCoreManager(CoreManager coreManager);
+
+    /**
+     * @param maxConcat the maxConcat to set
+     */
+    void setMaxConcat(int maxConcat);
+
+    /**
+     * @param charsPerSMS the charsPerSMS to set
+     */
+    void setCharsPerSMS(int charsPerSMS);
+
+    /**
+     * @param concatAllowance the concatAllowance to set
+     */
+    void setConcatAllowance(int concatAllowance);
 }

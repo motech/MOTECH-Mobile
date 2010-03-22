@@ -25,6 +25,9 @@ import org.motechproject.ws.NameValuePair;
 public class MessageStoreManagerImpl implements MessageStoreManager {
     private static Logger logger = Logger.getLogger(MessageStoreManagerImpl.class);
     private CoreManager coreManager;
+    private int maxConcat;
+    private int charsPerSMS;
+    private int concatAllowance;
 
     /**
      * 
@@ -52,16 +55,11 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
             logger.debug("message contructed");
             logger.debug(message);
 
+            int maxLength = (charsPerSMS - concatAllowance) * maxConcat - 1;
+            message = message.length() <= maxLength ? message : message.substring(0, maxLength);
 
-            if(message.length() <= 160){
-                gatewayDetails.setNumberOfPages(1);
-            }
-            else if(message.length() > 160 && message.length() < 305){
-                gatewayDetails.setNumberOfPages(2);
-            }
-            else{
-                gatewayDetails.setNumberOfPages(3);
-            }
+            int numPages = (int)Math.ceil(message.length() % (charsPerSMS - concatAllowance));
+            gatewayDetails.setNumberOfPages(numPages);
             
             gwReq.setMessage(message);
             gwReq.setMessageStatus(MStatus.SCHEDULED);
@@ -131,6 +129,27 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
 
     public void setCoreManager(CoreManager coreManager) {
         this.coreManager = coreManager;
+    }
+
+    /**
+     * @param maxConcat the maxConcat to set
+     */
+    public void setMaxConcat(int maxConcat) {
+        this.maxConcat = maxConcat;
+    }
+
+    /**
+     * @param charsPerSMS the charsPerSMS to set
+     */
+    public void setCharsPerSMS(int charsPerSMS) {
+        this.charsPerSMS = charsPerSMS;
+    }
+
+    /**
+     * @param concatAllowance the concatAllowance to set
+     */
+    public void setConcatAllowance(int concatAllowance) {
+        this.concatAllowance = concatAllowance;
     }
     
 }

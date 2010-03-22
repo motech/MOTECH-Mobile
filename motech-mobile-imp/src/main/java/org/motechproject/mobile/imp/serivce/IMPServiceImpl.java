@@ -20,12 +20,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.hibernate.Transaction;
 import org.jdom.JDOMException;
+import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
@@ -34,9 +34,6 @@ import org.jdom.JDOMException;
 public class IMPServiceImpl implements IMPService {
 
     private int duplicatePeriod;
-    private String demoMsgType;
-    private String demoProvider;
-    private String demoSender;
     private IMPManager impManager;
     private OMIManager omiManager;
     private CoreManager coreManager;
@@ -44,16 +41,21 @@ public class IMPServiceImpl implements IMPService {
     private Map<String, CommandAction> cmdActionMap;
     private IncomingMessageXMLParser xmlParser;
     private String formProcessSuccess;
-    private String senderExpression;
+    private String senderFieldName;
+    private String queryExpression;
+    private int maxConcat;
+    private int charsPerSMS;
+    private int concatAllowance;
+    private int maxSMS;
 
     /**
      *
      * @see IMPService.processRequest
      */
-    public synchronized String processRequest(String message, String requesterPhone, boolean isDemo) {
-        String demoResp = "{" + demoMsgType + "}{" + demoProvider + "}{" + demoSender + "}{" + requesterPhone + "}";
+    public synchronized IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo) {
         MotechContext context = coreManager.createMotechContext();
         IncomingMessageDAO msgDao = coreManager.createIncomingMessageDAO(context);
+        IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MINUTE, 0 - duplicatePeriod);
@@ -63,7 +65,8 @@ public class IMPServiceImpl implements IMPService {
         if (inMsg != null && inMsg.getContent().equalsIgnoreCase(message)) {
             if (inMsg.getIncomingMessageForm() != null) {
                 if (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.DISALLOWED || (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.TIME_BOUND && inMsg.getDateCreated().after(beforeDate))) {
-                    return "Error:\nThis form has already been processed!";
+                    response.setContent("Error:\nThis form has already been processed!");
+                    return response;
                 }
             }
         }
@@ -75,42 +78,33 @@ public class IMPServiceImpl implements IMPService {
         msgDao.save(inMsg);
         tx.commit();
 
-        IncomingMessageResponse response = impManager.createCommandAction().execute(inMsg, requesterPhone, context);
+        response = impManager.createCommandAction().execute(inMsg, requesterPhone, context);
 
-        if (isDemo) {
-            return demoResp + "{" + response.getContent() + "}";
+        Pattern p = Pattern.compile(queryExpression);
+        Matcher m = p.matcher(message.toLowerCase().trim());
+
+        if (m.find()) {
+            if (response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName)) {
+                IncomingMessageFormParameter senderParam = response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName);
+                requesterPhone = senderParam.getValue();
+            }
+            sendResponse(response.getContent(), requesterPhone);
         }
 
-        return response.getContent();
-    }
-
-    /**
-     *
-     * @see IMPService.processMultiRequests
-     */
-    public List<FormRequest> processMultiRequests(List<FormRequest> requests, boolean isDemo) {
-        for (FormRequest fReq : requests) {
-            fReq.setResponse(processRequest(fReq.getMessage(), fReq.getSenderNumber(), isDemo));
-        }
-        return requests;
+        return response;
     }
 
     public String processRequest(String message) {
-        String result = null;
-        String phoneData = "";
+        IncomingMessageResponse result = null;
 
-        Pattern p = Pattern.compile(senderExpression);
-        Matcher m = p.matcher(message);
-        if (m.find()) {
-            phoneData = m.group();
+        //TODO We must also separate the processing of java forms - Logically
+        result = processRequest(message, null, false);
 
-            String phoneNumber = (phoneData.indexOf("=") > 0) ? phoneData.split("=")[1] : "";
-
-            result = processRequest(message, phoneNumber, false);
+        if (result.getContent().toLowerCase().indexOf("error") < 0) {
+            return formProcessSuccess;
         } else {
-            result = "Error: No response phone number found";
+            return result.getContent();
         }
-        return result.toLowerCase().indexOf("error") < 0 ? formProcessSuccess : result;
     }
 
     /**
@@ -169,6 +163,26 @@ public class IMPServiceImpl implements IMPService {
         }
 
         return result;
+    }
+
+    /**
+     * Sends a response for a mobile query message
+     * 
+     * @param response the response message
+     * @param recipient the phone number to send the response to
+     */
+    private void sendResponse(String response, String recipient) {
+        if (response.length() <= charsPerSMS) {
+            omiManager.createOMIService().sendMessage(response, recipient);
+        } else {
+            for (byte smsNum = 1; smsNum <= maxSMS; smsNum++) {
+                int start = (smsNum - 1) * (charsPerSMS - concatAllowance) * maxConcat;
+                int end = (smsNum * (charsPerSMS - concatAllowance) * maxConcat) - 1;
+
+                String message = response.length() < end ? response.substring(start) : response.substring(start, end);
+                omiManager.createOMIService().sendMessage(message, recipient);
+            }
+        }
     }
 
     /**
@@ -235,27 +249,6 @@ public class IMPServiceImpl implements IMPService {
     }
 
     /**
-     * @param demoMsgType the demoMsgType to set
-     */
-    public void setDemoMsgType(String demoMsgType) {
-        this.demoMsgType = demoMsgType;
-    }
-
-    /**
-     * @param demoProvider the demoProvider to set
-     */
-    public void setDemoProvider(String demoProvider) {
-        this.demoProvider = demoProvider;
-    }
-
-    /**
-     * @param demoSender the demoSender to set
-     */
-    public void setDemoSender(String demoSender) {
-        this.demoSender = demoSender;
-    }
-
-    /**
      * @return the xmlParser
      */
     public IncomingMessageXMLParser getXmlParser() {
@@ -284,9 +277,58 @@ public class IMPServiceImpl implements IMPService {
     }
 
     /**
-     * @param senderExpression the senderExpression to set
+     * @return the senderFieldName
      */
-    public void setSenderExpression(String senderExpression) {
-        this.senderExpression = senderExpression;
+    public String getSenderFieldName() {
+        return senderFieldName;
+    }
+
+    /**
+     * @param senderFieldName the senderFieldName to set
+     */
+    public void setSenderFieldName(String senderFieldName) {
+        this.senderFieldName = senderFieldName;
+    }
+
+    /**
+     * @param queryExpression the queryExpression to set
+     */
+    public void setQueryExpression(String queryExpression) {
+        this.queryExpression = queryExpression;
+    }
+
+    /**
+     * @param omiManager the omiManager to set
+     */
+    public void setOmiManager(OMIManager omiManager) {
+        this.omiManager = omiManager;
+    }
+
+    /**
+     * @param maxConcat the maxConcat to set
+     */
+    public void setMaxConcat(int maxConcat) {
+        this.maxConcat = maxConcat;
+    }
+
+    /**
+     * @param charsPerSMS the charsPerSMS to set
+     */
+    public void setCharsPerSMS(int charsPerSMS) {
+        this.charsPerSMS = charsPerSMS;
+    }
+
+    /**
+     * @param concatAllowance the concatAllowance to set
+     */
+    public void setConcatAllowance(int concatAllowance) {
+        this.concatAllowance = concatAllowance;
+    }
+
+    /**
+     * @param maxSMS the maxSMS to set
+     */
+    public void setMaxSMS(int maxSMS) {
+        this.maxSMS = maxSMS;
     }
 }

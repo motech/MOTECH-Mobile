@@ -243,6 +243,7 @@ public class OMIServiceImpl implements OMIService {
         msgReqDao.save(message);
         tx.commit();
 
+        //TODO Check length of message and break if necessary
         logger.info("Constructing GatewayRequest...");
         GatewayRequest gwReq = storeManager.constructMessage(message, context, null);
         gwReq.setMessage(content);

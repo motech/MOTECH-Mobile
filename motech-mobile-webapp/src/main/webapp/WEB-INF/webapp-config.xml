@@ -76,6 +76,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <bean id="iMRWorkerBean" class="org.motechproject.mobile.web.IncomingMessageRequestWorkerImpl">
         <property name="impManager" ref="impManager"/>
         <property name="webSettings" ref="webSettingsBean"/>
+        <property name="coreManager" ref="coreManager" />
     </bean>
 
     <bean id="webSettingsBean" class="org.motechproject.mobile.web.MotechWebSettingsImpl">

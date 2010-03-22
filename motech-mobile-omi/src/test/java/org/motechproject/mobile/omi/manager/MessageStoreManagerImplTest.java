@@ -51,8 +51,12 @@ public class MessageStoreManagerImplTest {
         mockLang.setId(1L);
         mockLang.setCode("testing");
         mockTemplateDao = createMock(MessageTemplateDAO.class);
+
         instance = new MessageStoreManagerImpl();
         instance.setCoreManager(mockCore);
+        instance.setCharsPerSMS(160);
+        instance.setConcatAllowance(7);
+        instance.setMaxConcat(3);
         
         mCtx = new MotechContextImpl();
         

@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.mobile.core.model.IncomingMessageResponse;
 import org.motechproject.ws.ContactNumberType;
 import org.motechproject.ws.MediaType;
 import org.motechproject.ws.MessageStatus;
@@ -243,16 +244,16 @@ public class MessageServiceImplITCase {
     public void testProcessRequest(){
         System.out.println("processRequest");
 
-        String request = "Type=GeneralOPD\nCHPSID=123ABC\nDate=02-03-2010\nSerialNo=ANC123\nSex=f\nDoB=28/05/1981\nInsured=y\nNewCase=n\nDiagnosis=35\nSecondaryDiagnosis=14\nReferral=yup";
+        String request = "Type=GeneralOPD\nCHPSID=123ABC\nDate=02-03-2010\nSerialNo=ANC123\nSex=f\nDoB=28/05/1981\nInsured=y\nNewCase=n\nDiagnosis=35\nSecondaryDiagnosis=14\nReferral=yup\ntime=" + new Date().getTime();
         String number = "555555555";
 
         String expResult = "Errors:\nReferral=wrong format";
-        String result = impService.processRequest(request, number, false);
-        assertEquals(result,expResult);
+        IncomingMessageResponse result = impService.processRequest(request, number, false);
+        assertEquals(result.getContent(),expResult);
 
-        request = "Type=GeneralOPD\nCHPSID=123ABC\nDate=02-03-2010\nSerialNo=ANC123\nSex=f\nDoB=28/05/1981\nInsured=y\nNewCase=n\nDiagnosis=35\nSecondaryDiagnosis=14\nReferral=y";
+        request = "Type=GeneralOPD\nCHPSID=123ABC\nDate=02-03-2010\nSerialNo=ANC123\nSex=f\nDoB=28/05/1981\nInsured=y\nNewCase=n\nDiagnosis=35\nSecondaryDiagnosis=14\nReferral=y\ntime=" + new Date().getTime();
         expResult = "An unexpected error occurred! Please try again.";
         result = impService.processRequest(request, number, false);
-        assertEquals(result,expResult);
+        assertEquals(result.getContent(),expResult);
     }
 }

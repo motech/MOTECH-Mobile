@@ -8,6 +8,8 @@ package org.motechproject.mobile.web;
 import org.motechproject.mobile.imp.manager.IMPManager;
 import org.motechproject.mobile.imp.serivce.IMPService;
 import java.util.Map;
+import org.motechproject.mobile.core.manager.CoreManager;
+import org.motechproject.mobile.core.model.IncomingMessageResponse;
 
 /**
  *
@@ -16,10 +18,12 @@ import java.util.Map;
  */
 public class IncomingMessageRequestWorkerImpl implements IncomingMessageRequestWorker{
     private IMPManager impManager;
+    private CoreManager coreManager;
     private MotechWebSettings webSettings;
 
     public synchronized String doRequest(Map<String, String[]> params) {
-        String result = "No Response";
+        IncomingMessageResponse response = getCoreManager().createIncomingMessageResponse();
+        response.setContent("No response");
 
         if(params != null){
             if(params.containsKey(webSettings.getIncomingMessageFromParam())
@@ -32,13 +36,13 @@ public class IncomingMessageRequestWorkerImpl implements IncomingMessageRequestW
                 String[] text = params.get(webSettings.getIncomingMessageTextParam());
                 
                 //TODO Check the array length so it doesn't break disgracefully
-                result = impService.processRequest(text[0], number[0], false);
+                response = impService.processRequest(text[0], number[0], false);
             }else{
-                result = webSettings.getUnknownIMRMessage();
+                response.setContent(webSettings.getUnknownIMRMessage());
             }
         }
 
-        return result;
+        return response.getContent();
     }
 
     /**
@@ -67,6 +71,20 @@ public class IncomingMessageRequestWorkerImpl implements IncomingMessageRequestW
      */
     public void setWebSettings(MotechWebSettings webSettings) {
         this.webSettings = webSettings;
+    }
+
+    /**
+     * @return the coreManager
+     */
+    public CoreManager getCoreManager() {
+        return coreManager;
+    }
+
+    /**
+     * @param coreManager the coreManager to set
+     */
+    public void setCoreManager(CoreManager coreManager) {
+        this.coreManager = coreManager;
     }
 
 }

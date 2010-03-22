@@ -19,12 +19,10 @@ import org.motechproject.mobile.core.model.IncomingMessageResponseImpl;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.core.service.MotechContextImpl;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.mobile.core.model.IncomingMessageResponse;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
@@ -62,6 +60,7 @@ public class IMPServiceImplTest {
         instance.setParser(mockParser);
         instance.setCoreManager(mockCore);
         instance.setImpManager(mockImp);
+        instance.setQueryExpression("query\\s*=\\s*\\w+");
     }
 
     /**
@@ -83,6 +82,9 @@ public class IMPServiceImplTest {
         expect(
                 mockCore.createIncomingMessageDAO((MotechContext)anyObject())
                 ).andReturn(mockMsgDao);
+        expect(
+                mockCore.createIncomingMessageResponse()
+                ).andReturn(new IncomingMessageResponseImpl());
         expect(
                 mockMsgDao.getByContentNonDuplicatable((String)anyObject())
                 ).andReturn(null);
@@ -114,10 +116,10 @@ public class IMPServiceImplTest {
                 ).andReturn(response);
 
         replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
-        String result = instance.processRequest(message, requesterPhone, false);
+        IncomingMessageResponse result = instance.processRequest(message, requesterPhone, false);
         verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
 
-        assertEquals(expResult, result);
+        assertEquals(expResult, result.getContent());
 
         //Test duplicate message detection
         reset(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
@@ -137,6 +139,9 @@ public class IMPServiceImplTest {
                 mockCore.createIncomingMessageDAO((MotechContext)anyObject())
                 ).andReturn(mockMsgDao);
         expect(
+                mockCore.createIncomingMessageResponse()
+                ).andReturn(new IncomingMessageResponseImpl());
+        expect(
                 mockMsgDao.getByContentNonDuplicatable((String)anyObject())
                 ).andReturn(inMsg);
 
@@ -144,68 +149,6 @@ public class IMPServiceImplTest {
         result = instance.processRequest(message, requesterPhone, false);
         verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
 
-        assertEquals(duplicateResp, result);
-    }
-
-    /**
-     * Test of processMultiRequests method, of class IMPServiceImpl.
-     */
-    @Test
-    public void testProcessMultiRequests() {
-        System.out.println("processMultiRequests");
-        List<FormRequest> requests = new ArrayList<FormRequest>();
-        requests.add(new FormRequest("Test message 1","first","","001"));
-        requests.add(new FormRequest("Test message 2","second","","002"));
-        requests.add(new FormRequest("Test message 3","third","","003"));
-
-        String content = "Test response";
-        IncomingMessageResponseImpl response = new IncomingMessageResponseImpl();
-        response.setContent(content);
-
-        expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl()).times(requests.size());
-        expect(
-                mockCore.createIncomingMessageDAO((MotechContext)anyObject())
-                ).andReturn(mockMsgDao).times(requests.size());
-        expect(
-                mockMsgDao.getByContentNonDuplicatable((String)anyObject())
-                ).andReturn(null).times(requests.size());
-        expect(
-                mockParser.parseRequest((String) anyObject())
-                ).andReturn(new IncomingMessageImpl()).times(requests.size());
-
-        expect(
-                mockMsgDao.getDBSession()
-                ).andReturn(mockSession).times(requests.size());
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans).times(requests.size());
-
-        mockTrans.begin();
-        expectLastCall().times(requests.size());
-
-        expect(
-                mockMsgDao.save((IncomingMessage) anyObject())
-                ).andReturn(null).times(requests.size());
-
-        mockTrans.commit();
-        expectLastCall().times(requests.size());
-        expect(
-                mockImp.createCommandAction()
-                ).andReturn(mockCmdAxn).times(requests.size());
-        expect(
-                mockCmdAxn.execute((IncomingMessage) anyObject(), (String) anyObject(), (MotechContext)anyObject())
-                ).andReturn(response).times(requests.size());
-
-        replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
-        List<FormRequest> result = instance.processMultiRequests(requests, false);
-        verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
-
-        assertNotNull(result);
-        assertEquals(result.size(), 3);
-        assertEquals(result.get(0).getResponse(), content);
-        assertEquals(result.get(1).getResponse(), content);
-        assertEquals(result.get(2).getResponse(), content);
+        assertEquals(duplicateResp, result.getContent());
     }
 }

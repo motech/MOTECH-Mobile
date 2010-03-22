@@ -33,6 +33,9 @@
     </bean>
 
     <bean name="storeManager" class="org.motechproject.mobile.omi.manager.MessageStoreManagerImpl">
+        <property name="concatAllowance" value="${omi.settings.concatAllowance}" />
+        <property name="charsPerSMS" value="${omi.settings.charsPerSMS}" />
+        <property name="maxConcat" value="${omi.settings.maxConcat}" />
     </bean>
 
     <bean name="messageFormatter" class="org.motechproject.mobile.omi.manager.SMSMessageFormatterImpl">
