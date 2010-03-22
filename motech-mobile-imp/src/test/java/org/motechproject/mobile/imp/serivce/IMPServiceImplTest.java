@@ -61,6 +61,7 @@ public class IMPServiceImplTest {
         instance.setCoreManager(mockCore);
         instance.setImpManager(mockImp);
         instance.setQueryExpression("query\\s*=\\s*\\w+");
+        instance.setCharsPerSMS(160);
     }
 
     /**
