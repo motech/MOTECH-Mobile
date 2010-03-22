@@ -37,6 +37,7 @@
     <bean id="impService" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="impManager" ref="impManager" />
+        <property name="omiManager" ref="omiManager" />
         <property name="parser" ref="imParser" />
         <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
         <property name="formProcessSuccess" value="${imp.form.successResponse}" />
