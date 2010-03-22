@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
 import org.jdom.JDOMException;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
@@ -33,6 +34,7 @@ import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
  */
 public class IMPServiceImpl implements IMPService {
 
+    private static Logger logger = Logger.getLogger(IMPServiceImpl.class);
     private int duplicatePeriod;
     private IMPManager impManager;
     private OMIManager omiManager;
@@ -80,17 +82,28 @@ public class IMPServiceImpl implements IMPService {
 
         response = impManager.createCommandAction().execute(inMsg, requesterPhone, context);
 
-        Pattern p = Pattern.compile(queryExpression);
-        Matcher m = p.matcher(message.toLowerCase().trim());
+        try {
+            Pattern p = Pattern.compile(queryExpression);
+            Matcher m = p.matcher(message.toLowerCase().trim());
 
-        if (m.find()) {
-            if (response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName)) {
-                IncomingMessageFormParameter senderParam = response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName);
-                requesterPhone = senderParam.getValue();
+            if (m.find()) {
+                if(requesterPhone != null && !requesterPhone.isEmpty())
+                    sendResponse(response.getContent(), requesterPhone);
+                else if (response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName)) {
+                    IncomingMessageFormParameter senderParam = response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName);
+                    requesterPhone = senderParam.getValue();
+                    sendResponse(response.getContent(), requesterPhone);
+                }
             }
-            sendResponse(response.getContent(), requesterPhone);
+        } catch (Exception ex) {
+            logger.error("Error processing request", ex);
         }
-
+        
+        if(response.getContent().length() > charsPerSMS){
+            int end = charsPerSMS - 1;
+            String msg = response.getContent().substring(0, end);
+            response.setContent(msg);
+        }
         return response;
     }
 
