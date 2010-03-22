@@ -6,7 +6,6 @@
 package org.motechproject.mobile.omi.manager;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -74,20 +73,24 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for(Patient p : patients){
-            edd = (p.getEstimateDueDate() == null) ? "" : dFormat.format(p.getEstimateDueDate());
+            if(type.toLowerCase().trim().equals("recent"))
+                edd = (p.getDeliveryDate() == null) ? "" : dFormat.format(p.getDeliveryDate());
+            else
+                edd = (p.getEstimateDueDate() == null) ? "" : dFormat.format(p.getEstimateDueDate());
+            
             data.add(new NameValuePair("EDD"+num, edd));
             data.add(new NameValuePair("PreferredName"+num, p.getPreferredName()));
             data.add(new NameValuePair("LastName"+num, p.getLastName()));
             data.add(new NameValuePair("MoTeCHID"+num, p.getMotechId()));
             data.add(new NameValuePair("Community"+num, p.getCommunity()));
 
-            template += "\n<EDD"
+            template += "\n<<EDD"
                     + num
-                    + ">:<PreferredName"
+                    + ">>: <PreferredName"
                     + num
                     + "> <LastName"
                     + num
-                    + ">-<MoTeCHID"
+                    + "> - <MoTeCHID"
                     + num
                     + "> (<Community"
                     + num
@@ -203,7 +206,12 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         data.add(new NameValuePair("PhoneNumber", patient.getPhoneNumber()));
         data.add(new NameValuePair("EDD", edd));
 
-        template += "MoTeCH ID<MoTeCHID>\nFirstName=<FirstName>\nLastName=<LastName>\nPreferredName=<PreferredName>\nSex=<Sex>\nDoB=<DoB>\nAge=<Age>\nCommunity=<Community>\nPhoneNumber=<PhoneNumber>\nEDD=<EDD>";
+        template += "MoTeCH ID=<MoTeCHID>\nFirstName=<FirstName>\nLastName=<LastName>\nPreferredName=<PreferredName>";
+        template += sex.isEmpty() ? sex : "\nSex=<Sex>";
+        template += dob.isEmpty() ? dob : "\nDoB=<DoB>";
+        template += age.isEmpty() ? age : "\nAge=<Age>";
+        template += "\nCommunity=<Community>\nPhoneNumber=<PhoneNumber>";
+        template += edd.isEmpty() ? edd : "\nDelivery Date=<EDD>";
 
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);
         return message;
