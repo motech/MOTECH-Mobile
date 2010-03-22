@@ -7,6 +7,7 @@ package org.motechproject.mobile.imp.serivce.oxd;
 
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -24,18 +25,21 @@ public interface FormDefinitionService {
     public Map<Integer, String> getXForms() throws Exception;
 
     /**
-     * @return the exportStream
+     * <p>Sets the resource names for the Exported OXD Form definitions</p>
+     *
+     * @param oxdFormDefResource the oxdFormDefResourceName to set
      */
-    public InputStream getExportStream();
+    void addOxdFormDefResources(String oxdFormDefResource);
 
     /**
-     * @return the xFormsResourcename
+     * @return the oxdFormDefResources
      */
-    public String getOxdFormDefResourceName();
+    Set<String> getOxdFormDefResources();
 
     /**
-     * @param xFormsResourcename the xFormsResourcename to set
+     * <p>Sets the resource names for the Exported OXD Form definitions</p>
+     *
+     * @param oxdFormDefResources the oxdFormDefResourceNames to set
      */
-    public void setOxdFormDefResourceName(String oxdFormDefResourceName);
-
+    void setOxdFormDefResources(Set<String> oxdFormDefResources);
 }

@@ -83,7 +83,7 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
         Element formTypeElement = getXmlUtil().getElement(doc, formTypeTagName);
         String formType = formTypeElement == null ? null : formTypeElement.getText();
 
-        if (formType == null || formType.trim().equals("")) {
+        if (formType == null || "".equals(formType.trim())) {
             String error = "Empty or No form type defined in xml with root element: " + root.getName() + " and id: " + root.getAttributeValue("id");
             log.error(error);
             throw new MotechParseException(error);

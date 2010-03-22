@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<study description="MoTeCH query forms" name="MoTeCH Query">
+<form description="" name="General Query">
+<version description="" name="v1">
+<xform>&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xf:model&gt;
+    &lt;xf:instance id="gen-query"&gt;
+      &lt;gen-query name="General Query-v1" id="29"&gt;
+        &lt;chpsid/&gt;
+        &lt;facilityid/&gt;
+        &lt;formname/&gt;
+        &lt;sender/&gt;
+        &lt;formtype&gt;query&lt;/formtype&gt;
+      &lt;/gen-query&gt;
+    &lt;/xf:instance&gt;
+    &lt;xf:bind id="chpsid" nodeset="/gen-query/chpsid" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="facilityid" nodeset="/gen-query/facilityid" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="formname" nodeset="/gen-query/formname" type="xsd:string" required="true()"/&gt;
+    &lt;xf:bind id="sender" nodeset="/gen-query/sender" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="formtype" nodeset="/gen-query/formtype" type="xsd:string" required="true()" visible="false()"/&gt;
+  &lt;/xf:model&gt;
+  &lt;xf:group id="1"&gt;
+    &lt;xf:label&gt;Page1&lt;/xf:label&gt;
+    &lt;xf:input bind="chpsid"&gt;
+      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="facilityid"&gt;
+      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:select1 bind="formname"&gt;
+      &lt;xf:label&gt;Query type&lt;/xf:label&gt;
+      &lt;xf:item id="ancdefault"&gt;
+        &lt;xf:label&gt;ANC  defaulters&lt;/xf:label&gt;
+        &lt;xf:value&gt;ancdefault&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="ttdefault"&gt;
+        &lt;xf:label&gt;TT defaulters&lt;/xf:label&gt;
+        &lt;xf:value&gt;ttdefault&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="ppcdefault"&gt;
+        &lt;xf:label&gt;PPC defaulters&lt;/xf:label&gt;
+        &lt;xf:value&gt;ppcdefault&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="pncdefault"&gt;
+        &lt;xf:label&gt;PNC defaulters&lt;/xf:label&gt;
+        &lt;xf:value&gt;pncdefault&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="cwcdefault"&gt;
+        &lt;xf:label&gt;CWC  defaulters&lt;/xf:label&gt;
+        &lt;xf:value&gt;cwcdefault&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="upcomingdeliveries"&gt;
+        &lt;xf:label&gt;Upcoming deliveries&lt;/xf:label&gt;
+        &lt;xf:value&gt;upcomingdeliveries&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="recentdeliveries"&gt;
+        &lt;xf:label&gt;Recent deliveries&lt;/xf:label&gt;
+        &lt;xf:value&gt;recentdeliveries&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="overduedeliveries"&gt;
+        &lt;xf:label&gt;Past EDD/no delivery&lt;/xf:label&gt;
+        &lt;xf:value&gt;overduedeliveries&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+    &lt;/xf:select1&gt;
+    &lt;xf:input bind="sender"&gt;
+      &lt;xf:label&gt;Response phone number&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="formtype"&gt;
+      &lt;xf:label&gt;formType&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+  &lt;/xf:group&gt;
+&lt;/xf:xforms&gt;
+</xform>
+<layout/>
+<versionText locale="en">
+<xform>&lt;xform id="29"&gt;&#13;
+    &lt;text xpath="xforms/model/instance/gen-query[@name]" value="General Query-v1"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='chpsid']/label" value="Staff ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityid']/label" value="Facility ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/label" value="Query type"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='ancdefault']/label" value="ANC  defaulters"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='ttdefault']/label" value="TT defaulters"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='ppcdefault']/label" value="PPC defaulters"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='pncdefault']/label" value="PNC defaulters"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='cwcdefault']/label" value="CWC  defaulters"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='upcomingdeliveries']/label" value="Upcoming deliveries"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='recentdeliveries']/label" value="Recent deliveries"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='overduedeliveries']/label" value="Past EDD/no delivery"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='sender']/label" value="Response phone number"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;&#13;
+  &lt;/xform&gt;</xform>
+<layout>&lt;Form id="29"&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
+  &lt;/Form&gt;</layout>
+</versionText>
+</version>
+</form>
+<form description="" name="Patient Query">
+<version description="" name="v1">
+<xform>&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xf:model&gt;
+    &lt;xf:instance id="pat-query"&gt;
+      &lt;pat-query name="Patient Query-v1" id="30"&gt;
+        &lt;chpsid/&gt;
+        &lt;facilityid/&gt;
+        &lt;formname/&gt;
+        &lt;motechid/&gt;
+        &lt;firstname/&gt;
+        &lt;lastname/&gt;
+        &lt;PreferredName/&gt;
+        &lt;dob/&gt;
+        &lt;nhis_number/&gt;
+        &lt;phonenumber/&gt;
+        &lt;sender/&gt;
+        &lt;formtype&gt;query&lt;/formtype&gt;
+      &lt;/pat-query&gt;
+    &lt;/xf:instance&gt;
+    &lt;xf:bind id="chpsid" nodeset="/pat-query/chpsid" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="facilityid" nodeset="/pat-query/facilityid" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="formname" nodeset="/pat-query/formname" type="xsd:string" required="true()"/&gt;
+    &lt;xf:bind id="motechid" nodeset="/pat-query/motechid" type="xsd:string" relevant="/pat-query/formname = 'upcomingcare' or /pat-query/formname = 'viewpatient'" action="show" visible="false()" required="true()"/&gt;
+    &lt;xf:bind id="firstname" nodeset="/pat-query/firstname" type="xsd:string" relevant="/pat-query/formname = 'findmotechid'" action="show" visible="false()" required="true()"/&gt;
+    &lt;xf:bind id="lastname" nodeset="/pat-query/lastname" type="xsd:string" relevant="/pat-query/formname = 'findmotechid'" action="show" visible="false()" required="true()"/&gt;
+    &lt;xf:bind id="PreferredName" nodeset="/pat-query/PreferredName" type="xsd:string" relevant="/pat-query/formname = 'findmotechid'" action="show" visible="false()" required="true()"/&gt;
+    &lt;xf:bind id="dob" nodeset="/pat-query/dob" type="xsd:string" relevant="/pat-query/formname = 'findmotechid'" action="show" visible="false()" required="true()"/&gt;
+    &lt;xf:bind id="nhis_number" nodeset="/pat-query/nhis_number" type="xsd:string" relevant="/pat-query/formname = 'findmotechid'" action="show" visible="false()" required="true()"/&gt;
+    &lt;xf:bind id="phonenumber" nodeset="/pat-query/phonenumber" type="xsd:int" relevant="/pat-query/formname = 'findmotechid'" action="show" visible="false()" required="true()"/&gt;
+    &lt;xf:bind id="sender" nodeset="/pat-query/sender" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="formtype" nodeset="/pat-query/formtype" type="xsd:string" required="true()" visible="false()"/&gt;
+  &lt;/xf:model&gt;
+  &lt;xf:group id="1"&gt;
+    &lt;xf:label&gt;Page2&lt;/xf:label&gt;
+    &lt;xf:input bind="chpsid"&gt;
+      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="facilityid"&gt;
+      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:select1 bind="formname"&gt;
+      &lt;xf:label&gt;Query type&lt;/xf:label&gt;
+      &lt;xf:item id="upcomingcare"&gt;
+        &lt;xf:label&gt;Upcoming care&lt;/xf:label&gt;
+        &lt;xf:value&gt;upcomingcare&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="viewpatient"&gt;
+        &lt;xf:label&gt;Patient details&lt;/xf:label&gt;
+        &lt;xf:value&gt;viewpatient&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="findmotechid"&gt;
+        &lt;xf:label&gt;Find patient ID&lt;/xf:label&gt;
+        &lt;xf:value&gt;findmotechid&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+    &lt;/xf:select1&gt;
+    &lt;xf:input bind="motechid"&gt;
+      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="firstname"&gt;
+      &lt;xf:label&gt;First name&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="lastname"&gt;
+      &lt;xf:label&gt;Last name&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="PreferredName"&gt;
+      &lt;xf:label&gt;Preferred name&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="dob"&gt;
+      &lt;xf:label&gt;Birth date&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="nhis_number"&gt;
+      &lt;xf:label&gt;NHIS number&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="phonenumber"&gt;
+      &lt;xf:label&gt;Patient phone number&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="sender"&gt;
+      &lt;xf:label&gt;Response phone number&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="formtype"&gt;
+      &lt;xf:label&gt;formType&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+  &lt;/xf:group&gt;
+&lt;/xf:xforms&gt;
+</xform>
+<layout>&lt;Form id="30"&gt;
+  &lt;Page Text="Page2" Binding="Page2" Width="100%" Height="550px" backgroundColor=""&gt;
+    &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="chpsid" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="chpsid" Left="100px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Facility ID" HelpText="Facility ID" Binding="facilityid" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Facility ID" Binding="facilityid" Left="130px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Query type" HelpText="Query type" Binding="formname" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="ListBox" HelpText="Query type" Binding="formname" Left="120px" Top="100px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="MoTeCH ID" HelpText="MoTeCH ID" Binding="motechid" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechid" Left="110px" Top="140px" Width="200px" Height="25px" TabIndex="4" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="First name" HelpText="First name" Binding="firstname" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="First name" Binding="firstname" Left="120px" Top="180px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Last name" HelpText="Last name" Binding="lastname" Left="20px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Last name" Binding="lastname" Left="110px" Top="220px" Width="200px" Height="25px" TabIndex="6" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Preferred name" HelpText="Preferred name" Binding="PreferredName" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Preferred name" Binding="PreferredName" Left="160px" Top="260px" Width="200px" Height="25px" TabIndex="7" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Birth date" HelpText="Birth date" Binding="dob" Left="20px" Top="300px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Birth date" Binding="dob" Left="120px" Top="300px" Width="200px" Height="25px" TabIndex="8" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="NHIS number" HelpText="NHIS number" Binding="nhis_number" Left="20px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="NHIS number" Binding="nhis_number" Left="130px" Top="340px" Width="200px" Height="25px" TabIndex="9" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Patient phone number" HelpText="Patient phone number" Binding="phonenumber" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Patient phone number" Binding="phonenumber" Left="220px" Top="380px" Width="200px" Height="25px" TabIndex="10" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Response phone number" HelpText="Response phone number" Binding="sender" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Response phone number" Binding="sender" Left="230px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="20px" Top="460px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="100px" Top="460px" Width="200px" Height="25px" TabIndex="12" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="510px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="510px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+  &lt;/Page&gt;
+&lt;/Form&gt;
+</layout>
+<versionText locale="en">
+<xform>&lt;xform id="30"&gt;&#13;
+    &lt;text xpath="xforms/model/instance/pat-query[@name]" value="Patient Query-v1"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/label" value="Page2"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='chpsid']/label" value="Staff ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityid']/label" value="Facility ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/label" value="Query type"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='upcomingcare']/label" value="Upcoming care"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='viewpatient']/label" value="Patient details"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='findmotechid']/label" value="Find patient ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechid']/label" value="MoTeCH ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='firstname']/label" value="First name"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='lastname']/label" value="Last name"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='PreferredName']/label" value="Preferred name"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='dob']/label" value="Birth date"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='nhis_number']/label" value="NHIS number"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='phonenumber']/label" value="Patient phone number"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='sender']/label" value="Response phone number"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;&#13;
+  &lt;/xform&gt;</xform>
+<layout>&lt;Form id="30"&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
+  &lt;/Form&gt;</layout>
+</versionText>
+</version>
+</form>
+</study>

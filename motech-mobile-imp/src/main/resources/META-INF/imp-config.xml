@@ -79,7 +79,12 @@
     <bean id="xmlUtil" class="org.motechproject.mobile.imp.util.XMLUtil" />
 
     <bean id="oxdFormDefService" class="org.motechproject.mobile.imp.serivce.oxd.FormDefinitionServiceImpl">
-        <property name="oxdFormDefResourceName" value="${imp.oxd.oxdFormDefsResourceName}"/>
+        <property name="oxdFormDefResources">
+            <list>
+                <value>${imp.oxd.oxdFormDefsResource1}</value>
+                <value>${imp.oxd.oxdFormDefsResource2}</value>
+            </list>
+        </property>
     </bean>
     <bean id="studyProcessor" class="org.motechproject.mobile.imp.serivce.oxd.StudyProcessor" scope="prototype"/>
 </beans>
