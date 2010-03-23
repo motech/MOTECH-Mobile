@@ -119,4 +119,19 @@ public interface IncomingMessageXMLParser {
      * @param formNameTagName the formNameTagName to set
      */
     void setFormNameTagName(String formNameTagName);
+
+    /**
+     * @param oxdDateFormat the oxdDateFormat to set
+     */
+    void setOxdDateFormat(String oxdDateFormat);
+
+    /**
+     * @param oxdDateRegex the oxdDateRegex to set
+     */
+    void setOxdDateRegex(String oxdDateRegex);
+
+    /**
+     * @param impDateFormat the impDateFormat to set
+     */
+    void setImpDateFormat(String impDateFormat);
 }

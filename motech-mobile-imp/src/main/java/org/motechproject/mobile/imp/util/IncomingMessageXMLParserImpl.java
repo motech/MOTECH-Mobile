@@ -4,6 +4,7 @@
  */
 package org.motechproject.mobile.imp.util;
 
+import java.text.ParseException;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
@@ -11,9 +12,13 @@ import org.motechproject.mobile.imp.util.exception.MotechParseException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -34,6 +39,9 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
     private String delimiter;
     private String formTypeTagName;
     private String formNameTagName;
+    private String oxdDateFormat;
+    private String oxdDateRegex;
+    private String impDateFormat;
     private Map<String, String> formTypeLookup;
     private XMLUtil xmlUtil;
 
@@ -51,7 +59,7 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
 
         if (xmls != null) {
             result = new ArrayList<String>();
-            for(String xml : xmls){
+            for (String xml : xmls) {
                 log.debug("parseXML(" + xml + ")");
                 String message = toSMSMessage(xml);
                 log.debug("SMS Message Createed ===> " + message);
@@ -98,8 +106,8 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
         }
 
         Element formNameElement = xmlUtil.getElement(doc, formNameTagName);
-        
-        if(formNameElement == null){
+
+        if (formNameElement == null) {
             throw new MotechParseException("No element (representing the Form Name) found by name " + formNameTagName);
         }
 
@@ -109,7 +117,24 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
         for (Object o : children) {
             Element child = (Element) o;
             if (!(child.getName().equalsIgnoreCase(formTypeTagName) || child.getName().equalsIgnoreCase(formNameTagName))) {
-                result += getDelimiter() + child.getName() + getSeparator() + child.getText();
+                result += getDelimiter() + child.getName() + getSeparator();
+                String text = child.getText();
+
+                Pattern p = Pattern.compile(oxdDateRegex);
+                Matcher m = p.matcher(child.getText());
+
+                if (m.matches()) {
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat(oxdDateFormat);
+                        Date date = sdf.parse(child.getText());
+                        sdf = new SimpleDateFormat(impDateFormat);
+                        text = sdf.format(date);
+                    } catch (ParseException ex) {
+                        log.error("Error changing date format", ex);
+                    }
+                }
+
+                result += text;
             }
         }
 
@@ -233,5 +258,26 @@ public class IncomingMessageXMLParserImpl implements IncomingMessageXMLParser {
      */
     public void setFormNameTagName(String formNameTagName) {
         this.formNameTagName = formNameTagName;
+    }
+
+    /**
+     * @param oxdDateFormat the oxdDateFormat to set
+     */
+    public void setOxdDateFormat(String oxdDateFormat) {
+        this.oxdDateFormat = oxdDateFormat;
+    }
+
+    /**
+     * @param oxdDateRegex the oxdDateRegex to set
+     */
+    public void setOxdDateRegex(String oxdDateRegex) {
+        this.oxdDateRegex = oxdDateRegex;
+    }
+
+    /**
+     * @param impDateFormat the impDateFormat to set
+     */
+    public void setImpDateFormat(String impDateFormat) {
+        this.impDateFormat = impDateFormat;
     }
 }

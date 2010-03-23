@@ -54,6 +54,9 @@
         <property name="delimiter" value="${imp.xform.param.delimiter}" />
         <property name="formTypeTagName" value="${imp.xmlparser.formTypeTagName}" />
         <property name="formNameTagName" value="${imp.xmlparser.formNameTagName}" />
+        <property name="oxdDateFormat" value="${imp.oxd.dateFormat}" />
+        <property name="oxdDateRegex" value="${imp.oxd.dateExpression}" />
+        <property name="impDateFormat" value="${imp.validator.dateFormat}" />
         <property name="xmlUtil" ref="xmlUtil" />
         <property name="formTypeLookup" >
             <map>

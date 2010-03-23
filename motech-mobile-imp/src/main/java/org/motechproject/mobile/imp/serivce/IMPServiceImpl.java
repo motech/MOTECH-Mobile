@@ -98,12 +98,6 @@ public class IMPServiceImpl implements IMPService {
         } catch (Exception ex) {
             logger.error("Error processing request", ex);
         }
-        
-        if(response.getContent().length() > charsPerSMS){
-            int end = charsPerSMS - 1;
-            String msg = response.getContent().substring(0, end);
-            response.setContent(msg);
-        }
         return response;
     }
 
