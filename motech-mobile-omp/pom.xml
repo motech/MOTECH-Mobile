@@ -48,6 +48,24 @@
                     <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+               </executions>
+               <configuration>
+                    <packageName>org.motechproject.omp.manager.intellivr</packageName>
+                    <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
+                    <schemaDirectory>${basedir}/src/main/resources</schemaDirectory>
+                    <schemaFiles>intellivr.xsd</schemaFiles>
+               </configuration>
+           </plugin>
         </plugins>
     </build>
     <dependencies>
