@@ -253,8 +253,15 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String c2Name = form.getIncomingMsgFormParameters().containsKey("c2name") ? form.getIncomingMsgFormParameters().get("c2name").getValue() : null;
                 Boolean c2OPV = form.getIncomingMsgFormParameters().containsKey("c2opv") ? Boolean.valueOf(form.getIncomingMsgFormParameters().get("c2opv").getValue()) : null;
                 Boolean c2BCG = form.getIncomingMsgFormParameters().containsKey("c2bcg") ? Boolean.valueOf(form.getIncomingMsgFormParameters().get("c2bcg").getValue()) : null;
+                BirthOutcome c3BO = form.getIncomingMsgFormParameters().containsKey("c3birthoutcome") ? BirthOutcome.valueOf(form.getIncomingMsgFormParameters().get("c3birthoutcome").getValue()) : null;
+                String c3MotechId = form.getIncomingMsgFormParameters().containsKey("c3motechid") ? form.getIncomingMsgFormParameters().get("c3motechid").getValue() : null;
+                Gender c3Sex = form.getIncomingMsgFormParameters().containsKey("c3sex") ? Gender.valueOf(form.getIncomingMsgFormParameters().get("c3sex").getValue()) : null;
+                String c3Name = form.getIncomingMsgFormParameters().containsKey("c3name") ? form.getIncomingMsgFormParameters().get("c3name").getValue() : null;
+                Boolean c3OPV = form.getIncomingMsgFormParameters().containsKey("c3opv") ? Boolean.valueOf(form.getIncomingMsgFormParameters().get("c3opv").getValue()) : null;
+                Boolean c3BCG = form.getIncomingMsgFormParameters().containsKey("c3bcg") ? Boolean.valueOf(form.getIncomingMsgFormParameters().get("c3bcg").getValue()) : null;
 
-                regWS.recordPregnancyDelivery(chpsid, delivDate, motechId, mod, ood, location, deliverer, maternalDeath, cause, c1BirthOut, c1Id, c1sex, c1Name, c1opv, c1bcg, c2BO, c2MotechId, c2Sex, c2Name, c2OPV, c2BCG);
+
+                regWS.recordPregnancyDelivery(chpsid, delivDate, motechId, mod, ood, location, deliverer, maternalDeath, cause, c1BirthOut, c1Id, c1sex, c1Name, c1opv, c1bcg, c2BO, c2MotechId, c2Sex, c2Name, c2OPV, c2BCG, c3BO, c3MotechId, c3Sex, c3Name, c3OPV, c3BCG);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);

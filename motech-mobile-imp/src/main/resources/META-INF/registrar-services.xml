@@ -126,6 +126,12 @@
                 <entry key="c2Name" value="java.lang.String" />
                 <entry key="c2OPV" value="java.lang.Boolean" />
                 <entry key="c2BCG" value="java.lang.Boolean" />
+                <entry key="c3BirthOutcome" value="org.motechproject.ws.BirthOutcome" />
+                <entry key="c3MotechId" value="java.lang.String" />
+                <entry key="c3Sex" value="org.motechproject.ws.Gender" />
+                <entry key="c3Name" value="java.lang.String" />
+                <entry key="c3OPV" value="java.lang.Boolean" />
+                <entry key="c3BCG" value="java.lang.Boolean" />
             </map>
         </property>
     </bean>

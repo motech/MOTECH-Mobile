@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.motechproject.mobile.core.util.MotechIDGenerator;
 
 /**
  *
@@ -44,7 +45,7 @@ public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
         response.setGatewayRequest(message);
         response.setMessageStatus(MStatus.DELIVERED);
         response.setRecipientNumber(message.getRecipientsNumber());
-        response.setGatewayMessageId(respParts[1]);
+        response.setGatewayMessageId(MotechIDGenerator.generateID(10).toString());
         response.setRequestId(message.getRequestId());
         response.setResponseText(gatewayResponse);
         response.setDateCreated(new Date());
