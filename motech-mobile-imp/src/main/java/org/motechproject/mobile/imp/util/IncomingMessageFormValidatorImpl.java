@@ -197,8 +197,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Date date = dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue());
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
                 Integer visitNo = Integer.parseInt(form.getIncomingMsgFormParameters().get("visitno").getValue());
-                Integer ttDose = (!form.getIncomingMsgFormParameters().get("ttdose").getValue().isEmpty()) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()) : null;
-                Integer iptDose = (!form.getIncomingMsgFormParameters().get("iptdose").getValue().isEmpty()) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("iptdose").getValue()) : null;
+                Integer ttDose = (!form.getIncomingMsgFormParameters().get("ttdose").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("ttdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()) : null;
+                Integer iptDose = (!form.getIncomingMsgFormParameters().get("iptdose").getValue().isEmpty()  && !form.getIncomingMsgFormParameters().get("iptdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("iptdose").getValue()) : null;
                 Boolean itn = Boolean.valueOf(form.getIncomingMsgFormParameters().get("itn").getValue());
                 HIVStatus hivRes = HIVStatus.valueOf(form.getIncomingMsgFormParameters().get("hivresult").getValue());
 
@@ -240,7 +240,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Integer location = Integer.parseInt(form.getIncomingMsgFormParameters().get("location").getValue());
                 DeliveredBy deliverer = DeliveredBy.valueOf(form.getIncomingMsgFormParameters().get("deliveredby").getValue());
                 Boolean maternalDeath = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("maternaldeath").getValue());
-                Integer cause = form.getIncomingMsgFormParameters().containsKey("cause") ? Integer.parseInt(form.getIncomingMsgFormParameters().get("cause").getValue()) : null;
+                Integer cause = (form.getIncomingMsgFormParameters().containsKey("cause") && !form.getIncomingMsgFormParameters().get("cause").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("cause").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("cause").getValue()) : null;
                 BirthOutcome c1BirthOut = BirthOutcome.valueOf(form.getIncomingMsgFormParameters().get("c1birthoutcome").getValue());
                 String c1Id = form.getIncomingMsgFormParameters().get("c1motechid").getValue();
                 Gender c1sex = Gender.valueOf(form.getIncomingMsgFormParameters().get("c1sex").getValue());
@@ -313,8 +313,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Date date = dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue());
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
                 Boolean bcg = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("bcg").getValue());
-                Integer opv = (!form.getIncomingMsgFormParameters().get("opvdose").getValue().isEmpty()) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("opvdose").getValue()) : null;
-                Integer penta = (!form.getIncomingMsgFormParameters().get("pentadose").getValue().isEmpty()) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("pentadose").getValue()) : null;
+                Integer opv = (!form.getIncomingMsgFormParameters().get("opvdose").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("opvdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("opvdose").getValue()) : null;
+                Integer penta = (!form.getIncomingMsgFormParameters().get("pentadose").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("opvdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("pentadose").getValue()) : null;
                 Boolean yellowFever = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("yellowfever").getValue());
                 Boolean csm = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("csm").getValue());
                 Boolean measles = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("measles").getValue());

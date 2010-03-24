@@ -38,8 +38,6 @@ public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
         if(gatewayResponse.isEmpty())
             return null;
 
-        String[] respParts = gatewayResponse.trim().split(" ");
-
         Set<GatewayResponse> responseList = new HashSet<GatewayResponse>();
         GatewayResponse response = coreManager.createGatewayResponse(context);
         response.setGatewayRequest(message);
