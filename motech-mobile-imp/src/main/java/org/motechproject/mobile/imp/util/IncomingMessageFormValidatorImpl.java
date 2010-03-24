@@ -157,7 +157,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Date birthDate = dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue());
                 Gender gender = Gender.valueOf(form.getIncomingMsgFormParameters().get("sex").getValue());
                 String childFName = form.getIncomingMsgFormParameters().containsKey("firstname") ? form.getIncomingMsgFormParameters().get("firstname").getValue() : null;
-                String nhis = form.getIncomingMsgFormParameters().containsKey("nhis") ? form.getIncomingMsgFormParameters().get("nhis#").getValue() : null;
+                String nhis = form.getIncomingMsgFormParameters().containsKey("nhisno") ? form.getIncomingMsgFormParameters().get("nhisno").getValue() : null;
                 Date nhisExp = form.getIncomingMsgFormParameters().containsKey("nhisexpiration") ? dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexpiration").getValue()) : null;
 
                 regWS.registerChild(chpsId, motherReg, childReg, birthDate, gender, childFName, nhis, nhisExp);
@@ -178,8 +178,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 ContactNumberType priNumType = form.getIncomingMsgFormParameters().containsKey("primaryphonetype") ? ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("primaryphonetype").getValue()) : null;
                 String secPhone = form.getIncomingMsgFormParameters().containsKey("secondaryphone") ? form.getIncomingMsgFormParameters().get("secondaryphone").getValue() : null;
                 ContactNumberType secNumType = form.getIncomingMsgFormParameters().containsKey("secondaryphonetype") ? ContactNumberType.valueOf(form.getIncomingMsgFormParameters().get("secondaryphonetype").getValue()) : null;
-                String nhis = form.getIncomingMsgFormParameters().containsKey("nhis") ? form.getIncomingMsgFormParameters().get("nhis").getValue() : null;
-                Date nhisExp = form.getIncomingMsgFormParameters().containsKey("nhisexp") ? dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexp").getValue()) : null;
+                String nhis = form.getIncomingMsgFormParameters().containsKey("nhisno") ? form.getIncomingMsgFormParameters().get("nhisno").getValue() : null;
+                Date nhisExp = form.getIncomingMsgFormParameters().containsKey("nhisexpiration") ? dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexpiration").getValue()) : null;
 
                 regWS.editPatient(chpsId, patientReg, priPhone, priNumType, secPhone, secNumType, nhis, nhisExp);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
@@ -634,7 +634,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String lastName = form.getIncomingMsgFormParameters().containsKey("lastname") ? form.getIncomingMsgFormParameters().get("lastname").getValue() : null;
                 String preferredName = form.getIncomingMsgFormParameters().containsKey("prefferedname") ? form.getIncomingMsgFormParameters().get("preferredname").getValue() : null;
                 Date dob = form.getIncomingMsgFormParameters().containsKey("dob") ? dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue()) : null;
-                String nhis = form.getIncomingMsgFormParameters().containsKey("nhis") ? form.getIncomingMsgFormParameters().get("nhis").getValue() : null;
+                String nhis = form.getIncomingMsgFormParameters().containsKey("nhisno") ? form.getIncomingMsgFormParameters().get("nhisno").getValue() : null;
                 String phone = form.getIncomingMsgFormParameters().containsKey("phone") ? form.getIncomingMsgFormParameters().get("phone").getValue() : null;
 
                 Patient[] patients = regWS.queryMotechId(chpsId, firstName, lastName, preferredName, dob, nhis, phone);

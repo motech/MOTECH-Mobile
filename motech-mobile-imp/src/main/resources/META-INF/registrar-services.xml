@@ -66,7 +66,7 @@
                 <entry key="dob" value="java.util.Date" />
                 <entry key="sex" value="org.motechproject.ws.Gender" />
                 <entry key="firstName" value="java.lang.String" />
-                <entry key="nhis#" value="java.lang.String" />
+                <entry key="nhisNo" value="java.lang.String" />
                 <entry key="nhisExpiration" value="java.util.Date" />
             </map>
         </property>
@@ -82,8 +82,8 @@
                 <entry key="primaryPhoneType" value="org.motechproject.ws.ContactNumberType" />
                 <entry key="secondaryPhone" value="java.lang.String" />
                 <entry key="secondaryPhoneType" value="org.motechproject.ws.ContactNumberType" />
-                <entry key="nhis#" value="java.lang.String" />
-                <entry key="nhisExp" value="java.util.Date" />
+                <entry key="nhisNo" value="java.lang.String" />
+                <entry key="nhisExpiration" value="java.util.Date" />
             </map>
         </property>
     </bean>
@@ -323,7 +323,7 @@
                 <entry key="lastName" value="java.lang.String" />
                 <entry key="preferredName" value="java.lang.String" />
                 <entry key="dob" value="java.util.Date" />
-                <entry key="nhis" value="java.lang.String" />
+                <entry key="nhisNo" value="java.lang.String" />
                 <entry key="phone" value="java.lang.String" />
             </map>
         </property>
