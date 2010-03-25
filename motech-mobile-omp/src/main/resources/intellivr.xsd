@@ -84,6 +84,23 @@
 	<!--
 
 		Sent from INTELLIVR to MoTeCH to report status of a call
+		
+		<AutoCreate>
+			<Report>
+				<Status>COMPLETED</Status>
+				<Callee>2334921920193</Callee>
+				<Duration>43</Duration>
+				<ConnectTime>2010-10-01T00:00:00.000Z</ConnectTime>
+				<DisconnectTime>2010-10-01T00:00:43.000Z</DisconnectTime>
+				<INTELLIVREntryCount>4</INTELLIVREntryCount>
+				<Private>IDENTIFIER</Private>
+				<INTELLIVREntry menu="message1.wav" entrytime="2010-10-01T00:00:01.000Z" duration="7" keypress="" file=""/>
+				<INTELLIVREntry menu="message2.wav" entrytime="2010-10-01T00:00:08.000Z" duration="8" keypress="" file=""/>
+				<INTELLIVREntry menu="main_menu" entrytime="2010-10-01T00:00:16.000Z" duration="8" keypress="2" file=""/>
+				<INTELLIVREntry menu="pregnancy_info" entrytime="2010-10-01T00:00:24.000Z" duration="10" keypress="1" file=""/>
+				<INTELLIVREntry menu="feedback_section" entrytime="2010-10-01T00:00:34.000Z" duration="10" keypress="" file="http://ivr/file.wav"/>
+			</Report>
+		</AutoCreate>
 
 	-->
 
@@ -122,7 +139,7 @@
 
 	<!-- 
 
-		Sent from MoTeCH to INTELLIVR in reponse to getIVRConfigRequest document
+		Sent from MoTeCH to INTELLIVR in response to getIVRConfigRequest document
 
 		Example:
 		
