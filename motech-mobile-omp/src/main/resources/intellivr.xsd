@@ -18,30 +18,30 @@
 		</getIVRConfigRequest>
 
 	-->
-	<xsd:element name="getIVRConfigRequest" type="getIVRConfigRequestType"/>
-
-	<xsd:complexType name="getIVRConfigRequestType">
-		<xsd:sequence>
-			<xsd:element name="userid" type="xsd:string"/>
-		</xsd:sequence>
-	</xsd:complexType>
+	<xsd:element name="getIVRConfigRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="userid" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
 
 
 	<!-- 
 		Wrapper for most documents from/to INTELLIVR system
 	-->
 
-	<xsd:element name="AutoCreate" type="autoCreateWrapper"/>
-
-	<xsd:complexType name="autoCreateWrapper">
-		<xsd:sequence>
-			<xsd:choice>
-				<xsd:element name="Response" type="responseType"/>
-				<xsd:element name="Request" type="requestType"/>
-				<xsd:element name="Report" type="reportType"/>
-			</xsd:choice>
-		</xsd:sequence>
-	</xsd:complexType>
+	<xsd:element name="AutoCreate">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:choice>
+					<xsd:element name="Response" type="responseType"/>
+					<xsd:element name="Request" type="requestType"/>
+					<xsd:element name="Report" type="reportType"/>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
 
 	<!-- 
 
