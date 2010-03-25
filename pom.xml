@@ -51,6 +51,12 @@
                     <address>joseph@dreamoval.com</address>
                 </configuration>
             </notifier>
+            <notifier>
+                <type>mail</type>
+                <configuration>
+                    <address>fcbrooks@usm.maine.edu</address>
+                </configuration>
+            </notifier>
         </notifiers>
     </ciManagement>
 
