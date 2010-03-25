@@ -75,4 +75,13 @@
         <url-pattern>/incomingmessage</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>IntellIVRServlet</servlet-name>
+        <servlet-class>org.motechproject.mobile.web.ivr.intellivr.IntellIVRServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IntellIVRServlet</servlet-name>
+        <url-pattern>/intellivr</url-pattern>
+    </servlet-mapping>
+
     </web-app>
