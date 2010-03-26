@@ -14,7 +14,6 @@ import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.util.MotechIDGenerator;
 import org.motechproject.mobile.omi.manager.MessageFormatter;
 import org.motechproject.mobile.omi.manager.MessageStoreManager;
 import org.motechproject.mobile.omi.manager.OMIManager;
@@ -295,11 +294,10 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Constructing MessageDetails object...");
 
         MotechContext mc = coreManager.createMotechContext();
-        String requestId = String.valueOf(MotechIDGenerator.generateID());
 
         MessageRequest messageRequest = coreManager.createMessageRequest(mc);
         messageRequest.setTryNumber(1);
-        messageRequest.setRequestId(requestId);
+        messageRequest.setRequestId("");
         messageRequest.setDateFrom(null);
         messageRequest.setDateTo(null);
         messageRequest.setRecipientNumber(recipient);

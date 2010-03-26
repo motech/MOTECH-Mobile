@@ -20,6 +20,9 @@ public class ReportStatusActionImpl implements StatusAction{
     * @see StatusAction.doAction
     */
    public void doAction(GatewayResponse response){
+
+       if(response.getRequestId() == null || response.getRequestId().isEmpty())
+           return;
        
        try{
            if(response.getMessageStatus() == MStatus.DELIVERED)
