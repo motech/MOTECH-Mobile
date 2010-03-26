@@ -1,6 +1,7 @@
 package org.motechproject.mobile.web.ivr.intellivr;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -19,14 +20,16 @@ import org.motechproject.omp.manager.intellivr.StatusType;
 public class IntellIVRServlet extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		this.doPost(req, resp);
-	}
-
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
+		InputStream in = req.getInputStream();
+		int length = req.getContentLength();
+		byte[] buffer = new byte[length];
+		int read = in.read(buffer, 0, length);
+		
+		String content = new String(buffer);
+		
 		resp.setContentType("text/xml");
 		PrintWriter out = resp.getWriter();
 		
@@ -34,7 +37,7 @@ public class IntellIVRServlet extends HttpServlet {
 		ResponseType rt = new ResponseType();
 		rt.setStatus(StatusType.ERROR);
 		rt.setErrorCode(ErrorCodeType.MOTECH_MALFORMED_XML);
-		rt.setErrorString("test");
+		rt.setErrorString("");
 		ac.setResponse(rt);
 	
 		try {
