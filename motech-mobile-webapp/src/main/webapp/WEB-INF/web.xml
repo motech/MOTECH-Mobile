@@ -81,7 +81,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>IntellIVRServlet</servlet-name>
-        <url-pattern>/intellivr</url-pattern>
+        <url-pattern>/intellivr-old</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>intellivr</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>intellivr</servlet-name>
+        <url-pattern>/intellivr</url-pattern>
+    </servlet-mapping>
     </web-app>
