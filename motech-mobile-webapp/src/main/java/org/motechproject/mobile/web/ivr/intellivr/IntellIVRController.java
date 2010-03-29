@@ -18,6 +18,7 @@ import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
@@ -46,8 +47,10 @@ public class IntellIVRController extends AbstractController implements ResourceL
 	private ResourceLoader resourceLoader;
 	private DocumentBuilder parser;
 	private Validator validator;
+	private Marshaller marshaller;
+	private Unmarshaller unmarshaller;
 	
-	public void init() {
+	public void init() {		
 		Resource schemaResource = resourceLoader.getResource("classpath:intellivr-in.xsd");
 		SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
 		try {
@@ -64,6 +67,14 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FactoryConfigurationError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			JAXBContext jaxbc = JAXBContext.newInstance("org.motechproject.omp.manager.intellivr");
+			marshaller = jaxbc.createMarshaller();
+			unmarshaller = jaxbc.createUnmarshaller();
+		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -113,9 +124,7 @@ public class IntellIVRController extends AbstractController implements ResourceL
 		
 		try {
 			response.setContentType("text/xml");
-			JAXBContext jac = JAXBContext.newInstance("org.motechproject.omp.manager.intellivr");
-			Marshaller m = jac.createMarshaller();
-			m.marshal(output, out);
+			marshaller.marshal(output, out);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			out.println("<test>jaxb error</test>");
