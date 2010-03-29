@@ -37,12 +37,14 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import org.motechproject.omp.manager.intellivr.AudioType;
 import org.motechproject.omp.manager.intellivr.AutoCreate;
 import org.motechproject.omp.manager.intellivr.ErrorCodeType;
 import org.motechproject.omp.manager.intellivr.GetIVRConfigRequest;
 import org.motechproject.omp.manager.intellivr.ResponseType;
 import org.motechproject.omp.manager.intellivr.StatusType;
 import org.motechproject.omp.manager.intellivr.RequestType.Vxml;
+import org.motechproject.omp.manager.intellivr.RequestType.Vxml.Prompt;
 
 public class IntellIVRController extends AbstractController implements ResourceLoaderAware {
 
@@ -118,6 +120,10 @@ public class IntellIVRController extends AbstractController implements ResourceL
 					rt.setReportUrl("http://130.111.123.83:8080/motech-mobile-webapp/intellivr");
 					rt.setTree("TestTree");
 					Vxml vxml = new Vxml();
+					vxml.setPrompt(new Prompt());
+					AudioType audio = new AudioType();
+					audio.setSrc("test1.wav");
+					vxml.getPrompt().getAudioOrBreak().add(audio);
 					rt.setVxml(vxml);
 					ac.setResponse(rt);
 					output = ac;
