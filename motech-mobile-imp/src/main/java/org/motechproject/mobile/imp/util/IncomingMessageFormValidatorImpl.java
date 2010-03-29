@@ -123,8 +123,15 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Date birthDate = dFormat.parse(form.getIncomingMsgFormParameters().get("dob").getValue());
                 Boolean insured = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("insured").getValue());
                 Boolean newCase = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("newcase").getValue());
+
                 Integer diag = Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue());
+                if(form.getIncomingMsgFormParameters().containsKey("otherdiagnosis") && diag == 78)
+                    diag = (diag == 78) ? Integer.valueOf(form.getIncomingMsgFormParameters().get("otherdiagnosis").getValue()) : diag;
+
                 Integer diag2 = form.getIncomingMsgFormParameters().containsKey("secondarydiagnosis") ? Integer.valueOf(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
+                if(form.getIncomingMsgFormParameters().containsKey("othersecondarydiagnosis") && diag2 == 78)
+                    diag2 = Integer.valueOf(form.getIncomingMsgFormParameters().get("othersecondarydiagnosis").getValue());
+
                 Boolean referral = Boolean.valueOf(form.getIncomingMsgFormParameters().get("referral").getValue());
 
                 regWS.recordGeneralVisit(chpsId, date, serialNo, gender, birthDate, insured, newCase, diag, diag2, referral);
@@ -338,11 +345,18 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String serialNo = form.getIncomingMsgFormParameters().get("serialno").getValue();
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
                 Boolean caseStatus = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("newcase").getValue());
-                Integer diag = Integer.parseInt(form.getIncomingMsgFormParameters().get("diagnosis").getValue());
-                Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondarydiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
+                
+                Integer diag = Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue());
+                if(form.getIncomingMsgFormParameters().containsKey("otherdiagnosis") && diag == 78)
+                    diag = (diag == 78) ? Integer.valueOf(form.getIncomingMsgFormParameters().get("otherdiagnosis").getValue()) : diag;
+
+                Integer diag2 = form.getIncomingMsgFormParameters().containsKey("secondarydiagnosis") ? Integer.valueOf(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
+                if(form.getIncomingMsgFormParameters().containsKey("othersecondarydiagnosis") && diag2 == 78)
+                    diag2 = Integer.valueOf(form.getIncomingMsgFormParameters().get("othersecondarydiagnosis").getValue());
+
                 Boolean referral = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue());
 
-                regWS.recordChildVisit(chpsid, date, serialNo, motechId, caseStatus, diag, secondDiag, referral);
+                regWS.recordChildVisit(chpsid, date, serialNo, motechId, caseStatus, diag, diag2, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
@@ -359,11 +373,18 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String serialNo = form.getIncomingMsgFormParameters().get("serialno").getValue();
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
                 Boolean caseStatus = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("newcase").getValue());
-                Integer diag = Integer.parseInt(form.getIncomingMsgFormParameters().get("diagnosis").getValue());
-                Boolean referral = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue());
-                Integer secondDiag = (form.getIncomingMsgFormParameters().get("secondarydiagnosis") != null) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
 
-                regWS.recordMotherVisit(chpsid, date, serialNo, motechId, caseStatus, diag, secondDiag, referral);
+                Integer diag = Integer.valueOf(form.getIncomingMsgFormParameters().get("diagnosis").getValue());
+                if(form.getIncomingMsgFormParameters().containsKey("otherdiagnosis") && diag == 78)
+                    diag = (diag == 78) ? Integer.valueOf(form.getIncomingMsgFormParameters().get("otherdiagnosis").getValue()) : diag;
+
+                Integer diag2 = form.getIncomingMsgFormParameters().containsKey("secondarydiagnosis") ? Integer.valueOf(form.getIncomingMsgFormParameters().get("secondarydiagnosis").getValue()) : null;
+                if(form.getIncomingMsgFormParameters().containsKey("othersecondarydiagnosis") && diag2 == 78)
+                    diag2 = Integer.valueOf(form.getIncomingMsgFormParameters().get("othersecondarydiagnosis").getValue());
+
+                Boolean referral = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue());
+                
+                regWS.recordMotherVisit(chpsid, date, serialNo, motechId, caseStatus, diag, diag2, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);

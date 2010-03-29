@@ -467,7 +467,7 @@
                         </bean>
                         <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                             <property name="minValue" value="1" />
-                            <property name="maxValue" value="75" />
+                            <property name="maxValue" value="78" />
                         </bean>
                     </list>
                 </entry>
