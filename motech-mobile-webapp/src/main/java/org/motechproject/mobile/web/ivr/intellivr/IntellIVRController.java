@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -38,6 +39,7 @@ import org.xml.sax.SAXException;
 
 import org.motechproject.omp.manager.intellivr.AutoCreate;
 import org.motechproject.omp.manager.intellivr.ErrorCodeType;
+import org.motechproject.omp.manager.intellivr.GetIVRConfigRequest;
 import org.motechproject.omp.manager.intellivr.ResponseType;
 import org.motechproject.omp.manager.intellivr.StatusType;
 import org.motechproject.omp.manager.intellivr.RequestType.Vxml;
@@ -97,17 +99,35 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			ac.setResponse(rt);
 			output = ac;
 		} else {
-			AutoCreate ac = new AutoCreate();
-			ResponseType rt = new ResponseType();
-			rt.setStatus(StatusType.OK);
-			rt.setLanguage("ENGLISH");
-			rt.setPrivate("PRIVATE");
-			rt.setReportUrl("http://130.111.123.83:8080/motech-mobile-webapp/intellivr");
-			rt.setTree("TestTree");
-			Vxml vxml = new Vxml();
-			rt.setVxml(vxml);
-			ac.setResponse(rt);
-			output = ac;
+			
+			try {
+				Object obj = unmarshaller.unmarshal(new ByteArrayInputStream(content.getBytes()));
+				if ( obj instanceof AutoCreate ) {
+					AutoCreate ac = new AutoCreate();
+					ResponseType rt = new ResponseType();
+					rt.setStatus(StatusType.OK);
+					ac.setResponse(rt);
+					output = ac;
+				}
+				if ( obj instanceof GetIVRConfigRequest ) {
+					AutoCreate ac = new AutoCreate();
+					ResponseType rt = new ResponseType();
+					rt.setStatus(StatusType.OK);
+					rt.setLanguage("ENGLISH");
+					rt.setPrivate("PRIVATE");
+					rt.setReportUrl("http://130.111.123.83:8080/motech-mobile-webapp/intellivr");
+					rt.setTree("TestTree");
+					Vxml vxml = new Vxml();
+					rt.setVxml(vxml);
+					ac.setResponse(rt);
+					output = ac;
+				}
+			} catch ( Exception e ) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+
 		}
 
 		if ( output == null ) {
