@@ -3,7 +3,7 @@
 <hibernate-mapping package="org.motechproject.mobile.core.model">
   <union-subclass extends="MotechEntityImpl" name="IncomingMessageSessionImpl" table="incoming_message_session">
     <property column="requester_phone" length="20" name="requesterPhone" type="string"/>
-    <property column="form_code" length="15" name="formCode" type="string"/>
+    <property column="form_code" length="100" name="formCode" type="string"/>
     <property column="date_started" name="dateStarted" type="timestamp"/>
     <property column="date_ended" name="dateEnded" type="timestamp"/>
     <property generated="always" insert="false" name="lastActivity" update="false">

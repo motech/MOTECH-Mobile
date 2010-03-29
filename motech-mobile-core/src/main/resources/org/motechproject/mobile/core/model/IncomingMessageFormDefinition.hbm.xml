@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
   <union-subclass extends="MotechEntityImpl" name="IncomingMessageFormDefinitionImpl" table="incoming_message_form_definition">
-    <property column="form_code" length="15" name="formCode" type="string" unique="true"/>
+    <property column="form_code" length="100" name="formCode" type="string" unique="true"/>
     <property column="type" name="type" type="incMessageFormDefinitionType"/>
     <property column="duplicatable" name="duplicatable" type="Duplicatable"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>
