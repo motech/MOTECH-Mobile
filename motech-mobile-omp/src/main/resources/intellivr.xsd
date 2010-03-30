@@ -223,6 +223,9 @@
 					<jxb:typesafeEnumMember value="0006" name="IVR_INVALID_API_ID"/>
 					<jxb:typesafeEnumMember value="0007" name="IVR_INVALID_TREE"/>
 					<jxb:typesafeEnumMember value="0008" name="IVR_INVALID_LANGUAGE"/>
+					<jxb:typesafeEnumMember value="0009" name="IVR_INVALID_METHOD"/>
+					<jxb:typesafeEnumMember value="0010" name="IVR_INVALID_CALLEE"/>
+					<jxb:typesafeEnumMember value="0011" name="IVR_BAD_REQUEST"/>
 				</jxb:typesafeEnumClass>
 			</xsd:appinfo>
 		</xsd:annotation>
@@ -239,6 +242,9 @@
 			<xsd:enumeration value="0006"/>
 			<xsd:enumeration value="0007"/>
 			<xsd:enumeration value="0008"/>
+			<xsd:enumeration value="0009"/>
+			<xsd:enumeration value="0010"/>
+			<xsd:enumeration value="0011"/>
 		</xsd:restriction>
 	</xsd:simpleType>
 
