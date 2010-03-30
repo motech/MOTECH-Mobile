@@ -37,10 +37,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequestHandler;
+import org.motechproject.mobile.omp.manager.intellivr.ReportHandler;
 import org.motechproject.omp.manager.intellivr.AudioType;
 import org.motechproject.omp.manager.intellivr.AutoCreate;
 import org.motechproject.omp.manager.intellivr.ErrorCodeType;
 import org.motechproject.omp.manager.intellivr.GetIVRConfigRequest;
+import org.motechproject.omp.manager.intellivr.ReportType;
 import org.motechproject.omp.manager.intellivr.ResponseType;
 import org.motechproject.omp.manager.intellivr.StatusType;
 import org.motechproject.omp.manager.intellivr.RequestType.Vxml;
@@ -53,6 +56,8 @@ public class IntellIVRController extends AbstractController implements ResourceL
 	private Validator validator;
 	private Marshaller marshaller;
 	private Unmarshaller unmarshaller;
+	private GetIVRConfigRequestHandler ivrConfigHandler;
+	private ReportHandler reportHandler;
 	
 	public void init() {		
 		Resource schemaResource = resourceLoader.getResource("classpath:intellivr-in.xsd");
@@ -106,26 +111,12 @@ public class IntellIVRController extends AbstractController implements ResourceL
 				Object obj = unmarshaller.unmarshal(new ByteArrayInputStream(content.getBytes()));
 				if ( obj instanceof AutoCreate ) {
 					AutoCreate ac = new AutoCreate();
-					ResponseType rt = new ResponseType();
-					rt.setStatus(StatusType.OK);
-					ac.setResponse(rt);
+					ac.setResponse(reportHandler.handleReport(((AutoCreate)obj).getReport()));
 					output = ac;
 				}
 				if ( obj instanceof GetIVRConfigRequest ) {
 					AutoCreate ac = new AutoCreate();
-					ResponseType rt = new ResponseType();
-					rt.setStatus(StatusType.OK);
-					rt.setLanguage("ENGLISH");
-					rt.setPrivate("PRIVATE");
-					rt.setReportUrl("http://130.111.123.83:8080/motech-mobile-webapp/intellivr");
-					rt.setTree("TestTree");
-					Vxml vxml = new Vxml();
-					vxml.setPrompt(new Prompt());
-					AudioType audio = new AudioType();
-					audio.setSrc("test1.wav");
-					vxml.getPrompt().getAudioOrBreak().add(audio);
-					rt.setVxml(vxml);
-					ac.setResponse(rt);
+					ac.setResponse(ivrConfigHandler.handleRequest((GetIVRConfigRequest)obj));
 					output = ac;
 				}
 			} catch ( Exception e ) {
@@ -152,8 +143,8 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			response.setContentType("text/xml");
 			marshaller.marshal(output, out);
 		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			out.println("<test>jaxb error</test>");
 		}
 
 		
@@ -162,6 +153,22 @@ public class IntellIVRController extends AbstractController implements ResourceL
 
 	public void setResourceLoader(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
+	}
+
+	public GetIVRConfigRequestHandler getIvrConfigHandler() {
+		return ivrConfigHandler;
+	}
+
+	public void setIvrConfigHandler(GetIVRConfigRequestHandler ivrConfigHandler) {
+		this.ivrConfigHandler = ivrConfigHandler;
+	}
+
+	public ReportHandler getReportHandler() {
+		return reportHandler;
+	}
+
+	public void setReportHandler(ReportHandler reportHandler) {
+		this.reportHandler = reportHandler;
 	}
 
 	private String getContent(HttpServletRequest request) throws Exception {
