@@ -60,7 +60,7 @@
                     </execution>
                </executions>
                <configuration>
-                    <packageName>org.motechproject.omp.manager.intellivr</packageName>
+                    <packageName>org.motechproject.mobile.omp.manager.intellivr</packageName>
                     <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
                     <schemaDirectory>${basedir}/src/main/resources</schemaDirectory>
                     <schemaFiles>intellivr.xsd</schemaFiles>

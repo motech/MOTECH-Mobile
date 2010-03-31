@@ -39,15 +39,15 @@ import org.xml.sax.SAXException;
 
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequestHandler;
 import org.motechproject.mobile.omp.manager.intellivr.ReportHandler;
-import org.motechproject.omp.manager.intellivr.AudioType;
-import org.motechproject.omp.manager.intellivr.AutoCreate;
-import org.motechproject.omp.manager.intellivr.ErrorCodeType;
-import org.motechproject.omp.manager.intellivr.GetIVRConfigRequest;
-import org.motechproject.omp.manager.intellivr.ReportType;
-import org.motechproject.omp.manager.intellivr.ResponseType;
-import org.motechproject.omp.manager.intellivr.StatusType;
-import org.motechproject.omp.manager.intellivr.RequestType.Vxml;
-import org.motechproject.omp.manager.intellivr.RequestType.Vxml.Prompt;
+import org.motechproject.mobile.omp.manager.intellivr.AudioType;
+import org.motechproject.mobile.omp.manager.intellivr.AutoCreate;
+import org.motechproject.mobile.omp.manager.intellivr.ErrorCodeType;
+import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequest;
+import org.motechproject.mobile.omp.manager.intellivr.ReportType;
+import org.motechproject.mobile.omp.manager.intellivr.ResponseType;
+import org.motechproject.mobile.omp.manager.intellivr.StatusType;
+import org.motechproject.mobile.omp.manager.intellivr.RequestType.Vxml;
+import org.motechproject.mobile.omp.manager.intellivr.RequestType.Vxml.Prompt;
 
 public class IntellIVRController extends AbstractController implements ResourceLoaderAware {
 
@@ -80,7 +80,7 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			e.printStackTrace();
 		}
 		try {
-			JAXBContext jaxbc = JAXBContext.newInstance("org.motechproject.omp.manager.intellivr");
+			JAXBContext jaxbc = JAXBContext.newInstance("org.motechproject.mobile.omp.manager.intellivr");
 			marshaller = jaxbc.createMarshaller();
 			unmarshaller = jaxbc.createUnmarshaller();
 		} catch (JAXBException e) {
