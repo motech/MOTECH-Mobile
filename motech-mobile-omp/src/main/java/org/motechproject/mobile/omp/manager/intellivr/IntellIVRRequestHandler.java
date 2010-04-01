@@ -1,6 +1,6 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
-public class IntellIVRBean implements GetIVRConfigRequestHandler, ReportHandler {
+public class IntellIVRRequestHandler implements GetIVRConfigRequestHandler, ReportHandler {
 
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
 		ResponseType rt = new ResponseType();
