@@ -1,7 +1,44 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
-public class IntellIVRRequestHandler implements GetIVRConfigRequestHandler, ReportHandler {
+import java.util.Set;
 
+import org.motechproject.mobile.core.model.GatewayRequest;
+import org.motechproject.mobile.core.model.GatewayResponse;
+import org.motechproject.mobile.core.model.MStatus;
+import org.motechproject.mobile.core.service.MotechContext;
+import org.motechproject.mobile.omp.manager.GatewayManager;
+import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
+
+public class IntellIVRRequestHandler implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
+
+	private GatewayMessageHandler messageHandler;
+	
+	public String getMessageStatus(GatewayResponse response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public MStatus mapMessageStatus(GatewayResponse response) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
+			MotechContext context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setMessageHandler(GatewayMessageHandler messageHandler) {
+		this.messageHandler = messageHandler;
+	}
+
+	public GatewayMessageHandler getMessageHandler() {
+		return messageHandler;
+	}
+
+	
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
 		ResponseType rt = new ResponseType();
 		rt.setStatus(StatusType.OK);
@@ -23,5 +60,5 @@ public class IntellIVRRequestHandler implements GetIVRConfigRequestHandler, Repo
 		rt.setStatus(StatusType.OK);
 		return rt;
 	}
-
+	
 }
