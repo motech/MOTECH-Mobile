@@ -79,7 +79,8 @@
         <property name="senderId" value="MoTeCH" />
         <property name="messageHandler" ref="messageHandler" />
     </bean>
-    
+
+	<bean id="intellivrRequestHandler" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRRequestHandler"/>
 
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />

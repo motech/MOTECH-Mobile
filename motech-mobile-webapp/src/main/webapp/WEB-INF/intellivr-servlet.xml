@@ -28,8 +28,6 @@
        http://cxf.apache.org/jaxws
        http://cxf.apache.org/schemas/jaxws.xsd">
 
-	<bean id="intellivrRequestHandler" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRRequestHandler"/>
-
 	<bean id="intellivrController" name="/intellivr" class="org.motechproject.mobile.web.ivr.intellivr.IntellIVRController" init-method="init">
 		<property name="supportedMethods">
 			<value>POST</value>
