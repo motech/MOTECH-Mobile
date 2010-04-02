@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.omp.manager.intellivr.AudioType;
 import org.motechproject.mobile.omp.manager.intellivr.AutoCreate;
+import org.motechproject.mobile.omp.manager.intellivr.ErrorCodeType;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequest;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequestHandler;
 import org.motechproject.mobile.omp.manager.intellivr.ReportHandler;
@@ -52,6 +53,9 @@ public class IntellIVRControllerTest {
 		
 	}
 	
+	/*
+	 * test if a valid ivr config request is posted to the servlet
+	 */
 	@Test
 	public void testGetIvrConfig() throws Exception {
 		
@@ -88,8 +92,11 @@ public class IntellIVRControllerTest {
 		
 	}
 
-	String getIvrConfigXML = "<getIVRConfigRequest><userid>123456789</userid></getIVRConfigRequest>";
+	String getIvrConfigXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><getIVRConfigRequest><userid>123456789</userid></getIVRConfigRequest>";
 	
+	/*
+	 * test if a valid call report is posted to the servlet
+	 */
 	@Test
 	public void testReport() throws Exception {
 	
@@ -115,7 +122,8 @@ public class IntellIVRControllerTest {
 		
 	}
 	
-	String reportXML = "<AutoCreate>" +
+	String reportXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+			"			<AutoCreate>" +
 			"			<Report>" +
 			"				<Status>COMPLETED</Status>" +
 			"				<Callee>2334921920193</Callee>" +
@@ -132,5 +140,34 @@ public class IntellIVRControllerTest {
 			"		</Report>" +
 			"		</AutoCreate>";
 	
+	/*
+	 * test if in valid non-xml content is posted to the servlet
+	 * Normal to see Error '[Fatal Error] :1:1: Content is not allowed in prolog.' in logs as
+	 * result of this
+	 */
+	@Test
+	public void testGarbage() throws Exception {
+		
+		String garbage = "blahblahblah";
+		
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setStatus(StatusType.ERROR);
+		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_MALFORMED_XML);
+		
+		mockRequest.setContent(garbage.getBytes());
+		
+		intellivrController.handleRequestInternal(mockRequest, mockResponse);
+		
+		Object o = unmarshaller.unmarshal(new ByteArrayInputStream(mockResponse.getContentAsByteArray()));
+		
+		assertTrue(o instanceof AutoCreate);
+		
+		ResponseType response = ((AutoCreate)o).getResponse();
+		
+		assertEquals(response.getStatus(), StatusType.ERROR);
+		assertEquals(response.getErrorCode(), ErrorCodeType.MOTECH_MALFORMED_XML);
+		
+		
+	}
 	
 }
