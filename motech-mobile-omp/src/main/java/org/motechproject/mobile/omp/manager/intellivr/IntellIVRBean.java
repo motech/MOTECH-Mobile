@@ -12,7 +12,7 @@ import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 
 	private GatewayMessageHandler messageHandler;
-	private String reportURL;
+	protected String reportURL;
 	
 	public String getMessageStatus(GatewayResponse response) {
 		// TODO Auto-generated method stub
@@ -41,25 +41,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
-		ResponseType rt = new ResponseType();
-		rt.setStatus(StatusType.OK);
-		rt.setLanguage("ENGLISH");
-		rt.setPrivate("PRIVATE");
-		rt.setReportUrl(reportURL);
-		rt.setTree("TestTree");
-		RequestType.Vxml vxml = new RequestType.Vxml();
-		vxml.setPrompt(new RequestType.Vxml.Prompt());
-		AudioType audio = new AudioType();
-		audio.setSrc("test1.wav");
-		vxml.getPrompt().getAudioOrBreak().add(audio);
-		rt.setVxml(vxml);
-		return rt;
+		return null;
 	}
 
 	public ResponseType handleReport(ReportType report) {
-		ResponseType rt = new ResponseType();
-		rt.setStatus(StatusType.OK);
-		return rt;
+		return null;
 	}
 
 	public String getReportURL() {
