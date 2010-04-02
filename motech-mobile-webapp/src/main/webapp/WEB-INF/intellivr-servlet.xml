@@ -32,8 +32,8 @@
 		<property name="supportedMethods">
 			<value>POST</value>
 		</property>
-		<property name="ivrConfigHandler" ref="intellivrRequestHandler"/>
-		<property name="reportHandler" ref="intellivrRequestHandler"/>
+		<property name="ivrConfigHandler" ref="intellivrBean"/>
+		<property name="reportHandler" ref="intellivrBean"/>
 	</bean>
 
 </beans>

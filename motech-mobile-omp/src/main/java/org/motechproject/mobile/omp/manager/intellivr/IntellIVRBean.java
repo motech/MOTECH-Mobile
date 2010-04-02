@@ -9,7 +9,7 @@ import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 
-public class IntellIVRRequestHandler implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
+public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 
 	private GatewayMessageHandler messageHandler;
 	
