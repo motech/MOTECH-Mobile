@@ -18,6 +18,7 @@ import org.motechproject.mobile.omp.manager.intellivr.AutoCreate;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequest;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequestHandler;
 import org.motechproject.mobile.omp.manager.intellivr.ReportHandler;
+import org.motechproject.mobile.omp.manager.intellivr.ReportType;
 import org.motechproject.mobile.omp.manager.intellivr.RequestType;
 import org.motechproject.mobile.omp.manager.intellivr.ResponseType;
 import org.motechproject.mobile.omp.manager.intellivr.StatusType;
@@ -44,6 +45,7 @@ public class IntellIVRControllerTest {
 		mockRequest = new MockHttpServletRequest();
 		mockResponse = new MockHttpServletResponse();
 		mockIVRConfigHandler = createMock(GetIVRConfigRequestHandler.class);
+		mockReportHandler = createMock(ReportHandler.class);
 		
 		jaxbContext = JAXBContext.newInstance("org.motechproject.mobile.omp.manager.intellivr");
 		unmarshaller = jaxbContext.createUnmarshaller();
@@ -87,5 +89,48 @@ public class IntellIVRControllerTest {
 	}
 
 	String getIvrConfigXML = "<getIVRConfigRequest><userid>123456789</userid></getIVRConfigRequest>";
+	
+	@Test
+	public void testReport() throws Exception {
+	
+		ReportType report = ((AutoCreate)unmarshaller.unmarshal(new ByteArrayInputStream(reportXML.getBytes()))).getReport();
+		
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setStatus(StatusType.OK);
+		
+		expect(mockReportHandler.handleReport(report)).andReturn(expectedResponse);
+		
+		replay(mockReportHandler);
+		
+		intellivrController.setReportHandler(mockReportHandler);
+		mockRequest.setContent(reportXML.getBytes());
+		intellivrController.handleRequestInternal(mockRequest, mockResponse);
+		
+		verify(mockReportHandler);
+		
+		Object o = unmarshaller.unmarshal(new ByteArrayInputStream(mockResponse.getContentAsByteArray()));
+		
+		assertTrue(o instanceof AutoCreate);
+		assertEquals(expectedResponse, ((AutoCreate)o).getResponse());
+		
+	}
+	
+	String reportXML = "<AutoCreate>" +
+			"			<Report>" +
+			"				<Status>COMPLETED</Status>" +
+			"				<Callee>2334921920193</Callee>" +
+			"				<Duration>43</Duration>" +
+			"				<ConnectTime>2010-10-01T00:00:00.000Z</ConnectTime>" +
+			"				<DisconnectTime>2010-10-01T00:00:43.000Z</DisconnectTime>" +
+			"				<INTELLIVREntryCount>4</INTELLIVREntryCount>" +
+			"				<Private>IDENTIFIER</Private>" +
+			"				<INTELLIVREntry menu=\"message1.wav\" entrytime=\"2010-10-01T00:00:01.000Z\" duration=\"7\" keypress=\"\" file=\"\"/>" +
+			"				<INTELLIVREntry menu=\"message2.wav\" entrytime=\"2010-10-01T00:00:08.000Z\" duration=\"8\" keypress=\"\" file=\"\"/>" +
+			"				<INTELLIVREntry menu=\"main_menu\" entrytime=\"2010-10-01T00:00:16.000Z\" duration=\"8\" keypress=\"2\" file=\"\"/>" +
+			"				<INTELLIVREntry menu=\"pregnancy_info\" entrytime=\"2010-10-01T00:00:24.000Z\" duration=\"10\" keypress=\"1\" file=\"\"/>" +
+			"				<INTELLIVREntry menu=\"feedback_section\" entrytime=\"2010-10-01T00:00:34.000Z\" duration=\"10\" keypress=\"\" file=\"http://ivr/file.wav\"/> " +
+			"		</Report>" +
+			"		</AutoCreate>";
+	
 	
 }
