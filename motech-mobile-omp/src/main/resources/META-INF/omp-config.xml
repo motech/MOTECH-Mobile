@@ -80,7 +80,9 @@
         <property name="messageHandler" ref="messageHandler" />
     </bean>
 
-	<bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRBean"/>
+	<bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRBean">
+		<property name="reportURL" value="http://130.111.123.83:8080/motech-mobile-webapp/intellivr"/>
+	</bean>
 
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />

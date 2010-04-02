@@ -12,6 +12,7 @@ import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 
 	private GatewayMessageHandler messageHandler;
+	private String reportURL;
 	
 	public String getMessageStatus(GatewayResponse response) {
 		// TODO Auto-generated method stub
@@ -44,7 +45,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		rt.setStatus(StatusType.OK);
 		rt.setLanguage("ENGLISH");
 		rt.setPrivate("PRIVATE");
-		rt.setReportUrl("http://130.111.123.83:8080/motech-mobile-webapp/intellivr");
+		rt.setReportUrl(reportURL);
 		rt.setTree("TestTree");
 		RequestType.Vxml vxml = new RequestType.Vxml();
 		vxml.setPrompt(new RequestType.Vxml.Prompt());
@@ -59,6 +60,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		ResponseType rt = new ResponseType();
 		rt.setStatus(StatusType.OK);
 		return rt;
+	}
+
+	public String getReportURL() {
+		return reportURL;
+	}
+
+	public void setReportURL(String reportURL) {
+		this.reportURL = reportURL;
 	}
 	
 }
