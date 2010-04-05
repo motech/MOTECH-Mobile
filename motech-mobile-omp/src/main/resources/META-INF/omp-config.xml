@@ -81,7 +81,7 @@
     </bean>
 
 	<bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean">
-		<property name="reportURL" value="http://130.111.123.83:8080/motech-mobile-webapp/intellivr"/>
+		<property name="reportURL" value="http://motech-ws.rcg.usm.maine.edu:8080/motech-mobile-webapp/intellivr"/>
 	</bean>
 
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
