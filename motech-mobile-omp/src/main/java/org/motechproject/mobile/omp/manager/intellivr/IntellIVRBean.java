@@ -43,7 +43,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
-		return null;
+		ResponseType r = new ResponseType();
+		r.setStatus(StatusType.ERROR);
+		r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+		r.setErrorString("Invalid user id");
+		return r;
 	}
 
 	public ResponseType handleReport(ReportType report) {

@@ -2,7 +2,10 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 public class IntellIVRDummyBean extends IntellIVRBean { 
 	
+	private String testID = "123456789";
+	
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
+		if ( request.getUserid().equalsIgnoreCase(testID) ) {
 			ResponseType rt = new ResponseType();
 			rt.setStatus(StatusType.OK);
 			rt.setLanguage("ENGLISH");
@@ -16,6 +19,8 @@ public class IntellIVRDummyBean extends IntellIVRBean {
 			vxml.getPrompt().getAudioOrBreak().add(audio);
 			rt.setVxml(vxml);
 			return rt;
+		} else 
+			return super.handleRequest(request);
 	}
 	
 	public ResponseType handleReport(ReportType report) {
