@@ -13,6 +13,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	private GatewayMessageHandler messageHandler;
 	protected String reportURL;
+	private String apiID;
+	private String serverURL;
 	
 	public String getMessageStatus(GatewayResponse response) {
 		// TODO Auto-generated method stub
@@ -54,6 +56,22 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setReportURL(String reportURL) {
 		this.reportURL = reportURL;
+	}
+
+	public String getApiID() {
+		return apiID;
+	}
+
+	public void setApiID(String apiID) {
+		this.apiID = apiID;
+	}
+
+	public String getServerURL() {
+		return serverURL;
+	}
+
+	public void setServerURL(String serverURL) {
+		this.serverURL = serverURL;
 	}
 	
 }
