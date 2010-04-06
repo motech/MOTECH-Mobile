@@ -2,6 +2,8 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
@@ -10,11 +12,13 @@ import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
-
+	
 	private GatewayMessageHandler messageHandler;
 	protected String reportURL;
 	private String apiID;
 	private String serverURL;
+	
+	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
 	public String getMessageStatus(GatewayResponse response) {
 		// TODO Auto-generated method stub
@@ -41,8 +45,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return messageHandler;
 	}
 
-	
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
+		log.info("Received request for id " + request.getUserid());
 		ResponseType r = new ResponseType();
 		r.setStatus(StatusType.ERROR);
 		r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
