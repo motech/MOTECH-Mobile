@@ -117,6 +117,12 @@
         <property name="callback" value="${clickatell.gateway.callback}" />
         <property name="baseUrl" value="${clickatell.gateway.baseUrl}" />
     </bean>
+    
+    <bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean">
+		<property name="reportURL" value="http://motech-ws.rcg.usm.maine.edu:8080/motech-mobile-webapp/intellivr"/>
+		<property name="serverURL" value="http://switch1.yo.co.ug/intellivr/api/api"/>
+		<property name="apiID" value="eWIXQFFWLeGZATdRLYcZIaHdQQMcWVGALHCXOcFVcYJTXMJQXC"/>
+	</bean>
 
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
     </bean>
