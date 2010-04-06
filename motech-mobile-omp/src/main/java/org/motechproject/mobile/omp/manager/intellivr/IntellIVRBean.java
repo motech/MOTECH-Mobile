@@ -55,7 +55,13 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	}
 
 	public ResponseType handleReport(ReportType report) {
-		return null;
+		log.info("Received call report: " + 
+				report.getCallee() + "," + 
+				report.getPrivate() + "," +
+				report.getStatus());
+		ResponseType r = new ResponseType();
+		r.setStatus(StatusType.OK);
+		return r;
 	}
 
 	public String getReportURL() {

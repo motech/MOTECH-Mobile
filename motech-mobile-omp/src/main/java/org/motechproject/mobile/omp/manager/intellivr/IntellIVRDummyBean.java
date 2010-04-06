@@ -23,10 +23,4 @@ public class IntellIVRDummyBean extends IntellIVRBean {
 			return super.handleRequest(request);
 	}
 	
-	public ResponseType handleReport(ReportType report) {
-			ResponseType rt = new ResponseType();
-			rt.setStatus(StatusType.OK);
-			return rt;
-	}
-	
 }
