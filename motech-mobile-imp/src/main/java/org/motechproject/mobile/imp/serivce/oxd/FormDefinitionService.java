@@ -5,7 +5,7 @@
 
 package org.motechproject.mobile.imp.serivce.oxd;
 
-import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,4 +42,12 @@ public interface FormDefinitionService {
      * @param oxdFormDefResources the oxdFormDefResourceNames to set
      */
     void setOxdFormDefResources(Set<String> oxdFormDefResources);
+    
+    /**
+	 * Returns the list of xml form definitions for the specified study.
+	 * 
+	 * @param studyId
+	 * @return
+	 */
+	List<String> getStudyForms(int studyId);
 }

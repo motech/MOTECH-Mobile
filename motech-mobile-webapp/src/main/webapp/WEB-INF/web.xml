@@ -36,6 +36,14 @@
         <servlet-name>OXDFormUploadServlet</servlet-name>
         <servlet-class>org.motechproject.mobile.web.OXDFormUploadServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OXDFormDownloadServlet</servlet-name>
+        <servlet-class>org.motechproject.mobile.web.OXDFormDownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OXDFormDownloadServlet</servlet-name>
+        <url-pattern>/formdownload</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OXDFormUploadServlet</servlet-name>
         <url-pattern>/formupload</url-pattern>
