@@ -130,6 +130,9 @@
 		<property name="defaultTree" value="TestTree"/>
 		<property name="defaultReminder" value="test1.wav"/>
 		<property name="ivrServer" ref="intellIVRServer"/>
+		<property name="statusStore">
+			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>
+		</property>
 	</bean>
 
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">

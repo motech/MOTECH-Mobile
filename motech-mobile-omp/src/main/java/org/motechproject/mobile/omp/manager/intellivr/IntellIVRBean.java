@@ -10,6 +10,7 @@ import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
+import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 	
@@ -21,6 +22,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private String defaultTree;
 	private String defaultReminder;
 	private IntellIVRServer ivrServer;
+	private MessageStatusStore statusStore;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
@@ -138,6 +140,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setDefaultReminder(String defaultReminder) {
 		this.defaultReminder = defaultReminder;
+	}
+
+	public MessageStatusStore getStatusStore() {
+		return statusStore;
+	}
+
+	public void setStatusStore(MessageStatusStore statusStore) {
+		this.statusStore = statusStore;
 	}
 	
 }
