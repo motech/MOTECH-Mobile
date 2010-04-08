@@ -2,11 +2,14 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 
 import static org.junit.Assert.*;
+import static org.easymock.EasyMock.*;
 import javax.annotation.Resource;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.mobile.core.model.GatewayRequest;
+import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,9 +19,11 @@ public class IntellIVRBeanTest {
 
 	@Resource
 	IntellIVRBean intellivrBean;
+	private IntellIVRServer ivrServer;
 	
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 	
 	@Test
@@ -61,6 +66,44 @@ public class IntellIVRBeanTest {
 		assertEquals(expected.getStatus(), response.getStatus());
 		assertEquals(expected.getErrorCode(), response.getErrorCode());
 		
+	}
+	
+	@Test
+	public void testSendMessage() {
+		
+		GatewayRequest request = new GatewayRequestImpl();
+		request.setRecipientsNumber("+0115555555555");
+		request.setRequestId("test_request_id");
+
+		RequestType r = new RequestType();
+		r.setApiId(intellivrBean.getApiID());
+		r.setCallee("+0115555555555");
+		r.setMethod(intellivrBean.getMethod());
+		r.setLanguage(intellivrBean.getDefaultLanguage());
+		r.setPrivate("test_request_id");
+		r.setReportUrl(intellivrBean.getReportURL());
+		r.setTree("TestTree");
+		RequestType.Vxml vxml = new RequestType.Vxml();
+		vxml.setPrompt(new RequestType.Vxml.Prompt());
+		AudioType audio = new AudioType();
+		audio.setSrc("test1.wav");
+		vxml.getPrompt().getAudioOrBreak().add(audio);
+		r.setVxml(vxml);
+		
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setStatus(StatusType.OK);
+		
+		ivrServer = createMock(IntellIVRServer.class);
+		
+		expect(ivrServer.requestCall(r)).andReturn(expectedResponse);
+		
+		replay(ivrServer);
+		
+		intellivrBean.setIvrServer(ivrServer);
+		intellivrBean.sendMessage(request, null);
+		
+		verify(ivrServer);
+				
 	}
 
 }

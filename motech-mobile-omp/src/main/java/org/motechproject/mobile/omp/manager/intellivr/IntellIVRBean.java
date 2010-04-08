@@ -16,7 +16,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private GatewayMessageHandler messageHandler;
 	protected String reportURL;
 	private String apiID;
-	private String serverURL;
+	private String method;
+	private String defaultLanguage;
+	private IntellIVRServer ivrServer;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
@@ -33,7 +35,26 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	@SuppressWarnings("unchecked")
 	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
 			MotechContext context) {
-		// TODO Auto-generated method stub
+
+		RequestType r = new RequestType();
+		r.setApiId(this.apiID);
+		r.setCallee(messageDetails.getRecipientsNumber());
+		r.setMethod(this.method);
+		r.setLanguage(this.defaultLanguage);
+		r.setPrivate(messageDetails.getRequestId());
+		r.setReportUrl(this.reportURL);
+		r.setTree("TestTree");
+		RequestType.Vxml vxml = new RequestType.Vxml();
+		vxml.setPrompt(new RequestType.Vxml.Prompt());
+		AudioType audio = new AudioType();
+		audio.setSrc("test1.wav");
+		vxml.getPrompt().getAudioOrBreak().add(audio);
+		r.setVxml(vxml);
+		
+		ResponseType response = ivrServer.requestCall(r);
+		
+		log.info("Reponse: " + response.toString());
+		
 		return null;
 	}
 
@@ -55,10 +76,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	}
 
 	public ResponseType handleReport(ReportType report) {
-		log.info("Received call report: " + 
-				report.getCallee() + "," + 
-				report.getPrivate() + "," +
-				report.getStatus());
+		log.info("Received call report: " + report.toString());
 		ResponseType r = new ResponseType();
 		r.setStatus(StatusType.OK);
 		return r;
@@ -80,12 +98,28 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		this.apiID = apiID;
 	}
 
-	public String getServerURL() {
-		return serverURL;
+	public IntellIVRServer getIvrServer() {
+		return ivrServer;
 	}
 
-	public void setServerURL(String serverURL) {
-		this.serverURL = serverURL;
+	public void setIvrServer(IntellIVRServer ivrServer) {
+		this.ivrServer = ivrServer;
+	}
+
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public String getDefaultLanguage() {
+		return defaultLanguage;
+	}
+
+	public void setDefaultLanguage(String defaultLanguage) {
+		this.defaultLanguage = defaultLanguage;
 	}
 	
 }
