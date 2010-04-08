@@ -83,6 +83,10 @@
 	<bean id="intellIVRServer" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRServerImpl" init-method="init">
 		<property name="serverURL" value="http://switch1.yo.co.ug/intellivr/api/api"/>
 	</bean>
+	
+	<bean id="intellIVRMessageHandler" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRGatewayMessageHandler">
+        <property name="coreManager" ref="coreManager"/>	
+	</bean>
 
 	<bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean">
 		<property name="reportURL" value="http://motech-ws.rcg.usm.maine.edu:8080/motech-mobile-webapp/intellivr"/>
@@ -92,6 +96,7 @@
 		<property name="defaultTree" value="TestTree"/>
 		<property name="defaultReminder" value="test1.wav"/>
 		<property name="ivrServer" ref="intellIVRServer"/>
+		<property name="messageHandler" ref="intellIVRMessageHandler"/>
 		<property name="statusStore">
 			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>
 		</property>

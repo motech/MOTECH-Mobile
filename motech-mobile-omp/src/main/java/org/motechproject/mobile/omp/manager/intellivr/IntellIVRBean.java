@@ -27,13 +27,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
 	public String getMessageStatus(GatewayResponse response) {
-		// TODO Auto-generated method stub
-		return null;
+		return statusStore.getStatus(response.getGatewayMessageId());
 	}
 
 	public MStatus mapMessageStatus(GatewayResponse response) {
-		// TODO Auto-generated method stub
-		return null;
+		return messageHandler.lookupStatus(response.getResponseText());
 	}
 
 	@SuppressWarnings("unchecked")
