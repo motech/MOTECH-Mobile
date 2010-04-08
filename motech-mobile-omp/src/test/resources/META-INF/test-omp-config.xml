@@ -127,6 +127,8 @@
 		<property name="apiID" value="eWIXQFFWLeGZATdRLYcZIaHdQQMcWVGALHCXOcFVcYJTXMJQXC"/>
 		<property name="method" value="ivroriginate"/>
 		<property name="defaultLanguage" value="English"/>
+		<property name="defaultTree" value="TestTree"/>
+		<property name="defaultReminder" value="test1.wav"/>
 		<property name="ivrServer" ref="intellIVRServer"/>
 	</bean>
 

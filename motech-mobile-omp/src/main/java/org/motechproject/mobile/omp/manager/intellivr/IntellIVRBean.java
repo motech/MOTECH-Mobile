@@ -18,6 +18,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private String apiID;
 	private String method;
 	private String defaultLanguage;
+	private String defaultTree;
+	private String defaultReminder;
 	private IntellIVRServer ivrServer;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
@@ -43,11 +45,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		r.setLanguage(this.defaultLanguage);
 		r.setPrivate(messageDetails.getRequestId());
 		r.setReportUrl(this.reportURL);
-		r.setTree("TestTree");
+		r.setTree(this.defaultTree);
 		RequestType.Vxml vxml = new RequestType.Vxml();
 		vxml.setPrompt(new RequestType.Vxml.Prompt());
 		AudioType audio = new AudioType();
-		audio.setSrc("test1.wav");
+		audio.setSrc(this.defaultReminder);
 		vxml.getPrompt().getAudioOrBreak().add(audio);
 		r.setVxml(vxml);
 		
@@ -120,6 +122,22 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setDefaultLanguage(String defaultLanguage) {
 		this.defaultLanguage = defaultLanguage;
+	}
+
+	public String getDefaultTree() {
+		return defaultTree;
+	}
+
+	public void setDefaultTree(String defaultTree) {
+		this.defaultTree = defaultTree;
+	}
+
+	public String getDefaultReminder() {
+		return defaultReminder;
+	}
+
+	public void setDefaultReminder(String defaultReminder) {
+		this.defaultReminder = defaultReminder;
 	}
 	
 }

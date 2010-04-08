@@ -71,22 +71,25 @@ public class IntellIVRBeanTest {
 	@Test
 	public void testSendMessage() {
 		
+		String testPhone = "+0115555555555";
+		String testRequestID = "test_request_id";
+		
 		GatewayRequest request = new GatewayRequestImpl();
-		request.setRecipientsNumber("+0115555555555");
-		request.setRequestId("test_request_id");
+		request.setRecipientsNumber(testPhone);
+		request.setRequestId(testRequestID);
 
 		RequestType r = new RequestType();
 		r.setApiId(intellivrBean.getApiID());
-		r.setCallee("+0115555555555");
+		r.setCallee(testPhone);
 		r.setMethod(intellivrBean.getMethod());
 		r.setLanguage(intellivrBean.getDefaultLanguage());
-		r.setPrivate("test_request_id");
+		r.setPrivate(testRequestID);
 		r.setReportUrl(intellivrBean.getReportURL());
-		r.setTree("TestTree");
+		r.setTree(intellivrBean.getDefaultTree());
 		RequestType.Vxml vxml = new RequestType.Vxml();
 		vxml.setPrompt(new RequestType.Vxml.Prompt());
 		AudioType audio = new AudioType();
-		audio.setSrc("test1.wav");
+		audio.setSrc(intellivrBean.getDefaultReminder());
 		vxml.getPrompt().getAudioOrBreak().add(audio);
 		r.setVxml(vxml);
 		
