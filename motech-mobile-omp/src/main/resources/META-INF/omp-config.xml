@@ -84,8 +84,74 @@
 		<property name="serverURL" value="http://switch1.yo.co.ug/intellivr/api/api"/>
 	</bean>
 	
+	<bean id="intellIVRResponseMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="0000">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0001">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0002">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0003">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0004">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0005">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0006">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0007">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0008">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0009">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0010">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="0011">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="OK">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="COMPLETED">
+					<value type="org.motechproject.mobile.core.model.MStatus">DELIVERED</value>
+				</entry>
+				<entry key="REJECTED">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+				<entry key="BUSY">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+				<entry key="CONGESTION">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+				<entry key="NOANSWER">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+				<entry key="INTERNALERROR">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	
 	<bean id="intellIVRMessageHandler" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRGatewayMessageHandler">
         <property name="coreManager" ref="coreManager"/>	
+		<property name="statusMap" ref="intellIVRResponseMap"/>     
+		<property name="responseMap" ref="intellIVRResponseMap"/>
 	</bean>
 
 	<bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean">
