@@ -1,21 +1,27 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class IntellIVRDummyBean extends IntellIVRBean { 
 	
 	private String testID = "123456789";
 	
+	private Log log = LogFactory.getLog(IntellIVRDummyBean.class);
+	
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
 		if ( request.getUserid().equalsIgnoreCase(testID) ) {
+			log.info("Received request for id " + request.getUserid());
 			ResponseType rt = new ResponseType();
 			rt.setStatus(StatusType.OK);
-			rt.setLanguage("ENGLISH");
-			rt.setPrivate("PRIVATE");
-			rt.setReportUrl(reportURL);
-			rt.setTree("TestTree");
+			rt.setLanguage(this.getDefaultLanguage());
+			rt.setPrivate(testID);
+			rt.setReportUrl(this.getReportURL());
+			rt.setTree(this.getDefaultTree());
 			RequestType.Vxml vxml = new RequestType.Vxml();
 			vxml.setPrompt(new RequestType.Vxml.Prompt());
 			AudioType audio = new AudioType();
-			audio.setSrc("test1.wav");
+			audio.setSrc(this.getDefaultReminder());
 			vxml.getPrompt().getAudioOrBreak().add(audio);
 			rt.setVxml(vxml);
 			return rt;

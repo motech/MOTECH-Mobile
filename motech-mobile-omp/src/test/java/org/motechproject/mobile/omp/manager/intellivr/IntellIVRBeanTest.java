@@ -34,14 +34,14 @@ public class IntellIVRBeanTest {
 		
 		ResponseType expected = new ResponseType();
 		expected.setStatus(StatusType.OK);
-		expected.setLanguage("ENGLISH");
-		expected.setPrivate("PRIVATE");
+		expected.setLanguage(intellivrBean.getDefaultLanguage());
+		expected.setPrivate("123456789");
 		expected.setReportUrl(intellivrBean.getReportURL());
-		expected.setTree("TestTree");
+		expected.setTree(intellivrBean.getDefaultTree());
 		RequestType.Vxml vxml = new RequestType.Vxml();
 		vxml.setPrompt(new RequestType.Vxml.Prompt());
 		AudioType audio = new AudioType();
-		audio.setSrc("test1.wav");
+		audio.setSrc(intellivrBean.getDefaultReminder());
 		vxml.getPrompt().getAudioOrBreak().add(audio);
 		expected.setVxml(vxml);
 		
