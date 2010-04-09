@@ -1,23 +1,15 @@
 package org.motechproject.mobile.web.ivr.intellivr;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -42,15 +34,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequestHandler;
 import org.motechproject.mobile.omp.manager.intellivr.ReportHandler;
-import org.motechproject.mobile.omp.manager.intellivr.AudioType;
 import org.motechproject.mobile.omp.manager.intellivr.AutoCreate;
 import org.motechproject.mobile.omp.manager.intellivr.ErrorCodeType;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequest;
-import org.motechproject.mobile.omp.manager.intellivr.ReportType;
 import org.motechproject.mobile.omp.manager.intellivr.ResponseType;
 import org.motechproject.mobile.omp.manager.intellivr.StatusType;
-import org.motechproject.mobile.omp.manager.intellivr.RequestType.Vxml;
-import org.motechproject.mobile.omp.manager.intellivr.RequestType.Vxml.Prompt;
 
 public class IntellIVRController extends AbstractController implements ResourceLoaderAware {
 
