@@ -66,7 +66,7 @@
 		<xsd:sequence>
 			<xsd:element name="Status" type="reportStatusType"/>		
 			<xsd:element name="Callee" type="xsd:string"/>
-			<xsd:element name="Duration" type="xsd:positiveInteger"/>
+			<xsd:element name="Duration" type="xsd:int"/>
 			<xsd:element name="ConnectTime" type="xsd:dateTime"/>
 			<xsd:element name="DisconnectTime" type="xsd:dateTime"/>
 			<xsd:element name="INTELLIVREntryCount" type="xsd:int"/>
@@ -89,7 +89,7 @@
 	<xsd:complexType name="ivrEntryType">
 		<xsd:attribute name="menu" type="xsd:string"/>
 		<xsd:attribute name="entrytime" type="xsd:dateTime"/>
-		<xsd:attribute name="duration" type="xsd:positiveInteger"/>
+		<xsd:attribute name="duration" type="xsd:int"/>
 		<xsd:attribute name="keypress" type="xsd:string"/>
 		<xsd:attribute name="file" type="xsd:string"/>
 

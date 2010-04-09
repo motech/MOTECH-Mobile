@@ -81,7 +81,7 @@
     </bean>
 
 	<bean id="intellIVRServer" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRServerImpl" init-method="init">
-		<property name="serverURL" value="http://switch1.yo.co.ug/intellivr/api/api"/>
+		<property name="serverURL" value="http://ivr.yo.co.ug/intellivr/api/api"/>
 	</bean>
 	
 	<bean id="intellIVRResponseMap" class="java.util.HashMap">
@@ -156,11 +156,11 @@
 
 	<bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean">
 		<property name="reportURL" value="http://motech-ws.rcg.usm.maine.edu:8080/motech-mobile-webapp/intellivr"/>
-		<property name="apiID" value="eWIXQFFWLeGZATdRLYcZIaHdQQMcWVGALHCXOcFVcYJTXMJQXC"/>
+		<property name="apiID" value="Cqyc0kReo98jxWz9N0qYKzBslRYaLsStA6shaLkHdfnpDU3C2E"/>
 		<property name="method" value="ivroriginate"/>
 		<property name="defaultLanguage" value="English"/>
-		<property name="defaultTree" value="TestTree"/>
-		<property name="defaultReminder" value="test1.wav"/>
+		<property name="defaultTree" value="api_test"/>
+		<property name="defaultReminder" value="IDconfirmation.wav"/>
 		<property name="ivrServer" ref="intellIVRServer"/>
 		<property name="messageHandler" ref="intellIVRMessageHandler"/>
 		<property name="statusStore">

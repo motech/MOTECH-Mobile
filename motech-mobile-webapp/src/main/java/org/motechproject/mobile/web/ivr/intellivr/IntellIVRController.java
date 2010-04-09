@@ -141,7 +141,7 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			marshaller.marshal(output, out);
 			ByteArrayOutputStream debugOut = new ByteArrayOutputStream();
 			marshaller.marshal(output, debugOut);
-			log.debug("Responded with: " + debugOut);
+			log.debug("Responded with: " + debugOut.toString());
 		} catch (JAXBException e) {
 			log.error("Error marshalling object: " + output.toString());
 		}
@@ -185,7 +185,7 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			validator.validate(new DOMSource(doc));
 			return true;
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
+			log.error(e.getMessage());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
