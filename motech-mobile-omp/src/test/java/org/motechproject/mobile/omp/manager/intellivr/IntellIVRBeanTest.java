@@ -27,6 +27,7 @@ public class IntellIVRBeanTest {
 	IntellIVRBean intellivrBean;
 	private IntellIVRServer ivrServer;
 	private GatewayMessageHandler messageHandler;
+	@SuppressWarnings("unchecked")
 	private MotechContext context;
 	private GatewayRequest gatewayRequest;
 	
