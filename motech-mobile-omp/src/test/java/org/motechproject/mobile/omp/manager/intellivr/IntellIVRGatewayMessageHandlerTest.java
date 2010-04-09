@@ -41,6 +41,7 @@ public class IntellIVRGatewayMessageHandlerTest {
 		expected.put("0008", MStatus.CANCELLED);
 		expected.put("0009", MStatus.CANCELLED);
 		expected.put("0010", MStatus.CANCELLED);
+		expected.put("0011", MStatus.CANCELLED);
 		expected.put("OK", MStatus.PENDING);
 		expected.put("COMPLETED", MStatus.DELIVERED);
 		expected.put("REJECTED", MStatus.FAILED);
