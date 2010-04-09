@@ -51,6 +51,8 @@ public class IntellIVRGatewayMessageHandlerTest {
 		
 		for ( String code : expected.keySet()) {
 			assertEquals(expected.get(code), intellIVRMessageHandler.lookupStatus(code));
+			assertEquals(expected.get(code), intellIVRMessageHandler.lookupResponse(code));
+			assertEquals(expected.get(code), intellIVRMessageHandler.parseMessageStatus(code));
 		}
 	
 		
