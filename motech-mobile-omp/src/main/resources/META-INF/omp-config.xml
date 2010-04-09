@@ -75,8 +75,8 @@
     </bean>
     
     <bean id="gatewayManager" class="org.motechproject.mobile.omp.manager.orserve.ORServeGatewayManagerImpl">
-        <property name="productCode" value="nu-ob-demo" />
-        <property name="senderId" value="MoTeCH" />
+        <property name="productCode" value="${orserve.gateway.productCode}" />
+        <property name="senderId" value="${orserve.gateway.senderId}" />
         <property name="messageHandler" ref="messageHandler" />
     </bean>
 
@@ -174,7 +174,7 @@
 
     <bean id="smsService" class="org.motechproject.mobile.omp.service.SMSMessagingServiceImpl">
         <property name="cache" ref="smsCache" />
-        <property name="gatewayManager" ref="dummyManager" />
+        <property name="gatewayManager" ref="gatewayManager" />
         <property name="coreManager" ref="coreManager" />
     </bean>
 
