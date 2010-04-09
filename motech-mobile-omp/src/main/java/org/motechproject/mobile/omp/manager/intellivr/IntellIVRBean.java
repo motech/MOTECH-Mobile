@@ -55,9 +55,13 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		ResponseType response = ivrServer.requestCall(r);
 		
-		log.info("Reponse: " + response.toString());
+		log.info("Response: " + response.toString());
 		
-		return null;
+		String responseCode = response.getStatus() == StatusType.OK ? "OK" : response.getErrorCode().value();
+		
+		Set<GatewayResponse> responses = messageHandler.parseMessageResponse(messageDetails, responseCode, context);
+		
+		return responses;
 	}
 
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {

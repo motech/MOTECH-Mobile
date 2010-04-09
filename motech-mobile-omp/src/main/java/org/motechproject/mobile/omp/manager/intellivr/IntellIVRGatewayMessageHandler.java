@@ -1,5 +1,6 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,8 +22,10 @@ public class IntellIVRGatewayMessageHandler implements GatewayMessageHandler {
 	@SuppressWarnings("unchecked")
 	public Set<GatewayResponse> parseMessageResponse(GatewayRequest message,
 			String gatewayResponse, MotechContext context) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
+		
+		return responses;
 	}
 
 	public MStatus parseMessageStatus(String messageStatus) {

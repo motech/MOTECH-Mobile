@@ -3,6 +3,9 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
+
+import java.util.HashSet;
+
 import javax.annotation.Resource;
 
 import org.junit.Before;
@@ -10,6 +13,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
+import org.motechproject.mobile.core.model.GatewayResponse;
+import org.motechproject.mobile.core.service.MotechContext;
+import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,6 +26,9 @@ public class IntellIVRBeanTest {
 	@Resource
 	IntellIVRBean intellivrBean;
 	private IntellIVRServer ivrServer;
+	private GatewayMessageHandler messageHandler;
+	private MotechContext context;
+	private GatewayRequest gatewayRequest;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -97,12 +106,17 @@ public class IntellIVRBeanTest {
 		expectedResponse.setStatus(StatusType.OK);
 		
 		ivrServer = createMock(IntellIVRServer.class);
+		messageHandler = createMock(GatewayMessageHandler.class);
+		gatewayRequest = createMock(GatewayRequest.class);
+		context = createMock(MotechContext.class);
 		
 		expect(ivrServer.requestCall(r)).andReturn(expectedResponse);
+		expect(messageHandler.parseMessageResponse(gatewayRequest, "OK", context)).andReturn(new HashSet<GatewayResponse>());
 		
 		replay(ivrServer);
 		
 		intellivrBean.setIvrServer(ivrServer);
+		intellivrBean.setMessageHandler(messageHandler);
 		intellivrBean.sendMessage(request, null);
 		
 		verify(ivrServer);
