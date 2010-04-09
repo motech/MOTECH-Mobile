@@ -2,6 +2,7 @@ package org.motechproject.mobile.web.ivr.intellivr;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,6 +38,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequestHandler;
 import org.motechproject.mobile.omp.manager.intellivr.ReportHandler;
 import org.motechproject.mobile.omp.manager.intellivr.AudioType;
@@ -58,6 +61,8 @@ public class IntellIVRController extends AbstractController implements ResourceL
 	private Unmarshaller unmarshaller;
 	private GetIVRConfigRequestHandler ivrConfigHandler;
 	private ReportHandler reportHandler;
+	
+	private Log log = LogFactory.getLog(IntellIVRController.class);
 	
 	public void init() {		
 		Resource schemaResource = resourceLoader.getResource("classpath:intellivr-in.xsd");
@@ -95,9 +100,12 @@ public class IntellIVRController extends AbstractController implements ResourceL
 		
 		String content = getContent(request);
 		
+		log.debug("Received: " + content);
+		
 		Object output = null;
 		
 		if ( !contentIsValid(content) ) {
+			log.debug("Received invalid content");
 			AutoCreate ac = new AutoCreate();
 			ResponseType rt = new ResponseType();
 			rt.setStatus(StatusType.ERROR);
@@ -112,16 +120,17 @@ public class IntellIVRController extends AbstractController implements ResourceL
 				if ( obj instanceof AutoCreate ) {
 					AutoCreate ac = new AutoCreate();
 					ac.setResponse(reportHandler.handleReport(((AutoCreate)obj).getReport()));
+					log.info("Received valid call report");
 					output = ac;
 				}
 				if ( obj instanceof GetIVRConfigRequest ) {
 					AutoCreate ac = new AutoCreate();
 					ac.setResponse(ivrConfigHandler.handleRequest((GetIVRConfigRequest)obj));
+					log.info("Received valid ivr config request");
 					output = ac;
 				}
 			} catch ( Exception e ) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("Error unmarshaling content: " + content);
 			}
 			
 
@@ -142,9 +151,11 @@ public class IntellIVRController extends AbstractController implements ResourceL
 		try {
 			response.setContentType("text/xml");
 			marshaller.marshal(output, out);
+			ByteArrayOutputStream debugOut = new ByteArrayOutputStream();
+			marshaller.marshal(output, debugOut);
+			log.debug("Responded with: " + debugOut);
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error marshalling object: " + output.toString());
 		}
 
 		
