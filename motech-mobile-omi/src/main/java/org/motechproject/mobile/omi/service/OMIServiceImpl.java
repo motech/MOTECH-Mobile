@@ -450,7 +450,8 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Fetching queued messages...");
         List<MessageRequest> messages = msgReqDao.getMsgByStatus(MStatus.QUEUED);
 
-        logger.info("MessageRequest fetched: " + messages == null ? 0 : messages.size());
+        int numMsgs = (messages == null) ? 0 : messages.size();
+        logger.info("MessageRequest fetched: " + numMsgs);
         logger.debug(messages);
 
         logger.info("Initializing OMP MessagingService...");

@@ -87,9 +87,9 @@ public class IMPServiceImpl implements IMPService {
             Matcher m = p.matcher(message.toLowerCase().trim());
 
             if (m.find()) {
-                if(requesterPhone != null && !requesterPhone.isEmpty())
+                if (requesterPhone != null && !requesterPhone.isEmpty()) {
                     sendResponse(response.getContent(), requesterPhone);
-                else if (response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName)) {
+                } else if (response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName)) {
                     IncomingMessageFormParameter senderParam = response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName);
                     requesterPhone = senderParam.getValue();
                     sendResponse(response.getContent(), requesterPhone);
@@ -186,8 +186,10 @@ public class IMPServiceImpl implements IMPService {
                 int start = (smsNum - 1) * (charsPerSMS - concatAllowance) * maxConcat;
                 int end = (smsNum * (charsPerSMS - concatAllowance) * maxConcat) - 1;
 
-                String message = response.length() < end ? response.substring(start) : response.substring(start, end);
-                omiManager.createOMIService().sendMessage(message, recipient);
+                if (response.length() > start) {
+                    String message = response.length() < end ? response.substring(start) : response.substring(start, end);
+                    omiManager.createOMIService().sendMessage(message, recipient);
+                }
             }
         }
     }
