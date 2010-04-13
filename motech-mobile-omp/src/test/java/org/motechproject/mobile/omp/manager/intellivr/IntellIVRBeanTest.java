@@ -6,6 +6,7 @@ import static org.easymock.EasyMock.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
+import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
@@ -27,11 +29,6 @@ public class IntellIVRBeanTest {
 
 	@Resource
 	IntellIVRBean intellivrBean;
-	private IntellIVRServer ivrServer;
-	private GatewayMessageHandler messageHandler;
-	@SuppressWarnings("unchecked")
-	private MotechContext context;
-	private GatewayRequest gatewayRequest;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -80,6 +77,7 @@ public class IntellIVRBeanTest {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testSendMessage() {
 		
@@ -108,21 +106,38 @@ public class IntellIVRBeanTest {
 		ResponseType expectedResponse = new ResponseType();
 		expectedResponse.setStatus(StatusType.OK);
 		
-		ivrServer = createMock(IntellIVRServer.class);
-		messageHandler = createMock(GatewayMessageHandler.class);
-		gatewayRequest = createMock(GatewayRequest.class);
-		context = createMock(MotechContext.class);
+		IntellIVRServer ivrServer = createMock(IntellIVRServer.class);
+		intellivrBean.setIvrServer(ivrServer);
+		
+		GatewayMessageHandler messageHandler = createMock(GatewayMessageHandler.class);
+		intellivrBean.setMessageHandler(messageHandler);
+
+		MessageStatusStore statusStore = createMock(MessageStatusStore.class);
+		intellivrBean.setStatusStore(statusStore);
+		
+		MotechContext context = createMock(MotechContext.class);
 		
 		expect(ivrServer.requestCall(r)).andReturn(expectedResponse);
-		expect(messageHandler.parseMessageResponse(gatewayRequest, "OK", context)).andReturn(new HashSet<GatewayResponse>());
-		
 		replay(ivrServer);
+
+		Set<GatewayResponse> responseSet = new HashSet<GatewayResponse>();
+		GatewayResponse gwResponse = new GatewayResponseImpl();
+		gwResponse.setGatewayMessageId(testRequestID);
+		gwResponse.setResponseText(StatusType.OK.value());
+		responseSet.add(gwResponse);
 		
-		intellivrBean.setIvrServer(ivrServer);
-		intellivrBean.setMessageHandler(messageHandler);
-		intellivrBean.sendMessage(request, null);
+		expect(messageHandler.parseMessageResponse(request, StatusType.OK.value(), context))
+			.andReturn(responseSet);
+		replay(messageHandler);
+		
+		statusStore.updateStatus(testRequestID, StatusType.OK.value());
+		replay(statusStore);
+
+		intellivrBean.sendMessage(request, context);
 		
 		verify(ivrServer);
+		verify(messageHandler);
+		verify(statusStore);
 				
 	}
 	
