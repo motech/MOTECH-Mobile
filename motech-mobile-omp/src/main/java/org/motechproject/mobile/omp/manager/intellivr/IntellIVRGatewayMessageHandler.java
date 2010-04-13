@@ -1,5 +1,6 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -24,6 +25,15 @@ public class IntellIVRGatewayMessageHandler implements GatewayMessageHandler {
 			String gatewayResponse, MotechContext context) {
 
 		Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
+		
+		GatewayResponse gwResponse = coreManager.createGatewayResponse(context);
+		
+		gwResponse.setGatewayRequest(message);
+		gwResponse.setRecipientNumber(message.getRecipientsNumber());
+		gwResponse.setRequestId(message.getRequestId());
+		gwResponse.setResponseText(gatewayResponse);
+		gwResponse.setMessageStatus(lookupStatus(gatewayResponse));
+		gwResponse.setDateCreated(new Date());
 		
 		return responses;
 	}
