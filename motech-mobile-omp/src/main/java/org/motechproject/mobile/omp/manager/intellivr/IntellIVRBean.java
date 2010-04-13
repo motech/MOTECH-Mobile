@@ -64,14 +64,6 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return responses;
 	}
 
-	public void setMessageHandler(GatewayMessageHandler messageHandler) {
-		this.messageHandler = messageHandler;
-	}
-
-	public GatewayMessageHandler getMessageHandler() {
-		return messageHandler;
-	}
-
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
 		log.info("Received request for id " + request.getUserid());
 		ResponseType r = new ResponseType();
@@ -83,9 +75,23 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public ResponseType handleReport(ReportType report) {
 		log.info("Received call report: " + report.toString());
+		
+		if ( report.getPrivate() == null )
+			log.error("Unable to identify call in report: " + report.toString());
+		else 
+			statusStore.updateStatus(report.getPrivate(), report.getStatus().value());
+		
 		ResponseType r = new ResponseType();
 		r.setStatus(StatusType.OK);
 		return r;
+	}
+
+	public void setMessageHandler(GatewayMessageHandler messageHandler) {
+		this.messageHandler = messageHandler;
+	}
+
+	public GatewayMessageHandler getMessageHandler() {
+		return messageHandler;
 	}
 
 	public String getReportURL() {

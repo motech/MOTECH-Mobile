@@ -4,6 +4,7 @@ package org.motechproject.mobile.omp.manager.intellivr;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
+import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -122,6 +124,38 @@ public class IntellIVRBeanTest {
 		
 		verify(ivrServer);
 				
+	}
+	
+	@Test
+	public void testHandleReport() {
+		
+		ReportType report = new ReportType();
+		report.setCallee("15555555555");
+		report.setConnectTime(null);
+		report.setDisconnectTime(null);
+		report.setDuration(0);
+		report.setINTELLIVREntryCount(0);
+		report.setPrivate("PRIVATE");
+		report.intellivrEntry = new ArrayList<IvrEntryType>();
+
+		for ( ReportStatusType type : ReportStatusType.values()) {
+			
+			report.setStatus(type);
+			
+			MessageStatusStore statusStore = createMock(MessageStatusStore.class);
+			intellivrBean.setStatusStore(statusStore);
+			statusStore.updateStatus(report.getPrivate(), report.getStatus().value());
+			
+			replay(statusStore);
+
+			ResponseType response = intellivrBean.handleReport(report);
+			assertEquals(StatusType.OK, response.getStatus());
+			
+			verify(statusStore);
+			
+		}
+
+		
 	}
 
 }
