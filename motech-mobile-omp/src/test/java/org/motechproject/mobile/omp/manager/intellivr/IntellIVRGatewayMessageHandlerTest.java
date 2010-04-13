@@ -61,7 +61,6 @@ public class IntellIVRGatewayMessageHandlerTest {
 	@Test
 	public void testLookupStatus() {
 		
-		
 		for ( String code : statusCodes.keySet())
 			assertEquals(statusCodes.get(code), intellIVRMessageHandler.lookupStatus(code));
 
@@ -114,6 +113,7 @@ public class IntellIVRGatewayMessageHandlerTest {
 			for ( GatewayResponse response : responses ) {
 				assertTrue(response.getDateCreated()!= null);
 				assertEquals(message, response.getGatewayRequest());
+				assertEquals(testRequestID, response.getGatewayMessageId());
 				assertEquals(statusCodes.get(code), response.getMessageStatus());
 				assertEquals(testPhone, response.getRecipientNumber());
 				assertEquals(testRequestID, response.getRequestId());

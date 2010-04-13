@@ -29,11 +29,14 @@ public class IntellIVRGatewayMessageHandler implements GatewayMessageHandler {
 		GatewayResponse gwResponse = coreManager.createGatewayResponse(context);
 		
 		gwResponse.setGatewayRequest(message);
+		gwResponse.setGatewayMessageId(message.getRequestId());
 		gwResponse.setRecipientNumber(message.getRecipientsNumber());
 		gwResponse.setRequestId(message.getRequestId());
 		gwResponse.setResponseText(gatewayResponse);
 		gwResponse.setMessageStatus(lookupStatus(gatewayResponse));
 		gwResponse.setDateCreated(new Date());
+		
+		responses.add(gwResponse);
 		
 		return responses;
 	}

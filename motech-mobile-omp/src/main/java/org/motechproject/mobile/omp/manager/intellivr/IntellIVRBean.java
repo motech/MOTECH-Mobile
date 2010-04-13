@@ -38,26 +38,26 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
 			MotechContext context) {
 
-		RequestType r = new RequestType();
-		r.setApiId(this.apiID);
-		r.setCallee(messageDetails.getRecipientsNumber());
-		r.setMethod(this.method);
-		r.setLanguage(this.defaultLanguage);
-		r.setPrivate(messageDetails.getRequestId());
-		r.setReportUrl(this.reportURL);
-		r.setTree(this.defaultTree);
+		RequestType ivrRequest = new RequestType();
+		ivrRequest.setApiId(this.apiID);
+		ivrRequest.setCallee(messageDetails.getRecipientsNumber());
+		ivrRequest.setMethod(this.method);
+		ivrRequest.setLanguage(this.defaultLanguage);
+		ivrRequest.setPrivate(messageDetails.getRequestId());
+		ivrRequest.setReportUrl(this.reportURL);
+		ivrRequest.setTree(this.defaultTree);
 		RequestType.Vxml vxml = new RequestType.Vxml();
 		vxml.setPrompt(new RequestType.Vxml.Prompt());
 		AudioType audio = new AudioType();
 		audio.setSrc(this.defaultReminder);
 		vxml.getPrompt().getAudioOrBreak().add(audio);
-		r.setVxml(vxml);
+		ivrRequest.setVxml(vxml);
 		
-		ResponseType response = ivrServer.requestCall(r);
+		ResponseType ivrResponse = ivrServer.requestCall(ivrRequest);
 		
-		log.info("Response: " + response.toString());
+		log.info("Response: " + ivrResponse.toString());
 		
-		String responseCode = response.getStatus() == StatusType.OK ? "OK" : response.getErrorCode().value();
+		String responseCode = ivrResponse.getStatus() == StatusType.OK ? "OK" : ivrResponse.getErrorCode().value();
 		
 		Set<GatewayResponse> responses = messageHandler.parseMessageResponse(messageDetails, responseCode, context);
 		
