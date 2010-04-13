@@ -135,7 +135,7 @@
     &lt;xf:bind id="chpsid" nodeset="/pat-query/chpsid" type="xsd:int" required="true()"/&gt;
     &lt;xf:bind id="facilityid" nodeset="/pat-query/facilityid" type="xsd:int" required="true()"/&gt;
     &lt;xf:bind id="formname" nodeset="/pat-query/formname" type="xsd:string" required="true()"/&gt;
-    &lt;xf:bind id="motechid" nodeset="/pat-query/motechid" type="xsd:string" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf'" action="show" visible="false()" required="true()"/&gt;
+    &lt;xf:bind id="motechid" nodeset="/pat-query/motechid" type="xsd:int" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf'" action="show" visible="false()" required="true()"/&gt;
     &lt;xf:bind id="firstname" nodeset="/pat-query/firstname" type="xsd:string" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()"/&gt;
     &lt;xf:bind id="lastname" nodeset="/pat-query/lastname" type="xsd:string" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()"/&gt;
     &lt;xf:bind id="PreferredName" nodeset="/pat-query/PreferredName" type="xsd:string" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()"/&gt;
