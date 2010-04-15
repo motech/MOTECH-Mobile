@@ -5,9 +5,7 @@ import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -19,7 +17,6 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
-import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
@@ -33,30 +30,8 @@ public class IntellIVRBeanTest {
 	@Resource
 	IntellIVRBean intellivrBean;
 	
-	Map<String, MStatus> statusCodes = new HashMap<String, MStatus>();
-	
 	@Before
 	public void setUp() throws Exception {
-		
-		statusCodes.put("0000", MStatus.CANCELLED);
-		statusCodes.put("0001", MStatus.CANCELLED);
-		statusCodes.put("0002", MStatus.CANCELLED);
-		statusCodes.put("0003", MStatus.CANCELLED);
-		statusCodes.put("0004", MStatus.CANCELLED);
-		statusCodes.put("0005", MStatus.CANCELLED);
-		statusCodes.put("0006", MStatus.CANCELLED);
-		statusCodes.put("0007", MStatus.CANCELLED);
-		statusCodes.put("0008", MStatus.CANCELLED);
-		statusCodes.put("0009", MStatus.CANCELLED);
-		statusCodes.put("0010", MStatus.CANCELLED);
-		statusCodes.put("0011", MStatus.CANCELLED);
-		statusCodes.put("OK", MStatus.PENDING);
-		statusCodes.put("COMPLETED", MStatus.DELIVERED);
-		statusCodes.put("REJECTED", MStatus.FAILED);
-		statusCodes.put("BUSY", MStatus.FAILED);
-		statusCodes.put("CONGESTION", MStatus.FAILED);
-		statusCodes.put("NOANSWER", MStatus.FAILED);
-		statusCodes.put("INTERNALERROR", MStatus.FAILED);
 		
 	}
 	
@@ -195,63 +170,7 @@ public class IntellIVRBeanTest {
 			
 		}
 
-	}
-	
-	@Test
-	public void testGetMessageStatus() {
-		
-		for ( String code: statusCodes.keySet() ) {
-
-			MessageStatusStore statusStore = createMock(MessageStatusStore.class);
-			statusStore.updateStatus("testid", code);
-			intellivrBean.setStatusStore(statusStore);
-			
-			reset(statusStore);
-			
-			GatewayResponse response = new GatewayResponseImpl();
-			response.setGatewayMessageId("testid");
-			
-			expect(statusStore.getStatus("testid")).andReturn(code);
-			
-			replay(statusStore);
-			
-			String actual = intellivrBean.getMessageStatus(response);
-			
-			assertEquals(code, actual);
-			
-			verify(statusStore);
-			
-		}
-			
 		
 	}
 
-	@Test
-	public void testMapMessageStatus() {
-		
-		for ( String code: statusCodes.keySet() ) {
-
-			GatewayMessageHandler messageHandler = createMock(GatewayMessageHandler.class);
-			
-			intellivrBean.setMessageHandler(messageHandler);
-			
-			GatewayResponse response = new GatewayResponseImpl();
-			response.setResponseText(code);
-			
-			expect(messageHandler.lookupStatus(code)).andReturn(statusCodes.get(code));
-			
-			replay(messageHandler);
-			
-			MStatus actual = intellivrBean.mapMessageStatus(response);
-			
-			assertEquals(statusCodes.get(code), actual);
-			
-			verify(messageHandler);
-			
-		}
-			
-		
-	}
-
-	
 }

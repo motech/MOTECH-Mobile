@@ -27,12 +27,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
 	public String getMessageStatus(GatewayResponse response) {
-		log.debug("Received getMessageStatus for " + response.toString());
 		return statusStore.getStatus(response.getGatewayMessageId());
 	}
 
 	public MStatus mapMessageStatus(GatewayResponse response) {
-		log.debug("Received mapMessageStatus for " + response.toString());
 		return messageHandler.lookupStatus(response.getResponseText());
 	}
 
@@ -40,8 +38,6 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
 			MotechContext context) {
 
-		log.debug("Received request to send message: " + messageDetails.toString());
-		
 		RequestType ivrRequest = new RequestType();
 		ivrRequest.setApiId(this.apiID);
 		ivrRequest.setCallee(messageDetails.getRecipientsNumber());
