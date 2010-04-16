@@ -57,6 +57,7 @@ insert into notification_type(id, name, description) values (50, 'Day-by-day tes
 insert into notification_type(id, name, description) values (51, 'Day-by-day test ','Day 38 message');
 insert into notification_type(id, name, description) values (52, 'Day-by-day test ','Day 39 message');
 insert into notification_type(id, name, description) values (53, 'Day-by-day test ','Day 40 message');
+insert into notification_type(id, name, description) values (102, 'Raw data ','Raw data');
 
 
 insert into message_template(id, notification_type, message_type, language, template ,date_created ) values (1,2,'TEXT',1,'Tetanus is a disorder that leads to severe and painful muscle spasms. It is caused by a bacterium that is commonly found in soil, dust and animal waste.','2009-10-06');
@@ -258,6 +259,8 @@ insert into message_template(id, notification_type, message_type, language, temp
 insert into message_template(id, notification_type, message_type, language, template ,date_created ) values (50,53,'TEXT',1,'Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.','2009-10-06');
 insert into message_template(id, notification_type, message_type, language, template ,date_created ) values (199,53,'TEXT',2,'Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.@@','2009-10-06');
 insert into message_template(id, notification_type, message_type, language, template ,date_created ) values (200,53,'TEXT',3,'Hello <PatientFirstName>.  This is your message for day 40.  Your estimated due date is <DueDate>.##','2009-10-06');
+
+insert into message_template(id, notification_type, message_type, language, template ,date_created ) values (201,102,'VOICE',1,'<RAW_DATA>','2010-04-16');
 
 
 /*Data Entry Forms*/
