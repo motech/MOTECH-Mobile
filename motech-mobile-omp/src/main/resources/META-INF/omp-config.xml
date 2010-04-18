@@ -163,7 +163,7 @@
 		<property name="defaultLanguage" value="English"/>
 		<property name="defaultTree" value="api_test"/>
 		<property name="defaultReminder" value="IDconfirmation.wav"/>
-		<property name="ivrServer" ref="intellIVRServer"/>
+		<property name="ivrServer" ref="intellIVRTestServer"/>
 		<property name="messageHandler" ref="intellIVRMessageHandler"/>
 		<property name="statusStore">
 			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>

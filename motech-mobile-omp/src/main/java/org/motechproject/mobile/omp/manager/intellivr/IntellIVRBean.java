@@ -60,9 +60,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		vxml.getPrompt().getAudioOrBreak().add(audio);
 		ivrRequest.setVxml(vxml);
 		
+		log.debug("Sending IVR request: " + ivrRequest);
+		
 		ResponseType ivrResponse = ivrServer.requestCall(ivrRequest);
 		
-		log.info("Response: " + ivrResponse.toString());
+		log.info("Received IVR response: " + ivrResponse.toString());
 		
 		String responseCode = ivrResponse.getStatus() == StatusType.OK ? StatusType.OK.value() : ivrResponse.getErrorCode().value();
 		
