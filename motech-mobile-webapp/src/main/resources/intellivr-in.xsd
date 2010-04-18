@@ -67,8 +67,8 @@
 			<xsd:element name="Status" type="reportStatusType"/>		
 			<xsd:element name="Callee" type="xsd:string"/>
 			<xsd:element name="Duration" type="xsd:int"/>
-			<xsd:element name="ConnectTime" type="xsd:dateTime"/>
-			<xsd:element name="DisconnectTime" type="xsd:dateTime"/>
+			<xsd:element name="ConnectTime" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="DisconnectTime" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
 			<xsd:element name="INTELLIVREntryCount" type="xsd:int"/>
 			<xsd:element name="Private" type="xsd:string"/>
 			<xsd:element name="INTELLIVREntry" type="ivrEntryType" minOccurs="0" maxOccurs="unbounded"/>
