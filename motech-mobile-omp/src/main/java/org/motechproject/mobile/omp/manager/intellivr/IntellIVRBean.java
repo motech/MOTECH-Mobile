@@ -27,10 +27,15 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
 	public String getMessageStatus(GatewayResponse response) {
+		log.debug("Received getMessagesStatus request for " + response);
+		log.debug("Returning " + statusStore.getStatus(response.getGatewayMessageId()) + " for " + response);
 		return statusStore.getStatus(response.getGatewayMessageId());
 	}
 
 	public MStatus mapMessageStatus(GatewayResponse response) {
+		log.debug("Received mapMessageStatus for " + response);
+		log.debug("Returning " + messageHandler.lookupStatus(response.getResponseText()) + " for " + response);
+		//when called and the response status is RETRY, will need to remove or set to PENDING before returning value
 		return messageHandler.lookupStatus(response.getResponseText());
 	}
 
@@ -38,6 +43,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
 			MotechContext context) {
 
+		log.debug("Sending messages for GatewayRequest:" + messageDetails);
+		
 		RequestType ivrRequest = new RequestType();
 		ivrRequest.setApiId(this.apiID);
 		ivrRequest.setCallee(messageDetails.getRecipientsNumber());

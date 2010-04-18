@@ -84,6 +84,8 @@
 		<property name="serverURL" value="http://ivr.yo.co.ug/intellivr/api/api"/>
 	</bean>
 	
+	<bean id="intellIVRTestServer" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRTestServer"/>
+	
 	<bean id="intellIVRResponseMap" class="java.util.HashMap">
 		<constructor-arg>
 			<map>

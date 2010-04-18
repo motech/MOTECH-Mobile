@@ -9,10 +9,12 @@ public class IntellIVRTestServer implements IntellIVRServer {
 	
 	public ResponseType requestCall(RequestType request) {
 
-		log.info("request " + request.toString());
+		log.debug("Received call request " + request.toString());
 		
 		ResponseType response = new ResponseType();
 		response.setStatus(StatusType.OK);
+		/*response.setStatus(StatusType.ERROR);
+		response.setErrorCode(ErrorCodeType.IVR_UNKNOWN_ERROR);*/
 		
 		return response;
 	}
