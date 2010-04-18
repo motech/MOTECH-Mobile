@@ -81,27 +81,39 @@ public class IntellIVRBeanTest {
 	@Test
 	public void testSendMessage() {
 		
-		String testPhone = "+0115555555555";
+		String testPhone = "00015555555555";
 		String testRequestID = "test_request_id";
+		String testReminderID1 = "test1";
+		String testReminderID2 = "test2";
+		String testReminderFile1 = "test1.wav";
+		String testReminderFile2 = "test2.wav";
+		String testWeek = "1";
+		String testTree = "api_test";
+		String testLanguage = "English";
+		String testMessage = testReminderID1 + "," + testReminderID2 + ":" + testWeek + ":" + testLanguage;
 		
 		GatewayRequest request = new GatewayRequestImpl();
 		request.setRecipientsNumber(testPhone);
 		request.setRequestId(testRequestID);
+		request.setMessage(testMessage);
 
-		RequestType r = new RequestType();
-		r.setApiId(intellivrBean.getApiID());
-		r.setCallee(testPhone);
-		r.setMethod(intellivrBean.getMethod());
-		r.setLanguage(intellivrBean.getDefaultLanguage());
-		r.setPrivate(testRequestID);
-		r.setReportUrl(intellivrBean.getReportURL());
-		r.setTree(intellivrBean.getDefaultTree());
+		RequestType expectedRequest = new RequestType();
+		expectedRequest.setApiId(intellivrBean.getApiID());
+		expectedRequest.setCallee(testPhone);
+		expectedRequest.setMethod(intellivrBean.getMethod());
+		expectedRequest.setLanguage(testLanguage);
+		expectedRequest.setPrivate(testRequestID);
+		expectedRequest.setReportUrl(intellivrBean.getReportURL());
+		expectedRequest.setTree(testTree);
 		RequestType.Vxml vxml = new RequestType.Vxml();
 		vxml.setPrompt(new RequestType.Vxml.Prompt());
-		AudioType audio = new AudioType();
-		audio.setSrc(intellivrBean.getDefaultReminder());
-		vxml.getPrompt().getAudioOrBreak().add(audio);
-		r.setVxml(vxml);
+		AudioType audio1 = new AudioType();
+		audio1.setSrc(testReminderFile1);
+		vxml.getPrompt().getAudioOrBreak().add(audio1);
+		AudioType audio2 = new AudioType();
+		audio2.setSrc(testReminderFile2);
+		vxml.getPrompt().getAudioOrBreak().add(audio2);
+		expectedRequest.setVxml(vxml);
 		
 		ResponseType expectedResponse = new ResponseType();
 		expectedResponse.setStatus(StatusType.OK);
@@ -117,7 +129,7 @@ public class IntellIVRBeanTest {
 		
 		MotechContext context = createMock(MotechContext.class);
 		
-		expect(ivrServer.requestCall(r)).andReturn(expectedResponse);
+		expect(ivrServer.requestCall(expectedRequest)).andReturn(expectedResponse);
 		replay(ivrServer);
 
 		Set<GatewayResponse> responseSet = new HashSet<GatewayResponse>();

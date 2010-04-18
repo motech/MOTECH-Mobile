@@ -1,6 +1,11 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,8 +28,28 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private String defaultReminder;
 	private IntellIVRServer ivrServer;
 	private MessageStatusStore statusStore;
+	private Map<String, String> reminderFileNames;
+	private Map<String, String> treeNames;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
+	
+	private void init() {
+
+		/*
+		 * Temporary hack.  It will be populated by a config file. 
+		 */
+		reminderFileNames = new HashMap<String, String>();
+		reminderFileNames.put("test1", "test1.wav");
+		reminderFileNames.put("test2", "test2.wav");
+		reminderFileNames.put("IDconfirmation", "IDconfirmation.wav");
+	
+		/*
+		 * Temporary hack.  It will be populated by a config file.
+		 */
+		treeNames = new HashMap<String, String>();
+		treeNames.put("1", "api_test");
+		
+	}
 	
 	public String getMessageStatus(GatewayResponse response) {
 		log.debug("Received getMessagesStatus request for " + response);
@@ -35,7 +60,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public MStatus mapMessageStatus(GatewayResponse response) {
 		log.debug("Received mapMessageStatus for " + response);
 		log.debug("Returning " + messageHandler.lookupStatus(response.getResponseText()) + " for " + response);
-		//when called and the response status is RETRY, will need to remove or set to PENDING before returning value
+		//when called and the response status is RETRY, may need to remove or set to PENDING before returning value
 		return messageHandler.lookupStatus(response.getResponseText());
 	}
 
@@ -43,22 +68,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
 			MotechContext context) {
 
-		log.debug("Sending messages for GatewayRequest:" + messageDetails);
+		log.debug("Received GatewayRequest:" + messageDetails);
 		
-		RequestType ivrRequest = new RequestType();
-		ivrRequest.setApiId(this.apiID);
-		ivrRequest.setCallee(messageDetails.getRecipientsNumber());
-		ivrRequest.setMethod(this.method);
-		ivrRequest.setLanguage(this.defaultLanguage);
-		ivrRequest.setPrivate(messageDetails.getRequestId());
-		ivrRequest.setReportUrl(this.reportURL);
-		ivrRequest.setTree(this.defaultTree);
-		RequestType.Vxml vxml = new RequestType.Vxml();
-		vxml.setPrompt(new RequestType.Vxml.Prompt());
-		AudioType audio = new AudioType();
-		audio.setSrc(this.defaultReminder);
-		vxml.getPrompt().getAudioOrBreak().add(audio);
-		ivrRequest.setVxml(vxml);
+		RequestType ivrRequest = createIVRRequest(messageDetails);
 		
 		log.debug("Sending IVR request: " + ivrRequest);
 		
@@ -98,6 +110,61 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		ResponseType r = new ResponseType();
 		r.setStatus(StatusType.OK);
 		return r;
+	}
+	
+	private RequestType createIVRRequest(GatewayRequest gwRequest) {
+
+		RequestType ivrRequest = new RequestType();
+		
+		/*
+		 * These first three values are fixed
+		 */
+		ivrRequest.setApiId(this.apiID);
+		ivrRequest.setMethod(this.method);
+		ivrRequest.setReportUrl(this.reportURL);
+
+		/*
+		 * recipient's phone number
+		 */
+		ivrRequest.setCallee(gwRequest.getRecipientsNumber());
+	
+		/*
+		 * Internal ID - will be returned by IVR system with status reports
+		 */
+		ivrRequest.setPrivate(gwRequest.getRequestId());
+
+		/*
+		 * Reminder messages, week number, and language are parsed from the message
+		 */
+		String message = gwRequest.getMessage();
+
+		Pattern p = Pattern.compile("([0-9a-zA-Z\\-\\,\\.]+)\\:([0-9a-zA-Z]+)\\:([a-zA-Z]+)");
+		Matcher m = p.matcher(message);
+		if ( !m.matches() ) {
+			log.error("Invalid message format received.  Will use defaults.  Message was '" + message + "'.");
+			ivrRequest.setLanguage(this.defaultLanguage);
+			ivrRequest.setTree(this.defaultTree);
+			RequestType.Vxml vxml = new RequestType.Vxml();
+			vxml.setPrompt(new RequestType.Vxml.Prompt());
+			AudioType audio = new AudioType();
+			audio.setSrc(this.defaultReminder);
+			vxml.getPrompt().getAudioOrBreak().add(audio);
+			ivrRequest.setVxml(vxml);
+		} else {
+			ivrRequest.setLanguage(m.group(3));
+			ivrRequest.setTree(treeNames.get(m.group(2)));
+			RequestType.Vxml vxml = new RequestType.Vxml();
+			vxml.setPrompt(new RequestType.Vxml.Prompt());
+			StringTokenizer tok = new StringTokenizer(m.group(1),",");
+			while ( tok.hasMoreTokens() ) {
+				AudioType audio = new AudioType();
+				audio.setSrc(reminderFileNames.get(tok.nextToken()));
+				vxml.getPrompt().getAudioOrBreak().add(audio);
+			}
+			ivrRequest.setVxml(vxml);			
+		}
+		
+		return ivrRequest;
 	}
 
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
