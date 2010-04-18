@@ -36,25 +36,25 @@ public class IntellIVRGatewayMessageHandlerTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		statusCodes.put("0000", MStatus.CANCELLED);
-		statusCodes.put("0001", MStatus.CANCELLED);
-		statusCodes.put("0002", MStatus.CANCELLED);
-		statusCodes.put("0003", MStatus.CANCELLED);
-		statusCodes.put("0004", MStatus.CANCELLED);
-		statusCodes.put("0005", MStatus.CANCELLED);
-		statusCodes.put("0006", MStatus.CANCELLED);
-		statusCodes.put("0007", MStatus.CANCELLED);
-		statusCodes.put("0008", MStatus.CANCELLED);
-		statusCodes.put("0009", MStatus.CANCELLED);
-		statusCodes.put("0010", MStatus.CANCELLED);
-		statusCodes.put("0011", MStatus.CANCELLED);
+		statusCodes.put("0000", MStatus.FAILED);
+		statusCodes.put("0001", MStatus.FAILED);
+		statusCodes.put("0002", MStatus.FAILED);
+		statusCodes.put("0003", MStatus.FAILED);
+		statusCodes.put("0004", MStatus.FAILED);
+		statusCodes.put("0005", MStatus.FAILED);
+		statusCodes.put("0006", MStatus.FAILED);
+		statusCodes.put("0007", MStatus.FAILED);
+		statusCodes.put("0008", MStatus.FAILED);
+		statusCodes.put("0009", MStatus.FAILED);
+		statusCodes.put("0010", MStatus.FAILED);
+		statusCodes.put("0011", MStatus.FAILED);
 		statusCodes.put("OK", MStatus.PENDING);
 		statusCodes.put("COMPLETED", MStatus.DELIVERED);
-		statusCodes.put("REJECTED", MStatus.FAILED);
-		statusCodes.put("BUSY", MStatus.FAILED);
-		statusCodes.put("CONGESTION", MStatus.FAILED);
-		statusCodes.put("NOANSWER", MStatus.FAILED);
-		statusCodes.put("INTERNALERROR", MStatus.FAILED);
+		statusCodes.put("REJECTED", MStatus.RETRY);
+		statusCodes.put("BUSY", MStatus.RETRY);
+		statusCodes.put("CONGESTION", MStatus.RETRY);
+		statusCodes.put("NOANSWER", MStatus.RETRY);
+		statusCodes.put("INTERNALERROR", MStatus.RETRY);
 		
 	}
 	

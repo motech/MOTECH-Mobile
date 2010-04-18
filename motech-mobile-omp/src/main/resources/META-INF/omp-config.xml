@@ -90,40 +90,40 @@
 		<constructor-arg>
 			<map>
 				<entry key="0000">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0001">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0002">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0003">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0004">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0005">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0006">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0007">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0008">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0009">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0010">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="0011">
-					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
 				<entry key="OK">
 					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
@@ -132,19 +132,19 @@
 					<value type="org.motechproject.mobile.core.model.MStatus">DELIVERED</value>
 				</entry>
 				<entry key="REJECTED">
-					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
 				</entry>
 				<entry key="BUSY">
-					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
 				</entry>
 				<entry key="CONGESTION">
-					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
 				</entry>
 				<entry key="NOANSWER">
-					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
 				</entry>
 				<entry key="INTERNALERROR">
-					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
 				</entry>
 			</map>
 		</constructor-arg>
