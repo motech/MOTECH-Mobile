@@ -9,6 +9,7 @@
     <property column="schedule" name="schedule" type="date"/>
     <property column="p113_nData" name="p13nData" type="string"/>
     <property column="recipient_number" name="recipientNumber" type="string"/>
+    <property column="recipient_id" name="recipientId" type="string"/>
     <property column="date_from" name="dateFrom" type="timestamp"/>
     <property column="date_to" name="dateTo" type="timestamp"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>

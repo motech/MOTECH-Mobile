@@ -27,6 +27,7 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private String requestId;
     private Set persInfos;
     private Date lastModified;
+    private String recipientId;
 
     /**
      * @return the language
@@ -252,7 +253,21 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
         this.lastModified = lastModified;
     }
 
-    @Override
+    /**
+     * @see org.motechproject.mobile.core.manager.MessageRequest#getRecipientId()
+     */
+    public String getRecipientId() {
+		return recipientId;
+	}
+    
+    /**
+     * @see org.motechproject.mobile.core.manager.MessageRequest#setRecipientId(String)
+     */
+	public void setRecipientId(String recipientId) {
+		this.recipientId = recipientId;
+	}
+
+	@Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
         String newLine = System.getProperty("line.separator");
@@ -267,6 +282,8 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
             sb.append((this.recipientName != null) ? "key=message value=" + this.recipientName : "recipientName is null  ");
             sb.append(newLine);
             sb.append((this.recipientNumber != null) ? "key=recipientNumber value=" + this.recipientNumber : "recipientNumber is null ");
+            sb.append(newLine);
+            sb.append((this.recipientId != null) ? "key=recipientId value=" + this.recipientId : "recipientId is null ");
             sb.append(newLine);
             sb.append((this.requestId != null) ? "key=requestId value=" + this.requestId : "requestId is null ");
             sb.append(newLine);

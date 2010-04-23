@@ -41,6 +41,12 @@ public interface MessageRequest extends MotechEntity {
     public Set getPersInfos();
 
     public Date getLastModified();
+    
+    /**
+     * 
+     * @return unique identifier of the recipient
+     */
+    public String getRecipientId();
 
     public void setRecipientName(String recipientName);
 
@@ -73,6 +79,12 @@ public interface MessageRequest extends MotechEntity {
     public void setPersInfos(Set persInfos);
 
     public void setLastModified(Date lastModified);
+    
+    /**
+     * 
+     * @param recipientId unique identifier of the recipient
+     */
+    public void setRecipientId(String recipientId);
 
     /**
      * Helper method to display string value of all properties of the object
