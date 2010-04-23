@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
   <union-subclass extends="MotechEntityImpl" name="GatewayRequestImpl" table="gateway_request">
+    <many-to-one class="MessageRequestImpl" column="message_request_id" name="messageRequest"/>
     <many-to-one class="GatewayRequestDetailsImpl" column="request_details_id" name="gatewayRequestDetails"/>
     <property column="recipients_number" name="recipientsNumber" type="string"/>
     <property column="date_sent" name="dateSent" type="timestamp"/>

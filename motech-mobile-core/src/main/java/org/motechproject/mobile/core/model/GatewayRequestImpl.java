@@ -23,6 +23,7 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
     private String requestId;
     private MStatus messageStatus;
     private Date lastModified;
+    private MessageRequest messageRequest;
 
     public GatewayRequestImpl() {
     }
@@ -124,7 +125,15 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
         this.recipientsNumber = recipientsNumbers;
     }
 
-    /**
+    public MessageRequest getMessageRequest() {
+		return messageRequest;
+	}
+
+	public void setMessageRequest(MessageRequest messageRequest) {
+		this.messageRequest = messageRequest;
+	}
+
+	/**
      * @see {@link org.motechproject.mobile.core.model.GatewayRequest#addResponse(org.motechproject.mobile.core.model.GatewayResponse)  }
      */
     public void addResponse(GatewayResponse response) {
@@ -250,6 +259,8 @@ public class GatewayRequestImpl extends MotechEntityImpl implements GatewayReque
             sb.append((this.requestId != null) ? "key=requestId value=" + this.requestId : "requestId is null ");
             sb.append(newLine);
             sb.append((this.gatewayRequestDetails != null) ? "key=gatewayRequestDetails.Id value=" + this.gatewayRequestDetails.getId() : "gatewayRequestDetails.Id is null ");
+            sb.append(newLine);
+            sb.append((this.getMessageRequest() != null) ? "key=messageRequest.Id value=" + this.messageRequest.getId() : "messageRequest.Id is null ");
             sb.append(newLine);
             sb.append((this.tryNumber != -1) ? "key=tryNumber.Id value=" + Integer.toString(this.tryNumber) : "tryNumber is null ");
             sb.append(newLine);

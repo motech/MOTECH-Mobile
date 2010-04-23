@@ -71,6 +71,11 @@ public interface GatewayRequest extends MotechEntity {
     public Date getLastModified();
 
     /**
+     * @return the MessageRequest for which this GatewayRequest was generated
+     */
+    public MessageRequest getMessageRequest();
+    
+    /**
      *
      * @param tryNumber
      */
@@ -127,6 +132,12 @@ public interface GatewayRequest extends MotechEntity {
      */
     public void setLastModified(Date lastModified);
 
+    /**
+     * MessageRequest on which this GatewayRequest is based
+     * @param messageRequest MessageRequest Object that corresponds to this GatewayRequest
+     */
+    public void setMessageRequest(MessageRequest messageRequest);
+    
     /**
      * Helper method to add a GatewayResponse Object to GatewayRequest
      * @param  GatewayResponse GatewayResponse Object to pass

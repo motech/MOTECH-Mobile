@@ -29,6 +29,7 @@ CREATE TABLE `gateway_request` (
   `id` bigint(20) NOT NULL,
   `obj_vesion` int(11) NOT NULL DEFAULT '0',
   `request_details_id` bigint(20) DEFAULT NULL,
+  `message_request_id` bigint(20) DEFAULT NULL,
   `recipients_number` varchar(255) DEFAULT NULL,
   `date_sent` datetime DEFAULT NULL,
   `date_from` datetime DEFAULT NULL,
@@ -40,7 +41,9 @@ CREATE TABLE `gateway_request` (
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK81205B94A5644C7B` (`request_details_id`),
-  CONSTRAINT `FK81205B94A5644C7B` FOREIGN KEY (`request_details_id`) REFERENCES `gateway_request_details` (`id`)
+  KEY `FK81205B94A5644C7A` (`message_request_id`),
+  CONSTRAINT `FK81205B94A5644C7B` FOREIGN KEY (`request_details_id`) REFERENCES `gateway_request_details` (`id`),
+  CONSTRAINT `FK81205B94A5644C7A` FOREIGN KEY (`message_request_id`) REFERENCES `message_request` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `gateway_request_details` */
