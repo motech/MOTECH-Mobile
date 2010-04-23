@@ -65,12 +65,12 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
+	public Set<GatewayResponse> sendMessage(GatewayRequest gatewayRequest,
 			MotechContext context) {
 
-		log.debug("Received GatewayRequest:" + messageDetails);
+		log.debug("Received GatewayRequest:" + gatewayRequest);
 		
-		RequestType ivrRequest = createIVRRequest(messageDetails);
+		RequestType ivrRequest = createIVRRequest(gatewayRequest);
 		
 		log.debug("Sending IVR request: " + ivrRequest);
 		
@@ -81,7 +81,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		String responseCode = ivrResponse.getStatus() == StatusType.OK ? StatusType.OK.value() : ivrResponse.getErrorCode().value();
 		
 		Set<GatewayResponse> responses = messageHandler
-			.parseMessageResponse(messageDetails, responseCode, context);
+			.parseMessageResponse(gatewayRequest, responseCode, context);
 		
 		for ( GatewayResponse response : responses )
 			statusStore.updateStatus(response.getGatewayMessageId(),
