@@ -69,7 +69,7 @@ public class MessageServiceImplTest{
                 ).andReturn(MessageStatus.QUEUED);
         replay(mockOMI, mockOMIService);
         
-        MessageStatus result = instance.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null);
+        MessageStatus result = instance.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null, recipientId);
         assertEquals(MessageStatus.QUEUED, result);
         verify(mockOMI, mockOMIService);
     }
