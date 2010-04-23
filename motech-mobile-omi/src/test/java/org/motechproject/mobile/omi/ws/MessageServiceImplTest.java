@@ -62,9 +62,10 @@ public class MessageServiceImplTest{
         String patientNumber = "000000000000";
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
+        String recipientId = "123456789";
 
         expect(
-                mockOMIService.savePatientMessageRequest((String) anyObject(), (NameValuePair[]) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject())
+                mockOMIService.savePatientMessageRequest((String) anyObject(), (NameValuePair[]) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject(), (String) anyObject())
                 ).andReturn(MessageStatus.QUEUED);
         replay(mockOMI, mockOMIService);
         

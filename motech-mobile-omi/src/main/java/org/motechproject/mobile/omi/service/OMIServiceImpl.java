@@ -60,7 +60,16 @@ public class OMIServiceImpl implements OMIService {
      *
      * @see OMIService.sendPatientMessage
      */
-    public synchronized MessageStatus savePatientMessageRequest(String messageId, NameValuePair[] personalInfo, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
+    public synchronized MessageStatus savePatientMessageRequest(String messageId, 
+    															NameValuePair[] personalInfo, 
+    															String patientNumber, 
+    															ContactNumberType patientNumberType, 
+    															String langCode, 
+    															MediaType messageType, 
+    															Long notificationType, 
+    															Date startDate, 
+    															Date endDate,
+    															String recipientId) {
         logger.info("Constructing MessageRequest object...");
 
         MotechContext mc = coreManager.createMotechContext();
@@ -84,6 +93,7 @@ public class OMIServiceImpl implements OMIService {
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
         messageRequest.setRecipientNumber(patientNumber);
+        messageRequest.setRecipientId(recipientId);
         messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
         messageRequest.setLanguage(langObject);

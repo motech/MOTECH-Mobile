@@ -31,9 +31,19 @@ public interface OMIService {
      * @param notificationType Type of message to send to patient
      * @param startDate Date to begin message sending attempts
      * @param endDate Date to stop message sending attempts
+     * @param recipientId String unique identifier of the recipient
      * @return The status of the message
      */
-    public MessageStatus savePatientMessageRequest(String messageId, NameValuePair[] personalInfo, String patientNumber, ContactNumberType patientNumberType, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate);
+    public MessageStatus savePatientMessageRequest(String messageId, 
+    											   NameValuePair[] personalInfo, 
+    											   String patientNumber, 
+    											   ContactNumberType patientNumberType, 
+    											   String langCode, 
+    											   MediaType messageType, 
+    											   Long notificationType, 
+    											   Date startDate, 
+    											   Date endDate,
+    											   String recipientId);
 
     /**
      * Processes and stores a message to a registered CHPS worker

@@ -34,7 +34,7 @@ public class MessageServiceImpl implements MessageService {
     public MessageStatus sendPatientMessage(@WebParam(name = "messageId") String messageId, @WebParam(name = "personalInfo") NameValuePair[] personalInfo, @WebParam(name = "patientNumber") String patientNumber, @WebParam(name = "patientNumberType") ContactNumberType patientNumberType, @WebParam(name = "langCode") String langCode, @WebParam(name = "mediaType") MediaType messageType, @WebParam(name = "notificationType") Long notificationType, @WebParam(name = "startDate") Date startDate, @WebParam(name = "endDate") Date endDate) {
         logger.debug("Called MessageService.sendPatientMessage with parameters:\n\rmessageId - " + messageId + "\n\rclinic - " + patientNumber + "\n\rpatientNumbrType - " + patientNumberType + "\n\rmessageType - " + messageType + "\n\rstartDate - " + startDate + "\n\rendDate - " + endDate);
         logger.info("Processing request...");
-        return omiManager.createOMIService().savePatientMessageRequest(messageId, personalInfo, patientNumber, patientNumberType, langCode, messageType, notificationType, startDate, endDate);
+        return omiManager.createOMIService().savePatientMessageRequest(messageId, personalInfo, patientNumber, patientNumberType, langCode, messageType, notificationType, startDate, endDate, null);
     }
 
     /**

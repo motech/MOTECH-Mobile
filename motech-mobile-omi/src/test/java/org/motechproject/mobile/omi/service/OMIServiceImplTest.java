@@ -109,6 +109,7 @@ public class OMIServiceImplTest {
         List<Language> langList = new ArrayList<Language>();
         langList.add(new LanguageImpl());
         NameValuePair[] personalInfo = new NameValuePair[0];
+        String recipientId = "123456789";
         
         MessageStatus expResult = MessageStatus.QUEUED;
 
@@ -154,7 +155,7 @@ public class OMIServiceImplTest {
 
         replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
         
-        MessageStatus result = instance.savePatientMessageRequest(messageId, personalInfo, patientNumber, ContactNumberType.PERSONAL, "language", MediaType.TEXT, 1L, new Date(), new Date());
+        MessageStatus result = instance.savePatientMessageRequest(messageId, personalInfo, patientNumber, ContactNumberType.PERSONAL, "language", MediaType.TEXT, 1L, new Date(), new Date(), recipientId);
         assertEquals(expResult, result);
         verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
     }
