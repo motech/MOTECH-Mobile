@@ -319,12 +319,12 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsId = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 Date date = dFormat.parse(form.getIncomingMsgFormParameters().get("date").getValue());
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
-                Boolean bcg = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("bcg").getValue());
-                Integer opv = (!form.getIncomingMsgFormParameters().get("opvdose").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("opvdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("opvdose").getValue()) : null;
-                Integer penta = (!form.getIncomingMsgFormParameters().get("pentadose").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("opvdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("pentadose").getValue()) : null;
-                Boolean yellowFever = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("yellowfever").getValue());
-                Boolean csm = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("csm").getValue());
-                Boolean measles = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("measles").getValue());
+                Boolean bcg = (form.getIncomingMsgFormParameters().get("bcg") != null && !form.getIncomingMsgFormParameters().get("bcg").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("bcg").getValue().equalsIgnoreCase("na")) ? Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("bcg").getValue()) : null;
+                Integer opv = (form.getIncomingMsgFormParameters().get("opvdose") != null && !form.getIncomingMsgFormParameters().get("opvdose").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("opvdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("opvdose").getValue()) : null;
+                Integer penta = (form.getIncomingMsgFormParameters().get("pentadose") != null && !form.getIncomingMsgFormParameters().get("pentadose").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("pentadose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("pentadose").getValue()) : null;
+                Boolean yellowFever = (form.getIncomingMsgFormParameters().get("yellowfever") != null && !form.getIncomingMsgFormParameters().get("yellowfever").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("yellowfever").getValue().equalsIgnoreCase("na")) ? Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("yellowfever").getValue()) : null;
+                Boolean csm = (form.getIncomingMsgFormParameters().get("csm") != null && !form.getIncomingMsgFormParameters().get("csm").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("csm").getValue().equalsIgnoreCase("na")) ? Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("csm").getValue()) : null;
+                Boolean measles = (form.getIncomingMsgFormParameters().get("measles") != null && !form.getIncomingMsgFormParameters().get("measles").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("measles").getValue().equalsIgnoreCase("na")) ? Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("measles").getValue()) : null;
                 Boolean ipti = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("ipti").getValue());
                 Boolean vitA = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("vita").getValue());
 
