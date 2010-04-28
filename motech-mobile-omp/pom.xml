@@ -5,7 +5,7 @@
     <artifactId>motech-mobile-omp</artifactId>
     <packaging>jar</packaging>
     <version>1.0-M5-SNAPSHOT</version>
-    <name>Motech Mobile OMP</name>
+    <name>MoTeCH Mobile OMP</name>
     <url>https://motech.rcg.usm.maine.edu/redmine</url>
     <parent>
         <groupId>org.motechproject</groupId>
