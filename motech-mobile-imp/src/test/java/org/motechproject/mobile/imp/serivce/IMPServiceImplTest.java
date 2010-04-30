@@ -5,6 +5,8 @@
 
 package org.motechproject.mobile.imp.serivce;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.Duplicatable;
@@ -22,7 +24,10 @@ import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.model.IncomingMessageResponse;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
@@ -32,6 +37,8 @@ import static org.easymock.EasyMock.*;
  *  Date : Dec 5, 2009
  * @author Kofi A.  Asamoah (yoofi@dreamoval.com)
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:META-INF/imp-test-config.xml"})
 public class IMPServiceImplTest {
     IMPManager mockImp;
     DBSession mockSession;
@@ -60,7 +67,6 @@ public class IMPServiceImplTest {
         instance.setParser(mockParser);
         instance.setCoreManager(mockCore);
         instance.setImpManager(mockImp);
-        instance.setQueryExpression("query\\s*=\\s*\\w+");
         instance.setCharsPerSMS(160);
     }
 
@@ -70,9 +76,12 @@ public class IMPServiceImplTest {
     @Test
     public void testProcessRequest() {
         System.out.println("processRequest");
-        String message = "*STOP*";
+        String message = "Type=EditPatient\nCHPSID=123\nPatientRegNum=123";
         String requesterPhone = "000000000000";
         String expResult = "Form entry cancelled";
+        Map<String, CommandAction> caMap = new HashMap<String, CommandAction>();
+        caMap.put("TYPE", mockCmdAxn);
+        instance.setCmdActionMap(caMap);
         
         IncomingMessageResponseImpl response = new IncomingMessageResponseImpl();
         response.setContent(expResult);
@@ -92,7 +101,9 @@ public class IMPServiceImplTest {
         expect(
                 mockParser.parseRequest((String) anyObject())
                 ).andReturn(new IncomingMessageImpl());
-
+        expect(
+                mockParser.getCommand((String)anyObject())
+                ).andReturn("Type");
         expect(
                 mockMsgDao.getDBSession()
                 ).andReturn(mockSession);
@@ -109,12 +120,14 @@ public class IMPServiceImplTest {
 
         mockTrans.commit();
         expectLastCall();
-        expect(
-                mockImp.createCommandAction()
-                ).andReturn(mockCmdAxn);
+        
         expect(
                 mockCmdAxn.execute((IncomingMessage) anyObject(), (String) anyObject(), (MotechContext)anyObject())
                 ).andReturn(response);
+
+        expect(
+                mockCmdAxn.isSendResponse()
+                ).andReturn(false);
 
         replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
         IncomingMessageResponse result = instance.processRequest(message, requesterPhone, false);

@@ -40,6 +40,11 @@
         <servlet-name>OXDFormDownloadServlet</servlet-name>
         <servlet-class>org.motechproject.mobile.web.OXDFormDownloadServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MessageServiceImplService</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>OXDFormDownloadServlet</servlet-name>
         <url-pattern>/formdownload</url-pattern>
@@ -52,6 +57,10 @@
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/webservices/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageServiceImplService</servlet-name>
+        <url-pattern>/MessageServiceImplService</url-pattern>
+    </servlet-mapping>
 
 
     <listener>
@@ -62,17 +71,8 @@
         <servlet-name>messagingService</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-    </servlet>
-    
-    <servlet>
-        <servlet-name>MessageServiceImplService</servlet-name>
-        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>MessageServiceImplService</servlet-name>
-        <url-pattern>/MessageServiceImplService</url-pattern>
-    </servlet-mapping>
+    </servlet>   
+       
 
     <servlet>
         <servlet-name>IMPServlet</servlet-name>

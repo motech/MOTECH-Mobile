@@ -42,6 +42,7 @@ public class FormCommandActionTest {
     DBSession mockSession;
     Transaction mockTrans;
     FormCommandAction instance;
+    FormProcessor mockProcessor;
     IncomingMessageDAO mockMsgDao;
     IncomingMessageParser mockParser;
     IncomingMessageFormDAO mockFormDao;
@@ -59,10 +60,12 @@ public class FormCommandActionTest {
         mockParser = createMock(IncomingMessageParser.class);
         mockSession = createMock(DBSession.class);
         mockTrans = createMock(Transaction.class);
+        mockProcessor = createMock(FormProcessor.class);
 
         instance = new FormCommandAction();
         instance.setParser(mockParser);
         instance.setCoreManager(mockCore);
+        instance.setFormProcessor(mockProcessor);
     }
 
     /**
@@ -154,7 +157,7 @@ public class FormCommandActionTest {
         //Validate form
         expect(
                 mockValidator.validate((IncomingMessageForm)anyObject(), (String)anyObject())
-                ).andReturn("");
+                ).andReturn(IncMessageFormStatus.VALID);
 
         //Prepare response
         expect(

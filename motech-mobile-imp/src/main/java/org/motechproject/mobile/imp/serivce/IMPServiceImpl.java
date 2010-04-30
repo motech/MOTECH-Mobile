@@ -21,12 +21,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
 import org.jdom.JDOMException;
-import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
@@ -43,8 +40,6 @@ public class IMPServiceImpl implements IMPService {
     private Map<String, CommandAction> cmdActionMap;
     private IncomingMessageXMLParser xmlParser;
     private String formProcessSuccess;
-    private String senderFieldName;
-    private String queryExpression;
     private int maxConcat;
     private int charsPerSMS;
     private int concatAllowance;
@@ -74,35 +69,31 @@ public class IMPServiceImpl implements IMPService {
         }
 
         inMsg = parser.parseRequest(message);
+        String cmd = parser.getCommand(message);
 
         Transaction tx = (Transaction) msgDao.getDBSession().getTransaction();
         tx.begin();
         msgDao.save(inMsg);
         tx.commit();
 
-        response = impManager.createCommandAction().execute(inMsg, requesterPhone, context);
-
-        try {
-            Pattern p = Pattern.compile(queryExpression);
-            Matcher m = p.matcher(message.toLowerCase().trim());
-
-            if (m.find()) {
-                if (requesterPhone != null && !requesterPhone.isEmpty()) {
-                    sendResponse(response.getContent(), requesterPhone);
-                } else if (response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName)) {
-                    IncomingMessageFormParameter senderParam = response.getIncomingMessage().getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName);
-                    requesterPhone = senderParam.getValue();
-                    sendResponse(response.getContent(), requesterPhone);
-                }
-            }
-        } catch (Exception ex) {
-            logger.error("Error processing request", ex);
+        CommandAction action = cmdActionMap.get(cmd.toUpperCase());
+        if(action == null){
+            response.setContent("Error: Unknown Form!\nPlease specify the form you wish to process.");
+            return response;
         }
+
+        response = action.execute(inMsg, requesterPhone, context);
+
+        if(action.isSendResponse()){
+            sendResponse(response.getContent(), response.getIncomingMessage().getIncomingMsgSession().getRequesterPhone());
+        }
+
         return response;
     }
 
     public String processRequest(String message) {
         IncomingMessageResponse result = null;
+        String requester = null;
 
         //TODO We must also separate the processing of java forms - Logically
         result = processRequest(message, null, false);
@@ -179,6 +170,9 @@ public class IMPServiceImpl implements IMPService {
      * @param recipient the phone number to send the response to
      */
     private void sendResponse(String response, String recipient) {
+        if(recipient == null || recipient.isEmpty())
+            return;
+        
         if (response.length() <= charsPerSMS) {
             omiManager.createOMIService().sendMessage(response, recipient);
         } else {
@@ -283,27 +277,6 @@ public class IMPServiceImpl implements IMPService {
      */
     public void setFormProcessSuccess(String formProcessSuccess) {
         this.formProcessSuccess = formProcessSuccess;
-    }
-
-    /**
-     * @return the senderFieldName
-     */
-    public String getSenderFieldName() {
-        return senderFieldName;
-    }
-
-    /**
-     * @param senderFieldName the senderFieldName to set
-     */
-    public void setSenderFieldName(String senderFieldName) {
-        this.senderFieldName = senderFieldName;
-    }
-
-    /**
-     * @param queryExpression the queryExpression to set
-     */
-    public void setQueryExpression(String queryExpression) {
-        this.queryExpression = queryExpression;
     }
 
     /**

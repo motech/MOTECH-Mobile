@@ -65,11 +65,11 @@ public class MessageServiceImplTest{
         String recipientId = "123456789";
 
         expect(
-                mockOMIService.savePatientMessageRequest((String) anyObject(), (NameValuePair[]) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject(), (String) anyObject())
+                mockOMIService.savePatientMessageRequest((String) anyObject(), (NameValuePair[]) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (Long) anyObject(), (Date) anyObject(), (Date) anyObject(), (String)anyObject())
                 ).andReturn(MessageStatus.QUEUED);
         replay(mockOMI, mockOMIService);
         
-        MessageStatus result = instance.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null, recipientId);
+        MessageStatus result = instance.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "db_GH", messageType, 13L, null, null, "123456789");
         assertEquals(MessageStatus.QUEUED, result);
         verify(mockOMI, mockOMIService);
     }

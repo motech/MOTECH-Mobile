@@ -22,12 +22,43 @@ public interface MessageFormatter {
     String formatDefaulterMessage(Care care);
 
     /**
+     * Constructs a formatted patient care defaulter message
+     * @param care object containing patient information
+     * @return the formatted message
+     */
+    String formatDefaulterMessage(Care[] cares);
+
+    /**
      * Constructs a formatted patient delivery schedule message
      * @param type of schedule
      * @param patients list of patients within schedule
      * @return the formatted message
      */
     String formatDeliveriesMessage(String type, Patient[] patients);
+
+    /**
+     * Constructs a formatted patient delivery schedule message
+     * @param type of schedule
+     * @param patients list of patients within schedule
+     * @return the formatted message
+     */
+    String formatUpcomingDeliveriesMessage(Patient[] patients);
+
+    /**
+     * Constructs a formatted patient delivery schedule message
+     * @param type of schedule
+     * @param patients list of patients within schedule
+     * @return the formatted message
+     */
+    String formatRecentDeliveriesMessage(Patient[] patients);
+
+    /**
+     * Constructs a formatted patient delivery schedule message
+     * @param type of schedule
+     * @param patients list of patients within schedule
+     * @return the formatted message
+     */
+    String formatOverdueDeliveriesMessage(Patient[] patients);
 
     /**
      * Constructs a patient query response message

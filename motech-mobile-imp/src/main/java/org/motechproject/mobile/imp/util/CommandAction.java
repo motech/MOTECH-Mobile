@@ -25,4 +25,9 @@ public interface CommandAction {
      * @return IncomingMessageResponse generated as a result of command execution
      */
     IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context);
+
+    /**
+     * @return the sendResponse
+     */
+    boolean isSendResponse();
 }

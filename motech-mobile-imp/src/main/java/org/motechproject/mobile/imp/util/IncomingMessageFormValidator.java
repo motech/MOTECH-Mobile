@@ -5,6 +5,7 @@
 
 package org.motechproject.mobile.imp.util;
 
+import org.motechproject.mobile.core.model.IncMessageFormStatus;
 import org.motechproject.mobile.core.model.IncomingMessageForm;
 
 /**
@@ -19,6 +20,6 @@ public interface IncomingMessageFormValidator {
      * @param form the form to validate
      * @return the validated form
      */
-    String validate(IncomingMessageForm form, String requesterPhone);
+    IncMessageFormStatus validate(IncomingMessageForm form, String requesterPhone);
 
 }

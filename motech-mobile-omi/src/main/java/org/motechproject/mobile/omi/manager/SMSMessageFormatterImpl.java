@@ -32,6 +32,12 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
     public String formatDefaulterMessage(Care care){
         int num = 0;
         String message = "";
+
+        if(care == null)
+            return "No defaulters found for this clinic";
+        else if(care.getPatients().length < 0)
+            return "No "+care.getName()+" defaulters found for this clinic";
+
         String template = care.getName() + " Defaulters:";
 
         Set<NameValuePair> data = new HashSet<NameValuePair>();
@@ -58,6 +64,15 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return message;
     }
 
+    public String formatDefaulterMessage(Care[] cares){
+        String result = "";
+
+        for(Care c : cares){
+            result += formatDefaulterMessage(c) + "\n\n";
+        }
+        return result.trim();
+    }
+
     /**
      *
      * @param see MessageFormatter.formatDeliveriesMessage
@@ -66,6 +81,10 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         int num = 0;
         String edd;
         String message = "";
+
+        if(patients == null || patients.length < 1)
+            return "No "+type+" deliveries for this clinic";
+
         String template = type + " Deliveries:";
 
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
@@ -102,6 +121,18 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return message;
     }
 
+    public String formatUpcomingDeliveriesMessage(Patient[] patients) {
+        return formatDeliveriesMessage("Upcoming", patients);
+    }
+
+    public String formatRecentDeliveriesMessage(Patient[] patients) {
+        return formatDeliveriesMessage("Recent", patients);
+    }
+
+    public String formatOverdueDeliveriesMessage(Patient[] patients) {
+        return formatDeliveriesMessage("Overdue", patients);
+    }
+
     /**
      *
      * @param see MessageFormatter.formatUpcomingCaresMessage
@@ -110,6 +141,12 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         int num = 0;
         String careDate;
         String message = "";
+
+        if(patient == null)
+            return "No upcoming care required for this patient";
+        else if(patient.getCares() == null || patient.getCares().length < 1)
+            return "No upcoming care required for " + patient.getPreferredName() + " " + patient.getLastName();
+
         String template = "Upcoming care for "+patient.getPreferredName()+patient.getLastName()+":";
 
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
@@ -139,6 +176,10 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
      */
     public String formatMatchingPatientsMessage(Patient[] patients){
         int num = 0;
+
+        if(patients == null || patients.length < 1)
+            return "No matching patients found";
+
         String message = "";
         String sex = "";
         String birthDate = "";
@@ -183,6 +224,9 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
      * @param see MessageFormatter.formatPatientDetailsMessage
      */
     public String formatPatientDetailsMessage(Patient patient){
+        if(patient == null)
+            return "No matching patients found";
+
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
         
         String message = "";

@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class MethodSignature {
     private String methodName;
+    private MethodSignature callback = null;
     private Map<String, Class> methodParams;
     private Class returnType = null;
 
@@ -56,5 +57,19 @@ public class MethodSignature {
      */
     public void setMethodParams(Map<String, Class> methodParams) {
         this.methodParams = methodParams;
+    }
+
+    /**
+     * @return the callback
+     */
+    public MethodSignature getCallback() {
+        return callback;
+    }
+
+    /**
+     * @param callback the callback to set
+     */
+    public void setCallback(MethodSignature callback) {
+        this.callback = callback;
     }
 }

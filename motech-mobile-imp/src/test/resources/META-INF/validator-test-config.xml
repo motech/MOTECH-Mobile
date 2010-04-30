@@ -11,35 +11,10 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
-           
-    <!--
-    <bean id="imParamValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormParameterValidatorImpl">
-        <property name="paramTypeMap">
-            <map>
-                <entry key="ALPHA" value="[a-zA-Z.,'\-\s]+" />
-                <entry key="ALPHANUM" value="[a-zA-Z0-9.,'\-\_\s]+" />
-                <entry key="BOOLEAN" value="Y|y|N|n" />
-                <entry key="GENDER" value="M|m|F|f" />
-                <entry key="DATE" value="dd.MM.yyyy" />
-                <entry key="NUMERIC" value="\d+" />
-            </map>
-        </property>
-    </bean>
-    -->
+     
 
     <bean id="imFormValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
-        <!--<property name="imParamValidator" ref="imParamValidator" />-->
         <property name="coreManager" ref="coreManager" />
-        <property name="regWS" ref="registrarClient" />
-        <property name="dateFormat" value="${imp.validator.dateFormat}" />
-        <property name="omiManager" ref="omiManager" />
-        <property name="serverErrors">
-            <map>
-                <entry key="1" value="not found" />
-                <entry key="2" value="in use" />
-                <entry key="3" value="missing" />
-            </map>
-        </property>
         <property name="paramValidators">
             <map key-type="java.lang.String">
                 <entry key="ALPHA">

@@ -19,6 +19,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <import resource="classpath:META-INF/validator-config.xml" />
+    <import resource="classpath:META-INF/registrar-services.xml" />
 
     <bean id="impService" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
         <property name="coreManager" ref="coreManager" />
@@ -28,12 +29,16 @@
         <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
         <property name="formProcessSuccess" value="${imp.form.successResponse}" />
         <property name="xmlParser" ref="imXMLParser" />
-        <property name="senderFieldName" value="${imp.oxd.senderField}" />
-        <property name="queryExpression" value="${imp.oxd.queryExpression}" />
         <property name="concatAllowance" value="${imp.response.concatAllowance}" />
         <property name="charsPerSMS" value="${imp.response.charsPerSMS}" />
         <property name="maxConcat" value="${imp.response.maxConcat}" />
         <property name="maxSMS" value="${imp.response.maxSMS}" />
+        <property name="cmdActionMap">
+            <map key-type="java.lang.String">
+                <entry key="TYPE" value-ref="formCmdAxn" />
+                <entry key="QUERY" value-ref="qryCmdAxn" />
+            </map>
+        </property>
     </bean>
 
     <bean id="impManager" class="org.motechproject.mobile.imp.manager.IMPManagerImpl" />
@@ -67,19 +72,20 @@
     </bean>
 
     <bean id="formCmdAxn" class="org.motechproject.mobile.imp.util.FormCommandAction">
+        <property name="sendResponse" value="${imp.response.sendEncounterResponse}" />
         <property name="formValidator" ref="imFormValidator" />
+        <property name="formProcessor" ref="formProcessor" />
         <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
-    <bean id="updateCmdAxn" class="org.motechproject.mobile.imp.util.UpdateCommandAction">
+    <bean id="qryCmdAxn" class="org.motechproject.mobile.imp.util.QueryCommandAction">
+        <property name="sendResponse" value="${imp.response.sendQueryResponse}" />
+        <property name="senderFieldName" value="${imp.oxd.senderField}" />
         <property name="formValidator" ref="imFormValidator" />
+        <property name="formProcessor" ref="formProcessor" />
         <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
-    </bean>
-
-    <bean id="stopCmdAxn" class="org.motechproject.mobile.imp.util.StopCommandAction">
-        <property name="coreManager" ref="coreManager" />
     </bean>
 
     <bean id="xmlUtil" class="org.motechproject.mobile.imp.util.XMLUtil" />
@@ -87,13 +93,14 @@
     <bean id="oxdFormDefService" name="oxdUserDefService,oxdStudyDefService"
 		class="org.motechproject.mobile.imp.serivce.oxd.FormDefinitionServiceImpl"
 		init-method="init">
-        <property name="oxdFormDefResources">
-            <list>
-                <value>${imp.oxd.oxdFormDefsResource1}</value>
-                <value>${imp.oxd.oxdFormDefsResource2}</value>
-            </list>
-        </property>
-    </bean>
+		<property name="oxdFormDefResources">
+			<list>
+				<value>${imp.oxd.oxdFormDefsResource1}</value>
+				<value>${imp.oxd.oxdFormDefsResource2}</value>
+                                <value>${imp.oxd.oxdFormDefsResource3}</value>
+			</list>
+		</property>
+	</bean>
     
     <bean id="studyProcessor" class="org.motechproject.mobile.imp.serivce.oxd.StudyProcessor" scope="prototype"/>
 </beans>

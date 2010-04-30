@@ -9,5 +9,5 @@ package org.motechproject.mobile.core.model;
  */
 public enum IncMessageFormStatus {
 
-    NEW, VALID, INVALID, SERVER_VALID, SERVER_INVALID;
+    NEW, VALID, INVALID, SERVER_VALID, SERVER_INVALID, ERROR;
 }

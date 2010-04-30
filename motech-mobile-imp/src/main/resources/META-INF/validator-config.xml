@@ -12,20 +12,8 @@
        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-    <import resource="classpath:META-INF/registrar-services.xml" />
-
     <bean id="imFormValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
-        <property name="coreManager" ref="coreManager" />
-        <property name="regWS" ref="registrarClient" />
-        <property name="dateFormat" value="${imp.validator.dateFormat}" />
-        <property name="omiManager" ref="omiManager" />
-        <property name="serverErrors">
-            <map>
-                <entry key="1" value="not found" />
-                <entry key="2" value="in use" />
-                <entry key="3" value="missing" />
-            </map>
-        </property>
+        <property name="coreManager" ref="coreManager" />        
         <property name="paramValidators">
             <map key-type="java.lang.String">
                 <entry key="ALPHA">
@@ -471,33 +459,6 @@
                         </bean>
                     </list>
                 </entry>
-            </map>
-        </property>
-        <property name="serviceMethods">
-            <map key-type="java.lang.String" value-type="org.motechproject.mobile.imp.util.MethodSignature">
-                <entry key="PREGNANCYSTOP" value-ref="stopPregnancyProgramSignatureBean" />
-                <entry key="GENERALOPD" value-ref="recordGeneralVisitSignatureBean" />
-                <entry key="REGISTERCHILD" value-ref="registerChildSignatureBean" />
-                <entry key="EDITPATIENT" value-ref="editPatientSignatureBean" />
-                <entry key="ANC" value-ref="recordMotherANCVisitSignatureBean" />
-                <entry key="ABORTION" value-ref="recordPregnancyTerminationSignatureBean" />
-                <entry key="DELIVERY" value-ref="recordPregnancyDeliverySignatureBean" />
-                <entry key="PPC" value-ref="recordMotherPPCVisitSignatureBean" />
-                <entry key="DEATH" value-ref="recordDeathSignatureBean" />
-                <entry key="CHILD" value-ref="recordChildPNCVisitSignatureBean" />
-                <entry key="CHILDOPD" value-ref="recordChildVisitSignatureBean" />
-                <entry key="MOTHEROPD" value-ref="recordMotherVisitSignatureBean" />
-                <entry key="ANCDEFAULT" value-ref="queryANCDefaultersSignatureBean" />
-                <entry key="TTDEFAULT" value-ref="queryTTDefaultersSignatureBean" />
-                <entry key="PPCDEFAULT" value-ref="queryPPCDefaultersSignatureBean" />
-                <entry key="PNCDEFAULT" value-ref="queryPNCDefaultersSignatureBean" />
-                <entry key="CWCDEFAULT" value-ref="queryCWCDefaultersSignatureBean" />
-                <entry key="UPCOMINGDELIVERIES" value-ref="queryUpcomingDeliveriesSignatureBean" />
-                <entry key="RECENTDELIVERIES" value-ref="queryRecentDeliveriesSignatureBean" />
-                <entry key="OVERDUEDELIVERIES" value-ref="queryOverdueDeliveriesSignatureBean" />
-                <entry key="UPCOMINGCARE" value-ref="queryUpcomingCareSignatureBean" />
-                <entry key="VIEWPATIENT" value-ref="queryPatientSignatureBean" />
-                <entry key="FINDMOTECHID" value-ref="queryMotechIdSignatureBean" />
             </map>
         </property>
     </bean>

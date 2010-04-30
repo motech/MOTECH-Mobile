@@ -5,47 +5,50 @@
 package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
 import org.motechproject.mobile.core.service.MotechContext;
+import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
+import org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO;
+import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
 import org.motechproject.mobile.core.model.IncMessageResponseStatus;
-import org.motechproject.mobile.core.model.IncMessageSessionStatus;
 import org.motechproject.mobile.core.model.IncMessageStatus;
 import org.motechproject.mobile.core.model.IncomingMessage;
 import org.motechproject.mobile.core.model.IncomingMessageForm;
-import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.core.model.IncomingMessageResponse;
 import org.motechproject.mobile.core.model.IncomingMessageSession;
-import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
-import org.motechproject.mobile.model.dao.imp.IncomingMessageResponseDAO;
-import org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
+import org.motechproject.mobile.core.model.IncMessageSessionStatus;
+import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
+import org.motechproject.mobile.model.dao.imp.IncomingMessageResponseDAO;
 
 /**
- * Handles construction and processing of a new IncomingMessageForm
+ * Resumes processing of an IncomingMessageForm
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
-public class FormCommandAction implements CommandAction {
+public class QueryCommandAction implements CommandAction {
     private boolean sendResponse;
+    private String senderFieldName;
     private CoreManager coreManager;
-    private FormProcessor formProcessor;
+    private FormProcessorImpl formProcessor;
     private IncomingMessageParser parser;
     private IncomingMessageFormValidator formValidator;
-    private static Logger logger = Logger.getLogger(FormCommandAction.class);
+
+    private static Logger logger = Logger.getLogger(QueryCommandAction.class);
 
     /**
-     * 
+     *
      * @see CommandAction.execute
      */
     public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context) {
         IncomingMessageResponse response;
+        String formattedResponse = "";
 
         logger.info("Initializing session");
         IncomingMessageSession imSession = initializeSession(message, requesterPhone, context);
@@ -63,11 +66,11 @@ public class FormCommandAction implements CommandAction {
             IncMessageFormStatus result = formValidator.validate(form, requesterPhone);
 
             if(result == IncMessageFormStatus.VALID)
-                formProcessor.processForm(form);
-            
+                formattedResponse = formProcessor.processForm(form);
+
             message.setIncomingMessageForm(form);
 
-            response = prepareResponse(message, context);
+            response = prepareResponse(message, formattedResponse, context);
             response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
         }
         logger.info("Saving request");
@@ -77,6 +80,9 @@ public class FormCommandAction implements CommandAction {
 
         imSession.setDateEnded(new Date());
         imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
+
+        if(message.getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName))
+            imSession.setRequesterPhone(message.getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName).getValue());
 
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
         Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
@@ -166,7 +172,7 @@ public class FormCommandAction implements CommandAction {
      * @param message the message to respond to
      * @return the response to the message
      */
-    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message, MotechContext context) {
+    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message, String formattedResponse, MotechContext context) {
         IncomingMessageForm form = message.getIncomingMessageForm();
 
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
@@ -174,13 +180,13 @@ public class FormCommandAction implements CommandAction {
         response.setIncomingMessage(message);
 
         if (form == null) {
-            response.setContent("Invalid request");
+            response.setContent("Error: Invalid request");
             return response;
         }
 
-        if (form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID)) {
-            response.setContent("Data saved successfully");
-        } else {
+        if(form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID)){
+            response.setContent(formattedResponse);
+        } else{
             String responseText = "Errors:";
             for (Entry<String, IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
                 if (entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID) || entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.SERVER_INVALID)) {
@@ -252,6 +258,13 @@ public class FormCommandAction implements CommandAction {
     }
 
     /**
+     * @param senderFieldName the senderFieldName to set
+     */
+    public void setSenderFieldName(String senderFieldName) {
+        this.senderFieldName = senderFieldName;
+    }
+
+    /**
      * @return the sendResponse
      */
     public boolean isSendResponse() {
@@ -268,7 +281,7 @@ public class FormCommandAction implements CommandAction {
     /**
      * @param formProcessor the formProcessor to set
      */
-    public void setFormProcessor(FormProcessor formProcessor) {
+    public void setFormProcessor(FormProcessorImpl formProcessor) {
         this.formProcessor = formProcessor;
     }
 }

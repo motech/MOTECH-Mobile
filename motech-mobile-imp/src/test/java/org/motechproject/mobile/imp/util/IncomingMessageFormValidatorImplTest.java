@@ -63,10 +63,7 @@ public class IncomingMessageFormValidatorImplTest {
         //instance.setImParamValidator(mockParamValidator);
         instance = new IncomingMessageFormValidatorImpl();
         instance.setParamValidators(mockValidators);
-        instance.setDateFormat("dd.MM.yyyy");
         instance.setCoreManager(mockCore);
-        instance.setRegWS(mockRegSvc);
-        instance.setServiceMethods(signatures);
     }
 
     /**
@@ -113,7 +110,7 @@ public class IncomingMessageFormValidatorImplTest {
         form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
         
         //Test with required param missing
-        String expResult = "INVALID";
+        IncMessageFormStatus expResult = IncMessageFormStatus.INVALID;
 
         expect(
                 mockCore.createIncomingMessageFormParameter()
@@ -126,7 +123,7 @@ public class IncomingMessageFormValidatorImplTest {
                 ).andReturn(true);
 
         replay(mockCore, mockParamValidator, mockValidators);
-        String result = instance.validate(form, reqPhone);
+        IncMessageFormStatus result = instance.validate(form, reqPhone);
         verify(mockCore, mockParamValidator, mockValidators);
         
         assertEquals(expResult, result);
@@ -140,7 +137,7 @@ public class IncomingMessageFormValidatorImplTest {
         form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
         form.getIncomingMsgFormParameters().put(param2.getName().toLowerCase(),param2);
 
-        expResult = "VALID";
+        expResult = IncMessageFormStatus.VALID;
 
         reset(mockCore, mockParamValidator, mockValidators);
 
@@ -159,35 +156,5 @@ public class IncomingMessageFormValidatorImplTest {
         assertEquals(param2.getIncomingMsgFormParamDefinition(), pDef2);
         assertTrue(form.getIncomingMsgFormParameters().size() == 2);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.VALID);
-
-        //Test with valid form on mobile and server
-        formDef.setFormCode("PregnancyStop");
-        form.setMessageFormStatus(IncMessageFormStatus.NEW);
-        form.getIncomingMsgFormParameters().clear();
-        form.getIncomingMsgFormParameters().put(param1.getName().toLowerCase(),param1);
-        form.getIncomingMsgFormParameters().put(param2.getName().toLowerCase(),param2);
-
-        expResult = "SERVER_VALID";
-
-        reset(mockCore, mockParamValidator, mockValidators);
-
-        /*expect(
-                mockValidators.get((String)anyObject())
-                ).andReturn(validators).times(2);
-        expect(
-                mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
-                ).andReturn(true).times(2);
-
-        mockRegSvc.stopPregnancyProgram((String)anyObject(), (String)anyObject());
-        expectLastCall();
-
-        replay(mockCore, mockParamValidator, mockRegSvc, mockValidators);
-        result = instance.validate(form, reqPhone);
-        verify(mockCore, mockParamValidator, mockRegSvc, mockValidators);
-
-        assertEquals(expResult, result);
-        assertEquals(param2.getIncomingMsgFormParamDefinition(), pDef2);
-        assertTrue(form.getIncomingMsgFormParameters().size() == 2);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);*/
     }
 }

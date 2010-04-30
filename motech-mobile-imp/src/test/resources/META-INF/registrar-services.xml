@@ -62,7 +62,7 @@
             </map>
         </property>
     </bean>
-    
+
     <bean name="recordGeneralVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordGeneralVisit" />
         <property name="methodParams">

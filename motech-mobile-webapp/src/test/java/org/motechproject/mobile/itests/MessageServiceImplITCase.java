@@ -87,7 +87,7 @@ public class MessageServiceImplITCase {
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
-        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "en", messageType, 2L, serviceDate, endDate,"123456789");
+        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "en", messageType, 2L, serviceDate, endDate, "123456789");
         assertEquals(result, MessageStatus.QUEUED);
     }
 
@@ -103,7 +103,7 @@ public class MessageServiceImplITCase {
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
-        MessageStatus result = client.sendPatientMessage(messageId, null, patientNumber, patientNumberType, "nan", messageType, 3L, serviceDate, serviceDate,"123456789");
+        MessageStatus result = client.sendPatientMessage(messageId, null, patientNumber, patientNumberType, "nan", messageType, 3L, serviceDate, serviceDate, "123456789");
         assertEquals(result, MessageStatus.QUEUED);
     }
 
@@ -122,7 +122,7 @@ public class MessageServiceImplITCase {
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
-        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "kas", messageType, 4L, null, null,"123456789");
+        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "kas", messageType, 4L, null, null, "123456789");
         assertEquals(result, MessageStatus.PENDING);
     }
 
