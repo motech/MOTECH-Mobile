@@ -25,9 +25,9 @@ import org.apache.log4j.Logger;
 import org.motechproject.ws.BirthOutcome;
 import org.motechproject.ws.Care;
 import org.motechproject.ws.ContactNumberType;
-import org.motechproject.ws.DeliveredBy;
+//import org.motechproject.ws.DeliveredBy;
 import org.motechproject.ws.Gender;
-import org.motechproject.ws.HIVStatus;
+//import org.motechproject.ws.HIVStatus;
 import org.motechproject.ws.Patient;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationError;
@@ -134,13 +134,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
                 Boolean referral = Boolean.valueOf(form.getIncomingMsgFormParameters().get("referral").getValue());
 
-                regWS.recordGeneralVisit(chpsId, date, serialNo, gender, birthDate, insured, newCase, diag, diag2, referral);
+                //regWS.recordGeneralVisit(chpsId, date, serialNo, gender, birthDate, insured, newCase, diag, diag2, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -149,10 +149,10 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsId = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String patientReg = form.getIncomingMsgFormParameters().get("patientregnum").getValue();
 
-                regWS.stopPregnancyProgram(chpsId, patientReg);
+                //regWS.stopPregnancyProgram(chpsId, patientReg);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -167,13 +167,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String nhis = form.getIncomingMsgFormParameters().containsKey("nhisno") ? form.getIncomingMsgFormParameters().get("nhisno").getValue() : null;
                 Date nhisExp = form.getIncomingMsgFormParameters().containsKey("nhisexpiration") ? dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexpiration").getValue()) : null;
 
-                regWS.registerChild(chpsId, motherReg, childReg, birthDate, gender, childFName, nhis, nhisExp);
+                //regWS.registerChild(chpsId, motherReg, childReg, birthDate, gender, childFName, nhis, nhisExp);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -188,13 +188,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String nhis = form.getIncomingMsgFormParameters().containsKey("nhisno") ? form.getIncomingMsgFormParameters().get("nhisno").getValue() : null;
                 Date nhisExp = form.getIncomingMsgFormParameters().containsKey("nhisexpiration") ? dFormat.parse(form.getIncomingMsgFormParameters().get("nhisexpiration").getValue()) : null;
 
-                regWS.editPatient(chpsId, patientReg, priPhone, priNumType, secPhone, secNumType, nhis, nhisExp);
+                //regWS.editPatient(chpsId, patientReg, priPhone, priNumType, secPhone, secNumType, nhis, nhisExp);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -207,15 +207,15 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Integer ttDose = (!form.getIncomingMsgFormParameters().get("ttdose").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("ttdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()) : null;
                 Integer iptDose = (!form.getIncomingMsgFormParameters().get("iptdose").getValue().isEmpty()  && !form.getIncomingMsgFormParameters().get("iptdose").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("iptdose").getValue()) : null;
                 Boolean itn = Boolean.valueOf(form.getIncomingMsgFormParameters().get("itn").getValue());
-                HIVStatus hivRes = HIVStatus.valueOf(form.getIncomingMsgFormParameters().get("hivresult").getValue());
+                //HIVStatus hivRes = HIVStatus.valueOf(form.getIncomingMsgFormParameters().get("hivresult").getValue());
 
-                regWS.recordMotherANCVisit(chpsId, date, motechId, visitNo, ttDose, iptDose, itn, hivRes);
+                //regWS.recordMotherANCVisit(chpsId, date, motechId, visitNo, ttDose, iptDose, itn, hivRes);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -227,13 +227,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Integer abortionType = Integer.parseInt(form.getIncomingMsgFormParameters().get("abortiontype").getValue());
                 Integer complications = Integer.parseInt(form.getIncomingMsgFormParameters().get("complications").getValue());
 
-                regWS.recordPregnancyTermination(chpsId, date, motechId, abortionType, complications);
+                //regWS.recordPregnancyTermination(chpsId, date, motechId, abortionType, complications);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -245,7 +245,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Integer mod = Integer.parseInt(form.getIncomingMsgFormParameters().get("mod").getValue());
                 Integer ood = Integer.parseInt(form.getIncomingMsgFormParameters().get("ood").getValue());
                 Integer location = Integer.parseInt(form.getIncomingMsgFormParameters().get("location").getValue());
-                DeliveredBy deliverer = DeliveredBy.valueOf(form.getIncomingMsgFormParameters().get("deliveredby").getValue());
+                //DeliveredBy deliverer = DeliveredBy.valueOf(form.getIncomingMsgFormParameters().get("deliveredby").getValue());
                 Boolean maternalDeath = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("maternaldeath").getValue());
                 Integer cause = (form.getIncomingMsgFormParameters().containsKey("cause") && !form.getIncomingMsgFormParameters().get("cause").getValue().isEmpty() && !form.getIncomingMsgFormParameters().get("cause").getValue().equalsIgnoreCase("na")) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("cause").getValue()) : null;
                 BirthOutcome c1BirthOut = BirthOutcome.valueOf(form.getIncomingMsgFormParameters().get("c1birthoutcome").getValue());
@@ -268,13 +268,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Boolean c3BCG = form.getIncomingMsgFormParameters().containsKey("c3bcg") ? Boolean.valueOf(form.getIncomingMsgFormParameters().get("c3bcg").getValue()) : null;
 
 
-                regWS.recordPregnancyDelivery(chpsid, delivDate, motechId, mod, ood, location, deliverer, maternalDeath, cause, c1BirthOut, c1Id, c1sex, c1Name, c1opv, c1bcg, c2BO, c2MotechId, c2Sex, c2Name, c2OPV, c2BCG, c3BO, c3MotechId, c3Sex, c3Name, c3OPV, c3BCG);
+                //regWS.recordPregnancyDelivery(chpsid, delivDate, motechId, mod, ood, location, deliverer, maternalDeath, cause, c1BirthOut, c1Id, c1sex, c1Name, c1opv, c1bcg, c2BO, c2MotechId, c2Sex, c2Name, c2OPV, c2BCG, c3BO, c3MotechId, c3Sex, c3Name, c3OPV, c3BCG);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -287,13 +287,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Boolean vitA = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("vita").getValue());
                 Integer ttDose = (!form.getIncomingMsgFormParameters().get("ttdose").getValue().isEmpty()) ? Integer.parseInt(form.getIncomingMsgFormParameters().get("ttdose").getValue()) : null;
 
-                regWS.recordMotherPPCVisit(chpsid, date, motechId, visitNo, vitA, ttDose);
+                //regWS.recordMotherPPCVisit(chpsid, date, motechId, visitNo, vitA, ttDose);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -304,13 +304,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
                 Integer cause = form.getIncomingMsgFormParameters().containsKey("cause") ? Integer.valueOf(form.getIncomingMsgFormParameters().get("cause").getValue()) : null;
 
-                regWS.recordDeath(chpsid, date, motechId, cause);
+                //regWS.recordDeath(chpsid, date, motechId, cause);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -328,13 +328,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 Boolean ipti = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("ipti").getValue());
                 Boolean vitA = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("vita").getValue());
 
-                regWS.recordChildPNCVisit(chpsId, date, motechId, bcg, opv, penta, yellowFever, csm, measles, ipti, vitA);
+                //regWS.recordChildPNCVisit(chpsId, date, motechId, bcg, opv, penta, yellowFever, csm, measles, ipti, vitA);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -356,13 +356,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
                 Boolean referral = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue());
 
-                regWS.recordChildVisit(chpsid, date, serialNo, motechId, caseStatus, diag, diag2, referral);
+                //regWS.recordChildVisit(chpsid, date, serialNo, motechId, caseStatus, diag, diag2, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -384,13 +384,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
                 Boolean referral = Boolean.parseBoolean(form.getIncomingMsgFormParameters().get("referral").getValue());
                 
-                regWS.recordMotherVisit(chpsid, date, serialNo, motechId, caseStatus, diag, diag2, referral);
+                //regWS.recordMotherVisit(chpsid, date, serialNo, motechId, caseStatus, diag, diag2, referral);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
             }
@@ -399,7 +399,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
 
-                Care[] care = regWS.queryANCDefaulters(facilityId, chpsid);
+                Care[] care = null;//regWS.queryANCDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (care == null) {
@@ -414,8 +414,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -426,7 +426,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
 
-                Care[] care = regWS.queryTTDefaulters(facilityId, chpsid);
+                Care[] care = null;//regWS.queryTTDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (care == null) {
@@ -441,8 +441,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -453,7 +453,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
 
-                Care[] care = regWS.queryPPCDefaulters(facilityId, chpsid);
+                Care[] care = null;//regWS.queryPPCDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (care == null) {
@@ -468,8 +468,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -480,7 +480,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
 
-                Care[] care = regWS.queryPNCDefaulters(facilityId, chpsid);
+                Care[] care = null;//regWS.queryPNCDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (care == null) {
@@ -495,8 +495,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -507,7 +507,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
 
-                Care[] care = regWS.queryCWCDefaulters(facilityId, chpsid);
+                Care[] care = null;//regWS.queryCWCDefaulters(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (care == null) {
@@ -522,8 +522,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     response += formatter.formatDefaulterMessage(c) + "\n\n";
                 }
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -534,7 +534,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
 
-                Patient[] patients = regWS.queryUpcomingDeliveries(facilityId, chpsid);
+                Patient[] patients = null;//regWS.queryUpcomingDeliveries(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (patients == null) {
@@ -545,8 +545,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Upcoming", patients);
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -557,7 +557,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
 
-                Patient[] patients = regWS.queryRecentDeliveries(facilityId, chpsid);
+                Patient[] patients = null;//regWS.queryRecentDeliveries(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (patients == null) {
@@ -568,8 +568,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Recent", patients);
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -580,7 +580,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String facilityId = form.getIncomingMsgFormParameters().get("facilityid").getValue();
 
-                Patient[] patients = regWS.queryOverdueDeliveries(facilityId, chpsid);
+                Patient[] patients = null;//regWS.queryOverdueDeliveries(facilityId, chpsid);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (patients == null) {
@@ -591,8 +591,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatDeliveriesMessage("Overdue", patients);
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -604,7 +604,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String facilityId = form.getIncomingMsgFormParameters().containsKey("facilityid") ? form.getIncomingMsgFormParameters().get("facilityid").getValue() : null;
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
 
-                Patient patient = regWS.queryUpcomingCare(facilityId, chpsid, motechId);
+                Patient patient = null;//regWS.queryUpcomingCare(facilityId, chpsid, motechId);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (patient == null) {
@@ -618,8 +618,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatUpcomingCaresMessage(patient);
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -630,7 +630,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String chpsid = form.getIncomingMsgFormParameters().get("chpsid").getValue();
                 String motechId = form.getIncomingMsgFormParameters().get("motechid").getValue();
 
-                Patient patient = regWS.queryPatient(chpsid, motechId);
+                Patient patient = null;//regWS.queryPatient(chpsid, motechId);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (patient == null) {
@@ -641,8 +641,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 MessageFormatter formatter = omiManager.createMessageFormatter();
                 String response = formatter.formatPatientDetailsMessage(patient);
                 return response;
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
@@ -658,7 +658,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 String nhis = form.getIncomingMsgFormParameters().containsKey("nhisno") ? form.getIncomingMsgFormParameters().get("nhisno").getValue() : null;
                 String phone = form.getIncomingMsgFormParameters().containsKey("phone") ? form.getIncomingMsgFormParameters().get("phone").getValue() : null;
 
-                Patient[] patients = regWS.queryMotechId(chpsId, firstName, lastName, preferredName, dob, nhis, phone);
+                Patient[] patients = null;//regWS.queryMotechId(chpsId, firstName, lastName, preferredName, dob, nhis, phone);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
 
                 if (patients == null) {
@@ -672,8 +672,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             } catch (ParseException ex) {
                 logger.error("Error parsing date", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
-            } catch (ValidationException ex) {
-                parseValidationErrors(form, ex);
+//            } catch (ValidationException ex) {
+//                parseValidationErrors(form, ex);
             } catch (Exception ex) {
                 logger.error("Server validation of form failed", ex);
                 form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);

@@ -51,7 +51,7 @@
                 <entry key="ttDose" value="java.lang.Integer" />
                 <entry key="iptDose" value="java.lang.Integer" />
                 <entry key="itn" value="java.lang.Boolean" />
-                <entry key="hivResult" value="org.motechproject.ws.HIVStatus" />
+                <entry key="hivResult" value="org.motechproject.ws.HIVResult" />
             </map>
         </property>
     </bean>
@@ -111,7 +111,7 @@
                 <entry key="mod" value="java.lang.Integer" />
                 <entry key="ood" value="java.lang.Integer" />
                 <entry key="location" value="java.lang.Integer" />
-                <entry key="deliveredBy" value="org.motechproject.ws.DeliveredBy" />
+                <entry key="deliveredBy" value="java.lang.Integer" />
                 <entry key="maternalDeath" value="java.lang.Boolean" />
                 <entry key="cause" value="java.lang.Integer" />
                 <entry key="c1BirthOutcome" value="org.motechproject.ws.BirthOutcome" />

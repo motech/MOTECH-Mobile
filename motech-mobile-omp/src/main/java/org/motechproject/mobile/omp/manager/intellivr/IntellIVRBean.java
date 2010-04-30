@@ -1,14 +1,20 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.motechproject.mobile.core.dao.GatewayRequestDAO;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
@@ -28,26 +34,35 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private String defaultReminder;
 	private IntellIVRServer ivrServer;
 	private MessageStatusStore statusStore;
-	private Map<String, String> reminderFileNames;
-	private Map<String, String> treeNames;
+	protected Map<Long, IVRNotificationMapping> ivrNotificationMap;
+	protected Map<String, List<GatewayRequest>> bundledGatewayRequests;
+	private Timer timer;
+	private long bundlingDelay;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
 	private void init() {
 
+		ivrNotificationMap = new HashMap<Long, IVRNotificationMapping>();
+		
 		/*
-		 * Temporary hack.  It will be populated by a config file. 
+		 * test data - will read from config file
 		 */
-		reminderFileNames = new HashMap<String, String>();
-		reminderFileNames.put("test1", "test1.wav");
-		reminderFileNames.put("test2", "test2.wav");
-		reminderFileNames.put("IDconfirmation", "IDconfirmation.wav");
+		IVRNotificationMapping m1 = new IVRNotificationMapping();
+		m1.setId(18);
+		m1.setType(IVRNotificationMapping.INFORMATIONAL);
+		m1.setIvrEntityName("api_test");
+		ivrNotificationMap.put(18L, m1);
+		
+		IVRNotificationMapping m2 = new IVRNotificationMapping();
+		m2.setId(77);
+		m2.setType(IVRNotificationMapping.REMINDER);
+		m2.setIvrEntityName("IDConfirmation.wav");
+		ivrNotificationMap.put(77L, m2);
 	
-		/*
-		 * Temporary hack.  It will be populated by a config file.
-		 */
-		treeNames = new HashMap<String, String>();
-		treeNames.put("1", "api_test");
+		timer = new Timer();
+		
+		bundledGatewayRequests = new HashMap<String, List<GatewayRequest>>();
 		
 	}
 	
@@ -69,27 +84,164 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			MotechContext context) {
 
 		log.debug("Received GatewayRequest:" + gatewayRequest);
+
+		initializeGatewayRequest(gatewayRequest);
 		
-		RequestType ivrRequest = createIVRRequest(gatewayRequest);
+		IVRServerTimerTask task = null;
 		
-		log.debug("Sending IVR request: " + ivrRequest);
+		String recipientID = gatewayRequest
+			.getMessageRequest()
+			.getRecipientId();
 		
-		ResponseType ivrResponse = ivrServer.requestCall(ivrRequest);
-		
-		log.info("Received IVR response: " + ivrResponse.toString());
-		
-		String responseCode = ivrResponse.getStatus() == StatusType.OK ? StatusType.OK.value() : ivrResponse.getErrorCode().value();
+		String status = StatusType.OK.value();
+		if ( recipientID == null ) {
+			status = StatusType.ERROR.value();
+		} else {
+
+			if ( !bundledGatewayRequests.containsKey(recipientID) ) {
+				
+				List<GatewayRequest> newList = new ArrayList<GatewayRequest>();
+				newList.add(gatewayRequest);
+				
+				bundledGatewayRequests.put(recipientID, newList);
+
+				task = new IVRServerTimerTask(recipientID);
+				
+			} else {
+				bundledGatewayRequests
+					.get(recipientID)
+					.add(gatewayRequest);
+			}
+
+		}
 		
 		Set<GatewayResponse> responses = messageHandler
-			.parseMessageResponse(gatewayRequest, responseCode, context);
+			.parseMessageResponse(gatewayRequest, status, context);
 		
 		for ( GatewayResponse response : responses )
 			statusStore.updateStatus(response.getGatewayMessageId(),
 					response.getResponseText());
 		
+		if ( task != null && bundlingDelay >= 0 )
+			timer.schedule(task, bundlingDelay);
+		
 		return responses;
 	}
 
+	private void initializeGatewayRequest(GatewayRequest request) {
+		request.getRecipientsNumber();
+		request.getMessageRequest().getLanguage().getName();
+		request.getMessageRequest().getRecipientId();
+		request.getMessageRequest().getNotificationType().getId();
+	}
+	
+	public void sendPending(String recipientID) {
+		
+		log.debug("Initiating call request for recipient id " + recipientID);			
+		
+		List<GatewayRequest> pendingRequests = bundledGatewayRequests.get(recipientID);
+		
+		if ( pendingRequests != null ) {
+
+			bundledGatewayRequests.remove(recipientID);
+
+			RequestType request = createIVRRequest(pendingRequests);
+
+			log.debug("Created IVR Request: " + request);
+
+			ResponseType response = ivrServer.requestCall(request);
+
+			log.debug("Recieved response from IVR Server: " + response);
+
+			String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
+
+			for (Iterator iterator = pendingRequests.iterator(); iterator.hasNext();) {
+				GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
+				statusStore.updateStatus(gatewayRequest.getRequestId(), status);
+			}
+
+			if ( response.getStatus() == StatusType.OK )
+				bundledGatewayRequests.put(request.getPrivate(), pendingRequests);
+
+		}
+			
+	}
+
+	public RequestType createIVRRequest(List<GatewayRequest> gwRequests) {
+		
+		log.debug("Creating IVR Request for " + gwRequests);
+		
+		RequestType ivrRequest = new RequestType();
+		
+		/*
+		 * These first three values are fixed
+		 */
+		ivrRequest.setApiId(apiID);
+		ivrRequest.setMethod(method);
+		ivrRequest.setReportUrl(reportURL);
+
+		/*
+		 * recipient's phone number
+		 */
+		ivrRequest.setCallee(gwRequests.get(0)
+									   .getRecipientsNumber());
+	
+		/*
+		 * Set language
+		 */
+		String language = gwRequests.get(0)
+									.getMessageRequest()
+									.getLanguage()
+									.getName();
+		ivrRequest.setLanguage(language != null ? language : defaultLanguage);
+
+		/*
+		 * Private id
+		 */
+		ivrRequest.setPrivate(gwRequests.get(0).getMessageRequest().getRecipientId() + "-" + System.currentTimeMillis());
+		
+		/*
+		 * Create the content
+		 */	
+		List<String> reminderMessages = new ArrayList<String>();
+		for (Iterator iterator = gwRequests.iterator(); iterator.hasNext();) {
+			GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
+			
+			long notificationId = gatewayRequest.getMessageRequest().getNotificationType().getId();
+			
+			if ( !ivrNotificationMap.containsKey(notificationId) ) {
+				log.debug("No IVR Notification mapping found for " + notificationId);
+			} else {
+				
+				IVRNotificationMapping mapping = ivrNotificationMap.get(notificationId);
+				
+				if ( mapping.getType().equalsIgnoreCase(IVRNotificationMapping.INFORMATIONAL)) {
+					ivrRequest.setTree(mapping.getIvrEntityName());
+				} else {
+					reminderMessages.add(mapping.getIvrEntityName());
+				}
+				
+			} 
+			
+		}
+		
+		RequestType.Vxml vxml = new RequestType.Vxml();	
+		vxml.setPrompt(new RequestType.Vxml.Prompt());
+		for (Iterator iterator = reminderMessages.iterator(); iterator.hasNext();) {
+			String fileName = (String) iterator.next();
+			AudioType audio = new AudioType();
+			audio.setSrc(fileName);
+			vxml.getPrompt()
+				.getAudioOrBreak()
+				.add(audio);
+		}
+		ivrRequest.setVxml(vxml);
+		
+		return ivrRequest;
+		
+	}
+
+	
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
 		log.info("Received request for id " + request.getUserid());
 		ResponseType r = new ResponseType();
@@ -102,70 +254,28 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public ResponseType handleReport(ReportType report) {
 		log.info("Received call report: " + report.toString());
 		
-		if ( report.getPrivate() == null )
-			log.error("Unable to identify call in report: " + report.toString());
-		else 
-			statusStore.updateStatus(report.getPrivate(), report.getStatus().value());
+		String bundleID = report.getPrivate();
 		
+		if ( bundleID == null )
+			log.error("Unable to identify call in report: " + report.toString());
+		else {
+			if ( !bundledGatewayRequests.containsKey(bundleID)) {
+				log.error("Unable to find GatewayRequests for " + bundleID);
+			} else {
+				List<GatewayRequest> requests = bundledGatewayRequests.get(bundleID);
+				for (Iterator iterator = requests.iterator(); iterator.hasNext();) {
+					GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
+					statusStore.updateStatus(gatewayRequest.getRequestId(), report.getStatus().value());
+				}
+				bundledGatewayRequests.remove(bundleID);
+			}
+		}
+			
 		ResponseType r = new ResponseType();
 		r.setStatus(StatusType.OK);
 		return r;
 	}
 	
-	private RequestType createIVRRequest(GatewayRequest gwRequest) {
-
-		RequestType ivrRequest = new RequestType();
-		
-		/*
-		 * These first three values are fixed
-		 */
-		ivrRequest.setApiId(this.apiID);
-		ivrRequest.setMethod(this.method);
-		ivrRequest.setReportUrl(this.reportURL);
-
-		/*
-		 * recipient's phone number
-		 */
-		ivrRequest.setCallee(gwRequest.getRecipientsNumber());
-	
-		/*
-		 * Internal ID - will be returned by IVR system with status reports
-		 */
-		ivrRequest.setPrivate(gwRequest.getRequestId());
-
-		/*
-		 * Reminder messages, week number, and language are parsed from the message
-		 */
-		String message = gwRequest.getMessage();
-
-		Pattern p = Pattern.compile("([0-9a-zA-Z\\-\\,\\.]+)\\:([0-9a-zA-Z]+)\\:([a-zA-Z]+)");
-		Matcher m = p.matcher(message);
-		if ( !m.matches() ) {
-			log.error("Invalid message format received.  Will use defaults.  Message was '" + message + "'.");
-			ivrRequest.setLanguage(this.defaultLanguage);
-			ivrRequest.setTree(this.defaultTree);
-			RequestType.Vxml vxml = new RequestType.Vxml();
-			vxml.setPrompt(new RequestType.Vxml.Prompt());
-			AudioType audio = new AudioType();
-			audio.setSrc(this.defaultReminder);
-			vxml.getPrompt().getAudioOrBreak().add(audio);
-			ivrRequest.setVxml(vxml);
-		} else {
-			ivrRequest.setLanguage(m.group(3));
-			ivrRequest.setTree(treeNames.get(m.group(2)));
-			RequestType.Vxml vxml = new RequestType.Vxml();
-			vxml.setPrompt(new RequestType.Vxml.Prompt());
-			StringTokenizer tok = new StringTokenizer(m.group(1),",");
-			while ( tok.hasMoreTokens() ) {
-				AudioType audio = new AudioType();
-				audio.setSrc(reminderFileNames.get(tok.nextToken()));
-				vxml.getPrompt().getAudioOrBreak().add(audio);
-			}
-			ivrRequest.setVxml(vxml);			
-		}
-		
-		return ivrRequest;
-	}
 
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
 		this.messageHandler = messageHandler;
@@ -237,6 +347,34 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setStatusStore(MessageStatusStore statusStore) {
 		this.statusStore = statusStore;
+	}
+	
+	public long getBundlingDelay() {
+		return bundlingDelay;
+	}
+
+	public void setBundlingDelay(long bundlingDelay) {
+		this.bundlingDelay = bundlingDelay;
+	}
+
+	protected class IVRServerTimerTask extends TimerTask {
+
+		private String recipientID;
+		private Log log = LogFactory.getLog(IVRServerTimerTask.class);
+		
+		protected IVRServerTimerTask(String recipientID) {
+			this.recipientID = recipientID;
+		}
+		
+		@Override
+		public void run() {
+
+			log.debug("IVR Server timer task expired for recipient id " + recipientID);
+			
+			sendPending(recipientID);
+			
+		}
+		
 	}
 	
 }

@@ -48,6 +48,7 @@ public class IntellIVRGatewayMessageHandlerTest {
 		statusCodes.put("0009", MStatus.FAILED);
 		statusCodes.put("0010", MStatus.FAILED);
 		statusCodes.put("0011", MStatus.FAILED);
+		statusCodes.put("ERROR", MStatus.FAILED);
 		statusCodes.put("OK", MStatus.PENDING);
 		statusCodes.put("COMPLETED", MStatus.DELIVERED);
 		statusCodes.put("REJECTED", MStatus.RETRY);

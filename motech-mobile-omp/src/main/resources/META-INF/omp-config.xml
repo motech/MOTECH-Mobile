@@ -125,6 +125,9 @@
 				<entry key="0011">
 					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
+				<entry key="ERROR">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
 				<entry key="OK">
 					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
 				</entry>
@@ -168,6 +171,7 @@
 		<property name="statusStore">
 			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>
 		</property>
+		<property name="bundlingDelay" value="15000"/>	
 	</bean>
 
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
