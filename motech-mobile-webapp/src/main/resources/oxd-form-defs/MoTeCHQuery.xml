@@ -2,10 +2,11 @@
 <study description="MoTeCH query forms" name="MoTeCH Query">
 <form description="" name="General Query">
 <version description="" name="v1">
-<xform>&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="gen-query"&gt;
-      &lt;gen-query name="General Query-v1" id="29"&gt;
+      &lt;gen-query id="84" name="General Query-v1"&gt;
         &lt;chpsid/&gt;
         &lt;facilityid/&gt;
         &lt;formname/&gt;
@@ -13,11 +14,11 @@
         &lt;formtype&gt;query&lt;/formtype&gt;
       &lt;/gen-query&gt;
     &lt;/xf:instance&gt;
-    &lt;xf:bind id="chpsid" nodeset="/gen-query/chpsid" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="facilityid" nodeset="/gen-query/facilityid" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/gen-query/formname" type="xsd:string" required="true()"/&gt;
-    &lt;xf:bind id="sender" nodeset="/gen-query/sender" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/gen-query/formtype" type="xsd:string" required="true()" visible="false()"/&gt;
+    &lt;xf:bind id="chpsid" nodeset="/gen-query/chpsid" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="facilityid" nodeset="/gen-query/facilityid" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="formname" nodeset="/gen-query/formname" required="true()" type="xsd:string"/&gt;
+    &lt;xf:bind id="sender" nodeset="/gen-query/sender" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="formtype" nodeset="/gen-query/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
   &lt;xf:group id="1"&gt;
     &lt;xf:label&gt;Page1&lt;/xf:label&gt;
@@ -71,25 +72,25 @@
   &lt;/xf:group&gt;
 &lt;/xf:xforms&gt;
 </xform>
-<layout>&lt;Form id="29"&gt;
+<layout>&lt;Form id="84"&gt;
   &lt;Page Text="Page1" Binding="Page1" Width="100%" Height="270px" backgroundColor=""&gt;
     &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="chpsid" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="chpsid" Left="100px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="chpsid" Left="100px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Facility ID" HelpText="Facility ID" Binding="facilityid" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Facility ID" Binding="facilityid" Left="130px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Facility ID" Binding="facilityid" Left="130px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Query type" HelpText="Query type" Binding="formname" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Query type" Binding="formname" Left="120px" Top="100px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="ListBox" HelpText="Query type" Binding="formname" Left="120px" Top="100px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Response phone number" HelpText="Response phone number" Binding="sender" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Response phone number" Binding="sender" Left="230px" Top="140px" Width="200px" Height="25px" TabIndex="4" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Response phone number" Binding="sender" Left="230px" Top="140px" Width="200px" Height="25px" TabIndex="4" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="100px" Top="180px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="230px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="230px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="100px" Top="180px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="230px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="230px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
   &lt;/Page&gt;
 &lt;/Form&gt;
 </layout>
 <versionText locale="en">
-<xform>&lt;xform id="29"&gt;&#13;
+<xform>&lt;xform id="84"&gt;&#13;
     &lt;text xpath="xforms/model/instance/gen-query[@name]" value="General Query-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='chpsid']/label" value="Staff ID"/&gt;&#13;
@@ -106,18 +107,69 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='sender']/label" value="Response phone number"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;&#13;
   &lt;/xform&gt;</xform>
-<layout>&lt;Form id="29"&gt;&#13;
+<layout>&lt;Form id="84"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='chpsid' and @WidgetType='Label'][@Text]" value="Staff ID"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='chpsid' and @WidgetType='Label'][@HelpText]" value="Staff ID"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='chpsid' and @WidgetType='Label'][@Top]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='chpsid' and @WidgetType='Label'][@Left]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='chpsid' and @WidgetType='TextBox'][@HelpText]" value="Staff ID"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='chpsid' and @WidgetType='TextBox'][@Top]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='chpsid' and @WidgetType='TextBox'][@Left]" value="100px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='chpsid' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityid' and @WidgetType='Label'][@Text]" value="Facility ID"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityid' and @WidgetType='Label'][@HelpText]" value="Facility ID"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityid' and @WidgetType='Label'][@Top]" value="60px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityid' and @WidgetType='Label'][@Left]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityid' and @WidgetType='TextBox'][@HelpText]" value="Facility ID"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityid' and @WidgetType='TextBox'][@Top]" value="60px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityid' and @WidgetType='TextBox'][@Left]" value="130px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityid' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='Label'][@Text]" value="Query type"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='Label'][@HelpText]" value="Query type"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='Label'][@Top]" value="100px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='Label'][@Left]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='ListBox'][@HelpText]" value="Query type"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='ListBox'][@Top]" value="100px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='ListBox'][@Left]" value="120px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='sender' and @WidgetType='Label'][@Text]" value="Response phone number"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='sender' and @WidgetType='Label'][@HelpText]" value="Response phone number"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='sender' and @WidgetType='Label'][@Top]" value="140px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='sender' and @WidgetType='Label'][@Left]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='sender' and @WidgetType='TextBox'][@HelpText]" value="Response phone number"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='sender' and @WidgetType='TextBox'][@Top]" value="140px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='sender' and @WidgetType='TextBox'][@Left]" value="230px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='sender' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='Label'][@Text]" value="formType"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='Label'][@HelpText]" value="formType"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='Label'][@Top]" value="180px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='Label'][@Left]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='TextBox'][@HelpText]" value="formType"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Top]" value="180px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Left]" value="100px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@Text]" value="Submit"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@HelpText]" value="submit"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@Top]" value="230px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@Left]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@Width]" value="70px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Text]" value="Cancel"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@HelpText]" value="cancel"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Top]" value="230px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Left]" value="220px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Width]" value="70px"/&gt;&#13;
   &lt;/Form&gt;</layout>
 </versionText>
 </version>
 </form>
 <form description="" name="Patient Query">
 <version description="" name="v1">
-<xform>&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="pat-query"&gt;
-      &lt;pat-query name="Patient Query-v1" id="30"&gt;
+      &lt;pat-query id="85" name="Patient Query-v1"&gt;
         &lt;chpsid/&gt;
         &lt;facilityid/&gt;
         &lt;formname/&gt;
@@ -132,18 +184,18 @@
         &lt;formtype&gt;query&lt;/formtype&gt;
       &lt;/pat-query&gt;
     &lt;/xf:instance&gt;
-    &lt;xf:bind id="chpsid" nodeset="/pat-query/chpsid" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="facilityid" nodeset="/pat-query/facilityid" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/pat-query/formname" type="xsd:string" required="true()"/&gt;
-    &lt;xf:bind id="motechid" nodeset="/pat-query/motechid" type="xsd:string" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf'" action="show" visible="false()" required="true()"/&gt;
-    &lt;xf:bind id="firstname" nodeset="/pat-query/firstname" type="xsd:string" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()"/&gt;
-    &lt;xf:bind id="lastname" nodeset="/pat-query/lastname" type="xsd:string" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()"/&gt;
-    &lt;xf:bind id="PreferredName" nodeset="/pat-query/PreferredName" type="xsd:string" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()"/&gt;
-    &lt;xf:bind id="dob" nodeset="/pat-query/dob" type="xsd:date" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/&gt;
-    &lt;xf:bind id="nhis_number" nodeset="/pat-query/nhis_number" type="xsd:string" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()"/&gt;
-    &lt;xf:bind id="phonenumber" nodeset="/pat-query/phonenumber" type="xsd:int" relevant="/pat-query/formname = 'findmotechid-jf'" action="show" visible="false()" required="true()"/&gt;
-    &lt;xf:bind id="sender" nodeset="/pat-query/sender" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/pat-query/formtype" type="xsd:string" required="true()" visible="false()"/&gt;
+    &lt;xf:bind id="chpsid" nodeset="/pat-query/chpsid" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="facilityid" nodeset="/pat-query/facilityid" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="formname" nodeset="/pat-query/formname" required="true()" type="xsd:string"/&gt;
+    &lt;xf:bind action="show" id="motechid" nodeset="/pat-query/motechid" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf'" required="true()" type="xsd:int" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="firstname" nodeset="/pat-query/firstname" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="lastname" nodeset="/pat-query/lastname" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="PreferredName" nodeset="/pat-query/PreferredName" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dob" message="Invalid date: date specified is in the future" nodeset="/pat-query/dob" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:date" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="nhis_number" nodeset="/pat-query/nhis_number" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:int" visible="false()"/&gt;
+    &lt;xf:bind id="sender" nodeset="/pat-query/sender" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="formtype" nodeset="/pat-query/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
   &lt;xf:group id="1"&gt;
     &lt;xf:label&gt;Page2&lt;/xf:label&gt;
@@ -198,7 +250,7 @@
   &lt;/xf:group&gt;
 &lt;/xf:xforms&gt;
 </xform>
-<layout>&lt;Form id="30"&gt;
+<layout>&lt;Form id="85"&gt;
   &lt;Page Text="Page2" Binding="Page2" Width="100%" Height="550px" backgroundColor=""&gt;
     &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="chpsid" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="chpsid" Left="100px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -230,7 +282,7 @@
 &lt;/Form&gt;
 </layout>
 <versionText locale="en">
-<xform>&lt;xform id="30"&gt;&#13;
+<xform>&lt;xform id="85"&gt;&#13;
     &lt;text xpath="xforms/model/instance/pat-query[@name]" value="Patient Query-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page2"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='chpsid']/label" value="Staff ID"/&gt;&#13;
@@ -250,7 +302,7 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='dob'][@message]" value="Invalid date: date specified is in the future"/&gt;&#13;
   &lt;/xform&gt;</xform>
-<layout>&lt;Form id="30"&gt;&#13;
+<layout>&lt;Form id="85"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page2'][@Text]" value="Page2"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page2']/Item[@Binding='chpsid' and @WidgetType='Label'][@Text]" value="Staff ID"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page2']/Item[@Binding='chpsid' and @WidgetType='Label'][@HelpText]" value="Staff ID"/&gt;&#13;
