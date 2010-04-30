@@ -69,7 +69,9 @@ public class FormProcessorImpl implements FormProcessor {
                         paramObjs[idx] = Enum.valueOf(e.getValue(), form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
                     } else if (e.getValue().equals(String.class)) {
                         paramObjs[idx] = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue();
-                    } else {
+                    } else if(e.getValue().isArray()){
+                        paramObjs[idx] = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().split(",");
+                    }else {
                         Constructor constr = e.getValue().getConstructor(String.class);
                         paramObjs[idx] = constr.newInstance(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
                     }
