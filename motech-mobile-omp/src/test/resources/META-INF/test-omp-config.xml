@@ -207,6 +207,7 @@
 			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>
 		</property>
 		<property name="bundlingDelay" value="15000"/>	
+		<property name="mappingResource" value="classpath:intellivr.conf"/>
 	</bean>
 
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">

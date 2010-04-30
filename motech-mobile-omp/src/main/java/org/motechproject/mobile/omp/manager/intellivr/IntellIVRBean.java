@@ -1,5 +1,10 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,6 +27,7 @@ import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
+import org.springframework.core.io.Resource;
 
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 	
@@ -38,6 +44,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	protected Map<String, List<GatewayRequest>> bundledGatewayRequests;
 	private Timer timer;
 	private long bundlingDelay;
+	private Resource mappingResource;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
@@ -45,21 +52,45 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 		ivrNotificationMap = new HashMap<Long, IVRNotificationMapping>();
 		
-		/*
-		 * test data - will read from config file
-		 */
-		IVRNotificationMapping m1 = new IVRNotificationMapping();
-		m1.setId(18);
-		m1.setType(IVRNotificationMapping.INFORMATIONAL);
-		m1.setIvrEntityName("api_test");
-		ivrNotificationMap.put(18L, m1);
+		try {
+			
+			File f = mappingResource.getFile();
+			
+			log.debug("Looking for Notification to IVR entity mappings in " + f.getName());
+			
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			
+			Pattern p = Pattern.compile("([0-9]+)=([IiRr]{1}),(.+)");
+			Matcher m;
+			
+			String line = "";
+			
+			while ( (line = br.readLine()) != null ) {
+				
+				m = p.matcher(line);				
+				
+				if ( m.matches() ) {
+				
+					long mapID = Long.parseLong(m.group(1));
+					String ivrType = m.group(2).toUpperCase();
+					String ivrEntity = m.group(3);
+					
+					log.debug("Found IVR entity mapping: " + mapID + " => " + ivrType + "," + ivrEntity);
+					
+					IVRNotificationMapping i = new IVRNotificationMapping();
+					i.setId(mapID);
+					i.setType(ivrType);
+					i.setIvrEntityName(ivrEntity);
+					ivrNotificationMap.put(mapID, i);
+					
+				}
+				
+			}
+			
+		} catch (IOException e) {
+			log.error("IOException creating IVR to Notification Map - default tree and message will be used"); 
+		}
 		
-		IVRNotificationMapping m2 = new IVRNotificationMapping();
-		m2.setId(77);
-		m2.setType(IVRNotificationMapping.REMINDER);
-		m2.setIvrEntityName("IDConfirmation.wav");
-		ivrNotificationMap.put(77L, m2);
-	
 		timer = new Timer();
 		
 		bundledGatewayRequests = new HashMap<String, List<GatewayRequest>>();
@@ -358,6 +389,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setBundlingDelay(long bundlingDelay) {
 		this.bundlingDelay = bundlingDelay;
+	}
+
+	public Resource getMappingResource() {
+		return mappingResource;
+	}
+
+	public void setMappingResource(Resource mappingsFile) {
+		this.mappingResource = mappingsFile;
 	}
 
 	protected class IVRServerTimerTask extends TimerTask {
