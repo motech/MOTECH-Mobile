@@ -198,7 +198,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		/*
 		 * Private id
 		 */
-		ivrRequest.setPrivate(gwRequests.get(0).getMessageRequest().getRecipientId() + "-" + System.currentTimeMillis());
+		ivrRequest.setPrivate(gwRequests.get(0)
+										.getMessageRequest()
+										.getId()
+										.toString());
 		
 		/*
 		 * Create the content

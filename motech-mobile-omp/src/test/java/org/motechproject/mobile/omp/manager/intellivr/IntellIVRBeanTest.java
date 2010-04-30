@@ -142,6 +142,7 @@ public class IntellIVRBeanTest {
 		n1.setId(1L);
 		
 		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setId(1L);
 		mr1.setLanguage(english);
 		mr1.setRecipientId("123456789");
 		mr1.setRequestId("mr1");
@@ -167,6 +168,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
+		mr2.setId(2L);
 		mr2.setLanguage(english);
 		mr2.setRecipientId("123456789");
 		mr2.setRequestId("mr2");
@@ -192,6 +194,7 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 		
 		MessageRequest mr3 = new MessageRequestImpl();
+		mr3.setId(3L);
 		mr3.setLanguage(english);
 		mr3.setRecipientId("123456789");
 		mr3.setRequestId("mr3");
@@ -362,6 +365,7 @@ public class IntellIVRBeanTest {
 		n1.setId(1L);
 		
 		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setId(1L);
 		mr1.setLanguage(english);
 		mr1.setRecipientId("123456789");
 		mr1.setNotificationType(n1);
@@ -376,6 +380,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
+		mr2.setId(2L);
 		mr2.setLanguage(english);
 		mr2.setRecipientId("123456789");
 		mr2.setNotificationType(n2);
@@ -390,6 +395,7 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 		
 		MessageRequest mr3 = new MessageRequestImpl();
+		mr3.setId(3L);
 		mr3.setLanguage(english);
 		mr3.setRecipientId("123456789");
 		mr3.setNotificationType(n3);
