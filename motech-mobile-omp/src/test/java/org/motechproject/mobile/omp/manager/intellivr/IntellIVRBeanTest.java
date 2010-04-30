@@ -155,7 +155,7 @@ public class IntellIVRBeanTest {
 		r1.setRecipientsNumber("15555555555");
 
 		GatewayResponse gr1 = new GatewayResponseImpl();
-		gr1.setGatewayMessageId(mr1.getRequestId());
+		gr1.setGatewayMessageId(mr1.getId().toString());
 		gr1.setGatewayRequest(r1);
 		gr1.setRecipientNumber(mr1.getRecipientNumber());
 		gr1.setMessageStatus(r1.getMessageStatus());
@@ -181,7 +181,7 @@ public class IntellIVRBeanTest {
 		r2.setRecipientsNumber("15555555555");
 		
 		GatewayResponse gr2 = new GatewayResponseImpl();
-		gr2.setGatewayMessageId(mr2.getRequestId());
+		gr2.setGatewayMessageId(mr2.getId().toString());
 		gr2.setGatewayRequest(r2);
 		gr2.setRecipientNumber(mr2.getRecipientNumber());
 		gr2.setMessageStatus(r2.getMessageStatus());
@@ -207,7 +207,7 @@ public class IntellIVRBeanTest {
 		r3.setRecipientsNumber("15555555555");
 
 		GatewayResponse gr3 = new GatewayResponseImpl();
-		gr3.setGatewayMessageId(mr3.getRequestId());
+		gr3.setGatewayMessageId(mr3.getId().toString());
 		gr3.setGatewayRequest(r3);
 		gr3.setRecipientNumber(mr3.getRecipientNumber());
 		gr3.setMessageStatus(r3.getMessageStatus());
@@ -269,9 +269,9 @@ public class IntellIVRBeanTest {
 		
 		expect(mockIVRServer.requestCall(expectedRequest)).andReturn(expectedResponse);
 		replay(mockIVRServer);
-		mockStatusStore.updateStatus(r1.getRequestId(), StatusType.OK.value());
-		mockStatusStore.updateStatus(r2.getRequestId(), StatusType.OK.value());
-		mockStatusStore.updateStatus(r3.getRequestId(), StatusType.OK.value());		
+		mockStatusStore.updateStatus(r1.getMessageRequest().getId().toString(), StatusType.OK.value());
+		mockStatusStore.updateStatus(r2.getMessageRequest().getId().toString(), StatusType.OK.value());
+		mockStatusStore.updateStatus(r3.getMessageRequest().getId().toString(), StatusType.OK.value());		
 		replay(mockStatusStore);
 		
 		intellivrBean.sendPending(mr1.getRecipientId());

@@ -19,6 +19,8 @@ import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.model.MStatus;
+import org.motechproject.mobile.core.model.MessageRequest;
+import org.motechproject.mobile.core.model.MessageRequestImpl;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -91,7 +93,11 @@ public class IntellIVRGatewayMessageHandlerTest {
 		String testPhone = "15555555555";
 		String testMessage = "test message";
 				
+		MessageRequest mr = new MessageRequestImpl();
+		mr.setId(1L);
+		
 		GatewayRequest message = new GatewayRequestImpl();
+		message.setMessageRequest(mr);
 		message.setRequestId(testRequestID);
 		message.setRecipientsNumber(testPhone);
 		message.setMessage(testMessage);
@@ -114,7 +120,7 @@ public class IntellIVRGatewayMessageHandlerTest {
 			for ( GatewayResponse response : responses ) {
 				assertTrue(response.getDateCreated()!= null);
 				assertEquals(message, response.getGatewayRequest());
-				assertEquals(testRequestID, response.getGatewayMessageId());
+				assertEquals(mr.getId().toString(), response.getGatewayMessageId());
 				assertEquals(statusCodes.get(code), response.getMessageStatus());
 				assertEquals(testPhone, response.getRecipientNumber());
 				assertEquals(testRequestID, response.getRequestId());

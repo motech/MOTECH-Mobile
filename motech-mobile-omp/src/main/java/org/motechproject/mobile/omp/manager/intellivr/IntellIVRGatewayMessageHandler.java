@@ -21,19 +21,19 @@ public class IntellIVRGatewayMessageHandler implements GatewayMessageHandler {
 	private CoreManager coreManager;
 	
 	@SuppressWarnings("unchecked")
-	public Set<GatewayResponse> parseMessageResponse(GatewayRequest message,
-			String gatewayResponse, MotechContext context) {
+	public Set<GatewayResponse> parseMessageResponse(GatewayRequest gatewayRequest,
+			String statusMessage, MotechContext context) {
 
 		Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
 		
 		GatewayResponse gwResponse = coreManager.createGatewayResponse(context);
 		
-		gwResponse.setGatewayRequest(message);
-		gwResponse.setGatewayMessageId(message.getRequestId());
-		gwResponse.setRecipientNumber(message.getRecipientsNumber());
-		gwResponse.setRequestId(message.getRequestId());
-		gwResponse.setResponseText(gatewayResponse);
-		gwResponse.setMessageStatus(lookupStatus(gatewayResponse));
+		gwResponse.setGatewayRequest(gatewayRequest);
+		gwResponse.setGatewayMessageId(gatewayRequest.getMessageRequest().getId().toString());
+		gwResponse.setRecipientNumber(gatewayRequest.getRecipientsNumber());
+		gwResponse.setRequestId(gatewayRequest.getRequestId());
+		gwResponse.setResponseText(statusMessage);
+		gwResponse.setMessageStatus(lookupStatus(statusMessage));
 		gwResponse.setDateCreated(new Date());
 		
 		responses.add(gwResponse);
