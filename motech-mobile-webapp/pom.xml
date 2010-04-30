@@ -77,6 +77,10 @@
           <artifactId>motech-mobile-imp</artifactId>
         </dependency>
         <dependency>
+        	<groupId>org.motechproject.mobile</groupId>
+        	<artifactId>motech-mobile-modemgw</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-wsapi</artifactId>
         </dependency>

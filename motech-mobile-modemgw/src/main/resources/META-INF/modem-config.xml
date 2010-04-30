@@ -1,0 +1,57 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="modemResponseMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="UNSENT">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="SENT">
+					<value type="org.motechproject.mobile.core.model.MStatus">DELIVERED</value>
+				</entry>
+				<entry key="ERROR_BAD_NUMBER">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="ERROR_BAD_FORMAT">
+					<value type="org.motechproject.mobile.core.model.MStatus">CANCELLED</value>
+				</entry>
+				<entry key="ERROR_GATEWAY_FAILURE">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+				<entry key="ERROR_NO_CREDIT">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+				<entry key="ERROR_GATEWAY_AUTH">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+				<entry key="ERROR_NO_ROUTE">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+				<entry key="ERROR_UNKNOWN">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="modemMessageHandler" class="org.motechproject.mobile.modemgw.ModemGatewayMessageHandlerImpl">
+		<property name="coreManager" ref="coreManager" />
+		<property name="responseMap" ref="modemResponseMap" />
+		<property name="statusMap" ref="modemResponseMap" />
+	</bean>
+
+	<bean id="modemGateway" class="org.motechproject.mobile.modemgw.ModemGatewayImpl" lazy-init="true">
+		<property name="manufacturer" value="MultiTech" />
+		<property name="comPort" value="COM4" />
+		<property name="acceptOutgoing" value="true" />
+		<property name="acceptIncoming" value="true" />
+		<property name="inboundService" ref="impService" />
+		<property name="messageHandler" ref="modemMessageHandler" />
+		<property name="statusStore">
+			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore" />
+		</property>
+	</bean>
+
+</beans>

@@ -130,6 +130,7 @@
         <module>motech-mobile-imp</module>
         <module>motech-mobile-omp</module>
         <module>motech-mobile-omi</module>
+        <module>motech-mobile-modemgw</module>
         <module>motech-mobile-webapp</module>
         <!--<module>motech-mobile-wsclient</module>-->        
     </modules>
@@ -230,6 +231,11 @@
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-imp</artifactId>
+                <version>1.0-M6-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.motechproject.mobile</groupId>
+                <artifactId>motech-mobile-modemgw</artifactId>
                 <version>1.0-M6-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -479,6 +485,22 @@
                 <groupId>com.jcraft</groupId>
                 <artifactId>jzlib</artifactId>
                 <version>1.0.7</version>
+            </dependency>
+            <dependency>
+            	<groupId>smslib</groupId>
+            	<artifactId>smslib-all</artifactId>
+            	<version>3.4.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.5.6</version>
+		    </dependency>
+            <dependency>
+            	<groupId>javax.comm</groupId>
+            	<artifactId>comm</artifactId>
+            	<version>2.0</version>
+            	<scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
