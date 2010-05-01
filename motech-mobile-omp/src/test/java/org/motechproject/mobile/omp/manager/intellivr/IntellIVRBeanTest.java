@@ -5,14 +5,12 @@ import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.annotation.Resource;
 
@@ -28,17 +26,13 @@ import org.motechproject.mobile.core.model.LanguageImpl;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageRequestImpl;
-import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
-import org.motechproject.mobile.omp.manager.intellivr.IntellIVRBean.IVRServerTimerTask;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.sun.xml.ws.tx.webservice.member.at.Notification;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration( locations = {"classpath:META-INF/test-omp-config.xml"})
@@ -47,8 +41,23 @@ public class IntellIVRBeanTest {
 	@Resource
 	IntellIVRBean intellivrBean;
 	
+	List<ErrorCodeType> serverErrorCodes = new ArrayList<ErrorCodeType>();
+	
 	@Before
 	public void setUp() throws Exception {
+		
+		serverErrorCodes.add(ErrorCodeType.IVR_BAD_REQUEST);
+		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_API_ID);
+		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_CALLEE);
+		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_LANGUAGE);
+		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_METHOD);
+		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_SOUND_FILENAME_FROMAT);
+		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_TREE);
+		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_URL_FORMAT);
+		serverErrorCodes.add(ErrorCodeType.IVR_MALFORMED_XML);
+		serverErrorCodes.add(ErrorCodeType.IVR_NO_ACTION);
+		serverErrorCodes.add(ErrorCodeType.IVR_UNKNOWN_ERROR);
+		serverErrorCodes.add(ErrorCodeType.IVR_UNSUPPORTED_REPORT_TYPE);
 		
 	}
 	
@@ -133,7 +142,7 @@ public class IntellIVRBeanTest {
 		
 		intellivrBean.ivrNotificationMap = mapping;
 
-		LanguageImpl english = new LanguageImpl();
+		Language english = new LanguageImpl();
 		english.setCode("en");
 		english.setId(1L);
 		english.setName("English");
@@ -269,19 +278,68 @@ public class IntellIVRBeanTest {
 		
 		expect(mockIVRServer.requestCall(expectedRequest)).andReturn(expectedResponse);
 		replay(mockIVRServer);
-		mockStatusStore.updateStatus(r1.getMessageRequest().getId().toString(), StatusType.OK.value());
-		mockStatusStore.updateStatus(r2.getMessageRequest().getId().toString(), StatusType.OK.value());
-		mockStatusStore.updateStatus(r3.getMessageRequest().getId().toString(), StatusType.OK.value());		
+		mockStatusStore.updateStatus(gr1.getGatewayMessageId(), StatusType.OK.value());
+		mockStatusStore.updateStatus(gr2.getGatewayMessageId(), StatusType.OK.value());
+		mockStatusStore.updateStatus(gr3.getGatewayMessageId(), StatusType.OK.value());		
 		replay(mockStatusStore);
 		
 		intellivrBean.sendPending(mr1.getRecipientId());
 		assertFalse(intellivrBean.bundledGatewayRequests.containsKey(mr1.getRecipientId()));
 		assertTrue(intellivrBean.bundledGatewayRequests.containsKey(expectedRequest.getPrivate()));
+		assertTrue(intellivrBean.bundledGatewayRequests
+				 .containsValue(expectedBundledRequests.get(mr1.getRecipientId())));
 		
 		verify(mockIVRServer);
 		verify(mockStatusStore);
 		reset(mockIVRServer);
 		reset(mockStatusStore);
+		
+		/*
+		 * test sendPending with errors
+		 */
+		for ( Iterator<ErrorCodeType> iterator = serverErrorCodes.iterator(); iterator.hasNext();) {
+			
+			ErrorCodeType errorCode = iterator.next();
+			
+			/*
+			 * reset the contents of the bundled requests
+			 */
+			List<GatewayRequest> requestList = new ArrayList<GatewayRequest>();
+			requestList.add(r1);
+			requestList.add(r2);
+			requestList.add(r3);
+			intellivrBean.bundledGatewayRequests = new HashMap<String, List<GatewayRequest>>();
+			intellivrBean.bundledGatewayRequests.put(mr1.getRecipientId(), requestList);
+			
+			assertEquals(expectedBundledRequests, intellivrBean.bundledGatewayRequests);
+			
+			expectedRequest = intellivrBean.createIVRRequest(expectedBundledRequests.get(mr1.getRecipientId()));
+
+			expectedResponse = new ResponseType();
+			expectedResponse.setStatus(StatusType.ERROR);
+			expectedResponse.setErrorCode(errorCode);
+			
+			expect(mockIVRServer.requestCall(expectedRequest)).andReturn(expectedResponse);
+			replay(mockIVRServer);
+			mockStatusStore.updateStatus(gr1.getGatewayMessageId(), errorCode.value());
+			mockStatusStore.updateStatus(gr2.getGatewayMessageId(), errorCode.value());
+			mockStatusStore.updateStatus(gr3.getGatewayMessageId(), errorCode.value());
+			replay(mockStatusStore);
+			
+			intellivrBean.sendPending(mr1.getRecipientId());
+			
+			assertFalse(intellivrBean.bundledGatewayRequests.containsKey(mr1.getRecipientId()));
+			assertFalse(intellivrBean.bundledGatewayRequests.containsKey(expectedRequest.getPrivate()));
+			assertFalse(intellivrBean.bundledGatewayRequests
+									 .containsValue(expectedBundledRequests.get(mr1.getRecipientId())));
+			
+			verify(mockIVRServer);
+			verify(mockStatusStore);
+			reset(mockIVRServer);
+			reset(mockStatusStore);
+					
+		}
+		
 		
 		/*
 		 * Test null recipient
