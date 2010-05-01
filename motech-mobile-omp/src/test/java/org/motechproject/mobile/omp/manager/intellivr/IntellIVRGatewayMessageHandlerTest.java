@@ -18,9 +18,13 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
+import org.motechproject.mobile.core.model.Language;
+import org.motechproject.mobile.core.model.LanguageImpl;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageRequestImpl;
+import org.motechproject.mobile.core.model.NotificationType;
+import org.motechproject.mobile.core.model.NotificationTypeImpl;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -88,19 +92,18 @@ public class IntellIVRGatewayMessageHandlerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testParseMessageResponse() {
-		
-		String testRequestID = "testRequestID";
-		String testPhone = "15555555555";
-		String testMessage = "test message";
 				
-		MessageRequest mr = new MessageRequestImpl();
-		mr.setId(1L);
-		
-		GatewayRequest message = new GatewayRequestImpl();
-		message.setMessageRequest(mr);
-		message.setRequestId(testRequestID);
-		message.setRecipientsNumber(testPhone);
-		message.setMessage(testMessage);
+		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setId(1L);
+		mr1.setRecipientId("123456789");
+		mr1.setRequestId("mr1");
+	
+		GatewayRequest r1 = new GatewayRequestImpl();
+		r1.setId(1000L);
+		r1.setMessageRequest(mr1);
+		r1.setRequestId(mr1.getRequestId());
+		r1.setMessageStatus(MStatus.PENDING);
+		r1.setRecipientsNumber("15555555555");
 		
 		for ( String code : statusCodes.keySet()) {
 
@@ -115,15 +118,15 @@ public class IntellIVRGatewayMessageHandlerTest {
 			expect(coreManager.createGatewayResponse(context)).andReturn(gwResponse);			
 			replay(coreManager);
 			
-			Set<GatewayResponse> responses = intellIVRMessageHandler.parseMessageResponse(message, code, context);
+			Set<GatewayResponse> responses = intellIVRMessageHandler.parseMessageResponse(r1, code, context);
 			
 			for ( GatewayResponse response : responses ) {
 				assertTrue(response.getDateCreated()!= null);
-				assertEquals(message, response.getGatewayRequest());
-				assertEquals(mr.getId().toString(), response.getGatewayMessageId());
+				assertEquals(r1, response.getGatewayRequest());
+				assertEquals(mr1.getId().toString(), response.getGatewayMessageId());
 				assertEquals(statusCodes.get(code), response.getMessageStatus());
-				assertEquals(testPhone, response.getRecipientNumber());
-				assertEquals(testRequestID, response.getRequestId());
+				assertEquals("15555555555", response.getRecipientNumber());
+				assertEquals("mr1", response.getRequestId());
 				assertEquals(code, response.getResponseText());
 			}
 			
