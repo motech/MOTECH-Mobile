@@ -93,6 +93,7 @@ public class OMIServiceImpl implements OMIService {
         messageRequest.setDateFrom(startDate);
         messageRequest.setDateTo(endDate);
         messageRequest.setRecipientNumber(patientNumber);
+        messageRequest.setPhoneNumberType(patientNumberType.toString());
         messageRequest.setRecipientId(recipientId);
         messageRequest.setNotificationType(noteType);
         messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));

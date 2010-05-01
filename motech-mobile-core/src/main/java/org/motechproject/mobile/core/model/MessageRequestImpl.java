@@ -28,6 +28,7 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private Set persInfos;
     private Date lastModified;
     private String recipientId;
+    private String phoneNumberType;
 
     /**
      * @return the language
@@ -267,6 +268,14 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
 		this.recipientId = recipientId;
 	}
 
+	public String getPhoneNumberType() {
+		return phoneNumberType;
+	}
+
+	public void setPhoneNumberType(String phoneNumberType) {
+		this.phoneNumberType = phoneNumberType;
+	}
+
 	@Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
@@ -282,6 +291,8 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
             sb.append((this.recipientName != null) ? "key=message value=" + this.recipientName : "recipientName is null  ");
             sb.append(newLine);
             sb.append((this.recipientNumber != null) ? "key=recipientNumber value=" + this.recipientNumber : "recipientNumber is null ");
+            sb.append(newLine);
+            sb.append((this.phoneNumberType != null) ? "key=phoneNumberType value=" + this.phoneNumberType : "phoneNumberType is null ");
             sb.append(newLine);
             sb.append((this.recipientId != null) ? "key=recipientId value=" + this.recipientId : "recipientId is null ");
             sb.append(newLine);

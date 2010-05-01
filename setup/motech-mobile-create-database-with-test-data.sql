@@ -639,6 +639,7 @@ CREATE TABLE `message_request` (
   `schedule` date DEFAULT NULL,
   `p113_nData` varchar(255) DEFAULT NULL,
   `recipient_number` varchar(255) DEFAULT NULL,
+  `phone_number_type` varchar(255) DEFAULT NULL,
   `recipient_id` varchar(255) DEFAULT NULL,
   `date_from` datetime DEFAULT NULL,
   `date_to` datetime DEFAULT NULL,

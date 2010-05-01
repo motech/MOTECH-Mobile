@@ -27,6 +27,12 @@ public interface MessageRequest extends MotechEntity {
     public Date getDateProcessed();
 
     public String getRecipientNumber();
+    
+    /**
+     * 
+     * @return type of the phone 
+     */
+    public String getPhoneNumberType();
 
     public Date getDateFrom();
 
@@ -65,6 +71,12 @@ public interface MessageRequest extends MotechEntity {
     public void setDateProcessed(Date dateProcessed);
 
     public void setRecipientNumber(String recipientNumber);
+    
+    /**
+     * 
+     * @param phoneNumberType the type of phone number
+     */
+    public void setPhoneNumberType(String phoneNumberType);
 
     public void setDateFrom(Date dateFrom);
 
