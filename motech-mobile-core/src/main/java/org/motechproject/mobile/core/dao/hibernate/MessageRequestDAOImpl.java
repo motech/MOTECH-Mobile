@@ -103,4 +103,31 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
         }
 
     }
+
+    public List<MessageRequest> getMsgRequestByRecipientAndStatus(
+    		String recipientID, MStatus status) {
+
+    	logger.debug("variable passed to getMsgRequestByRecipientAndStatus.  recipientID: " + recipientID + " status: " + status);
+
+    	try {
+
+    		Session session = this.getDBSession().getSession();
+    		Criterion eqStatus = Restrictions.eq("status", status);
+    		Criterion eqRecipient = Restrictions.eq("recipientId", recipientID);
+    		List msgRequest = session.createCriteria(this.getPersistentClass())
+    				.add(eqRecipient)
+    				.add(eqStatus)
+    				.list();
+
+    		logger.debug(msgRequest);
+    		return msgRequest;
+    	} catch (HibernateException he) {
+    		logger.error("Persistence or JDBC Exception in Method getMsgRequestByRecipientAndStatus", he);
+    		return null;
+    	} catch (Exception ex) {
+    		logger.error("Exception in Method getMsgRequestByStatusAndTryNumber", ex);
+    		return null;
+
+    	}
+    }
 }

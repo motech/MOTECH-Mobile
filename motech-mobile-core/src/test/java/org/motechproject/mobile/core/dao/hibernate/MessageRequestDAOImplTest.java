@@ -100,12 +100,14 @@ public class MessageRequestDAOImplTest {
         mr1.setDateCreated(new Date());
         mr1.setLanguage(lg1);
         mr1.setRecipientName("jlkj");
+        mr1.setRecipientId("r1");
         mr1.setMessageType(t);
 
         mr2.setId(3L);
         mr2.setDateCreated(new Date());
         mr2.setLanguage(lg1);
         mr2.setRecipientName("jojo");
+        mr2.setRecipientId("r2");
         mr2.setMessageType(t);
         mr2.setDateFrom(datefrom1);
         mr2.setDateTo(dateto1);
@@ -116,6 +118,7 @@ public class MessageRequestDAOImplTest {
         mr3.setDateCreated(new Date());
         mr3.setLanguage(lg1);
         mr3.setRecipientName("joseph");
+        mr3.setRecipientId("r3");
         mr3.setMessageType(t);
         mr3.setDateFrom(datefrom2);
         mr3.setDateTo(dateto2);
@@ -126,6 +129,7 @@ public class MessageRequestDAOImplTest {
         mr4.setDateCreated(new Date());
         mr4.setLanguage(lg1);
         mr4.setRecipientName("jimmy hendrix");
+        mr4.setRecipientId("r4");
         mr4.setMessageType(t);
         mr4.setDateFrom(datefrom2);
         mr4.setDateTo(dateto2);
@@ -137,6 +141,7 @@ public class MessageRequestDAOImplTest {
         mr5.setDateCreated(new Date());
         mr5.setLanguage(lg1);
         mr5.setRecipientName("Kodjo");
+        mr5.setRecipientId("r5");
         mr5.setMessageType(t);
         mr5.setStatus(MStatus.INVALIDNET);
         mr5.setSchedule(schedule);
@@ -265,4 +270,15 @@ public class MessageRequestDAOImplTest {
         Assert.assertEquals(true, result.contains(mr5));
 
     }
+    
+    @Test
+    public void testGetMsgByRecipientAndStatus() {
+    	MStatus status = MStatus.PENDING;
+    	String recipientID = "r2";
+    	List<MessageRequest> expectedList = new ArrayList<MessageRequest>();
+    	expectedList.add(mr2);
+    	List<MessageRequest> actualList = mrDAO.getMsgRequestByRecipientAndStatus(recipientID, status);   	
+    	Assert.assertEquals(expectedList, actualList);
+    }
+    
 }
