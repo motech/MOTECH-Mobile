@@ -1,8 +1,14 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
 
-import static org.junit.Assert.*;
-import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.reset;
+import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +23,8 @@ import javax.annotation.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.mobile.core.dao.MessageRequestDAO;
+import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
@@ -59,6 +67,29 @@ public class IntellIVRBeanTest {
 		serverErrorCodes.add(ErrorCodeType.IVR_UNKNOWN_ERROR);
 		serverErrorCodes.add(ErrorCodeType.IVR_UNSUPPORTED_REPORT_TYPE);
 		
+		IVRNotificationMapping m1 = new IVRNotificationMapping();
+		m1.setId(1);
+		m1.setIvrEntityName("tree");
+		m1.setType(IVRNotificationMapping.INFORMATIONAL);
+		
+		IVRNotificationMapping m2 = new IVRNotificationMapping();
+		m2.setId(2);
+		m2.setIvrEntityName("message.wav");
+		m2.setType(IVRNotificationMapping.REMINDER);
+		
+		IVRNotificationMapping m3 = new IVRNotificationMapping();
+		m3.setId(3);
+		m3.setIvrEntityName("message2.wav");
+		m3.setType(IVRNotificationMapping.REMINDER);
+
+		Map<Long, IVRNotificationMapping> mapping = new HashMap<Long, IVRNotificationMapping>();
+		mapping.put(m1.getId(), m1);
+		mapping.put(m2.getId(), m2);
+		mapping.put(m3.getId(), m3);
+		
+		intellivrBean.ivrNotificationMap = mapping;
+
+		
 	}
 	
 	@Test
@@ -86,23 +117,6 @@ public class IntellIVRBeanTest {
 		
 	}
 	
-	@Test
-	public void testGetIVRConfigInvalidID() {
-		
-		GetIVRConfigRequest request = new GetIVRConfigRequest();
-		request.setUserid("invalid_id");
-		
-		ResponseType expected = new ResponseType();
-		expected.setStatus(StatusType.ERROR);
-		expected.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
-		
-		ResponseType response = intellivrBean.handleRequest(request);
-		
-		assertEquals(expected.getStatus(), response.getStatus());
-		assertEquals(expected.getErrorCode(), response.getErrorCode());
-		
-	}
-
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSendMessage() {
@@ -120,28 +134,6 @@ public class IntellIVRBeanTest {
 		IntellIVRServer mockIVRServer = createMock(IntellIVRServer.class);
 		intellivrBean.setIvrServer(mockIVRServer);
 				
-		IVRNotificationMapping m1 = new IVRNotificationMapping();
-		m1.setId(1);
-		m1.setIvrEntityName("tree");
-		m1.setType(IVRNotificationMapping.INFORMATIONAL);
-		
-		IVRNotificationMapping m2 = new IVRNotificationMapping();
-		m2.setId(2);
-		m2.setIvrEntityName("message.wav");
-		m2.setType(IVRNotificationMapping.REMINDER);
-		
-		IVRNotificationMapping m3 = new IVRNotificationMapping();
-		m3.setId(3);
-		m3.setIvrEntityName("message2.wav");
-		m3.setType(IVRNotificationMapping.REMINDER);
-
-		Map<Long, IVRNotificationMapping> mapping = new HashMap<Long, IVRNotificationMapping>();
-		mapping.put(m1.getId(), m1);
-		mapping.put(m2.getId(), m2);
-		mapping.put(m3.getId(), m3);
-		
-		intellivrBean.ivrNotificationMap = mapping;
-
 		Language english = new LanguageImpl();
 		english.setCode("en");
 		english.setId(1L);
@@ -492,5 +484,144 @@ public class IntellIVRBeanTest {
 	
 	}
 
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testHandleRequest() {
+		
+		String recipientID = "1";
+		MStatus status = MStatus.PENDING;
 
+		GetIVRConfigRequest request = new GetIVRConfigRequest();
+		request.setUserid(recipientID);
+
+		Language english = new LanguageImpl();
+		english.setCode("en");
+		english.setId(1L);
+		english.setName("English");
+		
+		NotificationType n1 = new NotificationTypeImpl();
+		n1.setId(1L);
+
+		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setId(1L);
+		mr1.setLanguage(english);
+		mr1.setRecipientId(recipientID);
+		mr1.setRequestId("mr1");
+		mr1.setNotificationType(n1);
+		mr1.setStatus(MStatus.PENDING);
+
+		NotificationType n2 = new NotificationTypeImpl();
+		n2.setId(2L);
+
+		MessageRequest mr2 = new MessageRequestImpl();
+		mr2.setId(2L);
+		mr2.setLanguage(english);
+		mr2.setRecipientId(recipientID);
+		mr2.setRequestId("mr2");
+		mr2.setNotificationType(n2);
+		mr2.setStatus(MStatus.PENDING);
+		
+		NotificationType n3 = new NotificationTypeImpl();
+		n3.setId(3L);
+
+		MessageRequest mr3 = new MessageRequestImpl();
+		mr3.setId(3L);
+		mr3.setLanguage(english);
+		mr3.setRecipientId(recipientID);
+		mr3.setRequestId("mr3");
+		mr3.setNotificationType(n3);
+		mr3.setStatus(MStatus.PENDING);
+		
+		List<MessageRequest> expectedDAOResponse = new ArrayList<MessageRequest>();
+		expectedDAOResponse.add(mr1);
+		expectedDAOResponse.add(mr2);
+		expectedDAOResponse.add(mr3);
+		
+		GatewayRequest gr1 = new GatewayRequestImpl();
+		gr1.setMessageRequest(mr1);
+
+		GatewayRequest gr2 = new GatewayRequestImpl();
+		gr2.setMessageRequest(mr2);
+
+		GatewayRequest gr3 = new GatewayRequestImpl();
+		gr3.setMessageRequest(mr3);
+
+		List<GatewayRequest> expectedGWRequestList = new ArrayList<GatewayRequest>();
+		expectedGWRequestList.add(gr1);
+		expectedGWRequestList.add(gr2);
+		expectedGWRequestList.add(gr3);
+		
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setLanguage("English");
+		expectedResponse.setPrivate(mr1.getId().toString());
+		expectedResponse.setReportUrl(intellivrBean.getReportURL());
+		expectedResponse.setStatus(StatusType.OK);
+		expectedResponse.setTree("tree");
+		RequestType.Vxml vxml = new RequestType.Vxml();
+		vxml.setPrompt(new RequestType.Vxml.Prompt());
+		AudioType a1 = new AudioType();
+		a1.setSrc("message.wav");
+		AudioType a2 = new AudioType();
+		a2.setSrc("message2.wav");
+		vxml.getPrompt().getAudioOrBreak().add(a1);
+		vxml.getPrompt().getAudioOrBreak().add(a2);
+		expectedResponse.setVxml(vxml);
+		
+		MotechContext mockContext = createMock(MotechContext.class);
+		
+		CoreManager mockCoreManager = createMock(CoreManager.class);
+		intellivrBean.setCoreManager(mockCoreManager);
+		
+		MessageRequestDAO<MessageRequest> mockDao = createMock(MessageRequestDAO.class);
+		
+		MessageStatusStore mockStatusStore = createMock(MessageStatusStore.class);
+		intellivrBean.setStatusStore(mockStatusStore);
+		
+		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
+		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockDao);
+		replay(mockCoreManager);
+		expect(mockDao.getMsgRequestByRecipientAndStatus(recipientID, status)).andReturn(expectedDAOResponse);
+		replay(mockDao);
+		mockStatusStore.updateStatus(mr1.getId().toString(), StatusType.OK.value());
+		mockStatusStore.updateStatus(mr2.getId().toString(), StatusType.OK.value());
+		mockStatusStore.updateStatus(mr3.getId().toString(), StatusType.OK.value());
+		replay(mockStatusStore);
+		
+		ResponseType actualResponse = intellivrBean.handleRequest(request);
+		assertEquals(expectedResponse, actualResponse);
+		assertTrue(intellivrBean.bundledGatewayRequests.containsKey(actualResponse.getPrivate()));
+		
+		verify(mockCoreManager);
+		verify(mockDao);
+		verify(mockStatusStore);
+		reset(mockCoreManager);
+		reset(mockDao);
+		reset(mockStatusStore);
+		
+		/*
+		 * Test response when there are no pending messages
+		 */
+		expectedDAOResponse = new ArrayList<MessageRequest>();
+		
+		expectedResponse = new ResponseType();
+		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+		expectedResponse.setStatus(StatusType.ERROR);
+		
+		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
+		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockDao);
+		replay(mockCoreManager);
+		expect(mockDao.getMsgRequestByRecipientAndStatus(recipientID, status)).andReturn(expectedDAOResponse);
+		replay(mockDao);
+		
+		actualResponse = intellivrBean.handleRequest(request);
+		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
+		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
+		
+		verify(mockCoreManager);
+		verify(mockDao);
+		reset(mockCoreManager);
+		reset(mockDao);
+		
+	}
+	
 }

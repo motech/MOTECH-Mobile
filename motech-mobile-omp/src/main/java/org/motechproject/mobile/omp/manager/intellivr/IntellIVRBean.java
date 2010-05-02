@@ -2,7 +2,6 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -19,15 +17,21 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.motechproject.mobile.core.dao.GatewayRequestDAO;
+import org.motechproject.mobile.core.dao.MessageRequestDAO;
+import org.motechproject.mobile.core.dao.hibernate.HibernateUtils;
+import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
+import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
+import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.springframework.core.io.Resource;
+
+import com.sun.xml.ws.security.impl.policy.RecipientToken;
 
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 	
@@ -45,9 +49,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private Timer timer;
 	private long bundlingDelay;
 	private Resource mappingResource;
+	private CoreManager coreManager;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
+	@SuppressWarnings("unused")
 	private void init() {
 
 		ivrNotificationMap = new HashMap<Long, IVRNotificationMapping>();
@@ -277,11 +283,57 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
-		log.info("Received request for id " + request.getUserid());
+		log.info("Received ivr config request for id " + request.getUserid());
+
+		MotechContext context = coreManager.createMotechContext();
+		MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO(context);
+		
+		List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndStatus(request.getUserid(), MStatus.PENDING);		
+
 		ResponseType r = new ResponseType();
-		r.setStatus(StatusType.ERROR);
-		r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
-		r.setErrorString("Invalid user id");
+		
+		if ( pendingMessageRequests.size() == 0 ) {
+			log.debug("No pending messages found for " + request.getUserid());
+			r.setStatus(StatusType.ERROR); 
+			r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+			r.setErrorString("Invalid user id");
+		} else {
+
+			log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
+			
+			List<GatewayRequest> gwRequestList = new ArrayList<GatewayRequest>();
+			
+			for (Iterator iterator = pendingMessageRequests.iterator(); iterator.hasNext();) {
+				
+				MessageRequest messageRequest = (MessageRequest) iterator.next();
+
+				GatewayRequest gwr = new GatewayRequestImpl();
+				gwr.setMessageRequest(messageRequest);
+
+				gwRequestList.add(gwr);
+				
+				statusStore.updateStatus(messageRequest.getId().toString(), StatusType.OK.value());
+
+			}
+
+			/*
+			 * ResponseType fields are a subset of the RequestType fields
+			 * Can create a RequestType based on this criteria and use
+			 * only the fields that are needed to create the ResponseType
+			 */
+			RequestType requestType = createIVRRequest(gwRequestList);
+
+			r.setLanguage(requestType.getLanguage());
+			r.setPrivate(requestType.getPrivate());
+			r.setReportUrl(requestType.getReportUrl());
+			r.setStatus(StatusType.OK);
+			r.setTree(requestType.getTree());
+			r.setVxml(requestType.getVxml());
+			
+			bundledGatewayRequests.put(requestType.getPrivate(), gwRequestList);
+			
+		}
+		
 		return r;
 	}
 
@@ -397,6 +449,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setMappingResource(Resource mappingsFile) {
 		this.mappingResource = mappingsFile;
+	}
+
+	public CoreManager getCoreManager() {
+		return coreManager;
+	}
+
+	public void setCoreManager(CoreManager coreManager) {
+		this.coreManager = coreManager;
 	}
 
 	protected class IVRServerTimerTask extends TimerTask {
