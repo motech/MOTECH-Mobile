@@ -56,6 +56,7 @@ public class IntellIVRServerImpl implements IntellIVRServer {
 			con.setDoOutput(true);
 
 			con.setRequestProperty("Content-Type", "text/xml");
+			con.setRequestProperty("Content-transfer-encoding", "text");
 
 			OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
 

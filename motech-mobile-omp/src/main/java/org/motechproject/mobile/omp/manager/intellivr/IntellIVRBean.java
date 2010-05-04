@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
-import org.motechproject.mobile.core.dao.hibernate.HibernateUtils;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
@@ -30,8 +29,6 @@ import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.springframework.core.io.Resource;
-
-import com.sun.xml.ws.security.impl.policy.RecipientToken;
 
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 	
