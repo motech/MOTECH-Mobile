@@ -394,33 +394,129 @@ public class IntellIVRBeanTest {
 	@Test
 	public void testHandleReport() {
 		
+		Language english = new LanguageImpl();
+		english.setCode("en");
+		english.setId(1L);
+		english.setName("English");
+		
+		NotificationType n1 = new NotificationTypeImpl();
+		n1.setId(1L);
+		
+		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setId(1L);
+		mr1.setLanguage(english);
+		mr1.setRecipientId("123456789");
+		mr1.setRequestId("mr1");
+		mr1.setNotificationType(n1);
+		mr1.setPhoneNumberType("PERSONAL");
+	
+		GatewayRequest r1 = new GatewayRequestImpl();
+		r1.setId(1000L);
+		r1.setMessageRequest(mr1);
+		r1.setMessageStatus(MStatus.PENDING);
+		r1.setRecipientsNumber("15555555555");
+
+		NotificationType n2 = new NotificationTypeImpl();
+		n2.setId(2L);
+
+		MessageRequest mr2 = new MessageRequestImpl();
+		mr2.setId(2L);
+		mr2.setLanguage(english);
+		mr2.setRecipientId("123456789");
+		mr2.setRequestId("mr2");
+		mr2.setNotificationType(n2);
+		mr2.setPhoneNumberType("PERSONAL");
+			
+		GatewayRequest r2 = new GatewayRequestImpl();
+		r2.setId(2000L);
+		r2.setMessageRequest(mr2);
+		r2.setMessageStatus(MStatus.PENDING);
+		r2.setRecipientsNumber("15555555555");
+
+		NotificationType n3 = new NotificationTypeImpl();
+		n3.setId(3L);
+		
+		MessageRequest mr3 = new MessageRequestImpl();
+		mr3.setId(3L);
+		mr3.setLanguage(english);
+		mr3.setRecipientId("123456789");
+		mr3.setRequestId("mr3");
+		mr3.setNotificationType(n3);
+		mr3.setPhoneNumberType("PERSONAL");
+		
+		GatewayRequest r3 = new GatewayRequestImpl();
+		r3.setId(3000L);
+		r3.setMessageRequest(mr3);
+		r3.setMessageStatus(MStatus.PENDING);
+		r3.setRecipientsNumber("15555555555");
+		
 		ReportType report = new ReportType();
 		report.setCallee("15555555555");
 		report.setConnectTime(null);
 		report.setDisconnectTime(null);
-		report.setDuration(0);
-		report.setINTELLIVREntryCount(0);
-		report.setPrivate("PRIVATE");
-		report.intellivrEntry = new ArrayList<IvrEntryType>();
+		report.setPrivate(mr1.getId().toString());
 
 		for ( ReportStatusType type : ReportStatusType.values()) {
-			
+
 			report.setStatus(type);
 
-			/*MessageStatusStore statusStore = createMock(MessageStatusStore.class);
-			intellivrBean.setStatusStore(statusStore);
-			statusStore.updateStatus(report.getPrivate(), report.getStatus().value());
+			List<GatewayRequest> expectedGatewayRequestsList = new ArrayList<GatewayRequest>();
+			expectedGatewayRequestsList.add(r1);
+			expectedGatewayRequestsList.add(r2);
+			expectedGatewayRequestsList.add(r3);
 			
-			replay(statusStore);*/
+			Map<String, List<GatewayRequest>> expectedBundledRequests = new HashMap<String, List<GatewayRequest>>();
+			expectedBundledRequests.put(mr1.getId().toString(), expectedGatewayRequestsList);
+
+			intellivrBean.bundledGatewayRequests = expectedBundledRequests;
+			
+			if ( type == ReportStatusType.COMPLETED ) {
+				
+				report.setDuration(30);
+				report.setINTELLIVREntryCount(2);
+				
+				IvrEntryType e1 = new IvrEntryType();
+				e1.setDuration(10);
+				e1.setFile("message.wav");
+				e1.setKeypress("");
+				e1.setMenu("");
+				
+				IvrEntryType e2 = new IvrEntryType();
+				e2.setDuration(10);
+				e2.setFile("message2.wav");
+				e2.setKeypress("");
+				e2.setMenu("");
+
+				List<IvrEntryType> entryList = new ArrayList<IvrEntryType>();
+				entryList.add(e1);
+				entryList.add(e2);
+				
+				report.intellivrEntry = entryList;
+				
+			} else {
+				
+				report.setDuration(0);
+				report.setINTELLIVREntryCount(0);
+				report.intellivrEntry = null;
+				
+			}
+
+			MessageStatusStore statusStore = createMock(MessageStatusStore.class);
+			intellivrBean.setStatusStore(statusStore);
+			statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
+			statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
+			statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
+			replay(statusStore);
 
 			ResponseType response = intellivrBean.handleReport(report);
 			assertEquals(StatusType.OK, response.getStatus());
 			
-			//verify(statusStore);
+			assertTrue(!intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+			
+			verify(statusStore);
 			
 		}
 
-		
 	}
 	
 	@Test
