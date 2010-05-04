@@ -25,6 +25,7 @@ import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.mobile.core.model.IncMessageFormStatus;
 import org.motechproject.mobile.core.model.IncomingMessageResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -145,6 +146,7 @@ public class IMPServiceImplTest {
         inMsg.setIncomingMessageForm(new IncomingMessageFormImpl());
         inMsg.getIncomingMessageForm().setIncomingMsgFormDefinition(new IncomingMessageFormDefinitionImpl());
         inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().setDuplicatable(Duplicatable.DISALLOWED);
+        inMsg.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
         
         expect(
                 mockCore.createMotechContext()

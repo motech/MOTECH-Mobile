@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
 import org.jdom.JDOMException;
+import org.motechproject.mobile.core.model.IncMessageFormStatus;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
@@ -60,7 +61,7 @@ public class IMPServiceImpl implements IMPService {
         IncomingMessage inMsg = msgDao.getByContentNonDuplicatable(message);
 
         if (inMsg != null && inMsg.getContent().equalsIgnoreCase(message)) {
-            if (inMsg.getIncomingMessageForm() != null) {
+            if (inMsg.getIncomingMessageForm() != null && inMsg.getIncomingMessageForm().getMessageFormStatus() == IncMessageFormStatus.SERVER_VALID) {
                 if (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.DISALLOWED || (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.TIME_BOUND && inMsg.getDateCreated().after(beforeDate))) {
                     response.setContent("Error:\nThis form has already been processed!");
                     return response;
