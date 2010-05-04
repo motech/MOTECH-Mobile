@@ -48,6 +48,8 @@ public interface IMPService {
      */
     String processXForm(String xForm) throws JDOMException, IOException, MotechParseException;
 
+    String formatPhoneNumber(String requesterPhone);
+
     /**
      * @return the formProcessSuccess
      */

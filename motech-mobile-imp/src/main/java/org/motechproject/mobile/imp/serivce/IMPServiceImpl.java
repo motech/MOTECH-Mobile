@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
 import org.jdom.JDOMException;
@@ -45,6 +46,8 @@ public class IMPServiceImpl implements IMPService {
     private int charsPerSMS;
     private int concatAllowance;
     private int maxSMS;
+    private String localNumberExpression;
+    private String defaultCountryCode;
 
     /**
      *
@@ -171,6 +174,8 @@ public class IMPServiceImpl implements IMPService {
      * @param recipient the phone number to send the response to
      */
     private void sendResponse(String response, String recipient) {
+        recipient = formatPhoneNumber(recipient);
+        
         if(recipient == null || recipient.isEmpty())
             return;
         
@@ -187,6 +192,17 @@ public class IMPServiceImpl implements IMPService {
                 }
             }
         }
+    }
+
+    public String formatPhoneNumber(String requesterPhone){
+        if(requesterPhone == null || requesterPhone.isEmpty())
+            return null;
+
+        String formattedNumber = requesterPhone;
+        if(Pattern.matches(localNumberExpression, requesterPhone)){
+            formattedNumber = defaultCountryCode + requesterPhone.substring(1);
+        }
+        return formattedNumber;
     }
 
     /**
@@ -313,5 +329,19 @@ public class IMPServiceImpl implements IMPService {
      */
     public void setMaxSMS(int maxSMS) {
         this.maxSMS = maxSMS;
+    }
+
+    /**
+     * @param localNumberExpression the localNumberExpression to set
+     */
+    public void setLocalNumberExpression(String localNumberExpression) {
+        this.localNumberExpression = localNumberExpression;
+    }
+
+    /**
+     * @param defaultCountryCode the defaultCountryCode to set
+     */
+    public void setDefaultCountryCode(String defaultCountryCode) {
+        this.defaultCountryCode = defaultCountryCode;
     }
 }

@@ -167,4 +167,23 @@ public class IMPServiceImplTest {
 
         assertEquals(duplicateResp, result.getContent());
     }
+
+    @Test
+    public void testFormatPhoneNumber(){
+        String number = "0244000000";
+        String expResult = "233244000000";
+
+        instance.setDefaultCountryCode("233");
+        instance.setLocalNumberExpression("0[0-9]{9}");
+        String result = instance.formatPhoneNumber(number);        
+        assertEquals(result, expResult);
+
+        number = "1234567890";
+        result = instance.formatPhoneNumber(number);
+        assertEquals(number, result);
+
+        number = "01234567890";
+        result = instance.formatPhoneNumber(number);
+        assertEquals(number, result);
+    }
 }
