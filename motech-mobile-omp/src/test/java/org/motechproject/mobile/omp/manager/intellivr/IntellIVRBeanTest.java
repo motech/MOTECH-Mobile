@@ -148,6 +148,7 @@ public class IntellIVRBeanTest {
 		mr1.setRecipientId("123456789");
 		mr1.setRequestId("mr1");
 		mr1.setNotificationType(n1);
+		mr1.setPhoneNumberType("PERSONAL");
 	
 		GatewayRequest r1 = new GatewayRequestImpl();
 		r1.setId(1000L);
@@ -174,6 +175,7 @@ public class IntellIVRBeanTest {
 		mr2.setRecipientId("123456789");
 		mr2.setRequestId("mr2");
 		mr2.setNotificationType(n2);
+		mr2.setPhoneNumberType("PERSONAL");
 			
 		GatewayRequest r2 = new GatewayRequestImpl();
 		r2.setId(2000L);
@@ -200,6 +202,7 @@ public class IntellIVRBeanTest {
 		mr3.setRecipientId("123456789");
 		mr3.setRequestId("mr3");
 		mr3.setNotificationType(n3);
+		mr3.setPhoneNumberType("PERSONAL");
 		
 		GatewayRequest r3 = new GatewayRequestImpl();
 		r3.setId(3000L);
@@ -216,6 +219,33 @@ public class IntellIVRBeanTest {
 		
 		Set<GatewayResponse> grs3 = new HashSet<GatewayResponse>();
 		grs3.add(gr3);
+		
+		NotificationType n4 = new NotificationTypeImpl();
+		n3.setId(4L);
+		
+		MessageRequest mr4 = new MessageRequestImpl();
+		mr4.setId(4L);
+		mr4.setLanguage(english);
+		mr4.setRecipientId("123456789");
+		mr4.setRequestId("mr4");
+		mr4.setNotificationType(n4);
+		mr4.setPhoneNumberType("PUBLIC");
+		
+		GatewayRequest r4 = new GatewayRequestImpl();
+		r4.setId(4000L);
+		r4.setMessageRequest(mr4);
+		r4.setMessageStatus(MStatus.PENDING);
+		r4.setRecipientsNumber("15555555556");
+		
+		GatewayResponse gr4 = new GatewayResponseImpl();
+		gr4.setGatewayMessageId(mr4.getId().toString());
+		gr4.setGatewayRequest(r4);
+		gr4.setRecipientNumber(mr4.getRecipientNumber());
+		gr4.setMessageStatus(r4.getMessageStatus());
+		gr4.setResponseText(StatusType.OK.value());
+		
+		Set<GatewayResponse> grs4 = new HashSet<GatewayResponse>();
+		grs4.add(gr4);
 		
 		List<GatewayRequest> expectedGatewayRequestsList = new ArrayList<GatewayRequest>();
 		expectedGatewayRequestsList.add(r1);
@@ -253,6 +283,16 @@ public class IntellIVRBeanTest {
 		mockStatusStore.updateStatus(gr3.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
 		assertEquals(grs3,intellivrBean.sendMessage(r3, mockContext));
+		verify(mockMessageHandler);
+		verify(mockStatusStore);
+		reset(mockMessageHandler);
+		reset(mockStatusStore);
+		
+		expect(mockMessageHandler.parseMessageResponse(r4, StatusType.OK.value(), mockContext)).andReturn(grs4);
+		replay(mockMessageHandler);
+		mockStatusStore.updateStatus(gr4.getGatewayMessageId(), StatusType.OK.value());
+		replay(mockStatusStore);
+		assertEquals(grs4,intellivrBean.sendMessage(r4, mockContext));
 		verify(mockMessageHandler);
 		verify(mockStatusStore);
 		reset(mockMessageHandler);

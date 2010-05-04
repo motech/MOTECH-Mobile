@@ -132,19 +132,23 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			status = StatusType.ERROR.value();
 		} else {
 
-			if ( !bundledGatewayRequests.containsKey(recipientID) ) {
-				
-				List<GatewayRequest> newList = new ArrayList<GatewayRequest>();
-				newList.add(gatewayRequest);
-				
-				bundledGatewayRequests.put(recipientID, newList);
+			if ( !gatewayRequest.getMessageRequest().getPhoneNumberType().equalsIgnoreCase("PUBLIC") ) {
+			
+				if ( !bundledGatewayRequests.containsKey(recipientID) ) {
 
-				task = new IVRServerTimerTask(recipientID);
-				
-			} else {
-				bundledGatewayRequests
+					List<GatewayRequest> newList = new ArrayList<GatewayRequest>();
+					newList.add(gatewayRequest);
+
+					bundledGatewayRequests.put(recipientID, newList);
+
+					task = new IVRServerTimerTask(recipientID);
+
+				} else {
+					bundledGatewayRequests
 					.get(recipientID)
 					.add(gatewayRequest);
+				}
+				
 			}
 
 		}
