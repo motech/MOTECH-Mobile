@@ -508,7 +508,10 @@ public class IntellIVRBeanTest {
 			statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
 			replay(statusStore);
 
+			assertTrue(intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+			
 			ResponseType response = intellivrBean.handleReport(report);
+			
 			assertEquals(StatusType.OK, response.getStatus());
 			
 			assertTrue(!intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
