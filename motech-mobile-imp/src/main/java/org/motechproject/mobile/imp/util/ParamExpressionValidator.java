@@ -20,6 +20,7 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
 
     private String expression;
     private String dateFormat;
+
     private static Logger logger = Logger.getLogger(ParamExpressionValidator.class);
 
     public boolean validate(IncomingMessageFormParameter param) {

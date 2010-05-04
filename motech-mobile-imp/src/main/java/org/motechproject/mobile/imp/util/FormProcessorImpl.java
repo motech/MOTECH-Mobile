@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.util;
 
 import java.lang.reflect.Constructor;
@@ -201,7 +196,4 @@ public class FormProcessorImpl implements FormProcessor {
     public void setServiceMethods(Map<String, MethodSignature> serviceMethods) {
         this.serviceMethods = serviceMethods;
     }
-
-
-
 }

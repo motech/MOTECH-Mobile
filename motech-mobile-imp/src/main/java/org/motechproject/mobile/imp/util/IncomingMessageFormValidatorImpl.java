@@ -11,8 +11,8 @@ import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinition;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 public class IncomingMessageFormValidatorImpl implements IncomingMessageFormValidator {
 
     private CoreManager coreManager;
-    private Map<String, List<IncomingMessageFormParameterValidator>> paramValidators;
+    private Map<String, ValidatorGroup> paramValidators;
     private static Logger logger = Logger.getLogger(IncomingMessageFormValidatorImpl.class);
 
     /**
@@ -42,10 +42,17 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()).setIncomingMsgFormParamDefinition(paramDef);
                     form.setLastModified(new Date());
 
-                    List<IncomingMessageFormParameterValidator> validators = paramValidators.get(paramDef.getParamType().toUpperCase());
+                    ValidatorGroup group = paramValidators.get(paramDef.getParamType().toUpperCase());
+                    if(group.getParent() != null && !group.getParent().isEmpty()){
+                        ValidatorGroup parent = paramValidators.get(group.getParent());
+                        for(Entry<String, IncomingMessageFormParameterValidator> validator : group.getValidators().entrySet()){
+                            parent.getValidators().put(validator.getKey(), validator.getValue());
+                        }
+                        group = parent;
+                    }
                     
-                    for (IncomingMessageFormParameterValidator validator : validators) {
-                        if (!validator.validate(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()))) {
+                    for (Entry<String, IncomingMessageFormParameterValidator> entry : group.getValidators().entrySet()) {
+                        if (!entry.getValue().validate(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()))) {
                             form.setMessageFormStatus(IncMessageFormStatus.INVALID);
                             form.setLastModified(new Date());
                             break;
@@ -96,7 +103,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
     /**
      * @param paramValidators the paramValidators to set
      */
-    public void setParamValidators(Map<String, List<IncomingMessageFormParameterValidator>> paramValidators) {
+    public void setParamValidators(Map<String, ValidatorGroup> paramValidators) {
         this.paramValidators = paramValidators;
     }
 }

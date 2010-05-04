@@ -15,11 +15,10 @@ import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinition;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinitionImpl;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterImpl;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.ws.server.RegistrarService;
@@ -37,7 +36,7 @@ public class IncomingMessageFormValidatorImplTest {
     CoreManager mockCore;
     RegistrarService mockRegSvc;
     IncomingMessageFormParameterValidator mockParamValidator;
-    Map<String, List<IncomingMessageFormParameterValidator>> mockValidators;
+    Map<String, IncomingMessageFormParameterValidator> mockValidators;
 
     IncomingMessageFormValidatorImpl instance;
 
@@ -61,8 +60,12 @@ public class IncomingMessageFormValidatorImplTest {
         signatures.put("PREGNANCYSTOP", mSig);
 
         //instance.setImParamValidator(mockParamValidator);
+        Map<String, ValidatorGroup> validators = new HashMap<String, ValidatorGroup>();
+        validators.put("ALPHANUM", new ValidatorGroup());
+        validators.get("ALPHANUM").setValidators(mockValidators);
+
         instance = new IncomingMessageFormValidatorImpl();
-        instance.setParamValidators(mockValidators);
+        instance.setParamValidators(validators);
         instance.setCoreManager(mockCore);
     }
 
@@ -74,9 +77,6 @@ public class IncomingMessageFormValidatorImplTest {
         System.out.println("validate");
 
         String reqPhone = "000000000000";
-
-        List<IncomingMessageFormParameterValidator> validators = new ArrayList<IncomingMessageFormParameterValidator>();
-        validators.add(mockParamValidator);
 
         IncomingMessageFormParameterDefinitionImpl pDef1 = new IncomingMessageFormParameterDefinitionImpl();
         pDef1.setRequired(true);
@@ -116,11 +116,8 @@ public class IncomingMessageFormValidatorImplTest {
                 mockCore.createIncomingMessageFormParameter()
                 ).andReturn(new IncomingMessageFormParameterImpl());
         expect(
-                mockValidators.get((String)anyObject())
-                ).andReturn(validators);
-        expect(
-                mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
-                ).andReturn(true);
+                mockValidators.entrySet()
+                ).andReturn(new HashSet<Entry<String, IncomingMessageFormParameterValidator>>());
 
         replay(mockCore, mockParamValidator, mockValidators);
         IncMessageFormStatus result = instance.validate(form, reqPhone);
@@ -142,11 +139,8 @@ public class IncomingMessageFormValidatorImplTest {
         reset(mockCore, mockParamValidator, mockValidators);
 
         expect(
-                mockValidators.get((String)anyObject())
-                ).andReturn(validators).times(2);
-        expect(
-                mockParamValidator.validate((IncomingMessageFormParameterImpl) anyObject())
-                ).andReturn(true).times(2);
+                mockValidators.entrySet()
+                ).andReturn(new HashSet<Entry<String, IncomingMessageFormParameterValidator>>()).times(2);
 
         replay(mockCore, mockParamValidator, mockValidators);
         result = instance.validate(form, reqPhone);
