@@ -31,6 +31,7 @@
                 <entry key="ANC" value-ref="recordMotherANCVisitSignatureBean" />
                 <entry key="ABORTION" value-ref="recordPregnancyTerminationSignatureBean" />
                 <entry key="DELIVERY" value-ref="recordPregnancyDeliverySignatureBean" />
+                <entry key="DELIVERYNOTIFY" value-ref="recordDeliveryNotificationSignatureBean" />
                 <entry key="MOTHERPNC" value-ref="recordMotherPNCVisitSignatureBean" />
                 <entry key="DEATH" value-ref="recordDeathSignatureBean" />
                 <entry key="TT" value-ref="recordTTVisitSignatureBean" />
@@ -199,6 +200,18 @@
                 <entry key="child3Weight" value="java.lang.Double" />
                 <entry key="child3OPV" value="java.lang.Boolean" />
                 <entry key="child3BCG" value="java.lang.Boolean" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="recordDeliveryNotificationSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+        <property name="methodName" value="recordDeliveryNotification" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="staffId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
+                <entry key="datetime" value="java.util.Date" />
+                <entry key="motechId" value="java.lang.Integer" />
             </map>
         </property>
     </bean>
