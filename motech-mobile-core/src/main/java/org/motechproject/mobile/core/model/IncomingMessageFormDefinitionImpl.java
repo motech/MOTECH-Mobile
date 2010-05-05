@@ -17,8 +17,9 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
     private String formCode;
     private Date dateCreated;
     private Date lastModified;
-    private IncMessageFormDefinitionType type;
     private Duplicatable duplicatable;
+    private Boolean sendResponse;
+    private IncMessageFormDefinitionType type;
     private Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinitions = new HashSet<IncomingMessageFormParameterDefinition>();
     private Set<IncomingMessageForm> incomingMessageForms = new HashSet<IncomingMessageForm>();
 
@@ -167,5 +168,19 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
      */
     public void setType(IncMessageFormDefinitionType type) {
         this.type = type;
+    }
+
+    /**
+     * @return the sendResponse
+     */
+    public Boolean getSendResponse() {
+        return sendResponse;
+    }
+
+    /**
+     * @param sendResponse the sendResponse to set
+     */
+    public void setSendResponse(Boolean sendResponse) {
+        this.sendResponse = sendResponse;
     }
 }

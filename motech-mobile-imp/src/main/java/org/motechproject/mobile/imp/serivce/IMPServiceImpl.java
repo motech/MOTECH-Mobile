@@ -88,7 +88,7 @@ public class IMPServiceImpl implements IMPService {
 
         response = action.execute(inMsg, requesterPhone, context);
 
-        if(action.isSendResponse()){
+        if(inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getSendResponse()){
             sendResponse(response.getContent(), response.getIncomingMessage().getIncomingMsgSession().getRequesterPhone());
         }
 

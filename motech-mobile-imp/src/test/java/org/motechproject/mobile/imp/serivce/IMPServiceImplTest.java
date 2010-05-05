@@ -83,7 +83,12 @@ public class IMPServiceImplTest {
         Map<String, CommandAction> caMap = new HashMap<String, CommandAction>();
         caMap.put("TYPE", mockCmdAxn);
         instance.setCmdActionMap(caMap);
-        
+
+        IncomingMessage inMsg = new IncomingMessageImpl();
+        inMsg.setIncomingMessageForm(new IncomingMessageFormImpl());
+        inMsg.getIncomingMessageForm().setIncomingMsgFormDefinition(new IncomingMessageFormDefinitionImpl());
+        inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().setSendResponse(false);
+
         IncomingMessageResponseImpl response = new IncomingMessageResponseImpl();
         response.setContent(expResult);
 
@@ -101,7 +106,7 @@ public class IMPServiceImplTest {
                 ).andReturn(null);
         expect(
                 mockParser.parseRequest((String) anyObject())
-                ).andReturn(new IncomingMessageImpl());
+                ).andReturn(inMsg);
         expect(
                 mockParser.getCommand((String)anyObject())
                 ).andReturn("Type");
@@ -126,10 +131,6 @@ public class IMPServiceImplTest {
                 mockCmdAxn.execute((IncomingMessage) anyObject(), (String) anyObject(), (MotechContext)anyObject())
                 ).andReturn(response);
 
-        expect(
-                mockCmdAxn.isSendResponse()
-                ).andReturn(false);
-
         replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
         IncomingMessageResponse result = instance.processRequest(message, requesterPhone, false);
         verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
@@ -141,10 +142,7 @@ public class IMPServiceImplTest {
 
         String duplicateResp = "Error:\nThis form has already been processed!";
 
-        IncomingMessage inMsg = new IncomingMessageImpl();
         inMsg.setContent(message);
-        inMsg.setIncomingMessageForm(new IncomingMessageFormImpl());
-        inMsg.getIncomingMessageForm().setIncomingMsgFormDefinition(new IncomingMessageFormDefinitionImpl());
         inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().setDuplicatable(Duplicatable.DISALLOWED);
         inMsg.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
         

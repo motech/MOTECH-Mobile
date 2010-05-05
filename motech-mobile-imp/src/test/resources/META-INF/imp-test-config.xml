@@ -88,7 +88,6 @@
     </bean>
 
     <bean id="formCmdAxn" class="org.motechproject.mobile.imp.util.FormCommandAction">
-        <property name="sendResponse" value="${imp.response.sendEncounterResponse}" />
         <property name="formValidator" ref="imFormValidator" />
         <property name="formProcessor" ref="formProcessor" />
         <property name="coreManager" ref="coreManager" />
@@ -96,7 +95,6 @@
     </bean>
 
     <bean id="qryCmdAxn" class="org.motechproject.mobile.imp.util.QueryCommandAction">
-        <property name="sendResponse" value="${imp.response.sendQueryResponse}" />
         <property name="senderFieldName" value="${imp.oxd.senderField}" />
         <property name="formValidator" ref="imFormValidator" />
         <property name="formProcessor" ref="formProcessor" />

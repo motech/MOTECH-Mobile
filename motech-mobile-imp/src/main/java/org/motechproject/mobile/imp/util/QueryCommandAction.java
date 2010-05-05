@@ -33,7 +33,6 @@ import org.motechproject.mobile.model.dao.imp.IncomingMessageResponseDAO;
  *  Date : Dec 5, 2009
  */
 public class QueryCommandAction implements CommandAction {
-    private boolean sendResponse;
     private String senderFieldName;
     private CoreManager coreManager;
     private FormProcessorImpl formProcessor;
@@ -262,20 +261,6 @@ public class QueryCommandAction implements CommandAction {
      */
     public void setSenderFieldName(String senderFieldName) {
         this.senderFieldName = senderFieldName;
-    }
-
-    /**
-     * @return the sendResponse
-     */
-    public boolean isSendResponse() {
-        return sendResponse;
-    }
-
-    /**
-     * @param sendResponse the sendResponse to set
-     */
-    public void setSendResponse(boolean sendResponse) {
-        this.sendResponse = sendResponse;
     }
 
     /**

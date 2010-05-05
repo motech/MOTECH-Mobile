@@ -33,7 +33,6 @@ import org.hibernate.Transaction;
  *  Date : Dec 5, 2009
  */
 public class FormCommandAction implements CommandAction {
-    private boolean sendResponse;
     private CoreManager coreManager;
     private FormProcessor formProcessor;
     private IncomingMessageParser parser;
@@ -46,6 +45,7 @@ public class FormCommandAction implements CommandAction {
      */
     public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context) {
         IncomingMessageResponse response;
+        String wsResponse = null;
 
         logger.info("Initializing session");
         IncomingMessageSession imSession = initializeSession(message, requesterPhone, context);
@@ -63,11 +63,11 @@ public class FormCommandAction implements CommandAction {
             IncMessageFormStatus result = formValidator.validate(form, requesterPhone);
 
             if(result == IncMessageFormStatus.VALID)
-                formProcessor.processForm(form);
+                wsResponse = formProcessor.processForm(form);
             
             message.setIncomingMessageForm(form);
 
-            response = prepareResponse(message, context);
+            response = prepareResponse(message, wsResponse, context);
             response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
         }
         logger.info("Saving request");
@@ -166,7 +166,7 @@ public class FormCommandAction implements CommandAction {
      * @param message the message to respond to
      * @return the response to the message
      */
-    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message, MotechContext context) {
+    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message, String wsResponse, MotechContext context) {
         IncomingMessageForm form = message.getIncomingMessageForm();
 
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
@@ -179,7 +179,10 @@ public class FormCommandAction implements CommandAction {
         }
 
         if (form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID)) {
-            response.setContent("Data saved successfully");
+            if(wsResponse == null || wsResponse.isEmpty())
+                response.setContent("Data saved successfully");
+            else
+                response.setContent(wsResponse);
         } else {
             String responseText = "Errors:";
             for (Entry<String, IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
@@ -249,20 +252,6 @@ public class FormCommandAction implements CommandAction {
      */
     public void setFormValidator(IncomingMessageFormValidator formValidator) {
         this.formValidator = formValidator;
-    }
-
-    /**
-     * @return the sendResponse
-     */
-    public boolean isSendResponse() {
-        return sendResponse;
-    }
-
-    /**
-     * @param sendResponse the sendResponse to set
-     */
-    public void setSendResponse(boolean sendResponse) {
-        this.sendResponse = sendResponse;
     }
 
     /**

@@ -6,6 +6,7 @@
     <property column="type" name="type" type="incMessageFormDefinitionType"/>
     <property column="duplicatable" name="duplicatable" type="Duplicatable"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>
+    <property column="send_response" name="sendResponse" type="boolean"/>
     <property generated="always" insert="false" name="lastModified" update="false">
       <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>

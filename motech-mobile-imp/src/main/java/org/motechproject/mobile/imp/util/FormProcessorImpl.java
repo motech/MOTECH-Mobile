@@ -96,8 +96,8 @@ public class FormProcessorImpl implements FormProcessor {
             return "An error occurred on the server";
         }
 
-        if (mSig.getCallback() != null) {
-            return null;
+        if (mSig.getCallback() == null) {
+            return (result == null) ? null : String.valueOf(result);
         }
         return executeCallback(mSig, result);
     }

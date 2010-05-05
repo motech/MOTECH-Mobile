@@ -328,7 +328,7 @@ public class FormCommandActionTest {
                 ).andReturn(new IncomingMessageResponseImpl());
 
         replay(mockCore);
-        IncomingMessageResponse result = instance.prepareResponse(message, context);
+        IncomingMessageResponse result = instance.prepareResponse(message, null, context);
         verify(mockCore);
 
         String expResult ="Invalid request";
@@ -364,7 +364,7 @@ public class FormCommandActionTest {
         expectLastCall();
 
         replay(mockCore,mockRespDao,mockSession,mockTrans);
-        result = instance.prepareResponse(message, context);
+        result = instance.prepareResponse(message, null, context);
         verify(mockCore,mockRespDao,mockSession,mockTrans);
 
         expResult = "Data saved successfully";
@@ -413,7 +413,7 @@ public class FormCommandActionTest {
         expectLastCall();
 
         replay(mockCore,mockRespDao,mockSession,mockTrans);
-        result = instance.prepareResponse(message, context);
+        result = instance.prepareResponse(message, null, context);
         verify(mockCore,mockRespDao,mockSession,mockTrans);
 
         expResult = "Errors:\nage=too long\nname=wrong format";
@@ -455,7 +455,7 @@ public class FormCommandActionTest {
         expectLastCall();
 
         replay(mockCore,mockRespDao,mockSession,mockTrans);
-        result = instance.prepareResponse(message, context);
+        result = instance.prepareResponse(message, null, context);
         verify(mockCore,mockRespDao,mockSession,mockTrans);
 
         expResult = "Errors:\nage=server error";

@@ -98,4 +98,14 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
      * @param type the type to set
      */
     void setType(IncMessageFormDefinitionType type);
+
+    /**
+     * @return the sendResponse
+     */
+    Boolean getSendResponse();
+
+    /**
+     * @param sendResponse the sendResponse to set
+     */
+    void setSendResponse(Boolean sendResponse);
 }
