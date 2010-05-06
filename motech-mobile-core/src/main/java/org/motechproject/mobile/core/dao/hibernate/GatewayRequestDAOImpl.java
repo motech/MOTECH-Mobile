@@ -62,8 +62,7 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
             if (schedule == null) {
                 criteria = criteria.add(Restrictions.isNull("dateTo")).add(Restrictions.isNull("dateFrom")).add(Restrictions.eq("messageStatus", status));
             } else {
-                criteria = criteria.add(Restrictions.eq("messageStatus", status)).add(Restrictions.lt("dateFrom", schedule)).add(Restrictions.gt("dateTo", schedule));
-
+                criteria = criteria.add(Restrictions.eq("messageStatus", status)).add(Restrictions.or(Restrictions.isNull("dateFrom"),Restrictions.lt("dateFrom", schedule))).add(Restrictions.or(Restrictions.isNull("dateTo"),Restrictions.gt("dateTo", schedule)));
             }
 
             allbystatandSdule = (List<GatewayRequest>) criteria.add(Restrictions.isNotNull("gatewayRequestDetails")).list();

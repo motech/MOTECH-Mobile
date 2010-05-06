@@ -250,12 +250,13 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         data.add(new NameValuePair("PhoneNumber", patient.getPhoneNumber()));
         data.add(new NameValuePair("EDD", edd));
 
-        template += "MoTeCH ID=<MoTeCHID>\nFirstName=<FirstName>\nLastName=<LastName>\nPreferredName=<PreferredName>";
+        template += "MoTeCH ID <MoTeCHID>\nFirstName=<FirstName>\nLastName=<LastName>";
+        template += patient.getPreferredName().equals(patient.getFirstName()) ? "" : "\nPreferredName=<PreferredName>";
         template += sex.isEmpty() ? sex : "\nSex=<Sex>";
         template += dob.isEmpty() ? dob : "\nDoB=<DoB>";
         template += age.isEmpty() ? age : "\nAge=<Age>";
         template += "\nCommunity=<Community>\nPhoneNumber=<PhoneNumber>";
-        template += edd.isEmpty() ? edd : "\nDelivery Date=<EDD>";
+        template += edd.isEmpty() ? edd : "\nEDD=<EDD>";
 
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);
         return message;
