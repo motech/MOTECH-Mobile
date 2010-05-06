@@ -26,7 +26,22 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
     public boolean validate(IncomingMessageFormParameter param) {
         String paramType = param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase();
 
-        if (!Pattern.matches(expression, param.getValue().trim())) {
+        if(paramType.indexOf("TIME") >= 0){
+            try{
+                SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
+                dFormat.setLenient(true);
+                Date val = dFormat.parse(param.getValue());
+                
+                param.setValue(dFormat.format(val));
+                param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
+            }catch (ParseException ex) {
+                logger.error("Invalid datetime format - " + param.getValue(), ex);
+
+                param.setErrCode(1);
+                param.setErrText("wrong format");
+                param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
+            }
+        }else if (!Pattern.matches(expression, param.getValue().trim())) {
             param.setErrCode(1);
             param.setErrText("wrong format");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);

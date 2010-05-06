@@ -80,6 +80,17 @@ public class ParamExpressionValidatorTest {
         result = instance.validate(param);
         assertEquals(expResult, result);
         assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
+
+        param.setValue("2010-12-10 15:04:00");
+        param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+        param.getIncomingMsgFormParamDefinition().setParamType("DATETIME");
+
+        instance.setDateFormat("y-M-d H:m:s");
+
+        expResult = true;
+        result = instance.validate(param);
+        assertEquals(expResult, result);
+        assertEquals(param.getMessageFormParamStatus(), IncMessageFormParameterStatus.VALID);
     }
 
 }
