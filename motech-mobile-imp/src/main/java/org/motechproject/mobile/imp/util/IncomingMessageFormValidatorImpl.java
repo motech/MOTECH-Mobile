@@ -32,36 +32,33 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      * @see IncomingMessageFormValidator.validate
      */
     public synchronized IncMessageFormStatus validate(IncomingMessageForm form, String requesterPhone) {
+        ValidatorGroup group;
+        IncMessageFormStatus status;
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         try {
             for (IncomingMessageFormParameterDefinition paramDef : form.getIncomingMsgFormDefinition().getIncomingMsgParamDefinitions()) {
-
                 paramDef.getParamType();
 
                 if (form.getIncomingMsgFormParameters().containsKey(paramDef.getName().toLowerCase())) {
                     form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()).setIncomingMsgFormParamDefinition(paramDef);
                     form.setLastModified(new Date());
 
-                    ValidatorGroup group = paramValidators.get(paramDef.getParamType().toUpperCase());
-                    if(group.getParent() != null && !group.getParent().isEmpty()){
-                        ValidatorGroup parent = paramValidators.get(group.getParent());
-                        for(Entry<String, IncomingMessageFormParameterValidator> validator : group.getValidators().entrySet()){
-                            parent.getValidators().put(validator.getKey(), validator.getValue());
-                        }
-                        group = parent;
+                    if(paramDef.getParamType().endsWith("_ARRAY")){
+                        String[] typeInfo = paramDef.getParamType().split("_");
+                        group = paramValidators.get(typeInfo[0]);
+                        status = validateArray(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()), group);
+                    }else{
+                        group = paramValidators.get(paramDef.getParamType().toUpperCase());
+                        status = validateSingle(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()), group);
                     }
                     
-                    for (Entry<String, IncomingMessageFormParameterValidator> entry : group.getValidators().entrySet()) {
-                        if (!entry.getValue().validate(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()))) {
-                            form.setMessageFormStatus(IncMessageFormStatus.INVALID);
-                            form.setLastModified(new Date());
-                            break;
-                        }
-                    }
+                    if(status != IncMessageFormStatus.VALID)
+                        form.setMessageFormStatus(status);
+                    
+                    form.setLastModified(new Date());                    
                 } else {
                     if (paramDef.isRequired()) {
                         IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
-                        param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
                         param.setIncomingMsgFormParamDefinition(paramDef);
                         param.setName(paramDef.getName());
                         param.setDateCreated(new Date());
@@ -84,6 +81,42 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         }
 
         return form.getMessageFormStatus();
+    }
+
+    private IncMessageFormStatus validateSingle(IncomingMessageFormParameter param, ValidatorGroup group){
+        if(group.getParent() != null && !group.getParent().isEmpty()){
+            ValidatorGroup parent = paramValidators.get(group.getParent());
+            for(Entry<String, IncomingMessageFormParameterValidator> validator : group.getValidators().entrySet()){
+                parent.getValidators().put(validator.getKey(), validator.getValue());
+            }
+            group = parent;
+        }
+
+        for (Entry<String, IncomingMessageFormParameterValidator> entry : group.getValidators().entrySet()) {
+            if (!entry.getValue().validate(param)) {
+                return IncMessageFormStatus.INVALID;
+            }
+        }
+        return IncMessageFormStatus.VALID;
+    }
+
+    private IncMessageFormStatus validateArray(IncomingMessageFormParameter param, ValidatorGroup group){
+        String value = param.getValue();
+        String[] elements = param.getValue().split(",");
+        IncMessageFormStatus status = IncMessageFormStatus.INVALID;
+
+        for(int i = 0; i < elements.length; i++){
+            param.setValue(elements[i]);
+            status = validateSingle(param, group);
+            
+            if(status != IncMessageFormStatus.VALID){
+                String error = param.getErrText() + " (item " + i+1 + ")";
+                param.setErrText(error);
+                break;
+            }
+        }
+        param.setValue(value);
+        return status;
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.motechproject.mobile.imp.util;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -65,7 +66,14 @@ public class FormProcessorImpl implements FormProcessor {
                     } else if (e.getValue().equals(String.class)) {
                         paramObjs[idx] = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue();
                     } else if(e.getValue().isArray()){
-                        paramObjs[idx] = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().split(",");
+                        String[] a = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().split(",");
+                        
+                        Object arrayObj = Array.newInstance(e.getValue().getComponentType(), a.length);
+                        for(int i = 0; i < a.length; i++){
+                            Array.set(arrayObj, i, a[i]);
+                        }
+                        
+                        paramObjs[idx] = arrayObj;
                     }else {
                         Constructor constr = e.getValue().getConstructor(String.class);
                         paramObjs[idx] = constr.newInstance(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());

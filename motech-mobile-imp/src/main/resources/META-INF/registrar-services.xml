@@ -281,6 +281,8 @@
                 <entry key="community" value="java.lang.String" />
                 <entry key="referred" value="java.lang.Boolean" />
                 <entry key="maleInvolved" value="java.lang.Boolean" />
+                <entry key="weight" value="java.lang.Double" />
+                <entry key="temperature" value="java.lang.Integer" />
                 <entry key="bcg" value="java.lang.Boolean" />
                 <entry key="opv0" value="java.lang.Boolean" />
                 <entry key="respiration" value="java.lang.Integer" />
