@@ -24,6 +24,7 @@ import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
+import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
@@ -128,7 +129,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			.getRecipientId();
 		
 		String status = StatusType.OK.value();
-		if ( recipientID == null ) {
+		if ( recipientID == null || gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT ) {
 			status = StatusType.ERROR.value();
 		} else {
 

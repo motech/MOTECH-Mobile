@@ -164,8 +164,8 @@
 		<property name="apiID" value="Cqyc0kReo98jxWz9N0qYKzBslRYaLsStA6shaLkHdfnpDU3C2E"/>
 		<property name="method" value="ivroriginate"/>
 		<property name="defaultLanguage" value="English"/>
-		<property name="defaultTree" value="api_test"/>
-		<property name="defaultReminder" value="IDconfirmation.wav"/>
+		<property name="defaultTree" value="GrameenTest"/>
+		<property name="defaultReminder" value="prompt_IR2.wav"/>
 		<property name="ivrServer" ref="intellIVRTestServer"/>
 		<property name="messageHandler" ref="intellIVRMessageHandler"/>
 		<property name="statusStore">

@@ -34,6 +34,7 @@ import org.motechproject.mobile.core.model.LanguageImpl;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageRequestImpl;
+import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
 import org.motechproject.mobile.core.service.MotechContext;
@@ -147,6 +148,7 @@ public class IntellIVRBeanTest {
 		mr1.setLanguage(english);
 		mr1.setRecipientId("123456789");
 		mr1.setRequestId("mr1");
+		mr1.setMessageType(MessageType.VOICE);
 		mr1.setNotificationType(n1);
 		mr1.setPhoneNumberType("PERSONAL");
 	
@@ -174,6 +176,7 @@ public class IntellIVRBeanTest {
 		mr2.setLanguage(english);
 		mr2.setRecipientId("123456789");
 		mr2.setRequestId("mr2");
+		mr2.setMessageType(MessageType.VOICE);
 		mr2.setNotificationType(n2);
 		mr2.setPhoneNumberType("PERSONAL");
 			
@@ -201,6 +204,7 @@ public class IntellIVRBeanTest {
 		mr3.setLanguage(english);
 		mr3.setRecipientId("123456789");
 		mr3.setRequestId("mr3");
+		mr3.setMessageType(MessageType.VOICE);
 		mr3.setNotificationType(n3);
 		mr3.setPhoneNumberType("PERSONAL");
 		
@@ -221,7 +225,7 @@ public class IntellIVRBeanTest {
 		grs3.add(gr3);
 		
 		NotificationType n4 = new NotificationTypeImpl();
-		n3.setId(4L);
+		n4.setId(4L);
 		
 		MessageRequest mr4 = new MessageRequestImpl();
 		mr4.setId(4L);
@@ -229,6 +233,7 @@ public class IntellIVRBeanTest {
 		mr4.setRecipientId("123456789");
 		mr4.setRequestId("mr4");
 		mr4.setNotificationType(n4);
+		mr4.setMessageType(MessageType.VOICE);
 		mr4.setPhoneNumberType("PUBLIC");
 		
 		GatewayRequest r4 = new GatewayRequestImpl();
@@ -247,6 +252,34 @@ public class IntellIVRBeanTest {
 		Set<GatewayResponse> grs4 = new HashSet<GatewayResponse>();
 		grs4.add(gr4);
 		
+		NotificationType n5 = new NotificationTypeImpl();
+		n5.setId(5L);
+		
+		MessageRequest mr5 = new MessageRequestImpl();
+		mr5.setId(5L);
+		mr5.setLanguage(english);
+		mr5.setRecipientId("123456789");
+		mr5.setRequestId("mr5");
+		mr5.setNotificationType(n5);
+		mr5.setMessageType(MessageType.TEXT);
+		mr5.setPhoneNumberType("PERSONAL");
+		
+		GatewayRequest r5 = new GatewayRequestImpl();
+		r5.setId(5000L);
+		r5.setMessageRequest(mr5);
+		r5.setMessageStatus(MStatus.PENDING);
+		r5.setRecipientsNumber("15555555555");
+		
+		GatewayResponse gr5 = new GatewayResponseImpl();
+		gr5.setGatewayMessageId(mr5.getId().toString());
+		gr5.setGatewayRequest(r5);
+		gr5.setRecipientNumber(mr5.getRecipientNumber());
+		gr5.setMessageStatus(r5.getMessageStatus());
+		gr5.setResponseText(StatusType.ERROR.value());
+		
+		Set<GatewayResponse> grs5 = new HashSet<GatewayResponse>();
+		grs5.add(gr5);
+	
 		List<GatewayRequest> expectedGatewayRequestsList = new ArrayList<GatewayRequest>();
 		expectedGatewayRequestsList.add(r1);
 		expectedGatewayRequestsList.add(r2);
@@ -293,6 +326,16 @@ public class IntellIVRBeanTest {
 		mockStatusStore.updateStatus(gr4.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
 		assertEquals(grs4,intellivrBean.sendMessage(r4, mockContext));
+		verify(mockMessageHandler);
+		verify(mockStatusStore);
+		reset(mockMessageHandler);
+		reset(mockStatusStore);
+		
+		expect(mockMessageHandler.parseMessageResponse(r5, StatusType.ERROR.value(), mockContext)).andReturn(grs5);
+		replay(mockMessageHandler);
+		mockStatusStore.updateStatus(gr5.getGatewayMessageId(), StatusType.ERROR.value());
+		replay(mockStatusStore);
+		assertEquals(grs5,intellivrBean.sendMessage(r5, mockContext));
 		verify(mockMessageHandler);
 		verify(mockStatusStore);
 		reset(mockMessageHandler);
