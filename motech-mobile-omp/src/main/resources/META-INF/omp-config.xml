@@ -176,6 +176,17 @@
 		<property name="coreManager" ref="coreManager"/>
 	</bean>
 
+	<bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
+		<property name="textHandler" ref="dummyHandler"/>
+		<property name="voiceHandler" ref="intellIVRMessageHandler"/>
+	</bean>
+
+	<bean id="compositeGateway" class="org.motechproject.mobile.omp.manager.CompositeGatewayManager">
+		<property name="textGatewayManager" ref="dummyManager"/>
+		<property name="voiceGatewayManager" ref="intellivrBean"/>
+		<property name="compositeMessageHandler" ref="compositeHandler"/>
+	</bean>
+
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />
     </bean>

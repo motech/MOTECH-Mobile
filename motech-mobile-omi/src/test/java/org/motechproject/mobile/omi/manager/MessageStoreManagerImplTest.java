@@ -72,6 +72,7 @@ public class MessageStoreManagerImplTest {
         System.out.println("consrtuctMessage");
         
         MessageRequest message = new MessageRequestImpl();
+        message.setMessageType(MessageType.TEXT);
         Language defaultLang = new LanguageImpl();
 
         message.setPersInfos(new HashSet<NameValuePair>());

@@ -8,6 +8,7 @@ import org.motechproject.mobile.core.model.Language;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageTemplate;
+import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.core.util.MotechException;
 import java.util.Set;
@@ -47,26 +48,34 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         gatewayDetails.setMessageType(messageData.getMessageType());
                 
         try{
-            String template = fetchTemplate(messageData, context, defaultLang);
-            logger.debug("message template fetched");
-            logger.debug(template);
+        	
+        	if ( messageData.getMessageType() == MessageType.TEXT ) {
 
-            String message = parseTemplate(template, messageData.getPersInfos());
-            logger.debug("message contructed");
-            logger.debug(message);
+        		String template = fetchTemplate(messageData, context, defaultLang);
+        		logger.debug("message template fetched");
+        		logger.debug(template);
 
-            int maxLength = (charsPerSMS - concatAllowance) * maxConcat - 1;
-            message = message.length() <= maxLength ? message : message.substring(0, maxLength);
+        		String message = parseTemplate(template, messageData.getPersInfos());
+        		logger.debug("message contructed");
+        		logger.debug(message);
 
-            int numPages = (int)Math.ceil(message.length() % (charsPerSMS - concatAllowance));
-            gatewayDetails.setNumberOfPages(numPages);
-            
-            gwReq.setMessage(message);
+        		int maxLength = (charsPerSMS - concatAllowance) * maxConcat - 1;
+        		message = message.length() <= maxLength ? message : message.substring(0, maxLength);
+
+        		int numPages = (int)Math.ceil(message.length() % (charsPerSMS - concatAllowance));
+        		gatewayDetails.setNumberOfPages(numPages);
+
+        		gwReq.setMessage(message);
+                gatewayDetails.setMessage(message);
+                
+        	}
+
             gwReq.setMessageStatus(MStatus.SCHEDULED);
             gwReq.setGatewayRequestDetails(gatewayDetails);
-            gatewayDetails.setMessage(message);
+
         }
         catch(MotechException ex){
+        	logger.error("MotechException: " + ex.getMessage());
             gwReq.setMessageStatus(MStatus.FAILED);
             gwReq.setMessage(null);
             
