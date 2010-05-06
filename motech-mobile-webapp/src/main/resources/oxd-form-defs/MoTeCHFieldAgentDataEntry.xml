@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<study description="" name="MoTeCH Field Agent Data Entry">
+<form description="" name="Delivery Notification">
+<version description="" name="v1">
+<xform>&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xf:model&gt;
+    &lt;xf:instance id="deliverynotify-jf"&gt;
+      &lt;deliverynotify-jf name="Delivery Notification-v1" id="97"&gt;
+        &lt;staffId/&gt;
+        &lt;facilityId/&gt;
+        &lt;motechId/&gt;
+        &lt;datetime/&gt;
+        &lt;formtype&gt;data_entry&lt;/formtype&gt;
+        &lt;formname&gt;deliverynotify-jf&lt;/formname&gt;
+      &lt;/deliverynotify-jf&gt;
+    &lt;/xf:instance&gt;
+    &lt;xf:bind id="staffId" nodeset="/deliverynotify-jf/staffId" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="facilityId" nodeset="/deliverynotify-jf/facilityId" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="motechId" nodeset="/deliverynotify-jf/motechId" type="xsd:int" required="true()"/&gt;
+    &lt;xf:bind id="datetime" nodeset="/deliverynotify-jf/datetime" type="xsd:dateTime" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/&gt;
+    &lt;xf:bind id="formtype" nodeset="/deliverynotify-jf/formtype" type="xsd:string" required="true()" visible="false()"/&gt;
+    &lt;xf:bind id="formname" nodeset="/deliverynotify-jf/formname" type="xsd:string" required="true()" visible="false()"/&gt;
+  &lt;/xf:model&gt;
+  &lt;xf:group id="1"&gt;
+    &lt;xf:label&gt;Page1&lt;/xf:label&gt;
+    &lt;xf:input bind="staffId"&gt;
+      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="facilityId"&gt;
+      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="motechId"&gt;
+      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="datetime"&gt;
+      &lt;xf:label&gt;Date of delivery&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="formtype"&gt;
+      &lt;xf:label&gt;formType&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="formname"&gt;
+      &lt;xf:label&gt;formName&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+  &lt;/xf:group&gt;
+&lt;/xf:xforms&gt;
+</xform>
+<layout/>
+<versionText locale="en">
+<xform>&lt;xform id="97"&gt;&#13;
+    &lt;text xpath="xforms/model/instance/deliverynotify-jf[@name]" value="Delivery Notification-v1"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='datetime']/label" value="Date of delivery"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;&#13;
+    &lt;text xpath="xforms/model/bind[@id='datetime'][@message]" value="Invalid date: date specified is in the future"/&gt;&#13;
+  &lt;/xform&gt;</xform>
+<layout>&lt;Form id="97"&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
+  &lt;/Form&gt;</layout>
+</versionText>
+</version>
+</form>
+</study>
