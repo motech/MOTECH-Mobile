@@ -193,8 +193,8 @@
     &lt;xf:bind action="show" id="PreferredName" nodeset="/pat-query/PreferredName" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dob" message="Invalid date: date specified is in the future" nodeset="/pat-query/dob" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:date" visible="false()"/&gt;
     &lt;xf:bind action="show" id="nhis_number" nodeset="/pat-query/nhis_number" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:int" visible="false()"/&gt;
-    &lt;xf:bind id="sender" nodeset="/pat-query/sender" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" required="true()" type="xsd:int" visible="false()" constraint="length(.) = 10" message="Invalid phone number length"/&gt;
+    &lt;xf:bind id="sender" nodeset="/pat-query/sender" required="true()" type="xsd:int" constraint="length(.) = 10" message="Invalid phone number length"/&gt;
     &lt;xf:bind id="formtype" nodeset="/pat-query/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
   &lt;xf:group id="1"&gt;
@@ -301,6 +301,8 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='sender']/label" value="Response phone number"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='dob'][@message]" value="Invalid date: date specified is in the future"/&gt;&#13;
+    &lt;text xpath="xforms/model/bind[@id='sender'][@message]" value="Invalid phone number length"/&gt;&#13;
+    &lt;text xpath="xforms/model/bind[@id='phonenumber'][@message]" value="Invalid phone number length"/&gt;&#13;
   &lt;/xform&gt;</xform>
 <layout>&lt;Form id="85"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page2'][@Text]" value="Page2"/&gt;&#13;

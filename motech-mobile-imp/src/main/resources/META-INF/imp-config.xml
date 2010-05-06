@@ -97,7 +97,7 @@
 			<list>
 				<value>${imp.oxd.oxdFormDefsResource1}</value>
 				<value>${imp.oxd.oxdFormDefsResource2}</value>
-                                <value>${imp.oxd.oxdFormDefsResource3}</value>
+                <value>${imp.oxd.oxdFormDefsResource3}</value>
 			</list>
 		</property>
 	</bean>
