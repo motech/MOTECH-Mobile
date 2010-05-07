@@ -3,6 +3,7 @@
 <hibernate-mapping package="org.motechproject.mobile.core.model">
   <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="message_request">
     <property column="request_id" name="requestId" type="string"/>
+    <many-to-one class="GatewayRequestDetailsImpl" column="request_details_id" name="gatewayRequestDetails"/>
     <many-to-one class="NotificationTypeImpl" column="notification_type_id" name="notificationType"/>
     <many-to-one class="LanguageImpl" column="language_id" name="language"/>
     <property column="message_type" name="messageType" type="messageType"/>

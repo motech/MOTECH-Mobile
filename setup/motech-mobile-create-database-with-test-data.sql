@@ -874,6 +874,7 @@ DROP TABLE IF EXISTS `message_request`;
 CREATE TABLE `message_request` (
   `id` bigint(20) NOT NULL,
   `obj_vesion` int(11) NOT NULL DEFAULT '0',
+  `request_details_id` bigint(20) DEFAULT NULL,
   `request_id` varchar(255) DEFAULT NULL,
   `notification_type_id` bigint(20) DEFAULT NULL,
   `language_id` bigint(20) DEFAULT NULL,
@@ -893,8 +894,10 @@ CREATE TABLE `message_request` (
   PRIMARY KEY (`id`),
   KEY `FKF9A8A257C247835` (`notification_type_id`),
   KEY `FKF9A8A25716C79BE` (`language_id`),
+  KEY `FK81205B94A5644C7C` (`request_details_id`),
   CONSTRAINT `FKF9A8A25716C79BE` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`),
-  CONSTRAINT `FKF9A8A257C247835` FOREIGN KEY (`notification_type_id`) REFERENCES `notification_type` (`id`)
+  CONSTRAINT `FKF9A8A257C247835` FOREIGN KEY (`notification_type_id`) REFERENCES `notification_type` (`id`),
+  CONSTRAINT `FK81205B94A5644C7C` FOREIGN KEY (`request_details_id`) REFERENCES `gateway_request_details` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `message_template` */

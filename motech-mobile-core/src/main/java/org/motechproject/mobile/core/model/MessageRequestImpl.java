@@ -29,6 +29,7 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private Date lastModified;
     private String recipientId;
     private String phoneNumberType;
+    private GatewayRequestDetails gatewayRequestDetails;
 
     /**
      * @return the language
@@ -274,6 +275,14 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
 
 	public void setPhoneNumberType(String phoneNumberType) {
 		this.phoneNumberType = phoneNumberType;
+	}
+
+	public GatewayRequestDetails getGatewayRequestDetails() {
+		return gatewayRequestDetails;
+	}
+
+	public void setGatewayRequestDetails(GatewayRequestDetails gatewayRequestDetails) {
+		this.gatewayRequestDetails = gatewayRequestDetails;
 	}
 
 	@Override

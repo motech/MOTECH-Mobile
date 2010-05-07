@@ -53,6 +53,8 @@ public interface MessageRequest extends MotechEntity {
      * @return unique identifier of the recipient
      */
     public String getRecipientId();
+    
+    public GatewayRequestDetails getGatewayRequestDetails();
 
     public void setRecipientName(String recipientName);
 
@@ -97,6 +99,8 @@ public interface MessageRequest extends MotechEntity {
      * @param recipientId unique identifier of the recipient
      */
     public void setRecipientId(String recipientId);
+    
+    public void setGatewayRequestDetails(GatewayRequestDetails gatewayRequestDetails);
 
     /**
      * Helper method to display string value of all properties of the object

@@ -473,7 +473,8 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Building GatewayRequests...");
         for (MessageRequest message : messages) {
             GatewayRequest gwReq = storeManager.constructMessage(message, mc, defaultLanguage);
-
+            message.setGatewayRequestDetails(gwReq.getGatewayRequestDetails());
+            
             if (message.getLanguage() == null) {
                 message.setLanguage(defaultLanguage);
             }
@@ -534,11 +535,12 @@ public class OMIServiceImpl implements OMIService {
 
                 message.setTryNumber(message.getTryNumber() + 1);
 
-                GatewayRequestDetails gwReqDet = (GatewayRequestDetails) gwReqDao.getById(message.getId());
+                GatewayRequestDetails gwReqDet = (GatewayRequestDetails) gwReqDao.getById(message.getGatewayRequestDetails().getId());
 
                 GatewayRequest gwReq = coreManager.createGatewayRequest(mc);
                 gwReq.setDateFrom(message.getDateFrom());
                 gwReq.setDateTo(message.getDateTo());
+                gwReq.setMessageRequest(message);
                 gwReq.setRecipientsNumber(message.getRecipientNumber());
                 gwReq.setRequestId(message.getRequestId());
                 gwReq.setTryNumber(message.getTryNumber());

@@ -314,6 +314,9 @@ public class OMIServiceImplTest {
         msgReq1.setStatus(MStatus.QUEUED);
         messageList.add(msgReq1);
         
+        GatewayRequest gwReq = new GatewayRequestImpl();
+        gwReq.setGatewayRequestDetails(new GatewayRequestDetailsImpl());
+        
         expect(
                 mockCore.createMotechContext()
                 ).andReturn(new MotechContextImpl());
@@ -334,7 +337,7 @@ public class OMIServiceImplTest {
                 ).andReturn(new LanguageImpl());
         expect(
                 mockStore.constructMessage((MessageRequest) anyObject(), (MotechContext) anyObject(), (Language) anyObject())
-                ).andReturn(new GatewayRequestImpl());
+                ).andReturn(gwReq);
 
         mockMessagingService.scheduleMessage((GatewayRequest) anyObject(), (MotechContext) anyObject());
         expectLastCall();
@@ -356,9 +359,9 @@ public class OMIServiceImplTest {
         mockTrans.commit();
         expectLastCall();
         
-        replay(mockCore, mockRequestDao, mockOMP, mockMessagingService, mockSession, mockTrans);
+        replay(mockCore, mockRequestDao, mockOMP, mockMessagingService, mockSession, mockTrans, mockStore);
         instance.processMessageRequests();
-        verify(mockCore, mockRequestDao, mockOMP, mockMessagingService, mockSession, mockTrans);
+        verify(mockCore, mockRequestDao, mockOMP, mockMessagingService, mockSession, mockTrans, mockStore);
     }
     
     /**
@@ -381,11 +384,13 @@ public class OMIServiceImplTest {
         messageList.add(msgReq1);
         
         GatewayRequestDetails details = new GatewayRequestDetailsImpl();
-        details.setId(msgReq1.getId());
+        details.setId(1L);
         details.setMessage("Some message");
         details.setMessageType(MessageType.TEXT);
         details.setNumberOfPages(1);
         details.setGatewayRequests(new HashSet());
+        
+        msgReq1.setGatewayRequestDetails(details);
         
         expect(
                 mockCore.createMotechContext()
