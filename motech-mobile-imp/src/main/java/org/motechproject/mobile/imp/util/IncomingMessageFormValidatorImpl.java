@@ -44,8 +44,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     form.setLastModified(new Date());
 
                     if(paramDef.getParamType().endsWith("_ARRAY")){
-                        String[] typeInfo = paramDef.getParamType().split("_");
-                        group = paramValidators.get(typeInfo[0]);
+                        String type = paramDef.getParamType().substring(0, paramDef.getParamType().lastIndexOf("_") - 1);
+                        group = paramValidators.get(type);
                         status = validateArray(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()), group);
                     }else{
                         group = paramValidators.get(paramDef.getParamType().toUpperCase());
@@ -102,7 +102,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
     private IncMessageFormStatus validateArray(IncomingMessageFormParameter param, ValidatorGroup group){
         String value = param.getValue();
-        String[] elements = param.getValue().split(",");
+        String[] elements = param.getValue().split(" ");
         IncMessageFormStatus status = IncMessageFormStatus.INVALID;
 
         for(int i = 0; i < elements.length; i++){
