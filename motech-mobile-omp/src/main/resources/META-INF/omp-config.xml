@@ -164,14 +164,14 @@
 		<property name="apiID" value="Cqyc0kReo98jxWz9N0qYKzBslRYaLsStA6shaLkHdfnpDU3C2E"/>
 		<property name="method" value="ivroriginate"/>
 		<property name="defaultLanguage" value="English"/>
-		<property name="defaultTree" value="GrameenTest"/>
+		<property name="defaultTree" value="pregnancy_week_5"/>
 		<property name="defaultReminder" value="prompt_IR2.wav"/>
 		<property name="ivrServer" ref="intellIVRTestServer"/>
 		<property name="messageHandler" ref="intellIVRMessageHandler"/>
 		<property name="statusStore">
 			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>
 		</property>
-		<property name="bundlingDelay" value="15000"/>	
+		<property name="bundlingDelay" value="30000"/>	
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
 		<property name="coreManager" ref="coreManager"/>
 	</bean>
