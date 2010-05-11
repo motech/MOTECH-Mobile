@@ -130,7 +130,7 @@
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
                 <entry key="motechId" value="java.lang.Integer" />
-                <entry key="phoneNumber" value="java.lang.String" />
+                <entry key="phoneNumber" value="java.lang.Integer" />
                 <entry key="phoneOwnership" value="org.motechproject.ws.ContactNumberType" />
                 <entry key="nhis" value="java.lang.String" />
                 <entry key="nhisExpires" value="java.util.Date" />
@@ -304,7 +304,6 @@
                 <entry key="cwcLocation" value="java.lang.Integer" />
                 <entry key="house" value="java.lang.String" />
                 <entry key="community" value="java.lang.String" />
-                <entry key="maleInvolved" value="java.lang.Boolean" />
                 <entry key="bcg" value="java.lang.Boolean" />
                 <entry key="opvDose" value="java.lang.Integer" />
                 <entry key="pentaDose" value="java.lang.Integer" />
@@ -330,6 +329,7 @@
                 <entry key="staffId" value="java.lang.Integer" />
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
+                <entry key="registrationMode" value="org.motechproject.ws.RegistrationMode" />
                 <entry key="motechId" value="java.lang.Integer" />
                 <entry key="registrantType" value="org.motechproject.ws.RegistrantType" />
                 <entry key="firstName" value="java.lang.String" />
@@ -696,7 +696,7 @@
                 <entry key="preferredName" value="java.lang.String" />
                 <entry key="dob" value="java.util.Date" />
                 <entry key="nhisNo" value="java.lang.String" />
-                <entry key="phone" value="java.lang.String" />
+                <entry key="phone" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
