@@ -343,10 +343,7 @@
                 <entry key="nhis" value="java.lang.String" />
                 <entry key="nhisExpires" value="java.util.Date" />
                 <entry key="motherMotechId" value="java.lang.Integer" />
-                <entry key="region" value="java.lang.String" />
-                <entry key="district" value="java.lang.String" />
-                <entry key="subDistrict" value="java.lang.String" />
-                <entry key="community" value="java.lang.String" />
+                <entry key="community" value="java.lang.Integer" />
                 <entry key="address" value="java.lang.String" />
                 <entry key="phoneNumber" value="java.lang.Integer" />
                 <entry key="expDeliveryDate" value="java.util.Date" />
