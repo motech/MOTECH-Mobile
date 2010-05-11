@@ -40,6 +40,8 @@ import org.motechproject.mobile.core.model.NotificationTypeImpl;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
+import org.motechproject.ws.server.RegistrarService;
+import org.motechproject.ws.server.ValidationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -668,7 +670,7 @@ public class IntellIVRBeanTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testHandleRequest() {
+	public void testHandleRequest() throws NumberFormatException, ValidationException {
 		
 		String recipientID = "1";
 		MStatus status = MStatus.PENDING;
@@ -759,6 +761,13 @@ public class IntellIVRBeanTest {
 		MessageStatusStore mockStatusStore = createMock(MessageStatusStore.class);
 		intellivrBean.setStatusStore(mockStatusStore);
 		
+		RegistrarService mockRegistrarService = createMock(RegistrarService.class);
+		intellivrBean.setRegistrarService(mockRegistrarService);
+		
+		String[] registrarResponse = { "string1" };
+		
+		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andReturn(registrarResponse);
+		replay(mockRegistrarService);
 		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
 		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockDao);
 		replay(mockCoreManager);
@@ -773,9 +782,11 @@ public class IntellIVRBeanTest {
 		assertEquals(expectedResponse, actualResponse);
 		assertTrue(intellivrBean.bundledGatewayRequests.containsKey(actualResponse.getPrivate()));
 		
+		verify(mockRegistrarService);
 		verify(mockCoreManager);
 		verify(mockDao);
 		verify(mockStatusStore);
+		reset(mockRegistrarService);
 		reset(mockCoreManager);
 		reset(mockDao);
 		reset(mockStatusStore);
@@ -789,6 +800,8 @@ public class IntellIVRBeanTest {
 		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
 		expectedResponse.setStatus(StatusType.ERROR);
 		
+		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andReturn(registrarResponse);
+		replay(mockRegistrarService);
 		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
 		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockDao);
 		replay(mockCoreManager);
@@ -799,10 +812,42 @@ public class IntellIVRBeanTest {
 		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
 		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
 		
+		verify(mockRegistrarService);
 		verify(mockCoreManager);
 		verify(mockDao);
+		reset(mockRegistrarService);
 		reset(mockCoreManager);
 		reset(mockDao);
+		
+		/*
+		 * Test id validation error
+		 */
+		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+		expectedResponse.setStatus(StatusType.ERROR);
+		
+		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andThrow(new ValidationException());
+		replay(mockRegistrarService);
+		
+		actualResponse = intellivrBean.handleRequest(request);
+		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
+		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
+		
+		verify(mockRegistrarService);
+		reset(mockRegistrarService);	
+		
+		
+		/*
+		 * Test non numeric input
+		 */
+		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+		expectedResponse.setStatus(StatusType.ERROR);
+		
+		request.setUserid("NaN");
+		
+		actualResponse = intellivrBean.handleRequest(request);
+		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
+		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
+		
 		
 	}
 	

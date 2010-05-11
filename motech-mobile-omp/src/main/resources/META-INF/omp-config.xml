@@ -174,6 +174,7 @@
 		<property name="bundlingDelay" value="30000"/>	
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
 		<property name="coreManager" ref="coreManager"/>
+		<property name="registrarService" ref="registrarClient"/>
 	</bean>
 
 	<bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">

@@ -29,6 +29,8 @@ import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
+import org.motechproject.ws.server.RegistrarService;
+import org.motechproject.ws.server.ValidationException;
 import org.springframework.core.io.Resource;
 
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
@@ -48,6 +50,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private long bundlingDelay;
 	private Resource mappingResource;
 	private CoreManager coreManager;
+	private RegistrarService registrarService;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	
@@ -284,58 +287,77 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
-		log.info("Received ivr config request for id " + request.getUserid());
-
-		MotechContext context = coreManager.createMotechContext();
-		MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO(context);
-		
-		List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndStatus(request.getUserid(), MStatus.PENDING);		
 
 		ResponseType r = new ResponseType();
-		
-		if ( pendingMessageRequests.size() == 0 ) {
-			log.debug("No pending messages found for " + request.getUserid());
-			r.setStatus(StatusType.ERROR); 
-			r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
-			r.setErrorString("Invalid user id");
-		} else {
+		String userId = request.getUserid();
 
-			log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
+		log.info("Received ivr config request for id " + userId);
+
+		try {
 			
-			List<GatewayRequest> gwRequestList = new ArrayList<GatewayRequest>();
-			
-			for (Iterator iterator = pendingMessageRequests.iterator(); iterator.hasNext();) {
-				
-				MessageRequest messageRequest = (MessageRequest) iterator.next();
+			registrarService.getPatientEnrollments(Integer.parseInt(userId));
 
-				GatewayRequest gwr = new GatewayRequestImpl();
-				gwr.setMessageRequest(messageRequest);
+			MotechContext context = coreManager.createMotechContext();
+			MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO(context);
 
-				gwRequestList.add(gwr);
-				
-				statusStore.updateStatus(messageRequest.getId().toString(), StatusType.OK.value());
+			List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndStatus(request.getUserid(), MStatus.PENDING);		
+
+			if ( pendingMessageRequests.size() == 0 ) {
+				log.debug("No pending messages found for " + request.getUserid());
+				r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+				r.setErrorString("Invalid user id");
+				r.setStatus(StatusType.ERROR); 
+			} else {
+
+				log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
+
+				List<GatewayRequest> gwRequestList = new ArrayList<GatewayRequest>();
+
+				for (Iterator iterator = pendingMessageRequests.iterator(); iterator.hasNext();) {
+
+					MessageRequest messageRequest = (MessageRequest) iterator.next();
+
+					GatewayRequest gwr = new GatewayRequestImpl();
+					gwr.setMessageRequest(messageRequest);
+
+					gwRequestList.add(gwr);
+
+					statusStore.updateStatus(messageRequest.getId().toString(), StatusType.OK.value());
+
+				}
+
+				/*
+				 * ResponseType fields are a subset of the RequestType fields
+				 * Can create a RequestType based on this criteria and use
+				 * only the fields that are needed to create the ResponseType
+				 */
+				RequestType requestType = createIVRRequest(gwRequestList);
+
+				r.setLanguage(requestType.getLanguage());
+				r.setPrivate(requestType.getPrivate());
+				r.setReportUrl(requestType.getReportUrl());
+				r.setStatus(StatusType.OK);
+				r.setTree(requestType.getTree());
+				r.setVxml(requestType.getVxml());
+
+				bundledGatewayRequests.put(requestType.getPrivate(), gwRequestList);
 
 			}
 
-			/*
-			 * ResponseType fields are a subset of the RequestType fields
-			 * Can create a RequestType based on this criteria and use
-			 * only the fields that are needed to create the ResponseType
-			 */
-			RequestType requestType = createIVRRequest(gwRequestList);
-
-			r.setLanguage(requestType.getLanguage());
-			r.setPrivate(requestType.getPrivate());
-			r.setReportUrl(requestType.getReportUrl());
-			r.setStatus(StatusType.OK);
-			r.setTree(requestType.getTree());
-			r.setVxml(requestType.getVxml());
-			
-			bundledGatewayRequests.put(requestType.getPrivate(), gwRequestList);
-			
+		} catch (NumberFormatException e) {
+			log.error("Invalid user id: id must be numeric");
+			r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+			r.setErrorString("Invalid user id: id must be numeric");
+			r.setStatus(StatusType.ERROR);
+		} catch (ValidationException e) {
+			log.error("Invalid user id: no such id '" + userId + "' on server");
+			r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+			r.setErrorString("Invalid user id: no such id '" + userId + "' on server");
+			r.setStatus(StatusType.ERROR);
 		}
-		
+
 		return r;
 	}
 
@@ -459,6 +481,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setCoreManager(CoreManager coreManager) {
 		this.coreManager = coreManager;
+	}
+
+	public RegistrarService getRegistrarService() {
+		return registrarService;
+	}
+
+	public void setRegistrarService(RegistrarService registrarService) {
+		this.registrarService = registrarService;
 	}
 
 	protected class IVRServerTimerTask extends TimerTask {
