@@ -143,14 +143,26 @@ public class OMIServiceImpl implements OMIService {
                 details.add(detail);
             }
         }
-        if(patientList != null){
-            for(Patient p : patientList){
-                details.add(new NameValuePair("PreferredName", p.getPreferredName()));
-                details.add(new NameValuePair("LastName", p.getLastName()));
-                details.add(new NameValuePair("Community", p.getCommunity()));
-                details.add(new NameValuePair("FirstName", p.getFirstName()));
-                details.add(new NameValuePair("MotechId", p.getMotechId()));
-                details.add(new NameValuePair("PhoneNumber", p.getPhoneNumber()));
+        if (patientList != null) {
+            for (Patient p : patientList) {
+                if (p.getPreferredName() != null) {
+                    details.add(new NameValuePair("PreferredName", p.getPreferredName()));
+                }
+                if (p.getLastName() != null) {
+                    details.add(new NameValuePair("LastName", p.getLastName()));
+                }
+                if (p.getCommunity() != null) {
+                    details.add(new NameValuePair("Community", p.getCommunity()));
+                }
+                if (p.getFirstName() != null) {
+                    details.add(new NameValuePair("FirstName", p.getFirstName()));
+                }
+                if (p.getMotechId() != null) {
+                    details.add(new NameValuePair("MotechId", p.getMotechId()));
+                }
+                if (p.getPhoneNumber() != null) {
+                    details.add(new NameValuePair("PhoneNumber", p.getPhoneNumber()));
+                }
             }
         }
         messageRequest.setPersInfos(details);
