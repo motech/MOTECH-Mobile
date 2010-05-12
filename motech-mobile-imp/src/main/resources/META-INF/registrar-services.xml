@@ -362,6 +362,16 @@
                 <entry key="messageStartWeek" value="java.lang.Integer" />
             </map>
         </property>
+        <property name="callback">
+            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+                <property name="methodName" value="formatPatientDetailsMessage" />
+                <property name="methodParams">
+                    <map key-type="java.lang.String">
+                        <entry key="patient" value="org.motechproject.ws.Patient" />
+                    </map>
+                </property>
+            </bean>
+        </property>
     </bean>
 
     <bean name="registerPregnancySignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
@@ -495,7 +505,7 @@
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
@@ -515,7 +525,7 @@
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
@@ -535,7 +545,7 @@
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
@@ -555,7 +565,7 @@
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
@@ -575,7 +585,7 @@
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
@@ -656,7 +666,7 @@
                 <property name="methodName" value="formatUpcomingCaresMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Patient" />
+                        <entry key="patient" value="org.motechproject.ws.Patient" />
                     </map>
                 </property>
             </bean>
@@ -676,7 +686,7 @@
                 <property name="methodName" value="formatPatientDetailsMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Patient" />
+                        <entry key="patient" value="org.motechproject.ws.Patient" />
                     </map>
                 </property>
             </bean>
