@@ -81,14 +81,14 @@ public class IMPServiceImpl implements IMPService {
         tx.commit();
 
         CommandAction action = cmdActionMap.get(cmd.toUpperCase());
-        if(action == null){
+        if (action == null) {
             response.setContent("Error: Unknown Form!\nPlease specify the form you wish to process.");
             return response;
         }
 
         response = action.execute(inMsg, requesterPhone, context);
 
-        if(inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getSendResponse()){
+        if (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getSendResponse()) {
             sendResponse(response.getContent(), response.getIncomingMessage().getIncomingMsgSession().getRequesterPhone());
         }
 
@@ -175,33 +175,54 @@ public class IMPServiceImpl implements IMPService {
      */
     private void sendResponse(String response, String recipient) {
         recipient = formatPhoneNumber(recipient);
-        
-        if(recipient == null || recipient.isEmpty())
+
+        if (recipient == null || recipient.isEmpty()) {
             return;
-        
+        }
+
         if (response.length() <= charsPerSMS) {
             omiManager.createOMIService().sendMessage(response, recipient);
         } else {
+            int start = 0;
+            int end = 0;
+
             for (byte smsNum = 1; smsNum <= maxSMS; smsNum++) {
-                int start = (smsNum - 1) * (charsPerSMS - concatAllowance) * maxConcat;
-                int end = (smsNum * (charsPerSMS - concatAllowance) * maxConcat) - 1;
+                String currSMS = "";
+                end = start + charsPerSMS;
 
                 if (response.length() > start) {
-                    String message = response.length() < end ? response.substring(start) : response.substring(start, end);
-                    omiManager.createOMIService().sendMessage(message, recipient);
+                    currSMS = response.length() < end ? response.substring(start) : response.substring(start, end);
                 }
+
+                if (currSMS.contains("\n")) {
+                    String message = "";
+                    String[] lines = currSMS.split("\n");
+
+                    for (String line : lines) {
+                        int currLen = message.length() + line.length() + 1;
+                        if (currLen < charsPerSMS) {
+                            message += line + "\n";
+                        }
+                    }
+                    currSMS = message.trim();
+                }
+                omiManager.createOMIService().sendMessage(currSMS, recipient);
+                start = currSMS.length();
             }
         }
     }
 
-    public String formatPhoneNumber(String requesterPhone){
-        if(requesterPhone == null || requesterPhone.isEmpty())
+    public String formatPhoneNumber(
+            String requesterPhone) {
+        if (requesterPhone == null || requesterPhone.isEmpty()) {
             return null;
+        }
 
         String formattedNumber = requesterPhone;
-        if(Pattern.matches(localNumberExpression, requesterPhone)){
+        if (Pattern.matches(localNumberExpression, requesterPhone)) {
             formattedNumber = defaultCountryCode + requesterPhone.substring(1);
         }
+
         return formattedNumber;
     }
 
