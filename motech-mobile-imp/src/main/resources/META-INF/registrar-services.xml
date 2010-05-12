@@ -202,6 +202,16 @@
                 <entry key="child3BCG" value="java.lang.Boolean" />
             </map>
         </property>
+        <property name="callback">
+            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+                <property name="methodName" value="formatMatchingPatientsMessage" />
+                <property name="methodParams">
+                    <map key-type="java.lang.String">
+                        <entry key="patients" value="org.motechproject.ws.Patient[]" />
+                    </map>
+                </property>
+            </bean>
+        </property>
     </bean>
 
     <bean name="recordDeliveryNotificationSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
