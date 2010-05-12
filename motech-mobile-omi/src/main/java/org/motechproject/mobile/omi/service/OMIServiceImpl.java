@@ -60,16 +60,16 @@ public class OMIServiceImpl implements OMIService {
      *
      * @see OMIService.sendPatientMessage
      */
-    public synchronized MessageStatus savePatientMessageRequest(String messageId, 
-                                                                NameValuePair[] personalInfo,
-                                                                String patientNumber,
-                                                                ContactNumberType patientNumberType,
-                                                                String langCode,
-                                                                MediaType messageType,
-                                                                Long notificationType,
-                                                                Date startDate,
-                                                                Date endDate,
-                                                                String recipientId) {
+    public synchronized MessageStatus savePatientMessageRequest(String messageId,
+            NameValuePair[] personalInfo,
+            String patientNumber,
+            ContactNumberType patientNumberType,
+            String langCode,
+            MediaType messageType,
+            Long notificationType,
+            Date startDate,
+            Date endDate,
+            String recipientId) {
         logger.info("Constructing MessageRequest object...");
 
         MotechContext mc = coreManager.createMotechContext();
@@ -137,13 +137,23 @@ public class OMIServiceImpl implements OMIService {
 
         Language langObject = coreManager.createLanguageDAO(mc).getByCode(langCode);
 
+        HashSet<NameValuePair> details = new HashSet<NameValuePair>();
         if (personalInfo != null) {
-            HashSet<NameValuePair> details = new HashSet<NameValuePair>();
             for (NameValuePair detail : personalInfo) {
                 details.add(detail);
             }
-            messageRequest.setPersInfos(details);
         }
+        if(patientList != null){
+            for(Patient p : patientList){
+                details.add(new NameValuePair("PreferredName", p.getPreferredName()));
+                details.add(new NameValuePair("LastName", p.getLastName()));
+                details.add(new NameValuePair("Community", p.getCommunity()));
+                details.add(new NameValuePair("FirstName", p.getFirstName()));
+                details.add(new NameValuePair("MotechId", p.getMotechId()));
+                details.add(new NameValuePair("PhoneNumber", p.getPhoneNumber()));
+            }
+        }
+        messageRequest.setPersInfos(details);
 
         messageRequest.setTryNumber(1);
         messageRequest.setRequestId(messageId);
@@ -474,7 +484,7 @@ public class OMIServiceImpl implements OMIService {
         for (MessageRequest message : messages) {
             GatewayRequest gwReq = storeManager.constructMessage(message, mc, defaultLanguage);
             message.setGatewayRequestDetails(gwReq.getGatewayRequestDetails());
-            
+
             if (message.getLanguage() == null) {
                 message.setLanguage(defaultLanguage);
             }
