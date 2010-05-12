@@ -26,34 +26,34 @@
         </property>
         <property name="serviceMethods">
             <map key-type="java.lang.String" value-type="org.motechproject.mobile.imp.util.MethodSignature">
-                <entry key="GENERALOPD" value-ref="recordGeneralVisitSignatureBean" />
-                <entry key="EDITPATIENT" value-ref="editPatientSignatureBean" />
-                <entry key="ANC" value-ref="recordMotherANCVisitSignatureBean" />
-                <entry key="ABORTION" value-ref="recordPregnancyTerminationSignatureBean" />
-                <entry key="DELIVERY" value-ref="recordPregnancyDeliverySignatureBean" />
-                <entry key="DELIVERYNOTIFY" value-ref="recordDeliveryNotificationSignatureBean" />
-                <entry key="MOTHERPNC" value-ref="recordMotherPNCVisitSignatureBean" />
-                <entry key="DEATH" value-ref="recordDeathSignatureBean" />
-                <entry key="TT" value-ref="recordTTVisitSignatureBean" />
-                <entry key="CHILDPNC" value-ref="recordChildPNCVisitSignatureBean" />
-                <entry key="CHILDCWC" value-ref="recordChildCWCVisitSignatureBean" />
-                <entry key="REGISTERPATIENT" value-ref="registerPatientSignatureBean" />
-                <entry key="REGISTERPREGNANCY" value-ref="registerPregnancySignatureBean" />
-                <entry key="REGISTERANCMOTHER" value-ref="registerANCMotherSignatureBean" />
-                <entry key="REGISTERCWCCHILD" value-ref="registerCWCChildSignatureBean" />
-                <entry key="CHILDOPD" value-ref="recordChildVisitSignatureBean" />
-                <entry key="MOTHEROPD" value-ref="recordMotherVisitSignatureBean" />
-                <entry key="ANCDEFAULT" value-ref="queryANCDefaultersSignatureBean" />
-                <entry key="TTDEFAULT" value-ref="queryTTDefaultersSignatureBean" />
-                <entry key="PPCDEFAULT" value-ref="queryPPCDefaultersSignatureBean" />
-                <entry key="PNCDEFAULT" value-ref="queryPNCDefaultersSignatureBean" />
-                <entry key="CWCDEFAULT" value-ref="queryCWCDefaultersSignatureBean" />
-                <entry key="UPCOMINGDELIVERIES" value-ref="queryUpcomingDeliveriesSignatureBean" />
-                <entry key="RECENTDELIVERIES" value-ref="queryRecentDeliveriesSignatureBean" />
-                <entry key="OVERDUEDELIVERIES" value-ref="queryOverdueDeliveriesSignatureBean" />
-                <entry key="UPCOMINGCARE" value-ref="queryUpcomingCareSignatureBean" />
-                <entry key="VIEWPATIENT" value-ref="queryPatientSignatureBean" />
-                <entry key="FINDMOTECHID" value-ref="queryMotechIdSignatureBean" />
+                <entry key="GENERALOPD-JF" value-ref="recordGeneralVisitSignatureBean" />
+                <entry key="EDITPATIENT-JF" value-ref="editPatientSignatureBean" />
+                <entry key="ANC-JF" value-ref="recordMotherANCVisitSignatureBean" />
+                <entry key="ABORTION-JF" value-ref="recordPregnancyTerminationSignatureBean" />
+                <entry key="DELIVERY-JF" value-ref="recordPregnancyDeliverySignatureBean" />
+                <entry key="DELIVERYNOTIFY-JF" value-ref="recordDeliveryNotificationSignatureBean" />
+                <entry key="MOTHERPNC-JF" value-ref="recordMotherPNCVisitSignatureBean" />
+                <entry key="DEATH-JF" value-ref="recordDeathSignatureBean" />
+                <entry key="TT-JF" value-ref="recordTTVisitSignatureBean" />
+                <entry key="CHILDPNC-JF" value-ref="recordChildPNCVisitSignatureBean" />
+                <entry key="CHILDCWC-JF" value-ref="recordChildCWCVisitSignatureBean" />
+                <entry key="REGISTERPATIENT-JF" value-ref="registerPatientSignatureBean" />
+                <entry key="REGISTERPREGNANCY-JF" value-ref="registerPregnancySignatureBean" />
+                <entry key="REGISTERANCMOTHER-JF" value-ref="registerANCMotherSignatureBean" />
+                <entry key="REGISTERCWCCHILD-JF" value-ref="registerCWCChildSignatureBean" />
+                <entry key="CHILDOPD-JF" value-ref="recordChildVisitSignatureBean" />
+                <entry key="MOTHEROPD-JF" value-ref="recordMotherVisitSignatureBean" />
+                <entry key="ANCDEFAULT-JF" value-ref="queryANCDefaultersSignatureBean" />
+                <entry key="TTDEFAULT-JF" value-ref="queryTTDefaultersSignatureBean" />
+                <entry key="PPCDEFAULT-JF" value-ref="queryPPCDefaultersSignatureBean" />
+                <entry key="PNCDEFAULT-JF" value-ref="queryPNCDefaultersSignatureBean" />
+                <entry key="CWCDEFAULT-JF" value-ref="queryCWCDefaultersSignatureBean" />
+                <entry key="UPCOMINGDELIVERIES-JF" value-ref="queryUpcomingDeliveriesSignatureBean" />
+                <entry key="RECENTDELIVERIES-JF" value-ref="queryRecentDeliveriesSignatureBean" />
+                <entry key="OVERDUEDELIVERIES-JF" value-ref="queryOverdueDeliveriesSignatureBean" />
+                <entry key="UPCOMINGCARE-JF" value-ref="queryUpcomingCareSignatureBean" />
+                <entry key="VIEWPATIENT-JF" value-ref="queryPatientSignatureBean" />
+                <entry key="FINDMOTECHID-JF" value-ref="queryMotechIdSignatureBean" />
             </map>
         </property>
     </bean>
@@ -255,7 +255,7 @@
     </bean>
 
     <bean name="recordTTVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
-        <property name="methodName" value="recordDeath" />
+        <property name="methodName" value="recordTTVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
                 <entry key="staffId" value="java.lang.Integer" />
