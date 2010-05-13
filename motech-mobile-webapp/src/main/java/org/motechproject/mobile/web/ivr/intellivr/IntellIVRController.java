@@ -172,10 +172,15 @@ public class IntellIVRController extends AbstractController implements ResourceL
 
 	private String getContent(HttpServletRequest request) throws Exception {
 		InputStream in = request.getInputStream();
-		int length = request.getContentLength();
-		byte[] buffer = new byte[length];
-		in.read(buffer, 0, length);
-		return new String(buffer);
+		int len = 4096;
+		byte[] buffer = new byte[len];
+		int off = 0;
+		int read = 0;
+		while ( (read = in.read(buffer, off, len)) != -1) {
+			off += read;
+			len -= off;
+		}
+		return new String(buffer, 0, off);
 	}
 	
 	private boolean contentIsValid(String content) {
