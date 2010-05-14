@@ -10,7 +10,5 @@ package org.motechproject.mobile.core.model;
  */
 public enum IncMessageFormDefinitionType {
     ENCOUNTER,
-    JFORM,
-    JQUERY,
-    QUERY;
+    JFORM,    QUERY;
 }
