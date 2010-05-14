@@ -375,6 +375,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				List<GatewayRequest> requests = bundledGatewayRequests.get(bundleID);
 				for (Iterator iterator = requests.iterator(); iterator.hasNext();) {
 					GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
+					log.debug("Updating Message Request " + gatewayRequest.getMessageRequest().getId().toString() + " to " + report.getStatus().value());
 					statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), report.getStatus().value());
 				}
 				bundledGatewayRequests.remove(bundleID);
