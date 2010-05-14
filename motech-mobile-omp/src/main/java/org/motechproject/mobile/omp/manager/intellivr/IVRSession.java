@@ -2,7 +2,6 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.motechproject.mobile.core.model.GatewayRequest;
 
@@ -19,38 +18,69 @@ public class IVRSession {
 		requests = new ArrayList<GatewayRequest>();
 	}
 
+	/**
+	 * Get user id of the recipient
+	 * @return userid
+	 */
 	public String getUserId() {
 		return userId;
 	}
 
+	/**
+	 * Set userid of the recipient
+	 * @param userId
+	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
+	/**
+	 * Get phone number of recipient
+	 * @return phone
+	 */
 	public String getPhone() {
 		return phone;
 	}
 
+	/**
+	 * Set phone number of recipient
+	 * @param phone
+	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
+	/**
+	 * Number of time a call has been attempted
+	 * @return attempts
+	 */
 	public int getAttempts() {
 		return attempts;
 	}
 
+	/**
+	 * Set the number of time the call has been attempted
+	 * @param attempts
+	 */
 	public void setAttempts(int attempts) {
 		this.attempts = attempts;
 	}
 
+	/**
+	 * String to uniquely identify the session
+	 * @return sessionId
+	 */
 	public Object getSessionId() {
 		return userId + "-" + phone;
 	}
 
+	/**
+	 * Adds {@link GatewayRequest} to the session
+	 * @param r
+	 */
 	public void addGatewayRequest(GatewayRequest r) {
 		boolean found = false;
-		for (Iterator<GatewayRequest> iterator = requests.iterator(); iterator.hasNext();) {
-			GatewayRequest gr = iterator.next();
+		for (GatewayRequest gr : requests) {
 			if ( gr.getId() == r.getId() )
 				found = true;
 		}
@@ -58,6 +88,10 @@ public class IVRSession {
 			requests.add(r);
 	}
 
+	/**
+	 * Removes a {@link GatewayRequest} from the session
+	 * @param r
+	 */
 	public void removeGatewayRequest(GatewayRequest r) {
 		ArrayList<GatewayRequest> toRemove = new ArrayList<GatewayRequest>();
 		for ( GatewayRequest gr : requests )
@@ -67,6 +101,10 @@ public class IVRSession {
 			requests.remove(gr);
 	}
 	
+	/**
+	 * Get a {@link Collection} of the {@link GatewayRequest} in session
+	 * @return
+	 */
 	public Collection<GatewayRequest> getGatewayRequests() {
 		return requests;
 	}
