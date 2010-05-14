@@ -82,6 +82,13 @@ public interface MessageFormatter {
     String formatUpcomingCaresMessage(Patient patient);
 
     /**
+     * Constructs a formatted patient registration response message
+     * @param patient object containing list of upcoming care
+     * @return the formatted message
+     */
+    String formatPatientRegistrationMessage(Patient patient);
+
+    /**
      * @param dateFormat the dateFormat to set
      */
     void setDateFormat(String dateFormat);

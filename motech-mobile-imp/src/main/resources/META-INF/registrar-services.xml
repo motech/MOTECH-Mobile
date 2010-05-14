@@ -374,7 +374,7 @@
         </property>
         <property name="callback">
             <bean class="org.motechproject.mobile.imp.util.MethodSignature">
-                <property name="methodName" value="formatPatientDetailsMessage" />
+                <property name="methodName" value="formatPatientRegistrationMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
                         <entry key="patient" value="org.motechproject.ws.Patient" />
