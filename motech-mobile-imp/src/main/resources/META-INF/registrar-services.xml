@@ -182,24 +182,18 @@
                 <entry key="child1Sex" value="org.motechproject.ws.Gender" />
                 <entry key="child1FirstName" value="java.lang.String" />
                 <entry key="child1Weight" value="java.lang.Double" />
-                <entry key="child1OPV" value="java.lang.Boolean" />
-                <entry key="child1BCG" value="java.lang.Boolean" />
                 <entry key="child2Outcome" value="org.motechproject.ws.BirthOutcome" />
                 <entry key="child2RegistrationType" value="org.motechproject.ws.RegistrationMode" />
                 <entry key="child2MotechId" value="java.lang.Integer" />
                 <entry key="child2Sex" value="org.motechproject.ws.Gender" />
                 <entry key="child2FirstName" value="java.lang.String" />
                 <entry key="child2Weight" value="java.lang.Double" />
-                <entry key="child2OPV" value="java.lang.Boolean" />
-                <entry key="child2BCG" value="java.lang.Boolean" />
                 <entry key="child3Outcome" value="org.motechproject.ws.BirthOutcome" />
                 <entry key="child3RegistrationType" value="org.motechproject.ws.RegistrationMode" />
                 <entry key="child3MotechId" value="java.lang.Integer" />
                 <entry key="child3Sex" value="org.motechproject.ws.Gender" />
                 <entry key="child3FirstName" value="java.lang.String" />
                 <entry key="child3Weight" value="java.lang.Double" />
-                <entry key="child3OPV" value="java.lang.Boolean" />
-                <entry key="child3BCG" value="java.lang.Boolean" />
             </map>
         </property>
         <property name="callback">
@@ -355,7 +349,7 @@
                 <entry key="motherMotechId" value="java.lang.Integer" />
                 <entry key="community" value="java.lang.Integer" />
                 <entry key="address" value="java.lang.String" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="expDeliveryDate" value="java.util.Date" />
                 <entry key="deliveryDateConfirmed" value="java.lang.Boolean" />
                 <entry key="gravida" value="java.lang.Integer" />
@@ -396,7 +390,7 @@
                 <entry key="enroll" value="java.lang.Boolean" />
                 <entry key="consent" value="java.lang.Boolean" />
                 <entry key="ownership" value="org.motechproject.ws.ContactNumberType" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="format" value="org.motechproject.ws.MediaType" />
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
@@ -424,7 +418,7 @@
                 <entry key="enroll" value="java.lang.Boolean" />
                 <entry key="consent" value="java.lang.Boolean" />
                 <entry key="ownership" value="org.motechproject.ws.ContactNumberType" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="format" value="org.motechproject.ws.MediaType" />
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
@@ -448,7 +442,7 @@
                 <entry key="enroll" value="java.lang.Boolean" />
                 <entry key="consent" value="java.lang.Boolean" />
                 <entry key="ownership" value="org.motechproject.ws.ContactNumberType" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="format" value="org.motechproject.ws.MediaType" />
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
