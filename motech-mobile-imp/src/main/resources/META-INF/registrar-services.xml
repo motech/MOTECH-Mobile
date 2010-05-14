@@ -130,7 +130,7 @@
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
                 <entry key="motechId" value="java.lang.Integer" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="phoneOwnership" value="org.motechproject.ws.ContactNumberType" />
                 <entry key="nhis" value="java.lang.String" />
                 <entry key="nhisExpires" value="java.util.Date" />
@@ -707,7 +707,7 @@
                 <entry key="preferredName" value="java.lang.String" />
                 <entry key="dob" value="java.util.Date" />
                 <entry key="nhisNo" value="java.lang.String" />
-                <entry key="phone" value="java.lang.Integer" />
+                <entry key="phone" value="java.lang.String" />
             </map>
         </property>
         <property name="callback">
