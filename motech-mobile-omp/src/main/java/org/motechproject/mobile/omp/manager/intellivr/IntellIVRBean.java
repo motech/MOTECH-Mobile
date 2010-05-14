@@ -48,6 +48,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	protected Map<String, List<GatewayRequest>> bundledGatewayRequests;
 	private Timer timer;
 	private long bundlingDelay;
+	private int retryDelay;
 	private Resource mappingResource;
 	private CoreManager coreManager;
 	private RegistrarService registrarService;
@@ -375,10 +376,27 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				List<GatewayRequest> requests = bundledGatewayRequests.get(bundleID);
 				for (Iterator iterator = requests.iterator(); iterator.hasNext();) {
 					GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
-					log.debug("Updating Message Request " + gatewayRequest.getMessageRequest().getId().toString() + " to " + report.getStatus().value());
-					statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), report.getStatus().value());
+					/*
+					 * if it is not complete set status to OK which will leave the status as PENDING
+					 */
+					String newStatus = report.getStatus() == ReportStatusType.COMPLETED ? report.getStatus().value() : "OK";
+					log.debug("Updating Message Request " + gatewayRequest.getMessageRequest().getId().toString() + " to " + newStatus);
+					statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), newStatus);
 				}
+				
+				/*
+				 * if not complete then retry
+				 */
+				if ( requests.size() > 0  && report.getStatus() != ReportStatusType.COMPLETED ) {
+					String recipientId = requests.get(0).getMessageRequest().getRecipientId();
+					bundledGatewayRequests.put(recipientId, requests);
+					IVRServerTimerTask task = new IVRServerTimerTask(recipientId);
+					if ( retryDelay > -1 )
+						timer.schedule(task, 1000 * 60 * retryDelay);
+				}
+				
 				bundledGatewayRequests.remove(bundleID);
+				
 			}
 		}
 			
@@ -466,6 +484,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setBundlingDelay(long bundlingDelay) {
 		this.bundlingDelay = bundlingDelay;
+	}
+
+	public int getRetryDelay() {
+		return retryDelay;
+	}
+
+	public void setRetryDelay(int retryDelay) {
+		this.retryDelay = retryDelay;
 	}
 
 	public Resource getMappingResource() {

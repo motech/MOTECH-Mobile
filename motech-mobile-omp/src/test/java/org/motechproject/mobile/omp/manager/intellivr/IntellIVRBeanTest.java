@@ -439,6 +439,8 @@ public class IntellIVRBeanTest {
 	@Test
 	public void testHandleReport() {
 		
+		String recipientID = "123456789";
+		
 		Language english = new LanguageImpl();
 		english.setCode("en");
 		english.setId(1L);
@@ -450,7 +452,7 @@ public class IntellIVRBeanTest {
 		MessageRequest mr1 = new MessageRequestImpl();
 		mr1.setId(1L);
 		mr1.setLanguage(english);
-		mr1.setRecipientId("123456789");
+		mr1.setRecipientId(recipientID);
 		mr1.setRequestId("mr1");
 		mr1.setNotificationType(n1);
 		mr1.setPhoneNumberType("PERSONAL");
@@ -467,7 +469,7 @@ public class IntellIVRBeanTest {
 		MessageRequest mr2 = new MessageRequestImpl();
 		mr2.setId(2L);
 		mr2.setLanguage(english);
-		mr2.setRecipientId("123456789");
+		mr2.setRecipientId(recipientID);
 		mr2.setRequestId("mr2");
 		mr2.setNotificationType(n2);
 		mr2.setPhoneNumberType("PERSONAL");
@@ -484,7 +486,7 @@ public class IntellIVRBeanTest {
 		MessageRequest mr3 = new MessageRequestImpl();
 		mr3.setId(3L);
 		mr3.setLanguage(english);
-		mr3.setRecipientId("123456789");
+		mr3.setRecipientId(recipientID);
 		mr3.setRequestId("mr3");
 		mr3.setNotificationType(n3);
 		mr3.setPhoneNumberType("PERSONAL");
@@ -514,6 +516,9 @@ public class IntellIVRBeanTest {
 			expectedBundledRequests.put(mr1.getId().toString(), expectedGatewayRequestsList);
 
 			intellivrBean.bundledGatewayRequests = expectedBundledRequests;
+		
+			MessageStatusStore statusStore = createMock(MessageStatusStore.class);
+			intellivrBean.setStatusStore(statusStore);
 			
 			if ( type == ReportStatusType.COMPLETED ) {
 				
@@ -538,30 +543,47 @@ public class IntellIVRBeanTest {
 				
 				report.intellivrEntry = entryList;
 				
+				statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
+				statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
+				statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
+				replay(statusStore);
+
+				assertTrue(intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+				
+				ResponseType response = intellivrBean.handleReport(report);
+				
+				assertEquals(StatusType.OK, response.getStatus());
+				
+				assertTrue(!intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+				
+				verify(statusStore);
+				
 			} else {
+				
+				intellivrBean.setRetryDelay(-1);
 				
 				report.setDuration(0);
 				report.setINTELLIVREntryCount(0);
 				report.intellivrEntry = null;
 				
+				statusStore.updateStatus(mr1.getId().toString(), "OK");
+				statusStore.updateStatus(mr2.getId().toString(), "OK");
+				statusStore.updateStatus(mr3.getId().toString(), "OK");
+				replay(statusStore);
+
+				assertTrue(intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+
+				ResponseType response = intellivrBean.handleReport(report);
+				
+				assertEquals(StatusType.OK, response.getStatus());
+				
+				assertTrue(!intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+				
+				assertTrue(intellivrBean.bundledGatewayRequests.containsKey(mr1.getRecipientId()));
+				
+				verify(statusStore);
+				
 			}
-
-			MessageStatusStore statusStore = createMock(MessageStatusStore.class);
-			intellivrBean.setStatusStore(statusStore);
-			statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
-			statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
-			statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
-			replay(statusStore);
-
-			assertTrue(intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
-			
-			ResponseType response = intellivrBean.handleReport(report);
-			
-			assertEquals(StatusType.OK, response.getStatus());
-			
-			assertTrue(!intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
-			
-			verify(statusStore);
 			
 		}
 

@@ -172,6 +172,7 @@
 			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>
 		</property>
 		<property name="bundlingDelay" value="30000"/>	
+		<property name="retryDelay" value="15"/>
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
 		<property name="coreManager" ref="coreManager"/>
 		<property name="registrarService" ref="registrarClient"/>
