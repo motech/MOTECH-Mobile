@@ -26,13 +26,13 @@ import org.motechproject.ws.server.ValidationException;
  * @author user
  */
 public class FormProcessorImpl implements FormProcessor {
+
     private String dateFormat;
     private RegistrarService regWS;
     private OMIManager omiManager;
     private CoreManager coreManager;
     private Map<Integer, String> serverErrors;
     private Map<String, MethodSignature> serviceMethods;
-
     private static Logger logger = Logger.getLogger(FormProcessorImpl.class);
 
     public String processForm(IncomingMessageForm form) {
@@ -65,16 +65,16 @@ public class FormProcessorImpl implements FormProcessor {
                         paramObjs[idx] = Enum.valueOf(e.getValue(), form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
                     } else if (e.getValue().equals(String.class)) {
                         paramObjs[idx] = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue();
-                    } else if(e.getValue().isArray()){
+                    } else if (e.getValue().isArray()) {
                         String[] a = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().split(" ");
-                        
+
                         Object arrayObj = Array.newInstance(e.getValue().getComponentType(), a.length);
-                        for(int i = 0; i < a.length; i++){
+                        for (int i = 0; i < a.length; i++) {
                             Array.set(arrayObj, i, a[i]);
                         }
-                        
+
                         paramObjs[idx] = arrayObj;
-                    }else {
+                    } else {
                         Constructor constr = e.getValue().getConstructor(String.class);
                         paramObjs[idx] = constr.newInstance(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
                     }
@@ -87,15 +87,19 @@ public class FormProcessorImpl implements FormProcessor {
             result = method.invoke(regWS, paramObjs);
             form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
         } catch (NoSuchMethodException ex) {
+            form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             logger.fatal("Could not find web service method " + methodName, ex);
         } catch (SecurityException ex) {
+            form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             logger.fatal("Could not access method " + methodName + " due to SecurityException", ex);
         } catch (IllegalAccessException ex) {
+            form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             logger.fatal("Could not invoke method " + methodName + " due to IllegalAccessException", ex);
         } catch (InvocationTargetException ex) {
             if (ex.getCause().getClass().equals(ValidationException.class)) {
                 parseValidationErrors(form, (ValidationException) ex.getCause());
             } else {
+                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
                 logger.fatal("Could not invoke method " + methodName + " due to InvocationTargetException", ex);
             }
         } catch (Exception ex) {
@@ -110,7 +114,7 @@ public class FormProcessorImpl implements FormProcessor {
         return executeCallback(mSig, result);
     }
 
-    private String executeCallback(MethodSignature mSig, Object param){
+    private String executeCallback(MethodSignature mSig, Object param) {
         MessageFormatter formatter = omiManager.createMessageFormatter();
         String formattedResponse = "";
 

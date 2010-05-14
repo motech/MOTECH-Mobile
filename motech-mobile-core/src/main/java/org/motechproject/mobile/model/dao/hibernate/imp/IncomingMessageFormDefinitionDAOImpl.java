@@ -48,9 +48,8 @@ public class IncomingMessageFormDefinitionDAOImpl extends HibernateGenericDAOImp
             logger.error("Persistence or JDBC Exception in getByCode", he);
             return null;
         } catch (Exception ex) {
-
             logger.error("Exception in getByCode", ex);
-            return new IncomingMessageFormDefinitionImpl();
+            return null;
         }
     }
 }
