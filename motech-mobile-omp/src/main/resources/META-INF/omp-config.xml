@@ -128,26 +128,29 @@
 				<entry key="ERROR">
 					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
+				<entry key="MAXATTEMPTS">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
 				<entry key="OK">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="REJECTED">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="BUSY">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="CONGESTION">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="NOANSWER">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="INTERNALERROR">
 					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
 				</entry>
 				<entry key="COMPLETED">
 					<value type="org.motechproject.mobile.core.model.MStatus">DELIVERED</value>
-				</entry>
-				<entry key="REJECTED">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
-				<entry key="BUSY">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
-				<entry key="CONGESTION">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
-				<entry key="NOANSWER">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
-				<entry key="INTERNALERROR">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
 				</entry>
 			</map>
 		</constructor-arg>
@@ -173,6 +176,7 @@
 		</property>
 		<property name="bundlingDelay" value="30000"/>	
 		<property name="retryDelay" value="15"/>
+		<property name="maxAttempts" value="4"/>
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
 		<property name="coreManager" ref="coreManager"/>
 		<property name="registrarService" ref="registrarClient"/>

@@ -124,6 +124,11 @@ public class IntellIVRBeanTest {
 	@Test
 	public void testSendMessage() {
 
+		String recipient1 = "1";
+		String phone1 = "5555555";
+		String recipient2 = "2";
+		String phone2 = "5555556";	
+		
 		intellivrBean.setBundlingDelay(-1);
 
 		MotechContext mockContext = createMock(MotechContext.class);
@@ -148,7 +153,7 @@ public class IntellIVRBeanTest {
 		MessageRequest mr1 = new MessageRequestImpl();
 		mr1.setId(1L);
 		mr1.setLanguage(english);
-		mr1.setRecipientId("123456789");
+		mr1.setRecipientId(recipient1);
 		mr1.setRequestId("mr1");
 		mr1.setMessageType(MessageType.VOICE);
 		mr1.setNotificationType(n1);
@@ -158,7 +163,7 @@ public class IntellIVRBeanTest {
 		r1.setId(1000L);
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
-		r1.setRecipientsNumber("15555555555");
+		r1.setRecipientsNumber(phone1);
 
 		GatewayResponse gr1 = new GatewayResponseImpl();
 		gr1.setGatewayMessageId(mr1.getId().toString());
@@ -176,7 +181,7 @@ public class IntellIVRBeanTest {
 		MessageRequest mr2 = new MessageRequestImpl();
 		mr2.setId(2L);
 		mr2.setLanguage(english);
-		mr2.setRecipientId("123456789");
+		mr2.setRecipientId(recipient1);
 		mr2.setRequestId("mr2");
 		mr2.setMessageType(MessageType.VOICE);
 		mr2.setNotificationType(n2);
@@ -186,7 +191,7 @@ public class IntellIVRBeanTest {
 		r2.setId(2000L);
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
-		r2.setRecipientsNumber("15555555555");
+		r2.setRecipientsNumber(phone1);
 		
 		GatewayResponse gr2 = new GatewayResponseImpl();
 		gr2.setGatewayMessageId(mr2.getId().toString());
@@ -204,7 +209,7 @@ public class IntellIVRBeanTest {
 		MessageRequest mr3 = new MessageRequestImpl();
 		mr3.setId(3L);
 		mr3.setLanguage(english);
-		mr3.setRecipientId("123456789");
+		mr3.setRecipientId(recipient2);
 		mr3.setRequestId("mr3");
 		mr3.setMessageType(MessageType.VOICE);
 		mr3.setNotificationType(n3);
@@ -214,7 +219,7 @@ public class IntellIVRBeanTest {
 		r3.setId(3000L);
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
-		r3.setRecipientsNumber("15555555555");
+		r3.setRecipientsNumber(phone2);
 
 		GatewayResponse gr3 = new GatewayResponseImpl();
 		gr3.setGatewayMessageId(mr3.getId().toString());
@@ -232,7 +237,7 @@ public class IntellIVRBeanTest {
 		MessageRequest mr4 = new MessageRequestImpl();
 		mr4.setId(4L);
 		mr4.setLanguage(english);
-		mr4.setRecipientId("123456789");
+		mr4.setRecipientId(recipient1);
 		mr4.setRequestId("mr4");
 		mr4.setNotificationType(n4);
 		mr4.setMessageType(MessageType.VOICE);
@@ -260,7 +265,7 @@ public class IntellIVRBeanTest {
 		MessageRequest mr5 = new MessageRequestImpl();
 		mr5.setId(5L);
 		mr5.setLanguage(english);
-		mr5.setRecipientId("123456789");
+		mr5.setRecipientId(recipient1);
 		mr5.setRequestId("mr5");
 		mr5.setNotificationType(n5);
 		mr5.setMessageType(MessageType.TEXT);
@@ -270,7 +275,7 @@ public class IntellIVRBeanTest {
 		r5.setId(5000L);
 		r5.setMessageRequest(mr5);
 		r5.setMessageStatus(MStatus.PENDING);
-		r5.setRecipientsNumber("15555555555");
+		r5.setRecipientsNumber(phone1);
 		
 		GatewayResponse gr5 = new GatewayResponseImpl();
 		gr5.setGatewayMessageId(mr5.getId().toString());
@@ -282,13 +287,16 @@ public class IntellIVRBeanTest {
 		Set<GatewayResponse> grs5 = new HashSet<GatewayResponse>();
 		grs5.add(gr5);
 	
-		List<GatewayRequest> expectedGatewayRequestsList = new ArrayList<GatewayRequest>();
-		expectedGatewayRequestsList.add(r1);
-		expectedGatewayRequestsList.add(r2);
-		expectedGatewayRequestsList.add(r3);
+		IVRSession session1 = new IVRSession(recipient1, phone1, english.getName());
+		session1.addGatewayRequest(r1);
+		session1.addGatewayRequest(r2);
 		
-		Map<String, List<GatewayRequest>> expectedBundledRequests = new HashMap<String, List<GatewayRequest>>();
-		expectedBundledRequests.put(mr1.getRecipientId(), expectedGatewayRequestsList);
+		IVRSession session2 = new IVRSession(recipient2, phone2, english.getName());
+		session2.addGatewayRequest(r3);
+		
+		Map<String, IVRSession> expectedIVRSessions = new HashMap<String, IVRSession>();
+		expectedIVRSessions.put(session1.getSessionId(),session1);
+		expectedIVRSessions.put(session2.getSessionId(),session2);
 		
 		/*
 		 * Test non-null recipient
@@ -343,28 +351,39 @@ public class IntellIVRBeanTest {
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 		
-		assertEquals(expectedBundledRequests, intellivrBean.bundledGatewayRequests);
+		assertEquals(expectedIVRSessions, intellivrBean.ivrSessions);
 		
 		/*
 		 * Now test sendPending and see if it sends the right RequestType
 		 */
-		RequestType expectedRequest = intellivrBean.createIVRRequest(expectedBundledRequests.get(mr1.getRecipientId()));
-		
+		RequestType expectedRequest = intellivrBean.createIVRRequest(session1);
+
 		ResponseType expectedResponse = new ResponseType();
 		expectedResponse.setStatus(StatusType.OK);
-		
+
 		expect(mockIVRServer.requestCall(expectedRequest)).andReturn(expectedResponse);
 		replay(mockIVRServer);
 		mockStatusStore.updateStatus(gr1.getGatewayMessageId(), StatusType.OK.value());
 		mockStatusStore.updateStatus(gr2.getGatewayMessageId(), StatusType.OK.value());
+		replay(mockStatusStore);
+
+		intellivrBean.sendPending(session1);
+
+		verify(mockIVRServer);
+		verify(mockStatusStore);
+		reset(mockIVRServer);
+		reset(mockStatusStore);
+		
+		expectedRequest = intellivrBean.createIVRRequest(session2);
+
+		expectedResponse.setStatus(StatusType.OK);
+
+		expect(mockIVRServer.requestCall(expectedRequest)).andReturn(expectedResponse);
+		replay(mockIVRServer);
 		mockStatusStore.updateStatus(gr3.getGatewayMessageId(), StatusType.OK.value());		
 		replay(mockStatusStore);
-		
-		intellivrBean.sendPending(mr1.getRecipientId());
-		assertFalse(intellivrBean.bundledGatewayRequests.containsKey(mr1.getRecipientId()));
-		assertTrue(intellivrBean.bundledGatewayRequests.containsKey(expectedRequest.getPrivate()));
-		assertTrue(intellivrBean.bundledGatewayRequests
-				 .containsValue(expectedBundledRequests.get(mr1.getRecipientId())));
+
+		intellivrBean.sendPending(session2);
 		
 		verify(mockIVRServer);
 		verify(mockStatusStore);
@@ -378,19 +397,7 @@ public class IntellIVRBeanTest {
 			
 			ErrorCodeType errorCode = iterator.next();
 			
-			/*
-			 * reset the contents of the bundled requests
-			 */
-			List<GatewayRequest> requestList = new ArrayList<GatewayRequest>();
-			requestList.add(r1);
-			requestList.add(r2);
-			requestList.add(r3);
-			intellivrBean.bundledGatewayRequests = new HashMap<String, List<GatewayRequest>>();
-			intellivrBean.bundledGatewayRequests.put(mr1.getRecipientId(), requestList);
-			
-			assertEquals(expectedBundledRequests, intellivrBean.bundledGatewayRequests);
-			
-			expectedRequest = intellivrBean.createIVRRequest(expectedBundledRequests.get(mr1.getRecipientId()));
+			expectedRequest = intellivrBean.createIVRRequest(session1);
 
 			expectedResponse = new ResponseType();
 			expectedResponse.setStatus(StatusType.ERROR);
@@ -400,15 +407,9 @@ public class IntellIVRBeanTest {
 			replay(mockIVRServer);
 			mockStatusStore.updateStatus(gr1.getGatewayMessageId(), errorCode.value());
 			mockStatusStore.updateStatus(gr2.getGatewayMessageId(), errorCode.value());
-			mockStatusStore.updateStatus(gr3.getGatewayMessageId(), errorCode.value());
 			replay(mockStatusStore);
 			
-			intellivrBean.sendPending(mr1.getRecipientId());
-			
-			assertFalse(intellivrBean.bundledGatewayRequests.containsKey(mr1.getRecipientId()));
-			assertFalse(intellivrBean.bundledGatewayRequests.containsKey(expectedRequest.getPrivate()));
-			assertFalse(intellivrBean.bundledGatewayRequests
-									 .containsValue(expectedBundledRequests.get(mr1.getRecipientId())));
+			intellivrBean.sendPending(session1);
 			
 			verify(mockIVRServer);
 			verify(mockStatusStore);
@@ -440,6 +441,7 @@ public class IntellIVRBeanTest {
 	public void testHandleReport() {
 		
 		String recipientID = "123456789";
+		String phone = "15555555555";
 		
 		Language english = new LanguageImpl();
 		english.setCode("en");
@@ -461,7 +463,7 @@ public class IntellIVRBeanTest {
 		r1.setId(1000L);
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
-		r1.setRecipientsNumber("15555555555");
+		r1.setRecipientsNumber(phone);
 
 		NotificationType n2 = new NotificationTypeImpl();
 		n2.setId(2L);
@@ -478,7 +480,7 @@ public class IntellIVRBeanTest {
 		r2.setId(2000L);
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
-		r2.setRecipientsNumber("15555555555");
+		r2.setRecipientsNumber(phone);
 
 		NotificationType n3 = new NotificationTypeImpl();
 		n3.setId(3L);
@@ -495,28 +497,29 @@ public class IntellIVRBeanTest {
 		r3.setId(3000L);
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
-		r3.setRecipientsNumber("15555555555");
+		r3.setRecipientsNumber(phone);
 		
 		ReportType report = new ReportType();
-		report.setCallee("15555555555");
+		report.setCallee(phone);
 		report.setConnectTime(null);
 		report.setDisconnectTime(null);
-		report.setPrivate(mr1.getId().toString());
+		report.setPrivate(recipientID + "-" + phone);
 
 		for ( ReportStatusType type : ReportStatusType.values()) {
 
 			report.setStatus(type);
 
-			List<GatewayRequest> expectedGatewayRequestsList = new ArrayList<GatewayRequest>();
-			expectedGatewayRequestsList.add(r1);
-			expectedGatewayRequestsList.add(r2);
-			expectedGatewayRequestsList.add(r3);
+			IVRSession session = new IVRSession(recipientID, phone, english.getName());
+			session.setAttempts(1);
+			session.addGatewayRequest(r1);
+			session.addGatewayRequest(r2);
+			session.addGatewayRequest(r3);
 			
-			Map<String, List<GatewayRequest>> expectedBundledRequests = new HashMap<String, List<GatewayRequest>>();
-			expectedBundledRequests.put(mr1.getId().toString(), expectedGatewayRequestsList);
-
-			intellivrBean.bundledGatewayRequests = expectedBundledRequests;
-		
+			Map<String, IVRSession> expectedSessions = new HashMap<String, IVRSession>();
+			expectedSessions.put(session.getSessionId(), session);
+			
+			intellivrBean.ivrSessions = expectedSessions;
+					
 			MessageStatusStore statusStore = createMock(MessageStatusStore.class);
 			intellivrBean.setStatusStore(statusStore);
 			
@@ -548,40 +551,60 @@ public class IntellIVRBeanTest {
 				statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
 				replay(statusStore);
 
-				assertTrue(intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 				
 				ResponseType response = intellivrBean.handleReport(report);
 				
 				assertEquals(StatusType.OK, response.getStatus());
 				
-				assertTrue(!intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 				
 				verify(statusStore);
 				
 			} else {
 				
 				intellivrBean.setRetryDelay(-1);
+				intellivrBean.setMaxAttempts(2);
 				
 				report.setDuration(0);
 				report.setINTELLIVREntryCount(0);
 				report.intellivrEntry = null;
 				
-				statusStore.updateStatus(mr1.getId().toString(), "OK");
-				statusStore.updateStatus(mr2.getId().toString(), "OK");
-				statusStore.updateStatus(mr3.getId().toString(), "OK");
+				statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
+				statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
+				statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
 				replay(statusStore);
 
-				assertTrue(intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
+				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
 				ResponseType response = intellivrBean.handleReport(report);
 				
 				assertEquals(StatusType.OK, response.getStatus());
-				
-				assertTrue(!intellivrBean.bundledGatewayRequests.containsKey(mr1.getId().toString()));
-				
-				assertTrue(intellivrBean.bundledGatewayRequests.containsKey(mr1.getRecipientId()));
+				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 				
 				verify(statusStore);
+				reset(statusStore);
+				
+				/*
+				 * increment attempts count to max, no further attempts should be made
+				 */
+				session.setAttempts(2);
+				
+				statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
+				statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
+				statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
+				replay(statusStore);
+
+				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+				response = intellivrBean.handleReport(report);
+				
+				assertEquals(StatusType.OK, response.getStatus());
+				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+				
+				verify(statusStore);
+				reset(statusStore);
+
 				
 			}
 			
@@ -591,6 +614,9 @@ public class IntellIVRBeanTest {
 	
 	@Test
 	public void testCreateRequestType() {
+		
+		String recipient = "123456789";
+		String phone = "5555555555";
 		
 		IVRNotificationMapping m1 = new IVRNotificationMapping();
 		m1.setId(1);
@@ -623,14 +649,14 @@ public class IntellIVRBeanTest {
 		MessageRequest mr1 = new MessageRequestImpl();
 		mr1.setId(1L);
 		mr1.setLanguage(english);
-		mr1.setRecipientId("123456789");
+		mr1.setRecipientId(recipient);
 		mr1.setNotificationType(n1);
 	
 		GatewayRequest r1 = new GatewayRequestImpl();
 		r1.setId(1000L);
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
-		r1.setRecipientsNumber("15555555555");
+		r1.setRecipientsNumber(phone);
 
 		NotificationType n2 = new NotificationTypeImpl();
 		n2.setId(2L);
@@ -638,14 +664,14 @@ public class IntellIVRBeanTest {
 		MessageRequest mr2 = new MessageRequestImpl();
 		mr2.setId(2L);
 		mr2.setLanguage(english);
-		mr2.setRecipientId("123456789");
+		mr2.setRecipientId(recipient);
 		mr2.setNotificationType(n2);
 			
 		GatewayRequest r2 = new GatewayRequestImpl();
 		r2.setId(2000L);
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
-		r2.setRecipientsNumber("15555555555");
+		r2.setRecipientsNumber(phone);
 		
 		NotificationType n3 = new NotificationTypeImpl();
 		n3.setId(3L);
@@ -653,23 +679,23 @@ public class IntellIVRBeanTest {
 		MessageRequest mr3 = new MessageRequestImpl();
 		mr3.setId(3L);
 		mr3.setLanguage(english);
-		mr3.setRecipientId("123456789");
+		mr3.setRecipientId(recipient);
 		mr3.setNotificationType(n3);
 		
 		GatewayRequest r3 = new GatewayRequestImpl();
 		r3.setId(3000L);
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
-		r3.setRecipientsNumber("15555555555");
+		r3.setRecipientsNumber(phone);
 				
-		List<GatewayRequest> requests = new ArrayList<GatewayRequest>();
-		requests.add(r1);
-		requests.add(r2);
-		requests.add(r3);
+		IVRSession session = new IVRSession(recipient, phone, english.getName());
+		session.addGatewayRequest(r1);
+		session.addGatewayRequest(r2);
+		session.addGatewayRequest(r3);
 		
 		intellivrBean.ivrNotificationMap = mapping;
 		
-		RequestType request = intellivrBean.createIVRRequest(requests);
+		RequestType request = intellivrBean.createIVRRequest(session);
 		
 		RequestType.Vxml expectedVxml = new RequestType.Vxml();
 		expectedVxml.setPrompt(new RequestType.Vxml.Prompt());
@@ -681,7 +707,7 @@ public class IntellIVRBeanTest {
 		expectedVxml.getPrompt().getAudioOrBreak().add(a2);
 				
 		assertEquals("tree", request.getTree());
-		assertEquals("15555555555", request.getCallee());
+		assertEquals("5555555555", request.getCallee());
 		assertEquals("English", request.getLanguage());
 		assertEquals(intellivrBean.getApiID(), request.getApiId());
 		assertEquals(intellivrBean.getReportURL(), request.getReportUrl());

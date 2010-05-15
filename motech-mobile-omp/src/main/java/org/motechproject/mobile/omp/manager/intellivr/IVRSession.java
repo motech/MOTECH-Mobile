@@ -9,12 +9,14 @@ public class IVRSession {
 
 	private String userId;
 	private String phone;
+	private String language;
 	private int attempts;
 	private Collection<GatewayRequest> requests;
 	
-	public IVRSession(String userId, String phone) {
+	public IVRSession(String userId, String phone, String language) {
 		this.userId = userId;
 		this.phone = phone;
+		this.language = language;
 		requests = new ArrayList<GatewayRequest>();
 	}
 
@@ -50,6 +52,14 @@ public class IVRSession {
 		this.phone = phone;
 	}
 
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
 	/**
 	 * Number of time a call has been attempted
 	 * @return attempts
@@ -70,7 +80,7 @@ public class IVRSession {
 	 * String to uniquely identify the session
 	 * @return sessionId
 	 */
-	public Object getSessionId() {
+	public String getSessionId() {
 		return userId + "-" + phone;
 	}
 

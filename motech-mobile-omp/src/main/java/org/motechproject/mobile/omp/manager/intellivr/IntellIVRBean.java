@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +23,7 @@ import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
+import org.motechproject.mobile.core.model.Language;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageType;
@@ -46,9 +48,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private MessageStatusStore statusStore;
 	protected Map<Long, IVRNotificationMapping> ivrNotificationMap;
 	protected Map<String, List<GatewayRequest>> bundledGatewayRequests;
+	protected Map<String, IVRSession> ivrSessions;
 	private Timer timer;
 	private long bundlingDelay;
 	private int retryDelay;
+	private int maxAttempts;
 	private Resource mappingResource;
 	private CoreManager coreManager;
 	private RegistrarService registrarService;
@@ -103,6 +107,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		bundledGatewayRequests = new HashMap<String, List<GatewayRequest>>();
 		
+		ivrSessions = new HashMap<String, IVRSession>();
+		
 	}
 	
 	public String getMessageStatus(GatewayResponse response) {
@@ -132,6 +138,12 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			.getMessageRequest()
 			.getRecipientId();
 		
+		String phone = gatewayRequest
+			.getRecipientsNumber();
+		
+		Language language = gatewayRequest
+			.getMessageRequest().getLanguage();
+		
 		String status = StatusType.OK.value();
 		if ( recipientID == null || gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT ) {
 			status = StatusType.ERROR.value();
@@ -139,19 +151,19 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 			if ( !gatewayRequest.getMessageRequest().getPhoneNumberType().equalsIgnoreCase("PUBLIC") ) {
 			
-				if ( !bundledGatewayRequests.containsKey(recipientID) ) {
+				IVRSession session = new IVRSession(recipientID, phone, language.getName());
+				session.addGatewayRequest(gatewayRequest);
+				
+				if ( !ivrSessions.containsKey(session.getSessionId()) ) {
 
-					List<GatewayRequest> newList = new ArrayList<GatewayRequest>();
-					newList.add(gatewayRequest);
-
-					bundledGatewayRequests.put(recipientID, newList);
-
-					task = new IVRServerTimerTask(recipientID);
+					ivrSessions.put(session.getSessionId(), session);
+					
+					task = new IVRServerTimerTask(session);
 
 				} else {
-					bundledGatewayRequests
-					.get(recipientID)
-					.add(gatewayRequest);
+					ivrSessions
+						.get(session.getSessionId())
+						.addGatewayRequest(gatewayRequest);
 				}
 				
 			}
@@ -177,37 +189,27 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		request.getMessageRequest().getRecipientId();
 		request.getMessageRequest().getNotificationType().getId();
 	}
-	
-	public void sendPending(String recipientID) {
+
+	public void sendPending(IVRSession session) {
 		
-		log.debug("Initiating call request for recipient id " + recipientID);			
+		session.setAttempts(session.getAttempts() + 1);
 		
-		List<GatewayRequest> pendingRequests = bundledGatewayRequests.get(recipientID);
+		RequestType request = createIVRRequest(session);
 		
-		if ( pendingRequests != null ) {
+		log.debug("Created IVR Request: " + request);
+		
+		ResponseType response = ivrServer.requestCall(request);
 
-			bundledGatewayRequests.remove(recipientID);
+		log.debug("Recieved response from IVR Server: " + response);
 
-			RequestType request = createIVRRequest(pendingRequests);
+		String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
 
-			log.debug("Created IVR Request: " + request);
-
-			ResponseType response = ivrServer.requestCall(request);
-
-			log.debug("Recieved response from IVR Server: " + response);
-
-			String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
-
-			for (Iterator iterator = pendingRequests.iterator(); iterator.hasNext();) {
-				GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
-				statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), status);
-			}
-
-			if ( response.getStatus() == StatusType.OK )
-				bundledGatewayRequests.put(request.getPrivate(), pendingRequests);
-
-		}
-			
+		for (GatewayRequest gatewayRequest : session.getGatewayRequests())
+			statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), status);
+		
+		if ( response.getStatus() == StatusType.ERROR )
+			ivrSessions.remove(session.getSessionId());
+		
 	}
 
 	public RequestType createIVRRequest(List<GatewayRequest> gwRequests) {
@@ -246,6 +248,78 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 										.getId()
 										.toString());
 		
+		/*
+		 * Create the content
+		 */	
+		List<String> reminderMessages = new ArrayList<String>();
+		for (Iterator iterator = gwRequests.iterator(); iterator.hasNext();) {
+			GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
+			
+			long notificationId = gatewayRequest.getMessageRequest().getNotificationType().getId();
+			
+			if ( !ivrNotificationMap.containsKey(notificationId) ) {
+				log.debug("No IVR Notification mapping found for " + notificationId);
+			} else {
+				
+				IVRNotificationMapping mapping = ivrNotificationMap.get(notificationId);
+				
+				if ( mapping.getType().equalsIgnoreCase(IVRNotificationMapping.INFORMATIONAL)) {
+					ivrRequest.setTree(mapping.getIvrEntityName());
+				} else {
+					reminderMessages.add(mapping.getIvrEntityName());
+				}
+				
+			} 
+			
+		}
+		
+		RequestType.Vxml vxml = new RequestType.Vxml();	
+		vxml.setPrompt(new RequestType.Vxml.Prompt());
+		for (Iterator iterator = reminderMessages.iterator(); iterator.hasNext();) {
+			String fileName = (String) iterator.next();
+			AudioType audio = new AudioType();
+			audio.setSrc(fileName);
+			vxml.getPrompt()
+				.getAudioOrBreak()
+				.add(audio);
+		}
+		ivrRequest.setVxml(vxml);
+		
+		return ivrRequest;
+		
+	}
+
+	public RequestType createIVRRequest(IVRSession session) {
+		
+		Collection<GatewayRequest> gwRequests = session.getGatewayRequests();
+		
+		log.debug("Creating IVR Request for " + gwRequests);
+		
+		RequestType ivrRequest = new RequestType();
+		
+		/*
+		 * These first three values are fixed
+		 */
+		ivrRequest.setApiId(apiID);
+		ivrRequest.setMethod(method);
+		ivrRequest.setReportUrl(reportURL);
+
+		/*
+		 * recipient's phone number
+		 */
+		ivrRequest.setCallee(session.getPhone());
+	
+		/*
+		 * Set language
+		 */
+		String language = session.getLanguage();
+		ivrRequest.setLanguage(language != null ? language : defaultLanguage);
+
+		/*
+		 * Private id
+		 */
+		ivrRequest.setPrivate(session.getSessionId());
+				
 		/*
 		 * Create the content
 		 */	
@@ -365,39 +439,57 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public ResponseType handleReport(ReportType report) {
 		log.info("Received call report: " + report.toString());
 		
-		String bundleID = report.getPrivate();
+		String sessionId = report.getPrivate();
 		
-		if ( bundleID == null )
+		if ( sessionId == null )
 			log.error("Unable to identify call in report: " + report.toString());
 		else {
-			if ( !bundledGatewayRequests.containsKey(bundleID)) {
-				log.error("Unable to find GatewayRequests for " + bundleID);
+			IVRSession session = ivrSessions.get(sessionId);
+			if ( session == null ) {
+				log.error("Unable to find IVRSession for " + sessionId);
 			} else {
-				List<GatewayRequest> requests = bundledGatewayRequests.get(bundleID);
-				for (Iterator iterator = requests.iterator(); iterator.hasNext();) {
-					GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
-					/*
-					 * if it is not complete set status to OK which will leave the status as PENDING
-					 */
-					String newStatus = report.getStatus() == ReportStatusType.COMPLETED ? report.getStatus().value() : "OK";
-					log.debug("Updating Message Request " + gatewayRequest.getMessageRequest().getId().toString() + " to " + newStatus);
-					statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), newStatus);
+				
+				String status = report.getStatus().value();
+				
+				/*
+				 * Retry if necessary
+				 */
+				if ( report.getStatus() == ReportStatusType.COMPLETED ) {
+					ivrSessions.remove(sessionId);
+				} else {
+					
+					if ( session.getAttempts() < this.maxAttempts ) {
+						if ( retryDelay >=  0 ) {
+							log.info("Retrying IVRSession " + session.getSessionId());
+							IVRServerTimerTask task = new IVRServerTimerTask(ivrSessions.get(sessionId));
+							timer.schedule(task, 1000 * 60 * retryDelay);
+						}
+					} else {
+						ivrSessions.remove(sessionId);
+						status = "MAXATTEMPTS";
+					}
+					
 				}
 				
 				/*
-				 * if not complete then retry
+				 * Update message status
 				 */
-				if ( requests.size() > 0  && report.getStatus() != ReportStatusType.COMPLETED ) {
-					String recipientId = requests.get(0).getMessageRequest().getRecipientId();
-					bundledGatewayRequests.put(recipientId, requests);
-					IVRServerTimerTask task = new IVRServerTimerTask(recipientId);
-					if ( retryDelay > -1 )
-						timer.schedule(task, 1000 * 60 * retryDelay);
+				Collection<GatewayRequest> requests = session.getGatewayRequests();
+				for (GatewayRequest gatewayRequest : requests) {
+
+					log.debug("Updating Message Request " 
+							+ gatewayRequest.getMessageRequest().getId().toString() 
+							+ " to " + report.getStatus().value());
+					statusStore.updateStatus(gatewayRequest
+												.getMessageRequest()
+												.getId()
+												.toString()
+												, status);
+
 				}
 				
-				bundledGatewayRequests.remove(bundleID);
-				
 			}
+			
 		}
 			
 		ResponseType r = new ResponseType();
@@ -494,6 +586,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		this.retryDelay = retryDelay;
 	}
 
+	public int getMaxAttempts() {
+		return maxAttempts;
+	}
+
+	public void setMaxAttempts(int maxAttempts) {
+		this.maxAttempts = maxAttempts;
+	}
+
 	public Resource getMappingResource() {
 		return mappingResource;
 	}
@@ -520,19 +620,19 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	protected class IVRServerTimerTask extends TimerTask {
 
-		private String recipientID;
+		private IVRSession session;
 		private Log log = LogFactory.getLog(IVRServerTimerTask.class);
 		
-		protected IVRServerTimerTask(String recipientID) {
-			this.recipientID = recipientID;
+		protected IVRServerTimerTask(IVRSession session) {
+			this.session = session;
 		}
 		
 		@Override
 		public void run() {
 
-			log.debug("IVR Server timer task expired for recipient id " + recipientID);
+			log.debug("IVR Server timer task expired for session " + session.getSessionId());
 			
-			sendPending(recipientID);
+			sendPending(session);
 			
 		}
 		

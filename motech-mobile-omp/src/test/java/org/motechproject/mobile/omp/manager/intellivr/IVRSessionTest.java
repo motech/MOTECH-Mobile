@@ -21,6 +21,7 @@ public class IVRSessionTest {
 		
 		String userid = "1";
 		String phone = "5555555555";
+		String language = "English";
 		String sessionId = userid + "-" + phone;
 				
 		Language english = new LanguageImpl();
@@ -64,7 +65,7 @@ public class IVRSessionTest {
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);
 		
-		IVRSession session = new IVRSession(userid, phone);		
+		IVRSession session = new IVRSession(userid, phone, language);		
 		session.addGatewayRequest(r1);
 		session.addGatewayRequest(r2);
 		
@@ -81,7 +82,6 @@ public class IVRSessionTest {
 
 		session.removeGatewayRequest(r2);
 		assertFalse(session.getGatewayRequests().contains(r2));
-		
 		
 	}
 	
