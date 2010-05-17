@@ -17,44 +17,46 @@
         <property name="paramValidators">
             <map key-type="java.lang.String">
                 <entry key="ALPHA">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                                         <property name="expression" value="${imp.validator.alphaExpression}" />
                                     </bean>
                                 </entry>
                                 <entry key="SIZE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
                                 </entry>
                             </map>
                         </property>
                     </bean>
                 </entry>
                 <entry key="ALPHANUM">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
-                        <property name="parent" value="ALPHA" />
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                                         <property name="expression" value="${imp.validator.alphaNumExpression}" />
                                     </bean>
+                                </entry>
+                                <entry key="SIZE">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
                                 </entry>
                             </map>
                         </property>
                     </bean>
                 </entry>
                 <entry key="DATE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
                             <map>
                                 <entry key="SIZE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
                                 </entry>
                                 <entry key="EXPRESSION">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                                         <property name="expression" value="${imp.validator.dateExpression}" />
                                         <property name="dateFormat" value="${imp.validator.dateFormat}" />
                                     </bean>
@@ -64,7 +66,7 @@
                     </bean>
                 </entry>
                 <entry key="EXPIRYDATE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="DATE" />
                         <property name="validators">
                             <map></map>
@@ -72,19 +74,19 @@
                     </bean>
                 </entry>
                 <entry key="NUMERIC">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                                         <property name="expression" value="${imp.validator.numericExpression}" />
                                     </bean>
                                 </entry>
                                 <entry key="SIZE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
                                 </entry>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="" />
                                         <property name="caseSensitive" value="false" />
                                         <property name="conversions">
@@ -99,16 +101,16 @@
                     </bean>
                 </entry>
                 <entry key="GENDER">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                                         <property name="expression" value="${imp.validator.genderExpression}" />
                                     </bean>
                                 </entry>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="caseSensitive" value="false" />
                                         <property name="values" value="M,F" />
                                         <property name="conversions">
@@ -124,16 +126,16 @@
                     </bean>
                 </entry>
                 <entry key="BOOLEAN">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                                         <property name="expression" value="${imp.validator.yesNoExpression}" />
                                     </bean>
                                 </entry>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="caseSensitive" value="false" />
                                         <property name="values" value="Y,N" />
                                         <property name="conversions">
@@ -149,16 +151,16 @@
                     </bean>
                 </entry>
                 <entry key="PHONETYPE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                                         <property name="expression" value="${imp.validator.phoneTypeExpression}" />
                                     </bean>
                                 </entry>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="HOUSEHOLD,PERSONAL,PUBLIC," />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -168,12 +170,12 @@
                     </bean>
                 </entry>
                 <entry key="CASESTATUS">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="O,N" />
                                         <property name="conversions">
                                             <map>
@@ -188,12 +190,12 @@
                     </bean>
                 </entry>
                 <entry key="HIVSTATUS">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="P,N,NA" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -203,12 +205,12 @@
                     </bean>
                 </entry>
                 <entry key="DELIVERER">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="D,M,CHO,TTBA,UTBA,O" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -218,12 +220,12 @@
                     </bean>
                 </entry>
                 <entry key="BIRTHOUTCOME">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="A,FSB,MSB" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -233,12 +235,12 @@
                     </bean>
                 </entry>
                 <entry key="ANCVISIT">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="12" />
                                     </bean>
@@ -248,12 +250,12 @@
                     </bean>
                 </entry>
                 <entry key="TTDOSE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="5" />
                                     </bean>
@@ -263,12 +265,12 @@
                     </bean>
                 </entry>
                 <entry key="IPTDOSE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="4" />
                                     </bean>
@@ -278,12 +280,12 @@
                     </bean>
                 </entry>
                 <entry key="ABORTIONTYPE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="3" />
                                     </bean>
@@ -293,12 +295,12 @@
                     </bean>
                 </entry>
                 <entry key="ABORTIONCOMPLICATIONS">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="4" />
                                     </bean>
@@ -308,12 +310,12 @@
                     </bean>
                 </entry>
                 <entry key="MOD">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="4" />
                                     </bean>
@@ -323,12 +325,12 @@
                     </bean>
                 </entry>
                 <entry key="OOD">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="3" />
                                     </bean>
@@ -338,12 +340,12 @@
                     </bean>
                 </entry>
                 <entry key="LOCATION">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="3" />
                                     </bean>
@@ -353,12 +355,12 @@
                     </bean>
                 </entry>
                 <entry key="MATERNALDEATHCAUSE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="6" />
                                     </bean>
@@ -368,12 +370,12 @@
                     </bean>
                 </entry>
                 <entry key="PPCVISIT">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                        <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                        <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                             <property name="minValue" value="1" />
                             <property name="maxValue" value="3" />
                         </bean>
@@ -383,12 +385,12 @@
                     </bean>
                 </entry>
                 <entry key="DEATHCAUSE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="3" />
                                     </bean>
@@ -398,12 +400,12 @@
                     </bean>
                 </entry>
                 <entry key="OPVDOSE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="0" />
                                         <property name="maxValue" value="3" />
                                     </bean>
@@ -413,12 +415,12 @@
                     </bean>
                 </entry>
                 <entry key="PENTADOSE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="3" />
                                     </bean>
@@ -428,12 +430,12 @@
                     </bean>
                 </entry>
                 <entry key="DIAGNOSIS">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="78" />
                                     </bean>
@@ -443,12 +445,12 @@
                     </bean>
                 </entry>
                 <entry key="DAYOFWEEK">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -458,12 +460,12 @@
                     </bean>
                 </entry>
                 <entry key="HOWLEARNED">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="GHS_NURSE,MOTECH_FIELD_AGENT,FRIEND,POSTERS_ADS,RADIO" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -473,12 +475,12 @@
                     </bean>
                 </entry>
                 <entry key="INTERESTREASON">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="CURRENTLY_PREGNANT,RECENTLY_DELIVERED,FAMILY_FRIEND_PREGNANT,FAMILY_FRIEND_DELIVERED,PLANNING_PREGNANCY_INFO,KNOW_MORE_PREGNANCY_CHILDBIRTH,WORK_WITH_WOMEN_NEWBORNS" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -488,12 +490,12 @@
                     </bean>
                 </entry>
                 <entry key="REGISTRANTTYPE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="PREGNANT_MOTHER,CHILD_UNDER_FIVE,OTHER" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -503,12 +505,12 @@
                     </bean>
                 </entry>
                 <entry key="REGISTRATIONMODE">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="ALPHA" />
                         <property name="validators">
                             <map>
                                 <entry key="VALUE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="USE_PREPRINTED_ID,AUTO_GENERATE_ID" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
@@ -518,12 +520,12 @@
                     </bean>
                 </entry>
                 <entry key="ANCLOCATION">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="3" />
                                     </bean>
@@ -533,12 +535,12 @@
                     </bean>
                 </entry>
                 <entry key="CWCLOCATION">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="4" />
                                     </bean>
@@ -548,12 +550,12 @@
                     </bean>
                 </entry>
                 <entry key="DELIVERYLOCATION">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
                                 <entry key="RANGE">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="8" />
                                     </bean>
@@ -563,12 +565,12 @@
                     </bean>
                 </entry>
                 <entry key="DATETIME">
-                    <bean class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="DATE" />
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION">
-                                    <bean class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
                                         <property name="dateFormat" value="${imp.validator.dateTimeFormat}" />
                                     </bean>
                                 </entry>

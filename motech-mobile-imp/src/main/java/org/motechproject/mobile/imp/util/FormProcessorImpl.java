@@ -111,7 +111,7 @@ public class FormProcessorImpl implements FormProcessor {
         if (mSig.getCallback() == null) {
             return (result == null) ? null : String.valueOf(result);
         }
-        return executeCallback(mSig, result);
+        return executeCallback(mSig.getCallback(), result);
     }
 
     private String executeCallback(MethodSignature mSig, Object param) {
@@ -119,7 +119,15 @@ public class FormProcessorImpl implements FormProcessor {
         String formattedResponse = "";
 
         try {
-            Method callback = formatter.getClass().getMethod(mSig.getMethodName(), (Class[]) mSig.getMethodParams().values().toArray());
+            int idx = 0;
+            Class[] paramTypes = new Class[mSig.getMethodParams().size()];
+
+            for(Entry<String, Class> entry : mSig.getMethodParams().entrySet()){
+                paramTypes[idx] = entry.getValue();
+                idx++;
+            }
+
+            Method callback = formatter.getClass().getMethod(mSig.getMethodName(), paramTypes);
             formattedResponse = (String) callback.invoke(formatter, param);
         } catch (NoSuchMethodException ex) {
             logger.fatal("Could not find formatter method " + mSig.getMethodName(), ex);
