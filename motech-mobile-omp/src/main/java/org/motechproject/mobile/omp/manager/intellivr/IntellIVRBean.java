@@ -47,7 +47,6 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private IntellIVRServer ivrServer;
 	private MessageStatusStore statusStore;
 	protected Map<Long, IVRNotificationMapping> ivrNotificationMap;
-	protected Map<String, List<GatewayRequest>> bundledGatewayRequests;
 	protected Map<String, IVRSession> ivrSessions;
 	private Timer timer;
 	private long bundlingDelay;
@@ -104,8 +103,6 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		}
 		
 		timer = new Timer();
-		
-		bundledGatewayRequests = new HashMap<String, List<GatewayRequest>>();
 		
 		ivrSessions = new HashMap<String, IVRSession>();
 		
@@ -209,83 +206,6 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		if ( response.getStatus() == StatusType.ERROR )
 			ivrSessions.remove(session.getSessionId());
-		
-	}
-
-	public RequestType createIVRRequest(List<GatewayRequest> gwRequests) {
-		
-		log.debug("Creating IVR Request for " + gwRequests);
-		
-		RequestType ivrRequest = new RequestType();
-		
-		/*
-		 * These first three values are fixed
-		 */
-		ivrRequest.setApiId(apiID);
-		ivrRequest.setMethod(method);
-		ivrRequest.setReportUrl(reportURL);
-
-		/*
-		 * recipient's phone number
-		 */
-		ivrRequest.setCallee(gwRequests.get(0)
-									   .getRecipientsNumber());
-	
-		/*
-		 * Set language
-		 */
-		String language = gwRequests.get(0)
-									.getMessageRequest()
-									.getLanguage()
-									.getName();
-		ivrRequest.setLanguage(language != null ? language : defaultLanguage);
-
-		/*
-		 * Private id
-		 */
-		ivrRequest.setPrivate(gwRequests.get(0)
-										.getMessageRequest()
-										.getId()
-										.toString());
-		
-		/*
-		 * Create the content
-		 */	
-		List<String> reminderMessages = new ArrayList<String>();
-		for (Iterator iterator = gwRequests.iterator(); iterator.hasNext();) {
-			GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
-			
-			long notificationId = gatewayRequest.getMessageRequest().getNotificationType().getId();
-			
-			if ( !ivrNotificationMap.containsKey(notificationId) ) {
-				log.debug("No IVR Notification mapping found for " + notificationId);
-			} else {
-				
-				IVRNotificationMapping mapping = ivrNotificationMap.get(notificationId);
-				
-				if ( mapping.getType().equalsIgnoreCase(IVRNotificationMapping.INFORMATIONAL)) {
-					ivrRequest.setTree(mapping.getIvrEntityName());
-				} else {
-					reminderMessages.add(mapping.getIvrEntityName());
-				}
-				
-			} 
-			
-		}
-		
-		RequestType.Vxml vxml = new RequestType.Vxml();	
-		vxml.setPrompt(new RequestType.Vxml.Prompt());
-		for (Iterator iterator = reminderMessages.iterator(); iterator.hasNext();) {
-			String fileName = (String) iterator.next();
-			AudioType audio = new AudioType();
-			audio.setSrc(fileName);
-			vxml.getPrompt()
-				.getAudioOrBreak()
-				.add(audio);
-		}
-		ivrRequest.setVxml(vxml);
-		
-		return ivrRequest;
 		
 	}
 
