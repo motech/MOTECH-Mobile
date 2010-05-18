@@ -388,16 +388,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 				log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
 
-				List<GatewayRequest> gwRequestList = new ArrayList<GatewayRequest>();
+				IVRSession session = new IVRSession(userId);
 
-				for (Iterator iterator = pendingMessageRequests.iterator(); iterator.hasNext();) {
-
-					MessageRequest messageRequest = (MessageRequest) iterator.next();
+				for (MessageRequest messageRequest : pendingMessageRequests ) {
 
 					GatewayRequest gwr = new GatewayRequestImpl();
 					gwr.setMessageRequest(messageRequest);
-
-					gwRequestList.add(gwr);
+					
+					session.addGatewayRequest(gwr);
 
 					statusStore.updateStatus(messageRequest.getId().toString(), StatusType.OK.value());
 
@@ -408,16 +406,15 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				 * Can create a RequestType based on this criteria and use
 				 * only the fields that are needed to create the ResponseType
 				 */
-				RequestType requestType = createIVRRequest(gwRequestList);
+				RequestType requestType = createIVRRequest(session);
 
-				r.setLanguage(requestType.getLanguage());
 				r.setPrivate(requestType.getPrivate());
 				r.setReportUrl(requestType.getReportUrl());
 				r.setStatus(StatusType.OK);
 				r.setTree(requestType.getTree());
 				r.setVxml(requestType.getVxml());
 
-				bundledGatewayRequests.put(requestType.getPrivate(), gwRequestList);
+				ivrSessions.put(session.getSessionId(), session);
 
 			}
 

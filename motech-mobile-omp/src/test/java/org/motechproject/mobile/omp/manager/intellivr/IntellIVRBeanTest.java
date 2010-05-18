@@ -499,17 +499,19 @@ public class IntellIVRBeanTest {
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone);
 		
+		IVRSession session = new IVRSession(recipientID, phone, english.getName());
+			
 		ReportType report = new ReportType();
 		report.setCallee(phone);
 		report.setConnectTime(null);
 		report.setDisconnectTime(null);
-		report.setPrivate(recipientID + "-" + phone);
+		report.setPrivate(session.getSessionId());
 
 		for ( ReportStatusType type : ReportStatusType.values()) {
 
 			report.setStatus(type);
 
-			IVRSession session = new IVRSession(recipientID, phone, english.getName());
+			session = new IVRSession(recipientID, phone, english.getName());
 			session.setAttempts(1);
 			session.addGatewayRequest(r1);
 			session.addGatewayRequest(r2);
@@ -777,15 +779,14 @@ public class IntellIVRBeanTest {
 
 		GatewayRequest gr3 = new GatewayRequestImpl();
 		gr3.setMessageRequest(mr3);
-
-		List<GatewayRequest> expectedGWRequestList = new ArrayList<GatewayRequest>();
-		expectedGWRequestList.add(gr1);
-		expectedGWRequestList.add(gr2);
-		expectedGWRequestList.add(gr3);
+	
+		IVRSession expectedSession = new IVRSession(recipientID);
+		expectedSession.addGatewayRequest(gr1);
+		expectedSession.addGatewayRequest(gr2);
+		expectedSession.addGatewayRequest(gr3);
 		
 		ResponseType expectedResponse = new ResponseType();
-		expectedResponse.setLanguage("English");
-		expectedResponse.setPrivate(mr1.getId().toString());
+		expectedResponse.setPrivate(expectedSession.getSessionId());
 		expectedResponse.setReportUrl(intellivrBean.getReportURL());
 		expectedResponse.setStatus(StatusType.OK);
 		expectedResponse.setTree("tree");
@@ -828,7 +829,7 @@ public class IntellIVRBeanTest {
 		
 		ResponseType actualResponse = intellivrBean.handleRequest(request);
 		assertEquals(expectedResponse, actualResponse);
-		assertTrue(intellivrBean.bundledGatewayRequests.containsKey(actualResponse.getPrivate()));
+		assertTrue(intellivrBean.ivrSessions.containsKey(actualResponse.getPrivate()));
 		
 		verify(mockRegistrarService);
 		verify(mockCoreManager);

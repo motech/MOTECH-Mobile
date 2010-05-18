@@ -57,11 +57,11 @@ public class IntellIVRGatewayMessageHandlerTest {
 		statusCodes.put("ERROR", MStatus.FAILED);
 		statusCodes.put("OK", MStatus.PENDING);
 		statusCodes.put("COMPLETED", MStatus.DELIVERED);
-		statusCodes.put("REJECTED", MStatus.RETRY);
-		statusCodes.put("BUSY", MStatus.RETRY);
-		statusCodes.put("CONGESTION", MStatus.RETRY);
-		statusCodes.put("NOANSWER", MStatus.RETRY);
-		statusCodes.put("INTERNALERROR", MStatus.RETRY);
+		statusCodes.put("REJECTED", MStatus.PENDING);
+		statusCodes.put("BUSY", MStatus.PENDING);
+		statusCodes.put("CONGESTION", MStatus.PENDING);
+		statusCodes.put("NOANSWER", MStatus.PENDING);
+		statusCodes.put("INTERNALERROR", MStatus.PENDING);
 		
 	}
 	

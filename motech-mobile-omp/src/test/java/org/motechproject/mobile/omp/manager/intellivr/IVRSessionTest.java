@@ -22,7 +22,8 @@ public class IVRSessionTest {
 		String userid = "1";
 		String phone = "5555555555";
 		String language = "English";
-		String sessionId = userid + "-" + phone;
+		String serverInitiatedSessionId = "S" + userid + phone;
+		String userInitiatedSessionId = "U" + userid;
 				
 		Language english = new LanguageImpl();
 		english.setCode("en");
@@ -65,23 +66,49 @@ public class IVRSessionTest {
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);
 		
-		IVRSession session = new IVRSession(userid, phone, language);		
-		session.addGatewayRequest(r1);
-		session.addGatewayRequest(r2);
+		/*
+		 * test server session
+		 */
+		IVRSession serverSession = new IVRSession(userid, phone, language);		
+		serverSession.addGatewayRequest(r1);
+		serverSession.addGatewayRequest(r2);
 		
-		assertEquals(userid, session.getUserId());
-		assertEquals(phone, session.getPhone());
-		assertEquals(sessionId, session.getSessionId());
+		assertEquals(userid, serverSession.getUserId());
+		assertEquals(phone, serverSession.getPhone());
+		assertFalse(serverSession.isUserInitiated());
+		assertEquals(serverInitiatedSessionId, serverSession.getSessionId());
 		
-		assertEquals(0, session.getAttempts());
-		session.setAttempts(session.getAttempts() + 1);
-		assertEquals(1, session.getAttempts());
+		assertEquals(0, serverSession.getAttempts());
+		serverSession.setAttempts(serverSession.getAttempts() + 1);
+		assertEquals(1, serverSession.getAttempts());
 		
-		assertTrue(session.getGatewayRequests().contains(r1));
-		assertTrue(session.getGatewayRequests().contains(r2));
+		assertTrue(serverSession.getGatewayRequests().contains(r1));
+		assertTrue(serverSession.getGatewayRequests().contains(r2));
 
-		session.removeGatewayRequest(r2);
-		assertFalse(session.getGatewayRequests().contains(r2));
+		serverSession.removeGatewayRequest(r2);
+		assertFalse(serverSession.getGatewayRequests().contains(r2));
+		
+		/*
+		 * Test user session
+		 */
+		IVRSession userSession = new IVRSession(userid);
+		userSession.addGatewayRequest(r1);
+		userSession.addGatewayRequest(r2);
+		
+		assertEquals(userid, userSession.getUserId());
+		assertNull(userSession.getPhone());
+		assertTrue(userSession.isUserInitiated());
+		assertEquals(userInitiatedSessionId, userSession.getSessionId());
+		
+		assertEquals(0, userSession.getAttempts());
+		userSession.setAttempts(userSession.getAttempts() + 1);
+		assertEquals(1, userSession.getAttempts());
+		
+		assertTrue(userSession.getGatewayRequests().contains(r1));
+		assertTrue(userSession.getGatewayRequests().contains(r2));
+
+		userSession.removeGatewayRequest(r2);
+		assertFalse(userSession.getGatewayRequests().contains(r2));
 		
 	}
 	

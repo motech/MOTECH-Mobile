@@ -10,13 +10,31 @@ public class IVRSession {
 	private String userId;
 	private String phone;
 	private String language;
+	private boolean userInitiated;
 	private int attempts;
 	private Collection<GatewayRequest> requests;
 	
+	/**
+	 * create a server initiated session
+	 * @param userId
+	 * @param phone
+	 * @param language
+	 */
 	public IVRSession(String userId, String phone, String language) {
 		this.userId = userId;
 		this.phone = phone;
 		this.language = language;
+		this.userInitiated = false;
+		requests = new ArrayList<GatewayRequest>();
+	}
+	
+	/**
+	 * create a user initiate session
+	 * @param userId
+	 */
+	public IVRSession(String userId) {
+		this.userId = userId;
+		this.userInitiated = true;
 		requests = new ArrayList<GatewayRequest>();
 	}
 
@@ -61,6 +79,23 @@ public class IVRSession {
 	}
 
 	/**
+	 * indicates if session was the result of a user calling the system.  If false then 
+	 * the session was the result of the server calling the user.
+	 * @return
+	 */
+	public boolean isUserInitiated() {
+		return userInitiated;
+	}
+
+	/**
+	 * set to true to indicate that the session resulted from a user calling the system
+	 * @param userInitiated
+	 */
+	public void setUserInitiated(boolean userInitiated) {
+		this.userInitiated = userInitiated;
+	}
+
+	/**
 	 * Number of time a call has been attempted
 	 * @return attempts
 	 */
@@ -81,7 +116,10 @@ public class IVRSession {
 	 * @return sessionId
 	 */
 	public String getSessionId() {
-		return userId + "-" + phone;
+		if ( userInitiated )
+			return "U" + userId;
+		else 
+			return "S" + userId + phone;
 	}
 
 	/**
@@ -91,8 +129,13 @@ public class IVRSession {
 	public void addGatewayRequest(GatewayRequest r) {
 		boolean found = false;
 		for (GatewayRequest gr : requests) {
-			if ( gr.getId() == r.getId() )
-				found = true;
+			if( userInitiated ) {
+				if ( gr.getMessageRequest().getId() == r.getMessageRequest().getId() )
+					found = true;
+			} else {
+				if ( gr.getId() == r.getId() )
+					found = true;
+			}
 		}
 		if ( !found )
 			requests.add(r);
@@ -105,8 +148,13 @@ public class IVRSession {
 	public void removeGatewayRequest(GatewayRequest r) {
 		ArrayList<GatewayRequest> toRemove = new ArrayList<GatewayRequest>();
 		for ( GatewayRequest gr : requests )
-			if ( gr.getId() == r.getId() )
-				toRemove.add(gr);
+			if ( userInitiated ) {
+				if ( gr.getMessageRequest().getId() == r.getMessageRequest().getId() )
+					toRemove.add(gr);
+			} else { 
+				if ( gr.getId() == r.getId() )
+					toRemove.add(gr);
+			}
 		for ( GatewayRequest gr : toRemove )
 			requests.remove(gr);
 	}

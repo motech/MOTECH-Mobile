@@ -164,31 +164,34 @@
 				<entry key="ERROR">
 					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
 				</entry>
+				<entry key="MAXATTEMPTS">
+					<value type="org.motechproject.mobile.core.model.MStatus">FAILED</value>
+				</entry>
 				<entry key="OK">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="REJECTED">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="BUSY">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="CONGESTION">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="NOANSWER">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
+				<entry key="INTERNALERROR">
 					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
 				</entry>
 				<entry key="COMPLETED">
 					<value type="org.motechproject.mobile.core.model.MStatus">DELIVERED</value>
 				</entry>
-				<entry key="REJECTED">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
-				<entry key="BUSY">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
-				<entry key="CONGESTION">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
-				<entry key="NOANSWER">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
-				<entry key="INTERNALERROR">
-					<value type="org.motechproject.mobile.core.model.MStatus">RETRY</value>
-				</entry>
 			</map>
 		</constructor-arg>
 	</bean>
- 
+  
     <bean id="intellIVRMessageHandler" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRGatewayMessageHandler">
 		<property name="statusMap" ref="intellIVRResponseMap"/>     
 		<property name="responseMap" ref="intellIVRResponseMap"/>    
