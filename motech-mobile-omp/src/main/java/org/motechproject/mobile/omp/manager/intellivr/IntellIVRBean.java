@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -244,8 +243,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		 * Create the content
 		 */	
 		List<String> reminderMessages = new ArrayList<String>();
-		for (Iterator iterator = gwRequests.iterator(); iterator.hasNext();) {
-			GatewayRequest gatewayRequest = (GatewayRequest) iterator.next();
+		for (GatewayRequest gatewayRequest : gwRequests) {
 			
 			long notificationId = gatewayRequest.getMessageRequest().getNotificationType().getId();
 			
@@ -267,8 +265,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		RequestType.Vxml vxml = new RequestType.Vxml();	
 		vxml.setPrompt(new RequestType.Vxml.Prompt());
-		for (Iterator iterator = reminderMessages.iterator(); iterator.hasNext();) {
-			String fileName = (String) iterator.next();
+		for (String fileName : reminderMessages) {
 			AudioType audio = new AudioType();
 			audio.setSrc(fileName);
 			vxml.getPrompt()
