@@ -438,6 +438,76 @@ public class IntellIVRBeanTest {
 	}
 	
 	@Test
+	public void testSendPending() {
+		
+		String recipient1 = "1";
+		String phone1 = "5555555";
+
+		Language english = new LanguageImpl();
+		english.setCode("en");
+		english.setId(1L);
+		english.setName("English");
+		
+		NotificationType n1 = new NotificationTypeImpl();
+		n1.setId(1L);
+		
+		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setId(1L);
+		mr1.setLanguage(english);
+		mr1.setRecipientId(recipient1);
+		mr1.setRequestId("mr1");
+		mr1.setMessageType(MessageType.VOICE);
+		mr1.setNotificationType(n1);
+		mr1.setPhoneNumberType("PERSONAL");
+	
+		GatewayRequest r1 = new GatewayRequestImpl();
+		r1.setId(1000L);
+		r1.setMessageRequest(mr1);
+		r1.setMessageStatus(MStatus.PENDING);
+		r1.setRecipientsNumber(phone1);
+		
+		NotificationType n2 = new NotificationTypeImpl();
+		n2.setId(2L);
+
+		MessageRequest mr2 = new MessageRequestImpl();
+		mr2.setId(2L);
+		mr2.setLanguage(english);
+		mr2.setRecipientId(recipient1);
+		mr2.setRequestId("mr2");
+		mr2.setMessageType(MessageType.VOICE);
+		mr2.setNotificationType(n2);
+		mr2.setPhoneNumberType("PERSONAL");
+			
+		GatewayRequest r2 = new GatewayRequestImpl();
+		r2.setId(2000L);
+		r2.setMessageRequest(mr2);
+		r2.setMessageStatus(MStatus.PENDING);
+		r2.setRecipientsNumber(phone1);
+
+		IVRSession session = new IVRSession(recipient1, phone1, english.getName());
+		session.addGatewayRequest(r1);
+		session.addGatewayRequest(r2);
+		
+		IntellIVRServer mockServer = createMock(IntellIVRServer.class);
+		intellivrBean.setIvrServer(mockServer);
+		
+		RequestType expectedRequest = intellivrBean.createIVRRequest(session);
+
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setStatus(StatusType.OK);
+		
+		expect(mockServer.requestCall(expectedRequest)).andReturn(expectedResponse);
+		replay(mockServer);
+		
+		intellivrBean.sendPending(session);
+		
+		verify(mockServer);
+		
+		assertEquals(1, session.getAttempts());
+		
+	}
+	
+	@Test
 	public void testHandleReport() {
 		
 		String recipientID = "123456789";
