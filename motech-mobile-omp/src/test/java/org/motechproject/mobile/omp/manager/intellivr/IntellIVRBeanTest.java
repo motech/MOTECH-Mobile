@@ -39,6 +39,7 @@ import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
+import org.motechproject.mobile.omp.manager.intellivr.RequestType.Vxml;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationException;
@@ -916,8 +917,13 @@ public class IntellIVRBeanTest {
 		expectedDAOResponse = new ArrayList<MessageRequest>();
 		
 		expectedResponse = new ResponseType();
-		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
-		expectedResponse.setStatus(StatusType.ERROR);
+		expectedResponse.setStatus(StatusType.OK);
+		vxml.getPrompt().getAudioOrBreak().clear();
+		AudioType a3 = new AudioType();
+		a3.setSrc(intellivrBean.getNoPendingMessagesRecordingName());
+		vxml.getPrompt().getAudioOrBreak().add(a3);
+		expectedResponse.setVxml(vxml);
+		
 		
 		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andReturn(registrarResponse);
 		replay(mockRegistrarService);
@@ -928,8 +934,7 @@ public class IntellIVRBeanTest {
 		replay(mockDao);
 		
 		actualResponse = intellivrBean.handleRequest(request);
-		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
-		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
+		assertEquals(expectedResponse, actualResponse);
 		
 		verify(mockRegistrarService);
 		verify(mockCoreManager);

@@ -51,6 +51,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private long bundlingDelay;
 	private int retryDelay;
 	private int maxAttempts;
+	private String noPendingMessagesRecordingName;
 	private Resource mappingResource;
 	private CoreManager coreManager;
 	private RegistrarService registrarService;
@@ -298,9 +299,13 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 			if ( pendingMessageRequests.size() == 0 ) {
 				log.debug("No pending messages found for " + request.getUserid());
-				r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
-				r.setErrorString("Invalid user id");
-				r.setStatus(StatusType.ERROR); 
+				r.setStatus(StatusType.OK);
+				RequestType.Vxml vxml = new RequestType.Vxml();
+				vxml.setPrompt(new RequestType.Vxml.Prompt());
+				AudioType a = new AudioType();
+				a.setSrc(noPendingMessagesRecordingName);
+				vxml.getPrompt().getAudioOrBreak().add(a);
+				r.setVxml(vxml);
 			} else {
 
 				log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
@@ -506,6 +511,15 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setMaxAttempts(int maxAttempts) {
 		this.maxAttempts = maxAttempts;
+	}
+
+	public String getNoPendingMessagesRecordingName() {
+		return noPendingMessagesRecordingName;
+	}
+
+	public void setNoPendingMessagesRecordingName(
+			String noPendingMessagesRecordingName) {
+		this.noPendingMessagesRecordingName = noPendingMessagesRecordingName;
 	}
 
 	public Resource getMappingResource() {
