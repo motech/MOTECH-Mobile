@@ -3,7 +3,7 @@ package org.motechproject.mobile.omp.manager.intellivr;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -66,19 +66,22 @@ public class IntellIVRServerImpl implements IntellIVRServer {
 			out.flush();
 			out.close();
 			
-			InputStreamReader in = new InputStreamReader(con.getInputStream());
+			InputStream in = con.getInputStream();
 			
-			StringBuilder sb = new StringBuilder();
-			char[] cbuf = new char[2048];
-			int  num;
-			
-			while ( -1 != (num=in.read(cbuf))) {
-				sb.append(cbuf, 0, num);
+			int len = 4096;
+			byte[] buffer = new byte[len];
+			int off = 0;
+			int read = 0;
+			while ( (read = in.read(buffer, off, len)) != -1) {
+				off += read;
+				len -= off;
 			}
 			
-			log.info("Received response: " + sb.toString());
+			String responseText = new String(buffer, 0, off);
 			
-			Object o = unmarshaller.unmarshal(new ByteArrayInputStream(sb.toString().getBytes()));
+			log.info("Received response: " + responseText);
+			
+			Object o = unmarshaller.unmarshal(new ByteArrayInputStream(responseText.getBytes()));
 			
 			if ( o instanceof AutoCreate ) {
 				AutoCreate acr = (AutoCreate)o;
