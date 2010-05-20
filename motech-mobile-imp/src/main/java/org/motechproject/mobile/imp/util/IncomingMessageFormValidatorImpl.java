@@ -44,11 +44,14 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     form.setLastModified(new Date());
 
                     if(paramDef.getParamType().endsWith("_ARRAY")){
-                        String type = paramDef.getParamType().substring(0, paramDef.getParamType().lastIndexOf("_") - 1);
+                        String type = paramDef.getParamType().substring(0, paramDef.getParamType().lastIndexOf("_"));
                         group = paramValidators.get(type);
                         status = validateArray(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()), group);
                     }else{
                         group = paramValidators.get(paramDef.getParamType().toUpperCase());
+                        if(group == null){
+                            throw new Exception("Validator [" + paramDef.getParamType().toUpperCase() + "] not found");
+                        }
                         status = validateSingle(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()), group);
                     }
                     

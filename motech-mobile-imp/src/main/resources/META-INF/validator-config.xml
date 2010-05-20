@@ -206,13 +206,13 @@
                 </entry>
                 <entry key="DELIVERER">
                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
-                        <property name="parent" value="ALPHA" />
+                        <property name="parent" value="NUMERIC" />
                         <property name="validators">
                             <map>
-                                <entry key="VALUE">
-                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
-                                        <property name="values" value="D,M,CHO,TTBA,UTBA,O" />
-                                        <property name="caseSensitive" value="false" />
+                                <entry key="RANGE">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                        <property name="minValue" value="1" />
+                                        <property name="maxValue" value="8" />
                                     </bean>
                                 </entry>
                             </map>
@@ -303,6 +303,21 @@
                                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
                                         <property name="maxValue" value="4" />
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
+                <entry key="DELIVERYCOMPLICATIONS">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                        <property name="parent" value="NUMERIC" />
+                        <property name="validators">
+                            <map>
+                                <entry key="RANGE">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                        <property name="minValue" value="1" />
+                                        <property name="maxValue" value="9" />
                                     </bean>
                                 </entry>
                             </map>

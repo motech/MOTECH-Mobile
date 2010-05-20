@@ -22,11 +22,11 @@ public class FormRequestTest {
    
     @Test
     public void testRegularExp() {
-        String message = "type=death-jf\nchpsid=12342\nfacilityid=9\nsender=233274310171";
+        String message = "date=2010-12-12 04:12:45 AM";
         String result = "some match";
         String phoneData = "sender=233274310171";
 
-        Pattern p = Pattern.compile("^(([tT][yY][pP][eE])|([qQ][uU][eE][rR][yY]))\\s*=\\s*[a-zA-Z0-9_-]+");
+        Pattern p = Pattern.compile("[a-zA-Z0-9_\\-]+\\s*=\\s*([a-zA-Z0-9_\\-\\s/.,'])+");
         Matcher m = p.matcher(message);
         if (m.find()) {
             result = m.group();
