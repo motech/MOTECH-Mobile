@@ -5,7 +5,7 @@
 
 package org.motechproject.mobile.imp.util;
 
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class ValidatorGroup {
     private String parent = null;
-    private Map<String, IncomingMessageFormParameterValidator> validators;
+    private LinkedHashMap<String, IncomingMessageFormParameterValidator> validators;
 
     /**
      * @return the parent
@@ -32,14 +32,14 @@ public class ValidatorGroup {
     /**
      * @return the validators
      */
-    public Map<String, IncomingMessageFormParameterValidator> getValidators() {
+    public LinkedHashMap<String, IncomingMessageFormParameterValidator> getValidators() {
         return validators;
     }
 
     /**
      * @param validators the validators to set
      */
-    public void setValidators(Map<String, IncomingMessageFormParameterValidator> validators) {
+    public void setValidators(LinkedHashMap<String, IncomingMessageFormParameterValidator> validators) {
         this.validators = validators;
     }
 }

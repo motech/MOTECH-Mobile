@@ -14,10 +14,12 @@ import java.util.Date;
  * @author user
  */
 public class ParamSizeValidator implements IncomingMessageFormParameterValidator{
-    public boolean validate(IncomingMessageFormParameter param) {
+    public synchronized boolean validate(IncomingMessageFormParameter param) {
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
-
-        if (param.getValue().trim().length() > param.getIncomingMsgFormParamDefinition().getLength()) {
+        int paramLength = param.getValue().trim().length();
+        int maxLength = param.getIncomingMsgFormParamDefinition().getLength();
+        
+        if (paramLength > maxLength) {
             param.setErrCode(2);
             param.setErrText("too long");
             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);

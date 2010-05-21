@@ -25,15 +25,18 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
 
     private static Logger logger = Logger.getLogger(ParamExpressionValidator.class);
 
-    public boolean validate(IncomingMessageFormParameter param) {
+    public synchronized boolean validate(IncomingMessageFormParameter param) {
         String paramType = param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase();
+
+        System.out.println("Regex: " + expression);
 
         if(paramType.indexOf("TIME") >= 0){
             try{
                 SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
                 dFormat.setLenient(true);
                 Date val = dFormat.parse(param.getValue());
-                
+
+                dFormat.applyPattern(defaultDateFormat);
                 param.setValue(dFormat.format(val));
                 param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
             }catch (ParseException ex) {
@@ -53,7 +56,8 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                 try {
                     String dateInputFormat = "";
                     for (String regex : dateFormateExpMap.getDateFormatRegexMap().keySet()){
-                        if (Pattern.matches(regex, param.getValue())){
+                        boolean match = Pattern.matches(regex, param.getValue());
+                        if (match){
                             dateInputFormat = dateFormateExpMap.getDateFormatRegexMap().get(regex);
                             break;
                         }

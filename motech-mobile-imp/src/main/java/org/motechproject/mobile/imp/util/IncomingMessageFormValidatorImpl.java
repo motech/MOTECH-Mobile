@@ -11,6 +11,7 @@ import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinition;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
@@ -24,7 +25,7 @@ import org.apache.log4j.Logger;
 public class IncomingMessageFormValidatorImpl implements IncomingMessageFormValidator {
 
     private CoreManager coreManager;
-    private Map<String, ValidatorGroup> paramValidators;
+    private LinkedHashMap<String, ValidatorGroup> paramValidators;
     private static Logger logger = Logger.getLogger(IncomingMessageFormValidatorImpl.class);
 
     /**
@@ -43,25 +44,26 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()).setIncomingMsgFormParamDefinition(paramDef);
                     form.setLastModified(new Date());
 
-                    if(paramDef.getParamType().endsWith("_ARRAY")){
+                    if (paramDef.getParamType().endsWith("_ARRAY")) {
                         String type = paramDef.getParamType().substring(0, paramDef.getParamType().lastIndexOf("_"));
                         group = paramValidators.get(type);
-                        if(group == null){
+                        if (group == null) {
                             throw new Exception("Validator [" + paramDef.getParamType().toUpperCase() + "] not found");
                         }
                         status = validateArray(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()), group);
-                    }else{
+                    } else {
                         group = paramValidators.get(paramDef.getParamType().toUpperCase());
-                        if(group == null){
+                        if (group == null) {
                             throw new Exception("Validator [" + paramDef.getParamType().toUpperCase() + "] not found");
                         }
                         status = validateSingle(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()), group);
                     }
-                    
-                    if(status != IncMessageFormStatus.VALID)
+
+                    if (status != IncMessageFormStatus.VALID) {
                         form.setMessageFormStatus(status);
-                    
-                    form.setLastModified(new Date());                    
+                    }
+
+                    form.setLastModified(new Date());
                 } else {
                     if (paramDef.isRequired()) {
                         IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
@@ -89,34 +91,39 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         return form.getMessageFormStatus();
     }
 
-    private IncMessageFormStatus validateSingle(IncomingMessageFormParameter param, ValidatorGroup group){
-        if(group.getParent() != null && !group.getParent().isEmpty()){
+    private IncMessageFormStatus validateSingle(IncomingMessageFormParameter param, ValidatorGroup group) {
+        Map<String, IncomingMessageFormParameterValidator> validators = new LinkedHashMap<String, IncomingMessageFormParameterValidator>();
+
+        if (group.getParent() != null && !group.getParent().isEmpty()) {
             ValidatorGroup parent = paramValidators.get(group.getParent());
-            for(Entry<String, IncomingMessageFormParameterValidator> validator : group.getValidators().entrySet()){
-                parent.getValidators().put(validator.getKey(), validator.getValue());
-            }
-            group = parent;
+            validators.putAll(parent.getValidators());
+        }
+        for (Entry<String, IncomingMessageFormParameterValidator> validator : group.getValidators().entrySet()) {
+            validators.put(validator.getKey(), validator.getValue());
         }
 
-        for (Entry<String, IncomingMessageFormParameterValidator> entry : group.getValidators().entrySet()) {
-            if (!entry.getValue().validate(param)) {
+        for (Entry<String, IncomingMessageFormParameterValidator> entry : validators.entrySet()) {
+            IncomingMessageFormParameterValidator v = entry.getValue();
+            boolean valid = v.validate(param);
+            if (!valid) {
                 return IncMessageFormStatus.INVALID;
             }
         }
+
         return IncMessageFormStatus.VALID;
     }
 
-    private IncMessageFormStatus validateArray(IncomingMessageFormParameter param, ValidatorGroup group){
+    private IncMessageFormStatus validateArray(IncomingMessageFormParameter param, ValidatorGroup group) {
         String value = param.getValue();
         String[] elements = param.getValue().split(" ");
         IncMessageFormStatus status = IncMessageFormStatus.INVALID;
 
-        for(int i = 0; i < elements.length; i++){
+        for (int i = 0; i < elements.length; i++) {
             param.setValue(elements[i]);
             status = validateSingle(param, group);
-            
-            if(status != IncMessageFormStatus.VALID){
-                String error = param.getErrText() + " (item " + i+1 + ")";
+
+            if (status != IncMessageFormStatus.VALID) {
+                String error = param.getErrText() + " (item " + (i + 1) + ")";
                 param.setErrText(error);
                 break;
             }
@@ -142,7 +149,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
     /**
      * @param paramValidators the paramValidators to set
      */
-    public void setParamValidators(Map<String, ValidatorGroup> paramValidators) {
+    public void setParamValidators(LinkedHashMap<String, ValidatorGroup> paramValidators) {
         this.paramValidators = paramValidators;
     }
 }

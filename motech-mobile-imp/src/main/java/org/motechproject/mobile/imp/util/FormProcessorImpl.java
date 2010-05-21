@@ -35,7 +35,7 @@ public class FormProcessorImpl implements FormProcessor {
     private Map<String, MethodSignature> serviceMethods;
     private static Logger logger = Logger.getLogger(FormProcessorImpl.class);
 
-    public String processForm(IncomingMessageForm form) {
+    public synchronized String processForm(IncomingMessageForm form) {
         Object result = null;
         MethodSignature mSig;
         String formattedResult = "";
@@ -57,9 +57,12 @@ public class FormProcessorImpl implements FormProcessor {
 
         try {
             for (Entry<String, Class> e : mSig.getMethodParams().entrySet()) {
+                logger.debug("Param: "+e.getKey()+" Class:"+e.getValue());
                 paramTypes[idx] = e.getValue();
                 if (form.getIncomingMsgFormParameters().containsKey(e.getKey().toLowerCase())) {
-                    if (e.getValue().equals(Date.class)) {
+                    if(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().isEmpty()){
+                        paramObjs[idx] = null;
+                    } else if (e.getValue().equals(Date.class)) {
                         paramObjs[idx] = dFormat.parse(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
                     } else if (e.getValue().isEnum()) {
                         paramObjs[idx] = Enum.valueOf(e.getValue(), form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
@@ -117,7 +120,7 @@ public class FormProcessorImpl implements FormProcessor {
         return executeCallback(mSig.getCallback(), result);
     }
 
-    private String executeCallback(MethodSignature mSig, Object param) {
+    private synchronized String executeCallback(MethodSignature mSig, Object param) {
         MessageFormatter formatter = omiManager.createMessageFormatter();
         String formattedResponse = "";
 
@@ -151,7 +154,7 @@ public class FormProcessorImpl implements FormProcessor {
         return formattedResponse;
     }
 
-    public void parseValidationErrors(IncomingMessageForm form, ValidationException ex) {
+    public synchronized void parseValidationErrors(IncomingMessageForm form, ValidationException ex) {
         List<ValidationError> errors = ex.getFaultInfo().getErrors();
 
         for (ValidationError error : errors) {

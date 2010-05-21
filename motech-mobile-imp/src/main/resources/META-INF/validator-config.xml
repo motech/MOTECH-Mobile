@@ -16,18 +16,18 @@
     <bean id="dateFormatRegexMapBean" class="org.motechproject.mobile.imp.util.DateFormatRegexMap" >
         <property name="dateFormatRegexMap">
             <map>
-                <entry key="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\\d\\d" value="dd/MM/yy"/>
-                <entry key="\\d+" value="ddMMyy"/>
-                <entry key="(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)?\\d\\d" value="dd-MM-yy"/>
-                <entry key="(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)?\\d\\d" value="dd.MM.yy"/>
-                <entry key="(0[1-9]|[12][0-9]|3[01]) (0[1-9]|1[012]) (19|20)?\\d\\d" value="dd MM yy"/>
+                <entry key="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\d\d" value="dd/MM/yy"/>
+                <entry key="\d+" value="ddMMyy"/>
+                <entry key="(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)?\d\d" value="dd-MM-yy"/>
+                <entry key="(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)?\d\d" value="dd.MM.yy"/>
+                <entry key="(0[1-9]|[12][0-9]|3[01]) (0[1-9]|1[012]) (19|20)?\d\d" value="dd MM yy"/>
                 <entry key="(0[0-9]|1[0-2]|2[0-4]):([0-5][0-9]):([0-5][0-9]) [A|P]M$" value="hh:mm:ss a"/>
                 <entry key="${imp.validator.defaultDateExpression}" value="${imp.validator.defaultDateFormat}"/>
             </map>
         </property>
     </bean>
 
-    <bean id="imFormValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
+    <bean id="imFormValidator" scope="prototype" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="paramValidators">
             <map key-type="java.lang.String">
@@ -64,7 +64,7 @@
                     </bean>
                 </entry>
                 <entry key="DATE">
-                    <bean scope="prototype" name="timeValidatorBean" class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
                             <map>
                                 <entry key="SIZE">
@@ -206,7 +206,7 @@
                             <map>
                                 <entry key="VALUE">
                                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
-                                        <property name="values" value="P,N,NA" />
+                                        <property name="values" value="POSITIVE,NEGATIVE,NO_TEST" />
                                         <property name="caseSensitive" value="false" />
                                     </bean>
                                 </entry>
@@ -608,7 +608,7 @@
                 </entry>
                 <entry key="TIME">
                     <bean scope="prototype" name="timeValidatorBean" class="org.motechproject.mobile.imp.util.ValidatorGroup">
-                        <property name="parent" value="DATE" />
+                        <property name="parent" value="DATETIME" />
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION" value-ref="timeExpressionBean" />

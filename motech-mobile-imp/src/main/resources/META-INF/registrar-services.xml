@@ -317,7 +317,7 @@
                 <entry key="ipti" value="java.lang.Boolean" />
                 <entry key="vitaminA" value="java.lang.Boolean" />
                 <entry key="dewormer" value="java.lang.Boolean" />
-                <entry key="weight" value="java.lang.Integer" />
+                <entry key="weight" value="java.lang.Double" />
                 <entry key="muac" value="java.lang.Integer" />
                 <entry key="height" value="java.lang.Integer" />
                 <entry key="maleInvolved" value="java.lang.Boolean" />

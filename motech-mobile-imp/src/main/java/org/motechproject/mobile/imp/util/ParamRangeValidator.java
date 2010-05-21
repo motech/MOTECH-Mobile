@@ -14,10 +14,10 @@ import java.util.Date;
  */
 public class ParamRangeValidator implements IncomingMessageFormParameterValidator {
 
-    private Float minValue;
-    private Float maxValue;
+    private Float minValue = null;
+    private Float maxValue = null;
 
-    public boolean validate(IncomingMessageFormParameter param) {
+    public synchronized boolean validate(IncomingMessageFormParameter param) {
         Float value;
 
         if(param.getValue().isEmpty())

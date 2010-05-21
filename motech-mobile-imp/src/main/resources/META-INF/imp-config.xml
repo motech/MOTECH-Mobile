@@ -21,7 +21,7 @@
     <import resource="classpath:META-INF/validator-config.xml" />
     <import resource="classpath:META-INF/registrar-services.xml" />
 
-    <bean id="impService" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
+    <bean id="impService" scope="prototype" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="impManager" ref="impManager" />
         <property name="omiManager" ref="omiManager" />
@@ -63,7 +63,7 @@
         <property name="formNameTagName" value="${imp.xmlparser.formNameTagName}" />
         <property name="oxdDateFormat" value="${imp.oxd.dateFormat}" />
         <property name="oxdDateRegex" value="${imp.oxd.dateExpression}" />
-        <property name="impDateFormat" value="${imp.validator.dateFormat}" />
+        <property name="impDateFormat" value="${imp.validator.dateTimeFormat}" />
         <property name="xmlUtil" ref="xmlUtil" />
         <property name="formTypeLookup" >
             <map>
@@ -73,14 +73,14 @@
         </property>
     </bean>
 
-    <bean id="formCmdAxn" class="org.motechproject.mobile.imp.util.FormCommandAction">
+    <bean id="formCmdAxn" scope="prototype" class="org.motechproject.mobile.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="formProcessor" ref="formProcessor" />
         <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
-    <bean id="qryCmdAxn" class="org.motechproject.mobile.imp.util.QueryCommandAction">
+    <bean id="qryCmdAxn" scope="prototype" class="org.motechproject.mobile.imp.util.QueryCommandAction">
         <property name="senderFieldName" value="${imp.oxd.senderField}" />
         <property name="formValidator" ref="imFormValidator" />
         <property name="formProcessor" ref="formProcessor" />

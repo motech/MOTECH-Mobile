@@ -6,6 +6,7 @@
 package org.motechproject.mobile.imp.util;
 
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -27,6 +28,7 @@ public class IncomingMessageFormParameterValidatorImplTest {
     /**
      * Test of validate method, of class IncomingMessageFormParameterValidatorImpl.
      */
+    @Ignore
     @Test
     public void testValidate() {
         System.out.println("validate");
