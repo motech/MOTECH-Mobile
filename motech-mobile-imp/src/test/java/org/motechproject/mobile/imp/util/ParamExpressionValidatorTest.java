@@ -5,6 +5,7 @@
 
 package org.motechproject.mobile.imp.util;
 
+import java.util.HashMap;
 import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinitionImpl;
@@ -39,6 +40,16 @@ public class ParamExpressionValidatorTest {
         ParamExpressionValidator instance = new ParamExpressionValidator();
         instance.setExpression("(0[1-9]|[12][0-9]|3[01])[\\-/. ]?(0[1-9]|1[012])[\\-/. ]?(19|20)?\\d\\d");
         instance.setDateFormat("dd/MM/yyyy");
+        DateFormatRegexMap rfrm = new DateFormatRegexMap();
+        rfrm.setDateFormatRegexMap(new HashMap<String, String>());
+        rfrm.getDateFormatRegexMap().put("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\\d\\d", "dd/MM/yy");
+        rfrm.getDateFormatRegexMap().put("\\d+", "ddMMyy");
+        rfrm.getDateFormatRegexMap().put("(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)?\\d\\d", "dd-MM-yy");
+        rfrm.getDateFormatRegexMap().put("(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)?\\d\\d", "dd.MM.yy");
+        rfrm.getDateFormatRegexMap().put("(0[1-9]|[12][0-9]|3[01]) (0[1-9]|1[012]) (19|20)?\\d\\d", "dd MM yy");
+        rfrm.getDateFormatRegexMap().put("(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)\\d\\d (0[0-9]|1[0-2]|2[0-4]):([0-5][0-9]):([0-5][0-9]) [A|P]M$", "yyyy-MM-dd hh:mm:ss a");
+        instance.setDateFormateExpMap(rfrm);
+        instance.setDefaultDateFormat("yyyy-MM-dd hh:mm:ss a");
 
         boolean expResult = false;
         boolean result = instance.validate(param);

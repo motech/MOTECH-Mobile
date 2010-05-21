@@ -15,7 +15,7 @@
     <bean id="formProcessor" class="org.motechproject.mobile.imp.util.FormProcessorImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="regWS" ref="registrarClient" />
-        <property name="dateFormat" value="${imp.validator.dateFormat}" />
+        <property name="defaultDateFormat" value="${imp.validator.defaultDateFormat}" />
         <property name="omiManager" ref="omiManager" />
         <property name="serverErrors">
             <map>

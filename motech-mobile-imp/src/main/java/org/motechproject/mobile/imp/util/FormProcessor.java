@@ -29,7 +29,7 @@ public interface FormProcessor {
     /**
      * @param dateFormat the dateFormat to set
      */
-    void setDateFormat(String dateFormat);
+    void setDefaultDateFormat(String dateFormat);
 
     /**
      * @param omiManager the omiManager to set

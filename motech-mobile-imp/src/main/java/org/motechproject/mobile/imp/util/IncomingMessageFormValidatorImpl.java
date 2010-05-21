@@ -46,6 +46,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     if(paramDef.getParamType().endsWith("_ARRAY")){
                         String type = paramDef.getParamType().substring(0, paramDef.getParamType().lastIndexOf("_"));
                         group = paramValidators.get(type);
+                        if(group == null){
+                            throw new Exception("Validator [" + paramDef.getParamType().toUpperCase() + "] not found");
+                        }
                         status = validateArray(form.getIncomingMsgFormParameters().get(paramDef.getName().toLowerCase()), group);
                     }else{
                         group = paramValidators.get(paramDef.getParamType().toUpperCase());

@@ -20,6 +20,8 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
 
     private String expression;
     private String dateFormat;
+    private String defaultDateFormat;
+    private DateFormatRegexMap dateFormateExpMap;
 
     private static Logger logger = Logger.getLogger(ParamExpressionValidator.class);
 
@@ -50,16 +52,11 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
             if (paramType.indexOf("DATE") >= 0) {
                 try {
                     String dateInputFormat = "";
-                    if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd/MM/yy";
-                    } else if (Pattern.matches("\\d+", param.getValue())) {
-                        dateInputFormat = "ddMMyy";
-                    } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd-MM-yy";
-                    } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd.MM.yy";
-                    } else if (Pattern.matches("(0[1-9]|[12][0-9]|3[01]) (0[1-9]|1[012]) (19|20)?\\d\\d", param.getValue())) {
-                        dateInputFormat = "dd MM yy";
+                    for (String regex : dateFormateExpMap.getDateFormatRegexMap().keySet()){
+                        if (Pattern.matches(regex, param.getValue())){
+                            dateInputFormat = dateFormateExpMap.getDateFormatRegexMap().get(regex);
+                            break;
+                        }
                     }
 
                     SimpleDateFormat dFormat = new SimpleDateFormat(dateInputFormat);
@@ -72,7 +69,7 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                         param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
                     }
                     
-                    dFormat.applyPattern(dateFormat);
+                    dFormat.applyPattern(defaultDateFormat);
                     param.setValue(dFormat.format(val));
                 } catch (ParseException ex) {
                     logger.error("Invalid date format - " + param.getValue(), ex);
@@ -100,5 +97,33 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
      */
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
+    }
+
+    /**
+     * @return the dateFormateExpMap
+     */
+    public DateFormatRegexMap getDateFormateExpMap() {
+        return dateFormateExpMap;
+    }
+
+    /**
+     * @param dateFormateExpMap the dateFormateExpMap to set
+     */
+    public void setDateFormateExpMap(DateFormatRegexMap dateFormateExpMap) {
+        this.dateFormateExpMap = dateFormateExpMap;
+    }
+
+    /**
+     * @return the defaultDateFormat
+     */
+    public String getDefaultDateFormat() {
+        return defaultDateFormat;
+    }
+
+    /**
+     * @param defaultDateFormat the defaultDateFormat to set
+     */
+    public void setDefaultDateFormat(String defaultDateFormat) {
+        this.defaultDateFormat = defaultDateFormat;
     }
 }

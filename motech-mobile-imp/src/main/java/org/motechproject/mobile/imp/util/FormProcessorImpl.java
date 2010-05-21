@@ -27,7 +27,7 @@ import org.motechproject.ws.server.ValidationException;
  */
 public class FormProcessorImpl implements FormProcessor {
 
-    private String dateFormat;
+    private String defaultDateFormat;
     private RegistrarService regWS;
     private OMIManager omiManager;
     private CoreManager coreManager;
@@ -40,7 +40,7 @@ public class FormProcessorImpl implements FormProcessor {
         MethodSignature mSig;
         String formattedResult = "";
 
-        SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
+        SimpleDateFormat dFormat = new SimpleDateFormat(defaultDateFormat);
         dFormat.setLenient(true);
 
         if (serviceMethods.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
@@ -68,9 +68,12 @@ public class FormProcessorImpl implements FormProcessor {
                     } else if (e.getValue().isArray()) {
                         String[] a = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().split(" ");
 
-                        Object arrayObj = Array.newInstance(e.getValue().getComponentType(), a.length);
+                        Class baseType = e.getValue().getComponentType();
+                        Object arrayObj = Array.newInstance(baseType, a.length);
                         for (int i = 0; i < a.length; i++) {
-                            Array.set(arrayObj, i, a[i]);
+                            Constructor constr = baseType.getConstructor(String.class);
+                            Object val = constr.newInstance(a[i]);
+                            Array.set(arrayObj, i, val);
                         }
 
                         paramObjs[idx] = arrayObj;
@@ -122,7 +125,7 @@ public class FormProcessorImpl implements FormProcessor {
             int idx = 0;
             Class[] paramTypes = new Class[mSig.getMethodParams().size()];
 
-            for(Entry<String, Class> entry : mSig.getMethodParams().entrySet()){
+            for (Entry<String, Class> entry : mSig.getMethodParams().entrySet()) {
                 paramTypes[idx] = entry.getValue();
                 idx++;
             }
@@ -176,10 +179,10 @@ public class FormProcessorImpl implements FormProcessor {
     }
 
     /**
-     * @param dateFormat the dateFormat to set
+     * @param defaultDateFormat the defaultDateFormat to set
      */
-    public void setDateFormat(String dateFormat) {
-        this.dateFormat = dateFormat;
+    public void setDefaultDateFormat(String defaultDateFormat) {
+        this.defaultDateFormat = defaultDateFormat;
     }
 
     /**
