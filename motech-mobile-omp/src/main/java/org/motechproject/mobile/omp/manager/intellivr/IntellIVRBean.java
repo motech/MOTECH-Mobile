@@ -57,6 +57,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private RegistrarService registrarService;
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
+	private Log reportLog = LogFactory.getLog(IntellIVRBean.class.getName() + ".reportlog");
 	
 	@SuppressWarnings("unused")
 	private void init() {
@@ -105,7 +106,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		timer = new Timer();
 		
 		ivrSessions = new HashMap<String, IVRSession>();
-		
+
 	}
 	
 	public String getMessageStatus(GatewayResponse response) {
@@ -358,6 +359,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public ResponseType handleReport(ReportType report) {
 		log.info("Received call report: " + report.toString());
 		
+		List<String> messages = formatReportLogMessages(report);
+		for ( String message : messages )
+			reportLog.info(message);
+		
 		String sessionId = report.getPrivate();
 		
 		if ( sessionId == null )
@@ -416,6 +421,35 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return r;
 	}
 	
+	private List<String> formatReportLogMessages(ReportType report) {
+		
+		List<String> result = new ArrayList<String>();
+		
+		StringBuilder common = new StringBuilder();
+		common.append(report.getCallee());
+		common.append("," + report.getDuration());
+		common.append("," + report.getINTELLIVREntryCount());
+		common.append("," + report.getPrivate());
+		common.append("," + report.getConnectTime());
+		common.append("," + report.getDisconnectTime());
+		common.append("," + report.getStatus().value());
+		
+		for ( IvrEntryType entry : report.getINTELLIVREntry() ) {
+			
+			StringBuilder message = new StringBuilder();
+			message.append(common.toString());
+			message.append("," + entry.getFile());
+			message.append("," + entry.getKeypress());
+			message.append("," + entry.getMenu());
+			message.append("," + entry.getDuration());
+			message.append("," + entry.getEntrytime());
+			
+			result.add(message.toString());
+			
+		}
+		
+		return result;
+	}
 
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
 		this.messageHandler = messageHandler;
