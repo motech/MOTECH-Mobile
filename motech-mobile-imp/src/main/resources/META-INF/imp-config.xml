@@ -63,7 +63,7 @@
         <property name="formNameTagName" value="${imp.xmlparser.formNameTagName}" />
         <property name="oxdDateFormat" value="${imp.oxd.dateFormat}" />
         <property name="oxdDateRegex" value="${imp.oxd.dateExpression}" />
-        <property name="impDateFormat" value="${imp.validator.dateTimeFormat}" />
+        <property name="impDateFormat" value="${imp.validator.dateFormat}" />
         <property name="xmlUtil" ref="xmlUtil" />
         <property name="formTypeLookup" >
             <map>
