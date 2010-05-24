@@ -589,6 +589,21 @@
                         </property>
                     </bean>
                 </entry>
+                <entry key="PNCLOCATION">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                        <property name="parent" value="NUMERIC" />
+                        <property name="validators">
+                            <map>
+                                <entry key="RANGE">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
+                                        <property name="minValue" value="1" />
+                                        <property name="maxValue" value="3" />
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
                 <entry key="DATETIME">
                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="parent" value="DATE" />
@@ -608,7 +623,7 @@
                 </entry>
                 <entry key="TIME">
                     <bean scope="prototype" name="timeValidatorBean" class="org.motechproject.mobile.imp.util.ValidatorGroup">
-                        <property name="parent" value="DATETIME" />
+                        <property name="parent" value="DATE" />
                         <property name="validators">
                             <map>
                                 <entry key="EXPRESSION" value-ref="timeExpressionBean" />
