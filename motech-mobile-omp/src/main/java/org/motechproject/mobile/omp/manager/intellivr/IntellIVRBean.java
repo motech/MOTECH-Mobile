@@ -403,7 +403,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 					log.debug("Updating Message Request " 
 							+ gatewayRequest.getMessageRequest().getId().toString() 
-							+ " to " + report.getStatus().value());
+							+ " to " + status);
 					statusStore.updateStatus(gatewayRequest
 												.getMessageRequest()
 												.getId()
