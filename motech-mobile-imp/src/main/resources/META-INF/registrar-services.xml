@@ -395,9 +395,7 @@
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
                 <entry key="timeOfDay" value="java.util.Date" />
-                <entry key="reason" value="org.motechproject.ws.InterestReason" />
                 <entry key="howLearned" value="org.motechproject.ws.HowLearned" />
-                <entry key="messageStartWeek" value="java.lang.Integer" />
             </map>
         </property>
     </bean>
@@ -423,9 +421,7 @@
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
                 <entry key="timeOfDay" value="java.util.Date" />
-                <entry key="reason" value="org.motechproject.ws.InterestReason" />
                 <entry key="howLearned" value="org.motechproject.ws.HowLearned" />
-                <entry key="messageStartWeek" value="java.lang.Integer" />
             </map>
         </property>
     </bean>
@@ -447,9 +443,7 @@
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
                 <entry key="timeOfDay" value="java.util.Date" />
-                <entry key="reason" value="org.motechproject.ws.InterestReason" />
                 <entry key="howLearned" value="org.motechproject.ws.HowLearned" />
-                <entry key="messageStartWeek" value="java.lang.Integer" />
             </map>
         </property>
     </bean>
