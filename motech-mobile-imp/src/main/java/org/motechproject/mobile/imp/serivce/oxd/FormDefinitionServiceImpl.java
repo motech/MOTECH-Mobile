@@ -26,6 +26,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 public class FormDefinitionServiceImpl implements FormDefinitionService,
         StudyDefinitionService, UserDefinitionService {
 
+	private List<Object[]> users;
+	private PasswordEncoder encoder;
     private List<String> studies;
     private Map<String, List<Integer>> studyForms;
     private Map<Integer, String> formMap;
@@ -157,15 +159,41 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
     }
 
     /**
+	 * Used to set the password encoder implementation.
+	 * 
+	 * @param encoder
+	 */
+	public void setPasswordEncoder(PasswordEncoder encoder) {
+		this.encoder = encoder;
+	}
+    
+    /**
      * Returns the list of openxdata users.
      */
     public List<Object[]> getUsers() {
-        Object[] user = {1, "guyzb", "730c0e85d51b5c293b6ec8f22579ec7b67c5d8",
-            "135df6eacf3e3f21866ecff10378035edbf7"};
-        List<Object[]> users = new ArrayList<Object[]>();
-        users.add(user);
         return users;
     }
+    
+    /**
+	 * Sets the list of openxdata users.
+	 * 
+	 * @return
+	 */
+	public void setUsers(List<String[]> users) {
+
+		this.users = new ArrayList<Object[]>();
+
+		int i = 0;
+		for (Object[] user : users) {
+			Integer userId = ++i;
+			String name = (String) user[0];
+			String password = (String) user[1];
+			String salt = (String) user[2];
+			String encodedPassword = encoder.encodePassword(password, salt);
+			Object[] completeUser = { userId, name, encodedPassword, salt };
+			this.users.add(completeUser);
+		}
+	}
 
     /**
      * Returns the name of the study for the given id

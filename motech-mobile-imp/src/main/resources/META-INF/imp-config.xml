@@ -100,6 +100,15 @@
                 <value>${imp.oxd.oxdFormDefsResource3}</value>
 			</list>
 		</property>
+		<property name="passwordEncoder">
+			<bean class="org.motechproject.mobile.imp.serivce.oxd.PasswordEncoderImpl" />
+		</property>
+		<property name="users">
+			<list>
+				<value>guyzb,daniel123,135df6eacf3e3f21866ecff10378035edbf7</value>
+				<value>motech,ghs,7357658437bd298b4a48b7357489357</value>
+			</list>
+		</property>
 	</bean>
     
     <bean id="studyProcessor" class="org.motechproject.mobile.imp.serivce.oxd.StudyProcessor" scope="prototype"/>
