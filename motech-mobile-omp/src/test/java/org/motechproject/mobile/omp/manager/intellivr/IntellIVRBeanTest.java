@@ -11,6 +11,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -20,9 +21,14 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.easymock.EasyMock;
+import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.mobile.core.dao.DBSession;
+import org.motechproject.mobile.core.dao.GatewayRequestDAO;
+import org.motechproject.mobile.core.dao.GenericDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
@@ -39,7 +45,6 @@ import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
-import org.motechproject.mobile.omp.manager.intellivr.RequestType.Vxml;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationException;
@@ -508,11 +513,14 @@ public class IntellIVRBeanTest {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testHandleReport() {
 		
 		String recipientID = "123456789";
 		String phone = "15555555555";
+		GregorianCalendar start = new GregorianCalendar(2010, 1, 1, 12, 00);
+		GregorianCalendar end = new GregorianCalendar(2010, 1, 1, 13, 00);
 		
 		Language english = new LanguageImpl();
 		english.setCode("en");
@@ -535,6 +543,8 @@ public class IntellIVRBeanTest {
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone);
+		r1.setDateFrom(start.getTime());
+		r1.setDateTo(end.getTime());
 
 		NotificationType n2 = new NotificationTypeImpl();
 		n2.setId(2L);
@@ -552,6 +562,8 @@ public class IntellIVRBeanTest {
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);
+		r2.setDateFrom(start.getTime());
+		r2.setDateTo(end.getTime());
 
 		NotificationType n3 = new NotificationTypeImpl();
 		n3.setId(3L);
@@ -569,7 +581,9 @@ public class IntellIVRBeanTest {
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone);
-		
+		r3.setDateFrom(start.getTime());
+		r3.setDateTo(end.getTime());
+
 		IVRSession session = new IVRSession(recipientID, phone, english.getName());
 			
 		ReportType report = new ReportType();
@@ -584,6 +598,7 @@ public class IntellIVRBeanTest {
 
 			session = new IVRSession(recipientID, phone, english.getName());
 			session.setAttempts(1);
+			session.setDays(1);
 			session.addGatewayRequest(r1);
 			session.addGatewayRequest(r2);
 			session.addGatewayRequest(r3);
@@ -633,11 +648,13 @@ public class IntellIVRBeanTest {
 				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 				
 				verify(statusStore);
+				reset(statusStore);
 				
 			} else {
 				
 				intellivrBean.setRetryDelay(-1);
 				intellivrBean.setMaxAttempts(2);
+				intellivrBean.setMaxDays(2);
 				
 				report.setDuration(0);
 				report.setINTELLIVREntryCount(0);
@@ -662,12 +679,110 @@ public class IntellIVRBeanTest {
 				 * increment attempts count to max, no further attempts should be made
 				 */
 				session.setAttempts(2);
+
+				GregorianCalendar expectedNewStart = new GregorianCalendar(2010, 1, 2, 12, 00);
+				GregorianCalendar expectedNewEnd = new GregorianCalendar(2010, 1, 2, 13, 00);
+
+				MotechContext mockContext = createMock(MotechContext.class);
+				
+				CoreManager mockCoreManager = createMock(CoreManager.class);
+				intellivrBean.setCoreManager(mockCoreManager);
+				
+				DBSession mockDBSession = createMock(DBSession.class);
+				Transaction mockTransaction = createMock(Transaction.class);
+				
+				GatewayRequestDAO<GatewayRequest> mockGatewayRequestDAO = createMock(GatewayRequestDAO.class);
+				
+				expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
+				expect(mockCoreManager.createGatewayRequestDAO(mockContext)).andReturn(mockGatewayRequestDAO);
+				
+				GatewayRequest mockGatewayRequest1 = createMock(GatewayRequest.class);
+				GatewayRequest mockGatewayRequest2 = createMock(GatewayRequest.class);
+				GatewayRequest mockGatewayRequest3 = createMock(GatewayRequest.class);
+				
+				expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest1);
+				
+				expect(mockGatewayRequest1.getDateFrom()).andReturn(start.getTime());
+				expect(mockGatewayRequest1.getDateTo()).andReturn(end.getTime());
+				mockGatewayRequest1.setDateFrom(expectedNewStart.getTime());
+				mockGatewayRequest1.setDateTo(expectedNewEnd.getTime());
+				mockGatewayRequest1.setMessageStatus(MStatus.SCHEDULED);
+				expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockGatewayRequestDAO.save(mockGatewayRequest1)).andReturn(mockGatewayRequest1);
+
+				expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest2);
+
+				expect(mockGatewayRequest2.getDateFrom()).andReturn(start.getTime());
+				expect(mockGatewayRequest2.getDateTo()).andReturn(end.getTime());
+				mockGatewayRequest2.setDateFrom(expectedNewStart.getTime());
+				mockGatewayRequest2.setDateTo(expectedNewEnd.getTime());
+				mockGatewayRequest2.setMessageStatus(MStatus.SCHEDULED);
+				expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockGatewayRequestDAO.save(mockGatewayRequest2)).andReturn(mockGatewayRequest2);
+
+				expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest3);
+				
+				expect(mockGatewayRequest3.getDateFrom()).andReturn(start.getTime());
+				expect(mockGatewayRequest3.getDateTo()).andReturn(end.getTime());
+				mockGatewayRequest3.setDateFrom(expectedNewStart.getTime());
+				mockGatewayRequest3.setDateTo(expectedNewEnd.getTime());
+				mockGatewayRequest3.setMessageStatus(MStatus.SCHEDULED);
+				expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockGatewayRequestDAO.save(mockGatewayRequest3)).andReturn(mockGatewayRequest3);
+				
+				statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
+				statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
+				statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
+				
+				replay(statusStore);
+				replay(mockCoreManager);
+				replay(mockContext);
+				replay(mockGatewayRequest1);
+				replay(mockGatewayRequest2);
+				replay(mockGatewayRequest3);				
+				replay(mockGatewayRequestDAO);
+				replay(mockDBSession);
+				
+				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+				response = intellivrBean.handleReport(report);
+				
+				assertEquals(StatusType.OK, response.getStatus());
+				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+				
+				verify(mockCoreManager);
+				verify(mockContext);
+				verify(mockGatewayRequestDAO);
+				verify(mockDBSession);
+				verify(mockGatewayRequest1);
+				verify(mockGatewayRequest2);
+				verify(mockGatewayRequest3);
+				verify(statusStore);
+				reset(mockCoreManager);
+				reset(mockContext);
+				reset(mockGatewayRequestDAO);
+				reset(mockDBSession);
+				reset(mockTransaction);
+				reset(mockGatewayRequest1);
+				reset(mockGatewayRequest2);
+				reset(mockGatewayRequest3);
+				reset(statusStore);
+
+				/*
+				 * increment days to max
+				 */
+				expectedSessions.put(session.getSessionId(), session);
+				intellivrBean.ivrSessions = expectedSessions;
+				session.setDays(2);
 				
 				statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
 				statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
 				statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
 				replay(statusStore);
-
+				
 				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
 				response = intellivrBean.handleReport(report);

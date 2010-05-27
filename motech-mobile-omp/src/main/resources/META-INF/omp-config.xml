@@ -175,8 +175,9 @@
 			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>
 		</property>
 		<property name="bundlingDelay" value="30000"/>	
-		<property name="retryDelay" value="15"/>
-		<property name="maxAttempts" value="4"/>
+		<property name="retryDelay" value="1"/>
+		<property name="maxAttempts" value="2"/>
+		<property name="maxDays" value="2"/>
 		<property name="noPendingMessagesRecordingName" value="prompt_H.wav"/>
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
 		<property name="coreManager" ref="coreManager"/>

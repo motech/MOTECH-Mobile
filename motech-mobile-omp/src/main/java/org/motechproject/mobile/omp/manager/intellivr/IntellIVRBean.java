@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Transaction;
+import org.motechproject.mobile.core.dao.GatewayRequestDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
@@ -51,6 +55,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private long bundlingDelay;
 	private int retryDelay;
 	private int maxAttempts;
+	private int maxDays;
 	private String noPendingMessagesRecordingName;
 	private Resource mappingResource;
 	private CoreManager coreManager;
@@ -356,6 +361,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return r;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ResponseType handleReport(ReportType report) {
 		log.info("Received call report: " + report.toString());
 		
@@ -389,8 +395,42 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 							timer.schedule(task, 1000 * 60 * retryDelay);
 						}
 					} else {
+						if ( session.getDays() < this.maxDays ) {
+							
+							MotechContext context = coreManager.createMotechContext();
+							
+							GatewayRequestDAO<GatewayRequest> gwReqDAO = coreManager.createGatewayRequestDAO(context);
+							
+							for ( GatewayRequest gatewayRequest : session.getGatewayRequests() ) {
+								
+								GatewayRequest gatewayRequestDB = gwReqDAO.getById(gatewayRequest.getId());
+								
+								Date dateFrom = gatewayRequestDB.getDateFrom();
+								Date dateTo = gatewayRequestDB.getDateTo();
+								
+								GregorianCalendar newDateFrom = new GregorianCalendar();
+								newDateFrom.setTime(dateFrom);
+								newDateFrom.add(GregorianCalendar.DAY_OF_MONTH, 1);
+								
+								GregorianCalendar newDateTo = new GregorianCalendar();
+								newDateTo.setTime(dateTo);								
+								newDateTo.add(GregorianCalendar.DAY_OF_MONTH, 1);
+								
+								gatewayRequestDB.setDateFrom(newDateFrom.getTime());
+								gatewayRequestDB.setDateTo(newDateTo.getTime());
+								gatewayRequestDB.setMessageStatus(MStatus.SCHEDULED);
+								
+								Transaction tx = (Transaction) gwReqDAO.getDBSession().getTransaction();
+								tx.begin();
+								gwReqDAO.save(gatewayRequestDB);
+								tx.commit();
+								
+							}
+							
+						} else {
+							status = "MAXATTEMPTS";	
+						}
 						ivrSessions.remove(sessionId);
-						status = "MAXATTEMPTS";
 					}
 					
 				}
@@ -545,6 +585,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setMaxAttempts(int maxAttempts) {
 		this.maxAttempts = maxAttempts;
+	}
+
+	public int getMaxDays() {
+		return maxDays;
+	}
+
+	public void setMaxDays(int maxDays) {
+		this.maxDays = maxDays;
 	}
 
 	public String getNoPendingMessagesRecordingName() {

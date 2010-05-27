@@ -12,6 +12,7 @@ public class IVRSession {
 	private String language;
 	private boolean userInitiated;
 	private int attempts;
+	private int days;
 	private Collection<GatewayRequest> requests;
 	
 	/**
@@ -109,6 +110,22 @@ public class IVRSession {
 	 */
 	public void setAttempts(int attempts) {
 		this.attempts = attempts;
+	}
+
+	/**
+	 * Number of days the call has been attempted
+	 * @return int 
+	 */
+	public int getDays() {
+		return days;
+	}
+
+	/**
+	 * Set the number of days the call has been attempted
+	 * @param days
+	 */
+	public void setDays(int days) {
+		this.days = days;
 	}
 
 	/**
