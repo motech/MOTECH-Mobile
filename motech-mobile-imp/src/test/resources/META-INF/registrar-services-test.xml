@@ -13,10 +13,8 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <bean id="formProcessor" class="org.motechproject.mobile.imp.util.FormProcessorImpl">
-        <property name="coreManager" ref="coreManager" />
         <property name="regWS" ref="registrarClient" />
-        <property name="defaultDateFormat" value="${imp.validator.dateFormat}" />
-        <property name="omiManager" ref="omiManager" />
+        <property name="defaultDateFormat" value="${imp.validator.defaultDateFormat}" />
         <property name="serverErrors">
             <map>
                 <entry key="1" value="not found" />
@@ -26,39 +24,40 @@
         </property>
         <property name="serviceMethods">
             <map key-type="java.lang.String" value-type="org.motechproject.mobile.imp.util.MethodSignature">
-                <entry key="GENERALOPD" value-ref="recordGeneralVisitSignatureBean" />
-                <entry key="EDITPATIENT" value-ref="editPatientSignatureBean" />
-                <entry key="ANC" value-ref="recordMotherANCVisitSignatureBean" />
-                <entry key="ABORTION" value-ref="recordPregnancyTerminationSignatureBean" />
-                <entry key="DELIVERY" value-ref="recordPregnancyDeliverySignatureBean" />
-                <entry key="DELIVERYNOTIFY" value-ref="recordDeliveryNotificationSignatureBean" />
-                <entry key="MOTHERPNC" value-ref="recordMotherPNCVisitSignatureBean" />
-                <entry key="DEATH" value-ref="recordDeathSignatureBean" />
-                <entry key="TT" value-ref="recordTTVisitSignatureBean" />
-                <entry key="CHILDPNC" value-ref="recordChildPNCVisitSignatureBean" />
-                <entry key="CHILDCWC" value-ref="recordChildCWCVisitSignatureBean" />
-                <entry key="REGISTERPATIENT" value-ref="registerPatientSignatureBean" />
-                <entry key="REGISTERPREGNANCY" value-ref="registerPregnancySignatureBean" />
-                <entry key="REGISTERANCMOTHER" value-ref="registerANCMotherSignatureBean" />
-                <entry key="REGISTERCWCCHILD" value-ref="registerCWCChildSignatureBean" />
-                <entry key="CHILDOPD" value-ref="recordChildVisitSignatureBean" />
-                <entry key="MOTHEROPD" value-ref="recordMotherVisitSignatureBean" />
-                <entry key="ANCDEFAULT" value-ref="queryANCDefaultersSignatureBean" />
-                <entry key="TTDEFAULT" value-ref="queryTTDefaultersSignatureBean" />
-                <entry key="PPCDEFAULT" value-ref="queryPPCDefaultersSignatureBean" />
-                <entry key="PNCDEFAULT" value-ref="queryPNCDefaultersSignatureBean" />
-                <entry key="CWCDEFAULT" value-ref="queryCWCDefaultersSignatureBean" />
-                <entry key="UPCOMINGDELIVERIES" value-ref="queryUpcomingDeliveriesSignatureBean" />
-                <entry key="RECENTDELIVERIES" value-ref="queryRecentDeliveriesSignatureBean" />
-                <entry key="OVERDUEDELIVERIES" value-ref="queryOverdueDeliveriesSignatureBean" />
-                <entry key="UPCOMINGCARE" value-ref="queryUpcomingCareSignatureBean" />
-                <entry key="VIEWPATIENT" value-ref="queryPatientSignatureBean" />
-                <entry key="FINDMOTECHID" value-ref="queryMotechIdSignatureBean" />
+                <entry key="GENERALOPD-JF" value-ref="recordGeneralVisitSignatureBean" />
+                <entry key="EDITPATIENT-JF" value-ref="editPatientSignatureBean" />
+                <entry key="ANC-JF" value-ref="recordMotherANCVisitSignatureBean" />
+                <entry key="ABORTION-JF" value-ref="recordPregnancyTerminationSignatureBean" />
+                <entry key="DELIVERY-JF" value-ref="recordPregnancyDeliverySignatureBean" />
+                <entry key="DELIVERYNOTIFY-JF" value-ref="recordDeliveryNotificationSignatureBean" />
+                <entry key="MOTHERPNC-JF" value-ref="recordMotherPNCVisitSignatureBean" />
+                <entry key="DEATH-JF" value-ref="recordDeathSignatureBean" />
+                <entry key="TT-JF" value-ref="recordTTVisitSignatureBean" />
+                <entry key="CHILDPNC-JF" value-ref="recordChildPNCVisitSignatureBean" />
+                <entry key="CHILDCWC-JF" value-ref="recordChildCWCVisitSignatureBean" />
+                <entry key="REGISTERPATIENT-JF" value-ref="registerPatientSignatureBean" />
+                <entry key="REGISTERPREGNANCY-JF" value-ref="registerPregnancySignatureBean" />
+                <entry key="REGISTERANCMOTHER-JF" value-ref="registerANCMotherSignatureBean" />
+                <entry key="REGISTERCWCCHILD-JF" value-ref="registerCWCChildSignatureBean" />
+                <entry key="CHILDOPD-JF" value-ref="recordChildVisitSignatureBean" />
+                <entry key="MOTHEROPD-JF" value-ref="recordMotherVisitSignatureBean" />
+                <entry key="ANCDEFAULT-JF" value-ref="queryANCDefaultersSignatureBean" />
+                <entry key="TTDEFAULT-JF" value-ref="queryTTDefaultersSignatureBean" />
+                <!-- Rename PPC to ChildPNC, PNC to MotherPNC when database definitions are renamed -->
+                <entry key="PPCDEFAULT-JF" value-ref="queryChildPNCDefaultersSignatureBean" />
+                <entry key="PNCDEFAULT-JF" value-ref="queryMotherPNCDefaultersSignatureBean" />
+                <entry key="CWCDEFAULT-JF" value-ref="queryCWCDefaultersSignatureBean" />
+                <entry key="UPCOMINGDELIVERIES-JF" value-ref="queryUpcomingDeliveriesSignatureBean" />
+                <entry key="RECENTDELIVERIES-JF" value-ref="queryRecentDeliveriesSignatureBean" />
+                <entry key="OVERDUEDELIVERIES-JF" value-ref="queryOverdueDeliveriesSignatureBean" />
+                <entry key="UPCOMINGCARE-JF" value-ref="queryUpcomingCareSignatureBean" />
+                <entry key="VIEWPATIENT-JF" value-ref="queryPatientSignatureBean" />
+                <entry key="FINDMOTECHID-JF" value-ref="queryMotechIdSignatureBean" />
             </map>
         </property>
     </bean>
 
-    <bean name="recordGeneralVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordGeneralVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordGeneralVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -81,7 +80,7 @@
         </property>
     </bean>
 
-    <bean name="recordMotherANCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordMotherANCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordMotherANCVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -122,7 +121,7 @@
         </property>
     </bean>
 
-    <bean name="editPatientSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="editPatientSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="editPatient" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -139,7 +138,7 @@
         </property>
     </bean>
 
-    <bean name="recordPregnancyTerminationSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordPregnancyTerminationSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordPregnancyTermination" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -159,7 +158,7 @@
         </property>
     </bean>
 
-    <bean name="recordPregnancyDeliverySignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordPregnancyDeliverySignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordPregnancyDelivery" />
         <property name="methodParams">
             <map key-type="java.lang.String" value-type="java.lang.Class">
@@ -182,29 +181,33 @@
                 <entry key="child1Sex" value="org.motechproject.ws.Gender" />
                 <entry key="child1FirstName" value="java.lang.String" />
                 <entry key="child1Weight" value="java.lang.Double" />
-                <entry key="child1OPV" value="java.lang.Boolean" />
-                <entry key="child1BCG" value="java.lang.Boolean" />
                 <entry key="child2Outcome" value="org.motechproject.ws.BirthOutcome" />
                 <entry key="child2RegistrationType" value="org.motechproject.ws.RegistrationMode" />
                 <entry key="child2MotechId" value="java.lang.Integer" />
                 <entry key="child2Sex" value="org.motechproject.ws.Gender" />
                 <entry key="child2FirstName" value="java.lang.String" />
                 <entry key="child2Weight" value="java.lang.Double" />
-                <entry key="child2OPV" value="java.lang.Boolean" />
-                <entry key="child2BCG" value="java.lang.Boolean" />
                 <entry key="child3Outcome" value="org.motechproject.ws.BirthOutcome" />
                 <entry key="child3RegistrationType" value="org.motechproject.ws.RegistrationMode" />
                 <entry key="child3MotechId" value="java.lang.Integer" />
                 <entry key="child3Sex" value="org.motechproject.ws.Gender" />
                 <entry key="child3FirstName" value="java.lang.String" />
                 <entry key="child3Weight" value="java.lang.Double" />
-                <entry key="child3OPV" value="java.lang.Boolean" />
-                <entry key="child3BCG" value="java.lang.Boolean" />
             </map>
+        </property>
+        <property name="callback">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
+                <property name="methodName" value="formatMatchingPatientsMessage" />
+                <property name="methodParams">
+                    <map key-type="java.lang.String">
+                        <entry key="patients" value="org.motechproject.ws.Patient[]" />
+                    </map>
+                </property>
+            </bean>
         </property>
     </bean>
 
-    <bean name="recordDeliveryNotificationSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordDeliveryNotificationSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordDeliveryNotification" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -216,7 +219,7 @@
         </property>
     </bean>
 
-    <bean name="recordMotherPNCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordMotherPNCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordMotherPNCVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -241,7 +244,7 @@
         </property>
     </bean>
 
-    <bean name="recordDeathSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordDeathSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordDeath" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -254,8 +257,8 @@
         </property>
     </bean>
 
-    <bean name="recordTTVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
-        <property name="methodName" value="recordDeath" />
+    <bean scope="prototype" name="recordTTVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+        <property name="methodName" value="recordTTVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
                 <entry key="staffId" value="java.lang.Integer" />
@@ -267,7 +270,7 @@
         </property>
     </bean>
 
-    <bean name="recordChildPNCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordChildPNCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordChildPNCVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -281,6 +284,8 @@
                 <entry key="community" value="java.lang.String" />
                 <entry key="referred" value="java.lang.Boolean" />
                 <entry key="maleInvolved" value="java.lang.Boolean" />
+                <entry key="weight" value="java.lang.Double" />
+                <entry key="temperature" value="java.lang.Integer" />
                 <entry key="bcg" value="java.lang.Boolean" />
                 <entry key="opv0" value="java.lang.Boolean" />
                 <entry key="respiration" value="java.lang.Integer" />
@@ -291,7 +296,7 @@
         </property>
     </bean>
 
-    <bean name="recordChildCWCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordChildCWCVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordChildCWCVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -302,7 +307,6 @@
                 <entry key="cwcLocation" value="java.lang.Integer" />
                 <entry key="house" value="java.lang.String" />
                 <entry key="community" value="java.lang.String" />
-                <entry key="maleInvolved" value="java.lang.Boolean" />
                 <entry key="bcg" value="java.lang.Boolean" />
                 <entry key="opvDose" value="java.lang.Integer" />
                 <entry key="pentaDose" value="java.lang.Integer" />
@@ -312,7 +316,7 @@
                 <entry key="ipti" value="java.lang.Boolean" />
                 <entry key="vitaminA" value="java.lang.Boolean" />
                 <entry key="dewormer" value="java.lang.Boolean" />
-                <entry key="weight" value="java.lang.Integer" />
+                <entry key="weight" value="java.lang.Double" />
                 <entry key="muac" value="java.lang.Integer" />
                 <entry key="height" value="java.lang.Integer" />
                 <entry key="maleInvolved" value="java.lang.Boolean" />
@@ -321,13 +325,14 @@
         </property>
     </bean>
 
-    <bean name="registerPatientSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="registerPatientSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="registerPatient" />
         <property name="methodParams">
             <map key-type="java.lang.String">
                 <entry key="staffId" value="java.lang.Integer" />
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
+                <entry key="registrationMode" value="org.motechproject.ws.RegistrationMode" />
                 <entry key="motechId" value="java.lang.Integer" />
                 <entry key="registrantType" value="org.motechproject.ws.RegistrantType" />
                 <entry key="firstName" value="java.lang.String" />
@@ -341,12 +346,9 @@
                 <entry key="nhis" value="java.lang.String" />
                 <entry key="nhisExpires" value="java.util.Date" />
                 <entry key="motherMotechId" value="java.lang.Integer" />
-                <entry key="region" value="java.lang.String" />
-                <entry key="district" value="java.lang.String" />
-                <entry key="subDistrict" value="java.lang.String" />
-                <entry key="community" value="java.lang.String" />
+                <entry key="community" value="java.lang.Integer" />
                 <entry key="address" value="java.lang.String" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="expDeliveryDate" value="java.util.Date" />
                 <entry key="deliveryDateConfirmed" value="java.lang.Boolean" />
                 <entry key="gravida" value="java.lang.Integer" />
@@ -363,9 +365,19 @@
                 <entry key="messageStartWeek" value="java.lang.Integer" />
             </map>
         </property>
+        <property name="callback">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
+                <property name="methodName" value="formatPatientRegistrationMessage" />
+                <property name="methodParams">
+                    <map key-type="java.lang.String">
+                        <entry key="patient" value="org.motechproject.ws.Patient" />
+                    </map>
+                </property>
+            </bean>
+        </property>
     </bean>
 
-    <bean name="registerPregnancySignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="registerPregnancySignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="registerPregnancy" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -377,19 +389,17 @@
                 <entry key="enroll" value="java.lang.Boolean" />
                 <entry key="consent" value="java.lang.Boolean" />
                 <entry key="ownership" value="org.motechproject.ws.ContactNumberType" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="format" value="org.motechproject.ws.MediaType" />
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
                 <entry key="timeOfDay" value="java.util.Date" />
-                <entry key="reason" value="org.motechproject.ws.InterestReason" />
                 <entry key="howLearned" value="org.motechproject.ws.HowLearned" />
-                <entry key="messageStartWeek" value="java.lang.Integer" />
             </map>
         </property>
     </bean>
 
-    <bean name="registerANCMotherSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="registerANCMotherSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="registerANCMother" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -405,19 +415,17 @@
                 <entry key="enroll" value="java.lang.Boolean" />
                 <entry key="consent" value="java.lang.Boolean" />
                 <entry key="ownership" value="org.motechproject.ws.ContactNumberType" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="format" value="org.motechproject.ws.MediaType" />
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
                 <entry key="timeOfDay" value="java.util.Date" />
-                <entry key="reason" value="org.motechproject.ws.InterestReason" />
                 <entry key="howLearned" value="org.motechproject.ws.HowLearned" />
-                <entry key="messageStartWeek" value="java.lang.Integer" />
             </map>
         </property>
     </bean>
 
-    <bean name="registerCWCChildSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="registerCWCChildSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="registerCWCChild" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -429,19 +437,17 @@
                 <entry key="enroll" value="java.lang.Boolean" />
                 <entry key="consent" value="java.lang.Boolean" />
                 <entry key="ownership" value="org.motechproject.ws.ContactNumberType" />
-                <entry key="phoneNumber" value="java.lang.Integer" />
+                <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="format" value="org.motechproject.ws.MediaType" />
                 <entry key="language" value="java.lang.String" />
                 <entry key="dayOfWeek" value="org.motechproject.ws.DayOfWeek" />
                 <entry key="timeOfDay" value="java.util.Date" />
-                <entry key="reason" value="org.motechproject.ws.InterestReason" />
                 <entry key="howLearned" value="org.motechproject.ws.HowLearned" />
-                <entry key="messageStartWeek" value="java.lang.Integer" />
             </map>
         </property>
     </bean>
 
-    <bean name="recordChildVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordChildVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordChildVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -462,7 +468,7 @@
         </property>
     </bean>
 
-    <bean name="recordMotherVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="recordMotherVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordMotherVisit" />
         <property name="methodParams">
             <map key-type="java.lang.String">
@@ -483,116 +489,116 @@
         </property>
     </bean>
 
-    <bean name="queryANCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryANCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryANCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
         </property>
     </bean>
 
-    <bean name="queryTTDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryTTDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryTTDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
         </property>
     </bean>
 
-    <bean name="queryPPCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
-        <property name="methodName" value="queryPPCDefaulters" />
+    <bean scope="prototype" name="queryChildPNCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+        <property name="methodName" value="queryChildPNCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
         </property>
     </bean>
 
-    <bean name="queryPNCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
-        <property name="methodName" value="queryPNCDefaulters" />
+    <bean scope="prototype" name="queryMotherPNCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+        <property name="methodName" value="queryMotherPNCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
         </property>
     </bean>
 
-    <bean name="queryCWCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryCWCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryCWCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatDefaulterMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Care[]" />
+                        <entry key="cares" value="org.motechproject.ws.Care[]" />
                     </map>
                 </property>
             </bean>
         </property>
     </bean>
 
-    <bean name="queryUpcomingDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryUpcomingDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryUpcomingDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatUpcomingDeliveriesMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
@@ -603,16 +609,16 @@
         </property>
     </bean>
 
-    <bean name="queryRecentDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryRecentDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryRecentDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatRecentDeliveriesMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
@@ -623,16 +629,16 @@
         </property>
     </bean>
 
-    <bean name="queryOverdueDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryOverdueDeliveriesSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryOverdueDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatOverdueDeliveriesMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
@@ -643,52 +649,54 @@
         </property>
     </bean>
 
-    <bean name="queryUpcomingCareSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryUpcomingCareSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryUpcomingCare" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
-                <entry key="motechId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
+                <entry key="motechId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatUpcomingCaresMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Patient" />
+                        <entry key="patient" value="org.motechproject.ws.Patient" />
                     </map>
                 </property>
             </bean>
         </property>
     </bean>
 
-    <bean name="queryPatientSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryPatientSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryPatient" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="motechId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
+                <entry key="motechId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatPatientDetailsMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
-                        <entry key="patients" value="org.motechproject.ws.Patient" />
+                        <entry key="patient" value="org.motechproject.ws.Patient" />
                     </map>
                 </property>
             </bean>
         </property>
     </bean>
 
-    <bean name="queryMotechIdSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+    <bean scope="prototype" name="queryMotechIdSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="queryMotechId" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="firstName" value="java.lang.String" />
                 <entry key="lastName" value="java.lang.String" />
                 <entry key="preferredName" value="java.lang.String" />
@@ -698,7 +706,7 @@
             </map>
         </property>
         <property name="callback">
-            <bean class="org.motechproject.mobile.imp.util.MethodSignature">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
                 <property name="methodName" value="formatMatchingPatientsMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">

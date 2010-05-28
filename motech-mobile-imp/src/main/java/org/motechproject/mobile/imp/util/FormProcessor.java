@@ -49,6 +49,11 @@ public interface FormProcessor {
     /**
      * @param serviceMethods the serviceMethods to set
      */
+    Map<String, MethodSignature> getServiceMethods();
+
+    /**
+     * @param serviceMethods the serviceMethods to set
+     */
     void setServiceMethods(Map<String, MethodSignature> serviceMethods);
 
 }

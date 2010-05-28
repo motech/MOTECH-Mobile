@@ -18,27 +18,21 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-    <import resource="classpath:META-INF/core-config.xml" />
-    <import resource="classpath:META-INF/omi-config.xml" />
     <import resource="classpath:META-INF/validator-test-config.xml" />
-    <import resource="classpath:META-INF/registrar-services.xml" />
+    <import resource="classpath:META-INF/registrar-services-test.xml" />
 
     <!--Spring specific-->
     <bean id="propertyConfigurer"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:mysql.hibernate.properties</value>
-                <value>classpath:mysql.jdbc.properties</value>
                 <value>classpath:imp.properties</value>
             </list>
         </property>
     </bean>
 
-    <bean id="impService" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
-        <property name="coreManager" ref="coreManager" />
+    <bean id="impService" scope="prototype" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
         <property name="impManager" ref="impManager" />
-        <property name="omiManager" ref="omiManager" />
         <property name="parser" ref="imParser" />
         <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
         <property name="formProcessSuccess" value="${imp.form.successResponse}" />
@@ -60,7 +54,6 @@
     <bean id="impManager" class="org.motechproject.mobile.imp.manager.IMPManagerImpl" />
 
     <bean id="imParser" class="org.motechproject.mobile.imp.util.IncomingMessageParserImpl" >
-        <property name="coreManager" ref="coreManager" />
         <property name="separator" value="${imp.form.param.valueSparator}" />
         <property name="delimiter" value="${imp.form.param.delimiter}" />
         <property name="cmdRegex" value="${imp.form.commandExpression}" />
@@ -69,7 +62,6 @@
     </bean>
 
     <bean id="imXMLParser" class="org.motechproject.mobile.imp.util.IncomingMessageXMLParserImpl">
-        <property name="coreManager" ref="coreManager" />
         <property name="messageParser" ref="imParser" />
         <property name="separator" value="${imp.form.param.valueSparator}" />
         <property name="delimiter" value="${imp.xform.param.delimiter}" />
@@ -87,31 +79,33 @@
         </property>
     </bean>
 
-    <bean id="formCmdAxn" class="org.motechproject.mobile.imp.util.FormCommandAction">
+    <bean id="formCmdAxn" scope="prototype" class="org.motechproject.mobile.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="formProcessor" ref="formProcessor" />
-        <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
-    <bean id="qryCmdAxn" class="org.motechproject.mobile.imp.util.QueryCommandAction">
+    <bean id="qryCmdAxn" scope="prototype" class="org.motechproject.mobile.imp.util.QueryCommandAction">
         <property name="senderFieldName" value="${imp.oxd.senderField}" />
         <property name="formValidator" ref="imFormValidator" />
         <property name="formProcessor" ref="formProcessor" />
-        <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
     </bean>
 
     <bean id="xmlUtil" class="org.motechproject.mobile.imp.util.XMLUtil" />
 
-    <bean id="oxdFormDefService" class="org.motechproject.mobile.imp.serivce.oxd.FormDefinitionServiceImpl">
-        <property name="oxdFormDefResources">
-            <list>
-                <value>${imp.oxd.oxdFormDefsResource1}</value>
-                <value>${imp.oxd.oxdFormDefsResource2}</value>
-            </list>
-        </property>
-    </bean>
+    <bean id="oxdFormDefService" name="oxdUserDefService,oxdStudyDefService"
+		class="org.motechproject.mobile.imp.serivce.oxd.FormDefinitionServiceImpl"
+		init-method="init">
+		<property name="oxdFormDefResources">
+			<list>
+				<!--<value>${imp.oxd.oxdFormDefsResource1}</value>
+				<value>${imp.oxd.oxdFormDefsResource2}</value>
+                <value>${imp.oxd.oxdFormDefsResource3}</value>-->
+			</list>
+		</property>
+	</bean>
+
     <bean id="studyProcessor" class="org.motechproject.mobile.imp.serivce.oxd.StudyProcessor" scope="prototype"/>
 
     <bean id="registrarClient"

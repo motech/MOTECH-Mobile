@@ -13,7 +13,6 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <bean id="imFormValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
-        <property name="coreManager" ref="coreManager" />
         <property name="paramValidators">
             <map key-type="java.lang.String">
                 <entry key="ALPHA">

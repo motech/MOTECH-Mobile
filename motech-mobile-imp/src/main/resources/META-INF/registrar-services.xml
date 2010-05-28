@@ -45,8 +45,9 @@
                 <entry key="MOTHEROPD-JF" value-ref="recordMotherVisitSignatureBean" />
                 <entry key="ANCDEFAULT-JF" value-ref="queryANCDefaultersSignatureBean" />
                 <entry key="TTDEFAULT-JF" value-ref="queryTTDefaultersSignatureBean" />
-                <entry key="PPCDEFAULT-JF" value-ref="queryPPCDefaultersSignatureBean" />
-                <entry key="PNCDEFAULT-JF" value-ref="queryPNCDefaultersSignatureBean" />
+                <!-- Rename PPC to ChildPNC, PNC to MotherPNC when database definitions are renamed -->
+                <entry key="PPCDEFAULT-JF" value-ref="queryChildPNCDefaultersSignatureBean" />
+                <entry key="PNCDEFAULT-JF" value-ref="queryMotherPNCDefaultersSignatureBean" />
                 <entry key="CWCDEFAULT-JF" value-ref="queryCWCDefaultersSignatureBean" />
                 <entry key="UPCOMINGDELIVERIES-JF" value-ref="queryUpcomingDeliveriesSignatureBean" />
                 <entry key="RECENTDELIVERIES-JF" value-ref="queryRecentDeliveriesSignatureBean" />
@@ -57,7 +58,7 @@
             </map>
         </property>
     </bean>
-    
+
     <bean scope="prototype" name="recordGeneralVisitSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
         <property name="methodName" value="recordGeneralVisit" />
         <property name="methodParams">
@@ -494,8 +495,8 @@
         <property name="methodName" value="queryANCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -514,8 +515,8 @@
         <property name="methodName" value="queryTTDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -530,12 +531,12 @@
         </property>
     </bean>
 
-    <bean scope="prototype" name="queryPPCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
-        <property name="methodName" value="queryPPCDefaulters" />
+    <bean scope="prototype" name="queryChildPNCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+        <property name="methodName" value="queryChildPNCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -550,12 +551,12 @@
         </property>
     </bean>
 
-    <bean scope="prototype" name="queryPNCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
-        <property name="methodName" value="queryPNCDefaulters" />
+    <bean scope="prototype" name="queryMotherPNCDefaultersSignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+        <property name="methodName" value="queryMotherPNCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -574,8 +575,8 @@
         <property name="methodName" value="queryCWCDefaulters" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -594,8 +595,8 @@
         <property name="methodName" value="queryUpcomingDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -614,8 +615,8 @@
         <property name="methodName" value="queryRecentDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -634,8 +635,8 @@
         <property name="methodName" value="queryOverdueDeliveries" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -654,9 +655,9 @@
         <property name="methodName" value="queryUpcomingCare" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="facilityId" value="java.lang.String" />
-                <entry key="motechId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
+                <entry key="motechId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -675,8 +676,9 @@
         <property name="methodName" value="queryPatient" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
-                <entry key="motechId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
+                <entry key="motechId" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">
@@ -695,7 +697,8 @@
         <property name="methodName" value="queryMotechId" />
         <property name="methodParams">
             <map key-type="java.lang.String">
-                <entry key="chpsId" value="java.lang.String" />
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="firstName" value="java.lang.String" />
                 <entry key="lastName" value="java.lang.String" />
                 <entry key="preferredName" value="java.lang.String" />

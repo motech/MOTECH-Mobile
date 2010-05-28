@@ -40,11 +40,14 @@ public class FormProcessorImpl implements FormProcessor {
         MethodSignature mSig;
         String formattedResult = "";
 
+        if(form.getMessageFormStatus() != IncMessageFormStatus.VALID)
+            return "Invalid form";
+
         SimpleDateFormat dFormat = new SimpleDateFormat(defaultDateFormat);
         dFormat.setLenient(true);
 
-        if (serviceMethods.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
-            mSig = serviceMethods.get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
+        if (getServiceMethods().containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
+            mSig = getServiceMethods().get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
         } else {
             return form.getMessageFormStatus().toString();
         }
@@ -121,9 +124,13 @@ public class FormProcessorImpl implements FormProcessor {
     }
 
     private synchronized String executeCallback(MethodSignature mSig, Object param) {
-        MessageFormatter formatter = omiManager.createMessageFormatter();
-        String formattedResponse = "";
+        String formattedResponse = "No matching records found";
 
+        if(param == null)
+            return formattedResponse;
+
+        MessageFormatter formatter = omiManager.createMessageFormatter();
+        
         try {
             int idx = 0;
             Class[] paramTypes = new Class[mSig.getMethodParams().size()];
@@ -214,6 +221,13 @@ public class FormProcessorImpl implements FormProcessor {
      */
     public void setServerErrors(Map<Integer, String> serverErrors) {
         this.serverErrors = serverErrors;
+    }
+
+    /**
+     * @return the serviceMethods
+     */
+    public Map<String, MethodSignature> getServiceMethods() {
+        return serviceMethods;
     }
 
     /**
