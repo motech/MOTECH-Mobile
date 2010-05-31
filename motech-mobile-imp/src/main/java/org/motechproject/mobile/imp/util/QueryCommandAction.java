@@ -113,7 +113,7 @@ public class QueryCommandAction implements CommandAction {
         imSession.setMessageSessionStatus(IncMessageSessionStatus.STARTED);
         imSession.setDateStarted(new Date());
         imSession.setLastActivity(new Date());
-        imSession.getIncomingMessages().add(message);
+        imSession.addIncomingMessage(message);
 
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
         Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
