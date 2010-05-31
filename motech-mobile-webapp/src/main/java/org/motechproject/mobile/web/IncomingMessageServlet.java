@@ -41,7 +41,7 @@ public class IncomingMessageServlet extends HttpServlet {
 
             String responseString = imrWorker.doRequest(request.getParameterMap());
 
-            out.print(responseString);
+            out.print(responseString.replaceAll("\n", "<br />"));
         } finally { 
             out.close();
         }

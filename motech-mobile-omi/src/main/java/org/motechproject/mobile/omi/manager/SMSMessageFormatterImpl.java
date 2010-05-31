@@ -249,8 +249,8 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         data.add(new NameValuePair("FirstName", patient.getFirstName()));
         data.add(new NameValuePair("LastName", patient.getLastName()));
 
-        template += "Your request for a new MoTeCH ID was successful";
-        template += "Name: <Firstname> <LastName>";
+        template += "Your request for a new MoTeCH ID was successful\n";
+        template += "Name: <FirstName> <LastName>\n";
         template += "MoTeCH ID: <MoTeCHID>";
 
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);
