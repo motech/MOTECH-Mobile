@@ -70,7 +70,7 @@
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="editpatient"&gt;
-      &lt;editpatient id="115" name="Edit Patient-v1"&gt;
+      &lt;editpatient id="116" name="Edit Patient-v1"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -111,10 +111,10 @@
       &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
     &lt;/xf:input&gt;
     &lt;xf:input bind="phoneNumber"&gt;
-      &lt;xf:label&gt;Primary phone number&lt;/xf:label&gt;
+      &lt;xf:label&gt;Phone number&lt;/xf:label&gt;
     &lt;/xf:input&gt;
     &lt;xf:select1 bind="phoneOwnership"&gt;
-      &lt;xf:label&gt;Primary phone type&lt;/xf:label&gt;
+      &lt;xf:label&gt;Phone Ownership&lt;/xf:label&gt;
       &lt;xf:item id="PERSONAL"&gt;
         &lt;xf:label&gt;Personal phone&lt;/xf:label&gt;
         &lt;xf:value&gt;PERSONAL&lt;/xf:value&gt;
@@ -191,8 +191,8 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Date"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='phoneNumber']/label" value="Primary phone number"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/label" value="Primary phone type"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='phoneNumber']/label" value="Phone number"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/label" value="Phone Ownership"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/item[@id='PERSONAL']/label" value="Personal phone"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/item[@id='HOUSEHOLD']/label" value="Owned by household"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/item[@id='PUBLIC']/label" value="Public phone"/&gt;&#13;
@@ -311,7 +311,7 @@
 </form>
 <form description="" name="Patient Query">
 <version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;&#13;
+<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="patientQuery"&gt;
