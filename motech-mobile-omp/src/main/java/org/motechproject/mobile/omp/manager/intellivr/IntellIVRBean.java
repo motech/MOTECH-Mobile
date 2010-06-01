@@ -154,7 +154,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 			if ( !gatewayRequest.getMessageRequest().getPhoneNumberType().equalsIgnoreCase("PUBLIC") ) {
 			
-				IVRSession session = new IVRSession(recipientID, phone, language.getName());
+				IVRSession session = new IVRSession(recipientID, 
+													phone, 
+													language.getName(),
+													gatewayRequest.getMessageRequest().getDaysAttempted());
 				session.addGatewayRequest(gatewayRequest);
 				
 				if ( !ivrSessions.containsKey(session.getSessionId()) ) {
@@ -191,6 +194,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		request.getMessageRequest().getLanguage().getName();
 		request.getMessageRequest().getRecipientId();
 		request.getMessageRequest().getNotificationType().getId();
+		request.getMessageRequest().getDaysAttempted();
 	}
 
 	public void sendPending(IVRSession session) {

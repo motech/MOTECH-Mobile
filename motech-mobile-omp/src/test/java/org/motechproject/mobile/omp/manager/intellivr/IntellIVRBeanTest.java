@@ -158,6 +158,7 @@ public class IntellIVRBeanTest {
 		
 		MessageRequest mr1 = new MessageRequestImpl();
 		mr1.setId(1L);
+		mr1.setDaysAttempted(1);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipient1);
 		mr1.setRequestId("mr1");
@@ -186,6 +187,7 @@ public class IntellIVRBeanTest {
 
 		MessageRequest mr2 = new MessageRequestImpl();
 		mr2.setId(2L);
+		mr2.setDaysAttempted(2);
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipient1);
 		mr2.setRequestId("mr2");
@@ -214,6 +216,7 @@ public class IntellIVRBeanTest {
 		
 		MessageRequest mr3 = new MessageRequestImpl();
 		mr3.setId(3L);
+		mr3.setDaysAttempted(3);
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipient2);
 		mr3.setRequestId("mr3");
@@ -293,11 +296,11 @@ public class IntellIVRBeanTest {
 		Set<GatewayResponse> grs5 = new HashSet<GatewayResponse>();
 		grs5.add(gr5);
 	
-		IVRSession session1 = new IVRSession(recipient1, phone1, english.getName());
+		IVRSession session1 = new IVRSession(recipient1, phone1, english.getName(), mr1.getDaysAttempted());
 		session1.addGatewayRequest(r1);
 		session1.addGatewayRequest(r2);
 		
-		IVRSession session2 = new IVRSession(recipient2, phone2, english.getName());
+		IVRSession session2 = new IVRSession(recipient2, phone2, english.getName(), mr3.getDaysAttempted());
 		session2.addGatewayRequest(r3);
 		
 		Map<String, IVRSession> expectedIVRSessions = new HashMap<String, IVRSession>();
@@ -358,6 +361,8 @@ public class IntellIVRBeanTest {
 		reset(mockStatusStore);
 		
 		assertEquals(expectedIVRSessions, intellivrBean.ivrSessions);
+		assertEquals(mr1.getDaysAttempted(), intellivrBean.ivrSessions.get(session1.getSessionId()).getDays());
+		assertEquals(mr3.getDaysAttempted(), intellivrBean.ivrSessions.get(session2.getSessionId()).getDays());
 		
 		/*
 		 * Now test sendPending and see if it sends the right RequestType

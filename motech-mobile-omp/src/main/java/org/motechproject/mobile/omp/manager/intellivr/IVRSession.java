@@ -30,7 +30,23 @@ public class IVRSession {
 	}
 	
 	/**
-	 * create a user initiate session
+	 * create a server initiated session
+	 * @param userId
+	 * @param phone
+	 * @param language
+	 * @param days
+	 */
+	public IVRSession(String userId, String phone, String language, int days) {
+		this.userId = userId;
+		this.phone = phone;
+		this.language = language;
+		this.days = days;
+		this.userInitiated = false;
+		requests = new ArrayList<GatewayRequest>();
+	}
+	
+	/**
+	 * create a user initiated session
 	 * @param userId
 	 */
 	public IVRSession(String userId) {
