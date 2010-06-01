@@ -163,23 +163,23 @@
 	</bean>
 
 	<bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean" init-method="init">
-		<property name="reportURL" value="http://motech-ws.rcg.usm.maine.edu:8080/motech-mobile-webapp/intellivr"/>
-		<property name="apiID" value="Cqyc0kReo98jxWz9N0qYKzBslRYaLsStA6shaLkHdfnpDU3C2E"/>
+		<property name="reportURL" value="${intellivr.gateway.reportURL}"/>
+		<property name="apiID" value="${intellivr.gateway.apiID}"/>
 		<property name="method" value="ivroriginate"/>
-		<property name="defaultLanguage" value="English"/>
-		<property name="defaultTree" value="pregnancy_week_5"/>
-		<property name="defaultReminder" value="prompt_IR2.wav"/>
+		<property name="defaultLanguage" value="${intellivr.gateway.defaultLanguage}"/>
+		<property name="defaultTree" value="${intellivr.gateway.defaultTree}"/>
+		<property name="defaultReminder" value="${intellivr.gateway.defaultReminder}"/>
 		<property name="ivrServer" ref="intellIVRTestServer"/>
 		<property name="messageHandler" ref="intellIVRMessageHandler"/>
 		<property name="statusStore">
 			<bean class="org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStore"/>
 		</property>
-		<property name="bundlingDelay" value="30000"/>	
-		<property name="retryDelay" value="1"/>
-		<property name="maxAttempts" value="2"/>
-		<property name="maxDays" value="2"/>
-		<property name="noPendingMessagesRecordingName" value="prompt_H.wav"/>
-		<property name="mappingResource" value="classpath:intellivr.conf"/>
+		<property name="bundlingDelay" value="${intellivr.gateway.bundlingDelay}"/>	
+		<property name="retryDelay" value="${intellivr.gateway.retryDelay}"/>
+		<property name="maxAttempts" value="${intellivr.gateway.maxAttempts}"/>
+		<property name="maxDays" value="${intellivr.gateway.maxDays}"/>
+		<property name="noPendingMessagesRecordingName" value="${intellivr.gateway.noPendingMessagesRecordingName}"/>
+		<property name="mappingResource" value="${intellivr.gateway.ivrConfig}"/>
 		<property name="coreManager" ref="coreManager"/>
 		<property name="registrarService" ref="registrarClient"/>
 	</bean>
