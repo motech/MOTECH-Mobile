@@ -1639,13 +1639,13 @@
     &lt;xf:bind action="show" id="child1Weight" nodeset="/delivery/child1Weight" relevant="/delivery/child1Outcome = 'A'" type="xsd:decimal" visible="false()" required="true()"/&gt;
     &lt;xf:bind id="child2Outcome" nodeset="/delivery/child2Outcome" type="xsd:string" visible="false()" relevant="/delivery/outcome = '2' or /delivery/outcome = '3'" action="show" required="true()"/&gt;
     &lt;xf:bind id="child2RegistrationType" nodeset="/delivery/child2RegistrationType" type="xsd:string" visible="false()" required="true()" relevant="/delivery/child2Outcome = 'A'" action="show"/&gt;
-    &lt;xf:bind action="show" id="child2MotechId" nodeset="/delivery/child2MotechId" relevant="/delivery/child2RegistrationType = 'null'" type="xsd:int" visible="false()" required="true()"/&gt;
+    &lt;xf:bind action="show" id="child2MotechId" nodeset="/delivery/child2MotechId" relevant="/delivery/child2RegistrationType = 'USE_PREPRINTED_ID'" type="xsd:int" visible="false()" required="true()"/&gt;
     &lt;xf:bind id="child2Sex" nodeset="/delivery/child2Sex" type="xsd:string" visible="false()" required="true()" relevant="/delivery/child2Outcome = 'A'" action="show"/&gt;
     &lt;xf:bind id="child2FirstName" nodeset="/delivery/child2FirstName" type="xsd:string" visible="false()" required="true()" relevant="/delivery/child2Outcome = 'A'" action="show"/&gt;
     &lt;xf:bind id="child2Weight" nodeset="/delivery/child2Weight" type="xsd:decimal" visible="false()" required="true()" relevant="/delivery/child2Outcome = 'A'" action="show"/&gt;
     &lt;xf:bind id="child3Outcome" nodeset="/delivery/child3Outcome" type="xsd:string" visible="false()" relevant="/delivery/outcome = '3'" action="show" required="true()"/&gt;
     &lt;xf:bind id="child3RegistrationType" nodeset="/delivery/child3RegistrationType" type="xsd:string" visible="false()" relevant="/delivery/child3Outcome = 'A'" action="show" required="true()"/&gt;
-    &lt;xf:bind action="show" id="child3MotechId" nodeset="/delivery/child3MotechId" relevant="/delivery/child3RegistrationType = '2'" required="true()" type="xsd:int" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="child3MotechId" nodeset="/delivery/child3MotechId" relevant="/delivery/child3RegistrationType = 'USE_PREPRINTED_ID'" required="true()" type="xsd:int" visible="false()"/&gt;
     &lt;xf:bind id="child3Sex" nodeset="/delivery/child3Sex" type="xsd:string" visible="false()" relevant="/delivery/child3Outcome = 'A'" action="show" required="true()"/&gt;
     &lt;xf:bind id="child3FirstName" nodeset="/delivery/child3FirstName" type="xsd:string" visible="false()" relevant="/delivery/child3Outcome = 'A'" action="show" required="true()"/&gt;
     &lt;xf:bind id="child3Weight" nodeset="/delivery/child3Weight" type="xsd:decimal" visible="false()" relevant="/delivery/child3Outcome = 'A'" action="show" required="true()"/&gt;
