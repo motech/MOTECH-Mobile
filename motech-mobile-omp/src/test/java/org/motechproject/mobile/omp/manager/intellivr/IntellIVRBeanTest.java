@@ -598,7 +598,7 @@ public class IntellIVRBeanTest {
 
 			session = new IVRSession(recipientID, phone, english.getName());
 			session.setAttempts(1);
-			session.setDays(1);
+			session.setDays(0);
 			session.addGatewayRequest(r1);
 			session.addGatewayRequest(r2);
 			session.addGatewayRequest(r3);
@@ -676,7 +676,7 @@ public class IntellIVRBeanTest {
 				reset(statusStore);
 				
 				/*
-				 * increment attempts count to max, no further attempts should be made
+				 * last attempt on first day
 				 */
 				session.setAttempts(2);
 
@@ -772,11 +772,12 @@ public class IntellIVRBeanTest {
 				reset(statusStore);
 
 				/*
-				 * increment days to max
+				 * last attempt on last day
 				 */
 				expectedSessions.put(session.getSessionId(), session);
 				intellivrBean.ivrSessions = expectedSessions;
-				session.setDays(2);
+				session.setAttempts(2);
+				session.setDays(1);
 				
 				statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
 				statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
@@ -787,6 +788,7 @@ public class IntellIVRBeanTest {
 
 				response = intellivrBean.handleReport(report);
 				
+				assertEquals(2, session.getDays());
 				assertEquals(StatusType.OK, response.getStatus());
 				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 				

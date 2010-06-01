@@ -395,6 +395,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 							timer.schedule(task, 1000 * 60 * retryDelay);
 						}
 					} else {
+						session.setDays(session.getDays() + 1);
 						if ( session.getDays() < this.maxDays ) {
 							
 							MotechContext context = coreManager.createMotechContext();
