@@ -733,6 +733,32 @@ public class IntellIVRBeanTest {
 				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
 				expect(mockGatewayRequestDAO.save(mockGatewayRequest3)).andReturn(mockGatewayRequest3);
 				
+				MessageRequest mockMessageRequest1 = createMock(MessageRequest.class);
+				MessageRequest mockMessageRequest2 = createMock(MessageRequest.class);
+				MessageRequest mockMessageRequest3 = createMock(MessageRequest.class);
+				
+				MessageRequestDAO<MessageRequest> mockMessageRequestDAO = createMock(MessageRequestDAO.class);
+				
+				expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
+				
+				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
+				mockMessageRequest1.setDaysAttempted(1);
+				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
+				
+				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
+				mockMessageRequest2.setDaysAttempted(1);
+				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
+				
+				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
+				mockMessageRequest3.setDaysAttempted(1);
+				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
+				
 				statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
 				statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
 				statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
@@ -744,6 +770,10 @@ public class IntellIVRBeanTest {
 				replay(mockGatewayRequest2);
 				replay(mockGatewayRequest3);				
 				replay(mockGatewayRequestDAO);
+				replay(mockMessageRequest1);
+				replay(mockMessageRequest2);
+				replay(mockMessageRequest3);
+				replay(mockMessageRequestDAO);
 				replay(mockDBSession);
 				
 				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
@@ -760,6 +790,10 @@ public class IntellIVRBeanTest {
 				verify(mockGatewayRequest1);
 				verify(mockGatewayRequest2);
 				verify(mockGatewayRequest3);
+				verify(mockMessageRequest1);
+				verify(mockMessageRequest2);
+				verify(mockMessageRequest3);
+				verify(mockMessageRequestDAO);
 				verify(statusStore);
 				reset(mockCoreManager);
 				reset(mockContext);
@@ -769,6 +803,10 @@ public class IntellIVRBeanTest {
 				reset(mockGatewayRequest1);
 				reset(mockGatewayRequest2);
 				reset(mockGatewayRequest3);
+				reset(mockMessageRequest1);
+				reset(mockMessageRequest2);
+				reset(mockMessageRequest3);
+				reset(mockMessageRequestDAO);
 				reset(statusStore);
 
 				/*
@@ -779,9 +817,39 @@ public class IntellIVRBeanTest {
 				session.setAttempts(2);
 				session.setDays(1);
 				
+				expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
+				
+				expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
+				
+				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
+				mockMessageRequest1.setDaysAttempted(2);
+				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
+				
+				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
+				mockMessageRequest2.setDaysAttempted(2);
+				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
+				
+				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
+				mockMessageRequest3.setDaysAttempted(2);
+				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+				expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
+				
 				statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
 				statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
 				statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
+				
+				replay(mockCoreManager);
+				replay(mockContext);
+				replay(mockDBSession);
+				replay(mockMessageRequest1);
+				replay(mockMessageRequest2);
+				replay(mockMessageRequest3);
+				replay(mockMessageRequestDAO);
 				replay(statusStore);
 				
 				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
@@ -792,7 +860,22 @@ public class IntellIVRBeanTest {
 				assertEquals(StatusType.OK, response.getStatus());
 				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 				
+				verify(mockCoreManager);
+				verify(mockContext);
+				verify(mockDBSession);
+				verify(mockMessageRequest1);
+				verify(mockMessageRequest2);
+				verify(mockMessageRequest3);
+				verify(mockMessageRequestDAO);
 				verify(statusStore);
+				reset(mockCoreManager);
+				reset(mockContext);
+				reset(mockDBSession);
+				reset(mockTransaction);
+				reset(mockMessageRequest1);
+				reset(mockMessageRequest2);
+				reset(mockMessageRequest3);
+				reset(mockMessageRequestDAO);
 				reset(statusStore);
 
 				

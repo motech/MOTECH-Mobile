@@ -395,10 +395,13 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 							timer.schedule(task, 1000 * 60 * retryDelay);
 						}
 					} else {
+						
+						//all attempts for this day have been exhausted - increment days attempted
 						session.setDays(session.getDays() + 1);
+						
+						MotechContext context = coreManager.createMotechContext();
+						
 						if ( session.getDays() < this.maxDays ) {
-							
-							MotechContext context = coreManager.createMotechContext();
 							
 							GatewayRequestDAO<GatewayRequest> gwReqDAO = coreManager.createGatewayRequestDAO(context);
 							
@@ -432,6 +435,25 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 							status = "MAXATTEMPTS";	
 						}
 						ivrSessions.remove(sessionId);
+						
+						/*
+						 * update days attempted in the database
+						 */
+						MessageRequestDAO<MessageRequest> messageRequestDAO = coreManager.createMessageRequestDAO(context);
+						
+						for ( GatewayRequest gatewayRequest : session.getGatewayRequests() ) {
+							
+							MessageRequest msgReqDB = messageRequestDAO.getById(gatewayRequest.getMessageRequest().getId());
+							
+							msgReqDB.setDaysAttempted(session.getDays());
+							
+							Transaction tx = (Transaction) messageRequestDAO.getDBSession().getTransaction();
+							tx.begin();
+							messageRequestDAO.save(msgReqDB);
+							tx.commit();
+							
+						}
+						
 					}
 					
 				}
