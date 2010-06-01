@@ -246,11 +246,11 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         data.add(new NameValuePair("MoTeCHID", patient.getMotechId()));
-        data.add(new NameValuePair("FirstName", patient.getFirstName()));
+        data.add(new NameValuePair("PreferredName", patient.getPreferredName()));
         data.add(new NameValuePair("LastName", patient.getLastName()));
 
         template += "Your request for a new MoTeCH ID was successful\n";
-        template += "Name: <FirstName> <LastName>\n";
+        template += "Name: <PreferredName> <LastName>\n";
         template += "MoTeCH ID: <MoTeCHID>";
 
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);

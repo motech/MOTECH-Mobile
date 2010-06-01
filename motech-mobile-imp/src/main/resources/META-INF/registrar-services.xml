@@ -22,6 +22,7 @@
                 <entry key="1" value="not found" />
                 <entry key="2" value="in use" />
                 <entry key="3" value="missing" />
+                <entry key="4" value="duplicated" />
             </map>
         </property>
         <property name="serviceMethods">
