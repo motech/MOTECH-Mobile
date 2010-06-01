@@ -876,6 +876,7 @@ CREATE TABLE `message_request` (
   `date_processed` datetime DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `max_try_number` int(11) DEFAULT NULL,
+  `days_attempted` int(11) DEFAULT NULL,
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FKF9A8A257C247835` (`notification_type_id`),

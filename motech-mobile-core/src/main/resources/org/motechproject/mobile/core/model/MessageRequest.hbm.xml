@@ -18,6 +18,7 @@
     <property column="date_processed" name="dateProcessed" type="timestamp"/>
     <property access="field" column="status" name="status" type="mStatus"/>
     <property column="max_try_number" name="tryNumber"/>
+    <property column="days_attempted" name="daysAttempted"/>
     <property generated="always" insert="false" name="lastModified" update="false">
       <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>

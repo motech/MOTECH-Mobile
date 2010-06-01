@@ -41,6 +41,12 @@ public interface MessageRequest extends MotechEntity {
     public MStatus getStatus();
 
     public int getTryNumber();
+    
+    /**
+     * get the number of days on which attempts have been made to deliver
+     * @return days
+     */
+    public int getDaysAttempted();
 
     public String getRequestId();
 
@@ -86,6 +92,12 @@ public interface MessageRequest extends MotechEntity {
 
     public void setTryNumber(int maxTryNumber);
 
+    /**
+     * set the number of days on which attempts have been made to deliver
+     * @param days
+     */
+    public void setDaysAttempted(int days);
+    
     public void setStatus(MStatus status);
 
     public void setRequestId(String requestId);

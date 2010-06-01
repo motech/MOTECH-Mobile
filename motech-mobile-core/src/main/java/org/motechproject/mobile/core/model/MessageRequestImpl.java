@@ -24,6 +24,7 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private Date dateTo;
     private MStatus status;
     private int tryNumber;
+    private int daysAttempted;
     private String requestId;
     private Set persInfos;
     private Date lastModified;
@@ -241,7 +242,15 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
         this.tryNumber = tryNumber;
     }
 
-    /**
+    public int getDaysAttempted() {
+		return daysAttempted;
+	}
+
+	public void setDaysAttempted(int daysAttempted) {
+		this.daysAttempted = daysAttempted;
+	}
+
+	/**
      * @return the lastModified
      */
     public Date getLastModified() {
