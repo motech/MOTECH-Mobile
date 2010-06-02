@@ -2,11 +2,11 @@
 <study description="" name="Field Agent Forms">
 <form description="" name="Delivery Notification">
 <version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;&#13;
+<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="deliverynotify-jf"&gt;
-      &lt;deliverynotify-jf name="Delivery Notification-v1" id="97"&gt;
+      &lt;deliverynotify-jf id="2" name="Delivery Notification-v1"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;motechId/&gt;
@@ -15,12 +15,12 @@
         &lt;formname&gt;deliverynotify-jf&lt;/formname&gt;
       &lt;/deliverynotify-jf&gt;
     &lt;/xf:instance&gt;
-    &lt;xf:bind id="staffId" nodeset="/deliverynotify-jf/staffId" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="facilityId" nodeset="/deliverynotify-jf/facilityId" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="motechId" nodeset="/deliverynotify-jf/motechId" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="datetime" nodeset="/deliverynotify-jf/datetime" type="xsd:dateTime" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/deliverynotify-jf/formtype" type="xsd:string" required="true()" visible="false()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/deliverynotify-jf/formname" type="xsd:string" required="true()" visible="false()"/&gt;
+    &lt;xf:bind id="staffId" nodeset="/deliverynotify-jf/staffId" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="facilityId" nodeset="/deliverynotify-jf/facilityId" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="motechId" nodeset="/deliverynotify-jf/motechId" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="datetime" message="Invalid date: date specified is in the future" nodeset="/deliverynotify-jf/datetime" required="true()" type="xsd:dateTime"/&gt;
+    &lt;xf:bind id="formtype" nodeset="/deliverynotify-jf/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind id="formname" nodeset="/deliverynotify-jf/formname" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
   &lt;xf:group id="1"&gt;
     &lt;xf:label&gt;Page1&lt;/xf:label&gt;
@@ -47,7 +47,7 @@
 </xform>
 <layout/>
 <versionText locale="en">
-<xform>&lt;xform id="97"&gt;&#13;
+<xform>&lt;xform id="2"&gt;&#13;
     &lt;text xpath="xforms/model/instance/deliverynotify-jf[@name]" value="Delivery Notification-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
@@ -58,7 +58,7 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='datetime'][@message]" value="Invalid date: date specified is in the future"/&gt;&#13;
   &lt;/xform&gt;</xform>
-<layout>&lt;Form id="97"&gt;&#13;
+<layout>&lt;Form id="2"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
   &lt;/Form&gt;</layout>
 </versionText>
@@ -70,7 +70,7 @@
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="editpatient"&gt;
-      &lt;editpatient id="116" name="Edit Patient-v1"&gt;
+      &lt;editpatient id="3" name="Edit Patient-v1"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -154,7 +154,7 @@
   &lt;/xf:group&gt;
 &lt;/xf:xforms&gt;
 </xform>
-<layout>&lt;Form id="116"&gt;
+<layout>&lt;Form id="3"&gt;
   &lt;Page Text="Page8" Binding="Page8" Width="100%" Height="1091px" backgroundColor=""&gt;
     &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="/editPatient/staffId" Left="118px" Top="130px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Facility ID" HelpText="Facility ID" Binding="/editPatient/facilityId" Left="104px" Top="170px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -173,18 +173,18 @@
     &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="190px" Top="492px" Width="200px" Height="25px" TabIndex="30" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="NHIS Expiration date" Binding="nhisExpires" Left="190px" Top="410px" Width="200px" Height="25px" TabIndex="28" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="NHIS Number" Binding="nhis" Left="190px" Top="370px" Width="200px" Height="25px" TabIndex="27" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Primary phone number" Binding="phoneNumber" Left="190px" Top="290px" Width="200px" Height="25px" TabIndex="25" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Phone number" Binding="phoneNumber" Left="190px" Top="290px" Width="200px" Height="25px" TabIndex="25" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechId" Left="190px" Top="250px" Width="200px" Height="25px" TabIndex="24" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="Date" Binding="date" Left="190px" Top="210px" Width="200px" Height="25px" TabIndex="23" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Facility ID" Binding="facilityId" Left="190px" Top="170px" Width="200px" Height="25px" TabIndex="22" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="190px" Top="130px" Width="200px" Height="25px" TabIndex="21" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="ListBox" HelpText="Stop enrollment" Binding="stopEnrollment" Left="189px" Top="445px" Width="200px" Height="29px" TabIndex="29" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Primary phone type" Binding="phoneOwnership" Left="188px" Top="326px" Width="200px" Height="25px" TabIndex="26" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="ListBox" HelpText="Phone Ownership" Binding="phoneOwnership" Left="188px" Top="326px" Width="200px" Height="25px" TabIndex="26" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
   &lt;/Page&gt;
 &lt;/Form&gt;
 </layout>
 <versionText locale="en">
-<xform>&lt;xform id="116"&gt;&#13;
+<xform>&lt;xform id="3"&gt;&#13;
     &lt;text xpath="xforms/model/instance/editpatient[@name]" value="Edit Patient-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page8"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
@@ -205,7 +205,7 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;&#13;
   &lt;/xform&gt;</xform>
-<layout>&lt;Form id="116"&gt;&#13;
+<layout>&lt;Form id="3"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8'][@Text]" value="Page8"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='/editPatient/staffId' and @WidgetType='Label'][@Text]" value="Staff ID"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='/editPatient/staffId' and @WidgetType='Label'][@HelpText]" value="Staff ID"/&gt;&#13;
@@ -277,7 +277,7 @@
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='nhis' and @WidgetType='TextBox'][@Top]" value="370px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='nhis' and @WidgetType='TextBox'][@Left]" value="190px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='nhis' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;&#13;
-    &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@HelpText]" value="Primary phone number"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@HelpText]" value="Phone number"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@Top]" value="290px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@Left]" value="190px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;&#13;
@@ -301,7 +301,7 @@
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='stopEnrollment' and @WidgetType='ListBox'][@Top]" value="445px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='stopEnrollment' and @WidgetType='ListBox'][@Left]" value="189px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='stopEnrollment' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;&#13;
-    &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneOwnership' and @WidgetType='ListBox'][@HelpText]" value="Primary phone type"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneOwnership' and @WidgetType='ListBox'][@HelpText]" value="Phone Ownership"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneOwnership' and @WidgetType='ListBox'][@Top]" value="326px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneOwnership' and @WidgetType='ListBox'][@Left]" value="188px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page8']/Item[@Binding='phoneOwnership' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;&#13;
@@ -315,7 +315,7 @@
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="patientQuery"&gt;
-      &lt;patientQuery name="Patient Query-v1" id="107"&gt;
+      &lt;patientQuery id="4" name="Patient Query-v1"&gt;
         &lt;chpsid/&gt;
         &lt;facilityid/&gt;
         &lt;formname/&gt;
@@ -330,18 +330,18 @@
         &lt;formtype&gt;query&lt;/formtype&gt;
       &lt;/patientQuery&gt;
     &lt;/xf:instance&gt;
-    &lt;xf:bind id="chpsid" nodeset="/patientQuery/chpsid" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="facilityid" nodeset="/patientQuery/facilityid" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/patientQuery/formname" type="xsd:string" required="true()"/&gt;
-    &lt;xf:bind id="motechid" nodeset="/patientQuery/motechid" type="xsd:int" visible="false()" relevant="/patientQuery/formname = 'viewpatient-jf'" action="show" required="true()"/&gt;
-    &lt;xf:bind id="firstname" nodeset="/patientQuery/firstname" type="xsd:string" visible="false()" relevant="/patientQuery/formname = 'findmotechid-jf'" action="show" required="true()"/&gt;
-    &lt;xf:bind id="lastname" nodeset="/patientQuery/lastname" type="xsd:string" visible="false()" relevant="/patientQuery/formname = 'findmotechid-jf'" action="show" required="true()"/&gt;
-    &lt;xf:bind id="PreferredName" nodeset="/patientQuery/PreferredName" type="xsd:string" visible="false()" relevant="/patientQuery/formname = 'findmotechid-jf'" action="show" required="true()"/&gt;
-    &lt;xf:bind id="dob" nodeset="/patientQuery/dob" type="xsd:date" visible="false()" relevant="/patientQuery/formname = 'findmotechid-jf'" action="show" required="true()"/&gt;
-    &lt;xf:bind id="nhis_number" nodeset="/patientQuery/nhis_number" type="xsd:string" visible="false()" relevant="/patientQuery/formname = 'findmotechid-jf'" action="show" required="true()"/&gt;
-    &lt;xf:bind id="phonenumber" nodeset="/patientQuery/phonenumber" type="xsd:int" visible="false()" relevant="/patientQuery/formname = 'findmotechid-jf'" action="show" required="true()"/&gt;
-    &lt;xf:bind id="sender" nodeset="/patientQuery/sender" type="xsd:int" required="true()"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/patientQuery/formtype" type="xsd:string" required="true()" visible="false()"/&gt;
+    &lt;xf:bind id="chpsid" nodeset="/patientQuery/chpsid" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="facilityid" nodeset="/patientQuery/facilityid" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="formname" nodeset="/patientQuery/formname" required="true()" type="xsd:string"/&gt;
+    &lt;xf:bind action="show" id="motechid" nodeset="/patientQuery/motechid" relevant="/patientQuery/formname = 'viewpatient-jf'" required="true()" type="xsd:int" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="firstname" nodeset="/patientQuery/firstname" relevant="/patientQuery/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="lastname" nodeset="/patientQuery/lastname" relevant="/patientQuery/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="PreferredName" nodeset="/patientQuery/PreferredName" relevant="/patientQuery/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="dob" nodeset="/patientQuery/dob" relevant="/patientQuery/formname = 'findmotechid-jf'" required="true()" type="xsd:date" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="nhis_number" nodeset="/patientQuery/nhis_number" relevant="/patientQuery/formname = 'findmotechid-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="phonenumber" nodeset="/patientQuery/phonenumber" relevant="/patientQuery/formname = 'findmotechid-jf'" required="true()" type="xsd:int" visible="false()"/&gt;
+    &lt;xf:bind id="sender" nodeset="/patientQuery/sender" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="formtype" nodeset="/patientQuery/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
   &lt;xf:group id="1"&gt;
     &lt;xf:label&gt;Page2&lt;/xf:label&gt;
@@ -394,7 +394,7 @@
 </xform>
 <layout/>
 <versionText locale="en">
-<xform>&lt;xform id="107"&gt;&#13;
+<xform>&lt;xform id="4"&gt;&#13;
     &lt;text xpath="xforms/model/instance/patientQuery[@name]" value="Patient Query-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page2"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='chpsid']/label" value="Staff ID"/&gt;&#13;
@@ -412,7 +412,7 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='sender']/label" value="Response phone number"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;&#13;
   &lt;/xform&gt;</xform>
-<layout>&lt;Form id="107"&gt;&#13;
+<layout>&lt;Form id="4"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
   &lt;/Form&gt;</layout>
 </versionText>
@@ -424,7 +424,7 @@
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="patientRegistration"&gt;
-      &lt;patientRegistration id="118" name="Patient Registration-v1"&gt;
+      &lt;patientRegistration id="24" name="Patient Registration-v1"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -1866,7 +1866,7 @@
         &lt;xf:value&gt;upper_east&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="kassena-nakana_west"&gt;
-        &lt;xf:label&gt;Kassena-Nakana West&lt;/xf:label&gt;
+        &lt;xf:label&gt;Kassena-Nankana West&lt;/xf:label&gt;
         &lt;xf:value&gt;kassena-nakana_west&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
@@ -2285,7 +2285,7 @@
   &lt;/xf:group&gt;
 &lt;/xf:xforms&gt;
 </xform>
-<layout>&lt;Form id="118"&gt;
+<layout>&lt;Form id="24"&gt;
   &lt;Page Text="Page1" Binding="Page1" Width="100%" Height="1829px" backgroundColor=""&gt;
     &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="staffId" Left="191px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="248px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -2373,7 +2373,7 @@
 &lt;/Form&gt;
 </layout>
 <versionText locale="en">
-<xform>&lt;xform id="118"&gt;&#13;
+<xform>&lt;xform id="24"&gt;&#13;
     &lt;text xpath="xforms/model/instance/patientRegistration[@name]" value="Patient Registration-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
@@ -2409,7 +2409,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='region']/item[@id='ue']/label" value="Upper East"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='district']/label" value="District"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='district']/item[@id='upper_east']/label" value="Kassena-Nankana"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='district']/item[@id='kassena-nakana_west']/label" value="Kassena-Nakana West"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='district']/item[@id='kassena-nakana_west']/label" value="Kassena-Nankana West"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='subDistrict']/label" value="Sub-district"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='community']/label" value="Community"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='address']/label" value="Address/household"/&gt;&#13;
@@ -2667,7 +2667,7 @@
     &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='TEXT']/label" value="SMS"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='VOICE']/label" value="Voice"/&gt;&#13;
   &lt;/xform&gt;</xform>
-<layout>&lt;Form id="118"&gt;&#13;
+<layout>&lt;Form id="24"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffId' and @WidgetType='Label'][@Text]" value="Staff ID"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffId' and @WidgetType='Label'][@HelpText]" value="Staff ID"/&gt;&#13;
@@ -3009,7 +3009,7 @@
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="newpregRegistration"&gt;
-      &lt;newpregRegistration id="117" name="Register Pregnancy and Info Service Enrollment-v1"&gt;
+      &lt;newpregRegistration id="6" name="Register Pregnancy and Info Service Enrollment-v1"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -3216,7 +3216,7 @@
 </xform>
 <layout/>
 <versionText locale="en">
-<xform>&lt;xform id="117"&gt;&#13;
+<xform>&lt;xform id="6"&gt;&#13;
     &lt;text xpath="xforms/model/instance/newpregRegistration[@name]" value="Register Pregnancy and Info Service Enrollment-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page2"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
@@ -3264,7 +3264,7 @@
     &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='TEXT']/label" value="SMS"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='VOICE']/label" value="Voice"/&gt;&#13;
   &lt;/xform&gt;</xform>
-<layout>&lt;Form id="117"&gt;&#13;
+<layout>&lt;Form id="6"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
   &lt;/Form&gt;</layout>
 </versionText>
