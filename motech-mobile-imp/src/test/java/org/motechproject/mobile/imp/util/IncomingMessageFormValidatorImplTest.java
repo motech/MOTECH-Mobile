@@ -18,6 +18,7 @@ import org.motechproject.mobile.core.model.IncomingMessageFormParameterImpl;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,6 +67,7 @@ public class IncomingMessageFormValidatorImplTest {
         instance = new IncomingMessageFormValidatorImpl();
         instance.setParamValidators(validators);
         instance.setCoreManager(mockCore);
+        instance.setSubFields(new HashMap<String, List<SubField>>());
     }
 
     /**

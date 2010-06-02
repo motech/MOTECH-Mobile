@@ -13,6 +13,28 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <bean id="imFormValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
+        <property name="subFields">
+            <map>
+                <entry key="GENERALOPD-JF">
+                    <list>
+                        <ref bean="diagSub" />
+                        <ref bean="diag2Sub" />
+                    </list>
+                </entry>
+                <entry key="CHILDOPD-JF">
+                    <list>
+                        <ref bean="diagSub" />
+                        <ref bean="diag2Sub" />
+                    </list>
+                </entry>
+                <entry key="MOTHEROPD-JF">
+                    <list>
+                        <ref bean="diagSub" />
+                        <ref bean="diag2Sub" />
+                    </list>
+                </entry>
+            </map>
+        </property>
         <property name="paramValidators">
             <map key-type="java.lang.String">
                 <entry key="ALPHA">
@@ -443,5 +465,16 @@
                 </entry>
             </map>
         </property>
+    </bean>
+    
+    <bean id="diagSub" class="org.motechproject.mobile.imp.util.SubField">
+        <property name="parentField" value="diagnosis" />
+        <property name="fieldName" value="otherdiagnosis" />
+        <property name="replaceOn" value="78" />
+    </bean>
+    <bean id="diag2Sub" class="org.motechproject.mobile.imp.util.SubField">
+        <property name="parentField" value="diagnosis" />
+        <property name="fieldName" value="othersecondarydiagnosis" />
+        <property name="replaceOn" value="78" />
     </bean>
 </beans>

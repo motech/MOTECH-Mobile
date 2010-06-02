@@ -29,6 +29,28 @@
 
     <bean id="imFormValidator" scope="prototype" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
         <property name="coreManager" ref="coreManager" />
+        <property name="subFields">
+            <map>
+                <entry key="GENERALOPD-JF">
+                    <list>
+                        <ref bean="diagSub" />
+                        <ref bean="diag2Sub" />
+                    </list>
+                </entry>
+                <entry key="CHILDOPD-JF">
+                    <list>
+                        <ref bean="diagSub" />
+                        <ref bean="diag2Sub" />
+                    </list>
+                </entry>
+                <entry key="MOTHEROPD-JF">
+                    <list>
+                        <ref bean="diagSub" />
+                        <ref bean="diag2Sub" />
+                    </list>
+                </entry>
+            </map>
+        </property>
         <property name="paramValidators">
             <map key-type="java.lang.String">
                 <entry key="ALPHA">
@@ -660,5 +682,16 @@
         <property name="dateFormat" value="${imp.validator.dateFormat}" />
         <property name="dateFormateExpMap" ref="dateFormatRegexMapBean" />
         <property name="defaultDateFormat" value="${imp.validator.defaultDateFormat}" />
+    </bean>
+
+    <bean id="diagSub" class="org.motechproject.mobile.imp.util.SubField">
+        <property name="parentField" value="diagnosis" />
+        <property name="fieldName" value="otherdiagnosis" />
+        <property name="replaceOn" value="78" />
+    </bean>
+    <bean id="diag2Sub" class="org.motechproject.mobile.imp.util.SubField">
+        <property name="parentField" value="seconddiagnosis" />
+        <property name="fieldName" value="othersecondarydiagnosis" />
+        <property name="replaceOn" value="78" />
     </bean>
 </beans>

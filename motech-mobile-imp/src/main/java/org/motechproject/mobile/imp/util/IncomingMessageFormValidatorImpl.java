@@ -12,6 +12,7 @@ import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinition;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
@@ -25,6 +26,7 @@ import org.apache.log4j.Logger;
 public class IncomingMessageFormValidatorImpl implements IncomingMessageFormValidator {
 
     private CoreManager coreManager;
+    private Map<String, List<SubField>> subFields;
     private LinkedHashMap<String, ValidatorGroup> paramValidators;
     private static Logger logger = Logger.getLogger(IncomingMessageFormValidatorImpl.class);
 
@@ -36,6 +38,20 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         ValidatorGroup group;
         IncMessageFormStatus status;
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        List<SubField> subs = null;
+
+        if(subFields.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase()))
+            subs = subFields.get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
+
+        Map<String, IncomingMessageFormParameter> params = form.getIncomingMsgFormParameters();
+
+        if(subs != null){
+            for(SubField sub : subs){
+                if(params.containsKey(sub.getParentField().toLowerCase()) && params.get(sub.getParentField().toLowerCase()).getValue().equalsIgnoreCase(sub.getReplaceOn()) && params.containsKey(sub.getFieldName().toLowerCase()))
+                    params.get(sub.getParentField().toLowerCase()).setValue(params.get(sub.getFieldName().toLowerCase()).getValue());
+            }
+        }
+
         try {
             for (IncomingMessageFormParameterDefinition paramDef : form.getIncomingMsgFormDefinition().getIncomingMsgParamDefinitions()) {
                 paramDef.getParamType();
@@ -151,5 +167,12 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      */
     public void setParamValidators(LinkedHashMap<String, ValidatorGroup> paramValidators) {
         this.paramValidators = paramValidators;
+    }
+
+    /**
+     * @param subFields the subFields to set
+     */
+    public void setSubFields(Map<String, List<SubField>> subFields) {
+        this.subFields = subFields;
     }
 }
