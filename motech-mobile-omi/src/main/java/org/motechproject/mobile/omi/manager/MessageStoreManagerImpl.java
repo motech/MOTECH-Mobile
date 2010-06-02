@@ -12,6 +12,7 @@ import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.core.util.MotechException;
 import java.util.Set;
+import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.NameValuePair;
 
@@ -29,6 +30,8 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
     private int maxConcat;
     private int charsPerSMS;
     private int concatAllowance;
+    private String localNumberExpression = "";
+    private String defaultCountryCode = "";
 
     /**
      * 
@@ -39,7 +42,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         GatewayRequest gwReq = coreManager.createGatewayRequest(context);        
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
-        gwReq.setRecipientsNumber(messageData.getRecipientNumber());
+        gwReq.setRecipientsNumber(formatPhoneNumber(messageData.getRecipientNumber()));
         gwReq.setRequestId(messageData.getRequestId());
         gwReq.setTryNumber(messageData.getTryNumber());
         gwReq.setMessageRequest(messageData);
@@ -132,6 +135,19 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         return template.getTemplate();
     }
 
+    public String formatPhoneNumber(String requesterPhone) {
+        if (requesterPhone == null || requesterPhone.isEmpty()) {
+            return null;
+        }
+
+        String formattedNumber = requesterPhone;
+        if (Pattern.matches(localNumberExpression, requesterPhone)) {
+            formattedNumber = defaultCountryCode + requesterPhone.substring(1);
+        }
+
+        return formattedNumber;
+    }
+
     public CoreManager getCoreManager() {
         return coreManager;
     }
@@ -159,6 +175,20 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      */
     public void setConcatAllowance(int concatAllowance) {
         this.concatAllowance = concatAllowance;
+    }
+
+    /**
+     * @param localNumberExpression the localNumberExpression to set
+     */
+    public void setLocalNumberExpression(String localNumberExpression) {
+        this.localNumberExpression = localNumberExpression;
+    }
+
+    /**
+     * @param defaultCountryCode the defaultCountryCode to set
+     */
+    public void setDefaultCountryCode(String defaultCountryCode) {
+        this.defaultCountryCode = defaultCountryCode;
     }
     
 }

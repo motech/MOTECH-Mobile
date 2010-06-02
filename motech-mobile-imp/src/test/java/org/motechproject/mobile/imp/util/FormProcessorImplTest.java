@@ -168,7 +168,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("DEATH-JF");
 
-        mockWS.recordDeath((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject());
+        mockWS.recordDeath((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject());
         expectLastCall();
 
         replay(mockWS);

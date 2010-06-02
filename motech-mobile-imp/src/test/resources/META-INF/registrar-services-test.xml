@@ -252,7 +252,6 @@
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
                 <entry key="motechId" value="java.lang.Integer" />
-                <entry key="cause" value="java.lang.Integer" />
             </map>
         </property>
     </bean>

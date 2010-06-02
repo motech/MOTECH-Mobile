@@ -36,6 +36,8 @@
         <property name="concatAllowance" value="${omi.settings.concatAllowance}" />
         <property name="charsPerSMS" value="${omi.settings.charsPerSMS}" />
         <property name="maxConcat" value="${omi.settings.maxConcat}" />
+        <property name="localNumberExpression" value="${omi.settings.localNumberExpression}" />
+        <property name="defaultCountryCode" value="${omi.settings.defaultCountryCode}" />
     </bean>
 
     <bean name="messageFormatter" class="org.motechproject.mobile.omi.manager.SMSMessageFormatterImpl">

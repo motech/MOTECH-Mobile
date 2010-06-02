@@ -42,7 +42,13 @@ public interface MessageStoreManager {
      * @return the template matching the message information
      */
     String fetchTemplate(MessageRequest messageData, MotechContext context, Language defaultLang);
-    
+
+    /**
+     * Converts a phone number in local format to international format
+     * @param requesterPhone number to format
+     * @return formatted number
+     */
+    String formatPhoneNumber(String requesterPhone);
     
     /**
      * 

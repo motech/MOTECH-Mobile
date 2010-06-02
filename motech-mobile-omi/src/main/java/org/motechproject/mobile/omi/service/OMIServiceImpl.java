@@ -563,7 +563,7 @@ public class OMIServiceImpl implements OMIService {
                 gwReq.setDateFrom(message.getDateFrom());
                 gwReq.setDateTo(message.getDateTo());
                 gwReq.setMessageRequest(message);
-                gwReq.setRecipientsNumber(message.getRecipientNumber());
+                gwReq.setRecipientsNumber(storeManager.formatPhoneNumber(message.getRecipientNumber()));
                 gwReq.setRequestId(message.getRequestId());
                 gwReq.setTryNumber(message.getTryNumber());
                 gwReq.setMessage(gwReqDet.getMessage());
