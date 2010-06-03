@@ -178,6 +178,7 @@
 		<property name="retryDelay" value="${intellivr.gateway.retryDelay}"/>
 		<property name="maxAttempts" value="${intellivr.gateway.maxAttempts}"/>
 		<property name="maxDays" value="${intellivr.gateway.maxDays}"/>
+		<property name="accelerateRetries" value="true" />
 		<property name="noPendingMessagesRecordingName" value="${intellivr.gateway.noPendingMessagesRecordingName}"/>
 		<property name="mappingResource" value="${intellivr.gateway.ivrConfig}"/>
 		<property name="coreManager" ref="coreManager"/>
@@ -190,7 +191,7 @@
 	</bean>
 
 	<bean id="compositeGateway" class="org.motechproject.mobile.omp.manager.CompositeGatewayManager">
-		<property name="textGatewayManager" ref="dummyManager"/>
+		<property name="textGatewayManager" ref="gatewayManager"/>
 		<property name="voiceGatewayManager" ref="intellivrBean"/>
 		<property name="compositeMessageHandler" ref="compositeHandler"/>
 	</bean>

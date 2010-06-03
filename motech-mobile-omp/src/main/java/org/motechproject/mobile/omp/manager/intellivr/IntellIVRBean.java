@@ -56,6 +56,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private int retryDelay;
 	private int maxAttempts;
 	private int maxDays;
+	private boolean accelerateRetries;
 	private String noPendingMessagesRecordingName;
 	private Resource mappingResource;
 	private CoreManager coreManager;
@@ -112,6 +113,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		ivrSessions = new HashMap<String, IVRSession>();
 
+		if ( accelerateRetries ) {
+			log.warn("Using accelerated retries.  Configured retry intervals will be ignored.");
+			retryDelay = 1;
+		}
+		
 	}
 	
 	public String getMessageStatus(GatewayResponse response) {
@@ -394,7 +400,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					
 					if ( session.getAttempts() < this.maxAttempts ) {
 						if ( retryDelay >=  0 ) {
-							log.info("Retrying IVRSession " + session.getSessionId());
+							log.info("Retrying IVRSession " + session.getSessionId() + " in " + retryDelay + " minutes. (" + session.getAttempts() + " of " + maxAttempts + ")");
 							IVRServerTimerTask task = new IVRServerTimerTask(ivrSessions.get(sessionId));
 							timer.schedule(task, 1000 * 60 * retryDelay);
 						}
@@ -418,11 +424,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 								
 								GregorianCalendar newDateFrom = new GregorianCalendar();
 								newDateFrom.setTime(dateFrom);
-								newDateFrom.add(GregorianCalendar.DAY_OF_MONTH, 1);
+								if ( !accelerateRetries )
+									newDateFrom.add(GregorianCalendar.DAY_OF_MONTH, 1);
 								
 								GregorianCalendar newDateTo = new GregorianCalendar();
-								newDateTo.setTime(dateTo);								
-								newDateTo.add(GregorianCalendar.DAY_OF_MONTH, 1);
+								newDateTo.setTime(dateTo);
+								if ( !accelerateRetries )
+									newDateTo.add(GregorianCalendar.DAY_OF_MONTH, 1);
+								
 								
 								gatewayRequestDB.setDateFrom(newDateFrom.getTime());
 								gatewayRequestDB.setDateTo(newDateTo.getTime());
@@ -620,6 +629,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setMaxDays(int maxDays) {
 		this.maxDays = maxDays;
+	}
+
+	public boolean isAccelerateRetries() {
+		return accelerateRetries;
+	}
+
+	public void setAccelerateRetries(boolean accelerateRetries) {
+		this.accelerateRetries = accelerateRetries;
 	}
 
 	public String getNoPendingMessagesRecordingName() {
