@@ -64,6 +64,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	
 	private Log log = LogFactory.getLog(IntellIVRBean.class);
 	private Log reportLog = LogFactory.getLog(IntellIVRBean.class.getName() + ".reportlog");
+	private Log callLog = LogFactory.getLog(IntellIVRBean.class.getName() + ".calllog");
 	
 	@SuppressWarnings("unused")
 	private void init() {
@@ -222,6 +223,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		if ( response.getStatus() == StatusType.ERROR )
 			ivrSessions.remove(session.getSessionId());
+		
+		callLog.info("OUT," +
+					 session.getPhone() + "," +
+					 session.getUserId() + "," +
+					 status);
 		
 	}
 
