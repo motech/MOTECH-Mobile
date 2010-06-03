@@ -18,7 +18,6 @@ import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.omi.manager.MessageFormatter;
 import org.motechproject.mobile.omi.manager.OMIManager;
 import org.motechproject.ws.server.RegistrarService;
-import org.motechproject.ws.server.ValidationError;
 import org.motechproject.ws.server.ValidationException;
 
 /**
@@ -162,30 +161,8 @@ public class FormProcessorImpl implements FormProcessor {
     }
 
     public synchronized void parseValidationErrors(IncomingMessageForm form, ValidationException ex) {
-        List<ValidationError> errors = ex.getFaultInfo().getErrors();
-
-        for (ValidationError error : errors) {
-            if (form.getIncomingMsgFormParameters().containsKey(error.getField().toLowerCase())) {
-                IncomingMessageFormParameter param = form.getIncomingMsgFormParameters().get(error.getField().toLowerCase());
-                param.setErrCode(error.getCode());
-                if (serverErrors.containsKey(error.getCode())) {
-                    param.setErrText(serverErrors.get(error.getCode()));
-                } else {
-                    param.setErrText("server error");
-                }
-                param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
-            } else {
-                IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
-                param.setMessageFormParamStatus(IncMessageFormParameterStatus.SERVER_INVALID);
-                param.setName(error.getField());
-                param.setDateCreated(new Date());
-                param.setIncomingMsgForm(form);
-                param.setErrText("missing");
-                param.setErrCode(error.getCode());
-
-                form.getIncomingMsgFormParameters().put(error.getField(), param);
-            }
-        }
+        List<String> errors = ex.getFaultInfo().getErrors();
+        form.setErrors(errors);
     }
 
     /**

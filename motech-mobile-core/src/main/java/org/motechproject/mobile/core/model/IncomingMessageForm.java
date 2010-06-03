@@ -1,6 +1,7 @@
 package org.motechproject.mobile.core.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -80,4 +81,8 @@ public interface IncomingMessageForm extends MotechEntity {
      * @param param the IncomingMessageFormParameter to remove
      */
     void removeIncomingMsgFormParm(String key);
+    
+	void setErrors(List<String> errors);
+
+	List<String> getErrors();
 }

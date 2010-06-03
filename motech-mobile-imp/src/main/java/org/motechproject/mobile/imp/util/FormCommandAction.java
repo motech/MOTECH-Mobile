@@ -190,6 +190,9 @@ public class FormCommandAction implements CommandAction {
                     responseText += '\n' + entry.getValue().getName() + "=" + entry.getValue().getErrText();
                 }
             }
+            for (String error : form.getErrors()) {
+                    responseText += '\n' + error;
+            }
             if (responseText.equals("Errors:")) {
                 responseText = "An unexpected error occurred! Please try again.";
             }

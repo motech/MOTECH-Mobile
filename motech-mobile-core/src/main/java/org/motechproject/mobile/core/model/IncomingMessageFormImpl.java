@@ -1,8 +1,10 @@
 package org.motechproject.mobile.core.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -19,6 +21,7 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
     private Date lastModified;
     private IncMessageFormStatus messageFormStatus;
     private Map<String,IncomingMessageFormParameter> incomingMsgFormParameters = new HashMap<String,IncomingMessageFormParameter>();
+    private List<String> errors = new ArrayList<String>();
     
     /**
      * @return the incomingMsgFormDefinition
@@ -150,5 +153,12 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
 
 
     }
-   
+
+	public List<String> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(List<String> errors) {
+		this.errors = errors;
+	}
 }
