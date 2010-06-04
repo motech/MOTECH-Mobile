@@ -353,8 +353,6 @@
                 <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="expDeliveryDate" value="java.util.Date" />
                 <entry key="deliveryDateConfirmed" value="java.lang.Boolean" />
-                <entry key="gravida" value="java.lang.Integer" />
-                <entry key="parity" value="java.lang.Integer" />
                 <entry key="enroll" value="java.lang.Boolean" />
                 <entry key="consent" value="java.lang.Boolean" />
                 <entry key="ownership" value="org.motechproject.ws.ContactNumberType" />

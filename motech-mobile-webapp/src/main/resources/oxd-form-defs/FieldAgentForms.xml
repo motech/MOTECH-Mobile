@@ -424,7 +424,7 @@
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="patientRegistration"&gt;
-      &lt;patientRegistration id="24" name="Patient Registration-v1"&gt;
+      &lt;patientRegistration id="26" name="Patient Registration-v1"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -450,8 +450,6 @@
         &lt;address/&gt;
         &lt;expDeliveryDate/&gt;
         &lt;deliveryDateConfirmed/&gt;
-        &lt;gravida/&gt;
-        &lt;parity/&gt;
         &lt;enroll/&gt;
         &lt;consent/&gt;
         &lt;ownership/&gt;
@@ -470,27 +468,27 @@
     &lt;xf:instance id="subDistrict"&gt;
       &lt;dynamiclist&gt;
         &lt;item id="ce" parent="upper_east"&gt;
-          &lt;label&gt;central east&lt;/label&gt;
+          &lt;label&gt;Central East&lt;/label&gt;
           &lt;value&gt;ce&lt;/value&gt;
         &lt;/item&gt;
         &lt;item id="cnv" parent="upper_east"&gt;
-          &lt;label&gt;central navrongo&lt;/label&gt;
+          &lt;label&gt;Central Navrongo&lt;/label&gt;
           &lt;value&gt;cnv&lt;/value&gt;
         &lt;/item&gt;
         &lt;item id="cn" parent="upper_east"&gt;
-          &lt;label&gt;central north&lt;/label&gt;
+          &lt;label&gt;Central North&lt;/label&gt;
           &lt;value&gt;cn&lt;/value&gt;
         &lt;/item&gt;
         &lt;item id="cne" parent="upper_east"&gt;
-          &lt;label&gt;central north east&lt;/label&gt;
+          &lt;label&gt;Central North East&lt;/label&gt;
           &lt;value&gt;cne&lt;/value&gt;
         &lt;/item&gt;
         &lt;item id="cs" parent="upper_east"&gt;
-          &lt;label&gt;central south&lt;/label&gt;
+          &lt;label&gt;Central South&lt;/label&gt;
           &lt;value&gt;cs&lt;/value&gt;
         &lt;/item&gt;
         &lt;item id="cw" parent="upper_east"&gt;
-          &lt;label&gt;central west&lt;/label&gt;
+          &lt;label&gt;Central West&lt;/label&gt;
           &lt;value&gt;cw&lt;/value&gt;
         &lt;/item&gt;
         &lt;item id="nav" parent="kassena-nakana_west"&gt;
@@ -1736,15 +1734,13 @@
     &lt;xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="expDeliveryDate" nodeset="/patientRegistration/expDeliveryDate" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:date" visible="false()"/&gt;
     &lt;xf:bind action="show" id="deliveryDateConfirmed" nodeset="/patientRegistration/deliveryDateConfirmed" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="gravida" nodeset="/patientRegistration/gravida" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:int" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="parity" nodeset="/patientRegistration/parity" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:int" visible="false()"/&gt;
     &lt;xf:bind id="enroll" nodeset="/patientRegistration/enroll" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="consent" nodeset="/patientRegistration/consent" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="ownership" nodeset="/patientRegistration/ownership" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="phoneNumber" nodeset="/patientRegistration/phoneNumber" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:int"/&gt;
     &lt;xf:bind action="show" id="format" nodeset="/patientRegistration/format" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="language" nodeset="/patientRegistration/language" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="dayOfWeek" nodeset="/patientRegistration/dayOfWeek" relevant="null or null" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="dayOfWeek" nodeset="/patientRegistration/dayOfWeek" relevant="/patientRegistration/format = 'VOICE' and /patientRegistration/format = 'VOICE' and /patientRegistration/format = 'VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="timeOfDay" nodeset="/patientRegistration/timeOfDay" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:time" visible="false()"/&gt;
     &lt;xf:bind action="show" id="reason" nodeset="/patientRegistration/reason" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/registrantType = 'OTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="howLearned" nodeset="/patientRegistration/howLearned" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -1957,12 +1953,6 @@
         &lt;xf:value&gt;N&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
-    &lt;xf:input bind="gravida"&gt;
-      &lt;xf:label&gt;Previous pregnancies (gravida)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="parity"&gt;
-      &lt;xf:label&gt;Previous births (parity)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
     &lt;xf:select1 bind="enroll"&gt;
       &lt;xf:label&gt;Enrolling in information service&lt;/xf:label&gt;
       &lt;xf:item id="Y"&gt;
@@ -2285,7 +2275,7 @@
   &lt;/xf:group&gt;
 &lt;/xf:xforms&gt;
 </xform>
-<layout>&lt;Form id="24"&gt;
+<layout>&lt;Form id="26"&gt;
   &lt;Page Text="Page1" Binding="Page1" Width="100%" Height="1829px" backgroundColor=""&gt;
     &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="staffId" Left="191px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="248px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -2373,7 +2363,7 @@
 &lt;/Form&gt;
 </layout>
 <versionText locale="en">
-<xform>&lt;xform id="24"&gt;&#13;
+<xform>&lt;xform id="26"&gt;&#13;
     &lt;text xpath="xforms/model/instance/patientRegistration[@name]" value="Patient Registration-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
@@ -2417,8 +2407,6 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryDateConfirmed']/label" value="Delivery date confirmed by CHW"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryDateConfirmed']/item[@id='Y']/label" value="Yes"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryDateConfirmed']/item[@id='N']/label" value="No"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='gravida']/label" value="Previous pregnancies (gravida)"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='parity']/label" value="Previous births (parity)"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='enroll']/label" value="Enrolling in information service"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='enroll']/item[@id='Y']/label" value="Yes"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='enroll']/item[@id='N']/label" value="No"/&gt;&#13;
@@ -2503,12 +2491,12 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='dateOfBirth'][@message]" value="Invalid date: date entered is in the future"/&gt;&#13;
-    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='ce']/label" value="central east"/&gt;&#13;
-    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cnv']/label" value="central navrongo"/&gt;&#13;
-    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cn']/label" value="central north"/&gt;&#13;
-    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cne']/label" value="central north east"/&gt;&#13;
-    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cs']/label" value="central south"/&gt;&#13;
-    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cw']/label" value="central west"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='ce']/label" value="Central East"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cnv']/label" value="Central Navrongo"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cn']/label" value="Central North"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cne']/label" value="Central North East"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cs']/label" value="Central South"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cw']/label" value="Central West"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='nav']/label" value="Navio"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='kna']/label" value="Katiu-Nakong"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='kay']/label" value="Kayoro"/&gt;&#13;
@@ -2667,7 +2655,7 @@
     &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='TEXT']/label" value="SMS"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='VOICE']/label" value="Voice"/&gt;&#13;
   &lt;/xform&gt;</xform>
-<layout>&lt;Form id="24"&gt;&#13;
+<layout>&lt;Form id="26"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffId' and @WidgetType='Label'][@Text]" value="Staff ID"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffId' and @WidgetType='Label'][@HelpText]" value="Staff ID"/&gt;&#13;
