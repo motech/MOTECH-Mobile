@@ -56,6 +56,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private int retryDelay;
 	private int maxAttempts;
 	private int maxDays;
+	private int callCompletedThreshold;
 	private boolean accelerateRetries;
 	private String noPendingMessagesRecordingName;
 	private Resource mappingResource;
@@ -405,9 +406,12 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				/*
 				 * Retry if necessary
 				 */
-				if ( report.getStatus() == ReportStatusType.COMPLETED ) {
+				if ( report.getStatus() == ReportStatusType.COMPLETED && report.getDuration() >= callCompletedThreshold ) {
 					ivrSessions.remove(sessionId);
 				} else {
+					
+					if ( report.getStatus() == ReportStatusType.COMPLETED )
+						status = "BELOWTHRESHOLD";
 					
 					if ( session.getAttempts() < this.maxAttempts ) {
 						if ( retryDelay >=  0 ) {
@@ -640,6 +644,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setMaxDays(int maxDays) {
 		this.maxDays = maxDays;
+	}
+
+	public int getCallCompletedThreshold() {
+		return callCompletedThreshold;
+	}
+
+	public void setCallCompletedThreshold(int callCompletedThreshold) {
+		this.callCompletedThreshold = callCompletedThreshold;
 	}
 
 	public boolean isAccelerateRetries() {

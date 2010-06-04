@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
-import org.motechproject.mobile.core.dao.GenericDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
@@ -597,6 +596,62 @@ public class IntellIVRBeanTest {
 		report.setDisconnectTime(null);
 		report.setPrivate(session.getSessionId());
 
+		//test successfully completed calls
+		report.setStatus(ReportStatusType.COMPLETED);
+
+		session = new IVRSession(recipientID, phone, english.getName());
+		session.setAttempts(1);
+		session.setDays(0);
+		session.addGatewayRequest(r1);
+		session.addGatewayRequest(r2);
+		session.addGatewayRequest(r3);
+		
+		Map<String, IVRSession> expectedSessions = new HashMap<String, IVRSession>();
+		expectedSessions.put(session.getSessionId(), session);
+		
+		intellivrBean.ivrSessions = expectedSessions;
+				
+		MessageStatusStore statusStore = createMock(MessageStatusStore.class);
+		intellivrBean.setStatusStore(statusStore);
+		
+		report.setDuration(30);
+		report.setINTELLIVREntryCount(2);
+
+		IvrEntryType e1 = new IvrEntryType();
+		e1.setDuration(10);
+		e1.setFile("message.wav");
+		e1.setKeypress("");
+		e1.setMenu("");
+
+		IvrEntryType e2 = new IvrEntryType();
+		e2.setDuration(10);
+		e2.setFile("message2.wav");
+		e2.setKeypress("");
+		e2.setMenu("");
+
+		List<IvrEntryType> entryList = new ArrayList<IvrEntryType>();
+		entryList.add(e1);
+		entryList.add(e2);
+
+		report.intellivrEntry = entryList;
+
+		statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
+		statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
+		statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
+		replay(statusStore);
+
+		assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+		ResponseType response = intellivrBean.handleReport(report);
+
+		assertEquals(StatusType.OK, response.getStatus());
+
+		assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+		verify(statusStore);
+		reset(statusStore);
+
+		//test failures
 		for ( ReportStatusType type : ReportStatusType.values()) {
 
 			report.setStatus(type);
@@ -608,58 +663,49 @@ public class IntellIVRBeanTest {
 			session.addGatewayRequest(r2);
 			session.addGatewayRequest(r3);
 			
-			Map<String, IVRSession> expectedSessions = new HashMap<String, IVRSession>();
+			expectedSessions = new HashMap<String, IVRSession>();
 			expectedSessions.put(session.getSessionId(), session);
 			
 			intellivrBean.ivrSessions = expectedSessions;
 					
-			MessageStatusStore statusStore = createMock(MessageStatusStore.class);
+			statusStore = createMock(MessageStatusStore.class);
 			intellivrBean.setStatusStore(statusStore);
 			
+			intellivrBean.setRetryDelay(-1);
+			intellivrBean.setMaxAttempts(2);
+			intellivrBean.setMaxDays(2);
+			
+			//completed but below call completed threshold value
 			if ( type == ReportStatusType.COMPLETED ) {
 				
-				report.setDuration(30);
+				intellivrBean.setCallCompletedThreshold(30);
+				
+				report.setDuration(29);
 				report.setINTELLIVREntryCount(2);
 				
-				IvrEntryType e1 = new IvrEntryType();
+				e1 = new IvrEntryType();
 				e1.setDuration(10);
 				e1.setFile("message.wav");
 				e1.setKeypress("");
 				e1.setMenu("");
 				
-				IvrEntryType e2 = new IvrEntryType();
+				e2 = new IvrEntryType();
 				e2.setDuration(10);
 				e2.setFile("message2.wav");
 				e2.setKeypress("");
 				e2.setMenu("");
 
-				List<IvrEntryType> entryList = new ArrayList<IvrEntryType>();
+				entryList = new ArrayList<IvrEntryType>();
 				entryList.add(e1);
 				entryList.add(e2);
 				
 				report.intellivrEntry = entryList;
 				
-				statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
-				statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
-				statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
-				replay(statusStore);
+				statusStore.updateStatus(mr1.getId().toString(), "BELOWTHRESHOLD");
+				statusStore.updateStatus(mr2.getId().toString(), "BELOWTHRESHOLD");
+				statusStore.updateStatus(mr3.getId().toString(), "BELOWTHRESHOLD");
 
-				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
-				
-				ResponseType response = intellivrBean.handleReport(report);
-				
-				assertEquals(StatusType.OK, response.getStatus());
-				
-				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
-				
-				verify(statusStore);
-				reset(statusStore);
-				
 			} else {
-				
-				intellivrBean.setRetryDelay(-1);
-				intellivrBean.setMaxAttempts(2);
-				intellivrBean.setMaxDays(2);
 				
 				report.setDuration(0);
 				report.setINTELLIVREntryCount(0);
@@ -668,244 +714,250 @@ public class IntellIVRBeanTest {
 				statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
 				statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
 				statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
-				replay(statusStore);
+				
+			}
 
-				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+			replay(statusStore);
+			
+			assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
-				ResponseType response = intellivrBean.handleReport(report);
-				
-				assertEquals(StatusType.OK, response.getStatus());
-				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
-				
-				verify(statusStore);
-				reset(statusStore);
-				
-				/*
-				 * last attempt on first day
-				 */
-				session.setAttempts(2);
+			response = intellivrBean.handleReport(report);
 
-				GregorianCalendar expectedNewStart = new GregorianCalendar(2010, 1, 2, 12, 00);
-				GregorianCalendar expectedNewEnd = new GregorianCalendar(2010, 1, 2, 13, 00);
+			assertEquals(StatusType.OK, response.getStatus());
+			assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
-				MotechContext mockContext = createMock(MotechContext.class);
-				
-				CoreManager mockCoreManager = createMock(CoreManager.class);
-				intellivrBean.setCoreManager(mockCoreManager);
-				
-				DBSession mockDBSession = createMock(DBSession.class);
-				Transaction mockTransaction = createMock(Transaction.class);
-				
-				GatewayRequestDAO<GatewayRequest> mockGatewayRequestDAO = createMock(GatewayRequestDAO.class);
-				
-				expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
-				expect(mockCoreManager.createGatewayRequestDAO(mockContext)).andReturn(mockGatewayRequestDAO);
-				
-				GatewayRequest mockGatewayRequest1 = createMock(GatewayRequest.class);
-				GatewayRequest mockGatewayRequest2 = createMock(GatewayRequest.class);
-				GatewayRequest mockGatewayRequest3 = createMock(GatewayRequest.class);
-				
-				expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest1);
-				
-				expect(mockGatewayRequest1.getDateFrom()).andReturn(start.getTime());
-				expect(mockGatewayRequest1.getDateTo()).andReturn(end.getTime());
-				mockGatewayRequest1.setDateFrom(expectedNewStart.getTime());
-				mockGatewayRequest1.setDateTo(expectedNewEnd.getTime());
-				mockGatewayRequest1.setMessageStatus(MStatus.SCHEDULED);
-				expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockGatewayRequestDAO.save(mockGatewayRequest1)).andReturn(mockGatewayRequest1);
+			verify(statusStore);
+			reset(statusStore);
 
-				expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest2);
+			/*
+			 * last attempt on first day
+			 */
+			session.setAttempts(2);
 
-				expect(mockGatewayRequest2.getDateFrom()).andReturn(start.getTime());
-				expect(mockGatewayRequest2.getDateTo()).andReturn(end.getTime());
-				mockGatewayRequest2.setDateFrom(expectedNewStart.getTime());
-				mockGatewayRequest2.setDateTo(expectedNewEnd.getTime());
-				mockGatewayRequest2.setMessageStatus(MStatus.SCHEDULED);
-				expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockGatewayRequestDAO.save(mockGatewayRequest2)).andReturn(mockGatewayRequest2);
+			GregorianCalendar expectedNewStart = new GregorianCalendar(2010, 1, 2, 12, 00);
+			GregorianCalendar expectedNewEnd = new GregorianCalendar(2010, 1, 2, 13, 00);
 
-				expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest3);
-				
-				expect(mockGatewayRequest3.getDateFrom()).andReturn(start.getTime());
-				expect(mockGatewayRequest3.getDateTo()).andReturn(end.getTime());
-				mockGatewayRequest3.setDateFrom(expectedNewStart.getTime());
-				mockGatewayRequest3.setDateTo(expectedNewEnd.getTime());
-				mockGatewayRequest3.setMessageStatus(MStatus.SCHEDULED);
-				expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockGatewayRequestDAO.save(mockGatewayRequest3)).andReturn(mockGatewayRequest3);
-				
-				MessageRequest mockMessageRequest1 = createMock(MessageRequest.class);
-				MessageRequest mockMessageRequest2 = createMock(MessageRequest.class);
-				MessageRequest mockMessageRequest3 = createMock(MessageRequest.class);
-				
-				MessageRequestDAO<MessageRequest> mockMessageRequestDAO = createMock(MessageRequestDAO.class);
-				
-				expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
-				
-				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
-				mockMessageRequest1.setDaysAttempted(1);
-				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
-				
-				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
-				mockMessageRequest2.setDaysAttempted(1);
-				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
-				
-				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
-				mockMessageRequest3.setDaysAttempted(1);
-				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
-				
+			MotechContext mockContext = createMock(MotechContext.class);
+
+			CoreManager mockCoreManager = createMock(CoreManager.class);
+			intellivrBean.setCoreManager(mockCoreManager);
+
+			DBSession mockDBSession = createMock(DBSession.class);
+			Transaction mockTransaction = createMock(Transaction.class);
+
+			GatewayRequestDAO<GatewayRequest> mockGatewayRequestDAO = createMock(GatewayRequestDAO.class);
+
+			expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
+			expect(mockCoreManager.createGatewayRequestDAO(mockContext)).andReturn(mockGatewayRequestDAO);
+
+			GatewayRequest mockGatewayRequest1 = createMock(GatewayRequest.class);
+			GatewayRequest mockGatewayRequest2 = createMock(GatewayRequest.class);
+			GatewayRequest mockGatewayRequest3 = createMock(GatewayRequest.class);
+
+			expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest1);
+
+			expect(mockGatewayRequest1.getDateFrom()).andReturn(start.getTime());
+			expect(mockGatewayRequest1.getDateTo()).andReturn(end.getTime());
+			mockGatewayRequest1.setDateFrom(expectedNewStart.getTime());
+			mockGatewayRequest1.setDateTo(expectedNewEnd.getTime());
+			mockGatewayRequest1.setMessageStatus(MStatus.SCHEDULED);
+			expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockGatewayRequestDAO.save(mockGatewayRequest1)).andReturn(mockGatewayRequest1);
+
+			expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest2);
+
+			expect(mockGatewayRequest2.getDateFrom()).andReturn(start.getTime());
+			expect(mockGatewayRequest2.getDateTo()).andReturn(end.getTime());
+			mockGatewayRequest2.setDateFrom(expectedNewStart.getTime());
+			mockGatewayRequest2.setDateTo(expectedNewEnd.getTime());
+			mockGatewayRequest2.setMessageStatus(MStatus.SCHEDULED);
+			expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockGatewayRequestDAO.save(mockGatewayRequest2)).andReturn(mockGatewayRequest2);
+
+			expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest3);
+
+			expect(mockGatewayRequest3.getDateFrom()).andReturn(start.getTime());
+			expect(mockGatewayRequest3.getDateTo()).andReturn(end.getTime());
+			mockGatewayRequest3.setDateFrom(expectedNewStart.getTime());
+			mockGatewayRequest3.setDateTo(expectedNewEnd.getTime());
+			mockGatewayRequest3.setMessageStatus(MStatus.SCHEDULED);
+			expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockGatewayRequestDAO.save(mockGatewayRequest3)).andReturn(mockGatewayRequest3);
+
+			MessageRequest mockMessageRequest1 = createMock(MessageRequest.class);
+			MessageRequest mockMessageRequest2 = createMock(MessageRequest.class);
+			MessageRequest mockMessageRequest3 = createMock(MessageRequest.class);
+
+			MessageRequestDAO<MessageRequest> mockMessageRequestDAO = createMock(MessageRequestDAO.class);
+
+			expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
+
+			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
+			mockMessageRequest1.setDaysAttempted(1);
+			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
+
+			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
+			mockMessageRequest2.setDaysAttempted(1);
+			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
+
+			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
+			mockMessageRequest3.setDaysAttempted(1);
+			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
+
+			if ( type == ReportStatusType.COMPLETED ) {
+				statusStore.updateStatus(mr1.getId().toString(), "BELOWTHRESHOLD");
+				statusStore.updateStatus(mr2.getId().toString(), "BELOWTHRESHOLD");
+				statusStore.updateStatus(mr3.getId().toString(), "BELOWTHRESHOLD");
+			} else {
 				statusStore.updateStatus(mr1.getId().toString(), report.getStatus().value());
 				statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
 				statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
-				
-				replay(statusStore);
-				replay(mockCoreManager);
-				replay(mockContext);
-				replay(mockGatewayRequest1);
-				replay(mockGatewayRequest2);
-				replay(mockGatewayRequest3);				
-				replay(mockGatewayRequestDAO);
-				replay(mockMessageRequest1);
-				replay(mockMessageRequest2);
-				replay(mockMessageRequest3);
-				replay(mockMessageRequestDAO);
-				replay(mockDBSession);
-				
-				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
-
-				response = intellivrBean.handleReport(report);
-				
-				assertEquals(StatusType.OK, response.getStatus());
-				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
-				
-				verify(mockCoreManager);
-				verify(mockContext);
-				verify(mockGatewayRequestDAO);
-				verify(mockDBSession);
-				verify(mockGatewayRequest1);
-				verify(mockGatewayRequest2);
-				verify(mockGatewayRequest3);
-				verify(mockMessageRequest1);
-				verify(mockMessageRequest2);
-				verify(mockMessageRequest3);
-				verify(mockMessageRequestDAO);
-				verify(statusStore);
-				reset(mockCoreManager);
-				reset(mockContext);
-				reset(mockGatewayRequestDAO);
-				reset(mockDBSession);
-				reset(mockTransaction);
-				reset(mockGatewayRequest1);
-				reset(mockGatewayRequest2);
-				reset(mockGatewayRequest3);
-				reset(mockMessageRequest1);
-				reset(mockMessageRequest2);
-				reset(mockMessageRequest3);
-				reset(mockMessageRequestDAO);
-				reset(statusStore);
-
-				/*
-				 * last attempt on last day
-				 */
-				expectedSessions.put(session.getSessionId(), session);
-				intellivrBean.ivrSessions = expectedSessions;
-				session.setAttempts(2);
-				session.setDays(1);
-				
-				expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
-				
-				expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
-				
-				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
-				mockMessageRequest1.setDaysAttempted(2);
-				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
-				
-				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
-				mockMessageRequest2.setDaysAttempted(2);
-				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
-				
-				expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
-				mockMessageRequest3.setDaysAttempted(2);
-				expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-				expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
-				expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
-				
-				statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
-				statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
-				statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
-				
-				replay(mockCoreManager);
-				replay(mockContext);
-				replay(mockDBSession);
-				replay(mockMessageRequest1);
-				replay(mockMessageRequest2);
-				replay(mockMessageRequest3);
-				replay(mockMessageRequestDAO);
-				replay(statusStore);
-				
-				assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
-
-				response = intellivrBean.handleReport(report);
-				
-				assertEquals(2, session.getDays());
-				assertEquals(StatusType.OK, response.getStatus());
-				assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
-				
-				verify(mockCoreManager);
-				verify(mockContext);
-				verify(mockDBSession);
-				verify(mockMessageRequest1);
-				verify(mockMessageRequest2);
-				verify(mockMessageRequest3);
-				verify(mockMessageRequestDAO);
-				verify(statusStore);
-				reset(mockCoreManager);
-				reset(mockContext);
-				reset(mockDBSession);
-				reset(mockTransaction);
-				reset(mockMessageRequest1);
-				reset(mockMessageRequest2);
-				reset(mockMessageRequest3);
-				reset(mockMessageRequestDAO);
-				reset(statusStore);
-
-				
 			}
-			
+
+			replay(statusStore);
+			replay(mockCoreManager);
+			replay(mockContext);
+			replay(mockGatewayRequest1);
+			replay(mockGatewayRequest2);
+			replay(mockGatewayRequest3);				
+			replay(mockGatewayRequestDAO);
+			replay(mockMessageRequest1);
+			replay(mockMessageRequest2);
+			replay(mockMessageRequest3);
+			replay(mockMessageRequestDAO);
+			replay(mockDBSession);
+
+			assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+			response = intellivrBean.handleReport(report);
+
+			assertEquals(StatusType.OK, response.getStatus());
+			assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+			verify(mockCoreManager);
+			verify(mockContext);
+			verify(mockGatewayRequestDAO);
+			verify(mockDBSession);
+			verify(mockGatewayRequest1);
+			verify(mockGatewayRequest2);
+			verify(mockGatewayRequest3);
+			verify(mockMessageRequest1);
+			verify(mockMessageRequest2);
+			verify(mockMessageRequest3);
+			verify(mockMessageRequestDAO);
+			verify(statusStore);
+			reset(mockCoreManager);
+			reset(mockContext);
+			reset(mockGatewayRequestDAO);
+			reset(mockDBSession);
+			reset(mockTransaction);
+			reset(mockGatewayRequest1);
+			reset(mockGatewayRequest2);
+			reset(mockGatewayRequest3);
+			reset(mockMessageRequest1);
+			reset(mockMessageRequest2);
+			reset(mockMessageRequest3);
+			reset(mockMessageRequestDAO);
+			reset(statusStore);
+
+			/*
+			 * last attempt on last day
+			 */
+			 expectedSessions.put(session.getSessionId(), session);
+			intellivrBean.ivrSessions = expectedSessions;
+			session.setAttempts(2);
+			session.setDays(1);
+
+			expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
+
+			expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
+
+			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
+			mockMessageRequest1.setDaysAttempted(2);
+			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
+
+			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
+			mockMessageRequest2.setDaysAttempted(2);
+			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
+
+			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
+			mockMessageRequest3.setDaysAttempted(2);
+			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
+			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
+
+			statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
+			statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
+			statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
+
+			replay(mockCoreManager);
+			replay(mockContext);
+			replay(mockDBSession);
+			replay(mockMessageRequest1);
+			replay(mockMessageRequest2);
+			replay(mockMessageRequest3);
+			replay(mockMessageRequestDAO);
+			replay(statusStore);
+
+			assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+			response = intellivrBean.handleReport(report);
+
+			assertEquals(2, session.getDays());
+			assertEquals(StatusType.OK, response.getStatus());
+			assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+			verify(mockCoreManager);
+			verify(mockContext);
+			verify(mockDBSession);
+			verify(mockMessageRequest1);
+			verify(mockMessageRequest2);
+			verify(mockMessageRequest3);
+			verify(mockMessageRequestDAO);
+			verify(statusStore);
+			reset(mockCoreManager);
+			reset(mockContext);
+			reset(mockDBSession);
+			reset(mockTransaction);
+			reset(mockMessageRequest1);
+			reset(mockMessageRequest2);
+			reset(mockMessageRequest3);
+			reset(mockMessageRequestDAO);
+			reset(statusStore);
+
 		}
 
 	}
-	
+
 	@Test
 	public void testCreateRequestType() {
-		
+
 		String recipient = "123456789";
 		String phone = "5555555555";
-		
+
 		IVRNotificationMapping m1 = new IVRNotificationMapping();
 		m1.setId(1);
 		m1.setIvrEntityName("tree");
 		m1.setType(IVRNotificationMapping.INFORMATIONAL);
-		
+
 		IVRNotificationMapping m2 = new IVRNotificationMapping();
 		m2.setId(2);
 		m2.setIvrEntityName("message.wav");
 		m2.setType(IVRNotificationMapping.REMINDER);
-		
+
 		IVRNotificationMapping m3 = new IVRNotificationMapping();
 		m3.setId(3);
 		m3.setIvrEntityName("message2.wav");

@@ -149,6 +149,9 @@
 				<entry key="INTERNALERROR">
 					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
 				</entry>
+				<entry key="BELOWTHRESHOLD">
+					<value type="org.motechproject.mobile.core.model.MStatus">PENDING</value>
+				</entry>
 				<entry key="COMPLETED">
 					<value type="org.motechproject.mobile.core.model.MStatus">DELIVERED</value>
 				</entry>
@@ -178,6 +181,7 @@
 		<property name="retryDelay" value="${intellivr.gateway.retryDelay}"/>
 		<property name="maxAttempts" value="${intellivr.gateway.maxAttempts}"/>
 		<property name="maxDays" value="${intellivr.gateway.maxDays}"/>
+		<property name="callCompletedThreshold" value="${intellivr.gateway.callCompletedThreshold}" />
 		<property name="accelerateRetries" value="true" />
 		<property name="noPendingMessagesRecordingName" value="${intellivr.gateway.noPendingMessagesRecordingName}"/>
 		<property name="mappingResource" value="${intellivr.gateway.ivrConfig}"/>
