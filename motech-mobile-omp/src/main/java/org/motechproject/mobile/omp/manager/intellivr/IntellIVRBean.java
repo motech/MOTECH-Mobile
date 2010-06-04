@@ -321,6 +321,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 			if ( pendingMessageRequests.size() == 0 ) {
 				log.debug("No pending messages found for " + request.getUserid());
+				callLog.info("IN,," + request.getUserid() + ",NO_PENDING");
 				r.setStatus(StatusType.OK);
 				RequestType.Vxml vxml = new RequestType.Vxml();
 				vxml.setPrompt(new RequestType.Vxml.Prompt());
@@ -359,16 +360,20 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				r.setVxml(requestType.getVxml());
 
 				ivrSessions.put(session.getSessionId(), session);
+				
+				callLog.info("IN,," + request.getUserid() + "," + StatusType.OK.value());
 
 			}
 
 		} catch (NumberFormatException e) {
 			log.error("Invalid user id: id must be numeric");
+			callLog.info("IN,," + request.getUserid() + "," + ErrorCodeType.MOTECH_INVALID_USER_ID.name());
 			r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
 			r.setErrorString("Invalid user id: id must be numeric");
 			r.setStatus(StatusType.ERROR);
 		} catch (ValidationException e) {
 			log.error("Invalid user id: no such id '" + userId + "' on server");
+			callLog.info("IN,," + request.getUserid() + "," + ErrorCodeType.MOTECH_INVALID_USER_ID.name());
 			r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
 			r.setErrorString("Invalid user id: no such id '" + userId + "' on server");
 			r.setStatus(StatusType.ERROR);
