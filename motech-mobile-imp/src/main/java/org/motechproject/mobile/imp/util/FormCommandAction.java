@@ -37,6 +37,7 @@ public class FormCommandAction implements CommandAction {
     private FormProcessor formProcessor;
     private IncomingMessageParser parser;
     private IncomingMessageFormValidator formValidator;
+    private String senderFieldName;
     private static Logger logger = Logger.getLogger(FormCommandAction.class);
 
     /**
@@ -77,6 +78,10 @@ public class FormCommandAction implements CommandAction {
 
         imSession.setDateEnded(new Date());
         imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
+
+        if(message.getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(getSenderFieldName()))
+            imSession.setRequesterPhone(message.getIncomingMessageForm().getIncomingMsgFormParameters().get(getSenderFieldName()).getValue());
+
 
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
         Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
@@ -262,5 +267,19 @@ public class FormCommandAction implements CommandAction {
      */
     public void setFormProcessor(FormProcessor formProcessor) {
         this.formProcessor = formProcessor;
+    }
+
+    /**
+     * @return the senderFieldName
+     */
+    public String getSenderFieldName() {
+        return senderFieldName;
+    }
+
+    /**
+     * @param senderFieldName the senderFieldName to set
+     */
+    public void setSenderFieldName(String senderFieldName) {
+        this.senderFieldName = senderFieldName;
     }
 }

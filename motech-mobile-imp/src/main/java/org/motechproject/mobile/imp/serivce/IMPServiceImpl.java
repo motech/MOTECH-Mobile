@@ -83,7 +83,7 @@ public class IMPServiceImpl implements IMPService {
         CommandAction action = cmdActionMap.get(cmd.toUpperCase());
         if (action == null) {
             //TODO change error to unknown form type or command
-            response.setContent("Error: Unknown Form!\nPlease specify the form you wish to process.");
+            response.setContent("Error: Unknown Form!\nPlease check the name of the form.");
             return response;
         }
 
