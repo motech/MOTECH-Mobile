@@ -190,11 +190,11 @@
 	</bean>
 
 	<bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
-		<property name="textHandler" ref="dummyHandler"/>
+		<property name="textHandler" ref="messageHandler"/>
 		<property name="voiceHandler" ref="intellIVRMessageHandler"/>
 	</bean>
 
-	<bean id="compositeGateway" class="org.motechproject.mobile.omp.manager.CompositeGatewayManager">
+	<bean id="compositeGatewayManager" class="org.motechproject.mobile.omp.manager.CompositeGatewayManager">
 		<property name="textGatewayManager" ref="gatewayManager"/>
 		<property name="voiceGatewayManager" ref="intellivrBean"/>
 		<property name="compositeMessageHandler" ref="compositeHandler"/>

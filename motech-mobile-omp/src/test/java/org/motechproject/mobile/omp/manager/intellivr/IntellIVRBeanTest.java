@@ -262,7 +262,7 @@ public class IntellIVRBeanTest {
 		gr4.setGatewayRequest(r4);
 		gr4.setRecipientNumber(mr4.getRecipientNumber());
 		gr4.setMessageStatus(r4.getMessageStatus());
-		gr4.setResponseText(StatusType.OK.value());
+		gr4.setResponseText(StatusType.ERROR.value());
 		
 		Set<GatewayResponse> grs4 = new HashSet<GatewayResponse>();
 		grs4.add(gr4);
@@ -339,9 +339,9 @@ public class IntellIVRBeanTest {
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 		
-		expect(mockMessageHandler.parseMessageResponse(r4, StatusType.OK.value(), mockContext)).andReturn(grs4);
+		expect(mockMessageHandler.parseMessageResponse(r4, StatusType.ERROR.value(), mockContext)).andReturn(grs4);
 		replay(mockMessageHandler);
-		mockStatusStore.updateStatus(gr4.getGatewayMessageId(), StatusType.OK.value());
+		mockStatusStore.updateStatus(gr4.getGatewayMessageId(), StatusType.ERROR.value());
 		replay(mockStatusStore);
 		assertEquals(grs4,intellivrBean.sendMessage(r4, mockContext));
 		verify(mockMessageHandler);
@@ -610,6 +610,22 @@ public class IntellIVRBeanTest {
 		expectedSessions.put(session.getSessionId(), session);
 		
 		intellivrBean.ivrSessions = expectedSessions;
+		
+		IVRNotificationMapping m1 = new IVRNotificationMapping();
+		m1.setId(2);
+		m1.setIvrEntityName("message.wav");
+		m1.setType(IVRNotificationMapping.REMINDER);
+
+		IVRNotificationMapping m2 = new IVRNotificationMapping();
+		m2.setId(3);
+		m2.setIvrEntityName("message2.wav");
+		m2.setType(IVRNotificationMapping.REMINDER);
+
+		Map<Long, IVRNotificationMapping> mapping = new HashMap<Long, IVRNotificationMapping>();
+		mapping.put(m1.getId(), m1);
+		mapping.put(m2.getId(), m2);
+		
+		intellivrBean.ivrNotificationMap = mapping;
 				
 		MessageStatusStore statusStore = createMock(MessageStatusStore.class);
 		intellivrBean.setStatusStore(statusStore);
@@ -628,10 +644,17 @@ public class IntellIVRBeanTest {
 		e2.setFile("message2.wav");
 		e2.setKeypress("");
 		e2.setMenu("");
-
+		
+		IvrEntryType e3 = new IvrEntryType();
+		e3.setDuration(30);
+		e3.setFile("info1.wav");
+		e3.setKeypress("");
+		e3.setMenu("");
+		
 		List<IvrEntryType> entryList = new ArrayList<IvrEntryType>();
 		entryList.add(e1);
 		entryList.add(e2);
+		entryList.add(e3);
 
 		report.intellivrEntry = entryList;
 
@@ -694,10 +717,17 @@ public class IntellIVRBeanTest {
 				e2.setFile("message2.wav");
 				e2.setKeypress("");
 				e2.setMenu("");
+				
+				e3 = new IvrEntryType();
+				e3.setDuration(29);
+				e3.setFile("info1.wav");
+				e3.setKeypress("");
+				e3.setMenu("");
 
 				entryList = new ArrayList<IvrEntryType>();
 				entryList.add(e1);
 				entryList.add(e2);
+				entryList.add(e3);
 				
 				report.intellivrEntry = entryList;
 				

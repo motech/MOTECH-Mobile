@@ -156,30 +156,28 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			.getMessageRequest().getLanguage();
 		
 		String status = StatusType.OK.value();
-		if ( recipientID == null || gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT ) {
+		if ( recipientID == null 
+				|| gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT 
+				|| gatewayRequest.getMessageRequest().getPhoneNumberType().equalsIgnoreCase("PUBLIC") ) {
 			status = StatusType.ERROR.value();
 		} else {
 
-			if ( !gatewayRequest.getMessageRequest().getPhoneNumberType().equalsIgnoreCase("PUBLIC") ) {
-			
-				IVRSession session = new IVRSession(recipientID, 
-													phone, 
-													language.getName(),
-													gatewayRequest.getMessageRequest().getDaysAttempted());
-				session.addGatewayRequest(gatewayRequest);
-				
-				if ( !ivrSessions.containsKey(session.getSessionId()) ) {
+			IVRSession session = new IVRSession(recipientID, 
+					phone, 
+					language.getName(),
+					gatewayRequest.getMessageRequest().getDaysAttempted());
+			session.addGatewayRequest(gatewayRequest);
 
-					ivrSessions.put(session.getSessionId(), session);
-					
-					task = new IVRServerTimerTask(session);
+			if ( !ivrSessions.containsKey(session.getSessionId()) ) {
 
-				} else {
-					ivrSessions
-						.get(session.getSessionId())
-						.addGatewayRequest(gatewayRequest);
-				}
-				
+				ivrSessions.put(session.getSessionId(), session);
+
+				task = new IVRServerTimerTask(session);
+
+			} else {
+				ivrSessions
+				.get(session.getSessionId())
+				.addGatewayRequest(gatewayRequest);
 			}
 
 		}
