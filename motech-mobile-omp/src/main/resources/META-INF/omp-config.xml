@@ -206,7 +206,7 @@
 
     <bean id="smsService" class="org.motechproject.mobile.omp.service.SMSMessagingServiceImpl">
         <property name="cache" ref="smsCache" />
-        <property name="gatewayManager" ref="gatewayManager" />
+        <property name="gatewayManager" ref="compositeGatewayManager" />
         <property name="coreManager" ref="coreManager" />
     </bean>
 
