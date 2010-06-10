@@ -43,9 +43,9 @@
                 <entry key="MOTHEROPD-JF" value-ref="recordMotherVisitSignatureBean" />
                 <entry key="ANCDEFAULT-JF" value-ref="queryANCDefaultersSignatureBean" />
                 <entry key="TTDEFAULT-JF" value-ref="queryTTDefaultersSignatureBean" />
-                <!-- Rename PPC to ChildPNC, PNC to MotherPNC when database definitions are renamed -->
-                <entry key="PPCDEFAULT-JF" value-ref="queryChildPNCDefaultersSignatureBean" />
-                <entry key="PNCDEFAULT-JF" value-ref="queryMotherPNCDefaultersSignatureBean" />
+                <!-- Rename PPC to MotherPNC, PNC to ChildPNC when database definitions are renamed -->
+                <entry key="PPCDEFAULT-JF" value-ref="queryMotherPNCDefaultersSignatureBean" />
+                <entry key="PNCDEFAULT-JF" value-ref="queryChildPNCDefaultersSignatureBean" />
                 <entry key="CWCDEFAULT-JF" value-ref="queryCWCDefaultersSignatureBean" />
                 <entry key="UPCOMINGDELIVERIES-JF" value-ref="queryUpcomingDeliveriesSignatureBean" />
                 <entry key="RECENTDELIVERIES-JF" value-ref="queryRecentDeliveriesSignatureBean" />

@@ -321,12 +321,12 @@ public class FormProcessorImplTest {
 
         reset(mockWS);
 
-        //Test Child PNC defaulters
+        //Test Mother PNC defaulters
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("PPCDEFAULT-JF");
 
         expect(
-                mockWS.queryChildPNCDefaulters((Integer) anyObject(), (Integer) anyObject())
+                mockWS.queryMotherPNCDefaulters((Integer) anyObject(), (Integer) anyObject())
                 ).andReturn(null);
 
         replay(mockWS);
@@ -336,12 +336,12 @@ public class FormProcessorImplTest {
 
         reset(mockWS);
 
-        //Test Mother PNC defaulters
+        //Test Child PNC defaulters
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("PNCDEFAULT-JF");
 
         expect(
-                mockWS.queryMotherPNCDefaulters((Integer) anyObject(), (Integer) anyObject())
+                mockWS.queryChildPNCDefaulters((Integer) anyObject(), (Integer) anyObject())
                 ).andReturn(null);
 
         replay(mockWS);
