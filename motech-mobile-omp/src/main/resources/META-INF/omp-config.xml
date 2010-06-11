@@ -182,7 +182,7 @@
 		<property name="maxAttempts" value="${intellivr.gateway.maxAttempts}"/>
 		<property name="maxDays" value="${intellivr.gateway.maxDays}"/>
 		<property name="callCompletedThreshold" value="${intellivr.gateway.callCompletedThreshold}" />
-		<property name="accelerateRetries" value="true" />
+		<property name="accelerateRetries" value="false" />
 		<property name="noPendingMessagesRecordingName" value="${intellivr.gateway.noPendingMessagesRecordingName}"/>
 		<property name="mappingResource" value="${intellivr.gateway.ivrConfig}"/>
 		<property name="coreManager" ref="coreManager"/>
