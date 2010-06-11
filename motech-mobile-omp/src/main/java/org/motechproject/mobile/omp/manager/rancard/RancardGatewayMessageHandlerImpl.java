@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.motechproject.mobile.omp.manager.clickatell;
+package org.motechproject.mobile.omp.manager.rancard;
 
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
@@ -22,10 +22,10 @@ import org.apache.log4j.Logger;
  *
  * @author henry
  */
-public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandler{
-    
+public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
+    private MStatus okMessageStatus;
     private CoreManager coreManager;
-    private static Logger logger = Logger.getLogger(ClickatellGatewayMessageHandlerImpl.class);
+    private static Logger logger = Logger.getLogger(RancardGatewayMessageHandlerImpl.class);
     private Map<MStatus, String> codeStatusMap;
     private Map<MStatus, String> codeResponseMap;
 
@@ -40,51 +40,57 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
         if(message == null)
             return null;
 
-        if(gatewayResponse.trim().isEmpty())
+        if(gatewayResponse.isEmpty())
             return null;
 
         Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
-        String[] responseLines = gatewayResponse.trim().split("\n");
+        String[] responseLines = gatewayResponse.split("\n");
 
         for(String line : responseLines){
             String[] responseParts = line.split(" ");
 
-            if(responseParts[0].equalsIgnoreCase("ID:")){
-                GatewayResponse response = getCoreManager().createGatewayResponse(context);
+            if (responseParts[0].trim().equals("Status:"))
+                    continue;
+            
+            GatewayResponse response = getCoreManager().createGatewayResponse(context);                
+            response.setRequestId(message.getRequestId());
+            response.setGatewayRequest(message);
+            response.setResponseText(gatewayResponse);
+            response.setDateCreated(new Date());
                 
-                response.setGatewayMessageId(responseParts[1]);
-                response.setRequestId(message.getRequestId());
-                response.setMessageStatus(MStatus.PENDING);
-                response.setGatewayRequest(message);
-                response.setResponseText(gatewayResponse);
-                response.setDateCreated(new Date());
+            if(responseParts[0].equalsIgnoreCase("OK:")){                
+                response.setMessageStatus(okMessageStatus);
 
-                if(responseParts.length == 4)
-                    response.setRecipientNumber(responseParts[3]);
+                if(responseParts.length == 2)
+                    response.setRecipientNumber(responseParts[1]);
                 else
                     response.setRecipientNumber(message.getRecipientsNumber());
 
                 responses.add(response);
             }
-            else{
+            else if(responseParts[0].equalsIgnoreCase("ERROR:")){
                 logger.error("Gateway returned error: " + gatewayResponse);
                 
-                String errorCode = responseParts[1];
+                String errorCode = "";
+                
+                if(responseParts.length == 2){
+                    errorCode = responseParts[1];
+                    response.setRecipientNumber(message.getRecipientsNumber());
+                }else if(responseParts.length == 4){
+                    errorCode = responseParts[1];
+                    response.setRecipientNumber(responseParts[3]);
+                }
+                
                 errorCode.replaceAll(",", "");
                 errorCode.trim();
-                
-                MStatus status = lookupResponse(errorCode);
-                
-                GatewayResponse response = getCoreManager().createGatewayResponse(context);
-                
-                response.setRequestId(message.getRequestId());
-                response.setMessageStatus(status);
-                response.setGatewayRequest(message);
-                response.setResponseText(gatewayResponse);
-                response.setDateCreated(new Date());
-                
-                responses.add(response);
+
+                MStatus status = lookupResponse(errorCode);               
+                response.setMessageStatus(status);                
             }
+            else{
+                response.setResponseText(line);
+            }
+            responses.add(response);
         }
         logger.debug(responses);
         return responses;
@@ -95,23 +101,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
      * @see GatewayMessageHandler.parseMessageStatus
      */
     public MStatus parseMessageStatus(String gatewayResponse) {
-        logger.debug("Parsing message gateway status response");
-
-        String status;
-                
-        String[] responseParts = gatewayResponse.split(" ");
-        
-        if(responseParts.length == 2){
-            status = responseParts[1];
-        }
-        else if(responseParts.length == 4){
-            status = responseParts[3];
-        }
-        else{
-            status = "";
-        }
-        
-        return lookupStatus(status);
+        return okMessageStatus;
     }
     
     /**
@@ -176,5 +166,12 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
 
     public void setCodeResponseMap(Map<MStatus, String> codeResponseMap) {
         this.codeResponseMap = codeResponseMap;
+    }
+
+    /**
+     * @param okMessageStatus the okMessageStatus to set
+     */
+    public void setOkMessageStatus(MStatus okMessageStatus) {
+        this.okMessageStatus = okMessageStatus;
     }
 }
