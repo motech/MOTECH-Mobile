@@ -262,7 +262,7 @@ public class IntellIVRBeanTest {
 		gr4.setGatewayRequest(r4);
 		gr4.setRecipientNumber(mr4.getRecipientNumber());
 		gr4.setMessageStatus(r4.getMessageStatus());
-		gr4.setResponseText(StatusType.ERROR.value());
+		gr4.setResponseText(StatusType.OK.value());
 		
 		Set<GatewayResponse> grs4 = new HashSet<GatewayResponse>();
 		grs4.add(gr4);
@@ -339,9 +339,9 @@ public class IntellIVRBeanTest {
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 		
-		expect(mockMessageHandler.parseMessageResponse(r4, StatusType.ERROR.value(), mockContext)).andReturn(grs4);
+		expect(mockMessageHandler.parseMessageResponse(r4, StatusType.OK.value(), mockContext)).andReturn(grs4);
 		replay(mockMessageHandler);
-		mockStatusStore.updateStatus(gr4.getGatewayMessageId(), StatusType.ERROR.value());
+		mockStatusStore.updateStatus(gr4.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
 		assertEquals(grs4,intellivrBean.sendMessage(r4, mockContext));
 		verify(mockMessageHandler);

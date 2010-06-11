@@ -123,14 +123,12 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	}
 	
 	public String getMessageStatus(GatewayResponse response) {
-		log.debug("Received getMessagesStatus request for " + response);
-		log.debug("Returning " + statusStore.getStatus(response.getGatewayMessageId()) + " for " + response);
+		log.debug("Returning " + statusStore.getStatus(response.getGatewayMessageId()) + " for " + response.getId());
 		return statusStore.getStatus(response.getGatewayMessageId());
 	}
 
 	public MStatus mapMessageStatus(GatewayResponse response) {
-		log.debug("Received mapMessageStatus for " + response);
-		log.debug("Returning " + messageHandler.lookupStatus(response.getResponseText()) + " for " + response);
+		log.debug("Returning " + messageHandler.lookupStatus(response.getResponseText()) + " for " + response.getId());
 		//when called and the response status is RETRY, may need to remove or set to PENDING before returning value
 		return messageHandler.lookupStatus(response.getResponseText());
 	}
@@ -156,29 +154,41 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			.getMessageRequest().getLanguage();
 		
 		String status = StatusType.OK.value();
-		if ( recipientID == null 
-				|| gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT 
-				|| gatewayRequest.getMessageRequest().getPhoneNumberType().equalsIgnoreCase("PUBLIC") ) {
+		if ( recipientID == null || gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT ) {
 			status = StatusType.ERROR.value();
 		} else {
 
-			IVRSession session = new IVRSession(recipientID, 
-					phone, 
-					language.getName(),
-					gatewayRequest.getMessageRequest().getDaysAttempted());
-			session.addGatewayRequest(gatewayRequest);
+			String phoneType = gatewayRequest.getMessageRequest().getPhoneNumberType();
+			
+			if ( phoneType.equalsIgnoreCase("PERSONAL") || phoneType.equalsIgnoreCase("HOUSEHOLD") ) {
+				
+				IVRSession session = new IVRSession(recipientID, 
+						phone, 
+						language.getName(),
+						gatewayRequest.getMessageRequest().getDaysAttempted());
+				session.addGatewayRequest(gatewayRequest);
 
-			if ( !ivrSessions.containsKey(session.getSessionId()) ) {
+				if ( !ivrSessions.containsKey(session.getSessionId()) ) {
+					log.debug("Using new IVR Session " + session.getSessionId() +
+							" for request " + gatewayRequest.getId());
+					ivrSessions.put(session.getSessionId(), session);
 
-				ivrSessions.put(session.getSessionId(), session);
+					task = new IVRServerTimerTask(session);
 
-				task = new IVRServerTimerTask(session);
-
+				} else {
+					log.debug("Using existing IVR Session " + session.getSessionId() +
+							" for request " + gatewayRequest.getId());
+					ivrSessions
+					.get(session.getSessionId())
+					.addGatewayRequest(gatewayRequest);
+				}
+				
 			} else {
-				ivrSessions
-				.get(session.getSessionId())
-				.addGatewayRequest(gatewayRequest);
+				log.debug("GatewayRequest " + gatewayRequest.getId() + " has phone type " +
+						gatewayRequest.getMessageRequest().getPhoneNumberType() + 
+						".  Call will not be made and message will remain pending.");
 			}
+			
 
 		}
 		
