@@ -129,7 +129,6 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public MStatus mapMessageStatus(GatewayResponse response) {
 		log.debug("Returning " + messageHandler.lookupStatus(response.getResponseText()) + " for " + response.getId());
-		//when called and the response status is RETRY, may need to remove or set to PENDING before returning value
 		return messageHandler.lookupStatus(response.getResponseText());
 	}
 
@@ -447,12 +446,16 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 								
 								GregorianCalendar newDateFrom = new GregorianCalendar();
 								newDateFrom.setTime(dateFrom);
-								if ( !accelerateRetries )
+								if ( accelerateRetries )
+									newDateFrom.add(GregorianCalendar.MINUTE, 5);
+								else
 									newDateFrom.add(GregorianCalendar.DAY_OF_MONTH, 1);
 								
 								GregorianCalendar newDateTo = new GregorianCalendar();
 								newDateTo.setTime(dateTo);
-								if ( !accelerateRetries )
+								if ( accelerateRetries )
+									newDateTo.add(GregorianCalendar.MINUTE, 5);
+								else
 									newDateTo.add(GregorianCalendar.DAY_OF_MONTH, 1);
 								
 								
