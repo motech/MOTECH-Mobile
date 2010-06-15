@@ -13,7 +13,7 @@
         <version>1.0-M6-SNAPSHOT</version>
     </parent>
     <dependencies>
-        <dependency>
+        <dependency> 
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
