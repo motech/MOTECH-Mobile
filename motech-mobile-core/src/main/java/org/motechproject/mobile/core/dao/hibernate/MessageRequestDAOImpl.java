@@ -130,4 +130,28 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
 
     	}
     }
+
+	public List<MessageRequest> getMsgRequestByRecipientAndSchedule(
+			String recipientID, Date schedule) {
+        logger.debug("variables passed to getMsgRequestByStatusAndSchedule. recipientID: " + recipientID + "And schedule: " + schedule);
+
+
+        try {
+            Session sess = this.getDBSession().getSession();
+            List msgRequest = sess.createCriteria(this.getPersistentClass())
+                    .add(Restrictions.eq("recipientId", recipientID))
+                    .add(Restrictions.lt("dateFrom", schedule))
+                    .add(Restrictions.gt("dateTo", schedule))
+                    .list();
+            logger.debug(msgRequest);
+            return msgRequest;
+
+        } catch (HibernateException he) {
+            logger.error("Persistence or JDBC Exception in Method getMsgRequestByStatusAndSchedule", he);
+            return null;
+        } catch (Exception ex) {
+            logger.error("Exception in Method getMsgRequestByStatusAndSchedule", ex);
+            return null;
+        }
+	}
 }

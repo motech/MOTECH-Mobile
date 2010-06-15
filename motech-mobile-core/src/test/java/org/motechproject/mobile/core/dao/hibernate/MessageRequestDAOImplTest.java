@@ -281,4 +281,21 @@ public class MessageRequestDAOImplTest {
     	Assert.assertEquals(expectedList, actualList);
     }
     
+    @Test
+    public void testGetMsgByRecipientAndSchedule() {
+    	String recipientID = "r2";
+    	List<MessageRequest> expectedList = new ArrayList<MessageRequest>();
+    	expectedList.add(mr2);
+    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    	Date sched = null;
+    	try {
+    		sched = df.parse("2009-09-01");
+    		System.out.println(sched);
+    	} catch (ParseException e) {
+            e.printStackTrace();
+        }
+    	List<MessageRequest> actualList = mrDAO.getMsgRequestByRecipientAndSchedule(recipientID, sched);   	
+    	Assert.assertEquals(expectedList, actualList);
+    }
+    
 }
