@@ -72,6 +72,9 @@ public class OMIServiceImpl implements OMIService {
             String recipientId) {
         logger.info("Constructing MessageRequest object...");
 
+        if(patientNumberType != ContactNumberType.PERSONAL)
+            return MessageStatus.REJECTED;
+
         MotechContext mc = coreManager.createMotechContext();
         MessageRequest messageRequest = coreManager.createMessageRequest(mc);
 
