@@ -322,7 +322,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 			String[] enrollments = registrarService.getPatientEnrollments(Integer.parseInt(userId));
 
-			if ( enrollments.length == 0 ) {
+			if ( enrollments == null || enrollments.length == 0 ) {
 				callLog.info("IN,," + request.getUserid() + ",UNENROLLED");
 				r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
 				r.setErrorString("Unenrolled user");
