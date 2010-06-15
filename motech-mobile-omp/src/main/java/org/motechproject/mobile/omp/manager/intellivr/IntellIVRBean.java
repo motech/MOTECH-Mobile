@@ -319,57 +319,66 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		log.info("Received ivr config request for id " + userId);
 
 		try {
-			
-			registrarService.getPatientEnrollments(Integer.parseInt(userId));
 
-			MotechContext context = coreManager.createMotechContext();
-			MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO(context);
+			String[] enrollments = registrarService.getPatientEnrollments(Integer.parseInt(userId));
 
-			List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndStatus(request.getUserid(), MStatus.PENDING);		
-
-			if ( pendingMessageRequests.size() == 0 ) {
-				log.debug("No pending messages found for " + request.getUserid());
-				callLog.info("IN,," + request.getUserid() + ",NO_PENDING");
-				r.setStatus(StatusType.OK);
-				RequestType.Vxml vxml = new RequestType.Vxml();
-				vxml.setPrompt(new RequestType.Vxml.Prompt());
-				AudioType a = new AudioType();
-				a.setSrc(noPendingMessagesRecordingName);
-				vxml.getPrompt().getAudioOrBreak().add(a);
-				r.setVxml(vxml);
+			if ( enrollments.length == 0 ) {
+				callLog.info("IN,," + request.getUserid() + ",UNENROLLED");
+				r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+				r.setErrorString("Unenrolled user");
+				r.setStatus(StatusType.ERROR);
 			} else {
 
-				log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
+				MotechContext context = coreManager.createMotechContext();
+				MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO(context);
 
-				IVRSession session = new IVRSession(userId);
+				List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndStatus(request.getUserid(), MStatus.PENDING);		
 
-				for (MessageRequest messageRequest : pendingMessageRequests ) {
+				if ( pendingMessageRequests.size() == 0 ) {
+					log.debug("No pending messages found for " + request.getUserid());
+					callLog.info("IN,," + request.getUserid() + ",NO_PENDING");
+					r.setStatus(StatusType.OK);
+					RequestType.Vxml vxml = new RequestType.Vxml();
+					vxml.setPrompt(new RequestType.Vxml.Prompt());
+					AudioType a = new AudioType();
+					a.setSrc(noPendingMessagesRecordingName);
+					vxml.getPrompt().getAudioOrBreak().add(a);
+					r.setVxml(vxml);
+				} else {
 
-					GatewayRequest gwr = new GatewayRequestImpl();
-					gwr.setMessageRequest(messageRequest);
-					
-					session.addGatewayRequest(gwr);
+					log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
 
-					statusStore.updateStatus(messageRequest.getId().toString(), StatusType.OK.value());
+					IVRSession session = new IVRSession(userId);
+
+					for (MessageRequest messageRequest : pendingMessageRequests ) {
+
+						GatewayRequest gwr = new GatewayRequestImpl();
+						gwr.setMessageRequest(messageRequest);
+
+						session.addGatewayRequest(gwr);
+
+						statusStore.updateStatus(messageRequest.getId().toString(), StatusType.OK.value());
+
+					}
+
+					/*
+					 * ResponseType fields are a subset of the RequestType fields
+					 * Can create a RequestType based on this criteria and use
+					 * only the fields that are needed to create the ResponseType
+					 */
+					RequestType requestType = createIVRRequest(session);
+
+					r.setPrivate(requestType.getPrivate());
+					r.setReportUrl(requestType.getReportUrl());
+					r.setStatus(StatusType.OK);
+					r.setTree(requestType.getTree());
+					r.setVxml(requestType.getVxml());
+
+					ivrSessions.put(session.getSessionId(), session);
+
+					callLog.info("IN,," + request.getUserid() + "," + StatusType.OK.value());
 
 				}
-
-				/*
-				 * ResponseType fields are a subset of the RequestType fields
-				 * Can create a RequestType based on this criteria and use
-				 * only the fields that are needed to create the ResponseType
-				 */
-				RequestType requestType = createIVRRequest(session);
-
-				r.setPrivate(requestType.getPrivate());
-				r.setReportUrl(requestType.getReportUrl());
-				r.setStatus(StatusType.OK);
-				r.setTree(requestType.getTree());
-				r.setVxml(requestType.getVxml());
-
-				ivrSessions.put(session.getSessionId(), session);
-				
-				callLog.info("IN,," + request.getUserid() + "," + StatusType.OK.value());
 
 			}
 

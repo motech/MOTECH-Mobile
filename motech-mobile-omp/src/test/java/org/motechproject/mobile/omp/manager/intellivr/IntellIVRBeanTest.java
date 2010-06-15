@@ -1245,7 +1245,24 @@ public class IntellIVRBeanTest {
 		
 		verify(mockRegistrarService);
 		reset(mockRegistrarService);	
+	
+		/*
+		 * Test unenrolled id
+		 */
+		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+		expectedResponse.setStatus(StatusType.ERROR);
 		
+		registrarResponse = new String[0];
+		
+		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andReturn(registrarResponse);
+		replay(mockRegistrarService);
+		
+		actualResponse = intellivrBean.handleRequest(request);
+		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
+		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
+		
+		verify(mockRegistrarService);
+		reset(mockRegistrarService);
 		
 		/*
 		 * Test non numeric input
@@ -1258,8 +1275,7 @@ public class IntellIVRBeanTest {
 		actualResponse = intellivrBean.handleRequest(request);
 		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
 		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
-		
-		
+
 	}
 	
 }
