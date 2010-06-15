@@ -290,7 +290,6 @@ public class MessageRequestDAOImplTest {
     	Date sched = null;
     	try {
     		sched = df.parse("2009-09-01");
-    		System.out.println(sched);
     	} catch (ParseException e) {
             e.printStackTrace();
         }
