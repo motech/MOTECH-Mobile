@@ -100,7 +100,7 @@
                 <entry key="iptDose" value="java.lang.Integer" />
                 <entry key="iptReactive" value="java.lang.Boolean" />
                 <entry key="itnUse" value="java.lang.Boolean" />
-                <entry key="fht" value="java.lang.Integer" />
+                <entry key="fht" value="java.lang.Double" />
                 <entry key="fhr" value="java.lang.Integer" />
                 <entry key="urineTestProteinPositive" value="java.lang.Boolean" />
                 <entry key="urineTestGlucosePositive" value="java.lang.Boolean" />
@@ -237,8 +237,8 @@
                 <entry key="ttDose" value="java.lang.Integer" />
                 <entry key="lochiaColour" value="java.lang.Integer" />
                 <entry key="lochiaAmountExcess" value="java.lang.Boolean" />
-                <entry key="temperature" value="java.lang.Integer" />
-                <entry key="fht" value="java.lang.Integer" />
+                <entry key="temperature" value="java.lang.Double" />
+                <entry key="fht" value="java.lang.Double" />
                 <entry key="comments" value="java.lang.String" />
             </map>
         </property>
@@ -284,7 +284,7 @@
                 <entry key="referred" value="java.lang.Boolean" />
                 <entry key="maleInvolved" value="java.lang.Boolean" />
                 <entry key="weight" value="java.lang.Double" />
-                <entry key="temperature" value="java.lang.Integer" />
+                <entry key="temperature" value="java.lang.Double" />
                 <entry key="bcg" value="java.lang.Boolean" />
                 <entry key="opv0" value="java.lang.Boolean" />
                 <entry key="respiration" value="java.lang.Integer" />
@@ -316,8 +316,8 @@
                 <entry key="vitaminA" value="java.lang.Boolean" />
                 <entry key="dewormer" value="java.lang.Boolean" />
                 <entry key="weight" value="java.lang.Double" />
-                <entry key="muac" value="java.lang.Integer" />
-                <entry key="height" value="java.lang.Integer" />
+                <entry key="muac" value="java.lang.Double" />
+                <entry key="height" value="java.lang.Double" />
                 <entry key="maleInvolved" value="java.lang.Boolean" />
                 <entry key="comments" value="java.lang.String" />
             </map>
@@ -406,7 +406,7 @@
                 <entry key="motechId" value="java.lang.Integer" />
                 <entry key="ancRegNumber" value="java.lang.String" />
                 <entry key="estDeliveryDate" value="java.util.Date" />
-                <entry key="height" value="java.lang.Integer" />
+                <entry key="height" value="java.lang.Double" />
                 <entry key="gravida" value="java.lang.Integer" />
                 <entry key="parity" value="java.lang.Integer" />
                 <entry key="enroll" value="java.lang.Boolean" />

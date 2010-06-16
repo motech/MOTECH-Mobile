@@ -97,7 +97,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("ANC-JF");
 
-        mockWS.recordMotherANCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (HIVResult) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (String) anyObject());
+        mockWS.recordMotherANCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (HIVResult) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (String) anyObject());
         expectLastCall();
 
         replay(mockWS);
@@ -154,7 +154,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("MOTHERPNC-JF");
 
-        mockWS.recordMotherPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject());
+        mockWS.recordMotherPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (String) anyObject());
         expectLastCall();
 
         replay(mockWS);
@@ -196,7 +196,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("CHILDPNC-JF");
 
-        mockWS.recordChildPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        mockWS.recordChildPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
         expectLastCall();
 
         replay(mockWS);
@@ -239,7 +239,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("REGISTERANCMOTHER-JF");
 
-        mockWS.registerANCMother((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (String) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
+        mockWS.registerANCMother((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (String) anyObject(), (Date) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
         expectLastCall();
 
         replay(mockWS);

@@ -175,13 +175,14 @@ public class IMPServiceImpl implements IMPService {
      * @param recipient the phone number to send the response to
      */
     private void sendResponse(String response, String recipient) {
+        int msgLength = (charsPerSMS - concatAllowance) * maxConcat;
         recipient = formatPhoneNumber(recipient);
 
         if (recipient == null || recipient.isEmpty()) {
             return;
         }
 
-        if (response.length() <= charsPerSMS) {
+        if (response.length() <= msgLength) {
             omiManager.createOMIService().sendMessage(response, recipient);
         } else {
             int start = 0;
@@ -189,9 +190,12 @@ public class IMPServiceImpl implements IMPService {
 
             for (byte smsNum = 1; smsNum <= maxSMS; smsNum++) {
                 String currSMS = "";
-                end = start + charsPerSMS;
+                end = start + msgLength;
 
-                if (response.length() > start) {
+                if(response.length() < start)
+                    break;
+
+                if (response.length() > start + 2) {
                     currSMS = response.length() < end ? response.substring(start) : response.substring(start, end);
                 }
 
@@ -201,14 +205,14 @@ public class IMPServiceImpl implements IMPService {
 
                     for (String line : lines) {
                         int currLen = message.length() + line.length() + 1;
-                        if (currLen < charsPerSMS) {
+                        if (currLen < msgLength) {
                             message += line + "\n";
                         }
                     }
                     currSMS = message.trim();
                 }
                 omiManager.createOMIService().sendMessage(currSMS, recipient);
-                start = currSMS.length();
+                start += currSMS.length();
             }
         }
     }
