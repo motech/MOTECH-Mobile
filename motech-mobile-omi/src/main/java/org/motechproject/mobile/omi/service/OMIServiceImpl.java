@@ -560,6 +560,9 @@ public class OMIServiceImpl implements OMIService {
 
                 message.setTryNumber(message.getTryNumber() + 1);
 
+                if(message.getGatewayRequestDetails() == null)
+                    continue;
+
                 GatewayRequestDetails gwReqDet = (GatewayRequestDetails) gwReqDao.getById(message.getGatewayRequestDetails().getId());
 
                 GatewayRequest gwReq = coreManager.createGatewayRequest(mc);
