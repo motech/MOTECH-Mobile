@@ -72,7 +72,7 @@ public class OMIServiceImpl implements OMIService {
             String recipientId) {
         logger.info("Constructing MessageRequest object...");
 
-        if(patientNumberType != ContactNumberType.PERSONAL)
+        if(patientNumberType == ContactNumberType.PUBLIC && messageType == MediaType.TEXT)
             return MessageStatus.REJECTED;
 
         MotechContext mc = coreManager.createMotechContext();
