@@ -44,9 +44,12 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
             return null;
 
         Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
-        String[] responseLines = gatewayResponse.split("\n");
+        String[] responseLines = gatewayResponse.trim().split("\n");
 
         for(String line : responseLines){
+            if(line.trim().isEmpty())
+                continue;
+
             String[] responseParts = line.split(" ");
 
             if (responseParts[0].trim().equals("Status:"))
