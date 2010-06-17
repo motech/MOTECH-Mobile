@@ -113,7 +113,7 @@
     </bean>
 
     <bean id="intellIVRServer" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRServerImpl" init-method="init">
-        <property name="serverURL" value="http://ivr.yo.co.ug/intellivr/api/api"/>
+        <property name="serverURL" value="${intellivr.gateway.serverURL}"/>
     </bean>
 	
     <bean id="intellIVRTestServer" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRTestServer"/>
