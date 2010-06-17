@@ -50,6 +50,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private IntellIVRServer ivrServer;
 	private MessageStatusStore statusStore;
 	protected Map<Long, IVRNotificationMapping> ivrNotificationMap;
+	protected Map<String, Long> ivrReminderIds;
 	protected Map<String, IVRSession> ivrSessions;
 	private Timer timer;
 	private long bundlingDelay;
@@ -71,6 +72,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private void init() {
 
 		ivrNotificationMap = new HashMap<Long, IVRNotificationMapping>();
+		ivrReminderIds = new HashMap<String, Long>();
 		
 		try {
 			
@@ -102,6 +104,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					i.setType(ivrType);
 					i.setIvrEntityName(ivrEntity);
 					ivrNotificationMap.put(mapID, i);
+					
+					ivrReminderIds.put(ivrEntity, mapID);
 					
 				}
 				
@@ -422,7 +426,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				/*
 				 * Retry if necessary
 				 */
-				if ( report.getStatus() == ReportStatusType.COMPLETED && report.getDuration() >= callCompletedThreshold ) {
+				if ( report.getStatus() == ReportStatusType.COMPLETED && callExceedsThreshold(report) ) {
 					ivrSessions.remove(sessionId);
 				} else {
 					
@@ -560,6 +564,32 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		}
 		
 		return result;
+	}
+	
+	private boolean callExceedsThreshold(ReportType report) {
+		
+		int effectiveCallTime = 0;
+		int reminderCount = 0;
+		boolean isUserInitiated = ivrSessions.containsKey(report.getPrivate()) 
+									? ivrSessions.get(report.getPrivate()).isUserInitiated() 
+											: false;
+		IvrEntryType firstInfoEntry = null;
+		
+		List<IvrEntryType> entries = report.getINTELLIVREntry();
+		
+		for (IvrEntryType entry : entries)
+			if ( ivrReminderIds.containsKey(entry.getFile()) )
+				reminderCount++;
+			else 
+				if ( firstInfoEntry == null && (!isUserInitiated || reminderCount > 0) )
+					firstInfoEntry = entry;
+		
+		if ( firstInfoEntry == null )
+			effectiveCallTime = report.getDuration();
+		else
+			effectiveCallTime = firstInfoEntry.getDuration();
+		
+		return effectiveCallTime >= callCompletedThreshold;
 	}
 
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
