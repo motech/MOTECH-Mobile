@@ -645,21 +645,18 @@ public class IntellIVRBeanTest {
 
 		IvrEntryType e1 = new IvrEntryType();
 		e1.setDuration(10);
-		e1.setFile("message.wav");
+		e1.setMenu("message.wav");
 		e1.setKeypress("");
-		e1.setMenu("");
 
 		IvrEntryType e2 = new IvrEntryType();
 		e2.setDuration(10);
-		e2.setFile("message2.wav");
+		e2.setMenu("message2.wav");
 		e2.setKeypress("");
-		e2.setMenu("");
 		
 		IvrEntryType e3 = new IvrEntryType();
 		e3.setDuration(30);
-		e3.setFile("info1.wav");
+		e3.setMenu("info1.wav");
 		e3.setKeypress("");
-		e3.setMenu("");
 		
 		List<IvrEntryType> entryList = new ArrayList<IvrEntryType>();
 		entryList.add(e1);
@@ -715,15 +712,13 @@ public class IntellIVRBeanTest {
 
 		e1 = new IvrEntryType();
 		e1.setDuration(15);
-		e1.setFile("message.wav");
+		e1.setMenu("message.wav");
 		e1.setKeypress("");
-		e1.setMenu("");
 
 		e2 = new IvrEntryType();
 		e2.setDuration(15);
-		e2.setFile("message2.wav");
+		e2.setMenu("message2.wav");
 		e2.setKeypress("");
-		e2.setMenu("");
 		
 		entryList = new ArrayList<IvrEntryType>();
 		entryList.add(e1);
@@ -778,15 +773,13 @@ public class IntellIVRBeanTest {
 
 		e3 = new IvrEntryType();
 		e3.setDuration(30);
-		e3.setFile("info1.wav");
+		e3.setMenu("info1.wav");
 		e3.setKeypress("");
-		e3.setMenu("");
 		
 		IvrEntryType e4 = new IvrEntryType();
 		e4.setDuration(10);
-		e4.setFile("info2.wav");
+		e4.setMenu("info2.wav");
 		e4.setKeypress("");
-		e4.setMenu("");
 		
 		entryList = new ArrayList<IvrEntryType>();
 		entryList.add(e3);
@@ -840,27 +833,23 @@ public class IntellIVRBeanTest {
 
 		IvrEntryType e5 = new IvrEntryType();
 		e5.setDuration(5);
-		e5.setFile("prompt.wav");
+		e5.setMenu("prompt.wav");
 		e5.setKeypress("");
-		e5.setMenu("");
 		
 		e1 = new IvrEntryType();
 		e1.setDuration(15);
-		e1.setFile("message.wav");
+		e1.setMenu("message.wav");
 		e1.setKeypress("");
-		e1.setMenu("");
 
 		e2 = new IvrEntryType();
 		e2.setDuration(15);
-		e2.setFile("message2.wav");
+		e2.setMenu("message2.wav");
 		e2.setKeypress("");
-		e2.setMenu("");
 		
 		e3 = new IvrEntryType();
 		e3.setDuration(30);
-		e3.setFile("info1.wav");
+		e3.setMenu("info1.wav");
 		e3.setKeypress("");
-		e3.setMenu("");
 		
 		entryList = new ArrayList<IvrEntryType>();
 		entryList.add(e5);
@@ -916,21 +905,18 @@ public class IntellIVRBeanTest {
 
 		e5 = new IvrEntryType();
 		e5.setDuration(5);
-		e5.setFile("prompt.wav");
+		e5.setMenu("prompt.wav");
 		e5.setKeypress("");
-		e5.setMenu("");
 		
 		e1 = new IvrEntryType();
 		e1.setDuration(15);
-		e1.setFile("message.wav");
+		e1.setMenu("message.wav");
 		e1.setKeypress("");
-		e1.setMenu("");
-
+		
 		e2 = new IvrEntryType();
 		e2.setDuration(15);
-		e2.setFile("message2.wav");
+		e2.setMenu("message2.wav");
 		e2.setKeypress("");
-		e2.setMenu("");
 		
 		entryList = new ArrayList<IvrEntryType>();
 		entryList.add(e5);
@@ -984,21 +970,18 @@ public class IntellIVRBeanTest {
 
 		e5 = new IvrEntryType();
 		e5.setDuration(5);
-		e5.setFile("prompt.wav");
+		e5.setMenu("prompt.wav");
 		e5.setKeypress("");
-		e5.setMenu("");
 		
 		e3 = new IvrEntryType();
 		e3.setDuration(5);
-		e3.setFile("info1.wav");
+		e3.setMenu("info1.wav");
 		e3.setKeypress("");
-		e3.setMenu("");
 		
 		e4 = new IvrEntryType();
 		e4.setDuration(20);
-		e4.setFile("info2.wav");
+		e4.setMenu("info2.wav");
 		e4.setKeypress("");
-		e4.setMenu("");
 		
 		entryList = new ArrayList<IvrEntryType>();
 		entryList.add(e5);
@@ -1063,21 +1046,18 @@ public class IntellIVRBeanTest {
 				
 				e1 = new IvrEntryType();
 				e1.setDuration(10);
-				e1.setFile("message.wav");
+				e1.setMenu("message.wav");
 				e1.setKeypress("");
-				e1.setMenu("");
 				
 				e2 = new IvrEntryType();
 				e2.setDuration(10);
-				e2.setFile("message2.wav");
+				e2.setMenu("message2.wav");
 				e2.setKeypress("");
-				e2.setMenu("");
 				
 				e3 = new IvrEntryType();
 				e3.setDuration(29);
-				e3.setFile("info1.wav");
+				e3.setMenu("info1.wav");
 				e3.setKeypress("");
-				e3.setMenu("");
 
 				entryList = new ArrayList<IvrEntryType>();
 				entryList.add(e1);
@@ -1367,27 +1347,23 @@ public class IntellIVRBeanTest {
 				
 				e1 = new IvrEntryType();
 				e1.setDuration(10);
-				e1.setFile("message.wav");
+				e1.setMenu("message.wav");
 				e1.setKeypress("");
-				e1.setMenu("");
 				
 				e2 = new IvrEntryType();
 				e2.setDuration(10);
-				e2.setFile("message2.wav");
+				e2.setMenu("message2.wav");
 				e2.setKeypress("");
-				e2.setMenu("");
 				
 				e3 = new IvrEntryType();
 				e3.setDuration(29);
-				e3.setFile("info1.wav");
+				e3.setMenu("info1.wav");
 				e3.setKeypress("");
-				e3.setMenu("");
-				
+							
 				e4 = new IvrEntryType();
 				e4.setDuration(10);
-				e4.setFile("prompt.wav");
+				e4.setMenu("prompt.wav");
 				e4.setKeypress("");
-				e4.setMenu("");
 
 				entryList = new ArrayList<IvrEntryType>();
 				entryList.add(e4);
