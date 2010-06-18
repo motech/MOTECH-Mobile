@@ -349,7 +349,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				MotechContext context = coreManager.createMotechContext();
 				MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO(context);
 
-				List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndStatus(request.getUserid(), MStatus.PENDING);		
+				List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndSchedule(request.getUserid(), new Date());		
 
 				if ( pendingMessageRequests.size() == 0 ) {
 					log.debug("No pending messages found for " + request.getUserid());

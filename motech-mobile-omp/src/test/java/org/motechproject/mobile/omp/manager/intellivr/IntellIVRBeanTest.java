@@ -11,6 +11,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1841,7 +1842,7 @@ public class IntellIVRBeanTest {
 		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
 		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockDao);
 		replay(mockCoreManager);
-		expect(mockDao.getMsgRequestByRecipientAndStatus(recipientID, status)).andReturn(expectedDAOResponse);
+		expect(mockDao.getMsgRequestByRecipientAndSchedule(EasyMock.eq(recipientID), (Date)EasyMock.anyObject())).andReturn(expectedDAOResponse);
 		replay(mockDao);
 		mockStatusStore.updateStatus(mr1.getId().toString(), StatusType.OK.value());
 		mockStatusStore.updateStatus(mr2.getId().toString(), StatusType.OK.value());
@@ -1880,7 +1881,7 @@ public class IntellIVRBeanTest {
 		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
 		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockDao);
 		replay(mockCoreManager);
-		expect(mockDao.getMsgRequestByRecipientAndStatus(recipientID, status)).andReturn(expectedDAOResponse);
+		expect(mockDao.getMsgRequestByRecipientAndSchedule(EasyMock.eq(recipientID), (Date)EasyMock.anyObject())).andReturn(expectedDAOResponse);
 		replay(mockDao);
 		
 		actualResponse = intellivrBean.handleRequest(request);
