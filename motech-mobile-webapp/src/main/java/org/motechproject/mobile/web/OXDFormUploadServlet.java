@@ -4,28 +4,30 @@
  */
 package org.motechproject.mobile.web;
 
-import org.motechproject.mobile.imp.serivce.IMPService;
-import org.motechproject.mobile.imp.serivce.oxd.FormDefinitionService;
-import org.motechproject.mobile.imp.serivce.oxd.StudyProcessor;
-
-import org.motechproject.mobile.imp.util.exception.MotechParseException;
-import com.jcraft.jzlib.JZlib;
-import com.jcraft.jzlib.ZOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.fcitmuk.epihandy.EpihandyXformSerializer;
-import org.jdom.JDOMException;
+import org.fcitmuk.epihandy.FormNotFoundException;
+import org.fcitmuk.epihandy.ResponseHeader;
+import org.motechproject.mobile.imp.serivce.IMPService;
+import org.motechproject.mobile.imp.serivce.oxd.FormDefinitionService;
+import org.motechproject.mobile.imp.serivce.oxd.StudyProcessor;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.jcraft.jzlib.JZlib;
+import com.jcraft.jzlib.ZOutputStream;
 
 /**
  *
@@ -33,115 +35,138 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class OXDFormUploadServlet extends HttpServlet {
 
-    private static Logger log = Logger.getLogger(OXDFormUploadServlet.class);
+	private static final long serialVersionUID = -7887474593037558262L;
+
+	private static Logger log = Logger.getLogger(OXDFormUploadServlet.class);
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+	 * methods.
+	 * 
+	 * @param request
+	 *            servlet request
+	 * @param response
+	 *            servlet response
+	 * @throws ServletException
+	 *             if a servlet-specific error occurs
+	 * @throws IOException
+	 *             if an I/O error occurs
+	 */
+	protected void processRequest(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
-        FormDefinitionService formService;
-        IMPService impService;
+		FormDefinitionService formService;
+		IMPService impService;
 
-        InputStream input = request.getInputStream();
-        OutputStream output = response.getOutputStream();
+		InputStream input = request.getInputStream();
+		OutputStream output = response.getOutputStream();
 
-        WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-        StudyProcessor studyProcessor = (StudyProcessor) context.getBean("studyProcessor");
+		WebApplicationContext context = WebApplicationContextUtils
+				.getRequiredWebApplicationContext(getServletContext());
+		StudyProcessor studyProcessor = (StudyProcessor) context
+				.getBean("studyProcessor");
 
-        formService = (FormDefinitionService) context.getBean("oxdFormDefService");
-        impService = (IMPService) context.getBean("impService");
+		formService = (FormDefinitionService) context
+				.getBean("oxdFormDefService");
+		impService = (IMPService) context.getBean("impService");
 
-        // Wrap the streams for compression
-        ZOutputStream zOutput = new ZOutputStream(output,
-                JZlib.Z_BEST_COMPRESSION);
+		ZOutputStream zOutput = null; // Wrap the streams for compression
 
-        // Wrap the streams so for logical types
-        DataInputStream dataInput = new DataInputStream(input);
-        DataOutputStream dataOutput = new DataOutputStream(zOutput);
+		// Wrap the streams so for logical types
+		DataInputStream dataInput = null;
+		DataOutputStream dataOutput = null;
 
-        String name = dataInput.readUTF();
-        String password = dataInput.readUTF();
-        String serializer = dataInput.readUTF();
-        String locale = dataInput.readUTF();
+		try {
+			zOutput = new ZOutputStream(output, JZlib.Z_BEST_COMPRESSION);
+			dataInput = new DataInputStream(input);
+			dataOutput = new DataOutputStream(zOutput);
 
-        byte action = dataInput.readByte();
+			String name = dataInput.readUTF();
+			String password = dataInput.readUTF();
+			String serializer = dataInput.readUTF();
+			String locale = dataInput.readUTF();
 
-        //TODO Authentication of usename and password. Possible M6 enhancement
-        log.info("uploading: name=" + name + ", password=" + password + ", serializer=" + serializer + ", locale=" + locale + ", action=" + action);
+			byte action = dataInput.readByte();
 
-        EpihandyXformSerializer serObj = new EpihandyXformSerializer();
-        serObj.addDeserializationListener(studyProcessor);
+			// TODO Authentication of usename and password. Possible M6
+			// enhancement
+			log.info("uploading: name=" + name + ", password=" + password
+					+ ", serializer=" + serializer + ", locale=" + locale
+					+ ", action=" + action);
 
-        try {
-            Map<Integer, String> formVersionMap = formService.getXForms();
-            serObj.deserializeStudiesWithEvents(dataInput, formVersionMap);
-        } catch (Exception e) {
-            throw new ServletException("failed to deserialize forms", e);
-        }
+			EpihandyXformSerializer serObj = new EpihandyXformSerializer();
+			serObj.addDeserializationListener(studyProcessor);
 
-        String[][] studyForms = studyProcessor.getConvertedStudies();
-        int numForms = studyProcessor.getNumForms();
+			try {
+				Map<Integer, String> formVersionMap = formService.getXForms();
+				serObj.deserializeStudiesWithEvents(dataInput, formVersionMap);
+			} catch (FormNotFoundException fne) {
+				String msg = "failed to deserialize forms: ";
+				log.error(msg + fne.getMessage());
+				dataOutput.writeByte(ResponseHeader.STATUS_FORMS_STALE);
+				response.setStatus(HttpServletResponse.SC_OK);
+				return;
+			} catch (Exception e) {
+				String msg = "failed to deserialize forms";
+				log.error(msg, e);
+				dataOutput.writeByte(ResponseHeader.STATUS_ERROR);
+				response.setStatus(HttpServletResponse.SC_OK);
+				return;
+			}
 
-        log.debug("upload contains: studies=" + studyForms.length + ", forms=" + numForms);
+			String[][] studyForms = studyProcessor.getConvertedStudies();
+			int numForms = studyProcessor.getNumForms();
 
-        //Starting processing here
-        int faultyForms = 0;
-        if (studyForms != null && numForms > 0) {
-            for (int i = 0; i < studyForms.length; i++) {
-                for (int j = 0; j < studyForms[i].length; j++) {
-                    try {
-                        studyForms[i][j] = impService.processXForm(studyForms[i][j]);
-                    } catch (JDOMException ex) {
-                        log.error(ex.getMessage(), ex);
-                        studyForms[i][j] = ex.getMessage();
-                    } catch (MotechParseException ex) {
-                        log.error(ex.getMessage(), ex);
-                        studyForms[i][j] = ex.getMessage();
-                    } catch (IOException ex) {
-                        log.error(ex.getMessage(), ex);
-                        studyForms[i][j] = ex.getMessage();
-                    } catch (Exception ex){
-                        log.error(ex.getMessage(), ex);
-                        studyForms[i][j] = ex.getMessage();
-                    }
-                    if(!impService.getFormProcessSuccess().equalsIgnoreCase(studyForms[i][j])){
-                        faultyForms++;
-                    }
-                }
-            }
-        }
+			log.debug("upload contains: studies=" + studyForms.length
+					+ ", forms=" + numForms);
 
-        //Return reult via zOutput stre4am
+			// Starting processing here
+			int faultyForms = 0;
+			if (studyForms != null && numForms > 0) {
+				for (int i = 0; i < studyForms.length; i++) {
+					for (int j = 0; j < studyForms[i].length; j++) {
+						try {
+							studyForms[i][j] = impService
+									.processXForm(studyForms[i][j]);
+						} catch (Exception ex) {
+							log.error(ex.getMessage(), ex);
+							studyForms[i][j] = ex.getMessage();
+						}
+						if (!impService.getFormProcessSuccess()
+								.equalsIgnoreCase(studyForms[i][j])) {
+							faultyForms++;
+						}
+					}
+				}
+			}
 
-        // Write out usual upload response
-        dataOutput.writeByte(1);
+			// Write out usual upload response
+			dataOutput.writeByte(ResponseHeader.STATUS_SUCCESS);
 
-        dataOutput.writeByte((byte)studyProcessor.getNumForms());
-        dataOutput.writeByte((byte)faultyForms);
-        
-            for (int s = 0; s < studyForms.length; s++) {
-                for (int f = 0; f < studyForms[s].length; f++) {
-                    if (!impService.getFormProcessSuccess().equalsIgnoreCase(studyForms[s][f])) {
-                        dataOutput.writeByte((byte) s);
-                        dataOutput.writeByte((byte) f);
-                        dataOutput.writeUTF(studyForms[s][f]);
-                    }
-                }
-            }
-        
-        dataOutput.flush();
-        zOutput.finish();
+			dataOutput.writeByte((byte) studyProcessor.getNumForms());
+			dataOutput.writeByte((byte) faultyForms);
 
-        response.setStatus(HttpServletResponse.SC_OK);
+			for (int s = 0; s < studyForms.length; s++) {
+				for (int f = 0; f < studyForms[s].length; f++) {
+					if (!impService.getFormProcessSuccess().equalsIgnoreCase(
+							studyForms[s][f])) {
+						dataOutput.writeByte((byte) s);
+						dataOutput.writeByte((byte) f);
+						dataOutput.writeUTF(studyForms[s][f]);
+					}
+				}
+			}
 
-        response.flushBuffer();
-    }
+			response.setStatus(HttpServletResponse.SC_OK);
+
+		} finally {
+			if (dataOutput != null)
+				dataOutput.flush();
+			if (zOutput != null)
+				zOutput.finish();
+			response.flushBuffer();
+		}
+	}
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

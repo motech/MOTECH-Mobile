@@ -7,7 +7,7 @@ package org.motechproject.mobile.imp.serivce.oxd;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
+
 import org.fcitmuk.epihandy.DeserializationListenerAdapter;
 import org.fcitmuk.epihandy.FormData;
 import org.fcitmuk.epihandy.StudyData;
@@ -19,8 +19,6 @@ import org.fcitmuk.epihandy.StudyDataList;
  * Date Created: Mar 3, 2010
  */
 public class StudyProcessor extends DeserializationListenerAdapter {
-
-	private static Logger log = Logger.getLogger(StudyProcessor.class);
 
 	int numForms = 0;
 	StudyDataList model;
@@ -74,9 +72,5 @@ public class StudyProcessor extends DeserializationListenerAdapter {
 		for (int i = 0; i < studies.length; i++)
 			studies[i] = studyFormXmlList.get(i).toArray(new String[] {});
 		return studies;
-	}
-
-	public void failed(Throwable t) {
-		log.error("failed while processing upload", t);
 	}
 }
