@@ -93,7 +93,8 @@ public class OMIServiceImpl implements OMIService {
 
         messageRequest.setTryNumber(1);
         messageRequest.setRequestId(messageId);
-        messageRequest.setDateFrom(startDate);
+        //VOICE messages need to have a start date to accommodate replaying DELIVERED messages
+        messageRequest.setDateFrom(startDate == null && messageType == MediaType.VOICE ? new Date() : startDate);
         messageRequest.setDateTo(endDate);
         messageRequest.setRecipientNumber(patientNumber);
         messageRequest.setPhoneNumberType(patientNumberType.toString());
