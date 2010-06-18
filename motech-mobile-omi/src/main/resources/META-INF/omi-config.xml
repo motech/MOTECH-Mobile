@@ -78,7 +78,7 @@
         
         <bean id="omiStatusUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
             <property name="jobDetail" ref="omiStatusUpdater"/>
-            <property name="cronExpression" value="0 0/2 * * * ?"/>
+            <property name="cronExpression" value="15 0/2 * * * ?"/>
         </bean>
         <bean id="messageRetriesProcessorTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
             <property name="jobDetail" ref="messageRetriesProcessor"/>

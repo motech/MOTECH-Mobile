@@ -161,6 +161,19 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			status = StatusType.ERROR.value();
 		} else {
 
+			if ( gatewayRequest.getMessageRequest().getDateFrom() == null )
+				gatewayRequest.getMessageRequest().setDateFrom(new Date());
+			
+			if ( gatewayRequest.getMessageRequest().getDateTo() == null ) {
+				
+				GregorianCalendar endTime = new GregorianCalendar();
+				endTime.setTime(gatewayRequest.getMessageRequest().getDateFrom());
+				endTime.add(GregorianCalendar.DAY_OF_MONTH, maxDays);
+				
+				gatewayRequest.getMessageRequest().setDateTo(endTime.getTime());
+				
+			}
+			
 			String phoneType = gatewayRequest.getMessageRequest().getPhoneNumberType();
 			
 			if ( phoneType.equalsIgnoreCase("PERSONAL") || phoneType.equalsIgnoreCase("HOUSEHOLD") ) {
