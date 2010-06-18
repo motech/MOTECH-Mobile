@@ -10,6 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -1637,7 +1639,7 @@ public class IntellIVRBeanTest {
 	}
 
 	@Test
-	public void testCreateRequestType() {
+	public void testCreateRequestType() throws ParseException {
 
 		String recipient = "123456789";
 		String phone = "5555555555";
@@ -1657,10 +1659,16 @@ public class IntellIVRBeanTest {
 		m3.setIvrEntityName("message2.wav");
 		m3.setType(IVRNotificationMapping.REMINDER);
 
+		IVRNotificationMapping m4 = new IVRNotificationMapping();
+		m4.setId(4);
+		m4.setIvrEntityName("tree2");
+		m4.setType(IVRNotificationMapping.INFORMATIONAL);
+
 		Map<Long, IVRNotificationMapping> mapping = new HashMap<Long, IVRNotificationMapping>();
 		mapping.put(m1.getId(), m1);
 		mapping.put(m2.getId(), m2);
 		mapping.put(m3.getId(), m3);
+		mapping.put(m4.getId(), m4);
 		
 		LanguageImpl english = new LanguageImpl();
 		english.setCode("en");
@@ -1670,7 +1678,10 @@ public class IntellIVRBeanTest {
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setDateFrom(sdf.parse("2010-01-01"));
 		mr1.setId(1L);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipient);
@@ -1712,10 +1723,27 @@ public class IntellIVRBeanTest {
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone);
 				
+		NotificationType n4 = new NotificationTypeImpl();
+		n4.setId(4L);
+		
+		MessageRequest mr4 = new MessageRequestImpl();
+		mr4.setDateFrom(sdf.parse("2010-01-02"));
+		mr4.setId(4L);
+		mr4.setLanguage(english);
+		mr4.setRecipientId(recipient);
+		mr4.setNotificationType(n4);
+	
+		GatewayRequest r4 = new GatewayRequestImpl();
+		r4.setId(4000L);
+		r4.setMessageRequest(mr4);
+		r4.setMessageStatus(MStatus.PENDING);
+		r4.setRecipientsNumber(phone);
+		
 		IVRSession session = new IVRSession(recipient, phone, english.getName());
 		session.addGatewayRequest(r1);
 		session.addGatewayRequest(r2);
 		session.addGatewayRequest(r3);
+		session.addGatewayRequest(r4);
 		
 		intellivrBean.ivrNotificationMap = mapping;
 		
@@ -1730,7 +1758,7 @@ public class IntellIVRBeanTest {
 		expectedVxml.getPrompt().getAudioOrBreak().add(a1);
 		expectedVxml.getPrompt().getAudioOrBreak().add(a2);
 				
-		assertEquals("tree", request.getTree());
+		assertEquals("tree2", request.getTree());
 		assertEquals("5555555555", request.getCallee());
 		assertEquals("English", request.getLanguage());
 		assertEquals(intellivrBean.getApiID(), request.getApiId());
@@ -1745,7 +1773,6 @@ public class IntellIVRBeanTest {
 	public void testHandleRequest() throws NumberFormatException, ValidationException {
 		
 		String recipientID = "1";
-		MStatus status = MStatus.PENDING;
 
 		GetIVRConfigRequest request = new GetIVRConfigRequest();
 		request.setUserid(recipientID);

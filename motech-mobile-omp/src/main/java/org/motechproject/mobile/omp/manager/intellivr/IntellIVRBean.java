@@ -223,6 +223,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	private void initializeGatewayRequest(GatewayRequest request) {
 		request.getRecipientsNumber();
+		request.getDateFrom();
+		request.getDateTo();
+		request.getMessageRequest().getDateFrom();
+		request.getMessageRequest().getDateTo();
 		request.getMessageRequest().getLanguage().getName();
 		request.getMessageRequest().getRecipientId();
 		request.getMessageRequest().getNotificationType().getId();
@@ -290,6 +294,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		/*
 		 * Create the content
 		 */	
+		GatewayRequest infoRequest = null;
 		List<String> reminderMessages = new ArrayList<String>();
 		for (GatewayRequest gatewayRequest : gwRequests) {
 			
@@ -302,13 +307,32 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				IVRNotificationMapping mapping = ivrNotificationMap.get(notificationId);
 				
 				if ( mapping.getType().equalsIgnoreCase(IVRNotificationMapping.INFORMATIONAL)) {
-					ivrRequest.setTree(mapping.getIvrEntityName());
+					if ( infoRequest == null )
+						infoRequest = gatewayRequest;
+					else {
+						GregorianCalendar currDateFrom = new GregorianCalendar();
+						currDateFrom.setTime(infoRequest.getMessageRequest().getDateFrom());
+						GregorianCalendar possibleDateFrom = new GregorianCalendar();
+						possibleDateFrom.setTime(gatewayRequest.getMessageRequest().getDateFrom());
+						if ( currDateFrom.before(possibleDateFrom) )
+							infoRequest = gatewayRequest;
+					}
+						
 				} else {
 					reminderMessages.add(mapping.getIvrEntityName());
 				}
 				
 			} 
 			
+		}
+
+		if ( infoRequest != null ) {
+			IVRNotificationMapping infoMapping = ivrNotificationMap
+			.get(infoRequest
+					.getMessageRequest()
+					.getNotificationType()
+					.getId());
+			ivrRequest.setTree(infoMapping.getIvrEntityName());
 		}
 		
 		RequestType.Vxml vxml = new RequestType.Vxml();	
