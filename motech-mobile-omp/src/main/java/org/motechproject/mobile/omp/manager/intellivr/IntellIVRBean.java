@@ -507,7 +507,12 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 										newDateFrom.add(GregorianCalendar.DAY_OF_MONTH, 1);
 
 									GregorianCalendar newDateTo = new GregorianCalendar();
-									newDateTo.setTime(dateTo);
+									if ( dateTo == null ) {
+										newDateTo.setTime(dateFrom);
+										newDateTo.add(GregorianCalendar.DAY_OF_MONTH, maxDays);
+									} else 
+										newDateTo.setTime(dateTo);
+									
 									if ( accelerateRetries )
 										newDateTo.add(GregorianCalendar.MINUTE, 5);
 									else
