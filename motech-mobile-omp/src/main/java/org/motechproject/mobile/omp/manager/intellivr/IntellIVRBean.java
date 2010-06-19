@@ -467,80 +467,87 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					ivrSessions.remove(sessionId);
 				} else {
 					
-					if ( report.getStatus() == ReportStatusType.COMPLETED )
-						status = "BELOWTHRESHOLD";
-					
-					if ( session.getAttempts() < this.maxAttempts ) {
-						if ( retryDelay >=  0 ) {
-							log.info("Retrying IVRSession " + session.getSessionId() + " in " + retryDelay + " minutes. (" + session.getAttempts() + " of " + maxAttempts + ")");
-							IVRServerTimerTask task = new IVRServerTimerTask(ivrSessions.get(sessionId));
-							timer.schedule(task, 1000 * 60 * retryDelay);
-						}
-					} else {
-						
-						//all attempts for this day have been exhausted - increment days attempted
-						session.setDays(session.getDays() + 1);
-						
-						MotechContext context = coreManager.createMotechContext();
-						
-						if ( session.getDays() < this.maxDays ) {
-							
-							GatewayRequestDAO<GatewayRequest> gwReqDAO = coreManager.createGatewayRequestDAO(context);
-							
-							for ( GatewayRequest gatewayRequest : session.getGatewayRequests() ) {
-								
-								GatewayRequest gatewayRequestDB = gwReqDAO.getById(gatewayRequest.getId());
-								
-								Date dateFrom = gatewayRequestDB.getDateFrom();
-								Date dateTo = gatewayRequestDB.getDateTo();
-								
-								GregorianCalendar newDateFrom = new GregorianCalendar();
-								newDateFrom.setTime(dateFrom);
-								if ( accelerateRetries )
-									newDateFrom.add(GregorianCalendar.MINUTE, 5);
-								else
-									newDateFrom.add(GregorianCalendar.DAY_OF_MONTH, 1);
-								
-								GregorianCalendar newDateTo = new GregorianCalendar();
-								newDateTo.setTime(dateTo);
-								if ( accelerateRetries )
-									newDateTo.add(GregorianCalendar.MINUTE, 5);
-								else
-									newDateTo.add(GregorianCalendar.DAY_OF_MONTH, 1);
-								
-								
-								gatewayRequestDB.setDateFrom(newDateFrom.getTime());
-								gatewayRequestDB.setDateTo(newDateTo.getTime());
-								gatewayRequestDB.setMessageStatus(MStatus.SCHEDULED);
-								
-								Transaction tx = (Transaction) gwReqDAO.getDBSession().getTransaction();
-								tx.begin();
-								gwReqDAO.save(gatewayRequestDB);
-								tx.commit();
-								
-							}
-							
-						} else {
-							status = "MAXATTEMPTS";	
-						}
+					if ( session.isUserInitiated() ) {
+						status = null;
 						ivrSessions.remove(sessionId);
+					} else { 
 						
-						/*
-						 * update days attempted in the database
-						 */
-						MessageRequestDAO<MessageRequest> messageRequestDAO = coreManager.createMessageRequestDAO(context);
-						
-						for ( GatewayRequest gatewayRequest : session.getGatewayRequests() ) {
-							
-							MessageRequest msgReqDB = messageRequestDAO.getById(gatewayRequest.getMessageRequest().getId());
-							
-							msgReqDB.setDaysAttempted(session.getDays());
-							
-							Transaction tx = (Transaction) messageRequestDAO.getDBSession().getTransaction();
-							tx.begin();
-							messageRequestDAO.save(msgReqDB);
-							tx.commit();
-							
+						if ( report.getStatus() == ReportStatusType.COMPLETED )
+							status = "BELOWTHRESHOLD";
+
+						if ( session.getAttempts() < this.maxAttempts ) {
+							if ( retryDelay >=  0 ) {
+								log.info("Retrying IVRSession " + session.getSessionId() + " in " + retryDelay + " minutes. (" + session.getAttempts() + " of " + maxAttempts + ")");
+								IVRServerTimerTask task = new IVRServerTimerTask(ivrSessions.get(sessionId));
+								timer.schedule(task, 1000 * 60 * retryDelay);
+							}
+						} else {
+
+							//all attempts for this day have been exhausted - increment days attempted
+							session.setDays(session.getDays() + 1);
+
+							MotechContext context = coreManager.createMotechContext();
+
+							if ( session.getDays() < this.maxDays ) {
+
+								GatewayRequestDAO<GatewayRequest> gwReqDAO = coreManager.createGatewayRequestDAO(context);
+
+								for ( GatewayRequest gatewayRequest : session.getGatewayRequests() ) {
+
+									GatewayRequest gatewayRequestDB = gwReqDAO.getById(gatewayRequest.getId());
+
+									Date dateFrom = gatewayRequestDB.getDateFrom();
+									Date dateTo = gatewayRequestDB.getDateTo();
+
+									GregorianCalendar newDateFrom = new GregorianCalendar();
+									newDateFrom.setTime(dateFrom);
+									if ( accelerateRetries )
+										newDateFrom.add(GregorianCalendar.MINUTE, 5);
+									else
+										newDateFrom.add(GregorianCalendar.DAY_OF_MONTH, 1);
+
+									GregorianCalendar newDateTo = new GregorianCalendar();
+									newDateTo.setTime(dateTo);
+									if ( accelerateRetries )
+										newDateTo.add(GregorianCalendar.MINUTE, 5);
+									else
+										newDateTo.add(GregorianCalendar.DAY_OF_MONTH, 1);
+
+
+									gatewayRequestDB.setDateFrom(newDateFrom.getTime());
+									gatewayRequestDB.setDateTo(newDateTo.getTime());
+									gatewayRequestDB.setMessageStatus(MStatus.SCHEDULED);
+
+									Transaction tx = (Transaction) gwReqDAO.getDBSession().getTransaction();
+									tx.begin();
+									gwReqDAO.save(gatewayRequestDB);
+									tx.commit();
+
+								}
+
+							} else {
+								status = "MAXATTEMPTS";	
+							}
+							ivrSessions.remove(sessionId);
+
+							/*
+							 * update days attempted in the database
+							 */
+							MessageRequestDAO<MessageRequest> messageRequestDAO = coreManager.createMessageRequestDAO(context);
+
+							for ( GatewayRequest gatewayRequest : session.getGatewayRequests() ) {
+
+								MessageRequest msgReqDB = messageRequestDAO.getById(gatewayRequest.getMessageRequest().getId());
+
+								msgReqDB.setDaysAttempted(session.getDays());
+
+								Transaction tx = (Transaction) messageRequestDAO.getDBSession().getTransaction();
+								tx.begin();
+								messageRequestDAO.save(msgReqDB);
+								tx.commit();
+
+							}
+
 						}
 						
 					}
@@ -550,20 +557,23 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				/*
 				 * Update message status
 				 */
-				Collection<GatewayRequest> requests = session.getGatewayRequests();
-				for (GatewayRequest gatewayRequest : requests) {
+				if ( status != null ) {
+					Collection<GatewayRequest> requests = session.getGatewayRequests();
+					for (GatewayRequest gatewayRequest : requests) {
 
-					log.debug("Updating Message Request " 
-							+ gatewayRequest.getMessageRequest().getId().toString() 
-							+ " to " + status);
-					statusStore.updateStatus(gatewayRequest
-												.getMessageRequest()
-												.getId()
-												.toString()
-												, status);
+						log.debug("Updating Message Request " 
+								+ gatewayRequest.getMessageRequest().getId().toString() 
+								+ " to " + status);
+						statusStore.updateStatus(gatewayRequest
+								.getMessageRequest()
+								.getId()
+								.toString()
+								, status);
 
+					}
+					
 				}
-				
+
 			}
 			
 		}
