@@ -347,7 +347,8 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        return sendMessage(messageRequest, content, mc);
+        MessageStatus status = sendMessage(messageRequest, content, mc);
+        return status;
     }
 
     /**
@@ -360,10 +361,7 @@ public class OMIServiceImpl implements OMIService {
         MessageFormatter formatter = omiManager.createMessageFormatter();
         MessageRequest messageRequest = coreManager.createMessageRequest(mc);
 
-        String content = "";
-        for (Care c : cares) {
-            content += formatter.formatDefaulterMessage(c) + "\n\n";
-        }
+        String content = formatter.formatDefaulterMessage(cares);
 
         messageRequest.setTryNumber(1);
         messageRequest.setRequestId(messageId);
@@ -377,21 +375,8 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        if (messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null) {
-            return sendMessage(messageRequest, content, mc);
-        }
-
-        logger.info("Saving MessageRequest...");
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-
-        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
-        tx.begin();
-        msgReqDao.save(messageRequest);
-        tx.commit();
-
-        mc.cleanUp();
-
-        return MessageStatus.valueOf(messageRequest.getStatus().toString());
+        MessageStatus status = sendMessage(messageRequest, content, mc);
+        return status;
     }
 
     /**
@@ -418,21 +403,8 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        if (messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null) {
-            return sendMessage(messageRequest, content, mc);
-        }
-
-        logger.info("Saving MessageRequest...");
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-
-        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
-        tx.begin();
-        msgReqDao.save(messageRequest);
-        tx.commit();
-
-        mc.cleanUp();
-
-        return MessageStatus.valueOf(messageRequest.getStatus().toString());
+        MessageStatus status = sendMessage(messageRequest, content, mc);
+        return status;
     }
 
     /**
@@ -459,21 +431,8 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        if (messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null) {
-            return sendMessage(messageRequest, content, mc);
-        }
-
-        logger.info("Saving MessageRequest...");
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(mc);
-
-        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
-        tx.begin();
-        msgReqDao.save(messageRequest);
-        tx.commit();
-
-        mc.cleanUp();
-
-        return MessageStatus.valueOf(messageRequest.getStatus().toString());
+        MessageStatus status = sendMessage(messageRequest, content, mc);
+        return status;
     }
 
     /**
