@@ -453,6 +453,7 @@
                 <entry key="date" value="java.util.Date" />
                 <entry key="serialNumber" value="java.lang.String" />
                 <entry key="motechId" value="java.lang.Integer" />
+                <entry key="insured" value="java.lang.Boolean" />
                 <entry key="diagnosis" value="java.lang.Integer" />
                 <entry key="secondDiagnosis" value="java.lang.Integer" />
                 <entry key="rdtGiven" value="java.lang.Boolean" />
@@ -474,6 +475,7 @@
                 <entry key="date" value="java.util.Date" />
                 <entry key="serialNumber" value="java.lang.String" />
                 <entry key="motechId" value="java.lang.Integer" />
+                <entry key="insured" value="java.lang.Boolean" />
                 <entry key="diagnosis" value="java.lang.Integer" />
                 <entry key="secondDiagnosis" value="java.lang.Integer" />
                 <entry key="rdtGiven" value="java.lang.Boolean" />

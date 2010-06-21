@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.motechproject.ws.server.RegistrarService;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
-import org.motechproject.ws.server.ValidationException;
 
 /**
  * Test for IncomingMessageFormValidatorImpl class
@@ -74,7 +73,7 @@ public class IncomingMessageFormValidatorImplTest {
      * Test of validate method, of class IncomingMessageFormValidatorImpl.
      */
     @Test
-    public void testValidate() throws ValidationException {
+    public void testValidate(){
         System.out.println("validate");
 
         String reqPhone = "000000000000";

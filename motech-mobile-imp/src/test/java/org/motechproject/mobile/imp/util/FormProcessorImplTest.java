@@ -60,7 +60,7 @@ public class FormProcessorImplTest {
     }
 
     @Test
-    public void testProcessForm() throws ValidationException {
+    public void testProcessForm() throws ValidationException{
         IncomingMessageFormImpl form = new IncomingMessageFormImpl();
         form.setIncomingMsgFormParameters(new HashMap<String, IncomingMessageFormParameter>());
         form.setIncomingMsgFormDefinition(new IncomingMessageFormDefinitionImpl());
@@ -267,7 +267,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("CHILDOPD-JF");
 
-        mockWS.recordChildVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        mockWS.recordChildVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
         expectLastCall();
 
         replay(mockWS);
@@ -281,7 +281,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("MOTHEROPD-JF");
 
-        mockWS.recordMotherVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        mockWS.recordMotherVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
         expectLastCall();
 
         replay(mockWS);
