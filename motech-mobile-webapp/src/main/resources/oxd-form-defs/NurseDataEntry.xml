@@ -2428,7 +2428,7 @@
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="generalopd"&gt;
-      &lt;generalopd id="34" name="Outpatient Visit-v"&gt;
+      &lt;generalopd id="34" name="Outpatient Visit-v1"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;formname/&gt;
@@ -2646,9 +2646,9 @@
         &lt;xf:label&gt;Negative&lt;/xf:label&gt;
         &lt;xf:value&gt;N&lt;/xf:value&gt;
       &lt;/xf:item&gt;
-      &lt;xf:item id="P"&gt;
+      &lt;xf:item id="Y"&gt;
         &lt;xf:label&gt;Positive&lt;/xf:label&gt;
-        &lt;xf:value&gt;P&lt;/xf:value&gt;
+        &lt;xf:value&gt;Y&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
     &lt;xf:select1 bind="actTreated"&gt;
@@ -2724,7 +2724,7 @@
 </layout>
 <versionText locale="en">
 <xform>&lt;xform id="34"&gt;&#13;
-    &lt;text xpath="xforms/model/instance/generalopd[@name]" value="Outpatient Visit-v"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance/generalopd[@name]" value="Outpatient Visit-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page5"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;&#13;
@@ -2773,7 +2773,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtGiven']/item[@id='N']/label" value="No"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtPositive']/label" value="RDT result"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtPositive']/item[@id='N']/label" value="Negative"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtPositive']/item[@id='P']/label" value="Positive"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtPositive']/item[@id='Y']/label" value="Positive"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='actTreated']/label" value="Treated with ACT"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='actTreated']/item[@id='Y']/label" value="Yes"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='actTreated']/item[@id='N']/label" value="No"/&gt;&#13;
