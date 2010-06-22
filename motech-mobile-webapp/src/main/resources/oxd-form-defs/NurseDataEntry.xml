@@ -6,7 +6,7 @@
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="ANCRegistration"&gt;
-      &lt;ANCRegistration id="27" name="ANC Registration-v"&gt;
+      &lt;ANCRegistration id="27" name="ANC Registration-v1"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -69,7 +69,7 @@
     &lt;xf:bind id="format" nodeset="/ANCRegistration/format" type="xsd:string" visible="false()" relevant="/ANCRegistration/consent = 'Y'" action="show" required="true()"/&gt;
     &lt;xf:bind id="language" nodeset="/ANCRegistration/language" type="xsd:string" visible="false()" required="true()" relevant="/ANCRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/ANCRegistration/dayOfWeek" relevant="/ANCRegistration/format = 'VOICE' or /ANCRegistration/format = 'VOICE' or /ANCRegistration/format = 'VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="timeOfDay" nodeset="/ANCRegistration/timeOfDay" type="xsd:time" visible="false()" required="true()" relevant="/ANCRegistration/consent = 'Y'" action="show"/&gt;
+    &lt;xf:bind id="timeOfDay" nodeset="/ANCRegistration/timeOfDay" type="xsd:time" visible="false()" required="true()" relevant="/ANCRegistration/format = 'VOICE' or /ANCRegistration/format = 'VOICE' or /ANCRegistration/format = 'VOICE'" action="show"/&gt;
     &lt;xf:bind id="howLearned" nodeset="/ANCRegistration/howLearned" type="xsd:string" visible="false()" required="true()" relevant="/ANCRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind id="formtype" nodeset="/ANCRegistration/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="formname" nodeset="/ANCRegistration/formname" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -234,7 +234,7 @@
 <layout/>
 <versionText locale="en">
 <xform>&lt;xform id="27"&gt;&#13;
-    &lt;text xpath="xforms/model/instance/ANCRegistration[@name]" value="ANC Registration-v"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance/ANCRegistration[@name]" value="ANC Registration-v1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;&#13;
@@ -960,7 +960,7 @@
     &lt;xf:bind id="format" nodeset="/CWCRegistration/format" type="xsd:string" visible="false()" required="true()" relevant="/CWCRegistration/enroll = 'Y' and /CWCRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind id="language" nodeset="/CWCRegistration/language" type="xsd:string" visible="false()" required="true()" relevant="/CWCRegistration/enroll = 'Y' and /CWCRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/CWCRegistration/dayOfWeek" relevant="/CWCRegistration/format = 'VOICE' or /CWCRegistration/format = 'VOICE' or /CWCRegistration/format = 'VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="timeOfDay" nodeset="/CWCRegistration/timeOfDay" type="xsd:time" visible="false()" required="true()" relevant="/CWCRegistration/enroll = 'Y' and /CWCRegistration/consent = 'Y'" action="show"/&gt;
+    &lt;xf:bind id="timeOfDay" nodeset="/CWCRegistration/timeOfDay" type="xsd:time" visible="false()" required="true()" relevant="/CWCRegistration/format = 'VOICE' or /CWCRegistration/format = 'VOICE' or /CWCRegistration/format = 'VOICE'" action="show"/&gt;
     &lt;xf:bind id="howLearned" nodeset="/CWCRegistration/howLearned" type="xsd:string" visible="false()" required="true()" relevant="/CWCRegistration/enroll = 'Y' and /CWCRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind id="formtype" nodeset="/CWCRegistration/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="formname" nodeset="/CWCRegistration/formname" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -1011,7 +1011,7 @@
         &lt;xf:value&gt;PERSONAL&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="HOUSEHOLD"&gt;
-        &lt;xf:label&gt;Owned by household&lt;/xf:label&gt;
+        &lt;xf:label&gt;Household phone&lt;/xf:label&gt;
         &lt;xf:value&gt;HOUSEHOLD&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="PUBLIC"&gt;
@@ -1128,7 +1128,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='consent']/item[@id='N']/label" value="No"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/label" value="Phone ownership"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PERSONAL']/label" value="Personal phone"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='HOUSEHOLD']/label" value="Owned by household"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='HOUSEHOLD']/label" value="Household phone"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PUBLIC']/label" value="Public phone"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='phoneNumber']/label" value="Phone number"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='format']/label" value="Message format"/&gt;&#13;
@@ -4200,7 +4200,7 @@
     &lt;xf:bind id="format" nodeset="/patientRegistration/format" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind id="language" nodeset="/patientRegistration/language" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/patientRegistration/dayOfWeek" relevant="/patientRegistration/format = 'VOICE' and /patientRegistration/format = 'VOICE' and /patientRegistration/format = 'VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="timeOfDay" nodeset="/patientRegistration/timeOfDay" type="xsd:time" visible="false()" required="true()" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y'" action="show"/&gt;
+    &lt;xf:bind id="timeOfDay" nodeset="/patientRegistration/timeOfDay" type="xsd:time" visible="false()" required="true()" relevant="/patientRegistration/format = 'VOICE' or /patientRegistration/format = 'VOICE' or /patientRegistration/format = 'VOICE'" action="show"/&gt;
     &lt;xf:bind id="reason" nodeset="/patientRegistration/reason" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y' and /patientRegistration/registrantType = 'OTHER'" action="show"/&gt;
     &lt;xf:bind id="howLearned" nodeset="/patientRegistration/howLearned" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind id="messageStartWeek" nodeset="/patientRegistration/messageStartWeek" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y' and /patientRegistration/registrantType = 'OTHER'" action="show"/&gt;
@@ -6157,7 +6157,7 @@
     &lt;xf:bind id="format" nodeset="/newpregRegistration/format" type="xsd:string" visible="false()" required="true()" relevant="/newpregRegistration/enroll = 'Y' and /newpregRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind id="language" nodeset="/newpregRegistration/language" type="xsd:string" visible="false()" required="true()" relevant="/newpregRegistration/enroll = 'Y' and /newpregRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/newpregRegistration/dayOfWeek" relevant="/newpregRegistration/format = 'VOICE' or /newpregRegistration/format = 'VOICE' or /newpregRegistration/format = 'VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="timeOfDay" nodeset="/newpregRegistration/timeOfDay" type="xsd:time" visible="false()" required="true()" relevant="/newpregRegistration/enroll = 'Y' and /newpregRegistration/consent = 'Y'" action="show"/&gt;
+    &lt;xf:bind id="timeOfDay" nodeset="/newpregRegistration/timeOfDay" type="xsd:time" visible="false()" required="true()" relevant="/newpregRegistration/format = 'VOICE' or /newpregRegistration/format = 'VOICE' or /newpregRegistration/format = 'VOICE'" action="show"/&gt;
     &lt;xf:bind id="howLearned" nodeset="/newpregRegistration/howLearned" type="xsd:string" visible="false()" required="true()" relevant="/newpregRegistration/enroll = 'Y' and /newpregRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind id="formtype" nodeset="/newpregRegistration/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="formname" nodeset="/newpregRegistration/formname" required="true()" type="xsd:string" visible="false()"/&gt;
