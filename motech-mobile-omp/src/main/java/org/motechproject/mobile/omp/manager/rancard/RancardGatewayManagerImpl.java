@@ -1,6 +1,5 @@
 package org.motechproject.mobile.omp.manager.rancard;
 
-import java.util.logging.Level;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
@@ -32,7 +31,6 @@ public class RancardGatewayManagerImpl implements GatewayManager {
     private String user;
     private String password;
     private String sender;
-    private String postData;
     private String sentMessageStatus;
     private GatewayMessageHandler messageHandler;
     private static Logger logger = Logger.getLogger(RancardGatewayManagerImpl.class);
@@ -41,6 +39,7 @@ public class RancardGatewayManagerImpl implements GatewayManager {
     }
 
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context) {
+        String postData = "";
         try {
             postData += "&username=" + URLEncoder.encode(user, "UTF-8");
             postData += "&password=" + URLEncoder.encode(password, "UTF-8");
@@ -60,6 +59,7 @@ public class RancardGatewayManagerImpl implements GatewayManager {
                 recipients += num;
             }
             postData += "&to=" + URLEncoder.encode(recipients, "UTF-8");
+            logger.debug("Post Data:\n"+postData);
         } catch (UnsupportedEncodingException ex) {
             logger.fatal("Error building request params: invalid encoding", ex);
         }

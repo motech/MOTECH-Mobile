@@ -58,7 +58,7 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
             GatewayResponse response = getCoreManager().createGatewayResponse(context);                
             response.setRequestId(message.getRequestId());
             response.setGatewayRequest(message);
-            response.setResponseText(gatewayResponse);
+            response.setResponseText(gatewayResponse.trim());
             response.setDateCreated(new Date());
                 
             if(responseParts[0].equalsIgnoreCase("OK:")){                
@@ -91,7 +91,7 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
                 response.setMessageStatus(status);                
             }
             else{
-                response.setResponseText(line);
+                response.setResponseText(line.trim());
             }
             responses.add(response);
         }
