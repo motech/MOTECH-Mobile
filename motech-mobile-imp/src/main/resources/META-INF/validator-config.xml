@@ -114,9 +114,6 @@
                                         <property name="expression" value="${imp.validator.numericExpression}" />
                                     </bean>
                                 </entry>
-                                <entry key="SIZE">
-                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamSizeValidator" />
-                                </entry>
                                 <entry key="VALUE">
                                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="values" value="" />
