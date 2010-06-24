@@ -183,7 +183,7 @@ public class IMPServiceImpl implements IMPService {
         }
 
         if (response.length() <= msgLength) {
-            omiManager.createOMIService().sendMessage(response, recipient);
+            omiManager.createOMIService().scheduleMessage(response, recipient);
         } else {
             int start = 0;
             int end = 0;
@@ -211,7 +211,7 @@ public class IMPServiceImpl implements IMPService {
                     }
                     currSMS = message.trim();
                 }
-                omiManager.createOMIService().sendMessage(currSMS, recipient);
+                omiManager.createOMIService().scheduleMessage(currSMS, recipient);
                 start += currSMS.length();
             }
         }

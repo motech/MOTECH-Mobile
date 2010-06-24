@@ -130,6 +130,25 @@ public interface OMIService {
     MessageStatus sendMessage(String content, String recipient);
 
     /**
+     * Schedules a message for sending
+     *
+     * @param content message to send
+     * @param recipient phone number of recipient
+     * @return
+     */
+    MessageStatus scheduleMessage(String content, String recipient);
+
+    /**
+     * Schedules a message for sending
+     *
+     * @param message object containing information about message to send
+     * @param content message to send
+     * @param context current application context
+     * @return
+     */
+    MessageStatus scheduleMessage(MessageRequest message, String content, MotechContext context);
+
+    /**
      * Processes stored MessageRequests into GatewayRequests and schedules them for delivery on the OMP
      */
     void processMessageRequests();

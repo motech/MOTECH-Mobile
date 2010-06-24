@@ -92,6 +92,7 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
             }
             else{
                 response.setResponseText(line.trim());
+                response.setMessageStatus(MStatus.RETRY);
             }
             responses.add(response);
         }

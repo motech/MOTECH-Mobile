@@ -351,6 +351,84 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
+
+
+    public synchronized MessageStatus scheduleMessage(String content, String recipient) {
+        logger.info("Constructing MessageDetails object...");
+
+        MotechContext mc = coreManager.createMotechContext();
+
+        MessageRequest messageRequest = coreManager.createMessageRequest(mc);
+        messageRequest.setTryNumber(1);
+        messageRequest.setRequestId("");
+        messageRequest.setDateFrom(null);
+        messageRequest.setDateTo(null);
+        messageRequest.setRecipientNumber(recipient);
+        messageRequest.setNotificationType(null);
+        messageRequest.setMessageType(MessageType.TEXT);
+        messageRequest.setLanguage(null);
+        messageRequest.setStatus(MStatus.QUEUED);
+        messageRequest.setDateCreated(new Date());
+
+        logger.info("MessageRequest object successfully constructed");
+        logger.debug(messageRequest);
+
+        MessageStatus status = scheduleMessage(messageRequest, content, mc);
+        return status;
+    }
+
+    public synchronized MessageStatus scheduleMessage(MessageRequest message, String content, MotechContext context) {
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO(context);
+
+        if (context.getDBSession() != null) {
+            ((Session) context.getDBSession().getSession()).evict(message);
+        }
+        
+        Transaction tx = (Transaction) msgReqDao.getDBSession().getTransaction();
+        tx.begin();
+        msgReqDao.save(message);
+        tx.commit();
+
+        //TODO Check length of message and break if necessary
+        logger.info("Constructing GatewayRequest...");
+        GatewayRequest gwReq = storeManager.constructMessage(message, context, null);
+        gwReq.setMessage(content);
+        gwReq.getGatewayRequestDetails().setMessage(content);
+
+        logger.info("Initializing OMP MessagingService...");
+        MessagingService msgSvc = ompManager.createMessagingService();
+
+        logger.info("Scheduling GatewayRequest...");
+
+        if (context.getDBSession() != null) {
+            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
+            ((Session) context.getDBSession().getSession()).evict(message);
+            ((Session) context.getDBSession().getSession()).evict(gwReq);
+        }
+
+        msgSvc.scheduleMessage(gwReq, context);
+
+        logger.info("Updating MessageRequest...");
+        message.setDateProcessed(new Date());
+        message.setStatus(MStatus.PENDING);
+        logger.debug(message);
+
+        if (context.getDBSession() != null) {
+            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
+            ((Session) context.getDBSession().getSession()).evict(message);
+            ((Session) context.getDBSession().getSession()).evict(gwReq);
+        }
+
+        tx.begin();
+        msgReqDao.save(message);
+        tx.commit();
+
+        context.cleanUp();
+
+        logger.info("Messages sent successfully");
+        return MessageStatus.valueOf(message.getStatus().toString());
+    }
+
     /**
      * @see OMIService.sendDefaulterMessage
      */
@@ -375,7 +453,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        MessageStatus status = sendMessage(messageRequest, content, mc);
+        MessageStatus status = scheduleMessage(messageRequest, content, mc);
         return status;
     }
 
@@ -403,7 +481,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        MessageStatus status = sendMessage(messageRequest, content, mc);
+        MessageStatus status = scheduleMessage(messageRequest, content, mc);
         return status;
     }
 
@@ -431,7 +509,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        MessageStatus status = sendMessage(messageRequest, content, mc);
+        MessageStatus status = scheduleMessage(messageRequest, content, mc);
         return status;
     }
 
