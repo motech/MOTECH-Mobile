@@ -1319,8 +1319,8 @@
     &lt;xf:bind id="ipti" nodeset="/child/ipti" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="vitaminA" nodeset="/child/vitaminA" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="dewormer" nodeset="/child/dewormer" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="weight" nodeset="/child/weight" type="xsd:decimal" constraint=". = 1 and 80" message="Value out of range: must be between 1 and 80"/&gt;
-    &lt;xf:bind id="muac" nodeset="/child/muac" type="xsd:decimal"/&gt;
+    &lt;xf:bind id="weight" nodeset="/child/weight" type="xsd:decimal" constraint=". = 1" message="Value out of range: must be between 1 and 80"/&gt;
+    &lt;xf:bind id="muac" nodeset="/child/muac" type="xsd:decimal" constraint=". = 5 and 25" message="Value out of range: must be between 5 and 25"/&gt;
     &lt;xf:bind id="height" nodeset="/child/height" type="xsd:decimal"/&gt;
     &lt;xf:bind id="maleInvolved" nodeset="/child/maleInvolved" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="cwcLocation" nodeset="/child/cwcLocation" required="true()" type="xsd:string"/&gt;
@@ -1618,6 +1618,7 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='weight'][@message]" value="Value out of range: must be between 1 and 80"/&gt;&#13;
+    &lt;text xpath="xforms/model/bind[@id='muac'][@message]" value="Value out of range: must be between 5 and 25"/&gt;&#13;
   &lt;/xform&gt;</xform>
 <layout>&lt;Form id="30"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page4'][@Text]" value="Page4"/&gt;&#13;
