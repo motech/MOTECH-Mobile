@@ -7,12 +7,18 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 
 public class IVRSession {
 
+	public static int OPEN 			=	0;
+	public static int SEND_WAIT		=	1;
+	public static int REPORT_WAIT	=	2;
+	public static int CLOSED		=	3;
+	
 	private String userId;
 	private String phone;
 	private String language;
 	private boolean userInitiated;
 	private int attempts;
 	private int days;
+	private int state;
 	private Collection<GatewayRequest> requests;
 	
 	/**
@@ -142,6 +148,14 @@ public class IVRSession {
 	 */
 	public void setDays(int days) {
 		this.days = days;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 
 	/**
