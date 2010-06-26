@@ -622,9 +622,16 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		int effectiveCallTime = 0;
 		int reminderCount = 0;
-		boolean isUserInitiated = ivrSessions.containsKey(report.getPrivate()) 
-									? ivrSessions.get(report.getPrivate()).isUserInitiated() 
-											: false;
+		boolean shouldHaveInformationalMessage = false;
+		IVRSession session = ivrSessions.get(report.getPrivate());
+
+		for ( GatewayRequest request : session.getGatewayRequests() ) {
+			long notificationId = request.getMessageRequest().getNotificationType().getId();
+			if ( ivrNotificationMap.containsKey(notificationId) )
+				if ( ivrNotificationMap.get(notificationId).getType().equalsIgnoreCase(IVRNotificationMapping.INFORMATIONAL) ) 
+					shouldHaveInformationalMessage = true;
+		}
+		
 		IvrEntryType firstInfoEntry = null;
 		
 		List<IvrEntryType> entries = report.getINTELLIVREntry();
@@ -633,11 +640,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			if ( ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("audio") )
 				reminderCount++;
 			else 
-				if ( firstInfoEntry == null && (!isUserInitiated || reminderCount > 0) )
+				if ( firstInfoEntry == null && (!session.isUserInitiated() || reminderCount > 0) )
 					firstInfoEntry = entry;
 		
 		if ( firstInfoEntry == null )
-			effectiveCallTime = report.getDuration();
+			effectiveCallTime = shouldHaveInformationalMessage ? 0 : report.getDuration();
 		else
 			effectiveCallTime = firstInfoEntry.getDuration();
 		
