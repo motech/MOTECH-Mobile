@@ -20,16 +20,13 @@ import org.apache.commons.logging.LogFactory;
 public class IntellIVRServerImpl implements IntellIVRServer {
 
 	private String serverURL;
-	private Marshaller marshaller;
-	private Unmarshaller unmarshaller;
+	private JAXBContext jaxbc;
 	
 	private Log log = LogFactory.getLog(IntellIVRServerImpl.class);
 	
 	public void init() {
 		try {
-			JAXBContext jaxbc = JAXBContext.newInstance("org.motechproject.mobile.omp.manager.intellivr");
-			marshaller = jaxbc.createMarshaller();
-			unmarshaller = jaxbc.createUnmarshaller();
+			jaxbc = JAXBContext.newInstance("org.motechproject.mobile.omp.manager.intellivr");
 		} catch (JAXBException e) {
 			log.error(e.getMessage());
 		}
@@ -43,6 +40,9 @@ public class IntellIVRServerImpl implements IntellIVRServer {
 		ResponseType response = null;
 		
 		try {
+			
+			Marshaller marshaller = jaxbc.createMarshaller();
+			Unmarshaller unmarshaller = jaxbc.createUnmarshaller();
 			
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			marshaller.marshal(ac, byteStream);
@@ -79,7 +79,7 @@ public class IntellIVRServerImpl implements IntellIVRServer {
 			
 			String responseText = new String(buffer, 0, off);
 			
-			log.info("Received response: " + responseText);
+			log.debug("Received response: " + responseText);
 			
 			Object o = unmarshaller.unmarshal(new ByteArrayInputStream(responseText.getBytes()));
 			
@@ -97,7 +97,15 @@ public class IntellIVRServerImpl implements IntellIVRServer {
 		} catch (JAXBException e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
-		}	
+		} finally {
+			if ( response == null ){
+				response = new ResponseType();
+				response.setStatus(StatusType.ERROR);
+				response.setErrorCode(ErrorCodeType.MOTECH_UNKNOWN_ERROR);
+				response.setErrorString("Unknown error occurred sending request to IVR server");
+			}
+				
+		}
 		return response;
 	}
 
