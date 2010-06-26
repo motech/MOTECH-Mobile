@@ -179,6 +179,34 @@
                         </property>
                     </bean>
                 </entry>
+                <entry key="FORMAT">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                        <property name="validators">
+                            <map>
+                                <entry key="EXPRESSION">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                        <property name="expression" value="${imp.validator.alphaExpression}" />
+                                    </bean>
+                                </entry>
+                                <entry key="VALUE">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
+                                        <property name="caseSensitive" value="false" />
+                                        <property name="values" value="PERS_TEXT,PERS_VOICE,HSE_TEXT,HSE_VOICE,PUB_VOICE" />
+                                        <property name="conversions">
+                                            <map>
+                                                <entry key="PERS_TEXT" value="TEXT" />
+                                                <entry key="PERS_VOICE" value="VOICE" />
+                                                <entry key="HSE_TEXT" value="TEXT" />
+                                                <entry key="HSE_VOICE" value="VOICE" />
+                                                <entry key="PUB_VOICE" value="VOICE" />
+                                            </map>
+                                        </property>
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
                 <entry key="PHONETYPE">
                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
