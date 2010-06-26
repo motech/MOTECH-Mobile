@@ -746,6 +746,64 @@ public class IntellIVRBeanTest {
 		verify(statusStore);
 		reset(statusStore);		
 	
+		//COMPLETED - Only reminder messages - under threshold
+		session = new IVRSession(recipientID, phone, english.getName());
+			
+		report = new ReportType();
+		report.setCallee(phone);
+		report.setConnectTime(null);
+		report.setDisconnectTime(null);
+		report.setPrivate(session.getSessionId());
+		report.setStatus(ReportStatusType.COMPLETED);
+
+		session = new IVRSession(recipientID, phone, english.getName());
+		session.setAttempts(1);
+		session.setDays(0);
+		session.addGatewayRequest(r2);
+		session.addGatewayRequest(r3);
+		
+		expectedSessions = new HashMap<String, IVRSession>();
+		expectedSessions.put(session.getSessionId(), session);
+		
+		intellivrBean.ivrSessions = expectedSessions;
+					
+		statusStore = createMock(MessageStatusStore.class);
+		intellivrBean.setStatusStore(statusStore);
+		
+		report.setDuration(20);
+		report.setINTELLIVREntryCount(2);
+
+		e1 = new IvrEntryType();
+		e1.setDuration(10);
+		e1.setMenu("message.wav");
+		e1.setKeypress("");
+
+		e2 = new IvrEntryType();
+		e2.setDuration(10);
+		e2.setMenu("message2.wav");
+		e2.setKeypress("");
+		
+		entryList = new ArrayList<IvrEntryType>();
+		entryList.add(e1);
+		entryList.add(e2);
+
+		report.intellivrEntry = entryList;
+
+		statusStore.updateStatus(mr2.getId().toString(), report.getStatus().value());
+		statusStore.updateStatus(mr3.getId().toString(), report.getStatus().value());
+		replay(statusStore);
+
+		assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+		response = intellivrBean.handleReport(report);
+
+		assertEquals(StatusType.OK, response.getStatus());
+
+		assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
+
+		verify(statusStore);
+		reset(statusStore);		
+
 		
 		//COMPLETED - server initiated - only info messages - over threshold 
 		session = new IVRSession(recipientID, phone, english.getName());

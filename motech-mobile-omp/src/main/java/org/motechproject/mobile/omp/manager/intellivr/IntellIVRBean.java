@@ -644,7 +644,13 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					firstInfoEntry = entry;
 		
 		if ( firstInfoEntry == null )
-			effectiveCallTime = shouldHaveInformationalMessage ? 0 : report.getDuration();
+			if ( shouldHaveInformationalMessage )
+				effectiveCallTime = 0;
+			else 
+				if ( reminderCount > 0 )
+					effectiveCallTime = callCompletedThreshold;
+				else 
+					effectiveCallTime = report.getDuration();
 		else
 			effectiveCallTime = firstInfoEntry.getDuration();
 		
