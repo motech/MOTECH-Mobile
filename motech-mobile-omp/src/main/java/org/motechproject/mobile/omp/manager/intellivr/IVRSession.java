@@ -2,6 +2,7 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 import org.motechproject.mobile.core.model.GatewayRequest;
 
@@ -12,6 +13,7 @@ public class IVRSession {
 	public static int REPORT_WAIT	=	2;
 	public static int CLOSED		=	3;
 	
+	private String sessionId;
 	private String userId;
 	private String phone;
 	private String language;
@@ -28,6 +30,7 @@ public class IVRSession {
 	 * @param language
 	 */
 	public IVRSession(String userId, String phone, String language) {
+		this.sessionId = UUID.randomUUID().toString();
 		this.userId = userId;
 		this.phone = phone;
 		this.language = language;
@@ -43,6 +46,7 @@ public class IVRSession {
 	 * @param days
 	 */
 	public IVRSession(String userId, String phone, String language, int days) {
+		this.sessionId = UUID.randomUUID().toString();
 		this.userId = userId;
 		this.phone = phone;
 		this.language = language;
@@ -56,11 +60,28 @@ public class IVRSession {
 	 * @param userId
 	 */
 	public IVRSession(String userId) {
+		this.sessionId = UUID.randomUUID().toString();
 		this.userId = userId;
 		this.userInitiated = true;
 		requests = new ArrayList<GatewayRequest>();
 	}
-
+	
+	/**
+	 * String to uniquely identify the session
+	 * @return sessionId
+	 */
+	public String getSessionId() {
+		return sessionId;
+	}
+	
+	/**
+	 * Set the session identifier
+	 * @param sessionId
+	 */
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+	
 	/**
 	 * Get user id of the recipient
 	 * @return userid
@@ -159,17 +180,6 @@ public class IVRSession {
 	}
 
 	/**
-	 * String to uniquely identify the session
-	 * @return sessionId
-	 */
-	public String getSessionId() {
-		if ( userInitiated )
-			return "U" + userId;
-		else 
-			return "S" + userId + phone;
-	}
-
-	/**
 	 * Adds {@link GatewayRequest} to the session
 	 * @param r
 	 */
@@ -218,8 +228,8 @@ public class IVRSession {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result
+				+ ((sessionId == null) ? 0 : sessionId.hashCode());
 		return result;
 	}
 
@@ -232,17 +242,13 @@ public class IVRSession {
 		if (getClass() != obj.getClass())
 			return false;
 		IVRSession other = (IVRSession) obj;
-		if (phone == null) {
-			if (other.phone != null)
+		if (sessionId == null) {
+			if (other.sessionId != null)
 				return false;
-		} else if (!phone.equals(other.phone))
-			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!sessionId.equals(other.sessionId))
 			return false;
 		return true;
 	}
+
 
 }

@@ -189,7 +189,7 @@ public class IntellIVRBeanTest {
 
 		MessageRequest mr2 = new MessageRequestImpl();
 		mr2.setId(2L);
-		mr2.setDaysAttempted(2);
+		mr2.setDaysAttempted(1);
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipient1);
 		mr2.setRequestId("mr2");
@@ -363,6 +363,7 @@ public class IntellIVRBeanTest {
 		reset(mockStatusStore);
 		
 		IVRSession actualSession1 = null;
+		IVRSession actualSession2 = null;
 		String actualSession1Id = null;
 		String actualSession2Id = null;
 		
@@ -385,6 +386,7 @@ public class IntellIVRBeanTest {
 				assertEquals(expectedSession2.getPhone(), actualSession.getPhone());
 				assertEquals(mr3.getDaysAttempted(), actualSession.getDays());
 				assertTrue(actualSession.getGatewayRequests().contains(r3));
+				actualSession2 = actualSession;
 				actualSession2Id = actualSession.getSessionId();
 			}
 			
@@ -393,7 +395,7 @@ public class IntellIVRBeanTest {
 		/*
 		 * Now test sendPending and see if it sends the right RequestType
 		 */
-		RequestType expectedRequest = intellivrBean.createIVRRequest(expectedSession1);
+		RequestType expectedRequest = intellivrBean.createIVRRequest(actualSession1);
 
 		ResponseType expectedResponse = new ResponseType();
 		expectedResponse.setStatus(StatusType.OK);
@@ -411,7 +413,7 @@ public class IntellIVRBeanTest {
 		reset(mockIVRServer);
 		reset(mockStatusStore);
 		
-		expectedRequest = intellivrBean.createIVRRequest(expectedSession2);
+		expectedRequest = intellivrBean.createIVRRequest(actualSession2);
 
 		expectedResponse.setStatus(StatusType.OK);
 
@@ -436,7 +438,7 @@ public class IntellIVRBeanTest {
 			
 			ErrorCodeType errorCode = iterator.next();
 			
-			expectedRequest = intellivrBean.createIVRRequest(expectedSession1);
+			expectedRequest = intellivrBean.createIVRRequest(actualSession1);
 
 			expectedResponse = new ResponseType();
 			expectedResponse.setStatus(StatusType.ERROR);
@@ -665,7 +667,7 @@ public class IntellIVRBeanTest {
 		report.setPrivate(session.getSessionId());
 		report.setStatus(ReportStatusType.COMPLETED);
 
-		session = new IVRSession(recipientID, phone, english.getName());
+		//session = new IVRSession(recipientID, phone, english.getName());
 		session.setAttempts(1);
 		session.setDays(0);
 		session.addGatewayRequest(r1);
@@ -732,7 +734,7 @@ public class IntellIVRBeanTest {
 		report.setPrivate(session.getSessionId());
 		report.setStatus(ReportStatusType.COMPLETED);
 
-		session = new IVRSession(recipientID, phone, english.getName());
+		//session = new IVRSession(recipientID, phone, english.getName());
 		session.setAttempts(1);
 		session.setDays(0);
 		session.addGatewayRequest(r2);
@@ -790,7 +792,7 @@ public class IntellIVRBeanTest {
 		report.setPrivate(session.getSessionId());
 		report.setStatus(ReportStatusType.COMPLETED);
 
-		session = new IVRSession(recipientID, phone, english.getName());
+		//session = new IVRSession(recipientID, phone, english.getName());
 		session.setAttempts(1);
 		session.setDays(0);
 		session.addGatewayRequest(r2);
@@ -849,7 +851,7 @@ public class IntellIVRBeanTest {
 		report.setPrivate(session.getSessionId());
 		report.setStatus(ReportStatusType.COMPLETED);
 
-		session = new IVRSession(recipientID, phone, english.getName());
+		//session = new IVRSession(recipientID, phone, english.getName());
 		session.setAttempts(1);
 		session.setDays(0);
 		session.addGatewayRequest(r1);
@@ -2125,6 +2127,7 @@ public class IntellIVRBeanTest {
 		replay(mockStatusStore);
 		
 		ResponseType actualResponse = intellivrBean.handleRequest(request);
+		expectedResponse.setPrivate(actualResponse.getPrivate());//no way to predict this value
 		assertEquals(expectedResponse, actualResponse);
 		assertTrue(intellivrBean.ivrSessions.containsKey(actualResponse.getPrivate()));
 		

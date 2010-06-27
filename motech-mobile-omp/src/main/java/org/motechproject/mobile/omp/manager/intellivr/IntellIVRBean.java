@@ -178,25 +178,39 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			
 			if ( phoneType.equalsIgnoreCase("PERSONAL") || phoneType.equalsIgnoreCase("HOUSEHOLD") ) {
 				
-				IVRSession session = new IVRSession(recipientID, 
-						phone, 
-						language.getName(),
-						gatewayRequest.getMessageRequest().getDaysAttempted());
-				session.addGatewayRequest(gatewayRequest);
+				synchronized (ivrSessions) {
+					
+					IVRSession session = null;
+				
+					for ( IVRSession possibleSession : ivrSessions.values() ) {
+						if ( possibleSession.getUserId().equalsIgnoreCase(recipientID)
+								&& possibleSession.getPhone().equals(phone)
+								&& possibleSession.getLanguage().equalsIgnoreCase(language.getName())
+								&& !possibleSession.isUserInitiated()
+								&& possibleSession.getAttempts() == 0
+								&& possibleSession.getDays() == gatewayRequest.getMessageRequest().getDaysAttempted()
+								&& possibleSession.getState() == IVRSession.OPEN) {
+							session = possibleSession;
+						}
+					}
+					
+					if ( session == null ) {
+						log.debug("Creating new IVR Session for " + recipientID + "@" + phone);
+						session = new IVRSession(recipientID, 
+								phone, 
+								language.getName(),
+								gatewayRequest.getMessageRequest().getDaysAttempted());
+						session.addGatewayRequest(gatewayRequest);
+						
+						ivrSessions.put(session.getSessionId(), session);
 
-				if ( !ivrSessions.containsKey(session.getSessionId()) ) {
-					log.debug("Using new IVR Session " + session.getSessionId() +
-							" for request " + gatewayRequest.getId());
-					ivrSessions.put(session.getSessionId(), session);
-
-					task = new IVRServerTimerTask(session);
-
-				} else {
-					log.debug("Using existing IVR Session " + session.getSessionId() +
-							" for request " + gatewayRequest.getId());
-					ivrSessions
-					.get(session.getSessionId())
-					.addGatewayRequest(gatewayRequest);
+						task = new IVRServerTimerTask(session);
+						
+					} else {
+						log.debug("Using existing IVR Session for " + recipientID + "@" + phone);
+						session.addGatewayRequest(gatewayRequest);
+					}
+					
 				}
 				
 			} else {
@@ -232,20 +246,20 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		request.getMessageRequest().getNotificationType().getId();
 		request.getMessageRequest().getDaysAttempted();
 	}
-
+	
 	public void sendPending(String sessionId) {
 		
 		IVRSession session = null;
 		
 		synchronized (ivrSessions) {
 			session = ivrSessions.get(sessionId);
-			if ( session != null )
+			if ( session != null ) {
 				session.setState(IVRSession.SEND_WAIT);
+				session.setAttempts(session.getAttempts() + 1);
+			}
 		}
 		
 		if ( session != null ) {
-
-			session.setAttempts(session.getAttempts() + 1);
 
 			RequestType request = createIVRRequest(session);
 

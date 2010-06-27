@@ -22,8 +22,6 @@ public class IVRSessionTest {
 		String userid = "1";
 		String phone = "5555555555";
 		String language = "English";
-		String serverInitiatedSessionId = "S" + userid + phone;
-		String userInitiatedSessionId = "U" + userid;
 				
 		Language english = new LanguageImpl();
 		english.setCode("en");
@@ -76,7 +74,6 @@ public class IVRSessionTest {
 		assertEquals(userid, serverSession.getUserId());
 		assertEquals(phone, serverSession.getPhone());
 		assertFalse(serverSession.isUserInitiated());
-		assertEquals(serverInitiatedSessionId, serverSession.getSessionId());
 		
 		assertEquals(0, serverSession.getAttempts());
 		serverSession.setAttempts(serverSession.getAttempts() + 1);
@@ -98,7 +95,6 @@ public class IVRSessionTest {
 		assertEquals(userid, userSession.getUserId());
 		assertNull(userSession.getPhone());
 		assertTrue(userSession.isUserInitiated());
-		assertEquals(userInitiatedSessionId, userSession.getSessionId());
 		
 		assertEquals(0, userSession.getAttempts());
 		userSession.setAttempts(userSession.getAttempts() + 1);
