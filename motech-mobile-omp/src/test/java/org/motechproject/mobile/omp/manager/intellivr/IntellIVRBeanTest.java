@@ -298,16 +298,16 @@ public class IntellIVRBeanTest {
 		Set<GatewayResponse> grs5 = new HashSet<GatewayResponse>();
 		grs5.add(gr5);
 	
-		IVRSession session1 = new IVRSession(recipient1, phone1, english.getName(), mr1.getDaysAttempted());
-		session1.addGatewayRequest(r1);
-		session1.addGatewayRequest(r2);
+		IVRSession expectedSession1 = new IVRSession(recipient1, phone1, english.getName(), mr1.getDaysAttempted());
+		expectedSession1.addGatewayRequest(r1);
+		expectedSession1.addGatewayRequest(r2);
 		
-		IVRSession session2 = new IVRSession(recipient2, phone2, english.getName(), mr3.getDaysAttempted());
-		session2.addGatewayRequest(r3);
+		IVRSession expectedSession2 = new IVRSession(recipient2, phone2, english.getName(), mr3.getDaysAttempted());
+		expectedSession2.addGatewayRequest(r3);
 		
 		Map<String, IVRSession> expectedIVRSessions = new HashMap<String, IVRSession>();
-		expectedIVRSessions.put(session1.getSessionId(),session1);
-		expectedIVRSessions.put(session2.getSessionId(),session2);
+		expectedIVRSessions.put(expectedSession1.getSessionId(),expectedSession1);
+		expectedIVRSessions.put(expectedSession2.getSessionId(),expectedSession2);
 		
 		/*
 		 * Test non-null recipient
@@ -362,14 +362,31 @@ public class IntellIVRBeanTest {
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 		
-		assertEquals(expectedIVRSessions, intellivrBean.ivrSessions);
-		assertEquals(mr1.getDaysAttempted(), intellivrBean.ivrSessions.get(session1.getSessionId()).getDays());
-		assertEquals(mr3.getDaysAttempted(), intellivrBean.ivrSessions.get(session2.getSessionId()).getDays());
+		assertEquals(2, intellivrBean.ivrSessions.size());
+		
+		for ( String key : intellivrBean.ivrSessions.keySet() ) {
+			
+			IVRSession actualSession = intellivrBean.ivrSessions.get(key);
+
+			if ( actualSession.getUserId().equalsIgnoreCase(expectedSession1.getUserId())) {
+				assertEquals(expectedSession1.getPhone(), actualSession.getPhone());
+				assertEquals(mr1.getDaysAttempted(), actualSession.getDays());
+				assertTrue(actualSession.getGatewayRequests().contains(r1));
+				assertTrue(actualSession.getGatewayRequests().contains(r2));
+			}
+			
+			if ( actualSession.getUserId().equalsIgnoreCase(expectedSession2.getUserId())) {
+				assertEquals(expectedSession2.getPhone(), actualSession.getPhone());
+				assertEquals(mr3.getDaysAttempted(), actualSession.getDays());
+				assertTrue(actualSession.getGatewayRequests().contains(r3));
+			}
+			
+		}
 		
 		/*
 		 * Now test sendPending and see if it sends the right RequestType
 		 */
-		RequestType expectedRequest = intellivrBean.createIVRRequest(session1);
+		RequestType expectedRequest = intellivrBean.createIVRRequest(expectedSession1);
 
 		ResponseType expectedResponse = new ResponseType();
 		expectedResponse.setStatus(StatusType.OK);
@@ -380,14 +397,14 @@ public class IntellIVRBeanTest {
 		mockStatusStore.updateStatus(gr2.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
 
-		intellivrBean.sendPending(session1);
+		intellivrBean.sendPending(expectedSession1);
 
 		verify(mockIVRServer);
 		verify(mockStatusStore);
 		reset(mockIVRServer);
 		reset(mockStatusStore);
 		
-		expectedRequest = intellivrBean.createIVRRequest(session2);
+		expectedRequest = intellivrBean.createIVRRequest(expectedSession2);
 
 		expectedResponse.setStatus(StatusType.OK);
 
@@ -396,7 +413,7 @@ public class IntellIVRBeanTest {
 		mockStatusStore.updateStatus(gr3.getGatewayMessageId(), StatusType.OK.value());		
 		replay(mockStatusStore);
 
-		intellivrBean.sendPending(session2);
+		intellivrBean.sendPending(expectedSession2);
 		
 		verify(mockIVRServer);
 		verify(mockStatusStore);
@@ -410,7 +427,7 @@ public class IntellIVRBeanTest {
 			
 			ErrorCodeType errorCode = iterator.next();
 			
-			expectedRequest = intellivrBean.createIVRRequest(session1);
+			expectedRequest = intellivrBean.createIVRRequest(expectedSession1);
 
 			expectedResponse = new ResponseType();
 			expectedResponse.setStatus(StatusType.ERROR);
@@ -422,7 +439,7 @@ public class IntellIVRBeanTest {
 			mockStatusStore.updateStatus(gr2.getGatewayMessageId(), errorCode.value());
 			replay(mockStatusStore);
 			
-			intellivrBean.sendPending(session1);
+			intellivrBean.sendPending(expectedSession1);
 			
 			verify(mockIVRServer);
 			verify(mockStatusStore);
