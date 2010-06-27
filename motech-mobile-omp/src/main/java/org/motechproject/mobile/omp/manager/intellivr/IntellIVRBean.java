@@ -854,19 +854,23 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	protected class IVRServerTimerTask extends TimerTask {
 
-		private IVRSession session;
+		private String sessionId;
 		private Log log = LogFactory.getLog(IVRServerTimerTask.class);
 		
+		protected IVRServerTimerTask(String sessionId) {
+			this.sessionId = sessionId;
+		}
+		
 		protected IVRServerTimerTask(IVRSession session) {
-			this.session = session;
+			this.sessionId = session.getSessionId();
 		}
 		
 		@Override
 		public void run() {
 
-			log.debug("IVR Server timer task expired for session " + session.getSessionId());
+			log.debug("IVR Server timer task expired for session " + sessionId);
 			
-			sendPending(session);
+			sendPending(sessionId);
 			
 		}
 		
