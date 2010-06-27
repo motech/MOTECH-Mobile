@@ -523,6 +523,11 @@ public class IntellIVRBeanTest {
 		session.addGatewayRequest(r1);
 		session.addGatewayRequest(r2);
 		
+		Map<String, IVRSession> expectedSessions = new HashMap<String, IVRSession>();
+		expectedSessions.put(session.getSessionId(), session);
+		
+		intellivrBean.ivrSessions = expectedSessions;
+		
 		IntellIVRServer mockServer = createMock(IntellIVRServer.class);
 		intellivrBean.setIvrServer(mockServer);
 		
@@ -536,7 +541,7 @@ public class IntellIVRBeanTest {
 		
 		assertEquals(IVRSession.OPEN, session.getState());
 		
-		intellivrBean.sendPending(session);
+		intellivrBean.sendPending(session.getSessionId());
 		
 		verify(mockServer);
 		

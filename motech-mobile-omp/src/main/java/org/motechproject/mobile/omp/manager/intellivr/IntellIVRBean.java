@@ -233,6 +233,46 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		request.getMessageRequest().getDaysAttempted();
 	}
 
+	public void sendPending(String sessionId) {
+		
+		IVRSession session = null;
+		
+		synchronized (ivrSessions) {
+			session = ivrSessions.get(sessionId);
+			if ( session != null )
+				session.setState(IVRSession.SEND_WAIT);
+		}
+		
+		if ( session != null ) {
+
+			session.setAttempts(session.getAttempts() + 1);
+
+			RequestType request = createIVRRequest(session);
+
+			log.debug("Created IVR Request: " + request);
+
+			ResponseType response = ivrServer.requestCall(request);
+
+			log.debug("Recieved response from IVR Server: " + response);
+
+			String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
+
+			for (GatewayRequest gatewayRequest : session.getGatewayRequests())
+				statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), status);
+
+			if ( response.getStatus() == StatusType.ERROR )
+				ivrSessions.remove(session.getSessionId());
+			else 
+				session.setState(IVRSession.REPORT_WAIT);
+
+			callLog.info("OUT," +
+					session.getPhone() + "," +
+					session.getUserId() + "," +
+					status);
+		}
+		
+	}
+	
 	public void sendPending(IVRSession session) {
 		
 		session.setAttempts(session.getAttempts() + 1);
