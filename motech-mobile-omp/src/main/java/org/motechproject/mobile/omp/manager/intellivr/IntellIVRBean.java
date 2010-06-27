@@ -252,6 +252,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		if ( response.getStatus() == StatusType.ERROR )
 			ivrSessions.remove(session.getSessionId());
+		else 
+			session.setState(IVRSession.REPORT_WAIT);
 		
 		callLog.info("OUT," +
 					 session.getPhone() + "," +

@@ -534,11 +534,14 @@ public class IntellIVRBeanTest {
 		expect(mockServer.requestCall(expectedRequest)).andReturn(expectedResponse);
 		replay(mockServer);
 		
+		assertEquals(IVRSession.OPEN, session.getState());
+		
 		intellivrBean.sendPending(session);
 		
 		verify(mockServer);
 		
 		assertEquals(1, session.getAttempts());
+		assertEquals(IVRSession.REPORT_WAIT, session.getState());
 		
 	}
 	
