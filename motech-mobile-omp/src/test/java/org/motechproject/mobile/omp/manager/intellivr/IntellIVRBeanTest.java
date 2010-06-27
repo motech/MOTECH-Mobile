@@ -363,7 +363,8 @@ public class IntellIVRBeanTest {
 		reset(mockStatusStore);
 		
 		IVRSession actualSession1 = null;
-		IVRSession actualSession2 = null;
+		String actualSession1Id = null;
+		String actualSession2Id = null;
 		
 		assertEquals(2, intellivrBean.ivrSessions.size());
 		
@@ -377,13 +378,14 @@ public class IntellIVRBeanTest {
 				assertTrue(actualSession.getGatewayRequests().contains(r1));
 				assertTrue(actualSession.getGatewayRequests().contains(r2));
 				actualSession1 = actualSession;
+				actualSession1Id = actualSession.getSessionId();
 			}
 			
 			if ( actualSession.getUserId().equalsIgnoreCase(expectedSession2.getUserId())) {
 				assertEquals(expectedSession2.getPhone(), actualSession.getPhone());
 				assertEquals(mr3.getDaysAttempted(), actualSession.getDays());
 				assertTrue(actualSession.getGatewayRequests().contains(r3));
-				actualSession2 = actualSession;
+				actualSession2Id = actualSession.getSessionId();
 			}
 			
 		}
@@ -402,7 +404,7 @@ public class IntellIVRBeanTest {
 		mockStatusStore.updateStatus(gr2.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
 
-		intellivrBean.sendPending(actualSession1);
+		intellivrBean.sendPending(actualSession1Id);
 
 		verify(mockIVRServer);
 		verify(mockStatusStore);
@@ -418,7 +420,7 @@ public class IntellIVRBeanTest {
 		mockStatusStore.updateStatus(gr3.getGatewayMessageId(), StatusType.OK.value());		
 		replay(mockStatusStore);
 
-		intellivrBean.sendPending(actualSession2);
+		intellivrBean.sendPending(actualSession2Id);
 		
 		verify(mockIVRServer);
 		verify(mockStatusStore);
@@ -429,6 +431,8 @@ public class IntellIVRBeanTest {
 		 * test sendPending with errors
 		 */
 		for ( Iterator<ErrorCodeType> iterator = serverErrorCodes.iterator(); iterator.hasNext();) {
+			
+			intellivrBean.ivrSessions.put(actualSession1.getSessionId(), actualSession1);
 			
 			ErrorCodeType errorCode = iterator.next();
 			
@@ -444,7 +448,7 @@ public class IntellIVRBeanTest {
 			mockStatusStore.updateStatus(gr2.getGatewayMessageId(), errorCode.value());
 			replay(mockStatusStore);
 			
-			intellivrBean.sendPending(actualSession1);
+			intellivrBean.sendPending(actualSession1Id);
 			
 			verify(mockIVRServer);
 			verify(mockStatusStore);
