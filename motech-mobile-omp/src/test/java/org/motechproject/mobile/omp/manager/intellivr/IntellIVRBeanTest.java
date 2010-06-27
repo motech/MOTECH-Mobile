@@ -362,6 +362,9 @@ public class IntellIVRBeanTest {
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 		
+		IVRSession actualSession1 = null;
+		IVRSession actualSession2 = null;
+		
 		assertEquals(2, intellivrBean.ivrSessions.size());
 		
 		for ( String key : intellivrBean.ivrSessions.keySet() ) {
@@ -373,12 +376,14 @@ public class IntellIVRBeanTest {
 				assertEquals(mr1.getDaysAttempted(), actualSession.getDays());
 				assertTrue(actualSession.getGatewayRequests().contains(r1));
 				assertTrue(actualSession.getGatewayRequests().contains(r2));
+				actualSession1 = actualSession;
 			}
 			
 			if ( actualSession.getUserId().equalsIgnoreCase(expectedSession2.getUserId())) {
 				assertEquals(expectedSession2.getPhone(), actualSession.getPhone());
 				assertEquals(mr3.getDaysAttempted(), actualSession.getDays());
 				assertTrue(actualSession.getGatewayRequests().contains(r3));
+				actualSession2 = actualSession;
 			}
 			
 		}
@@ -397,7 +402,7 @@ public class IntellIVRBeanTest {
 		mockStatusStore.updateStatus(gr2.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
 
-		intellivrBean.sendPending(expectedSession1);
+		intellivrBean.sendPending(actualSession1);
 
 		verify(mockIVRServer);
 		verify(mockStatusStore);
@@ -413,7 +418,7 @@ public class IntellIVRBeanTest {
 		mockStatusStore.updateStatus(gr3.getGatewayMessageId(), StatusType.OK.value());		
 		replay(mockStatusStore);
 
-		intellivrBean.sendPending(expectedSession2);
+		intellivrBean.sendPending(actualSession2);
 		
 		verify(mockIVRServer);
 		verify(mockStatusStore);
@@ -439,7 +444,7 @@ public class IntellIVRBeanTest {
 			mockStatusStore.updateStatus(gr2.getGatewayMessageId(), errorCode.value());
 			replay(mockStatusStore);
 			
-			intellivrBean.sendPending(expectedSession1);
+			intellivrBean.sendPending(actualSession1);
 			
 			verify(mockIVRServer);
 			verify(mockStatusStore);
