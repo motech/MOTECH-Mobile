@@ -6363,14 +6363,14 @@
     &lt;xf:bind action="show" id="deliveryDateConfirmed" nodeset="/patientRegistration/deliveryDateConfirmed" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="enroll" nodeset="/patientRegistration/enroll" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="consent" nodeset="/patientRegistration/consent" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="ownership" nodeset="/patientRegistration/ownership" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:int"/&gt;
-    &lt;xf:bind action="show" id="format" nodeset="/patientRegistration/format" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="language" nodeset="/patientRegistration/language" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind id="ownership" nodeset="/patientRegistration/ownership" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/consent = 'Y'" action="show"/&gt;
+    &lt;xf:bind id="regPhone" nodeset="/patientRegistration/regPhone" type="xsd:int" required="true()" relevant="/patientRegistration/ownership = 'PERSONAL' or /patientRegistration/ownership = 'HOUSEHOLD'" action="show"/&gt;
+    &lt;xf:bind id="format" nodeset="/patientRegistration/format" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/consent = 'Y'" action="show"/&gt;
+    &lt;xf:bind id="language" nodeset="/patientRegistration/language" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/patientRegistration/dayOfWeek" relevant="/patientRegistration/format = 'PERS_VOICE' and /patientRegistration/format = 'PERS_VOICE' and /patientRegistration/format = 'PERS_VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="timeOfDay" nodeset="/patientRegistration/timeOfDay" relevant="/patientRegistration/format = 'PERS_VOICE' or /patientRegistration/format = 'PERS_VOICE' or /patientRegistration/format = 'PERS_VOICE'" required="true()" type="xsd:time" visible="false()"/&gt;
     &lt;xf:bind action="show" id="reason" nodeset="/patientRegistration/reason" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y' and /patientRegistration/registrantType = 'OTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="howLearned" nodeset="/patientRegistration/howLearned" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind id="howLearned" nodeset="/patientRegistration/howLearned" type="xsd:string" visible="false()" required="true()" relevant="/patientRegistration/consent = 'Y'" action="show"/&gt;
     &lt;xf:bind action="show" id="messageStartWeek" nodeset="/patientRegistration/messageStartWeek" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y' and /patientRegistration/registrantType = 'OTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="formtype" nodeset="/patientRegistration/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="formname" nodeset="/patientRegistration/formname" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -6914,7 +6914,7 @@
 &lt;/xf:xforms&gt;
 </xform>
 <layout>&lt;Form id="71"&gt;
-  &lt;Page Text="Page1" Binding="Page1" Width="100%" Height="1829px" backgroundColor=""&gt;
+  &lt;Page Text="Page1" Binding="Page1" Width="100%" Height="1929px" backgroundColor=""&gt;
     &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="staffId" Left="191px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="248px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Facility ID" HelpText="Facility ID" Binding="facilityId" Left="177px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -6997,6 +6997,8 @@
     &lt;Item WidgetType="TextBox" HelpText="formName" Binding="formname" Left="248px" Top="1580px" Width="200px" Height="25px" TabIndex="40" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="1630px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="1630px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Contact phone no." HelpText="Contact phone no." Binding="phoneNumber" Left="20px" Top="1680px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Contact phone no." Binding="phoneNumber" Left="149px" Top="1680px" Width="200px" Height="25px" TabIndex="83" fontFamily="Verdana, 'Lucida Grande', 'Trebuchet MS', Arial, Sans-Serif"/&gt;
   &lt;/Page&gt;
 &lt;/Form&gt;
 </layout>
@@ -7650,6 +7652,14 @@
     &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Top]" value="1630px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Left]" value="220px"/&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Width]" value="70px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='phoneNumber' and @WidgetType='Label'][@Text]" value="Contact phone no."/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='phoneNumber' and @WidgetType='Label'][@HelpText]" value="Contact phone no."/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='phoneNumber' and @WidgetType='Label'][@Top]" value="1680px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='phoneNumber' and @WidgetType='Label'][@Left]" value="20px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@HelpText]" value="Contact phone no."/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@Top]" value="1680px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@Left]" value="149px"/&gt;&#13;
+    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='phoneNumber' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;&#13;
   &lt;/Form&gt;</layout>
 </versionText>
 </version>
