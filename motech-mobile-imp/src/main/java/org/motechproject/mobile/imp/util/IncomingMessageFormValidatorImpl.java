@@ -47,7 +47,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
         if(subs != null){
             for(SubField sub : subs){
-                if(params.containsKey(sub.getParentField().toLowerCase()) && params.get(sub.getParentField().toLowerCase()).getValue().equalsIgnoreCase(sub.getReplaceOn()) && params.containsKey(sub.getFieldName().toLowerCase()))
+                if(params.containsKey(sub.getParentField().toLowerCase()) && (params.get(sub.getParentField().toLowerCase()).getValue().equalsIgnoreCase(sub.getReplaceOn()) || "*".equalsIgnoreCase(sub.getReplaceOn())) && params.containsKey(sub.getFieldName().toLowerCase()))
                     params.get(sub.getParentField().toLowerCase()).setValue(params.get(sub.getFieldName().toLowerCase()).getValue());
             }
         }

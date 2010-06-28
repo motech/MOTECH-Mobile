@@ -49,6 +49,11 @@
                         <ref bean="diag2Sub" />
                     </list>
                 </entry>
+                <entry key="REGISTERPATIENT-JF">
+                    <list>
+                        <ref bean="regPhone" />
+                    </list>
+                </entry>
             </map>
         </property>
         <property name="paramValidators">
@@ -718,5 +723,11 @@
         <property name="parentField" value="seconddiagnosis" />
         <property name="fieldName" value="othersecondarydiagnosis" />
         <property name="replaceOn" value="78" />
+    </bean>
+
+    <bean id="regPhone" class="org.motechproject.mobile.imp.util.SubField">
+        <property name="parentField" value="contactphone" />
+        <property name="fieldName" value="phonenumber" />
+        <property name="replaceOn" value="*" />
     </bean>
 </beans>
