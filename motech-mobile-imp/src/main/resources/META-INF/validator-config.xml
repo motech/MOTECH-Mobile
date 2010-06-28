@@ -726,8 +726,8 @@
     </bean>
 
     <bean id="regPhone" class="org.motechproject.mobile.imp.util.SubField">
-        <property name="parentField" value="contactphone" />
-        <property name="fieldName" value="phonenumber" />
+        <property name="parentField" value="phonenumber" />
+        <property name="fieldName" value="regphone" />
         <property name="replaceOn" value="*" />
     </bean>
 </beans>

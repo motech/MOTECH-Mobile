@@ -480,13 +480,13 @@
         &lt;subDistrict/&gt;
         &lt;community/&gt;
         &lt;address/&gt;
-        &lt;contactPhone/&gt;
+        &lt;phoneNumber/&gt;
         &lt;expDeliveryDate/&gt;
         &lt;deliveryDateConfirmed/&gt;
         &lt;enroll/&gt;
         &lt;consent/&gt;
         &lt;ownership/&gt;
-        &lt;phoneNumber/&gt;
+        &lt;regPhone/&gt;
         &lt;format/&gt;
         &lt;language/&gt;
         &lt;dayOfWeek/&gt;
@@ -1857,13 +1857,13 @@
     &lt;xf:bind id="subDistrict" nodeset="/patientRegistration/subDistrict" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="community" nodeset="/patientRegistration/community" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="contactPhone" nodeset="/patientRegistration/contactPhone" type="xsd:int"/&gt;
+    &lt;xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int"/&gt;
     &lt;xf:bind action="show" id="expDeliveryDate" nodeset="/patientRegistration/expDeliveryDate" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:date" visible="false()"/&gt;
     &lt;xf:bind action="show" id="deliveryDateConfirmed" nodeset="/patientRegistration/deliveryDateConfirmed" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="enroll" nodeset="/patientRegistration/enroll" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="consent" nodeset="/patientRegistration/consent" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="ownership" nodeset="/patientRegistration/ownership" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="phoneNumber" nodeset="/patientRegistration/phoneNumber" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:int"/&gt;
     &lt;xf:bind action="show" id="format" nodeset="/patientRegistration/format" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="language" nodeset="/patientRegistration/language" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/patientRegistration/dayOfWeek" relevant="/patientRegistration/format = 'PERS_VOICE' and /patientRegistration/format = 'PERS_VOICE' and /patientRegistration/format = 'PERS_VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -2065,7 +2065,7 @@
     &lt;xf:input bind="address"&gt;
       &lt;xf:label&gt;Address&lt;/xf:label&gt;
     &lt;/xf:input&gt;
-    &lt;xf:input bind="contactPhone"&gt;
+    &lt;xf:input bind="phoneNumber"&gt;
       &lt;xf:label&gt;Contact phone no.&lt;/xf:label&gt;
     &lt;/xf:input&gt;
     &lt;xf:input bind="expDeliveryDate"&gt;
@@ -2119,7 +2119,7 @@
         &lt;xf:value&gt;PUBLIC&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
-    &lt;xf:input bind="phoneNumber"&gt;
+    &lt;xf:input bind="regPhone"&gt;
       &lt;xf:label&gt;Phone number&lt;/xf:label&gt;
     &lt;/xf:input&gt;
     &lt;xf:select1 bind="format"&gt;
@@ -2454,7 +2454,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='subDistrict']/label" value="Sub-district"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='community']/label" value="Community"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='address']/label" value="Address"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='contactPhone']/label" value="Contact phone no."/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='phoneNumber']/label" value="Contact phone no."/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='expDeliveryDate']/label" value="Expected delivery date"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryDateConfirmed']/label" value="Delivery date confirmed by CHW"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryDateConfirmed']/item[@id='Y']/label" value="Yes"/&gt;&#13;
@@ -2469,7 +2469,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PERSONAL']/label" value="Personal phone"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='HOUSEHOLD']/label" value="Household phone"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PUBLIC']/label" value="Public phone"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='phoneNumber']/label" value="Phone number"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='regPhone']/label" value="Phone number"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='format']/label" value="Message format"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='language']/label" value="Message language"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/label" value="Day of week to receive messages"/&gt;&#13;
