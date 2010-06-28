@@ -83,10 +83,17 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient registration response message
-     * @param patient object containing list of upcoming care
+     * @param patient object containing patient details
      * @return the formatted message
      */
     String formatPatientRegistrationMessage(Patient patient);
+
+    /**
+     * Constructs formatted patient registration response messages for multiple patients
+     * @param patient array of patient objects
+     * @return the formatted message
+     */
+    String formatBabyRegistrationMessage(Patient[] patients);
 
     /**
      * @param dateFormat the dateFormat to set

@@ -200,7 +200,7 @@
         </property>
         <property name="callback">
             <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
-                <property name="methodName" value="formatMatchingPatientsMessage" />
+                <property name="methodName" value="formatBabyRegistrationMessage" />
                 <property name="methodParams">
                     <map key-type="java.lang.String">
                         <entry key="patients" value="org.motechproject.ws.Patient[]" />

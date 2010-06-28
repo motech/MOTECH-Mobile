@@ -69,7 +69,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         		gatewayDetails.setNumberOfPages(numPages);
 
         		gwReq.setMessage(message);
-                gatewayDetails.setMessage(message);
+                        gatewayDetails.setMessage(message);
                 
         	}
 

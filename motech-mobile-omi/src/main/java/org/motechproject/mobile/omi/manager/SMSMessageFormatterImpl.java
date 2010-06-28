@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.Care;
+import org.motechproject.ws.Gender;
 import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
 
@@ -231,6 +232,40 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         template += edd.isEmpty() ? edd : "\nEDD=<EDD>";
 
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);
+        return message;
+    }
+
+    public String formatBabyRegistrationMessage(Patient[] patients) {
+        if(patients == null || patients.length < 1)
+            return "Your request for a new MoTeCH ID could not be completed";
+
+        String template = "Your request for a new MoTeCH ID was successful";
+        Set<NameValuePair> data = new HashSet<NameValuePair>();
+
+        int count = 0;
+
+        for(Patient p : patients){
+            String pName = "Baby";
+            if(p.getPreferredName() == null || p.getPreferredName().isEmpty()){
+                if(p.getSex() != null){
+                    String sex = (p.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
+                    pName += " " + sex;
+                }
+            }
+            else
+                pName = p.getPreferredName();
+
+            data.add(new NameValuePair("MoTeCHID"+count, p.getMotechId()));
+            data.add(new NameValuePair("PreferredName"+count, pName));
+            data.add(new NameValuePair("LastName"+count, p.getLastName()));
+
+            template += "\n";
+            template += "Name: <PreferredName"+count+"> <LastName"+count+">\n";
+            template += "MoTeCH ID: <MoTeCHID"+count+">";
+
+            count++;
+        }
+        String message = omiManager.createMessageStoreManager().parseTemplate(template, data);
         return message;
     }
 
