@@ -100,7 +100,6 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
         List<GatewayRequest> messages = new ArrayList<GatewayRequest>();
-        List<GatewayRequest> troubledMessages = new ArrayList<GatewayRequest>();
         messages.add(messageDetails);
 
         expect(
@@ -109,9 +108,6 @@ public class SMSMessagingServiceImplTest {
         expect(
                 mockCache.getMessagesByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject(), (MotechContext) anyObject())
                 ).andReturn(messages);
-        expect(
-                mockCache.getMessagesByStatusAndSchedule((MStatus) anyObject(), (Date)anyObject(), (MotechContext) anyObject())
-                ).andReturn(troubledMessages);
         expect(
                 mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
                 ).andReturn(null);

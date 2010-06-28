@@ -53,7 +53,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         try{
             SMSMessenger messenger = new SMSMessenger(wsdlURL, new QName("http://www.outreachcity.com/ORServe/Messaging/", "SMSMessenger"));
             SMSMessengerSoap soap = messenger.getSMSMessengerSoap();
-            gatewayResponse = soap.sendMessage(URLEncoder.encode(messageDetails.getMessage(), "UTF-8"), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
+            gatewayResponse = soap.sendMessage(messageDetails.getMessage(), messageDetails.getRecipientsNumber(), getSenderId(), getProductCode(), String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
         }
         catch(Exception ex){
             logger.error("Error sending message", ex);

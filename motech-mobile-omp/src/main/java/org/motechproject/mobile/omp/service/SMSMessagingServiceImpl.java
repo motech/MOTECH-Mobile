@@ -1,6 +1,5 @@
 package org.motechproject.mobile.omp.service;
 
-import java.util.ArrayList;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestDetails;
@@ -57,17 +56,10 @@ public class SMSMessagingServiceImpl implements MessagingService {
         logger.info("Fetching cached GatewayRequests");
 
         List<GatewayRequest> scheduledMessages = cache.getMessagesByStatusAndSchedule(MStatus.SCHEDULED, new Date(), mc);
-        List<GatewayRequest> troubleScheduledMessages = cache.getMessagesByStatusAndSchedule(MStatus.SCHEDULED, null, mc);        
-
-        List<GatewayRequest> msgQueue = new ArrayList<GatewayRequest>();
-        if(scheduledMessages != null)
-            msgQueue.addAll(scheduledMessages);
-        if(troubleScheduledMessages != null)
-            msgQueue.addAll(troubleScheduledMessages);
-
-        if (msgQueue.size() > 0) {
+        
+        if (scheduledMessages != null && scheduledMessages.size() > 0) {
             logger.info("Sending messages");
-            for (GatewayRequest message : msgQueue) {
+            for (GatewayRequest message : scheduledMessages) {
                 sendMessage(message, mc);
             }
             logger.info("Sending completed successfully");

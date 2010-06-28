@@ -400,11 +400,11 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("Scheduling GatewayRequest...");
 
-        if (context.getDBSession() != null) {
-            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
-            ((Session) context.getDBSession().getSession()).evict(message);
-            ((Session) context.getDBSession().getSession()).evict(gwReq);
-        }
+//        if (context.getDBSession() != null) {
+//            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
+//            ((Session) context.getDBSession().getSession()).evict(message);
+//            ((Session) context.getDBSession().getSession()).evict(gwReq);
+//        }
 
         msgSvc.scheduleMessage(gwReq, context);
 
@@ -413,11 +413,11 @@ public class OMIServiceImpl implements OMIService {
         message.setStatus(MStatus.PENDING);
         logger.debug(message);
 
-        if (context.getDBSession() != null) {
-            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
-            ((Session) context.getDBSession().getSession()).evict(message);
-            ((Session) context.getDBSession().getSession()).evict(gwReq);
-        }
+//        if (context.getDBSession() != null) {
+//            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
+//            ((Session) context.getDBSession().getSession()).evict(message);
+//            ((Session) context.getDBSession().getSession()).evict(gwReq);
+//        }
 
         tx.begin();
         msgReqDao.save(message);
