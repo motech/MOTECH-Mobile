@@ -21,6 +21,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.mobile.core.dao.MessageRequestDAO;
+import org.motechproject.mobile.core.model.MessageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -39,6 +41,7 @@ public class GatewayResponseDAOImplTest {
     CoreManager coreManager;
     GatewayResponseDAO rDDAO;
     GatewayRequestDAO grDAO;
+    MessageRequestDAO mrDAO;
 
     @Autowired
     private GatewayResponse rd1;
@@ -60,6 +63,9 @@ public class GatewayResponseDAOImplTest {
     @Autowired
     private GatewayRequest rq1;
 
+    @Autowired
+    private MessageRequest mr1;
+
 
 
 
@@ -74,6 +80,7 @@ public class GatewayResponseDAOImplTest {
         MotechContext tc = coreManager.createMotechContext();
         rDDAO = coreManager.createGatewayResponseDAO(tc);
         grDAO = coreManager.createGatewayRequestDAO(tc);
+        mrDAO = coreManager.createMessageRequestDAO(tc);
 
         rd1.setId(1L);
         rd1.setRecipientNumber("123445");
@@ -118,13 +125,15 @@ public class GatewayResponseDAOImplTest {
         rd8.setDateCreated(new Date());
         rd8.setRequestId(requestId);
 
+        mr1.setId(415L);
+
         rq1.setId(987L);
         rq1.setMessage("message to be tested with trynumber and requestID");
         rq1.setMessageStatus(MStatus.FAILED);
         rq1.setRequestId("88787");
         rq1.setTryNumber(2);
         rq1.setRecipientsNumber("7788899000");
-
+        rq1.setMessageRequest(mr1);
 
         rd7.setGatewayRequest(rq1);
 
@@ -136,6 +145,7 @@ public class GatewayResponseDAOImplTest {
 
         Session session = (Session) grDAO.getDBSession().getSession();
         Transaction tx = session.beginTransaction();
+        mrDAO.save(mr1);
         grDAO.save(rq1);
         rDDAO.save(rd2);
         rDDAO.save(rd3);
@@ -160,6 +170,7 @@ public class GatewayResponseDAOImplTest {
         rDDAO.delete(rd7);
         rDDAO.delete(rd8);
         grDAO.delete(rq1);
+        mrDAO.delete(mr1);
 
         tx.commit();
     }
@@ -269,11 +280,11 @@ public class GatewayResponseDAOImplTest {
     public void testGetMostRecentResponseByRequestId() {
         System.out.println("getMostRecentResponseByRequestId");
 
-        GatewayResponse result = rDDAO.getMostRecentResponseByRequestId(requestId);
+        GatewayResponse result = rDDAO.getMostRecentResponseByMessageId(rq1.getMessageRequest().getId());
         System.out.println(result.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals(rd8, result);
-        Assert.assertEquals(rd8.getId(), result.getId());
+        Assert.assertEquals(rd7, result);
+        Assert.assertEquals(rd7.getId(), result.getId());
         System.out.println("====================================================================================================");
         System.out.println(result.toString());
 
@@ -287,7 +298,7 @@ public class GatewayResponseDAOImplTest {
         System.out.println("getByRequestIdAndTryNumber");
         String requestId = "88787";
         int tryNumber = 2;
-        GatewayResponse result = rDDAO.getByRequestIdAndTryNumber(requestId, tryNumber);
+        GatewayResponse result = rDDAO.getByMessageIdAndTryNumber(rq1.getMessageRequest().getId(), tryNumber);
         Assert.assertNotNull(result);
         Assert.assertEquals(rd7, result);
         Assert.assertEquals(rd7.getId(), result.getId());

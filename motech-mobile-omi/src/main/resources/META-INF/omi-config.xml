@@ -119,6 +119,12 @@
                         <ref bean="rptStatAction" />
                     </list>
                 </entry>
+                <entry key="SENT">
+                    <list>
+                        <ref bean="logStatAction" />
+                        <ref bean="rptStatAction" />
+                    </list>
+                </entry>
                 <entry key="FAILED">
                     <list>
                         <ref bean="logStatAction" />

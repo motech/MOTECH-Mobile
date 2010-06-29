@@ -34,6 +34,9 @@ public class LogStatusActionImpl implements StatusAction {
        if(response.getMessageStatus() == MStatus.DELIVERED){
            logType = LogType.SUCCESS;
        }
+       else if(response.getMessageStatus() == MStatus.SENT){
+           logType = LogType.SUCCESS;
+       }
        else{
            logType = LogType.FAILURE;
        }

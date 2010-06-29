@@ -654,7 +654,7 @@ public class OMIServiceImpl implements OMIService {
 
             logger.info("Processing GatewayResponses...");
             for (MessageRequest message : messages) {
-                GatewayResponse response = gwRespDao.getByRequestIdAndTryNumber(message.getRequestId(), message.getTryNumber());
+                GatewayResponse response = gwRespDao.getByMessageIdAndTryNumber(message.getId(), message.getTryNumber());
 
                 if (response != null) {
                     if (response.getMessageStatus() == MStatus.RETRY && message.getTryNumber() >= maxTries) {

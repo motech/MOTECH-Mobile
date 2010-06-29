@@ -446,12 +446,18 @@ public class OMIServiceImplTest {
         List<MessageRequest> msgList = new ArrayList<MessageRequest>();
         
         MessageRequestImpl request = new MessageRequestImpl();
+        request.setId(72L);
         request.setStatus(MStatus.PENDING);
         
         msgList.add(request);
-        
+
+        GatewayRequest gwReq = new GatewayRequestImpl();
+        gwReq.setMessageRequest(request);
+        gwReq.setId(17L);
+
         GatewayResponseImpl response = new GatewayResponseImpl();
         response.setMessageStatus(MStatus.DELIVERED);
+        response.setGatewayRequest(gwReq);
         
         expect(
                 mockCore.createMotechContext()
@@ -466,7 +472,7 @@ public class OMIServiceImplTest {
                 mockCore.createGatewayResponseDAO((MotechContext) anyObject())
                 ).andReturn(mockResponseDao);
         expect(
-                mockResponseDao.getByRequestIdAndTryNumber((String) anyObject(), anyInt())
+                mockResponseDao.getByMessageIdAndTryNumber(anyLong(), anyInt())
                 ).andReturn(response);
         expect(
                 mockRequestDao.getDBSession()
