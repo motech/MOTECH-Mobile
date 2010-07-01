@@ -282,7 +282,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			callLog.info("OUT," +
 					session.getPhone() + "," +
 					session.getUserId() + "," +
-					status);
+					status + "," + 
+					session.getSessionId());
 		}
 		
 	}
@@ -312,7 +313,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		callLog.info("OUT," +
 					 session.getPhone() + "," +
 					 session.getUserId() + "," +
-					 status);
+					 status + "," + 
+					 session.getSessionId());
 		
 	}
 
@@ -473,7 +475,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 					ivrSessions.put(session.getSessionId(), session);
 
-					callLog.info("IN,," + request.getUserid() + "," + StatusType.OK.value());
+					callLog.info("IN,," + 
+									request.getUserid() + "," + 
+									StatusType.OK.value() + "," +
+									session.getSessionId());
 
 				}
 
