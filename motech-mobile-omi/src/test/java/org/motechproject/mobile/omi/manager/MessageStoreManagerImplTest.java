@@ -175,4 +175,23 @@ public class MessageStoreManagerImplTest {
         assertEquals(result, "testing");
         verify(mockCore, mockTemplateDao);
     }
+    
+    @Test
+    public void testFormatPhone() {
+    	
+    	((MessageStoreManagerImpl)instance).setLocalNumberExpression("0[0-9]{9}");
+    	((MessageStoreManagerImpl)instance).setDefaultCountryCode("233");
+    	
+    	String phone = "0123456789";
+    	
+    	String expectedTextPhone = "233123456789";
+    	String actualTextPhone = ((MessageStoreManagerImpl)instance).formatPhoneNumber(phone, MessageType.TEXT);
+    	assertEquals(expectedTextPhone, actualTextPhone);
+    	
+    	String expectedVoicePhone = "123456789";
+    	String actualVoicePhone = ((MessageStoreManagerImpl)instance).formatPhoneNumber(phone, MessageType.VOICE);
+    	assertEquals(expectedVoicePhone, actualVoicePhone);
+    	
+    }
+    
 }

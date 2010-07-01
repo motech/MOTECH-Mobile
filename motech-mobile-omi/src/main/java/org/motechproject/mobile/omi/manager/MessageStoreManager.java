@@ -4,8 +4,10 @@ import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.Language;
 import org.motechproject.mobile.core.model.MessageRequest;
+import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.service.MotechContext;
 import java.util.Set;
+
 import org.motechproject.ws.NameValuePair;
 
 /**
@@ -48,7 +50,7 @@ public interface MessageStoreManager {
      * @param requesterPhone number to format
      * @return formatted number
      */
-    String formatPhoneNumber(String requesterPhone);
+    String formatPhoneNumber(String requesterPhone, MessageType type);
     
     /**
      * 

@@ -42,9 +42,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         GatewayRequest gwReq = coreManager.createGatewayRequest(context);        
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
-        gwReq.setRecipientsNumber(messageData.getMessageType() == MessageType.TEXT ? 
-        							formatPhoneNumber(messageData.getRecipientNumber())
-        							: messageData.getRecipientNumber());
+        gwReq.setRecipientsNumber(formatPhoneNumber(messageData.getRecipientNumber(), messageData.getMessageType()));
         gwReq.setRequestId(messageData.getRequestId());
         gwReq.setTryNumber(messageData.getTryNumber());
         gwReq.setMessageRequest(messageData);
@@ -139,14 +137,17 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         return template.getTemplate();
     }
 
-    public String formatPhoneNumber(String requesterPhone) {
+    public String formatPhoneNumber(String requesterPhone, MessageType type) {
         if (requesterPhone == null || requesterPhone.isEmpty()) {
             return null;
         }
 
         String formattedNumber = requesterPhone;
         if (Pattern.matches(localNumberExpression, requesterPhone)) {
-            formattedNumber = defaultCountryCode + requesterPhone.substring(1);
+        	if ( type == MessageType.VOICE )
+        		formattedNumber = requesterPhone.substring(1);
+        	else
+        		formattedNumber = defaultCountryCode + requesterPhone.substring(1);
         }
 
         return formattedNumber;
