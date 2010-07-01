@@ -613,6 +613,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 								tx.commit();
 
 							}
+							
+							context.cleanUp();
 
 						}
 						

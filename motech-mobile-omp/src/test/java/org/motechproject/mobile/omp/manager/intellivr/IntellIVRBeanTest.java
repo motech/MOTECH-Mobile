@@ -1418,6 +1418,8 @@ public class IntellIVRBeanTest {
 			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
 			expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
 
+			mockContext.cleanUp();
+			
 			if ( type == ReportStatusType.COMPLETED ) {
 				statusStore.updateStatus(mr1.getId().toString(), "BELOWTHRESHOLD");
 				statusStore.updateStatus(mr2.getId().toString(), "BELOWTHRESHOLD");
@@ -1504,6 +1506,8 @@ public class IntellIVRBeanTest {
 			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
 			expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
 
+			mockContext.cleanUp();
+			
 			statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
 			statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
 			statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
@@ -1698,6 +1702,8 @@ public class IntellIVRBeanTest {
 		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
 		expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
 
+		mockContext.cleanUp();
+		
 		statusStore.updateStatus(mr1.getId().toString(), "BELOWTHRESHOLD");
 		statusStore.updateStatus(mr2.getId().toString(), "BELOWTHRESHOLD");
 		statusStore.updateStatus(mr3.getId().toString(), "BELOWTHRESHOLD");
@@ -1778,6 +1784,8 @@ public class IntellIVRBeanTest {
 		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
 		expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
 
+		mockContext.cleanUp();
+		
 		statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
 		statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
 		statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
