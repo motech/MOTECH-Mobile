@@ -42,7 +42,9 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         GatewayRequest gwReq = coreManager.createGatewayRequest(context);        
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
-        gwReq.setRecipientsNumber(formatPhoneNumber(messageData.getRecipientNumber()));
+        gwReq.setRecipientsNumber(messageData.getMessageType() == MessageType.TEXT ? 
+        							formatPhoneNumber(messageData.getRecipientNumber())
+        							: messageData.getRecipientNumber());
         gwReq.setRequestId(messageData.getRequestId());
         gwReq.setTryNumber(messageData.getTryNumber());
         gwReq.setMessageRequest(messageData);
