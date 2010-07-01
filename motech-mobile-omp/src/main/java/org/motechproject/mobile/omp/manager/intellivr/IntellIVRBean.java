@@ -183,10 +183,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					IVRSession session = null;
 				
 					for ( IVRSession possibleSession : ivrSessions.values() ) {
-						if ( possibleSession.getUserId().equalsIgnoreCase(recipientID)
+						if ( !possibleSession.isUserInitiated()
+								&& possibleSession.getUserId().equalsIgnoreCase(recipientID)
 								&& possibleSession.getPhone().equals(phone)
 								&& possibleSession.getLanguage().equalsIgnoreCase(language.getName())
-								&& !possibleSession.isUserInitiated()
 								&& possibleSession.getAttempts() == 0
 								&& possibleSession.getDays() == gatewayRequest.getMessageRequest().getDaysAttempted()
 								&& possibleSession.getState() == IVRSession.OPEN) {
