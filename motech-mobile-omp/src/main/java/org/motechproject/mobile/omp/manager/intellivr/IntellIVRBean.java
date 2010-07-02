@@ -161,9 +161,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		if ( ivrSessionSerialResource != null ) {
 			
+			ObjectInputStream objIn = null;
+			
 			try {
 				
-				ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(ivrSessionSerialResource.getFile()));
+				objIn = new ObjectInputStream(new FileInputStream(ivrSessionSerialResource.getFile()));
 				
 				loadedSessions = (Map<String, IVRSession>)objIn.readObject();
 			
@@ -177,6 +179,12 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
 			} catch (ClassNotFoundException e) {
 				log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+			} finally {
+				if ( objIn != null )
+					try {
+						objIn.close();
+					} catch (IOException e) {
+					}
 			}
 			
 		} 
@@ -194,16 +202,24 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				for ( IVRSession s : ivrSessions.values())
 					log.info("Serializing IVRSession " + s.getSessionId());
 					
+				ObjectOutputStream objOut = null;
+				
 				try {
 
-					ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(ivrSessionSerialResource.getFile()));
+					objOut = new ObjectOutputStream(new FileOutputStream(ivrSessionSerialResource.getFile()));
 
 					objOut.writeObject(ivrSessions);
-
+					
 				} catch (FileNotFoundException e) {
 					log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
 				} catch (IOException e) {
 					log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+				} finally {
+					if ( objOut != null )
+						try {
+							objOut.close();
+						} catch (IOException e) {
+						}
 				}
 
 			}
