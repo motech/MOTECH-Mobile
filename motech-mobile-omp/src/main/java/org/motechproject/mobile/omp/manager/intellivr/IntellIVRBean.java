@@ -176,9 +176,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				return loadedSessions;
 				
 			} catch (IOException e) {
-				log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+				log.error("Cached IVRSessions not loaded due to following error: " + e.getMessage());
 			} catch (ClassNotFoundException e) {
-				log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+				log.error("Cached IVRSessions not loaded due to following error: " + e.getMessage());
 			} finally {
 				if ( objIn != null )
 					try {
@@ -211,9 +211,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					objOut.writeObject(ivrSessions);
 					
 				} catch (FileNotFoundException e) {
-					log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+					log.error("Cached IVRSessions not serialized due to following error: " + e.getMessage());
 				} catch (IOException e) {
-					log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+					log.error("Cached IVRSessions not serialized due to following error: " + e.getMessage());
 				} finally {
 					if ( objOut != null )
 						try {
@@ -369,7 +369,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 			ResponseType response = ivrServer.requestCall(request);
 
-			log.debug("Recieved response from IVR Server: " + response);
+			log.debug("Received response from IVR Server: " + response);
 
 			String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
 
@@ -400,7 +400,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		ResponseType response = ivrServer.requestCall(request);
 
-		log.debug("Recieved response from IVR Server: " + response);
+		log.debug("Received response from IVR Server: " + response);
 
 		String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
 
