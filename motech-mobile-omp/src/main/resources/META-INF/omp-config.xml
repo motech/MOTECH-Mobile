@@ -197,7 +197,7 @@
         <property name="responseMap" ref="intellIVRResponseMap"/>
     </bean>
 
-    <bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean" init-method="init">
+    <bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean" init-method="init" destroy-method="cleanUp">
         <property name="reportURL" value="${intellivr.gateway.reportURL}"/>
         <property name="apiID" value="${intellivr.gateway.apiID}"/>
         <property name="method" value="ivroriginate"/>
@@ -217,6 +217,7 @@
         <property name="accelerateRetries" value="false" />
         <property name="noPendingMessagesRecordingName" value="${intellivr.gateway.noPendingMessagesRecordingName}"/>
         <property name="mappingResource" value="${intellivr.gateway.ivrConfig}"/>
+        <property name="ivrSessionSerialResource" value="${intellivr.gateway.sessionCacheFile}"/>
         <property name="coreManager" ref="coreManager"/>
         <property name="registrarService" ref="registrarClient"/>
     </bean>

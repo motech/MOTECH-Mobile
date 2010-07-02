@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ import javax.annotation.Resource;
 
 import org.easymock.EasyMock;
 import org.hibernate.Transaction;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -100,7 +103,20 @@ public class IntellIVRBeanTest {
 		
 		intellivrBean.ivrNotificationMap = mapping;
 
+	}
+	
+	@After
+	public void tearDown() {
 		
+		intellivrBean.ivrSessions.clear();
+		
+		try {
+			intellivrBean.getIvrSessionSerialResource().getFile().delete();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 	@Test
@@ -2226,6 +2242,66 @@ public class IntellIVRBeanTest {
 		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
 		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
 
+	}
+	
+	@Test
+	public void testSessionSerialization() {
+	
+		String recipientID = "123456789";
+		String phone = "15555555555";
+		GregorianCalendar start = new GregorianCalendar(2010, 1, 1, 12, 00);
+		GregorianCalendar end = new GregorianCalendar(2010, 1, 1, 13, 00);
+		
+		Language english = new LanguageImpl();
+		english.setCode("en");
+		english.setId(1L);
+		english.setName("English");
+		
+		NotificationType n1 = new NotificationTypeImpl();
+		n1.setId(1L);
+		
+		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setId(1L);
+		mr1.setLanguage(english);
+		mr1.setRecipientId(recipientID);
+		mr1.setRequestId("mr1");
+		mr1.setNotificationType(n1);
+		mr1.setPhoneNumberType("PERSONAL");
+	
+		GatewayRequest r1 = new GatewayRequestImpl();
+		r1.setId(1000L);
+		r1.setMessageRequest(mr1);
+		r1.setMessageStatus(MStatus.PENDING);
+		r1.setRecipientsNumber(phone);
+		r1.setDateFrom(start.getTime());
+		r1.setDateTo(end.getTime());
+
+		IVRSession expectedSession = new IVRSession(recipientID, phone, english.getName());
+		expectedSession.setAttempts(1);
+		expectedSession.setDays(0);
+		expectedSession.setState(IVRSession.SEND_WAIT);
+		
+		Map<String, IVRSession> expectedSessions = new HashMap<String, IVRSession>();
+		expectedSessions.put(expectedSession.getSessionId(), expectedSession);
+		
+		intellivrBean.ivrSessions = expectedSessions;
+		
+		intellivrBean.saveIvrSessions();
+		
+		Map<String, IVRSession> loadedSessions = intellivrBean.loadIvrSessions();
+		
+		IVRSession loadedSession = loadedSessions.get(expectedSession.getSessionId());
+		
+		assertEquals(expectedSession.getAttempts(), loadedSession.getAttempts());
+		assertEquals(expectedSession.getDays(), loadedSession.getDays());
+		assertEquals(expectedSession.getLanguage(), loadedSession.getLanguage());
+		assertEquals(expectedSession.getPhone(), loadedSession.getPhone());
+		assertEquals(expectedSession.getState(), loadedSession.getState());
+		assertEquals(expectedSession.getUserId(), loadedSession.getUserId());
+		assertFalse(loadedSession.isUserInitiated());
+		
+
+		
 	}
 	
 }

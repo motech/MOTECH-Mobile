@@ -229,7 +229,7 @@
 		<property name="responseMap" ref="intellIVRResponseMap"/>    
 	</bean>
     
-    <bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean" init-method="init">
+    <bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean" init-method="init" destroy-method="cleanUp">
 		<property name="reportURL" value="http://motech-ws.rcg.usm.maine.edu:8080/motech-mobile-webapp/intellivr"/>
 		<property name="apiID" value="Cqyc0kReo98jxWz9N0qYKzBslRYaLsStA6shaLkHdfnpDU3C2E"/>
 		<property name="method" value="ivroriginate"/>
@@ -247,6 +247,7 @@
 		<property name="maxDays" value="4"/>	
 		<property name="noPendingMessagesRecordingName" value="prompt_H.wav"/>
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
+		<property name="ivrSessionSerialResource" value="file:src/test/resources/ivrsession.cache"/>
 	</bean>
 
 	<bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
