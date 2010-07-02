@@ -1,12 +1,14 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
 import org.motechproject.mobile.core.model.GatewayRequest;
 
-public class IVRSession {
+@SuppressWarnings("serial")
+public class IVRSession implements Serializable {
 
 	public static int OPEN 			=	0;
 	public static int SEND_WAIT		=	1;

@@ -2,8 +2,13 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -61,6 +66,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private boolean accelerateRetries;
 	private String noPendingMessagesRecordingName;
 	private Resource mappingResource;
+	private Resource ivrSessionSerialResource;
 	private CoreManager coreManager;
 	private RegistrarService registrarService;
 	
@@ -116,12 +122,108 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		}
 		
 		timer = new Timer();
-		
-		ivrSessions = new HashMap<String, IVRSession>();
 
+		ivrSessions = loadIvrSessions();
+
+		if ( ivrSessions == null )
+			ivrSessions = new HashMap<String, IVRSession>();
+
+		
+		if ( bundlingDelay >= 0 ) {
+			synchronized (ivrSessions) {
+				for ( IVRSession session : ivrSessions.values() ) {
+					if ( session.getState() == IVRSession.OPEN 
+							|| session.getState() == IVRSession.SEND_WAIT ) {
+						IVRServerTimerTask task = new IVRServerTimerTask(session);
+						timer.schedule(task, bundlingDelay);
+					}
+				}
+			}
+		}
+		
 		if ( accelerateRetries ) {
 			log.warn("Using accelerated retries.  Configured retry intervals will be ignored.");
 			retryDelay = 1;
+		}
+		
+	}
+	
+	public void cleanUp() {
+		
+		saveIvrSessions();
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected Map<String, IVRSession> loadIvrSessions() {
+
+		Map<String, IVRSession> loadedSessions = null;
+		
+		if ( ivrSessionSerialResource != null ) {
+			
+			ObjectInputStream objIn = null;
+			
+			try {
+				
+				objIn = new ObjectInputStream(new FileInputStream(ivrSessionSerialResource.getFile()));
+				
+				loadedSessions = (Map<String, IVRSession>)objIn.readObject();
+			
+				for ( IVRSession s : loadedSessions.values() ) {
+					log.info("Loaded existing session " + s.getSessionId());
+				}
+				
+				return loadedSessions;
+				
+			} catch (IOException e) {
+				log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+			} catch (ClassNotFoundException e) {
+				log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+			} finally {
+				if ( objIn != null )
+					try {
+						objIn.close();
+					} catch (IOException e) {
+					}
+			}
+			
+		} 
+		
+		return loadedSessions;
+		
+	}
+	
+	protected void saveIvrSessions() {
+
+		if ( ivrSessionSerialResource != null ) {
+		
+			synchronized (ivrSessions) {
+
+				for ( IVRSession s : ivrSessions.values())
+					log.info("Serializing IVRSession " + s.getSessionId());
+					
+				ObjectOutputStream objOut = null;
+				
+				try {
+
+					objOut = new ObjectOutputStream(new FileOutputStream(ivrSessionSerialResource.getFile()));
+
+					objOut.writeObject(ivrSessions);
+					
+				} catch (FileNotFoundException e) {
+					log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+				} catch (IOException e) {
+					log.error("Cached IVRSessions not loaded due to folowing error: " + e.getMessage());
+				} finally {
+					if ( objOut != null )
+						try {
+							objOut.close();
+						} catch (IOException e) {
+						}
+				}
+
+			}
+			
 		}
 		
 	}
@@ -855,6 +957,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setMappingResource(Resource mappingsFile) {
 		this.mappingResource = mappingsFile;
+	}
+
+	public Resource getIvrSessionSerialResource() {
+		return ivrSessionSerialResource;
+	}
+
+	public void setIvrSessionSerialResource(Resource ivrSessionSerialResource) {
+		this.ivrSessionSerialResource = ivrSessionSerialResource;
 	}
 
 	public CoreManager getCoreManager() {
