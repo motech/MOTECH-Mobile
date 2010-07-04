@@ -545,6 +545,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					a.setSrc(noPendingMessagesRecordingName);
 					vxml.getPrompt().getAudioOrBreak().add(a);
 					r.setVxml(vxml);
+					r.setReportUrl(reportURL);
+					r.setPrivate("no_session");
 				} else {
 
 					log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
