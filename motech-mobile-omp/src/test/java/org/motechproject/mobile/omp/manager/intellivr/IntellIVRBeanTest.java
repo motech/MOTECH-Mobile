@@ -2175,7 +2175,8 @@ public class IntellIVRBeanTest {
 		a3.setSrc(intellivrBean.getNoPendingMessagesRecordingName());
 		vxml.getPrompt().getAudioOrBreak().add(a3);
 		expectedResponse.setVxml(vxml);
-		
+		expectedResponse.setReportUrl(intellivrBean.getReportURL());
+		expectedResponse.setPrivate("no_session");
 		
 		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andReturn(registrarResponse);
 		replay(mockRegistrarService);
