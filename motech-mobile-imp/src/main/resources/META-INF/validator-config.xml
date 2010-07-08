@@ -171,11 +171,12 @@
                                 <entry key="VALUE">
                                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamValueValidator">
                                         <property name="caseSensitive" value="false" />
-                                        <property name="values" value="Y,N" />
+                                        <property name="values" value="Y,N,NA" />
                                         <property name="conversions">
                                             <map>
                                                 <entry key="Y" value="true" />
                                                 <entry key="N" value="false" />
+                                                <entry key="NA" value=""/>
                                             </map>
                                         </property>
                                     </bean>
