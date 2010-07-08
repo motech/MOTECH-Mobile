@@ -63,6 +63,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private int maxAttempts;
 	private int maxDays;
 	private int callCompletedThreshold;
+	private int preReminderDelay;
 	private boolean accelerateRetries;
 	private String noPendingMessagesRecordingName;
 	private Resource mappingResource;
@@ -497,6 +498,16 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 		RequestType.Vxml vxml = new RequestType.Vxml();	
 		vxml.setPrompt(new RequestType.Vxml.Prompt());
+		
+		if ( preReminderDelay > 0 ) {
+			BreakType breakType = new BreakType();
+			breakType.setTime(Integer.toString(preReminderDelay) + "s");
+			vxml.getPrompt()
+				.getAudioOrBreak()
+				.add(breakType);
+		}
+			
+		
 		for (String fileName : reminderMessages) {
 			AudioType audio = new AudioType();
 			audio.setSrc(fileName);
@@ -804,7 +815,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		List<IvrEntryType> entries = report.getINTELLIVREntry();
 		
 		for (IvrEntryType entry : entries)
-			if ( ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("audio") )
+			if ( ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("break") )
 				reminderCount++;
 			else 
 				if ( firstInfoEntry == null && (!session.isUserInitiated() || reminderCount > 0) )
@@ -934,6 +945,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setCallCompletedThreshold(int callCompletedThreshold) {
 		this.callCompletedThreshold = callCompletedThreshold;
+	}
+
+	public int getPreReminderDelay() {
+		return preReminderDelay;
+	}
+
+	public void setPreReminderDelay(int preReminderDelay) {
+		this.preReminderDelay = preReminderDelay;
 	}
 
 	public boolean isAccelerateRetries() {

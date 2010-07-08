@@ -700,6 +700,11 @@ public class IntellIVRBeanTest {
 		report.setDuration(30);
 		report.setINTELLIVREntryCount(2);
 
+		IvrEntryType b1 = new IvrEntryType();
+		b1.setDuration(0);
+		b1.setMenu("break");
+		b1.setKeypress("1s");
+		
 		IvrEntryType e1 = new IvrEntryType();
 		e1.setDuration(10);
 		e1.setMenu("message.wav");
@@ -716,6 +721,7 @@ public class IntellIVRBeanTest {
 		e3.setKeypress("");
 		
 		List<IvrEntryType> entryList = new ArrayList<IvrEntryType>();
+		entryList.add(b1);
 		entryList.add(e1);
 		entryList.add(e2);
 		entryList.add(e3);
@@ -949,6 +955,11 @@ public class IntellIVRBeanTest {
 		e5.setMenu("prompt.wav");
 		e5.setKeypress("");
 		
+		b1 = new IvrEntryType();
+		b1.setDuration(0);
+		b1.setMenu("break");
+		b1.setKeypress("1s");
+		
 		e1 = new IvrEntryType();
 		e1.setDuration(15);
 		e1.setMenu("message.wav");
@@ -966,6 +977,7 @@ public class IntellIVRBeanTest {
 		
 		entryList = new ArrayList<IvrEntryType>();
 		entryList.add(e5);
+		entryList.add(b1);
 		entryList.add(e1);
 		entryList.add(e2);
 		entryList.add(e3);
@@ -2019,15 +2031,19 @@ public class IntellIVRBeanTest {
 		session.addGatewayRequest(r4);
 		
 		intellivrBean.ivrNotificationMap = mapping;
+		intellivrBean.setPreReminderDelay(1);
 		
 		RequestType request = intellivrBean.createIVRRequest(session);
 		
 		RequestType.Vxml expectedVxml = new RequestType.Vxml();
 		expectedVxml.setPrompt(new RequestType.Vxml.Prompt());
+		BreakType b1 = new BreakType();
+		b1.setTime("1s");
 		AudioType a1 = new AudioType();
 		a1.setSrc("message.wav");
 		AudioType a2 = new AudioType();
 		a2.setSrc("message2.wav");
+		expectedVxml.getPrompt().getAudioOrBreak().add(b1);
 		expectedVxml.getPrompt().getAudioOrBreak().add(a1);
 		expectedVxml.getPrompt().getAudioOrBreak().add(a2);
 				
@@ -2121,6 +2137,8 @@ public class IntellIVRBeanTest {
 		vxml.getPrompt().getAudioOrBreak().add(a1);
 		vxml.getPrompt().getAudioOrBreak().add(a2);
 		expectedResponse.setVxml(vxml);
+		
+		intellivrBean.setPreReminderDelay(0);
 		
 		MotechContext mockContext = createMock(MotechContext.class);
 		
