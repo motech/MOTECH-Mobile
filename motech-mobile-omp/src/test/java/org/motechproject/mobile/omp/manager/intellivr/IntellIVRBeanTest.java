@@ -2194,7 +2194,6 @@ public class IntellIVRBeanTest {
 		vxml.getPrompt().getAudioOrBreak().add(a3);
 		expectedResponse.setVxml(vxml);
 		expectedResponse.setReportUrl(intellivrBean.getReportURL());
-		expectedResponse.setPrivate("no_session");
 		
 		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andReturn(registrarResponse);
 		replay(mockRegistrarService);
@@ -2205,6 +2204,7 @@ public class IntellIVRBeanTest {
 		replay(mockDao);
 		
 		actualResponse = intellivrBean.handleRequest(request);
+		expectedResponse.setPrivate(actualResponse.getPrivate());
 		assertEquals(expectedResponse, actualResponse);
 		
 		verify(mockRegistrarService);

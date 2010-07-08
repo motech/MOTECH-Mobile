@@ -546,6 +546,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 				List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndSchedule(request.getUserid(), new Date());		
 
+				IVRSession session = new IVRSession(userId);
+				
 				if ( pendingMessageRequests.size() == 0 ) {
 					log.debug("No pending messages found for " + request.getUserid());
 					callLog.info("IN,," + request.getUserid() + ",NO_PENDING");
@@ -557,12 +559,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					vxml.getPrompt().getAudioOrBreak().add(a);
 					r.setVxml(vxml);
 					r.setReportUrl(reportURL);
-					r.setPrivate("no_session");
+					r.setPrivate(session.getSessionId());
 				} else {
 
 					log.debug("Found pending messages for " + request.getUserid() + ": " + pendingMessageRequests);
-
-					IVRSession session = new IVRSession(userId);
 
 					for (MessageRequest messageRequest : pendingMessageRequests ) {
 
@@ -588,14 +588,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					r.setTree(requestType.getTree());
 					r.setVxml(requestType.getVxml());
 
-					ivrSessions.put(session.getSessionId(), session);
-
 					callLog.info("IN,," + 
 									request.getUserid() + "," + 
 									StatusType.OK.value() + "," +
 									session.getSessionId());
 
 				}
+				
+				ivrSessions.put(session.getSessionId(), session);
 
 			}
 
