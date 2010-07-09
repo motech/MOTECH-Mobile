@@ -779,6 +779,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		common.append("," + report.getDisconnectTime());
 		common.append("," + report.getStatus().value());
 		
+		result.add(common.toString());
+		
 		for ( IvrEntryType entry : report.getINTELLIVREntry() ) {
 			
 			StringBuilder message = new StringBuilder();
