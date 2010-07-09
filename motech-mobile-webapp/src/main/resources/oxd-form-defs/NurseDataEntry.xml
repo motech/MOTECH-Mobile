@@ -2948,8 +2948,8 @@
     &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/pncbaby/date" required="true()" type="xsd:dateTime"/&gt;
     &lt;xf:bind id="motechId" nodeset="/pncbaby/motechId" required="true()" type="xsd:int"/&gt;
     &lt;xf:bind id="visitNumber" nodeset="/pncbaby/visitNumber" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 0.2 and . &amp;lt;= 11" id="weight" message="Value out of range: must be between 0.2 and 11" nodeset="/pncbaby/weight" required="true()" type="xsd:decimal"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 30 and . &amp;lt;= 48" id="temperature" message="Value out of range: must be between 30 and 48" nodeset="/pncbaby/temperature" required="true()" type="xsd:decimal"/&gt;
+    &lt;xf:bind constraint=". &amp;gt;= 0.2 and . &amp;lt;= 11" id="weight" message="Value out of range: must be between 0.2 and 11" nodeset="/pncbaby/weight" type="xsd:decimal"/&gt;
+    &lt;xf:bind constraint=". &amp;gt;= 30 and . &amp;lt;= 48" id="temperature" message="Value out of range: must be between 30 and 48" nodeset="/pncbaby/temperature" type="xsd:decimal"/&gt;
     &lt;xf:bind id="location" nodeset="/pncbaby/location" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="house" nodeset="/pncbaby/house" relevant="/pncbaby/location = '2'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="community" nodeset="/pncbaby/community" relevant="/pncbaby/location = '2'" required="true()" type="xsd:string" visible="false()"/&gt;
