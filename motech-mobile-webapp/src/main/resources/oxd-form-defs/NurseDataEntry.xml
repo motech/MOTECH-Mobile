@@ -268,9 +268,9 @@
         &lt;xf:label&gt;Positive&lt;/xf:label&gt;
         &lt;xf:value&gt;Y&lt;/xf:value&gt;
       &lt;/xf:item&gt;
-      &lt;xf:item id="T"&gt;
+      &lt;xf:item id="NA"&gt;
         &lt;xf:label&gt;Trace&lt;/xf:label&gt;
-        &lt;xf:value&gt;T&lt;/xf:value&gt;
+        &lt;xf:value&gt;NA&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
     &lt;xf:input bind="hemoglobin"&gt;
@@ -556,7 +556,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/label" value="Urine test-glucose"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='N']/label" value="Negative"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='Y']/label" value="Positive"/&gt;&#13;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='T']/label" value="Trace"/&gt;&#13;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='NA']/label" value="Trace"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='hemoglobin']/label" value="Hemoglobin (gm/dl)"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='vdrlReactive']/label" value="VDRL"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='vdrlReactive']/item[@id='Y']/label" value="Reactive"/&gt;&#13;
@@ -603,7 +603,7 @@
     &lt;text xpath="xforms/model/bind[@id='bpSystolic'][@message]" value="Value out of range: must be between 60 and 300"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='bpDiastolic'][@message]" value="Value out of range: Must be between 45 and 140"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='weight'][@message]" value="Value out of range: must be between 10 and 500"/&gt;&#13;
-    &lt;text xpath="xforms/model/bind[@id='fht'][@message]" value="Value out of range: must be between 20 and 40"/&gt;&#13;
+    &lt;text xpath="xforms/model/bind[@id='fht'][@message]" value="Value out of range: must be between 12 and 40"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='fhr'][@message]" value="Value out of range: must be between 80 and 200"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='hemoglobin'][@message]" value="Value out of range: must be between 2 and 20"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='nextANCDate'][@message]" value="Invalid date: date must be in the future"/&gt;&#13;

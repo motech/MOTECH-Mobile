@@ -79,7 +79,7 @@ public class FormCommandAction implements CommandAction {
         imSession.setDateEnded(new Date());
         imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
 
-        if(message.getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(getSenderFieldName()))
+        if(message.getIncomingMessageForm() != null && message.getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(getSenderFieldName()))
             imSession.setRequesterPhone(message.getIncomingMessageForm().getIncomingMsgFormParameters().get(getSenderFieldName()).getValue());
 
 
