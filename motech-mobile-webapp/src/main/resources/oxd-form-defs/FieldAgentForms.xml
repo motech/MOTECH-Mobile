@@ -537,7 +537,7 @@
           &lt;value&gt;kay&lt;/value&gt;
         &lt;/item&gt;
         &lt;item id="cha" parent="kassena-nakana_west"&gt;
-          &lt;label&gt;Chaina&lt;/label&gt;
+          &lt;label&gt;Chiana&lt;/label&gt;
           &lt;value&gt;cha&lt;/value&gt;
         &lt;/item&gt;
         &lt;item id="kanku" parent="kassena-nakana_west"&gt;
@@ -2039,7 +2039,7 @@
         &lt;xf:value&gt;kndwk&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="kndwc"&gt;
-        &lt;xf:label&gt;KNDW - Chaina&lt;/xf:label&gt;
+        &lt;xf:label&gt;KNDW - Chiana&lt;/xf:label&gt;
         &lt;xf:value&gt;kndwc&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="kndwkk"&gt;
@@ -2641,7 +2641,7 @@
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='nav']/label" value="Navio"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='kna']/label" value="Katiu-Nakong"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='kay']/label" value="Kayoro"/&gt;&#13;
-    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cha']/label" value="Chaina"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cha']/label" value="Chiana"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='kanku']/label" value="Kandiga-Kuguru"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='sir']/label" value="Sirigu"/&gt;&#13;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='pac']/label" value="Paga Central"/&gt;&#13;
