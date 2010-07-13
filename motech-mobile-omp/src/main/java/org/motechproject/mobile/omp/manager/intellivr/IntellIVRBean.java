@@ -382,11 +382,43 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			else
 				session.setState(IVRSession.REPORT_WAIT);
 
+			StringBuilder requestIds = new StringBuilder();
+			StringBuilder notificationIDs = new StringBuilder();
+			boolean firstRequest = true;
+			
+			for ( GatewayRequest gwRequest : session.getGatewayRequests() ) {
+				if ( firstRequest )
+					firstRequest = false;
+				else {
+					requestIds.append("|");
+					notificationIDs.append("|");
+				}
+				requestIds.append(gwRequest.getId().toString());
+				notificationIDs.append(gwRequest.getMessageRequest().getNotificationType().getId().toString());
+			}
+			
+			StringBuilder reminders = new StringBuilder();
+			boolean firstReminder = true;
+			
+			for ( Object o : request.getVxml().getPrompt().getAudioOrBreak() ) {
+				if ( o instanceof AudioType ) {
+					if ( firstReminder )
+						firstReminder = false;
+					else
+						reminders.append("|");
+					reminders.append(((AudioType)o).getSrc());
+				}
+			}
+			
 			callLog.info("OUT," +
 					session.getPhone() + "," +
 					session.getUserId() + "," +
 					status + "," +
-					session.getSessionId());
+					session.getSessionId() + "," +
+					requestIds.toString() + "," +
+					notificationIDs.toString() + "," +
+					request.getTree() + "," + 
+					reminders.toString());
 		}
 
 	}
@@ -778,8 +810,6 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		common.append("," + report.getConnectTime());
 		common.append("," + report.getDisconnectTime());
 		common.append("," + report.getStatus().value());
-
-		result.add(common.toString());
 
 		result.add(common.toString());
 		
