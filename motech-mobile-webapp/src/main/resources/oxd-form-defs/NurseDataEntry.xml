@@ -2955,7 +2955,7 @@
     &lt;xf:bind action="show" id="community" nodeset="/pncbaby/community" relevant="/pncbaby/location = '2'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="referred" nodeset="/pncbaby/referred" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="maleInvolved" nodeset="/pncbaby/maleInvolved" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 10 and . &amp;lt;= 60" id="respiration" message="Value out of range: must be between 10 and 60" nodeset="/pncbaby/respiration" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind constraint=". &amp;gt;= 10 and . &amp;lt;= 100" id="respiration" message="Value out of range: must be between 10 and 100" nodeset="/pncbaby/respiration" required="true()" type="xsd:int"/&gt;
     &lt;xf:bind id="cordConditionNormal" nodeset="/pncbaby/cordConditionNormal" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="babyConditionGood" nodeset="/pncbaby/babyConditionGood" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="bcg" nodeset="/pncbaby/bcg" required="true()" type="xsd:string"/&gt;
@@ -3189,7 +3189,7 @@
     &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='weight'][@message]" value="Value out of range: must be between 0.2 and 11"/&gt;&#13;
     &lt;text xpath="xforms/model/bind[@id='temperature'][@message]" value="Value out of range: must be between 30 and 48"/&gt;&#13;
-    &lt;text xpath="xforms/model/bind[@id='respiration'][@message]" value="Value out of range: must be between 10 and 60"/&gt;&#13;
+    &lt;text xpath="xforms/model/bind[@id='respiration'][@message]" value="Value out of range: must be between 10 and 100"/&gt;&#13;
   &lt;/xform&gt;</xform>
 <layout>&lt;Form id="66"&gt;&#13;
     &lt;text xpath="Form/Page[@Binding='Page2'][@Text]" value="Page2"/&gt;&#13;
