@@ -7748,13 +7748,13 @@
 </versionText>
 </version>
 </form>
-<form description="" name="TT Out of Pregnancy">
+<form description="" name="TT Non-Pregnant">
 <version description="" name="v1">
 <xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="tt"&gt;
-      &lt;tt id="73" name="TT Out of Pregnancy"&gt;
+      &lt;tt id="73" name="TT Non-Pregnant"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -7841,7 +7841,7 @@
 </layout>
 <versionText locale="en">
 <xform>&lt;xform id="73"&gt;&#13;
-    &lt;text xpath="xforms/model/instance/tt[@name]" value="TT Out of Pregnancy"/&gt;&#13;
+    &lt;text xpath="xforms/model/instance/tt[@name]" value="TT Non-Pregnant"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;&#13;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;&#13;
