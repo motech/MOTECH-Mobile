@@ -557,13 +557,17 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	@SuppressWarnings("unchecked")
 	public ResponseType handleRequest(GetIVRConfigRequest request) {
 
+
 		ResponseType r = new ResponseType();
 		String userId = request.getUserid();
-
+		MotechContext context = null;
+		
 		log.info("Received ivr config request for id " + userId);
 
 		try {
 
+			
+			
 			String[] enrollments = registrarService.getPatientEnrollments(Integer.parseInt(userId));
 
 			if ( enrollments == null || enrollments.length == 0 ) {
@@ -573,7 +577,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				r.setStatus(StatusType.ERROR);
 			} else {
 
-				MotechContext context = coreManager.createMotechContext();
+				context = coreManager.createMotechContext();
 				MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO(context);
 
 				List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndSchedule(request.getUserid(), new Date());
@@ -643,6 +647,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			r.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
 			r.setErrorString("Invalid user id: no such id '" + userId + "' on server");
 			r.setStatus(StatusType.ERROR);
+		} finally {
+			if ( context != null )
+				context.cleanUp();
 		}
 
 		return r;
