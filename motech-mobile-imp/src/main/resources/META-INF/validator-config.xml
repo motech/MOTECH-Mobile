@@ -110,6 +110,14 @@
                         </property>
                     </bean>
                 </entry>
+                <entry key="DELIVERYDATE">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                        <property name="parent" value="DATE" />
+                        <property name="validators">
+                            <map></map>
+                        </property>
+                    </bean>
+                </entry>
                 <entry key="NUMERIC">
                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
