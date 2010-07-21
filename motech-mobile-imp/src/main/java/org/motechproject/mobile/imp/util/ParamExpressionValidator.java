@@ -29,8 +29,6 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
     public synchronized boolean validate(IncomingMessageFormParameter param) {
         String paramType = param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase();
 
-        System.out.println("Regex: " + expression);
-
         if(paramType.indexOf("TIME") >= 0){
             try{
                 SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
