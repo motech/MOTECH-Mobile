@@ -543,7 +543,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 		if ( !session.isUserInitiated() 
 				&& welcomeMessageRecordingName != null
-				&& welcomeMessageRecordingName.length() > 0 ) {
+				&& welcomeMessageRecordingName.trim().length() > 0 ) {
 			AudioType welcome = new AudioType();
 			welcome.setSrc(welcomeMessageRecordingName);
 			vxml.getPrompt()
@@ -602,7 +602,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					RequestType.Vxml vxml = new RequestType.Vxml();
 					vxml.setPrompt(new RequestType.Vxml.Prompt());
 					AudioType a = new AudioType();
-					a.setSrc(noPendingMessagesRecordingName);
+					a.setSrc(noPendingMessagesRecordingName.trim());
 					vxml.getPrompt().getAudioOrBreak().add(a);
 					r.setVxml(vxml);
 					r.setReportUrl(reportURL);
