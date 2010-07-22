@@ -66,6 +66,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private int preReminderDelay;
 	private boolean accelerateRetries;
 	private String noPendingMessagesRecordingName;
+	private String welcomeMessageRecordingName;
 	private Resource mappingResource;
 	private Resource ivrSessionSerialResource;
 	private CoreManager coreManager;
@@ -539,6 +540,15 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				.add(breakType);
 		}
 
+		if ( !session.isUserInitiated() 
+				&& welcomeMessageRecordingName != null
+				&& welcomeMessageRecordingName.length() > 0 ) {
+			AudioType welcome = new AudioType();
+			welcome.setSrc(welcomeMessageRecordingName);
+			vxml.getPrompt()
+				.getAudioOrBreak()
+				.add(welcome);
+		}
 
 		for (String fileName : reminderMessages) {
 			AudioType audio = new AudioType();
@@ -1011,6 +1021,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	public void setNoPendingMessagesRecordingName(
 			String noPendingMessagesRecordingName) {
 		this.noPendingMessagesRecordingName = noPendingMessagesRecordingName;
+	}
+
+	public String getWelcomeMessageRecordingName() {
+		return welcomeMessageRecordingName;
+	}
+
+	public void setWelcomeMessageRecordingName(String welcomeMessageRecordingName) {
+		this.welcomeMessageRecordingName = welcomeMessageRecordingName;
 	}
 
 	public Resource getMappingResource() {

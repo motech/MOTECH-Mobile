@@ -217,6 +217,7 @@
         <property name="preReminderDelay" value="${intellivr.gateway.preReminderDelay}" />
         <property name="accelerateRetries" value="false" />
         <property name="noPendingMessagesRecordingName" value="${intellivr.gateway.noPendingMessagesRecordingName}"/>
+        <property name="welcomeMessageRecordingName" value="${intellivr.gateway.welcomeMessageRecordingName}"/>
         <property name="mappingResource" value="${intellivr.gateway.ivrConfig}"/>
         <property name="ivrSessionSerialResource" value="${intellivr.gateway.sessionCacheFile}"/>
         <property name="coreManager" ref="coreManager"/>

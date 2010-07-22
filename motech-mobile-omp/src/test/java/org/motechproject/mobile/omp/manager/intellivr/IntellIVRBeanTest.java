@@ -2032,6 +2032,7 @@ public class IntellIVRBeanTest {
 
 		intellivrBean.ivrNotificationMap = mapping;
 		intellivrBean.setPreReminderDelay(1);
+		intellivrBean.setWelcomeMessageRecordingName("welcome.wav");
 
 		RequestType request = intellivrBean.createIVRRequest(session);
 
@@ -2039,11 +2040,14 @@ public class IntellIVRBeanTest {
 		expectedVxml.setPrompt(new RequestType.Vxml.Prompt());
 		BreakType b1 = new BreakType();
 		b1.setTime("1s");
+		AudioType w1 = new AudioType();
+		w1.setSrc("welcome.wav");
 		AudioType a1 = new AudioType();
 		a1.setSrc("message.wav");
 		AudioType a2 = new AudioType();
 		a2.setSrc("message2.wav");
 		expectedVxml.getPrompt().getAudioOrBreak().add(b1);
+		expectedVxml.getPrompt().getAudioOrBreak().add(w1);
 		expectedVxml.getPrompt().getAudioOrBreak().add(a1);
 		expectedVxml.getPrompt().getAudioOrBreak().add(a2);
 
