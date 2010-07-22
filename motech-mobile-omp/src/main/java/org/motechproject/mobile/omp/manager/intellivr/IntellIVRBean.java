@@ -340,6 +340,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	}
 
 	private void initializeGatewayRequest(GatewayRequest request) {
+		request.getId();
 		request.getRecipientsNumber();
 		request.getDateFrom();
 		request.getDateTo();
