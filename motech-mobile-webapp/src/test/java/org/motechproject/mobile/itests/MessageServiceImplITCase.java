@@ -253,6 +253,8 @@ public class MessageServiceImplITCase {
         request = "Type=GeneralOPD\nCHPSID=123ABC\nDate=02-03-2010\nSerialNo=ANC123\nSex=f\nDoB=28/05/1981\nInsured=y\nNewCase=n\nDiagnosis=35\nSecondaryDiagnosis=14\nReferral=y\ntime=" + new Date().getTime();
         expResult = "An unexpected error occurred! Please try again.";
         result = impService.processRequest(request, number, false);
+        System.out.println("result: " + (result == null ? "NULL" : result.getContent()));
+        System.out.println("expected: " + expResult);
         assertEquals(result.getContent(),expResult);
     }
 }
