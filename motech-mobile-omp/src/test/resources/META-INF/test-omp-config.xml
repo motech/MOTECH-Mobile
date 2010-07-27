@@ -244,7 +244,8 @@
 		<property name="bundlingDelay" value="15000"/>
 		<property name="retryDelay" value="15"/>
 		<property name="maxAttempts" value="4"/>
-		<property name="maxDays" value="4"/>	
+		<property name="maxDays" value="4"/>
+		<property name="availableDays" value="7"/>	
 		<property name="noPendingMessagesRecordingName" value="prompt_H.wav"/>
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
 		<property name="ivrSessionSerialResource" value="file:src/test/resources/ivrsession.cache"/>

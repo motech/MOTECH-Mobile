@@ -153,6 +153,7 @@ public class IntellIVRBeanTest {
 		String phone2 = "5555556";
 
 		intellivrBean.setBundlingDelay(-1);
+		intellivrBean.setAvailableDays(1);
 
 		MotechContext mockContext = createMock(MotechContext.class);
 
@@ -169,6 +170,13 @@ public class IntellIVRBeanTest {
 		english.setCode("en");
 		english.setId(1L);
 		english.setName("English");
+		
+		Date expectedDateFrom = new Date();
+		
+		GregorianCalendar dateToCal = new GregorianCalendar();
+		dateToCal.setTime(expectedDateFrom);
+		dateToCal.add(GregorianCalendar.DAY_OF_MONTH, intellivrBean.getAvailableDays());
+		Date expectedDataTo = dateToCal.getTime();
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
@@ -182,6 +190,7 @@ public class IntellIVRBeanTest {
 		mr1.setMessageType(MessageType.VOICE);
 		mr1.setNotificationType(n1);
 		mr1.setPhoneNumberType("PERSONAL");
+		mr1.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r1 = new GatewayRequestImpl();
 		r1.setId(1000L);
@@ -211,6 +220,7 @@ public class IntellIVRBeanTest {
 		mr2.setMessageType(MessageType.VOICE);
 		mr2.setNotificationType(n2);
 		mr2.setPhoneNumberType("PERSONAL");
+		mr2.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r2 = new GatewayRequestImpl();
 		r2.setId(2000L);
@@ -240,6 +250,7 @@ public class IntellIVRBeanTest {
 		mr3.setMessageType(MessageType.VOICE);
 		mr3.setNotificationType(n3);
 		mr3.setPhoneNumberType("PERSONAL");
+		mr3.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r3 = new GatewayRequestImpl();
 		r3.setId(3000L);
@@ -393,6 +404,8 @@ public class IntellIVRBeanTest {
 				assertEquals(mr1.getDaysAttempted(), actualSession.getDays());
 				assertTrue(actualSession.getGatewayRequests().contains(r1));
 				assertTrue(actualSession.getGatewayRequests().contains(r2));
+				for ( GatewayRequest gr : actualSession.getGatewayRequests())
+					assertEquals(expectedDataTo, gr.getMessageRequest().getDateTo());
 				actualSession1 = actualSession;
 				actualSession1Id = actualSession.getSessionId();
 			}
@@ -401,6 +414,8 @@ public class IntellIVRBeanTest {
 				assertEquals(expectedSession2.getPhone(), actualSession.getPhone());
 				assertEquals(mr3.getDaysAttempted(), actualSession.getDays());
 				assertTrue(actualSession.getGatewayRequests().contains(r3));
+				for ( GatewayRequest gr : actualSession.getGatewayRequests())
+					assertEquals(expectedDataTo, gr.getMessageRequest().getDateTo());
 				actualSession2 = actualSession;
 				actualSession2Id = actualSession.getSessionId();
 			}

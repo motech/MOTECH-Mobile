@@ -62,6 +62,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	private int retryDelay;
 	private int maxAttempts;
 	private int maxDays;
+	private int availableDays;
 	private int callCompletedThreshold;
 	private int preReminderDelay;
 	private boolean accelerateRetries;
@@ -272,7 +273,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 				GregorianCalendar endTime = new GregorianCalendar();
 				endTime.setTime(gatewayRequest.getMessageRequest().getDateFrom());
-				endTime.add(GregorianCalendar.DAY_OF_MONTH, maxDays);
+				endTime.add(GregorianCalendar.DAY_OF_MONTH, availableDays);
 
 				gatewayRequest.getMessageRequest().setDateTo(endTime.getTime());
 
@@ -989,6 +990,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	public void setMaxDays(int maxDays) {
 		this.maxDays = maxDays;
+	}
+
+	public int getAvailableDays() {
+		return availableDays;
+	}
+
+	public void setAvailableDays(int availableDays) {
+		this.availableDays = availableDays;
 	}
 
 	public int getCallCompletedThreshold() {

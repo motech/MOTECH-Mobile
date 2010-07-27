@@ -213,6 +213,7 @@
         <property name="retryDelay" value="${intellivr.gateway.retryDelay}"/>
         <property name="maxAttempts" value="${intellivr.gateway.maxAttempts}"/>
         <property name="maxDays" value="${intellivr.gateway.maxDays}"/>
+        <property name="availableDays" value="${intellivr.gateway.availableDays}"/>
         <property name="callCompletedThreshold" value="${intellivr.gateway.callCompletedThreshold}" />
         <property name="preReminderDelay" value="${intellivr.gateway.preReminderDelay}" />
         <property name="accelerateRetries" value="false" />
