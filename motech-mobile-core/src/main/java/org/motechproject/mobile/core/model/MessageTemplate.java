@@ -7,7 +7,19 @@ import java.util.Date;
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
-public interface MessageTemplate extends MotechEntity {
+public interface MessageTemplate {
+
+     /**
+     *
+     * @param id the id to set
+     */
+    public void setId(String id);
+
+    /**
+     *
+     * @return id to get
+     */
+    public String getId();
 
     /**
      * @return the date_created
@@ -69,4 +81,14 @@ public interface MessageTemplate extends MotechEntity {
      */
     @Override
     public String toString();
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

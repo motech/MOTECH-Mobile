@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
-  <union-subclass extends="MotechEntityImpl" name="IncomingMessageSessionImpl" table="incoming_message_session">
-    <property column="requester_phone" length="20" name="requesterPhone" type="string"/>
-    <property column="form_code" length="100" name="formCode" type="string"/>
-    <property column="date_started" name="dateStarted" type="timestamp"/>
-    <property column="date_ended" name="dateEnded" type="timestamp"/>
-    <property generated="always" insert="false" name="lastActivity" update="false">
-      <column default="current_timestamp" name="last_activity" sql-type="timestamp"/>
-    </property>
+    <typedef class="org.motechproject.mobile.core.util.StringEnumUserType" name="incMessageSessionStatus">
+        <param name="enumClassname">org.motechproject.mobile.core.model.IncMessageSessionStatus</param>
+    </typedef>
+    <class name="IncomingMessageSessionImpl" table="incoming_message_session">
+        <id column="id" name="id" type="string">
+            <generator class="assigned"/>
+        </id>
+        <version name="version">
+            <column default="0" name="obj_vesion" sql-type="int"/>
+        </version>
+        <property column="requester_phone" length="20" name="requesterPhone" type="string"/>
+        <property column="form_code" length="100" name="formCode" type="string"/>
+        <property column="date_started" name="dateStarted" type="timestamp"/>
+        <property column="date_ended" name="dateEnded" type="timestamp"/>
+        <property generated="always" insert="false" name="lastActivity" update="false">
+            <column default="current_timestamp" name="last_activity" sql-type="timestamp"/>
+        </property>
     <!-- <list cascade="save-update" name="incomingMessages" table="incoming_messages_list">
       <key not-null="true">
           <column name="incoming_message_session_id" />
@@ -16,6 +25,6 @@
       <list-index column="position"/>
       <one-to-many class="IncomingMessageImpl"/>
     </list>-->
-    <property access="field" column="message_session_status" name="messageSessionStatus" type="incMessageSessionStatus"/>
-  </union-subclass>
+        <property access="field" column="message_session_status" name="messageSessionStatus" type="incMessageSessionStatus"/>
+    </class>
 </hibernate-mapping>

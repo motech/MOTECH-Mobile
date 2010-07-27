@@ -6,7 +6,6 @@ import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
 import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDefinitionDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormParameterDAO;
@@ -15,8 +14,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -27,6 +24,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -35,6 +34,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class IncomingMessageFormDAOImplTest {
 
     @Autowired
@@ -89,80 +90,79 @@ public class IncomingMessageFormDAOImplTest {
     @Before
     public void setUp() {
 
-        MotechContext tc = coreManager.createMotechContext();
-        imfDAO = coreManager.createIncomingMessageFormDAO(tc);
-        imfdDAO = coreManager.createIncomingMessageFormDefinitionDAO(tc);
-        imfPDAO = coreManager.createIncomingMessageFormParameterDAO(tc);
+        imfDAO = coreManager.createIncomingMessageFormDAO();
+        imfdDAO = coreManager.createIncomingMessageFormDefinitionDAO();
+        imfPDAO = coreManager.createIncomingMessageFormParameterDAO();
 
-        imf1.setId(987L);
+        imf1.setId("12000000001");
         imf1.setDateCreated(new Date());
         imf1.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf2.setId(156L);
+        imf2.setId("12000000002");
         imf2.setDateCreated(new Date());
         imf2.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf3.setId(656L);
+        imf3.setId("12000000003");
         imf3.setDateCreated(new Date());
         imf3.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf4.setId(984L);
+        imf4.setId("12000000004");
         imf4.setDateCreated(new Date());
         imf4.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf5.setId(454L);
+        imf5.setId("12000000005");
         imf5.setDateCreated(new Date());
         imf5.setMessageFormStatus(IncMessageFormStatus.INVALID);
 
-        imfd1.setId(65L);
+        imfd1.setId("12000000006");
         imfd1.setFormCode("test_formdef");
         imfd1.setDateCreated(new Date());
 
-        imfd2.setId(825L);
+        imfd2.setId("12000000007");
         imfd2.setFormCode("test_formdef 2");
         imfd2.setDateCreated(new Date());
 
-        imfd3.setId(828L);
+        imfd3.setId("12000000008");
         imfd3.setFormCode("test_formdef 3");
         imfd3.setDateCreated(new Date());
 
-        imfd4.setId(100L);
+        imfd4.setId("12000000009");
         imfd4.setFormCode("test_formdef 4");
         imfd4.setDateCreated(new Date());
 
-        imfd5.setId(103L);
+        imfd5.setId("12000000010");
         imfd5.setFormCode("test_formdef 5");
         imfd5.setDateCreated(new Date());
 
-        imfP1.setId(965L);
+        imfP1.setId("12000000011");
         imfP1.setDateCreated(new Date());
         imfP1.setErrCode(12);
         imfP1.setErrText("err_code1");
         imfP1.setName("param1");
         imfP1.setValue("value1");
 
-        imfP2.setId(535L);
+        imfP2.setId("12000000012");
         imfP2.setDateCreated(new Date());
         imfP2.setErrCode(159);
         imfP2.setErrText("err_code159");
         imfP2.setName("param2");
         imfP2.setValue("value2");
 
-        imfP3.setId(9842L);
+        imfP3.setId("12000000013");
         imfP3.setDateCreated(new Date());
         imfP3.setErrCode(125);
         imfP3.setErrText("err_code125");
         imfP3.setName("param3");
         imfP3.setValue("value3");
 
-        imfP4.setId(300L);
+        imfP4.setId("12000000014");
         imfP4.setDateCreated(new Date());
         imfP4.setErrCode(200);
         imfP4.setErrText("err_code200");
         imfP4.setName("param4");
         imfP4.setValue("value4");
 
-        imfP5.setId(202L);
+        imfP5.setId("12000000015");
         imfP5.setDateCreated(new Date());
         imfP5.setErrCode(201);
         imfP5.setErrText("err_code201");
@@ -178,8 +178,7 @@ public class IncomingMessageFormDAOImplTest {
         imf5.addIncomingMsgFormParam(imfP5.getName(), imfP5);
         imfd5.addIncomingMessageForm(imf5);
 
-        Session session = ((Session) imfdDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
+
         imfdDAO.save(imfd1);
         imfdDAO.save(imfd2);
         imfdDAO.save(imfd3);
@@ -188,15 +187,14 @@ public class IncomingMessageFormDAOImplTest {
         imfDAO.save(imf3);
         imfDAO.save(imf4);
         imfDAO.save(imf5);
-        tx.commit();
+
 
 
     }
 
     @After
     public void tearDown() {
-        Session session = ((Session) imfdDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
+
         imfDAO.delete(imf1);
         imfDAO.delete(imf2);
         imfDAO.delete(imf4);
@@ -207,7 +205,7 @@ public class IncomingMessageFormDAOImplTest {
         imfdDAO.delete(imfd4);
         imfdDAO.delete(imfd5);
         imfDAO.delete(imf3);
-        tx.commit();
+
 
     }
 
@@ -217,14 +215,13 @@ public class IncomingMessageFormDAOImplTest {
     @Test
     public void testSave() {
         System.out.println("IncomingMessageFormDAOImpl save");
-        Session session = ((Session) imfDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
+  
         imfd1.addIncomingMessageForm(imf1);
         imfDAO.save(imf1);
-        tx.commit();
 
 
-        IncomingMessageForm fromdb = (IncomingMessageForm) session.get(IncomingMessageFormImpl.class, imf1.getId());
+
+        IncomingMessageForm fromdb = (IncomingMessageForm) imfDAO.getSessionFactory().getCurrentSession().get(IncomingMessageFormImpl.class, imf1.getId());
 
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(fromdb, imf1);
@@ -239,16 +236,15 @@ public class IncomingMessageFormDAOImplTest {
     @Test
     public void testSaveWithParam() {
         System.out.println("IncomingMessageFormDAO save with param");
-        Session session = ((Session) imfDAO.getDBSession().getSession());
+
         Map<String, IncomingMessageFormParameter> expMap = new HashMap<String, IncomingMessageFormParameter>();
         expMap.put(imfP2.getName(), imfP2);
-        Transaction tx = session.beginTransaction();
+
         imf2.addIncomingMsgFormParam(imfP2.getName(), imfP2);
         imfd2.addIncomingMessageForm(imf2);
         imfDAO.save(imf2);
-        tx.commit();
 
-        IncomingMessageForm fromdb = (IncomingMessageForm) session.get(IncomingMessageFormImpl.class, imf2.getId());
+        IncomingMessageForm fromdb = (IncomingMessageForm) imfDAO.getSessionFactory().getCurrentSession().get(IncomingMessageFormImpl.class, imf2.getId());
 
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(fromdb, imf2);
@@ -268,14 +264,14 @@ public class IncomingMessageFormDAOImplTest {
     @Test
     public void testFindByExample() {
         System.out.println("IncomingMessageFormDAO findByExample");
-        Session session = ((Session) imfDAO.getDBSession().getSession());
+
         List expResult = new ArrayList();
         expResult.add(imf3);
         expResult.add(imf4);
         exampleForm.setMessageFormStatus(IncMessageFormStatus.NEW);
-        Transaction tx = session.beginTransaction();
+    
         List result = imfDAO.findByExample(exampleForm);
-        tx.commit();
+
         Assert.assertEquals(expResult, result);
         Assert.assertEquals(expResult.size(), result.size());
 

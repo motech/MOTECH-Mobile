@@ -26,7 +26,7 @@ public class IncomingMessageSessionDAOImpl extends HibernateGenericDAOImpl<Incom
         try {
 
             List<IncomingMessageSession> allMsgSession;
-            allMsgSession = (List<IncomingMessageSession>) getDBSession().getSession().createCriteria(getPersistentClass())
+            allMsgSession = (List<IncomingMessageSession>) this.getSessionFactory().getCurrentSession().createCriteria(getPersistentClass())
                     .add(Restrictions.eq("requesterPhone", requesterPhone))
                     .list();
 

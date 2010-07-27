@@ -30,8 +30,33 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <context:annotation-config />
-    <tx:annotation-driven />
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
+
+
+<!-- Transaction Management    -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <tx:advice id="motechTxAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--<tx:method name="getAll" />
+            <tx:method name="getBy*" />
+            <tx:method name="save" />
+            <tx:method name="delete" />
+            <tx:method name="findByExample" />
+            <tx:method name="getMostRecentResponseByMessageId" />
+            <tx:method name="getMsg*" /> -->
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="motechServiceMethods" expression="execution(* org.motechproject.mobile.*.service.*.*(..))" />
+        <aop:advisor advice-ref="motechTxAdvice" pointcut-ref="motechServiceMethods" />
+    </aop:config>
+<!--  Transaction Management  -->
     <!-- Model -->
 
     <bean id="sessionContainer" class="org.motechproject.mobile.core.dao.hibernate.HibernateUtils">
@@ -44,8 +69,6 @@
     <bean id="gatewayResponse" class="org.motechproject.mobile.core.model.GatewayResponseImpl" scope="prototype">
     </bean>
 
-    <bean id="transition" class="org.motechproject.mobile.core.model.TransitionImpl" scope="prototype">
-    </bean>
     <bean id="gatewayRequestDetails" class="org.motechproject.mobile.core.model.GatewayRequestDetailsImpl" scope="prototype">
     </bean>
 
@@ -60,25 +83,25 @@
     <bean id="notificationType" class="org.motechproject.mobile.core.model.NotificationTypeImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageSession" class="org.motechproject.mobile.core.model.IncomingMessageSessionImpl" scope="prototype">
+    <bean id="incomingMessageSession" class="org.motechproject.mobile.core.model.IncomingMessageSessionImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessage" class="org.motechproject.mobile.core.model.IncomingMessageImpl" scope="prototype">
+    <bean id="incomingMessage" class="org.motechproject.mobile.core.model.IncomingMessageImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageResponse" class="org.motechproject.mobile.core.model.IncomingMessageResponseImpl" scope="prototype">
+    <bean id="incomingMessageResponse" class="org.motechproject.mobile.core.model.IncomingMessageResponseImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormDefinition" class="org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl" scope="prototype">
+    <bean id="incomingMessageFormDefinition" class="org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormParameterDefinition" class="org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinitionImpl" scope="prototype">
+    <bean id="incomingMessageFormParameterDefinition" class="org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinitionImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageForm" class="org.motechproject.mobile.core.model.IncomingMessageFormImpl" scope="prototype">
+    <bean id="incomingMessageForm" class="org.motechproject.mobile.core.model.IncomingMessageFormImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormParameter" class="org.motechproject.mobile.core.model.IncomingMessageFormParameterImpl" scope="prototype">
+    <bean id="incomingMessageFormParameter" class="org.motechproject.mobile.core.model.IncomingMessageFormParameterImpl" scope="prototype">
     </bean>
 
     <!-- End of Model-->
@@ -105,7 +128,6 @@
                 <value>org/motechproject/mobile/core/model/MotechEntityImpl.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/GatewayRequest.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/GatewayResponse.hbm.xml</value>
-                <value>org/motechproject/mobile/core/model/Transition.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/GatewayRequestDetails.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/MessageRequest.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/Language.hbm.xml</value>
@@ -122,20 +144,21 @@
         </property>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+    <!-- Liquibase Settings   -->
+<!--    <bean id="liquibase" class="liquibase.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource" />
+        <property name="changeLog" value="${changeLogFile}" />
+        <property name="contexts" value="${contexts}" />
+    </bean>-->
 
-    <bean id="dBSession" class="org.motechproject.mobile.core.dao.HibernateDBSessionImpl" scope="prototype">
-    </bean>
+<!--  End of liquibase settings  -->
+
+
 
     <bean id="gatewayRequestDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayRequestDAOImpl" scope="prototype">
     </bean>
 
     <bean id="gatewayResponseDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
-    </bean>
-
-    <bean id="transitionDAO" class="org.motechproject.mobile.core.dao.hibernate.TransitionDAOImpl" scope="prototype">
     </bean>
 
     <bean id="messageRequestDAO" class="org.motechproject.mobile.core.dao.hibernate.MessageRequestDAOImpl" scope="prototype">
@@ -171,22 +194,14 @@
     <bean id="incomingMessageFormDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormDAOImpl" scope="prototype">
     </bean>
 
-     <bean id="incomingMessageFormParameterDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormParameterDAOImpl" scope="prototype">
+    <bean id="incomingMessageFormParameterDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormParameterDAOImpl" scope="prototype">
     </bean>
     <!-- End of Data Access-->
-
-    <!-- Services -->
-
-    <bean id="motechContext" class="org.motechproject.mobile.core.service.MotechContextImpl" destroy-method="cleanUp" scope="prototype">
-        <property name="DBSession" ref="dBSession"/>
-    </bean>
-
-    <!-- End of Services -->
 
     <!-- Managers -->
 
     <bean id="coreManager" class="org.motechproject.mobile.core.manager.CoreManagerImpl">
-        <property name="sessionContainer" ref="sessionContainer"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <!-- End of Managers -->
 </beans>

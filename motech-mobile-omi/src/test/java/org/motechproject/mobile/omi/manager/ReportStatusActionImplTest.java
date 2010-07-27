@@ -32,7 +32,7 @@ public class ReportStatusActionImplTest{
     public void setUp(){
         mockService = createMock(RegistrarService.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId(2L);
+        mockGatewayRequestDetails.setId("17000000001");
         instance = new ReportStatusActionImpl();        
         instance.setRegWs(mockService);
     }
@@ -42,7 +42,7 @@ public class ReportStatusActionImplTest{
         System.out.println("doAction");
 
         GatewayRequestDetails grd = new GatewayRequestDetailsImpl();
-        grd.setId(3L);
+        grd.setId("17000000002");
         
         GatewayRequest messageDetails = new GatewayRequestImpl();
         messageDetails.setDateFrom(new Date());
@@ -57,7 +57,7 @@ public class ReportStatusActionImplTest{
         response.setMessageStatus(MStatus.DELIVERED);
         response.setRecipientNumber("000000000000");
         response.setResponseText("Some gateway response message");
-        response.setId(5L);
+        response.setId("17000000003");
         
         //mockService.setMessageStatus((String) anyObject(), anyBoolean());
         //expectLastCall();

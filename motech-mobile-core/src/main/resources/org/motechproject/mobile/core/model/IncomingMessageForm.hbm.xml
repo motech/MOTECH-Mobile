@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
-  <union-subclass extends="MotechEntityImpl" name="IncomingMessageFormImpl" table="incoming_message_form">
+    <typedef class="org.motechproject.mobile.core.util.StringEnumUserType" name="incMessageFormStatus">
+    <param name="enumClassname">org.motechproject.mobile.core.model.IncMessageFormStatus</param>
+  </typedef>
+  <class name="IncomingMessageFormImpl" table="incoming_message_form">
+    <id column="id" name="id" type="string">
+      <generator class="assigned"/>
+    </id>
+    <version name="version">
+      <column default="0" name="obj_vesion" sql-type="int"/>
+    </version>
     <many-to-one class="IncomingMessageFormDefinitionImpl" column="incoming_message_form_definition_id" name="incomingMsgFormDefinition"/>
     <property column="date_created" name="dateCreated" type="timestamp"/>
     <property generated="always" insert="false" name="lastModified" update="false">
@@ -13,5 +22,5 @@
       <one-to-many class="IncomingMessageFormParameterImpl"/>
     </map>
     <property access="field" column="message_form_status" name="messageFormStatus" type="incMessageFormStatus"/>
-  </union-subclass>
+  </class>
 </hibernate-mapping>

@@ -5,7 +5,7 @@
 
 package org.motechproject.mobile.itests;
 
-import org.motechproject.mobile.imp.serivce.IMPServiceImpl;
+import org.motechproject.mobile.imp.serivce.IMPService;
 import org.motechproject.mobile.omi.service.OMIService;
 import org.motechproject.mobile.omp.service.MessagingService;
 import java.io.IOException;
@@ -35,8 +35,7 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:WEB-INF/webapp-config.xml",
-                                    "classpath:META-INF/client-config.xml"})
+@ContextConfiguration(locations = {"classpath:WEB-INF/webapp-config.xml","classpath:META-INF/client-config.xml"})
 public class MessageServiceImplITCase {
 
 
@@ -49,8 +48,8 @@ public class MessageServiceImplITCase {
     @Autowired
     MessagingService smsService;
     @Autowired
-    IMPServiceImpl impService;
-    
+    IMPService impService;
+
 
     public MessageServiceImplITCase() {
     }
@@ -74,16 +73,16 @@ public class MessageServiceImplITCase {
     public void testSendPatientMessage() {
         System.out.println("sendPatientMessage");
         String messageId = "testId1";
-        
+
         NameValuePair attrib = new NameValuePair("PatientFirstName", "Tester");
         NameValuePair attrib2 = new NameValuePair("DueDate", "now");
         NameValuePair[] personalInfo = new NameValuePair[]{attrib, attrib2};
-        
+
         Date serviceDate = new Date();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.HOUR, 1);
         Date endDate = cal.getTime();
-        
+
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
@@ -98,7 +97,7 @@ public class MessageServiceImplITCase {
     public void testSendPatientMessage_NullInfo() {
         System.out.println("sendPatientMessage with null personalInfo");
         String messageId = "testId2";
-        
+
         Date serviceDate = new Date();
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
@@ -114,11 +113,11 @@ public class MessageServiceImplITCase {
     public void testSendPatientMessage_NullDate() {
         System.out.println("sendPatientMessage with null dates");
         String messageId = "testId3";
-        
+
         NameValuePair attrib = new NameValuePair("PatientFirstName", "Tester");
         NameValuePair attrib2 = new NameValuePair("DueDate", "now");
         NameValuePair[] personalInfo = new NameValuePair[]{attrib, attrib2};
-        
+
         String patientNumber = testProps.getProperty("patientNumber", "000000000000");
         ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
         MediaType messageType = MediaType.TEXT;
@@ -135,16 +134,16 @@ public class MessageServiceImplITCase {
         String messageId = "testId4";
         String workerNumber = testProps.getProperty("workerNumber", "000000000000");
         Date serviceDate = new Date();
-        MediaType messageType = MediaType.TEXT;       
-                
+        MediaType messageType = MediaType.TEXT;
+
         NameValuePair attrib = new NameValuePair("Test", "Test");
         NameValuePair[] personalInfo = new NameValuePair[]{attrib};
-        
+
         Patient patient = new Patient();
         patient.setPreferredName("Test patient");
         patient.setMotechId("TS000000001");
         Patient[] patientList = new Patient[]{patient};
-        
+
         MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 5L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.QUEUED);
     }
@@ -158,13 +157,13 @@ public class MessageServiceImplITCase {
         String messageId = "testId5";
         String workerNumber = testProps.getProperty("workerNumber", "000000000000");
         Date serviceDate = new Date();
-        MediaType messageType = MediaType.TEXT;       
-        
+        MediaType messageType = MediaType.TEXT;
+
         Patient patient = new Patient();
         patient.setPreferredName("Test patient");
         patient.setMotechId("TS000000001");
         Patient[] patientList = new Patient[]{patient};
-        
+
         MessageStatus result = client.sendCHPSMessage(messageId, null, workerNumber, patientList, "kas", messageType, 6L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.QUEUED);
     }
@@ -178,11 +177,11 @@ public class MessageServiceImplITCase {
         String messageId = "testId6";
         String workerNumber = testProps.getProperty("workerNumber", "000000000000");
         Date serviceDate = new Date();
-        MediaType messageType = MediaType.TEXT;       
-                
+        MediaType messageType = MediaType.TEXT;
+
         NameValuePair attrib = new NameValuePair("Test", "Test");
         NameValuePair[] personalInfo = new NameValuePair[]{attrib};
-        
+
         MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, null, "nan", messageType, 7L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.QUEUED);
     }
@@ -196,16 +195,16 @@ public class MessageServiceImplITCase {
         String messageId = "testId7";
         String workerNumber = testProps.getProperty("workerNumber", "000000000000");
         Date serviceDate = null;
-        MediaType messageType = MediaType.TEXT;       
-                
+        MediaType messageType = MediaType.TEXT;
+
         NameValuePair attrib = new NameValuePair("Test", "Test");
         NameValuePair[] personalInfo = new NameValuePair[]{attrib};
-        
+
         Patient patient = new Patient();
         patient.setPreferredName("Test patient");
         patient.setMotechId("TS000000001");
         Patient[] patientList = new Patient[]{patient};
-        
+
         MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 8L, serviceDate, serviceDate);
         assertEquals(result, MessageStatus.PENDING);
     }

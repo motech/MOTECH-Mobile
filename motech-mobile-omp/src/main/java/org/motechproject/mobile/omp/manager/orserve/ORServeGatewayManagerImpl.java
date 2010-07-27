@@ -33,7 +33,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
      *
      * @see GatewayManager.send
      */
-    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context) {
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         String gatewayResponse;
 
         if(messageDetails == null)
@@ -62,7 +62,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
         messageDetails.setDateSent(new Date());
         
         logger.debug("Parsing gateway response");
-        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse, context);
+        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
     }
 
     /**

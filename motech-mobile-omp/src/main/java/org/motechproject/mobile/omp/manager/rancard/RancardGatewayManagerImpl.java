@@ -38,7 +38,7 @@ public class RancardGatewayManagerImpl implements GatewayManager {
     public RancardGatewayManagerImpl() {
     }
 
-    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context) {
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         String postData = "";
         try {
             postData += "&username=" + URLEncoder.encode(user, "UTF-8");
@@ -101,7 +101,7 @@ public class RancardGatewayManagerImpl implements GatewayManager {
         }
         messageDetails.setDateSent(new Date());
         //Convert the response to a standard format
-        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse, context);
+        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
 
     }
 

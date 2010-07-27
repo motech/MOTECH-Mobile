@@ -7,7 +7,6 @@ package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.model.IncomingMessage;
 import org.motechproject.mobile.core.model.IncomingMessageResponse;
-import org.motechproject.mobile.core.service.MotechContext;
 
 /**
  * Processes a requested action on an IncomingMessage object
@@ -24,5 +23,5 @@ public interface CommandAction {
      * @param requesterPhone Phone number by which the request was made
      * @return IncomingMessageResponse generated as a result of command execution
      */
-    IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context);
+    IncomingMessageResponse execute(IncomingMessage message, String requesterPhone);
 }

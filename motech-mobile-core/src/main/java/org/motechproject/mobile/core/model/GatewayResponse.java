@@ -11,8 +11,20 @@ import java.util.Set;
  * Date: Jul 24, 2009
  * @author Joseph (joseph@dreamoval.com)
  */
-public interface GatewayResponse extends MotechEntity {
+public interface GatewayResponse {
 
+    /**
+     * 
+     * @param id id to set
+     */
+    public void setId(String id);
+
+
+    /**
+     * 
+     * @return the id
+     */
+    public String getId();
     /**
      * @return the gatewayMessageId
      */
@@ -35,8 +47,8 @@ public interface GatewayResponse extends MotechEntity {
 
     /**
      * @return the transitions
-     */
-    public Set<Transition> getTransitions();
+//     */
+//    public Set<Transition> getTransitions();
 
     /**
      * @return the responseText
@@ -78,10 +90,10 @@ public interface GatewayResponse extends MotechEntity {
      */
     public void setRecipientNumber(String recipientNumber);
 
-    /**
-     * @param transitions the transitions to set
-     */
-    public void setTransitions(Set<Transition> transitions);
+//    /**
+//     * @param transitions the transitions to set
+//     */
+//    public void setTransitions(Set<Transition> transitions);
 
     /**
      * @param recipientNumber the recipientNumber to set
@@ -92,14 +104,14 @@ public interface GatewayResponse extends MotechEntity {
      * @param lastModified the lastModified to set
      */
     public void setLastModified(Date lastModified);
-
-    public void addTransition(Transition transition);
-
-    public void addTransition(List<Transition> transitions);
-
-    public void removeTransition(Transition transition);
-
-    public void removeTransition(List<Transition> transitions);
+//
+//    public void addTransition(Transition transition);
+//
+//    public void addTransition(List<Transition> transitions);
+//
+//    public void removeTransition(Transition transition);
+//
+//    public void removeTransition(List<Transition> transitions);
 
     /**
      * @param requestId the requestId to set
@@ -117,4 +129,14 @@ public interface GatewayResponse extends MotechEntity {
      */
     @Override
     public String toString();
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

@@ -8,7 +8,19 @@ import java.util.List;
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessageSession extends MotechEntity {
+public interface IncomingMessageSession {
+
+    /**
+     * 
+     * @param id the id to set
+     */
+    public void setId(String id);
+
+    /**
+     *
+     * @return id to get
+     */
+    public String getId();
 
     /**
      * @return the dateStarted
@@ -98,4 +110,15 @@ public interface IncomingMessageSession extends MotechEntity {
      */
     @Override
     public String toString();
+
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

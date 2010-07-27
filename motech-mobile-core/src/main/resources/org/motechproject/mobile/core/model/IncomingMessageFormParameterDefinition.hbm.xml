@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
-  <union-subclass extends="MotechEntityImpl" name="IncomingMessageFormParameterDefinitionImpl" table="incoming_message_form_parameter_definition">
+  <class name="IncomingMessageFormParameterDefinitionImpl" table="incoming_message_form_parameter_definition">
+    <id column="id" name="id" type="string">
+      <generator class="assigned"/>
+    </id>
+    <version name="version">
+      <column default="0" name="obj_vesion" sql-type="int"/>
+    </version>
     <many-to-one class="IncomingMessageFormDefinitionImpl" column="incoming_message_form_definition_id" name="IncomingMsgFormDefinition"/>
     <property column="name" length="50" name="name" type="string"/>
     <property column="parameter_type" length="50" name="paramType" type="string"/>
@@ -11,5 +17,5 @@
     <property generated="always" insert="false" name="lastModified" update="false">
       <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>
-  </union-subclass>
+  </class>
 </hibernate-mapping>

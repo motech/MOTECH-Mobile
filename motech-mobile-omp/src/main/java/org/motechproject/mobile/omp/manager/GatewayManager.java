@@ -3,7 +3,6 @@ package org.motechproject.mobile.omp.manager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import java.util.Set;
 
 /**
@@ -20,7 +19,7 @@ public interface GatewayManager {
      * @param messageDetails Object containing details of message to send
      * @return Formatted object containing information about the gateway's response
      */
-    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context);
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails);
 
     /**
      *

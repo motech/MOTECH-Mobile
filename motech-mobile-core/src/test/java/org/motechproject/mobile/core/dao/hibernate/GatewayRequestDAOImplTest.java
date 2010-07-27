@@ -31,6 +31,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -41,6 +43,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class GatewayRequestDAOImplTest {
 
     @Autowired
@@ -86,7 +90,7 @@ public class GatewayRequestDAOImplTest {
 
     @Before
     public void setUp() {
-        mDDAO = coreManager.createGatewayRequestDAO(coreManager.createMotechContext());
+        mDDAO = coreManager.createGatewayRequestDAO();
 
 
 
@@ -103,29 +107,29 @@ public class GatewayRequestDAOImplTest {
 
 
         text = "First";
-        md1.setId(1L);
+        md1.setId("1000000001");
         md1.setMessage(text);
         md1.setRecipientsNumber("123445");
         md1.setDateFrom(new Date());
 
-        md2.setId(2L);
+        md2.setId("10000000002");
         md2.setMessage("Second");
         md2.setRecipientsNumber("123445");
         md2.setDateFrom(new Date());
 
-        md3.setId(3L);
+        md3.setId("10000000003");
         md3.setMessage("Third");
         md3.setRecipientsNumber("123445");
         md3.setDateFrom(new Date());
 
-        md4.setId(4L);
+        md4.setId("10000000004");
         md4.setMessage("Test for dummies 4");
         md4.setRecipientsNumber("123445, 54321");
         md4.setDateFrom(dateFrom1);
         md4.setDateTo(dateTo1);
         md4.setMessageStatus(MStatus.FAILED);
 
-        md5.setId(5L);
+        md5.setId("10000000005");
         md5.setDateSent(new Date());
         md5.setRecipientsNumber("12345,54321");
         md5.setMessage("insertion with responsedetailsobject");
@@ -133,22 +137,22 @@ public class GatewayRequestDAOImplTest {
         md5.setDateTo(dateTo2);
         md5.setMessageStatus(MStatus.FAILED);
 
-        md6.setId(6L);
+        md6.setId("10000000006");
         md6.setDateSent(new Date());
         md6.setRecipientsNumber("12345,54321");
         md6.setMessage("another test for dummies");
         md6.setDateFrom(new Date());
 
 
-        rd1.setId(8L);
+        rd1.setId("40000000001");
         rd1.setMessageStatus(MStatus.PENDING);
         rd1.setRecipientNumber("123445");
 
-        rd2.setId(9L);
+        rd2.setId("40000000002");
         rd2.setMessageStatus(MStatus.FAILED);
         rd2.setRecipientNumber("54321");
 
-        grd4.setId(12L);
+        grd4.setId("40000000003");
         grd4.setMessage("some messaege 4");
         grd4.setMessageType(MessageType.TEXT);
         grd4.setNumberOfPages(1);
@@ -156,7 +160,7 @@ public class GatewayRequestDAOImplTest {
         gwrs4.add(md4);
         grd4.setGatewayRequests(gwrs4);
 
-        grd5.setId(13L);
+        grd5.setId("40000000004");
         grd5.setMessage("some messaege 5");
         grd5.setMessageType(MessageType.TEXT);
         grd5.setNumberOfPages(1);
@@ -169,7 +173,7 @@ public class GatewayRequestDAOImplTest {
 
     @After
     public void tearDown() {
-        Transaction tx = ((Session) mDDAO.getDBSession().getSession()).beginTransaction();
+//        Transaction tx = ((Session) mDDAO.getSessionFactory().getCurrentSession()).beginTransaction();
 
         mDDAO.delete(md1);
         mDDAO.delete(md2);
@@ -178,12 +182,12 @@ public class GatewayRequestDAOImplTest {
         mDDAO.delete(md5);
         mDDAO.delete(md6);
 
-        tx.commit();
+//        tx.commit();
 
     }
 
     public void setUpInitialData() {
-        Transaction tx = ((Session) mDDAO.getDBSession().getSession()).beginTransaction();
+//        Transaction tx = ((Session) mDDAO.getSessionFactory().getCurrentSession()).beginTransaction();
 
         mDDAO.save(md1);
         mDDAO.save(md2);
@@ -192,7 +196,7 @@ public class GatewayRequestDAOImplTest {
         mDDAO.save(md5);
         mDDAO.save(md6);
 
-        tx.commit();
+//        tx.commit();
 
     }
 
@@ -206,14 +210,9 @@ public class GatewayRequestDAOImplTest {
     public void testDelete() {
         System.out.println("Delete");
 
-        Session session = ((Session) mDDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
         mDDAO.delete(md2);
-        tx.commit();
-
-        session.beginTransaction();
-        GatewayRequest fromdb = (GatewayRequestImpl) session.get(GatewayRequestImpl.class, md2.getId());
-        session.getTransaction().commit();
+        
+        GatewayRequest fromdb = (GatewayRequestImpl) mDDAO.getSessionFactory().getCurrentSession().get(GatewayRequestImpl.class, md2.getId());
         Assert.assertNull(fromdb);
 
 
@@ -229,14 +228,8 @@ public class GatewayRequestDAOImplTest {
         md1.setMessage("First altered");
         md1.setDateFrom(new Date());
         md1.setDateTo(new Date());
-        Session session = ((Session) mDDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
         mDDAO.save(md1);
-        tx.commit();
-
-        session.beginTransaction();
-        GatewayRequest fromdb = (GatewayRequestImpl) session.get(GatewayRequestImpl.class, md1.getId());
-        session.getTransaction().commit();
+        GatewayRequest fromdb = (GatewayRequestImpl)mDDAO.getSessionFactory().getCurrentSession().get(GatewayRequestImpl.class, md1.getId());
         Assert.assertFalse(text.equals(fromdb.getMessage()));
     }
 
@@ -250,11 +243,9 @@ public class GatewayRequestDAOImplTest {
         res.add(rd1);
         res.add(rd2);
         md5.addResponse(res);
-        Session session = (Session) mDDAO.getDBSession().getSession();
-        
-        Transaction tx = session.beginTransaction();
+        Session session = (Session) mDDAO.getSessionFactory().getCurrentSession();
+
         mDDAO.save(md5);
-        tx.commit();
 
         GatewayRequest fromdb = (GatewayRequestImpl) session.get(GatewayRequestImpl.class, md5.getId());
         Set<GatewayResponse> fromdbchild = fromdb.getResponseDetails();
@@ -265,16 +256,6 @@ public class GatewayRequestDAOImplTest {
         }
 
         Assert.assertEquals(2, fromdbchild.size());
-//Needs to find out the order issue inside the List return by hibernate
-
-//            Assert.assertEquals(rd1.getId(),children.get(0).getId());
-//            Assert.assertEquals(children.get(0).getMessageStatus(), rd1.getMessageStatus());
-//            Assert.assertEquals(children.get(0).getRecipientNumber(), rd1.getRecipientNumber());
-//
-//            Assert.assertEquals(children.get(1).getId(), rd1.getId());
-//            Assert.assertEquals(children.get(1).getMessageStatus(), rd1.getMessageStatus());
-//            Assert.assertEquals(children.get(1).getRecipientNumber(), rd1.getRecipientNumber());
-
     }
 
     /**
@@ -283,7 +264,7 @@ public class GatewayRequestDAOImplTest {
     @Test
     public void testGetById() {
         System.out.println("testing FindById");
-        Transaction tx = ((Session) mDDAO.getDBSession().getSession()).beginTransaction();
+
         GatewayRequest result = (GatewayRequest) mDDAO.getById(md1.getId());
            System.out.println("the date lastModified: " + result.getLastModified());
         Assert.assertSame(md1, result);
@@ -308,9 +289,9 @@ public class GatewayRequestDAOImplTest {
         expResult.add(md3);
 
         md7.setRecipientsNumber("123445");
-        Transaction tx = ((Session) mDDAO.getDBSession().getSession()).beginTransaction();
+
         List<GatewayRequest> result = mDDAO.findByExample(md7);
-        tx.commit();
+
         Assert.assertEquals(expResult.size(), result.size());
         Assert.assertEquals(true, result.contains(md1));
         Assert.assertEquals(true, result.contains(md2));

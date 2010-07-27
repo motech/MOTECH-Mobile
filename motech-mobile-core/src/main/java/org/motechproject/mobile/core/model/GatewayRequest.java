@@ -13,7 +13,14 @@ import java.util.Set;
  * Date: Jul 24, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface GatewayRequest extends MotechEntity {
+public interface GatewayRequest {
+
+    /**
+    * 
+    * @return the id
+    */
+    public String getId();
+
 
     /**
      * @return the dateSent
@@ -74,10 +81,18 @@ public interface GatewayRequest extends MotechEntity {
      * @return the MessageRequest for which this GatewayRequest was generated
      */
     public MessageRequest getMessageRequest();
-    
+
+
     /**
      *
-     * @param tryNumber
+     * @param id the id to set
+     */
+    public void setId(String id);
+
+
+    /**
+     *
+     * @param tryNumber the tryNumber to set
      */
     public void setTryNumber(int tryNumber);
 
@@ -168,4 +183,14 @@ public interface GatewayRequest extends MotechEntity {
      */
     @Override
     public String toString();
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

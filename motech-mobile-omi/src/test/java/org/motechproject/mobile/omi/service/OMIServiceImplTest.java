@@ -1,5 +1,6 @@
 package org.motechproject.mobile.omi.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
 import org.motechproject.mobile.core.dao.GatewayRequestDetailsDAO;
@@ -43,6 +44,7 @@ import org.motechproject.ws.MediaType;
 import org.motechproject.ws.MessageStatus;
 import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import static org.junit.Assert.*;
 
 /**
@@ -51,6 +53,8 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
+@TransactionConfiguration
+@Transactional
 public class OMIServiceImplTest {
 
     OMPManager mockOMP;
@@ -115,49 +119,40 @@ public class OMIServiceImplTest {
 
         mockRequestDao = createMock(MessageRequestDAO.class);
         
+        
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
-                mockCore.createMessageRequest((MotechContext)anyObject())
+                mockCore.createMessageRequest()
                 ).andReturn(new MessageRequestImpl());
         expect(
-                mockCore.createNotificationTypeDAO((MotechContext) anyObject())
+                mockCore.createNotificationTypeDAO()
                 ).andReturn(mockNoteDao);
         expect(
                 mockNoteDao.getById(anyLong())
                 ).andReturn(new NotificationTypeImpl());
         expect(
-                mockCore.createLanguageDAO((MotechContext) anyObject())
+                mockCore.createLanguageDAO()
                 ).andReturn(mockLangDao);
         expect(
                 mockLangDao.getByCode((String)anyObject())
                 ).andReturn(new LanguageImpl());
         expect(
-                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                mockCore.createMessageRequestDAO()
                 ).andReturn(mockRequestDao);
-        expect(
-                mockRequestDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
-        
-        mockTrans.begin();
         expectLastCall();
         
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(new MessageRequestImpl());
         
-        mockTrans.commit();
         expectLastCall();
 
-        replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
+//        replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
+        replay(mockCore, mockLangDao, mockRequestDao);
         
         MessageStatus result = instance.savePatientMessageRequest(messageId, personalInfo, patientNumber, ContactNumberType.PERSONAL, "language", MediaType.TEXT, 1L, new Date(), new Date(), "123456789");
         assertEquals(expResult, result);
-        verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
+//        verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
+        verify(mockCore, mockLangDao, mockRequestDao);
     }
 
     /**
@@ -178,49 +173,41 @@ public class OMIServiceImplTest {
 
         mockRequestDao = createMock(MessageRequestDAO.class);
         
+
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
-                mockCore.createMessageRequest((MotechContext)anyObject())
+                mockCore.createMessageRequest()
                 ).andReturn(new MessageRequestImpl());
         expect(
-                mockCore.createNotificationTypeDAO((MotechContext) anyObject())
+                mockCore.createNotificationTypeDAO()
                 ).andReturn(mockNoteDao);
         expect(
                 mockNoteDao.getById(anyLong())
                 ).andReturn(new NotificationTypeImpl());
         expect(
-                mockCore.createLanguageDAO((MotechContext) anyObject())
+                mockCore.createLanguageDAO()
                 ).andReturn(mockLangDao);
         expect(
                 mockLangDao.getByCode((String)anyObject())
                 ).andReturn(new LanguageImpl());
         expect(
-                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                mockCore.createMessageRequestDAO()
                 ).andReturn(mockRequestDao);
-        expect(
-                mockRequestDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
-        
-        mockTrans.begin();
+
         expectLastCall();
         
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(new MessageRequestImpl());
         
-        mockTrans.commit();
+
         expectLastCall();
 
-        replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
+//        replay(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
+        replay(mockCore, mockLangDao, mockRequestDao);
 
         MessageStatus result = instance.saveCHPSMessageRequest(messageId, personalInfo, workerNumber, patientList, "lang", MediaType.TEXT, 1L, testDate, testDate);
         assertEquals(expResult, result);
-        verify(mockCore, mockLangDao, mockRequestDao, mockSession, mockTrans);
+        verify(mockCore, mockLangDao, mockRequestDao);
     }
     
     @Test
@@ -230,7 +217,7 @@ public class OMIServiceImplTest {
         MessageRequest msgReq1 = new MessageRequestImpl();
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
-        msgReq1.setId(49L);
+        msgReq1.setId("19000000001");
         msgReq1.setTryNumber(1);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
@@ -242,57 +229,47 @@ public class OMIServiceImplTest {
         HashMap<Boolean, Set<GatewayResponse>> respMap = new HashMap<Boolean, Set<GatewayResponse>>();
         respMap.put(new Boolean(true), new HashSet<GatewayResponse>());
         
-        MotechContext context = new MotechContextImpl();
-        
         expect(
-                mockCore.createLanguageDAO((MotechContext) anyObject())
+                mockCore.createLanguageDAO()
                 ).andReturn(mockLangDao);
         expect(
                 mockLangDao.getByCode((String) anyObject())
                 ).andReturn(new LanguageImpl());
         expect(
-                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                mockCore.createMessageRequestDAO()
                 ).andReturn(mockRequestDao);
-        expect(
-                mockRequestDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
 
-        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(new MessageRequestImpl());
 
-        mockTrans.commit();
         expectLastCall();
         
         expect(
-                mockStore.constructMessage((MessageRequest) anyObject(), (MotechContext) anyObject(), (Language) anyObject())
+                mockStore.constructMessage((MessageRequest) anyObject(), (Language) anyObject())
                 ).andReturn(gwReq);
         expect(
                 mockOMP.createMessagingService()
                 ).andReturn(mockMessagingService);
         expect(
-                mockMessagingService.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
+                mockMessagingService.sendMessage((GatewayRequest) anyObject() )
                 ).andReturn(respMap);
         
-        mockTrans.begin();
+
         expectLastCall();
         
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(new MessageRequestImpl());
         
-        mockTrans.commit();
+
         expectLastCall();
         
-        replay(mockStore, mockOMP, mockMessagingService, mockCore, mockRequestDao, mockSession, mockTrans);
-        instance.sendMessage(msgReq1, context);
-        verify(mockStore, mockOMP, mockMessagingService, mockCore, mockRequestDao, mockSession, mockTrans);
+        replay(mockStore, mockOMP, mockMessagingService, mockCore, mockRequestDao);
+        instance.sendMessage(msgReq1);
+        verify(mockStore, mockOMP, mockMessagingService, mockCore, mockRequestDao);
     }
 
     /**
@@ -306,7 +283,7 @@ public class OMIServiceImplTest {
         MessageRequest msgReq1 = new MessageRequestImpl();
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
-        msgReq1.setId(49L);
+        msgReq1.setId("19000000002");
         msgReq1.setTryNumber(1);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
@@ -317,11 +294,9 @@ public class OMIServiceImplTest {
         GatewayRequest gwReq = new GatewayRequestImpl();
         gwReq.setGatewayRequestDetails(new GatewayRequestDetailsImpl());
         
+     
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
-                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                mockCore.createMessageRequestDAO()
                 ).andReturn(mockRequestDao);
         expect(
                 mockRequestDao.getMsgByStatus((MStatus) anyObject())
@@ -330,38 +305,30 @@ public class OMIServiceImplTest {
                 mockOMP.createMessagingService()
                 ).andReturn(mockMessagingService);
         expect(
-                mockCore.createLanguageDAO((MotechContext) anyObject())
+                mockCore.createLanguageDAO()
                 ).andReturn(mockLangDao);
         expect(
                 mockLangDao.getByCode((String) anyObject())
                 ).andReturn(new LanguageImpl());
         expect(
-                mockStore.constructMessage((MessageRequest) anyObject(), (MotechContext) anyObject(), (Language) anyObject())
+                mockStore.constructMessage((MessageRequest) anyObject(),  (Language) anyObject())
                 ).andReturn(gwReq);
 
-        mockMessagingService.scheduleMessage((GatewayRequest) anyObject(), (MotechContext) anyObject());
+        mockMessagingService.scheduleMessage((GatewayRequest) anyObject());
         expectLastCall();
 
-        expect(
-                mockRequestDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
-        
-        mockTrans.begin();
         expectLastCall();
         
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(msgReq1);
         
-        mockTrans.commit();
+
         expectLastCall();
         
-        replay(mockCore, mockRequestDao, mockOMP, mockMessagingService, mockSession, mockTrans, mockStore);
+        replay(mockCore, mockRequestDao, mockOMP, mockMessagingService, mockStore);
         instance.processMessageRequests();
-        verify(mockCore, mockRequestDao, mockOMP, mockMessagingService, mockSession, mockTrans, mockStore);
+        verify(mockCore, mockRequestDao, mockOMP, mockMessagingService,  mockStore);
     }
     
     /**
@@ -375,7 +342,7 @@ public class OMIServiceImplTest {
         MessageRequest msgReq1 = new MessageRequestImpl();
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
-        msgReq1.setId(39L);
+        msgReq1.setId("19000000003");
         msgReq1.setTryNumber(1);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
@@ -384,7 +351,7 @@ public class OMIServiceImplTest {
         messageList.add(msgReq1);
         
         GatewayRequestDetails details = new GatewayRequestDetailsImpl();
-        details.setId(1L);
+        details.setId("19000000004");
         details.setMessage("Some message");
         details.setMessageType(MessageType.TEXT);
         details.setNumberOfPages(1);
@@ -392,17 +359,15 @@ public class OMIServiceImplTest {
         
         msgReq1.setGatewayRequestDetails(details);
         
+      
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
-                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                mockCore.createMessageRequestDAO()
                 ).andReturn(mockRequestDao);
         expect(
                 mockRequestDao.getMsgRequestByStatusAndTryNumber((MStatus) anyObject(), anyInt())
                 ).andReturn(messageList);
         expect(
-                mockCore.createGatewayRequestDetailsDAO((MotechContext) anyObject())
+                mockCore.createGatewayRequestDetailsDAO()
                 ).andReturn(mockGwDetDao);
         expect(
                 mockOMP.createMessagingService()
@@ -411,32 +376,23 @@ public class OMIServiceImplTest {
                 mockGwDetDao.getById(anyLong())
                 ).andReturn(details);
         expect(
-                mockCore.createGatewayRequest((MotechContext) anyObject())
+                mockCore.createGatewayRequest()
                 ).andReturn(new GatewayRequestImpl());
         
-        mockMessagingService.scheduleMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject());
+        mockMessagingService.scheduleMessage((GatewayRequestDetails) anyObject());
         expectLastCall();
-        
-        expect(
-                mockRequestDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
-        
-        mockTrans.begin();
+
         expectLastCall();
         
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(msgReq1);
         
-        mockTrans.commit();
         expectLastCall();
         
-        replay(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService, mockGwDetDao, mockSession, mockTrans);
+        replay(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService, mockGwDetDao);
         instance.processMessageRetries();
-        verify(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService, mockGwDetDao, mockSession, mockTrans);
+        verify(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService, mockGwDetDao);
     }
     
     @Test
@@ -446,56 +402,47 @@ public class OMIServiceImplTest {
         List<MessageRequest> msgList = new ArrayList<MessageRequest>();
         
         MessageRequestImpl request = new MessageRequestImpl();
-        request.setId(72L);
+        request.setId("19000000005");
         request.setStatus(MStatus.PENDING);
         
         msgList.add(request);
 
         GatewayRequest gwReq = new GatewayRequestImpl();
         gwReq.setMessageRequest(request);
-        gwReq.setId(17L);
+        gwReq.setId("19000000006");
 
         GatewayResponseImpl response = new GatewayResponseImpl();
         response.setMessageStatus(MStatus.DELIVERED);
         response.setGatewayRequest(gwReq);
         
+
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
-                mockCore.createMessageRequestDAO((MotechContext) anyObject())
+                mockCore.createMessageRequestDAO()
                 ).andReturn(mockRequestDao);
         expect(
                 mockRequestDao.getMsgRequestByStatusAndTryNumber((MStatus) anyObject(), anyInt())
                 ).andReturn(msgList);
         expect(
-                mockCore.createGatewayResponseDAO((MotechContext) anyObject())
+                mockCore.createGatewayResponseDAO()
                 ).andReturn(mockResponseDao);
         expect(
-                mockResponseDao.getByMessageIdAndTryNumber(anyLong(), anyInt())
+                mockResponseDao.getByMessageIdAndTryNumber(String.valueOf(anyInt()), anyInt())
                 ).andReturn(response);
-        expect(
-                mockRequestDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
-        
-        mockTrans.begin();
+  
         expectLastCall();
         
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(request);
         
-        mockTrans.commit();
+
         expectLastCall();
         
         mockHandler.handleStatus((GatewayResponse) anyObject());
         expectLastCall();
         
-        replay(mockCore, mockResponseDao, mockRequestDao, mockSession, mockTrans, mockHandler);
+        replay(mockCore, mockResponseDao, mockRequestDao, mockHandler);
         instance.getMessageResponses();
-        verify(mockCore, mockResponseDao, mockRequestDao, mockSession, mockTrans, mockHandler);
+        verify(mockCore, mockResponseDao, mockRequestDao, mockHandler);
     }
 }

@@ -9,15 +9,16 @@ import java.util.Set;
  * Date :Jul 24, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResponse {
+public class GatewayResponseImpl implements GatewayResponse {
 
     private static final long serialVersionUID = 1L;
+    private String id;
     private GatewayRequest gatewayRequest;
     private String gatewayMessageId;
     private String recipientNumber;
     private MStatus messageStatus;
     private String responseText;
-    private Set<Transition> transitions = new HashSet<Transition>();
+//    private Set<Transition> transitions = new HashSet<Transition>();
     private String requestId;
     private Date dateCreated;
     private Date lastModified;
@@ -31,6 +32,22 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
         this.messageStatus = messageStatus;
     }
 
+
+
+private int version=-1;
+    /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
+    }
     /**
      * @return the messageId
      */
@@ -87,46 +104,46 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
         this.messageStatus = messageStatus;
     }
 
-    /**
-     * @return the transitions
-     */
-    public Set<Transition> getTransitions() {
-        return transitions;
-    }
+//    /**
+//     * @return the transitions
+//     */
+//    public Set<Transition> getTransitions() {
+//        return transitions;
+//    }
 
-    /**
-     * @param transitions the transitions to set
-     */
-    public void setTransitions(Set<Transition> transitions) {
-        this.transitions = transitions;
-    }
-
-    public void addTransition(Transition transition) {
-        transition.setGatewayResponse(this);
-        this.transitions.add(transition);
-
-    }
-
-    public void addTransition(List<Transition> transitions) {
-        for (Transition t : transitions) {
-            t.setGatewayResponse(this);
-            this.transitions.add(t);
-        }
-    }
-
-    public void removeTransition(List<Transition> transitions) {
-        for (Transition t : transitions) {
-            if (this.transitions.contains(t)) {
-                this.transitions.remove(t);
-            }
-        }
-    }
-
-    public void removeTransition(Transition transition) {
-        if (this.transitions.contains(transition)) {
-            this.transitions.remove(transition);
-        }
-    }
+//    /**
+//     * @param transitions the transitions to set
+//     */
+//    public void setTransitions(Set<Transition> transitions) {
+//        this.transitions = transitions;
+//    }
+//
+//    public void addTransition(Transition transition) {
+//        transition.setGatewayResponse(this);
+//        this.transitions.add(transition);
+//
+//    }
+//
+//    public void addTransition(List<Transition> transitions) {
+//        for (Transition t : transitions) {
+//            t.setGatewayResponse(this);
+//            this.transitions.add(t);
+//        }
+//    }
+//
+//    public void removeTransition(List<Transition> transitions) {
+//        for (Transition t : transitions) {
+//            if (this.transitions.contains(t)) {
+//                this.transitions.remove(t);
+//            }
+//        }
+//    }
+//
+//    public void removeTransition(Transition transition) {
+//        if (this.transitions.contains(transition)) {
+//            this.transitions.remove(transition);
+//        }
+//    }
 
     public String getResponseText() {
         return responseText;
@@ -212,4 +229,20 @@ public class GatewayResponseImpl extends MotechEntityImpl implements GatewayResp
 
         
     }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 }

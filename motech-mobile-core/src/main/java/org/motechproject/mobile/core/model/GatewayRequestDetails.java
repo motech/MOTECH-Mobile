@@ -7,7 +7,20 @@ import java.util.Set;
  *  Date : Sep 24, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
-public interface GatewayRequestDetails extends MotechEntity {
+public interface GatewayRequestDetails {
+
+
+    /**
+     * 
+     * @return
+     */
+    public void setId(String id);
+
+    /**
+     * 
+     * @return
+     */
+    public String getId();
 
     /**
      * @return the messageType
@@ -67,4 +80,14 @@ public interface GatewayRequestDetails extends MotechEntity {
      */
     @Override
     public String toString();
+
+       /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

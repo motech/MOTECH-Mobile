@@ -28,10 +28,10 @@ public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
     private Map<MStatus, String> codeResponseMap;
 
     public GatewayRequest prepareMessage(String message) {
-        return coreManager.createGatewayRequest(coreManager.createMotechContext());
+        return coreManager.createGatewayRequest();
     }
 
-    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context) {
+    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         if(message == null)
             return null;
         
@@ -39,7 +39,7 @@ public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
             return null;
 
         Set<GatewayResponse> responseList = new HashSet<GatewayResponse>();
-        GatewayResponse response = coreManager.createGatewayResponse(context);
+        GatewayResponse response = coreManager.createGatewayResponse();
         response.setGatewayRequest(message);
         response.setMessageStatus(MStatus.DELIVERED);
         response.setRecipientNumber(message.getRecipientsNumber());

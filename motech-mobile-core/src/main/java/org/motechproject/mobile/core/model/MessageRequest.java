@@ -8,7 +8,19 @@ import java.util.Set;
  *  Date : Sep 25, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
-public interface MessageRequest extends MotechEntity {
+public interface MessageRequest {
+
+     /**
+     *
+     * @param id the id to set
+     */
+    public void setId(String id);
+
+    /**
+     *
+     * @return id to get
+     */
+    public String getId();
 
     public String getRecipientName();
 
@@ -120,4 +132,15 @@ public interface MessageRequest extends MotechEntity {
      */
     @Override
     public String toString();
+
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

@@ -27,10 +27,10 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
 
         try {
 
-            Session sess = this.getDBSession().getSession();
+       
             Criterion code = Restrictions.eq("content", content);
 
-            IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
+            IncomingMessage message = (IncomingMessage) this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
                     .add(code)
                     .setMaxResults(1)
                     .uniqueResult();
@@ -54,9 +54,9 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
 
         try {
 
-            Session sess = this.getDBSession().getSession();
+           
 
-            IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
+            IncomingMessage message = (IncomingMessage) this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
                     .add(Restrictions.eq("content", content))
                     .add(Restrictions.gt("dateCreated", beforeDate))
                     .setMaxResults(1)
@@ -80,10 +80,7 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
         logger.debug("variable passed to IncomingMessage.getByContent: " + content);
 
         try {
-
-            Session sess = this.getDBSession().getSession();
-
-            IncomingMessage message = (IncomingMessage)sess.createCriteria(this.getPersistentClass())
+            IncomingMessage message = (IncomingMessage)this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
                     .add(Restrictions.eq("content", content))
                     .addOrder(Order.desc("dateCreated"))
                     .setMaxResults(1)

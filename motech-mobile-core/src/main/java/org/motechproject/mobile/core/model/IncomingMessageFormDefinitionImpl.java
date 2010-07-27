@@ -12,8 +12,9 @@ import java.util.Set;
  * Date: Dec 02, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implements IncomingMessageFormDefinition {
+public class IncomingMessageFormDefinitionImpl implements IncomingMessageFormDefinition {
 
+    private String id;
     private String formCode;
     private Date dateCreated;
     private Date lastModified;
@@ -23,6 +24,23 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
     private Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinitions = new HashSet<IncomingMessageFormParameterDefinition>();
     private Set<IncomingMessageForm> incomingMessageForms = new HashSet<IncomingMessageForm>();
 
+
+
+
+private int version=-1;
+    /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
+    }
     /**
      * @return the form_code
      */
@@ -182,5 +200,19 @@ public class IncomingMessageFormDefinitionImpl extends MotechEntityImpl implemen
      */
     public void setSendResponse(Boolean sendResponse) {
         this.sendResponse = sendResponse;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

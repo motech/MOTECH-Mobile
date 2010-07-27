@@ -1,10 +1,9 @@
 package org.motechproject.mobile.model.dao.hibernate.imp;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDefinitionDAO;
 import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
-import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import static org.junit.Assert.*;
 
 /**
@@ -21,6 +21,8 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class IncomingMessageFormDefinitionDAOImplTest {
 
     @Autowired
@@ -28,7 +30,7 @@ public class IncomingMessageFormDefinitionDAOImplTest {
     IncomingMessageFormDefinitionDAO imfDAO;
     @Autowired
     IncomingMessageFormDefinition fdef1;
-    
+
     IncomingMessageFormDefinition fdef2;
     String formCode = "TESTFORM";
 
@@ -37,24 +39,21 @@ public class IncomingMessageFormDefinitionDAOImplTest {
 
     @Before
     public void setUp() {
-        MotechContext mCtx = coreManager.createMotechContext();
-        imfDAO = coreManager.createIncomingMessageFormDefinitionDAO(mCtx);
+
+        imfDAO = coreManager.createIncomingMessageFormDefinitionDAO();
 
         fdef1 = coreManager.createIncomingMessageFormDefinition();
         fdef1.setFormCode(formCode);
 
-        Transaction tx = (Transaction)imfDAO.getDBSession().getTransaction();
-        tx.begin();
         imfDAO.save(fdef1);
-        tx.commit();
+
     }
 
     @After
     public void tearDown() {
-        Transaction tx = (Transaction)imfDAO.getDBSession().getTransaction();
-        tx.begin();
+  
         imfDAO.delete(fdef1);
-        tx.commit();
+
     }
     /**
      * Test of getByCode method, of class IncomingMessageFormDefinitionDAOImpl.

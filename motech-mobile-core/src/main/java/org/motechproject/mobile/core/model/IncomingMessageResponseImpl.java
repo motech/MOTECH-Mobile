@@ -9,14 +9,30 @@ import java.util.Date;
  * Date: Dec 02, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class IncomingMessageResponseImpl extends MotechEntityImpl implements IncomingMessageResponse {
+public class IncomingMessageResponseImpl implements IncomingMessageResponse {
 
+    private String id;
     private IncomingMessage incomingMessage;
     private String content;
     private Date dateCreated;
     private Date lastModified;
     private IncMessageResponseStatus messageResponseStatus;
 
+
+private int version=-1;
+    /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
+    }
     /**
      * @return the incomingMessage
      */
@@ -114,5 +130,19 @@ public class IncomingMessageResponseImpl extends MotechEntityImpl implements Inc
         }
 
 
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

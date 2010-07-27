@@ -45,7 +45,7 @@ public class ClickatellGatewayMessageHandlerImplTest {
         String gatewayResponse = "";
         GatewayRequest expResult = null;
         MotechContext context = new MotechContextImpl();
-        Set<GatewayResponse> result = instance.parseMessageResponse(message, gatewayResponse, context);
+        Set<GatewayResponse> result = instance.parseMessageResponse(message, gatewayResponse);
         assertEquals(expResult, result);
     }
 

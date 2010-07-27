@@ -18,8 +18,6 @@ import org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl;
 import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
 import org.motechproject.mobile.core.model.IncomingMessageImpl;
 import org.motechproject.mobile.core.model.IncomingMessageResponseImpl;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.hibernate.Transaction;
 import org.junit.Before;
@@ -92,11 +90,11 @@ public class IMPServiceImplTest {
         IncomingMessageResponseImpl response = new IncomingMessageResponseImpl();
         response.setContent(expResult);
 
+//        expect(
+//                mockCore.createMotechContext()
+//                ).andReturn(new MotechContextImpl());
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
-                mockCore.createIncomingMessageDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageDAO()
                 ).andReturn(mockMsgDao);
         expect(
                 mockCore.createIncomingMessageResponse()
@@ -110,35 +108,38 @@ public class IMPServiceImplTest {
         expect(
                 mockParser.getCommand((String)anyObject())
                 ).andReturn("Type");
-        expect(
-                mockMsgDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
+//        expect(
+//                mockMsgDao.getDBSession()
+//                ).andReturn(mockSession);
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockMsgDao.save((IncomingMessage) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
         
         expect(
-                mockCmdAxn.execute((IncomingMessage) anyObject(), (String) anyObject(), (MotechContext)anyObject())
+                mockCmdAxn.execute((IncomingMessage) anyObject(), (String) anyObject())
                 ).andReturn(response);
 
-        replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+//        replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+        replay(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn);
         IncomingMessageResponse result = instance.processRequest(message, requesterPhone, false);
-        verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+//        verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+        verify(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn);
 
         assertEquals(expResult, result.getContent());
 
         //Test duplicate message detection
-        reset(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+//        reset(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+        reset(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn);
 
         String duplicateResp = "Error:\nThis form has already been processed!";
 
@@ -146,11 +147,11 @@ public class IMPServiceImplTest {
         inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().setDuplicatable(Duplicatable.DISALLOWED);
         inMsg.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
         
+//        expect(
+//                mockCore.createMotechContext()
+//                ).andReturn(new MotechContextImpl());
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(new MotechContextImpl());
-        expect(
-                mockCore.createIncomingMessageDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageDAO()
                 ).andReturn(mockMsgDao);
         expect(
                 mockCore.createIncomingMessageResponse()
@@ -159,9 +160,11 @@ public class IMPServiceImplTest {
                 mockMsgDao.getByContentNonDuplicatable((String)anyObject())
                 ).andReturn(inMsg);
 
-        replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+//        replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+        replay(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn);
         result = instance.processRequest(message, requesterPhone, false);
-        verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+//        verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
+        verify(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn);
 
         assertEquals(duplicateResp, result.getContent());
     }

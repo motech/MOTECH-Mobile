@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
-  <union-subclass extends="MotechEntityImpl" name="MessageTemplateImpl" table="message_template">
-    <property column="date_created" name="dateCreated" type="timestamp"/>
-    <property access="field" column="message_type" name="messageType" type="messageType"/>
-    <property column="template" length="700" name="template" type="string"/>
-    <many-to-one class="NotificationTypeImpl" column="notification_type" name="notificationType"/>
-    <many-to-one class="LanguageImpl" column="language" name="language"/>
-  </union-subclass>
+
+    <typedef class="org.motechproject.mobile.core.util.StringEnumUserType" name="messageType">
+        <param name="enumClassname">org.motechproject.mobile.core.model.MessageType</param>
+    </typedef>
+    <class name="MessageTemplateImpl" table="message_template">
+        <id column="id" name="id" type="string">
+            <generator class="assigned"/>
+        </id>
+        <version name="version">
+            <column default="0" name="obj_vesion" sql-type="int"/>
+        </version>
+        <property column="date_created" name="dateCreated" type="timestamp"/>
+        <property access="field" column="message_type" name="messageType" type="messageType"/>
+        <property column="template" length="700" name="template" type="string"/>
+        <many-to-one class="NotificationTypeImpl" column="notification_type" name="notificationType"/>
+        <many-to-one class="LanguageImpl" column="language" name="language"/>
+    </class>
 </hibernate-mapping>

@@ -9,8 +9,10 @@ import java.util.Set;
  *  Date : Sep 25, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class MessageRequestImpl extends MotechEntityImpl implements MessageRequest {
+public class MessageRequestImpl implements MessageRequest {
 
+    private String id;
+    private int version=-1;
     private Language language;
     private Date schedule;
     private MessageType messageType;
@@ -32,6 +34,21 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
     private String phoneNumberType;
     private GatewayRequestDetails gatewayRequestDetails;
 
+
+
+    /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
+    }
     /**
      * @return the language
      */
@@ -344,5 +361,19 @@ public class MessageRequestImpl extends MotechEntityImpl implements MessageReque
             return "Object is null";
         }
 
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

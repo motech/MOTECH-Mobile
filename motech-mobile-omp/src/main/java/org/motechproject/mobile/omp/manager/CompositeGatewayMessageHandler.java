@@ -33,17 +33,17 @@ public class CompositeGatewayMessageHandler implements GatewayMessageHandler {
 
 	@SuppressWarnings("unchecked")
 	public Set<GatewayResponse> parseMessageResponse(GatewayRequest message,
-			String gatewayResponse, MotechContext context) {
+			String gatewayResponse) {
 		
 		if ( message
 				.getMessageRequest()
 				.getMessageType() == MessageType.VOICE)
-			return voiceHandler.parseMessageResponse(message, gatewayResponse, context);
+			return voiceHandler.parseMessageResponse(message, gatewayResponse);
 		
 		if ( message
 				.getMessageRequest()
 				.getMessageType() == MessageType.TEXT)
-			return textHandler.parseMessageResponse(message, gatewayResponse, context);
+			return textHandler.parseMessageResponse(message, gatewayResponse);
 		
 		
 		return null;

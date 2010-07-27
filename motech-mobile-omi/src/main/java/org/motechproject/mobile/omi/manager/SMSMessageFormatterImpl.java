@@ -208,7 +208,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         String dob = patient.getBirthDate() == null ? "" : dFormat.format(patient.getBirthDate());
         String age = patient.getAge() == null ? "" : patient.getAge().toString();
         String sex = patient.getSex() == null ? "" : patient.getSex().toString();
-        String phone = patient.getPhoneNumber() == null ? "" : patient.getPhoneNumber();
 
 
         Set<NameValuePair> data = new HashSet<NameValuePair>();
@@ -221,7 +220,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         data.add(new NameValuePair("DoB", dob));
         data.add(new NameValuePair("Age", age));
         data.add(new NameValuePair("Community", patient.getCommunity()));
-        data.add(new NameValuePair("PhoneNumber", phone));
+        data.add(new NameValuePair("PhoneNumber", patient.getPhoneNumber()));
         data.add(new NameValuePair("EDD", edd));
 
         template += "MoTeCH ID <MoTeCHID>\nFirstName=<FirstName>\nLastName=<LastName>";
@@ -229,8 +228,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         template += sex.isEmpty() ? sex : "\nSex=<Sex>";
         template += dob.isEmpty() ? dob : "\nDoB=<DoB>";
         template += age.isEmpty() ? age : "\nAge=<Age>";
-        template += "\nCommunity=<Community>\nPhoneNumber=";
-        template += phone.isEmpty() ? "None" : "<PhoneNumber>";
+        template += "\nCommunity=<Community>\nPhoneNumber=<PhoneNumber>";
         template += edd.isEmpty() ? edd : "\nEDD=<EDD>";
 
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);

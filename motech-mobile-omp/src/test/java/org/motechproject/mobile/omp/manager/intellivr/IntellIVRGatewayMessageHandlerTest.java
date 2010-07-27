@@ -90,12 +90,12 @@ public class IntellIVRGatewayMessageHandlerTest {
 	public void testParseMessageResponse() {
 				
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId(1L);
+		mr1.setId("31000000001");
 		mr1.setRecipientId("123456789");
 		mr1.setRequestId("mr1");
 	
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId(1000L);
+		r1.setId("31000000002");
 		r1.setMessageRequest(mr1);
 		r1.setRequestId(mr1.getRequestId());
 		r1.setMessageStatus(MStatus.PENDING);
@@ -104,17 +104,17 @@ public class IntellIVRGatewayMessageHandlerTest {
 		for ( String code : statusCodes.keySet()) {
 
 			GatewayResponse gwResponse = new GatewayResponseImpl();
-			gwResponse.setId(1L);
+			gwResponse.setId("31000000003");
 
 			MotechContext context = createMock(MotechContext.class);
 			
 			coreManager = createMock(CoreManager.class);
 			intellIVRMessageHandler.setCoreManager(coreManager);
 			
-			expect(coreManager.createGatewayResponse(context)).andReturn(gwResponse);			
+			expect(coreManager.createGatewayResponse()).andReturn(gwResponse);			
 			replay(coreManager);
 			
-			Set<GatewayResponse> responses = intellIVRMessageHandler.parseMessageResponse(r1, code, context);
+			Set<GatewayResponse> responses = intellIVRMessageHandler.parseMessageResponse(r1, code);
 			
 			for ( GatewayResponse response : responses ) {
 				assertTrue(response.getDateCreated()!= null);

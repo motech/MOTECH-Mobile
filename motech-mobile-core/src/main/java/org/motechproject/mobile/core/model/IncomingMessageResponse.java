@@ -7,8 +7,19 @@ import java.util.Date;
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessageResponse extends MotechEntity {
+public interface IncomingMessageResponse {
 
+    /**
+     * 
+     * @param id id to set
+     */
+    public void setId(String id);
+
+    /**
+     *
+     * @return the id
+     */
+    public String getId();
     /**
      * @return the content
      */
@@ -65,4 +76,14 @@ public interface IncomingMessageResponse extends MotechEntity {
      */
     @Override
     public String toString();
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

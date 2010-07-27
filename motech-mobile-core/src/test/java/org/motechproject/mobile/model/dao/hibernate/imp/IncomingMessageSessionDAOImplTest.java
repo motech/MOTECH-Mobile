@@ -1,13 +1,10 @@
 package org.motechproject.mobile.model.dao.hibernate.imp;
 
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.core.model.IncomingMessageSession;
 import org.motechproject.mobile.core.model.IncomingMessageSessionImpl;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO;
 import java.util.Date;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -18,6 +15,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -26,6 +25,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class IncomingMessageSessionDAOImplTest {
 
 
@@ -57,45 +58,39 @@ public class IncomingMessageSessionDAOImplTest {
 
     @Before
     public void setUp() {
+;
+        imsDAO = coreManager.createIncomingMessageSessionDAO();
 
-        MotechContext tc = coreManager.createMotechContext();
-        imsDAO = coreManager.createIncomingMessageSessionDAO(tc);
-
-        ims1.setId(9087L);
+        ims1.setId("12000000019");
         ims1.setDateStarted(new Date());
         ims1.setFormCode("fc_ims1");
         ims1.setLastActivity(new Date());
         ims1.setRequesterPhone("233243667788");
 
 
-        ims2.setId(9088L);
+        ims2.setId("12000000020");
         ims2.setDateStarted(new Date());
         ims2.setFormCode("fc_ims2");
         ims2.setLastActivity(new Date());
         ims2.setRequesterPhone(requesterPhone);
 
-        ims3.setId(9089L);
+        ims3.setId("12000000021");
         ims3.setDateStarted(new Date());
         ims3.setFormCode("fc_ims3");
         ims3.setLastActivity(new Date());
         ims3.setRequesterPhone(requesterPhone);
 
 
-        Transaction tx = (Transaction) imsDAO.getDBSession().getTransaction();
-        tx.begin();
         imsDAO.save(ims2);
         imsDAO.save(ims3);
-        tx.commit();
 
     }
 
     @After
     public void tearDown() {
-        Transaction tx = (Transaction) imsDAO.getDBSession().getTransaction();
-        tx.begin();
+   
         imsDAO.delete(ims2);
         imsDAO.delete(ims3);
-        tx.commit();
     }
 
 
@@ -106,13 +101,9 @@ public class IncomingMessageSessionDAOImplTest {
     public void testSave() {
         System.out.println("save IncominMessageSession");
 
-        Session session = ((Session) imsDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
         imsDAO.save(ims1);
-        tx.commit();
 
-
-        IncomingMessageSession fromdb = (IncomingMessageSession) session.get(IncomingMessageSessionImpl.class, ims1.getId());
+        IncomingMessageSession fromdb = (IncomingMessageSession) imsDAO.getSessionFactory().getCurrentSession().get(IncomingMessageSessionImpl.class, ims1.getId());
 
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(fromdb, ims1);

@@ -25,9 +25,9 @@ public class DummyGatewayManagerImpl implements GatewayManager{
      *
      * @see GatewayManager.send
      */
-    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context){
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails){
         String msgResponse = (messageDetails.getRecipientsNumber().length() < 8) ? "failed" : "ID: " + MotechIDGenerator.generateID(10);
-        return messageHandler.parseMessageResponse(messageDetails, msgResponse, context);
+        return messageHandler.parseMessageResponse(messageDetails, msgResponse);
     }
 
     /**

@@ -7,8 +7,19 @@ import java.util.Date;
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessageFormParameterDefinition extends MotechEntity {
+public interface IncomingMessageFormParameterDefinition {
 
+    /**
+     *
+     * @param id the id to set
+     */
+    public void setId(String id);
+
+    /**
+     *
+     * @return id to get
+     */
+    public String getId();
     /**
      * @return the dateCreated
      */
@@ -85,4 +96,14 @@ public interface IncomingMessageFormParameterDefinition extends MotechEntity {
      */
     @Override
     public String toString();
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

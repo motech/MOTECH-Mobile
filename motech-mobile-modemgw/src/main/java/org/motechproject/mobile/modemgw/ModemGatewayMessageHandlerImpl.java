@@ -9,7 +9,6 @@ import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 
 public class ModemGatewayMessageHandlerImpl implements GatewayMessageHandler {
@@ -49,11 +48,11 @@ public class ModemGatewayMessageHandlerImpl implements GatewayMessageHandler {
 
 	@SuppressWarnings("unchecked")
 	public Set<GatewayResponse> parseMessageResponse(GatewayRequest msg,
-			String gatewayResponse, MotechContext context) {
+			String gatewayResponse) {
 
 		Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
 
-		GatewayResponse response = coreManager.createGatewayResponse(context);
+		GatewayResponse response = coreManager.createGatewayResponse();
 
 		// Use the gateway request id as gateway message id
 		response.setGatewayMessageId(msg.getRequestId());

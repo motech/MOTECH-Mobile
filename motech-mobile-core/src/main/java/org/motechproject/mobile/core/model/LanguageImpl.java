@@ -10,8 +10,9 @@ import java.util.Set;
  * Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class LanguageImpl extends MotechEntityImpl implements Language {
+public class LanguageImpl implements Language {
 
+    private String id;
     private String code;
     private String name;
     private String description;
@@ -108,5 +109,19 @@ public class LanguageImpl extends MotechEntityImpl implements Language {
         }
 
 
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

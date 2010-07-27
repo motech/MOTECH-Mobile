@@ -25,14 +25,14 @@ public class IVRSessionTest {
 				
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId(1L);
+		english.setId("29000000001");
 		english.setName("English");
 		
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 		
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId(1L);
+		mr1.setId("29000000002");
 		mr1.setLanguage(english);
 		mr1.setRecipientId(userid);
 		mr1.setRequestId("mr1");
@@ -41,7 +41,7 @@ public class IVRSessionTest {
 		mr1.setPhoneNumberType("PERSONAL");
 	
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId(1000L);
+		r1.setId("29000000003");
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone);
@@ -50,7 +50,7 @@ public class IVRSessionTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId(2L);
+		mr2.setId("29000000004");
 		mr2.setLanguage(english);
 		mr2.setRecipientId(userid);
 		mr2.setRequestId("mr2");
@@ -59,7 +59,7 @@ public class IVRSessionTest {
 		mr2.setPhoneNumberType("PERSONAL");
 			
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId(2000L);
+		r2.setId("29000000005");
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);

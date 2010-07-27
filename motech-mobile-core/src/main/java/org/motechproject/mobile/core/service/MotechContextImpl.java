@@ -1,5 +1,8 @@
 package org.motechproject.mobile.core.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
 import org.motechproject.mobile.core.dao.DBSession;
 import javax.transaction.Transaction;
 import org.apache.log4j.Logger;
@@ -32,7 +35,16 @@ public class MotechContextImpl implements MotechContext<Session, Transaction> {
         logger.info("Cleaning up the session");
         if (dBsession != null) {
             dBsession.getSession().flush();
-            dBsession.getSession().close();
+           Connection con= dBsession.getSession().close();
+           if(con != null)
+           {
+                try {
+                    con.close();
+                    con = null;
+                } catch (SQLException ex) {
+                    logger.fatal(" Severe error during connection closing", ex);
+                }
+           }
         }
     }
 

@@ -11,8 +11,6 @@ import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +37,7 @@ public class DummyGatewayManagerImplTest {
     public void setUp(){
         mockHandler = createMock(GatewayMessageHandler.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId(89L);
+        mockGatewayRequestDetails.setId("27000000001");
         instance = new DummyGatewayManagerImpl();
         instance.setMessageHandler(mockHandler);
     }
@@ -50,8 +48,6 @@ public class DummyGatewayManagerImplTest {
     @Test
     public void testSendMessage() {
         System.out.println("sendMessage");
-
-        MotechContext context = new MotechContextImpl();
         GatewayRequest messageDetails = new GatewayRequestImpl();
         messageDetails.setDateFrom(new Date());
         //messageDetails.setMessage("a message for testing");
@@ -60,11 +56,11 @@ public class DummyGatewayManagerImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
-                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject(), (MotechContext) anyObject())
+                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject())
                 ).andReturn(new HashSet<GatewayResponse>());
         replay(mockHandler);
 
-        Set<GatewayResponse> result = instance.sendMessage(messageDetails, context);
+        Set<GatewayResponse> result = instance.sendMessage(messageDetails);
         assertNotNull(result);
         verify(mockHandler);
     }

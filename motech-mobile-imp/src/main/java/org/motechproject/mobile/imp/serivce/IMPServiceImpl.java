@@ -11,7 +11,6 @@ import org.motechproject.mobile.imp.util.CommandAction;
 import org.motechproject.mobile.imp.util.IncomingMessageParser;
 import org.motechproject.mobile.core.model.IncomingMessage;
 import org.motechproject.mobile.core.model.IncomingMessageResponse;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.imp.util.IncomingMessageXMLParser;
 import org.motechproject.mobile.imp.util.exception.MotechParseException;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
@@ -23,14 +22,17 @@ import java.util.Date;
 import java.util.Map;
 import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
-import org.hibernate.Transaction;
 import org.jdom.JDOMException;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
+@TransactionConfiguration
+@Transactional
 public class IMPServiceImpl implements IMPService {
 
     private static Logger logger = Logger.getLogger(IMPServiceImpl.class);
@@ -54,8 +56,8 @@ public class IMPServiceImpl implements IMPService {
      * @see IMPService.processRequest
      */
     public synchronized IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo) {
-        MotechContext context = coreManager.createMotechContext();
-        IncomingMessageDAO msgDao = coreManager.createIncomingMessageDAO(context);
+
+        IncomingMessageDAO msgDao = coreManager.createIncomingMessageDAO();
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
 
         Calendar cal = Calendar.getInstance();
@@ -75,10 +77,10 @@ public class IMPServiceImpl implements IMPService {
         inMsg = parser.parseRequest(message);
         String cmd = parser.getCommand(message);
 
-        Transaction tx = (Transaction) msgDao.getDBSession().getTransaction();
-        tx.begin();
+
+
         msgDao.save(inMsg);
-        tx.commit();
+
 
         CommandAction action = cmdActionMap.get(cmd.toUpperCase());
         if (action == null) {
@@ -87,7 +89,7 @@ public class IMPServiceImpl implements IMPService {
             return response;
         }
 
-        response = action.execute(inMsg, requesterPhone, context);
+        response = action.execute(inMsg, requesterPhone);
 
         if (inMsg.getIncomingMessageForm() != null && inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getSendResponse() && inMsg.getIncomingMessageForm().getMessageFormStatus() == IncMessageFormStatus.SERVER_VALID) {
             sendResponse(response.getContent(), response.getIncomingMessage().getIncomingMsgSession().getRequesterPhone());

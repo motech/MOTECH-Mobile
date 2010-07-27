@@ -7,10 +7,12 @@ import java.util.Set;
  *  Date : Sep 24, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class GatewayRequestDetailsImpl extends MotechEntityImpl implements GatewayRequestDetails {
+public class GatewayRequestDetailsImpl implements GatewayRequestDetails {
 
     public GatewayRequestDetailsImpl() {
     }
+    private int version=-1;
+    private String id;
     private MessageType messageType;
     private String message;
     private int numberOfPages;
@@ -117,5 +119,33 @@ public class GatewayRequestDetailsImpl extends MotechEntityImpl implements Gatew
         }
 
 
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+     /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

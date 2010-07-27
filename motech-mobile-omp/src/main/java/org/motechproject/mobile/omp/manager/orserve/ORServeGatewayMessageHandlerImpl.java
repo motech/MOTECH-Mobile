@@ -4,7 +4,6 @@ import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import java.util.Date;
 import java.util.Set;
@@ -30,7 +29,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
      *
      * @see GatewayMessageHandler.parseResponse
      */
-    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context) {
+    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         logger.debug("Parsing message gateway response");
         logger.debug(gatewayResponse);
 
@@ -50,7 +49,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
             String[] responseParts = line.split(" ");            
 
             if(responseParts[0].equalsIgnoreCase("ID:")){
-                GatewayResponse response = getCoreManager().createGatewayResponse(context);                
+                GatewayResponse response = getCoreManager().createGatewayResponse();                
                 response.setGatewayMessageId(responseParts[1]);
                 response.setRequestId(message.getRequestId());
                 response.setMessageStatus(MStatus.PENDING);
@@ -75,7 +74,7 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
                 
                 MStatus status = lookupResponse(errorCode);
                 
-                GatewayResponse response = getCoreManager().createGatewayResponse(context);
+                GatewayResponse response = getCoreManager().createGatewayResponse();
                 
                 response.setRequestId(message.getRequestId());
                 response.setMessageStatus(status);

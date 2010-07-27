@@ -8,16 +8,34 @@ import java.util.Date;
  *  Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemplate {
+public class MessageTemplateImpl implements MessageTemplate {
 
     public MessageTemplateImpl() {
     }
+
+
+    private String id;
     private NotificationType notificationType;
     private Language language;
     private Date dateCreated;
     private MessageType messageType;
     private String template;
 
+
+private int version=-1;
+    /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
+    }
     /**
      * @return the notification_type
      */
@@ -115,5 +133,19 @@ public class MessageTemplateImpl extends MotechEntityImpl implements MessageTemp
             return "Object is null";
         }
 
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

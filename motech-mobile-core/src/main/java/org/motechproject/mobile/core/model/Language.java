@@ -7,8 +7,20 @@ import java.util.Set;
  * Date: Sep 27, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface Language extends MotechEntity {
+public interface Language {
 
+     /**
+     *
+     * @param id the id to set
+     */
+    public void setId(String id);
+
+    /**
+     *
+     * @return id to get
+     */
+    public String getId();
+    
     public String getCode();
 
     public String getName();

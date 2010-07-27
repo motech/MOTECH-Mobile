@@ -4,7 +4,6 @@ import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import java.util.Set;
 
 /**
@@ -20,7 +19,7 @@ public interface GatewayMessageHandler {
      * @param gatewayResponse
      * @return
      */
-    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context);
+    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse);
 
     /**
      *

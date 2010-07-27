@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
-  <union-subclass extends="MotechEntityImpl" name="MessageRequestImpl" table="message_request">
+  <typedef class="org.motechproject.mobile.core.util.StringEnumUserType" name="mStatus">
+    <param name="enumClassname">org.motechproject.mobile.core.model.MStatus</param>
+  </typedef>
+  <typedef class="org.motechproject.mobile.core.util.StringEnumUserType" name="messageType">
+    <param name="enumClassname">org.motechproject.mobile.core.model.MessageType</param>
+  </typedef>
+  <class name="MessageRequestImpl" table="message_request">
+    <id column="id" name="id" type="string">
+      <generator class="assigned"/>
+    </id>
+    <version name="version">
+      <column default="0" name="obj_vesion" sql-type="int"/>
+    </version>
     <property column="request_id" name="requestId" type="string"/>
     <many-to-one class="GatewayRequestDetailsImpl" column="request_details_id" name="gatewayRequestDetails"/>
     <many-to-one class="NotificationTypeImpl" column="notification_type_id" name="notificationType"/>
@@ -29,5 +41,5 @@
         <property column="value" name="value" not-null="true" type="string"/>
       </composite-element>
     </set>
-  </union-subclass>
+  </class>
 </hibernate-mapping>

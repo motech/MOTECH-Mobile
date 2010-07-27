@@ -89,8 +89,7 @@ public class ModemGatewayImpl implements GatewayManager,
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
-			MotechContext context) {
+	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
 
 		String requestId = messageDetails.getRequestId();
 
@@ -110,7 +109,7 @@ public class ModemGatewayImpl implements GatewayManager,
 			String response = getSMSLibMessageStatus(message);
 
 			Set<GatewayResponse> responses = messageHandler
-					.parseMessageResponse(messageDetails, response, context);
+					.parseMessageResponse(messageDetails, response);
 
 			GatewayResponse responseObj = responses.iterator().next();
 

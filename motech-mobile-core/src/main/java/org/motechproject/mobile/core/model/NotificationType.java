@@ -7,8 +7,19 @@ import java.util.Set;
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
-public interface NotificationType extends MotechEntity {
+public interface NotificationType {
 
+     /**
+     *
+     * @param id the id to set
+     */
+    public void setId(Long id);
+
+    /**
+     *
+     * @return id to get
+     */
+    public Long getId();
     /**
      * @return the description
      */

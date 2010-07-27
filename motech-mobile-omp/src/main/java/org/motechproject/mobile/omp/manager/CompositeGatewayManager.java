@@ -7,7 +7,7 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.service.MotechContext;
+import org.springframework.transaction.annotation.Transactional;
 
 public class CompositeGatewayManager implements GatewayManager {
 	
@@ -55,20 +55,21 @@ public class CompositeGatewayManager implements GatewayManager {
 		return null;
 	}
 
+        @Transactional
 	@SuppressWarnings("unchecked")
-	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails,
-			MotechContext context) {
+	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails)
+        {
 		
 		if ( messageDetails
 				.getMessageRequest()
 				.getMessageType() == MessageType.VOICE ) {
-			return voiceGatewayManager.sendMessage(messageDetails, context);
+			return voiceGatewayManager.sendMessage(messageDetails);
 		}
 		
 		if ( messageDetails
 				.getMessageRequest()
 				.getMessageType() == MessageType.TEXT ) {
-			return textGatewayManager.sendMessage(messageDetails, context);
+			return textGatewayManager.sendMessage(messageDetails);
 		}
 		
 		return new HashSet<GatewayResponse>();

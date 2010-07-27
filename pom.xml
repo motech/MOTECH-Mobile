@@ -112,6 +112,11 @@
                         <preparationGoals>clean verify -DenableIT=true</preparationGoals>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.liquibase</groupId>
+                    <artifactId>liquibase-plugin</artifactId>
+                    <version>1.9.5.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -206,6 +211,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+               <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
@@ -502,7 +512,12 @@
             	<version>2.0</version>
             	<scope>provided</scope>
             </dependency>
-        </dependencies>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>1.9.5</version>
+            </dependency>
+         </dependencies>
     </dependencyManagement>
     
     <properties>

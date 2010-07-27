@@ -3,7 +3,6 @@ package org.motechproject.mobile.omp.service;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestDetails;
 import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import java.util.Map;
 import java.util.Set;
@@ -21,14 +20,14 @@ public interface MessagingService {
      * 
      * @param message to be scheduled
      */
-    public void scheduleMessage(GatewayRequest message, MotechContext context);
+    public void scheduleMessage(GatewayRequest message);
     
     /**
      * Queues a message for delivery within the scheduled period
      * 
      * @param message to be scheduled
      */
-    public void scheduleMessage(GatewayRequestDetails message, MotechContext context);
+    public void scheduleMessage(GatewayRequestDetails message);
     
     /**
      * Sends all messages due for delivery
@@ -42,7 +41,7 @@ public interface MessagingService {
      * @param messageDetails GatewayRequest object containing information about the message to be sent
      * @return The id of the message sent
      */
-    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails, MotechContext context);
+    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails);
 
     /**
      * Sends a message with the provided details
@@ -50,7 +49,7 @@ public interface MessagingService {
      * @param messageDetails GatewayRequestDetails object containing information about the message to be sent
      * @return The id of the message sent
      */
-    public Long sendMessage(GatewayRequestDetails messageDetails, MotechContext context);
+    public String sendMessage(GatewayRequestDetails messageDetails);
             
     /**
      * Queries and updates the delivery status of all pending messages

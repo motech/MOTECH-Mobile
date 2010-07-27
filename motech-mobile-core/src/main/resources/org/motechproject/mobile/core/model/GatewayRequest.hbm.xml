@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
-  <union-subclass extends="MotechEntityImpl" name="GatewayRequestImpl" table="gateway_request">
+  <class name="GatewayRequestImpl" table="gateway_request">
+    <id column="id" name="id" type="string">
+      <generator class="assigned"/>
+    </id>
+    <version name="version">
+      <column default="0" name="obj_vesion" sql-type="int"/>
+    </version>
     <many-to-one class="MessageRequestImpl" column="message_request_id" name="messageRequest"/>
     <many-to-one class="GatewayRequestDetailsImpl" column="request_details_id" name="gatewayRequestDetails"/>
     <property column="recipients_number" name="recipientsNumber" type="string"/>
@@ -19,5 +25,5 @@
       <key column="message_id"/>
       <one-to-many class="GatewayResponseImpl"/>
     </set>
-  </union-subclass>
+  </class>
 </hibernate-mapping>

@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -26,6 +28,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class IncomingMessageFormParameterDAOImplTest {
 
     @Autowired
@@ -51,11 +55,11 @@ public class IncomingMessageFormParameterDAOImplTest {
 
     @Before
     public void setUp() {
-        MotechContext tc = coreManager.createMotechContext();
-        imfDAO = coreManager.createIncomingMessageFormParameterDAO(tc);
+    
+        imfDAO = coreManager.createIncomingMessageFormParameterDAO();
 
 
-        imfp1.setId(987L);
+        imfp1.setId("12000000016");
         imfp1.setDateCreated(new Date());
         imfp1.setErrCode(23);
         imfp1.setErrText("error text right?");
@@ -72,13 +76,12 @@ public class IncomingMessageFormParameterDAOImplTest {
     @Test
     public void testSave() {
         System.out.println("IncomingMessageFormParameterDAOImpl save");
-        Session session = ((Session) imfDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
+
         imfDAO.save(imfp1);
-        tx.commit();
 
 
-        IncomingMessageFormParameter fromdb = (IncomingMessageFormParameter) session.get(IncomingMessageFormParameterImpl.class, imfp1.getId());
+
+        IncomingMessageFormParameter fromdb = (IncomingMessageFormParameter) imfDAO.getSessionFactory().getCurrentSession().get(IncomingMessageFormParameterImpl.class, imfp1.getId());
 
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(fromdb, imfp1);

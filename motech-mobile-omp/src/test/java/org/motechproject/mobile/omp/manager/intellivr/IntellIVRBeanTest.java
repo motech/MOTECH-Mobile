@@ -26,12 +26,10 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.easymock.EasyMock;
-import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
@@ -155,8 +153,6 @@ public class IntellIVRBeanTest {
 		intellivrBean.setBundlingDelay(-1);
 		intellivrBean.setAvailableDays(1);
 
-		MotechContext mockContext = createMock(MotechContext.class);
-
 		GatewayMessageHandler mockMessageHandler = createMock(GatewayMessageHandler.class);
 		intellivrBean.setMessageHandler(mockMessageHandler);
 
@@ -168,7 +164,7 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId(1L);
+		english.setId("30000000000");
 		english.setName("English");
 		
 		Date expectedDateFrom = new Date();
@@ -182,7 +178,7 @@ public class IntellIVRBeanTest {
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId(1L);
+		mr1.setId("30000000001");
 		mr1.setDaysAttempted(1);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipient1);
@@ -193,7 +189,7 @@ public class IntellIVRBeanTest {
 		mr1.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId(1000L);
+		r1.setId("30000000002");
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone1);
@@ -212,7 +208,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId(2L);
+		mr2.setId("30000000003");
 		mr2.setDaysAttempted(1);
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipient1);
@@ -223,7 +219,7 @@ public class IntellIVRBeanTest {
 		mr2.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId(2000L);
+		r2.setId("30000000004");
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone1);
@@ -242,7 +238,7 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 
 		MessageRequest mr3 = new MessageRequestImpl();
-		mr3.setId(3L);
+		mr3.setId("30000000005");
 		mr3.setDaysAttempted(3);
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipient2);
@@ -253,7 +249,7 @@ public class IntellIVRBeanTest {
 		mr3.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r3 = new GatewayRequestImpl();
-		r3.setId(3000L);
+		r3.setId("30000000006");
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone2);
@@ -272,7 +268,7 @@ public class IntellIVRBeanTest {
 		n4.setId(4L);
 
 		MessageRequest mr4 = new MessageRequestImpl();
-		mr4.setId(4L);
+		mr4.setId("30000000007");
 		mr4.setLanguage(english);
 		mr4.setRecipientId(recipient1);
 		mr4.setRequestId("mr4");
@@ -281,7 +277,7 @@ public class IntellIVRBeanTest {
 		mr4.setPhoneNumberType("PUBLIC");
 
 		GatewayRequest r4 = new GatewayRequestImpl();
-		r4.setId(4000L);
+		r4.setId("30000000008");
 		r4.setMessageRequest(mr4);
 		r4.setMessageStatus(MStatus.PENDING);
 		r4.setRecipientsNumber("15555555556");
@@ -300,7 +296,7 @@ public class IntellIVRBeanTest {
 		n5.setId(5L);
 
 		MessageRequest mr5 = new MessageRequestImpl();
-		mr5.setId(5L);
+		mr5.setId("30000000009");
 		mr5.setLanguage(english);
 		mr5.setRecipientId(recipient1);
 		mr5.setRequestId("mr5");
@@ -309,7 +305,7 @@ public class IntellIVRBeanTest {
 		mr5.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r5 = new GatewayRequestImpl();
-		r5.setId(5000L);
+		r5.setId("30000000010");
 		r5.setMessageRequest(mr5);
 		r5.setMessageStatus(MStatus.PENDING);
 		r5.setRecipientsNumber(phone1);
@@ -338,51 +334,51 @@ public class IntellIVRBeanTest {
 		/*
 		 * Test non-null recipient
 		 */
-		expect(mockMessageHandler.parseMessageResponse(r1, StatusType.OK.value(), mockContext)).andReturn(grs1);
+		expect(mockMessageHandler.parseMessageResponse(r1, StatusType.OK.value())).andReturn(grs1);
 		replay(mockMessageHandler);
 		mockStatusStore.updateStatus(gr1.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
-		assertEquals(grs1,intellivrBean.sendMessage(r1, mockContext));
+		assertEquals(grs1,intellivrBean.sendMessage(r1));
 		verify(mockMessageHandler);
 		verify(mockStatusStore);
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 
-		expect(mockMessageHandler.parseMessageResponse(r2, StatusType.OK.value(), mockContext)).andReturn(grs2);
+		expect(mockMessageHandler.parseMessageResponse(r2, StatusType.OK.value())).andReturn(grs2);
 		replay(mockMessageHandler);
 		mockStatusStore.updateStatus(gr2.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
-		assertEquals(grs2,intellivrBean.sendMessage(r2, mockContext));
+		assertEquals(grs2,intellivrBean.sendMessage(r2));
 		verify(mockMessageHandler);
 		verify(mockStatusStore);
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 
-		expect(mockMessageHandler.parseMessageResponse(r3, StatusType.OK.value(), mockContext)).andReturn(grs3);
+		expect(mockMessageHandler.parseMessageResponse(r3, StatusType.OK.value())).andReturn(grs3);
 		replay(mockMessageHandler);
 		mockStatusStore.updateStatus(gr3.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
-		assertEquals(grs3,intellivrBean.sendMessage(r3, mockContext));
+		assertEquals(grs3,intellivrBean.sendMessage(r3));
 		verify(mockMessageHandler);
 		verify(mockStatusStore);
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 
-		expect(mockMessageHandler.parseMessageResponse(r4, StatusType.OK.value(), mockContext)).andReturn(grs4);
+		expect(mockMessageHandler.parseMessageResponse(r4, StatusType.OK.value())).andReturn(grs4);
 		replay(mockMessageHandler);
 		mockStatusStore.updateStatus(gr4.getGatewayMessageId(), StatusType.OK.value());
 		replay(mockStatusStore);
-		assertEquals(grs4,intellivrBean.sendMessage(r4, mockContext));
+		assertEquals(grs4,intellivrBean.sendMessage(r4));
 		verify(mockMessageHandler);
 		verify(mockStatusStore);
 		reset(mockMessageHandler);
 		reset(mockStatusStore);
 
-		expect(mockMessageHandler.parseMessageResponse(r5, StatusType.ERROR.value(), mockContext)).andReturn(grs5);
+		expect(mockMessageHandler.parseMessageResponse(r5, StatusType.ERROR.value())).andReturn(grs5);
 		replay(mockMessageHandler);
 		mockStatusStore.updateStatus(gr5.getGatewayMessageId(), StatusType.ERROR.value());
 		replay(mockStatusStore);
-		assertEquals(grs5,intellivrBean.sendMessage(r5, mockContext));
+		assertEquals(grs5,intellivrBean.sendMessage(r5));
 		verify(mockMessageHandler);
 		verify(mockStatusStore);
 		reset(mockMessageHandler);
@@ -496,11 +492,11 @@ public class IntellIVRBeanTest {
 		mr1.setRecipientId(null);
 		gr1.setResponseText(StatusType.ERROR.value());
 
-		expect(mockMessageHandler.parseMessageResponse(r1, StatusType.ERROR.value(), mockContext)).andReturn(grs1);
+		expect(mockMessageHandler.parseMessageResponse(r1, StatusType.ERROR.value())).andReturn(grs1);
 		replay(mockMessageHandler);
 		mockStatusStore.updateStatus(gr1.getGatewayMessageId(), StatusType.ERROR.value());
 		replay(mockStatusStore);
-		assertEquals(grs1,intellivrBean.sendMessage(r1, mockContext));
+		assertEquals(grs1,intellivrBean.sendMessage(r1));
 		verify(mockMessageHandler);
 		verify(mockStatusStore);
 		reset(mockMessageHandler);
@@ -516,14 +512,14 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId(1L);
+		english.setId("30000000011");
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId(1L);
+		mr1.setId("30000000012");
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipient1);
 		mr1.setRequestId("mr1");
@@ -532,7 +528,7 @@ public class IntellIVRBeanTest {
 		mr1.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId(1000L);
+		r1.setId("30000000013");
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone1);
@@ -541,7 +537,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId(2L);
+		mr2.setId("30000000014");
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipient1);
 		mr2.setRequestId("mr2");
@@ -550,7 +546,7 @@ public class IntellIVRBeanTest {
 		mr2.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId(2000L);
+		r2.setId("30000000015");
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone1);
@@ -597,14 +593,14 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId(1L);
+		english.setId("30000000016");
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId(1L);
+		mr1.setId("30000000017");
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipientID);
 		mr1.setRequestId("mr1");
@@ -612,7 +608,7 @@ public class IntellIVRBeanTest {
 		mr1.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId(1000L);
+		r1.setId("30000000018");
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone);
@@ -623,7 +619,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId(2L);
+		mr2.setId("30000000019");
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipientID);
 		mr2.setRequestId("mr2");
@@ -631,7 +627,7 @@ public class IntellIVRBeanTest {
 		mr2.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId(2000L);
+		r2.setId("30000000020");
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);
@@ -642,7 +638,7 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 
 		MessageRequest mr3 = new MessageRequestImpl();
-		mr3.setId(3L);
+		mr3.setId("30000000021");
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipientID);
 		mr3.setRequestId("mr3");
@@ -650,7 +646,7 @@ public class IntellIVRBeanTest {
 		mr3.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r3 = new GatewayRequestImpl();
-		r3.setId(3000L);
+		r3.setId("30000000022");
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone);
@@ -1384,18 +1380,12 @@ public class IntellIVRBeanTest {
 			GregorianCalendar expectedNewStart = new GregorianCalendar(2010, 1, 2, 12, 00);
 			GregorianCalendar expectedNewEnd = new GregorianCalendar(2010, 1, 2, 13, 00);
 
-			MotechContext mockContext = createMock(MotechContext.class);
-
 			CoreManager mockCoreManager = createMock(CoreManager.class);
 			intellivrBean.setCoreManager(mockCoreManager);
-
-			DBSession mockDBSession = createMock(DBSession.class);
-			Transaction mockTransaction = createMock(Transaction.class);
-
 			GatewayRequestDAO<GatewayRequest> mockGatewayRequestDAO = createMock(GatewayRequestDAO.class);
 
-			expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
-			expect(mockCoreManager.createGatewayRequestDAO(mockContext)).andReturn(mockGatewayRequestDAO);
+			
+			expect(mockCoreManager.createGatewayRequestDAO()).andReturn(mockGatewayRequestDAO);
 
 			GatewayRequest mockGatewayRequest1 = createMock(GatewayRequest.class);
 			GatewayRequest mockGatewayRequest2 = createMock(GatewayRequest.class);
@@ -1408,8 +1398,7 @@ public class IntellIVRBeanTest {
 			mockGatewayRequest1.setDateFrom(expectedNewStart.getTime());
 			mockGatewayRequest1.setDateTo(expectedNewEnd.getTime());
 			mockGatewayRequest1.setMessageStatus(MStatus.SCHEDULED);
-			expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockGatewayRequestDAO.save(mockGatewayRequest1)).andReturn(mockGatewayRequest1);
 
 			expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest2);
@@ -1419,8 +1408,7 @@ public class IntellIVRBeanTest {
 			mockGatewayRequest2.setDateFrom(expectedNewStart.getTime());
 			mockGatewayRequest2.setDateTo(expectedNewEnd.getTime());
 			mockGatewayRequest2.setMessageStatus(MStatus.SCHEDULED);
-			expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockGatewayRequestDAO.save(mockGatewayRequest2)).andReturn(mockGatewayRequest2);
 
 			expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest3);
@@ -1430,8 +1418,7 @@ public class IntellIVRBeanTest {
 			mockGatewayRequest3.setDateFrom(expectedNewStart.getTime());
 			mockGatewayRequest3.setDateTo(expectedNewEnd.getTime());
 			mockGatewayRequest3.setMessageStatus(MStatus.SCHEDULED);
-			expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockGatewayRequestDAO.save(mockGatewayRequest3)).andReturn(mockGatewayRequest3);
 
 			MessageRequest mockMessageRequest1 = createMock(MessageRequest.class);
@@ -1440,27 +1427,24 @@ public class IntellIVRBeanTest {
 
 			MessageRequestDAO<MessageRequest> mockMessageRequestDAO = createMock(MessageRequestDAO.class);
 
-			expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
+			expect(mockCoreManager.createMessageRequestDAO()).andReturn(mockMessageRequestDAO);
 
 			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
 			mockMessageRequest1.setDaysAttempted(1);
-			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
 
 			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
 			mockMessageRequest2.setDaysAttempted(1);
-			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
 
 			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
 			mockMessageRequest3.setDaysAttempted(1);
-			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
 
-			mockContext.cleanUp();
+	
 
 			if ( type == ReportStatusType.COMPLETED ) {
 				statusStore.updateStatus(mr1.getId().toString(), "BELOWTHRESHOLD");
@@ -1474,7 +1458,7 @@ public class IntellIVRBeanTest {
 
 			replay(statusStore);
 			replay(mockCoreManager);
-			replay(mockContext);
+		
 			replay(mockGatewayRequest1);
 			replay(mockGatewayRequest2);
 			replay(mockGatewayRequest3);
@@ -1483,7 +1467,7 @@ public class IntellIVRBeanTest {
 			replay(mockMessageRequest2);
 			replay(mockMessageRequest3);
 			replay(mockMessageRequestDAO);
-			replay(mockDBSession);
+	
 
 			assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
@@ -1493,9 +1477,9 @@ public class IntellIVRBeanTest {
 			assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
 			verify(mockCoreManager);
-			verify(mockContext);
+
 			verify(mockGatewayRequestDAO);
-			verify(mockDBSession);
+
 			verify(mockGatewayRequest1);
 			verify(mockGatewayRequest2);
 			verify(mockGatewayRequest3);
@@ -1505,10 +1489,9 @@ public class IntellIVRBeanTest {
 			verify(mockMessageRequestDAO);
 			verify(statusStore);
 			reset(mockCoreManager);
-			reset(mockContext);
+
 			reset(mockGatewayRequestDAO);
-			reset(mockDBSession);
-			reset(mockTransaction);
+	
 			reset(mockGatewayRequest1);
 			reset(mockGatewayRequest2);
 			reset(mockGatewayRequest3);
@@ -1526,37 +1509,32 @@ public class IntellIVRBeanTest {
 			session.setAttempts(2);
 			session.setDays(1);
 
-			expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
-
-			expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
+			
+			expect(mockCoreManager.createMessageRequestDAO()).andReturn(mockMessageRequestDAO);
 
 			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
 			mockMessageRequest1.setDaysAttempted(2);
-			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
 
 			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
 			mockMessageRequest2.setDaysAttempted(2);
-			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
 
 			expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
 			mockMessageRequest3.setDaysAttempted(2);
-			expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-			expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+			
 			expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
 
-			mockContext.cleanUp();
+	
 
 			statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
 			statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
 			statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
 
 			replay(mockCoreManager);
-			replay(mockContext);
-			replay(mockDBSession);
+		
 			replay(mockMessageRequest1);
 			replay(mockMessageRequest2);
 			replay(mockMessageRequest3);
@@ -1572,17 +1550,14 @@ public class IntellIVRBeanTest {
 			assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
 			verify(mockCoreManager);
-			verify(mockContext);
-			verify(mockDBSession);
+		
 			verify(mockMessageRequest1);
 			verify(mockMessageRequest2);
 			verify(mockMessageRequest3);
 			verify(mockMessageRequestDAO);
 			verify(statusStore);
 			reset(mockCoreManager);
-			reset(mockContext);
-			reset(mockDBSession);
-			reset(mockTransaction);
+		
 			reset(mockMessageRequest1);
 			reset(mockMessageRequest2);
 			reset(mockMessageRequest3);
@@ -1673,13 +1648,12 @@ public class IntellIVRBeanTest {
 		CoreManager mockCoreManager = createMock(CoreManager.class);
 		intellivrBean.setCoreManager(mockCoreManager);
 
-		DBSession mockDBSession = createMock(DBSession.class);
-		Transaction mockTransaction = createMock(Transaction.class);
+	
 
 		GatewayRequestDAO<GatewayRequest> mockGatewayRequestDAO = createMock(GatewayRequestDAO.class);
 
-		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
-		expect(mockCoreManager.createGatewayRequestDAO(mockContext)).andReturn(mockGatewayRequestDAO);
+	
+		expect(mockCoreManager.createGatewayRequestDAO()).andReturn(mockGatewayRequestDAO);
 
 		GatewayRequest mockGatewayRequest1 = createMock(GatewayRequest.class);
 		GatewayRequest mockGatewayRequest2 = createMock(GatewayRequest.class);
@@ -1692,8 +1666,7 @@ public class IntellIVRBeanTest {
 		mockGatewayRequest1.setDateFrom(expectedNewStart.getTime());
 		mockGatewayRequest1.setDateTo(expectedNewEnd.getTime());
 		mockGatewayRequest1.setMessageStatus(MStatus.SCHEDULED);
-		expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+		
 		expect(mockGatewayRequestDAO.save(mockGatewayRequest1)).andReturn(mockGatewayRequest1);
 
 		expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest2);
@@ -1703,8 +1676,7 @@ public class IntellIVRBeanTest {
 		mockGatewayRequest2.setDateFrom(expectedNewStart.getTime());
 		mockGatewayRequest2.setDateTo(expectedNewEnd.getTime());
 		mockGatewayRequest2.setMessageStatus(MStatus.SCHEDULED);
-		expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+		
 		expect(mockGatewayRequestDAO.save(mockGatewayRequest2)).andReturn(mockGatewayRequest2);
 
 		expect(mockGatewayRequestDAO.getById(EasyMock.anyInt())).andReturn(mockGatewayRequest3);
@@ -1714,8 +1686,7 @@ public class IntellIVRBeanTest {
 		mockGatewayRequest3.setDateFrom(expectedNewStart.getTime());
 		mockGatewayRequest3.setDateTo(expectedNewEnd.getTime());
 		mockGatewayRequest3.setMessageStatus(MStatus.SCHEDULED);
-		expect(mockGatewayRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+		
 		expect(mockGatewayRequestDAO.save(mockGatewayRequest3)).andReturn(mockGatewayRequest3);
 
 		MessageRequest mockMessageRequest1 = createMock(MessageRequest.class);
@@ -1724,27 +1695,24 @@ public class IntellIVRBeanTest {
 
 		MessageRequestDAO<MessageRequest> mockMessageRequestDAO = createMock(MessageRequestDAO.class);
 
-		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
+		expect(mockCoreManager.createMessageRequestDAO()).andReturn(mockMessageRequestDAO);
 
 		expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
 		mockMessageRequest1.setDaysAttempted(1);
-		expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+		
 		expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
 
 		expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
 		mockMessageRequest2.setDaysAttempted(1);
-		expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+		
 		expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
 
 		expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
 		mockMessageRequest3.setDaysAttempted(1);
-		expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+		
 		expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
 
-		mockContext.cleanUp();
+	
 
 		statusStore.updateStatus(mr1.getId().toString(), "BELOWTHRESHOLD");
 		statusStore.updateStatus(mr2.getId().toString(), "BELOWTHRESHOLD");
@@ -1752,7 +1720,7 @@ public class IntellIVRBeanTest {
 
 		replay(statusStore);
 		replay(mockCoreManager);
-		replay(mockContext);
+	
 		replay(mockGatewayRequest1);
 		replay(mockGatewayRequest2);
 		replay(mockGatewayRequest3);
@@ -1761,7 +1729,7 @@ public class IntellIVRBeanTest {
 		replay(mockMessageRequest2);
 		replay(mockMessageRequest3);
 		replay(mockMessageRequestDAO);
-		replay(mockDBSession);
+
 
 		assertTrue(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
@@ -1771,9 +1739,9 @@ public class IntellIVRBeanTest {
 		assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
 		verify(mockCoreManager);
-		verify(mockContext);
+
 		verify(mockGatewayRequestDAO);
-		verify(mockDBSession);
+
 		verify(mockGatewayRequest1);
 		verify(mockGatewayRequest2);
 		verify(mockGatewayRequest3);
@@ -1783,10 +1751,9 @@ public class IntellIVRBeanTest {
 		verify(mockMessageRequestDAO);
 		verify(statusStore);
 		reset(mockCoreManager);
-		reset(mockContext);
+
 		reset(mockGatewayRequestDAO);
-		reset(mockDBSession);
-		reset(mockTransaction);
+
 		reset(mockGatewayRequest1);
 		reset(mockGatewayRequest2);
 		reset(mockGatewayRequest3);
@@ -1804,37 +1771,32 @@ public class IntellIVRBeanTest {
 		session.setAttempts(2);
 		session.setDays(1);
 
-		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
-
-		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockMessageRequestDAO);
+	
+		expect(mockCoreManager.createMessageRequestDAO()).andReturn(mockMessageRequestDAO);
 
 		expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest1);
 		mockMessageRequest1.setDaysAttempted(2);
-		expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+	
 		expect(mockMessageRequestDAO.save(mockMessageRequest1)).andReturn(mockMessageRequest1);
 
 		expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest2);
 		mockMessageRequest2.setDaysAttempted(2);
-		expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+		
 		expect(mockMessageRequestDAO.save(mockMessageRequest2)).andReturn(mockMessageRequest2);
 
 		expect(mockMessageRequestDAO.getById(EasyMock.anyInt())).andReturn(mockMessageRequest3);
 		mockMessageRequest3.setDaysAttempted(2);
-		expect(mockMessageRequestDAO.getDBSession()).andReturn(mockDBSession);
-		expect(mockDBSession.getTransaction()).andReturn(mockTransaction);
+	
 		expect(mockMessageRequestDAO.save(mockMessageRequest3)).andReturn(mockMessageRequest3);
 
-		mockContext.cleanUp();
+
 
 		statusStore.updateStatus(mr1.getId().toString(), "MAXATTEMPTS");
 		statusStore.updateStatus(mr2.getId().toString(), "MAXATTEMPTS");
 		statusStore.updateStatus(mr3.getId().toString(), "MAXATTEMPTS");
 
 		replay(mockCoreManager);
-		replay(mockContext);
-		replay(mockDBSession);
+
 		replay(mockMessageRequest1);
 		replay(mockMessageRequest2);
 		replay(mockMessageRequest3);
@@ -1850,17 +1812,15 @@ public class IntellIVRBeanTest {
 		assertFalse(intellivrBean.ivrSessions.containsKey(session.getSessionId()));
 
 		verify(mockCoreManager);
-		verify(mockContext);
-		verify(mockDBSession);
+
+
 		verify(mockMessageRequest1);
 		verify(mockMessageRequest2);
 		verify(mockMessageRequest3);
 		verify(mockMessageRequestDAO);
 		verify(statusStore);
 		reset(mockCoreManager);
-		reset(mockContext);
-		reset(mockDBSession);
-		reset(mockTransaction);
+	
 		reset(mockMessageRequest1);
 		reset(mockMessageRequest2);
 		reset(mockMessageRequest3);
@@ -1972,7 +1932,7 @@ public class IntellIVRBeanTest {
 
 		LanguageImpl english = new LanguageImpl();
 		english.setCode("en");
-		english.setId(1L);
+		english.setId("30000000023");
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
@@ -1982,13 +1942,13 @@ public class IntellIVRBeanTest {
 
 		MessageRequest mr1 = new MessageRequestImpl();
 		mr1.setDateFrom(sdf.parse("2010-01-01"));
-		mr1.setId(1L);
+		mr1.setId("30000000024");
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipient);
 		mr1.setNotificationType(n1);
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId(1000L);
+		r1.setId("30000000025");
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone);
@@ -1997,13 +1957,13 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId(2L);
+		mr2.setId("30000000026");
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipient);
 		mr2.setNotificationType(n2);
 
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId(2000L);
+		r2.setId("30000000027");
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);
@@ -2012,13 +1972,13 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 
 		MessageRequest mr3 = new MessageRequestImpl();
-		mr3.setId(3L);
+		mr3.setId("30000000028");
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipient);
 		mr3.setNotificationType(n3);
 
 		GatewayRequest r3 = new GatewayRequestImpl();
-		r3.setId(3000L);
+		r3.setId("30000000029");
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone);
@@ -2028,13 +1988,13 @@ public class IntellIVRBeanTest {
 
 		MessageRequest mr4 = new MessageRequestImpl();
 		mr4.setDateFrom(sdf.parse("2010-01-02"));
-		mr4.setId(4L);
+		mr4.setId("30000000030");
 		mr4.setLanguage(english);
 		mr4.setRecipientId(recipient);
 		mr4.setNotificationType(n4);
 
 		GatewayRequest r4 = new GatewayRequestImpl();
-		r4.setId(4000L);
+		r4.setId("30000000031");
 		r4.setMessageRequest(mr4);
 		r4.setMessageStatus(MStatus.PENDING);
 		r4.setRecipientsNumber(phone);
@@ -2087,14 +2047,14 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId(1L);
+		english.setId("30000000032");
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId(1L);
+		mr1.setId("30000000033");
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipientID);
 		mr1.setRequestId("mr1");
@@ -2105,7 +2065,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId(2L);
+		mr2.setId("30000000034");
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipientID);
 		mr2.setRequestId("mr2");
@@ -2116,7 +2076,7 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 
 		MessageRequest mr3 = new MessageRequestImpl();
-		mr3.setId(3L);
+		mr3.setId("30000000035");
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipientID);
 		mr3.setRequestId("mr3");
@@ -2176,8 +2136,8 @@ public class IntellIVRBeanTest {
 
 		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andReturn(registrarResponse);
 		replay(mockRegistrarService);
-		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
-		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockDao);
+		
+		expect(mockCoreManager.createMessageRequestDAO()).andReturn(mockDao);
 		replay(mockCoreManager);
 		expect(mockDao.getMsgRequestByRecipientAndSchedule(EasyMock.eq(recipientID), (Date)EasyMock.anyObject())).andReturn(expectedDAOResponse);
 		replay(mockDao);
@@ -2216,8 +2176,8 @@ public class IntellIVRBeanTest {
 
 		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientID))).andReturn(registrarResponse);
 		replay(mockRegistrarService);
-		expect(mockCoreManager.createMotechContext()).andReturn(mockContext);
-		expect(mockCoreManager.createMessageRequestDAO(mockContext)).andReturn(mockDao);
+	
+		expect(mockCoreManager.createMessageRequestDAO()).andReturn(mockDao);
 		replay(mockCoreManager);
 		expect(mockDao.getMsgRequestByRecipientAndSchedule(EasyMock.eq(recipientID), (Date)EasyMock.anyObject())).andReturn(expectedDAOResponse);
 		replay(mockDao);
@@ -2291,14 +2251,14 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId(1L);
+		english.setId("30000000036");
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId(1L);
+		mr1.setId("30000000037");
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipientID);
 		mr1.setRequestId("mr1");
@@ -2306,7 +2266,7 @@ public class IntellIVRBeanTest {
 		mr1.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId(1000L);
+		r1.setId("30000000038");
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone);

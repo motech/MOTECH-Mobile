@@ -33,7 +33,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
      *
      * @see GatewayMessageHandler.parseResponse
      */
-    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context) {
+    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         logger.debug("Parsing message gateway response");
         logger.debug(gatewayResponse);
 
@@ -50,7 +50,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
             String[] responseParts = line.split(" ");
 
             if(responseParts[0].equalsIgnoreCase("ID:")){
-                GatewayResponse response = getCoreManager().createGatewayResponse(context);
+                GatewayResponse response = getCoreManager().createGatewayResponse();
                 
                 response.setGatewayMessageId(responseParts[1]);
                 response.setRequestId(message.getRequestId());
@@ -75,7 +75,7 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
                 
                 MStatus status = lookupResponse(errorCode);
                 
-                GatewayResponse response = getCoreManager().createGatewayResponse(context);
+                GatewayResponse response = getCoreManager().createGatewayResponse();
                 
                 response.setRequestId(message.getRequestId());
                 response.setMessageStatus(status);

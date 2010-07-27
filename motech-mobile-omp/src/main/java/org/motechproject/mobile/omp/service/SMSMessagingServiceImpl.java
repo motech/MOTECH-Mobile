@@ -5,7 +5,6 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestDetails;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.core.util.MotechException;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * An SMS specific implementation of the MessagingService interface
@@ -34,51 +33,51 @@ public class SMSMessagingServiceImpl implements MessagingService {
      * 
      * @see MessageService.scheduleMessage
      */
-    public void scheduleMessage(GatewayRequest message, MotechContext context) {
-        cache.saveMessage(message.getGatewayRequestDetails(), context);
+    public void scheduleMessage(GatewayRequest message) {
+        cache.saveMessage(message.getGatewayRequestDetails());
     }
 
     /**
      * 
      * @see MessageService.scheduleMessage
      */
-    public void scheduleMessage(GatewayRequestDetails message, MotechContext context) {
-        cache.saveMessage(message, context);
+    public void scheduleMessage(GatewayRequestDetails message) {
+        cache.saveMessage(message);
     }
 
     /**
      *
      * @see MessagingService.sendScheduledMessages
      */
+    @Transactional
     public void sendScheduledMessages() {
-        MotechContext mc = coreManager.createMotechContext();
-
+       
         logger.info("Fetching cached GatewayRequests");
 
-        List<GatewayRequest> scheduledMessages = cache.getMessagesByStatusAndSchedule(MStatus.SCHEDULED, new Date(), mc);
+        List<GatewayRequest> scheduledMessages = cache.getMessagesByStatusAndSchedule(MStatus.SCHEDULED, new Date());
         
         if (scheduledMessages != null && scheduledMessages.size() > 0) {
             logger.info("Sending messages");
             for (GatewayRequest message : scheduledMessages) {
-                sendMessage(message, mc);
+                sendMessage(message);
             }
             logger.info("Sending completed successfully");
         }else{
             logger.info("No scheduled messages Found");
         }
-        mc.cleanUp();
+       
     }
 
     /**
      *
      * @see MessagingService.sendMessage(MessageDetails messageDetails)
      */
-    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails, MotechContext context) {
+    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails) {
         logger.info("Sending message to gateway");
         Set<GatewayResponse> responseList = null;
         Map<Boolean, Set<GatewayResponse>> result = new HashMap<Boolean, Set<GatewayResponse>>();
         try{
-            responseList = this.gatewayManager.sendMessage(messageDetails, context);
+            responseList = this.gatewayManager.sendMessage(messageDetails);
             result.put(new Boolean(true), responseList);
             logger.debug(responseList);
             logger.info("Updating message status");
@@ -90,10 +89,10 @@ public class SMSMessagingServiceImpl implements MessagingService {
             messageDetails.setMessageStatus(MStatus.SCHEDULED);
 
             GatewayMessageHandler orHandler = gatewayManager.getMessageHandler();
-            responseList = orHandler.parseMessageResponse(messageDetails, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage(), context);
+            responseList = orHandler.parseMessageResponse(messageDetails, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage());
             result.put(new Boolean(false), responseList);
         }
-        this.cache.saveMessage(messageDetails.getGatewayRequestDetails(), context);
+        this.cache.saveMessage(messageDetails.getGatewayRequestDetails());
         
         return result;
     }
@@ -102,12 +101,12 @@ public class SMSMessagingServiceImpl implements MessagingService {
      *
      * @see MessagingService.sendMessage(MessageDetails messageDetails)
      */
-    public Long sendMessage(GatewayRequestDetails messageDetails, MotechContext context) {
+    public String sendMessage(GatewayRequestDetails messageDetails) {
         logger.info("Sending message to gateway");
         GatewayRequest message = (GatewayRequest) messageDetails.getGatewayRequests().toArray()[0];
         
         try{        
-            Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message, context);
+            Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message);
             logger.debug(responseList);
             logger.info("Updating message status");
             message.setResponseDetails(responseList);
@@ -117,7 +116,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
             logger.error("Error sending message", me);
             message.setMessageStatus(MStatus.SCHEDULED);
         }
-        this.cache.saveMessage(messageDetails, context);
+        this.cache.saveMessage(messageDetails);
 
         return message.getId();
     }
@@ -127,24 +126,20 @@ public class SMSMessagingServiceImpl implements MessagingService {
      */
     public void updateMessageStatuses() {
         logger.info("Updating GatewayResponse objects");
-        MotechContext mc = getCoreManager().createMotechContext();
-
-        GatewayResponse gwResp = coreManager.createGatewayResponse(mc);
+       
+        GatewayResponse gwResp = coreManager.createGatewayResponse();
         gwResp.setMessageStatus(MStatus.PENDING);
 
-        List<GatewayResponse> pendingMessages = cache.getResponses(gwResp, mc);
+        List<GatewayResponse> pendingMessages = cache.getResponses(gwResp);
 
         for (GatewayResponse response : pendingMessages) {
             response.setResponseText(gatewayManager.getMessageStatus(response));
             response.setMessageStatus(gatewayManager.mapMessageStatus(response));
 
-            if (mc.getDBSession() != null) {
-                ((Session) mc.getDBSession().getSession()).evict(response);
-            }
-
-            cache.saveResponse(response, mc);
+        
+            cache.saveResponse(response);
         }
-        mc.cleanUp();
+      
     }
 
     /**

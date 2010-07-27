@@ -8,11 +8,11 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestDetails;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.hibernate.Transaction;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * An SMS specific implementation of the CacheService interface
@@ -20,6 +20,8 @@ import org.hibernate.Transaction;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
+@TransactionConfiguration
+@Transactional
 public class SMSCacheServiceImpl implements CacheService {
 
     private CoreManager coreManager;
@@ -29,59 +31,54 @@ public class SMSCacheServiceImpl implements CacheService {
      *
      * @see CacheService.saveMessage
      */
-    public void saveMessage(GatewayRequest messageDetails, MotechContext context) {
+    public void saveMessage(GatewayRequest messageDetails) {
         logger.debug("Initializing DAO");
-        GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO(context);
+        GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO();
         
         logger.debug("Caching message");
         logger.debug(messageDetails);
-        
-        Transaction tx = (Transaction) messageDAO.getDBSession().getTransaction();
-        tx.begin();
+  
         messageDAO.save(messageDetails);
-        tx.commit();
+
     }
     
     /**
      *
      * @see CacheService.saveMessage
      */
-    public void saveMessage(GatewayRequestDetails messageDetails, MotechContext context) {
+    public void saveMessage(GatewayRequestDetails messageDetails) {
         logger.debug("Initializing DAO");
-        GatewayRequestDetailsDAO messageDAO = coreManager.createGatewayRequestDetailsDAO(context);
+        GatewayRequestDetailsDAO messageDAO = coreManager.createGatewayRequestDetailsDAO();
         
         logger.debug("Caching message");
         logger.debug(messageDetails);
         
-        Transaction tx = (Transaction) messageDAO.getDBSession().getTransaction();
-        tx.begin();
+
         messageDAO.save(messageDetails);
-        tx.commit();
+
     }
     
     /**
      *
      * @see CacheService.saveResponse
      */
-    public void saveResponse(GatewayResponse responseDetails, MotechContext context) {
+    public void saveResponse(GatewayResponse responseDetails) {
         logger.debug("Initializing DAO");
-        GatewayResponseDAO responseDAO = coreManager.createGatewayResponseDAO(context);
+        GatewayResponseDAO responseDAO = coreManager.createGatewayResponseDAO();
         
         logger.debug("Caching response");
         logger.debug(responseDetails);
-        
-        Transaction tx = (Transaction) responseDAO.getDBSession().getTransaction();
-        tx.begin();
+    
         responseDAO.save(responseDetails);
-        tx.commit();
+
     }
     
     /**
      * 
      * see CacheService.getMessages
      */
-    public List<GatewayRequest> getMessages(GatewayRequest criteria, MotechContext context) {
-        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO(context);
+    public List<GatewayRequest> getMessages(GatewayRequest criteria) {
+        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO();
         return messageDao.findByExample(criteria);
     }
     
@@ -89,8 +86,8 @@ public class SMSCacheServiceImpl implements CacheService {
      * 
      * see CacheService.getMessagesByStatus
      */
-    public List<GatewayRequest> getMessagesByStatus(MStatus criteria, MotechContext context) {
-        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO(context);
+    public List<GatewayRequest> getMessagesByStatus(MStatus criteria) {
+        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO();
         return messageDao.getByStatus(criteria);
     }
 
@@ -98,8 +95,8 @@ public class SMSCacheServiceImpl implements CacheService {
      *
      * see CacheService.getMessagesByStatus
      */
-    public List<GatewayRequest> getMessagesByStatusAndSchedule(MStatus criteria, Date schedule, MotechContext context) {
-        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO(context);
+    public List<GatewayRequest> getMessagesByStatusAndSchedule(MStatus criteria, Date schedule) {
+        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO();
         return messageDao.getByStatusAndSchedule(criteria, schedule);
     }
     
@@ -107,8 +104,8 @@ public class SMSCacheServiceImpl implements CacheService {
      * 
      * see CacheService.getMessages
      */
-    public List<GatewayResponse> getResponses(GatewayResponse criteria, MotechContext context) {
-        GatewayResponseDAO responseDao = coreManager.createGatewayResponseDAO(context);
+    public List<GatewayResponse> getResponses(GatewayResponse criteria) {
+        GatewayResponseDAO responseDao = coreManager.createGatewayResponseDAO();
         return responseDao.findByExample(criteria);
     }
 

@@ -8,7 +8,19 @@ import java.util.Set;
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessageFormDefinition extends MotechEntity {
+public interface IncomingMessageFormDefinition  {
+
+    /**
+     *
+     * @param id the id to set
+     */
+    public void setId(String id);
+
+    /**
+     *
+     * @return id to get
+     */
+    public String getId();
 
     /**
      * @return the dateCreated
@@ -108,4 +120,14 @@ public interface IncomingMessageFormDefinition extends MotechEntity {
      * @param sendResponse the sendResponse to set
      */
     void setSendResponse(Boolean sendResponse);
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

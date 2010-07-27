@@ -7,15 +7,11 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.Transition;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.core.util.DateProvider;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import junit.framework.Assert;
-import org.hibernate.Transaction;
-import org.hibernate.Session;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -26,6 +22,8 @@ import org.motechproject.mobile.core.model.MessageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *  Date : Aug 4, 2009
@@ -33,6 +31,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class GatewayResponseDAOImplTest {
 
     public GatewayResponseDAOImplTest() {
@@ -44,98 +44,91 @@ public class GatewayResponseDAOImplTest {
     MessageRequestDAO mrDAO;
 
     @Autowired
-    private GatewayResponse rd1;
+    private GatewayResponse gr1;
     @Autowired
-    private GatewayResponse rd2;
+    private GatewayResponse gr2;
     @Autowired
-    private GatewayResponse rd3;
+    private GatewayResponse gr3;
     @Autowired
-    private GatewayResponse rd4;
+    private GatewayResponse gr4;
     @Autowired
-    private GatewayResponse rd5;
+    private GatewayResponse gr5;
     @Autowired
-    private GatewayResponse rd6;
+    private GatewayResponse gr6;
     @Autowired
-    private GatewayResponse rd7;
+    private GatewayResponse gr7;
     @Autowired
-    private GatewayResponse rd8;
+    private GatewayResponse gr8;
 
     @Autowired
-    private GatewayRequest rq1;
+    private GatewayRequest grq1;
 
     @Autowired
     private MessageRequest mr1;
 
-
-
-
-    @Autowired
-    private Transition t1;
-    @Autowired
-    private Transition t2;
     String requestId = "dfpoiufkdl";
 
     @Before
     public void setUp() {
-        MotechContext tc = coreManager.createMotechContext();
-        rDDAO = coreManager.createGatewayResponseDAO(tc);
-        grDAO = coreManager.createGatewayRequestDAO(tc);
-        mrDAO = coreManager.createMessageRequestDAO(tc);
 
-        rd1.setId(1L);
-        rd1.setRecipientNumber("123445");
-        rd1.setMessageStatus(MStatus.PENDING);
-        rd1.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
-        rd1.setRequestId("dfpoi234ufkdl");
+        rDDAO = coreManager.createGatewayResponseDAO();
+        grDAO = coreManager.createGatewayRequestDAO();
+        mrDAO = coreManager.createMessageRequestDAO();
 
-        rd2.setId(2L);
-        rd2.setRecipientNumber("123445");
-        rd2.setMessageStatus(MStatus.PENDING);
-        rd2.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
-        rd2.setRequestId(requestId);
+        gr1.setId("60000000001");
+        gr1.setRecipientNumber("123445");
+        gr1.setMessageStatus(MStatus.PENDING);
+        gr1.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
+        gr1.setRequestId("dfpoi234ufkdl");
 
-        rd3.setId(3L);
-        rd3.setRecipientNumber("234567");
-        rd3.setMessageStatus(MStatus.DELIVERED);
-        rd3.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
-        rd3.setRequestId(requestId);
+        gr2.setId("60000000002");
+        gr2.setRecipientNumber("123445");
+        gr2.setMessageStatus(MStatus.PENDING);
+        gr2.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
+        gr2.setRequestId(requestId);
 
-        rd4.setId(4L);
-        rd4.setRecipientNumber("345678");
-        rd4.setMessageStatus(MStatus.DELIVERED);
-        rd4.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
-        rd4.setRequestId(requestId);
+        gr3.setId("60000000003");
+        gr3.setRecipientNumber("234567");
+        gr3.setMessageStatus(MStatus.DELIVERED);
+        gr3.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
+        gr3.setRequestId(requestId);
 
-        rd5.setId(5L);
-        rd5.setRecipientNumber("765432");
-        rd5.setMessageStatus(MStatus.FAILED);
-        rd5.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
-        rd5.setRequestId(requestId);
+        gr4.setId("60000000004");
+        gr4.setRecipientNumber("345678");
+        gr4.setMessageStatus(MStatus.DELIVERED);
+        gr4.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
+        gr4.setRequestId(requestId);
 
-        rd7.setId(9L);
-        rd7.setRecipientNumber("23459");
-        rd7.setMessageStatus(MStatus.FAILED);
-        rd7.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
-        rd7.setRequestId("88787");
-        
+        gr5.setId("60000000005");
+        gr5.setRecipientNumber("765432");
+        gr5.setMessageStatus(MStatus.FAILED);
+        gr5.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
+        gr5.setRequestId(requestId);
 
-        rd8.setId(23L);
-        rd8.setRecipientNumber("23459");
-        rd8.setMessageStatus(MStatus.FAILED);
-        rd8.setDateCreated(new Date());
-        rd8.setRequestId(requestId);
+        gr7.setId("60000000006");
+        gr7.setRecipientNumber("23459");
+        gr7.setMessageStatus(MStatus.FAILED);
+        gr7.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
+        gr7.setRequestId("88787");
 
-        mr1.setId(415L);
 
-        rq1.setId(987L);
-        rq1.setMessage("message to be tested with trynumber and requestID");
-        rq1.setMessageStatus(MStatus.FAILED);
-        rq1.setRequestId("88787");
-        rq1.setTryNumber(2);
-        rq1.setRecipientsNumber("7788899000");
-        rq1.setMessageRequest(mr1);
+        gr8.setId("60000000007");
+        gr8.setRecipientNumber("23459");
+        gr8.setMessageStatus(MStatus.FAILED);
+        gr8.setDateCreated(new Date());
+        gr8.setRequestId(requestId);
 
-        rd7.setGatewayRequest(rq1);
+        mr1.setId("60000000008");
+
+        grq1.setId("30000000001");
+        grq1.setMessage("message to be tested with trynumber and requestID");
+        grq1.setMessageStatus(MStatus.FAILED);
+        grq1.setRequestId("88787");
+        grq1.setTryNumber(2);
+        grq1.setRecipientsNumber("7788899000");
+        grq1.setMessageRequest(mr1);
+
+        grq1.addResponse(gr7);
 
         setUpInitialData();
 
@@ -143,82 +136,73 @@ public class GatewayResponseDAOImplTest {
 
     public void setUpInitialData() {
 
-        Session session = (Session) grDAO.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
+   
         mrDAO.save(mr1);
-        grDAO.save(rq1);
-        rDDAO.save(rd2);
-        rDDAO.save(rd3);
-        rDDAO.save(rd4);
-        rDDAO.save(rd5);
-        rDDAO.save(rd7);
-        rDDAO.save(rd8);
-        tx.commit();
+        grDAO.save(grq1);
+        rDDAO.save(gr2);
+        rDDAO.save(gr3);
+        rDDAO.save(gr4);
+        rDDAO.save(gr5);
+        rDDAO.save(gr7);
+        rDDAO.save(gr8);
+
 
     }
 
     @After
     public void teardown(){
+
+grDAO.delete(grq1);
+        rDDAO.delete(gr1);
+        rDDAO.delete(gr2);
+        rDDAO.delete(gr3);
+        rDDAO.delete(gr4);
+        rDDAO.delete(gr5);
+        rDDAO.delete(gr7);
+        rDDAO.delete(gr8);
         
-        Session session = (Session) grDAO.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
-        rDDAO.delete(rd1);
-        rDDAO.delete(rd2);
-        rDDAO.delete(rd3);
-        rDDAO.delete(rd4);
-        rDDAO.delete(rd5);
-        rDDAO.delete(rd7);
-        rDDAO.delete(rd8);
-        grDAO.delete(rq1);
         mrDAO.delete(mr1);
 
-        tx.commit();
     }
 
 
     @Test
     public void testSave() {
         System.out.println("Save Response");
-        Session session = (Session) rDDAO.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
-        rDDAO.save(rd1);
-        tx.commit();
-        session.beginTransaction();
-        GatewayResponse fromdb = (GatewayResponse) session.get(GatewayResponseImpl.class, rd1.getId());
-        session.getTransaction().commit();
+   
+        rDDAO.save(gr1);
+ 
 
-        Assert.assertEquals(rd1.getId(), fromdb.getId());
-        Assert.assertEquals(rd1.getRecipientNumber(), fromdb.getRecipientNumber());
-        Assert.assertEquals(rd1.getRecipientNumber(), fromdb.getRecipientNumber());
+        GatewayResponse fromdb = (GatewayResponse) rDDAO.getSessionFactory().getCurrentSession().get(GatewayResponseImpl.class, gr1.getId());
+
+
+        Assert.assertEquals(gr1.getId(), fromdb.getId());
+        Assert.assertEquals(gr1.getRecipientNumber(), fromdb.getRecipientNumber());
+        Assert.assertEquals(gr1.getRecipientNumber(), fromdb.getRecipientNumber());
         System.out.println(fromdb.toString());
     }
 
     @Test
     public void testDelete() {
         System.out.println("Delete Response");
-        Session session = (Session) rDDAO.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
-        rDDAO.delete(rd2);
-        tx.commit();
-        session.beginTransaction();
-        GatewayResponse fromdb = (GatewayResponseImpl) session.get(GatewayResponseImpl.class, rd2.getId());
-        session.getTransaction().commit();
+ 
+        rDDAO.delete(gr2);
+
+        GatewayResponse fromdb = (GatewayResponseImpl) rDDAO.getSessionFactory().getCurrentSession().get(GatewayResponseImpl.class, gr2.getId());
         Assert.assertNull(fromdb);
     }
 
     @Test
     public void testUpdate() {
         System.out.println("Update Response");
-        rd3.setMessageStatus(MStatus.FAILED);
-        rd3.setRecipientNumber("4444444");
-        Session session = (Session) rDDAO.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
-        rDDAO.save(rd3);
-        tx.commit();
-        session.beginTransaction();
-        GatewayResponse rd3fromdb = (GatewayResponseImpl) session.get(GatewayResponseImpl.class, rd3.getId());
-        session.getTransaction().commit();
-        Assert.assertEquals(rd3.getId(), rd3fromdb.getId());
+        gr3.setMessageStatus(MStatus.FAILED);
+        gr3.setRecipientNumber("4444444");
+ 
+        rDDAO.save(gr3);
+
+        GatewayResponse rd3fromdb = (GatewayResponseImpl) rDDAO.getSessionFactory().getCurrentSession().get(GatewayResponseImpl.class, gr3.getId());
+   
+        Assert.assertEquals(gr3.getId(), rd3fromdb.getId());
         Assert.assertEquals(MStatus.FAILED, rd3fromdb.getMessageStatus());
         Assert.assertEquals("4444444", rd3fromdb.getRecipientNumber());
     }
@@ -226,53 +210,33 @@ public class GatewayResponseDAOImplTest {
     @Test
     public void testGetById() {
         System.out.println("Find by ResponseDetails id ");
-        Transaction tx = ((Session) rDDAO.getDBSession().getSession()).beginTransaction();
-        GatewayResponse fromdb = (GatewayResponseImpl) rDDAO.getById(rd4.getId());
-        System.out.println("last modified field: " + fromdb.getLastModified());
-        tx.commit();
 
-        Assert.assertEquals(rd4.getId(), fromdb.getId());
-        Assert.assertEquals(rd4.getMessageStatus(), fromdb.getMessageStatus());
-        Assert.assertEquals(rd4.getRecipientNumber(), fromdb.getRecipientNumber());
+        GatewayResponse fromdb = (GatewayResponseImpl) rDDAO.getById(gr4.getId());
+        System.out.println("last modified field: " + fromdb.getLastModified());
+
+
+        Assert.assertEquals(gr4.getId(), fromdb.getId());
+        Assert.assertEquals(gr4.getMessageStatus(), fromdb.getMessageStatus());
+        Assert.assertEquals(gr4.getRecipientNumber(), fromdb.getRecipientNumber());
     }
 
     @Ignore
     @Test
     public void testFindByExample() {
         System.out.println("Find byResponseDetails example");
-        rd6.setMessageStatus(MStatus.FAILED);
+        gr6.setMessageStatus(MStatus.FAILED);
         List<GatewayResponse> expResult = new ArrayList<GatewayResponse>();
-        expResult.add(rd4);
-        expResult.add(rd5);
-        List<GatewayResponse> result = rDDAO.findByExample(rd6);
+        expResult.add(gr4);
+        expResult.add(gr5);
+        List<GatewayResponse> result = rDDAO.findByExample(gr6);
 
         Assert.assertNotNull(result);
         Assert.assertEquals(expResult.size(), result.size());
-        Assert.assertTrue(expResult.contains(rd4));
-        Assert.assertTrue(expResult.contains(rd5));
+        Assert.assertTrue(expResult.contains(gr4));
+        Assert.assertTrue(expResult.contains(gr5));
     }
 
-    @Ignore
-    @Test
-    public void testSaveWithTransition() {
-        System.out.println("Save with Transition");
-        t1.setId(7L);
-        t1.setTransactionDate(new Date());
-        t1.setTransactionType("insert");
-
-        t2.setId(8L);
-        t2.setTransactionDate(new Date());
-        t2.setTransactionType("Update");
-        rd7.addTransition(t1);
-        rd7.addTransition(t2);
-        Session session = (Session) rDDAO.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
-        rDDAO.save(rd7);
-        tx.commit();
-        Assert.assertTrue(true);
-
-    }
-
+   
     /**
      * Test of getMostRecentResponseByRequestId method, of class GatewayResponseDAOImpl.
      */
@@ -280,11 +244,11 @@ public class GatewayResponseDAOImplTest {
     public void testGetMostRecentResponseByRequestId() {
         System.out.println("getMostRecentResponseByRequestId");
 
-        GatewayResponse result = rDDAO.getMostRecentResponseByMessageId(rq1.getMessageRequest().getId());
+        GatewayResponse result = rDDAO.getMostRecentResponseByMessageId(grq1.getMessageRequest().getId());
         System.out.println(result.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals(rd7, result);
-        Assert.assertEquals(rd7.getId(), result.getId());
+        Assert.assertEquals(gr7, result);
+        Assert.assertEquals(gr7.getId(), result.getId());
         System.out.println("====================================================================================================");
         System.out.println(result.toString());
 
@@ -293,18 +257,18 @@ public class GatewayResponseDAOImplTest {
     /**
      * Test of getByRequestIdAndTryNumber method, of class GatewayResponseDAOImpl.
      */
-    @Test
-    public void testGetByRequestIdAndTryNumber() {
-        System.out.println("getByRequestIdAndTryNumber");
-        String requestId = "88787";
-        int tryNumber = 2;
-        GatewayResponse result = rDDAO.getByMessageIdAndTryNumber(rq1.getMessageRequest().getId(), tryNumber);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(rd7, result);
-        Assert.assertEquals(rd7.getId(), result.getId());
-        Assert.assertEquals(rd7.getMessageStatus(), result.getMessageStatus());
-        Assert.assertEquals(rd7.getGatewayRequest(), result.getGatewayRequest());
-        Assert.assertEquals(rd7.getGatewayRequest().getTryNumber(), result.getGatewayRequest().getTryNumber());
-
-    }
+//    @Test
+//    public void testGetByRequestIdAndTryNumber() {
+//        System.out.println("getByRequestIdAndTryNumber");
+//        String requestId = "88787";
+//        int tryNumber = 2;
+//        GatewayResponse result = rDDAO.getByMessageIdAndTryNumber(grq1.getMessageRequest().getId(), tryNumber);
+//        Assert.assertNotNull(result);
+//        Assert.assertEquals(gr7, result);
+//        Assert.assertEquals(gr7.getId(), result.getId());
+//        Assert.assertEquals(gr7.getMessageStatus(), result.getMessageStatus());
+//        Assert.assertEquals(gr7.getGatewayRequest(), result.getGatewayRequest());
+//        Assert.assertEquals(gr7.getGatewayRequest().getTryNumber(), result.getGatewayRequest().getTryNumber());
+//
+//    }
 }

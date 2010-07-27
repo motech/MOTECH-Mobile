@@ -51,7 +51,7 @@ public class SMSMessagingServiceImplTest {
         mockCache = createMock(CacheService.class);
         mockGateway = createMock(GatewayManager.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId(6L);
+        mockGatewayRequestDetails.setId("33000000001");
         mockCore = createMock(CoreManager.class);
         
         instance = new SMSMessagingServiceImpl();
@@ -76,12 +76,12 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setRecipientsNumber("000000000000");
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
         
-        mockCache.saveMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject());
+        mockCache.saveMessage((GatewayRequestDetails) anyObject());
         expectLastCall();
 
         replay(mockCache);
 
-        instance.scheduleMessage(messageDetails, mCtx);
+        instance.scheduleMessage(messageDetails);
         verify(mockCache);
     }
 
@@ -102,17 +102,15 @@ public class SMSMessagingServiceImplTest {
         List<GatewayRequest> messages = new ArrayList<GatewayRequest>();
         messages.add(messageDetails);
 
+
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(mCtx); 
-        expect(
-                mockCache.getMessagesByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject(), (MotechContext) anyObject())
+                mockCache.getMessagesByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject())
                 ).andReturn(messages);
         expect(
-                mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
+                mockGateway.sendMessage((GatewayRequest) anyObject())
                 ).andReturn(null);
         
-        mockCache.saveMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject());
+        mockCache.saveMessage((GatewayRequestDetails) anyObject());
         expectLastCall();
 
         replay(mockCore, mockCache, mockGateway);
@@ -136,17 +134,17 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
-                mockGateway.sendMessage((GatewayRequest) anyObject(), (MotechContext) anyObject())
+                mockGateway.sendMessage((GatewayRequest) anyObject())
                 ).andReturn(null);
         
-        mockCache.saveMessage((GatewayRequestDetails) anyObject(), (MotechContext) anyObject());
+        mockCache.saveMessage((GatewayRequestDetails) anyObject());
         expectLastCall();
 
         replay(mockGateway, mockCache);
 
         Map<Boolean, Set<GatewayResponse>> expResult = new HashMap<Boolean, Set<GatewayResponse>>();
         expResult.put(new Boolean(true), new HashSet<GatewayResponse>());
-        Map<Boolean, Set<GatewayResponse>> result = instance.sendMessage(messageDetails, mCtx);
+        Map<Boolean, Set<GatewayResponse>> result = instance.sendMessage(messageDetails);
         assertEquals(expResult.containsKey(new Boolean(true)), result.containsKey(new Boolean(true)));
         verify(mockGateway, mockCache);
     }
@@ -167,14 +165,12 @@ public class SMSMessagingServiceImplTest {
         List<GatewayResponse> responses = new ArrayList<GatewayResponse>();
         responses.add(response);
         
+
         expect(
-                mockCore.createMotechContext()
-                ).andReturn(mCtx);
-        expect(
-                mockCore.createGatewayResponse((MotechContext) anyObject())
+                mockCore.createGatewayResponse()
                 ).andReturn(new GatewayResponseImpl());
         expect(
-                mockCache.getResponses((GatewayResponse) anyObject(), (MotechContext) anyObject())
+                mockCache.getResponses((GatewayResponse) anyObject())
                 ).andReturn(responses);
         expect(
                 mockGateway.getMessageStatus((GatewayResponse) anyObject())
@@ -183,7 +179,7 @@ public class SMSMessagingServiceImplTest {
                 mockGateway.mapMessageStatus((GatewayResponse) anyObject())
                 ).andReturn(MStatus.DELIVERED);
         
-        mockCache.saveResponse((GatewayResponse) anyObject(), (MotechContext) anyObject());
+        mockCache.saveResponse((GatewayResponse) anyObject());
         expectLastCall();
 
         replay(mockCore, mockCache, mockGateway);

@@ -231,7 +231,7 @@
     </bean>
 
     <bean id="compositeGatewayManager" class="org.motechproject.mobile.omp.manager.CompositeGatewayManager">
-        <property name="textGatewayManager" ref="gatewayManager"/>
+        <property name="textGatewayManager" ref="dummyManager"/>
         <property name="voiceGatewayManager" ref="intellivrBean"/>
         <property name="compositeMessageHandler" ref="compositeHandler"/>
     </bean>

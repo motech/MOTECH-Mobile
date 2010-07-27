@@ -16,6 +16,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *  Date : Sep 27, 2009
@@ -23,6 +25,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class NotificationTypeDAOImplTest {
 
     public NotificationTypeDAOImplTest() {
@@ -45,7 +49,7 @@ public class NotificationTypeDAOImplTest {
 
     @Before
     public void setUp() {
-        nDao = coreManager.createNotificationTypeDAO(coreManager.createMotechContext());
+        nDao = coreManager.createNotificationTypeDAO();
         nt1.setId(701L);
         nt1.setName("the name");
         nt1.setDescription("the description");
@@ -66,23 +70,21 @@ public class NotificationTypeDAOImplTest {
         nt5.setName("the name of notif 5");
         nt5.setDescription("the description fo notif 5");
 
-        Session session = (Session) nDao.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
+
         nDao.save(nt2);
         nDao.save(nt3);
         nDao.save(nt4);
-        tx.commit();
+
     }
 
     @After
     public void tearDown() {
-        Session session = (Session) nDao.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
+
         nDao.delete(nt1);
         nDao.delete(nt2);
         nDao.delete(nt3);
         nDao.delete(nt4);
-        tx.commit();
+
     }
 
     /**
@@ -91,14 +93,12 @@ public class NotificationTypeDAOImplTest {
     @Test
     public void testSave() {
         System.out.println("test save NotificationType");
-        Session session = (Session) nDao.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
+  
         nDao.save(nt1);
-        tx.commit();
 
-        session.beginTransaction();
-        NotificationType fromdb = (NotificationType) session.get(NotificationTypeImpl.class, nt1.getId());
-        session.getTransaction().commit();
+
+
+        NotificationType fromdb = (NotificationType) nDao.getSessionFactory().getCurrentSession().get(NotificationTypeImpl.class, nt1.getId());
         Assert.assertNotNull(fromdb);
     }
 
@@ -113,11 +113,9 @@ public class NotificationTypeDAOImplTest {
         nt2.setName(altname);
         nt2.setDescription(description);
 
-        Session session = (Session) nDao.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
         nDao.save(nt2);
-        tx.commit();
-        NotificationType fromdb = (NotificationTypeImpl) session.get(NotificationTypeImpl.class, nt2.getId());
+
+        NotificationType fromdb = (NotificationTypeImpl) nDao.getSessionFactory().getCurrentSession().get(NotificationTypeImpl.class, nt2.getId());
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(altname, fromdb.getName());
         Assert.assertEquals(description, fromdb.getDescription());
@@ -129,12 +127,10 @@ public class NotificationTypeDAOImplTest {
     @Test
     public void testDelete() {
         System.out.print("test NotificationType delete");
-        Session session = (Session) nDao.getDBSession().getSession();
-        Transaction tx = session.beginTransaction();
+    
         nDao.delete(nt3);
-        tx.commit();
 
-        NotificationType fromdb = (NotificationTypeImpl) session.get(NotificationTypeImpl.class, nt3.getId());
+        NotificationType fromdb = (NotificationTypeImpl) nDao.getSessionFactory().getCurrentSession().get(NotificationTypeImpl.class, nt3.getId());
         Assert.assertNull(fromdb);
     }
 

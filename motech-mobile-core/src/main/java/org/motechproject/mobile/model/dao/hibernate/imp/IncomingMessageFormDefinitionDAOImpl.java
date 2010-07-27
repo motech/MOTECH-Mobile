@@ -31,10 +31,10 @@ public class IncomingMessageFormDefinitionDAOImpl extends HibernateGenericDAOImp
 
         try {
 
-            Session sess = this.getDBSession().getSession();
+        
             Criterion code = Restrictions.eq("formCode", formCode);
 
-            IncomingMessageFormDefinition definition = (IncomingMessageFormDefinition)sess.createCriteria(this.getPersistentClass())
+            IncomingMessageFormDefinition definition = (IncomingMessageFormDefinition)this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
                     .add(code)
                     .setMaxResults(1)
                     .uniqueResult();

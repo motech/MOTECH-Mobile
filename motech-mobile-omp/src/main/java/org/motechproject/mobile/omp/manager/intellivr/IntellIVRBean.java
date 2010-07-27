@@ -24,7 +24,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Transaction;
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
@@ -42,7 +41,11 @@ import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationException;
 import org.springframework.core.io.Resource;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
+@TransactionConfiguration
+@Transactional
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 
 	private GatewayMessageHandler messageHandler;
@@ -242,8 +245,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<GatewayResponse> sendMessage(GatewayRequest gatewayRequest,
-			MotechContext context) {
+	public Set<GatewayResponse> sendMessage(GatewayRequest gatewayRequest) {
 
 		log.debug("Received GatewayRequest:" + gatewayRequest);
 
@@ -328,7 +330,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		}
 
 		Set<GatewayResponse> responses = messageHandler
-			.parseMessageResponse(gatewayRequest, status, context);
+			.parseMessageResponse(gatewayRequest, status);
 
 		for ( GatewayResponse response : responses )
 			statusStore.updateStatus(response.getGatewayMessageId(),
@@ -589,8 +591,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				r.setStatus(StatusType.ERROR);
 			} else {
 
-				context = coreManager.createMotechContext();
-				MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO(context);
+				
+				MessageRequestDAO<MessageRequest> mrDAO = coreManager.createMessageRequestDAO();
 
 				List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndSchedule(request.getUserid(), new Date());
 
@@ -713,11 +715,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 							//all attempts for this day have been exhausted - increment days attempted
 							session.setDays(session.getDays() + 1);
 
-							MotechContext context = coreManager.createMotechContext();
+						
 
 							if ( session.getDays() < this.maxDays ) {
 
-								GatewayRequestDAO<GatewayRequest> gwReqDAO = coreManager.createGatewayRequestDAO(context);
+								GatewayRequestDAO<GatewayRequest> gwReqDAO = coreManager.createGatewayRequestDAO();
 
 								for ( GatewayRequest gatewayRequest : session.getGatewayRequests() ) {
 
@@ -750,10 +752,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 									gatewayRequestDB.setDateTo(newDateTo.getTime());
 									gatewayRequestDB.setMessageStatus(MStatus.SCHEDULED);
 
-									Transaction tx = (Transaction) gwReqDAO.getDBSession().getTransaction();
-									tx.begin();
+									
 									gwReqDAO.save(gatewayRequestDB);
-									tx.commit();
+								
 
 								}
 
@@ -765,7 +766,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 							/*
 							 * update days attempted in the database
 							 */
-							MessageRequestDAO<MessageRequest> messageRequestDAO = coreManager.createMessageRequestDAO(context);
+							MessageRequestDAO<MessageRequest> messageRequestDAO = coreManager.createMessageRequestDAO();
 
 							for ( GatewayRequest gatewayRequest : session.getGatewayRequests() ) {
 
@@ -773,14 +774,13 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 								msgReqDB.setDaysAttempted(session.getDays());
 
-								Transaction tx = (Transaction) messageRequestDAO.getDBSession().getTransaction();
-								tx.begin();
+								
 								messageRequestDAO.save(msgReqDB);
-								tx.commit();
+							
 
 							}
 
-							context.cleanUp();
+						
 
 						}
 

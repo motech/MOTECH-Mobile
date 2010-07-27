@@ -160,6 +160,10 @@
                 <groupId>com.jcraft</groupId>
                 <artifactId>jzlib</artifactId>
             </dependency>
+      <dependency>
+          <groupId>org.liquibase</groupId>
+          <artifactId>liquibase-core</artifactId>
+      </dependency>
     </dependencies>
 
     <build>

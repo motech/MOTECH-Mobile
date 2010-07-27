@@ -53,9 +53,8 @@ public class ORServeGatewayMessageHandlerImplTest {
         System.out.println("parseMessageResponse");
         GatewayRequest message = null;
         String gatewayResponse = "";
-        MotechContext context = new MotechContextImpl();
         GatewayRequest expResult = null;
-        Set<GatewayResponse> result = messageHandler.parseMessageResponse(message, gatewayResponse, context);
+        Set<GatewayResponse> result = messageHandler.parseMessageResponse(message, gatewayResponse);
         assertEquals(expResult, result);
     }
 

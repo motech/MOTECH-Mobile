@@ -21,10 +21,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
-import org.hibernate.Transaction;
 import org.motechproject.mobile.core.model.IncMessageSessionStatus;
 import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageResponseDAO;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Resumes processing of an IncomingMessageForm
@@ -32,6 +33,8 @@ import org.motechproject.mobile.model.dao.imp.IncomingMessageResponseDAO;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
+@TransactionConfiguration
+@Transactional
 public class QueryCommandAction implements CommandAction {
     private String senderFieldName;
     private CoreManager coreManager;
@@ -45,15 +48,15 @@ public class QueryCommandAction implements CommandAction {
      *
      * @see CommandAction.execute
      */
-    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone, MotechContext context) {
+    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
         IncomingMessageResponse response;
         String formattedResponse = "";
 
         logger.info("Initializing session");
-        IncomingMessageSession imSession = initializeSession(message, requesterPhone, context);
+        IncomingMessageSession imSession = initializeSession(message, requesterPhone);
 
         logger.info("Generating form");
-        IncomingMessageForm form = initializeForm(message, imSession.getFormCode(), context);
+        IncomingMessageForm form = initializeForm(message, imSession.getFormCode());
         if (form == null) {
             response = coreManager.createIncomingMessageResponse();
             response.setContent("Errors: Unknown Form!\n\n'Type' parameter missing or invalid.");
@@ -69,7 +72,7 @@ public class QueryCommandAction implements CommandAction {
 
             message.setIncomingMessageForm(form);
 
-            response = prepareResponse(message, formattedResponse, context);
+            response = prepareResponse(message, formattedResponse);
             response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
         }
         logger.info("Saving request");
@@ -83,15 +86,15 @@ public class QueryCommandAction implements CommandAction {
         if(message.getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName))
             imSession.setRequesterPhone(message.getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName).getValue());
 
-        IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
-        Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
+        IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO();
+
         try {
-            tx.begin();
+       
             sessionDao.save(imSession);
-            tx.commit();
+   
         } catch (Exception ex) {
             logger.error("Error finalizing incoming message session", ex);
-            tx.rollback();
+           
         }
 
         return response;
@@ -104,7 +107,7 @@ public class QueryCommandAction implements CommandAction {
      * @param context the context of the request
      * @return the initialized session
      */
-    public synchronized IncomingMessageSession initializeSession(IncomingMessage message, String requesterPhone, MotechContext context) {
+    public synchronized IncomingMessageSession initializeSession(IncomingMessage message, String requesterPhone) {
         String formCode = parser.getFormCode(message.getContent());
 
         IncomingMessageSession imSession = coreManager.createIncomingMessageSession();
@@ -115,16 +118,15 @@ public class QueryCommandAction implements CommandAction {
         imSession.setLastActivity(new Date());
         imSession.addIncomingMessage(message);
 
-        IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO(context);
-        Transaction tx = (Transaction) sessionDao.getDBSession().getTransaction();
-
+        IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO();
+       
         try {
-            tx.begin();
+       
             sessionDao.save(imSession);
-            tx.commit();
+          
         } catch (Exception ex) {
             logger.error("Error initializing incoming message session", ex);
-            tx.rollback();
+            
         }
 
         return imSession;
@@ -137,8 +139,8 @@ public class QueryCommandAction implements CommandAction {
      * @param context the context of the request
      * @return
      */
-    public synchronized IncomingMessageForm initializeForm(IncomingMessage message, String formCode, MotechContext context) {
-        IncomingMessageFormDefinition formDefn = coreManager.createIncomingMessageFormDefinitionDAO(context).getByCode(formCode);
+    public synchronized IncomingMessageForm initializeForm(IncomingMessage message, String formCode) {
+        IncomingMessageFormDefinition formDefn = coreManager.createIncomingMessageFormDefinitionDAO().getByCode(formCode);
 
         if (formDefn == null) {
             return null;
@@ -151,16 +153,15 @@ public class QueryCommandAction implements CommandAction {
         form.setIncomingMsgFormParameters(new HashMap<String, IncomingMessageFormParameter>());
         form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent()));
 
-        IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO(context);
-        Transaction tx = (Transaction) formDao.getDBSession().getTransaction();
+        IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO();
 
         try {
-            tx.begin();
+      
             formDao.save(form);
-            tx.commit();
+    
         } catch (Exception ex) {
             logger.error("Error initializing form", ex);
-            tx.rollback();
+       
         }
 
         return form;
@@ -171,7 +172,7 @@ public class QueryCommandAction implements CommandAction {
      * @param message the message to respond to
      * @return the response to the message
      */
-    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message, String formattedResponse, MotechContext context) {
+    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message, String formattedResponse) {
         IncomingMessageForm form = message.getIncomingMessageForm();
 
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
@@ -202,16 +203,15 @@ public class QueryCommandAction implements CommandAction {
         }
         response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
 
-        IncomingMessageResponseDAO responseDao = coreManager.createIncomingMessageResponseDAO(context);
-        Transaction tx = (Transaction) responseDao.getDBSession().getTransaction();
+        IncomingMessageResponseDAO responseDao = coreManager.createIncomingMessageResponseDAO();
 
         try {
-            tx.begin();
+        
             responseDao.save(response);
-            tx.commit();
+   
         } catch (Exception ex) {
             logger.error("Error initializing form", ex);
-            tx.rollback();
+  
         }
 
         return response;
@@ -272,4 +272,6 @@ public class QueryCommandAction implements CommandAction {
     public void setFormProcessor(FormProcessorImpl formProcessor) {
         this.formProcessor = formProcessor;
     }
+
+ 
 }

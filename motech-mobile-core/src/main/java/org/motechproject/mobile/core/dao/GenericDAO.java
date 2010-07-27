@@ -2,6 +2,7 @@ package org.motechproject.mobile.core.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.SessionFactory;
 
 /**
  * GenericDAO interface provides common persistence methods contracts.
@@ -58,10 +59,10 @@ public interface GenericDAO<T> {
     /**
      * @return the session
      */
-    public DBSession getDBSession();
+    public SessionFactory getSessionFactory();
 
     /**
      * @param session the session to set
      */
-    public void setDBSession(DBSession session);
+    public void setSessionFactory(SessionFactory sessionFactory);
 }

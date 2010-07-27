@@ -43,7 +43,7 @@ public class StatusHandlerImplTest{
         response.setMessageStatus(MStatus.DELIVERED);
         response.setRecipientNumber("000000000000");
         response.setResponseText("Some gateway response message");
-        response.setId(5L);
+        response.setId("18000000001");
         
         List<StatusAction> actionList = new ArrayList<StatusAction>();
         actionList.add(mockAction);

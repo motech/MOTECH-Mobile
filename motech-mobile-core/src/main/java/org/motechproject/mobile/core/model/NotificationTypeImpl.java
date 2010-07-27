@@ -10,10 +10,12 @@ import java.util.Set;
  *  Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class NotificationTypeImpl extends MotechEntityImpl implements NotificationType {
+public class NotificationTypeImpl implements NotificationType {
 
     public NotificationTypeImpl() {
     }
+
+    private Long id;
     private String name;
     private String description;
     private Set<MessageTemplate> messageTemplates = new HashSet<MessageTemplate>();
@@ -90,5 +92,19 @@ public class NotificationTypeImpl extends MotechEntityImpl implements Notificati
         }
 
 
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 }

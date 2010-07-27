@@ -8,11 +8,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.NonUniqueResultException;
-import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.LogicalExpression;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 
 /*
@@ -34,16 +29,16 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
      * @see {@link org.motechproject.mobile.core.dao.GatewayResponseDAO#getMostRecentResponseByRequestId(java.lang.String) }
      */
 
-    public GatewayResponse getMostRecentResponseByMessageId(long messageId) {
+    public GatewayResponse getMostRecentResponseByMessageId(String messageId) {
         logger.debug("variable passed to getMostRecentResponseByRequestId: " + messageId);
 
         try {
 
-            Session session = this.getDBSession().getSession();
+            
             GatewayResponse response = null;
             String query = "from GatewayResponseImpl g where g.gatewayRequest.messageRequest.id = :reqId and g.gatewayRequest.messageStatus != 'PENDING' and g.gatewayRequest.messageStatus != 'PROCESSING' ";
 
-            List responses = session.createQuery(query).setParameter("reqId", messageId).list();
+            List responses = this.getSessionFactory().getCurrentSession().createQuery(query).setParameter("reqId", messageId).list();
 
             logger.debug(responses);
 
@@ -63,16 +58,16 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
     /**
      * @see {@link org.motechproject.mobile.core.dao.GatewayResponseDAO#getByRequestIdAndTryNumber(java.lang.String, int) }
      */
-    public GatewayResponse getByMessageIdAndTryNumber(long messageId, int tryNumber) {
+    public GatewayResponse getByMessageIdAndTryNumber(String messageId, int tryNumber) {
         logger.debug("variable passed to getByRequestIdAndTryNumber. messageId: " + messageId + " and tryNumber: " + tryNumber);
 
         try {
 
-            Session session = this.getDBSession().getSession();
+            
             GatewayResponse response = null;
             String query = "from GatewayResponseImpl g where g.gatewayRequest.messageRequest.id = :reqId and g.gatewayRequest.messageStatus != :status and g.gatewayRequest.tryNumber= :trynum ";
 
-            response = (GatewayResponse) session.createQuery(query).setParameter("reqId", messageId).setParameter("trynum", tryNumber).setParameter("status", MStatus.PENDING).setMaxResults(1).uniqueResult();
+            response = (GatewayResponse) this.getSessionFactory().getCurrentSession().createQuery(query).setParameter("reqId", messageId).setParameter("trynum", tryNumber).setParameter("status", MStatus.PENDING).setMaxResults(1).uniqueResult();
             logger.debug(response);
 
             return response;

@@ -8,8 +8,6 @@ import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import java.util.Date;
 import java.util.HashSet;
@@ -19,7 +17,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit tst for th ORServeGatewayManagerImpl class
+ * Unit test for th ORServeGatewayManagerImpl class
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
@@ -37,7 +35,7 @@ public class ClickatellGatewayManagerImplTest {
     public void setUp(){
         mockHandler = createMock(GatewayMessageHandler.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId(987L);
+        mockGatewayRequestDetails.setId("28000000001");
         instance = new ClickatellGatewayManagerImpl();
         instance.setMessageHandler(mockHandler);
         instance.setApiId("someid");
@@ -55,7 +53,6 @@ public class ClickatellGatewayManagerImplTest {
     public void testSendMessage() {
         System.out.println("sendMessage");
 
-        MotechContext context = new MotechContextImpl();
         GatewayRequest messageDetails = new GatewayRequestImpl();
         messageDetails.setDateFrom(new Date());
         messageDetails.setMessage("a message for testing");
@@ -64,11 +61,11 @@ public class ClickatellGatewayManagerImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
-                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject(), (MotechContext) anyObject())
+                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject())
                 ).andReturn(new HashSet<GatewayResponse>());
         replay(mockHandler);
 
-        Set<GatewayResponse> result = instance.sendMessage(messageDetails, context);
+        Set<GatewayResponse> result = instance.sendMessage(messageDetails);
         assertNotNull(result);
         verify(mockHandler);
     }

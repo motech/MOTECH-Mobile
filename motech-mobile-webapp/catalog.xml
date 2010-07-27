@@ -2,4 +2,5 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <nextCatalog catalog="private/cache/retriever/catalog.xml"/>
     <nextCatalog catalog="file:/C:/Documents%20and%20Settings/Administrator/.netbeans/6.5/var/cache/mavencachedirs/-483668529//retriever/catalog.xml"/>
+    <nextCatalog catalog="file:/C:/Users/joseph/.netbeans/6.9/var/cache/mavencachedirs/1123911990//retriever/catalog.xml"/>
 </catalog>

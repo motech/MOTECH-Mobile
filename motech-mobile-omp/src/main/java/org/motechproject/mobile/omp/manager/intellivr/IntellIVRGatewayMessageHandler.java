@@ -22,11 +22,11 @@ public class IntellIVRGatewayMessageHandler implements GatewayMessageHandler {
 	
 	@SuppressWarnings("unchecked")
 	public Set<GatewayResponse> parseMessageResponse(GatewayRequest gatewayRequest,
-			String statusMessage, MotechContext context) {
+			String statusMessage) {
 
 		Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
 		
-		GatewayResponse gwResponse = coreManager.createGatewayResponse(context);
+		GatewayResponse gwResponse = coreManager.createGatewayResponse();
 		
 		gwResponse.setGatewayRequest(gatewayRequest);
 		gwResponse.setGatewayMessageId(gatewayRequest.getMessageRequest().getId().toString());

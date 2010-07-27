@@ -9,7 +9,21 @@ import java.util.Map;
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessageForm extends MotechEntity {
+public interface IncomingMessageForm {
+
+
+    /**
+     *
+     * @param id the id to set
+     */
+    public void setId(String id);
+
+    /**
+     *
+     * @return id to get
+     */
+    public String getId();
+
 
     /**
      * @return the dateCreated
@@ -85,4 +99,14 @@ public interface IncomingMessageForm extends MotechEntity {
 	void setErrors(List<String> errors);
 
 	List<String> getErrors();
+
+      /**
+     * @return the version
+     */
+    int getVersion();
+
+    /**
+     * @param version the version to set
+     */
+    void setVersion(int version);
 }

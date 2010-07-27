@@ -1,5 +1,6 @@
 package org.motechproject.mobile.omp.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
 import org.motechproject.mobile.core.dao.GatewayResponseDAO;
@@ -20,6 +21,7 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import static org.junit.Assert.*;
 
 /**
@@ -28,6 +30,8 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
+@TransactionConfiguration
+@Transactional
 public class SMSCacheServiceImplTest {
 
     SMSCacheServiceImpl instance;
@@ -50,7 +54,7 @@ public class SMSCacheServiceImplTest {
         mockSession = createMock(DBSession.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
         
-        mockGatewayRequestDetails.setId(2L);
+        mockGatewayRequestDetails.setId("32000000000");
         instance = new SMSCacheServiceImpl();
         instance.setCoreManager(mockCore);
         
@@ -75,16 +79,9 @@ public class SMSCacheServiceImplTest {
         mockMessageDAO = createMock(GatewayRequestDAO.class);
         
         expect(
-                mockCore.createGatewayRequestDAO((MotechContext) anyObject())
+                mockCore.createGatewayRequestDAO()
                 ).andReturn(mockMessageDAO);
-        expect(
-                mockMessageDAO.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
-        
-        mockTrans.begin();
+  
         expectLastCall();
         
         expect(
@@ -94,9 +91,9 @@ public class SMSCacheServiceImplTest {
         mockTrans.commit();
         expectLastCall();
         
-        replay(mockCore, mockMessageDAO, mockSession, mockTrans);
-        instance.saveMessage(messageDetails, mCtx);
-        verify(mockCore, mockMessageDAO, mockSession, mockTrans);
+        replay(mockCore, mockMessageDAO);
+        instance.saveMessage(messageDetails);
+        verify(mockCore, mockMessageDAO);
     }
 
     /**
@@ -111,21 +108,14 @@ public class SMSCacheServiceImplTest {
         response.setMessageStatus(MStatus.PENDING);
         response.setRecipientNumber("000000000000");
         response.setResponseText("Some gateway response message");
-        response.setId(5L);
+        response.setId("32000000001");
         
         mockResponseDAO = createMock(GatewayResponseDAO.class);
         
         expect(
-                mockCore.createGatewayResponseDAO((MotechContext) anyObject())
+                mockCore.createGatewayResponseDAO()
                 ).andReturn(mockResponseDAO);
-        expect(
-                mockResponseDAO.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
-        
-        mockTrans.begin();
+      
         expectLastCall();
         
         expect(
@@ -135,9 +125,9 @@ public class SMSCacheServiceImplTest {
         mockTrans.commit();
         expectLastCall();
         
-        replay(mockCore, mockResponseDAO, mockSession, mockTrans);
-        instance.saveResponse(response, mCtx);
-        verify(mockCore, mockResponseDAO, mockSession, mockTrans);
+        replay(mockCore, mockResponseDAO);
+        instance.saveResponse(response);
+        verify(mockCore, mockResponseDAO);
     }
 
     /**
@@ -157,14 +147,14 @@ public class SMSCacheServiceImplTest {
         mockMessageDAO = createMock(GatewayRequestDAO.class);
         
         expect(
-                mockCore.createGatewayRequestDAO((MotechContext) anyObject())
+                mockCore.createGatewayRequestDAO()
                 ).andReturn(mockMessageDAO);
         expect(
                 mockMessageDAO.findByExample((GatewayRequest) anyObject())
                 ).andReturn(new ArrayList<GatewayRequest>());
         replay(mockCore, mockMessageDAO);
 
-        List<GatewayRequest> result = instance.getMessages(messageDetails, mCtx);
+        List<GatewayRequest> result = instance.getMessages(messageDetails);
         assertNotNull(result);
         
         verify(mockCore, mockMessageDAO);
@@ -186,7 +176,7 @@ public class SMSCacheServiceImplTest {
         mockResponseDAO = createMock(GatewayResponseDAO.class);
         
         expect(
-                mockCore.createGatewayResponseDAO((MotechContext) anyObject())
+                mockCore.createGatewayResponseDAO()
                 ).andReturn(mockResponseDAO);
         expect(
                 mockResponseDAO.findByExample((GatewayResponse) anyObject())
@@ -194,7 +184,7 @@ public class SMSCacheServiceImplTest {
         
         replay(mockCore, mockResponseDAO);
 
-        List<GatewayResponse> result = instance.getResponses(response, mCtx);
+        List<GatewayResponse> result = instance.getResponses(response);
         assertNotNull(result);
         
         verify(mockCore, mockResponseDAO);
@@ -210,14 +200,14 @@ public class SMSCacheServiceImplTest {
         mockMessageDAO = createMock(GatewayRequestDAO.class);
 
         expect(
-                mockCore.createGatewayRequestDAO((MotechContext) anyObject())
+                mockCore.createGatewayRequestDAO()
                 ).andReturn(mockMessageDAO);
         expect(
                 mockMessageDAO.getByStatus((MStatus) anyObject())
                 ).andReturn(new ArrayList<GatewayRequest>());
         replay(mockCore, mockMessageDAO);
 
-        List<GatewayRequest> result = instance.getMessagesByStatus(MStatus.CANCELLED, mCtx);
+        List<GatewayRequest> result = instance.getMessagesByStatus(MStatus.CANCELLED);
         assertNotNull(result);
 
         verify(mockCore, mockMessageDAO);
@@ -233,14 +223,14 @@ public class SMSCacheServiceImplTest {
         mockMessageDAO = createMock(GatewayRequestDAO.class);
 
         expect(
-                mockCore.createGatewayRequestDAO((MotechContext) anyObject())
+                mockCore.createGatewayRequestDAO()
                 ).andReturn(mockMessageDAO);
         expect(
                 mockMessageDAO.getByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject())
                 ).andReturn(new ArrayList<GatewayRequest>());
         replay(mockCore, mockMessageDAO);
 
-        List<GatewayRequest> result = instance.getMessagesByStatusAndSchedule(MStatus.CANCELLED, new Date(), mCtx);
+        List<GatewayRequest> result = instance.getMessagesByStatusAndSchedule(MStatus.CANCELLED, new Date());
         assertNotNull(result);
 
         verify(mockCore, mockMessageDAO);

@@ -49,14 +49,14 @@ public class CompositeGatewayMessageHandlerTest {
 		
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId(1L);
+		english.setId("26000000001");
 		english.setName("English");
 		
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 		
 		MessageRequest voiceMessageRequest = new MessageRequestImpl();
-		voiceMessageRequest.setId(1L);
+		voiceMessageRequest.setId("26000000002");
 		voiceMessageRequest.setLanguage(english);
 		voiceMessageRequest.setRecipientId("123456789");
 		voiceMessageRequest.setRequestId("mr1");
@@ -65,7 +65,7 @@ public class CompositeGatewayMessageHandlerTest {
 		voiceMessageRequest.setPhoneNumberType("PERSONAL");
 	
 		voiceGatewayRequest = new GatewayRequestImpl();
-		voiceGatewayRequest.setId(1000L);
+		voiceGatewayRequest.setId("26000000003");
 		voiceGatewayRequest.setMessageRequest(voiceMessageRequest);
 		voiceGatewayRequest.setMessageStatus(MStatus.PENDING);
 		voiceGatewayRequest.setRecipientsNumber("15555555555");
@@ -74,7 +74,7 @@ public class CompositeGatewayMessageHandlerTest {
 		n2.setId(2L);
 
 		MessageRequest textMessageRequest = new MessageRequestImpl();
-		textMessageRequest.setId(2L);
+		textMessageRequest.setId("26000000004");
 		textMessageRequest.setLanguage(english);
 		textMessageRequest.setRecipientId("123456789");
 		textMessageRequest.setRequestId("mr2");
@@ -83,7 +83,7 @@ public class CompositeGatewayMessageHandlerTest {
 		textMessageRequest.setPhoneNumberType("PERSONAL");
 			
 		textGatewayRequest = new GatewayRequestImpl();
-		textGatewayRequest.setId(2000L);
+		textGatewayRequest.setId("26000000005");
 		textGatewayRequest.setMessageRequest(textMessageRequest);
 		textGatewayRequest.setMessageStatus(MStatus.PENDING);
 		textGatewayRequest.setRecipientsNumber("15555555555");
@@ -95,19 +95,18 @@ public class CompositeGatewayMessageHandlerTest {
 	@Test
 	public void testParseMessageResponse(){
 		
-		MotechContext context = createMock(MotechContext.class);
 		
 		Set<GatewayResponse> response = new HashSet<GatewayResponse>();
 		
-		expect(voiceHandler.parseMessageResponse(voiceGatewayRequest, "OK", context)).andReturn(response);
+		expect(voiceHandler.parseMessageResponse(voiceGatewayRequest, "OK")).andReturn(response);
 		replay(voiceHandler);
-		compositeHandler.parseMessageResponse(voiceGatewayRequest, "OK", context);
+		compositeHandler.parseMessageResponse(voiceGatewayRequest, "OK");
 		verify(voiceHandler);
 		reset(voiceHandler);
 		
-		expect(textHandler.parseMessageResponse(textGatewayRequest, "OK", context)).andReturn(response);
+		expect(textHandler.parseMessageResponse(textGatewayRequest, "OK")).andReturn(response);
 		replay(textHandler);
-		compositeHandler.parseMessageResponse(textGatewayRequest, "OK", context);
+		compositeHandler.parseMessageResponse(textGatewayRequest, "OK");
 		verify(textHandler);
 		reset(textHandler);
 		

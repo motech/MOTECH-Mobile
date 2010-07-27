@@ -9,8 +9,9 @@ import java.util.Date;
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class IncomingMessageFormParameterDefinitionImpl extends MotechEntityImpl implements IncomingMessageFormParameterDefinition {
+public class IncomingMessageFormParameterDefinitionImpl  implements IncomingMessageFormParameterDefinition {
 
+    private String id;
     private IncomingMessageFormDefinition IncomingMsgFormDefinition;
     private String name;
     private boolean required;
@@ -19,6 +20,21 @@ public class IncomingMessageFormParameterDefinitionImpl extends MotechEntityImpl
     private Date dateCreated;
     private Date lastModified;
 
+
+private int version=-1;
+    /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
+    }
     /**
      * @return the IncomingMsgFormDefinition
      */
@@ -148,5 +164,19 @@ public class IncomingMessageFormParameterDefinitionImpl extends MotechEntityImpl
         }
 
 
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

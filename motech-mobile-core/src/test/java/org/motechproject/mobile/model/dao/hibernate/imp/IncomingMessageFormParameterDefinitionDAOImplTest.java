@@ -3,11 +3,8 @@ package org.motechproject.mobile.model.dao.hibernate.imp;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinition;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinitionImpl;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormParameterDefinitionDAO;
 import java.util.Date;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -18,6 +15,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -26,6 +25,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class IncomingMessageFormParameterDefinitionDAOImplTest {
 
     @Autowired
@@ -52,11 +53,11 @@ public class IncomingMessageFormParameterDefinitionDAOImplTest {
     @Before
     public void setUp() {
 
-        MotechContext tc = coreManager.createMotechContext();
-        impdDAO = coreManager.createIncomingMessageFormParameterDefinitionDAO(tc);
+
+        impdDAO = coreManager.createIncomingMessageFormParameterDefinitionDAO();
 
 
-        impd1.setId(726L);
+        impd1.setId("12000000017");
         impd1.setDateCreated(new Date());
         impd1.setLength(34);
         impd1.setName("paramdefinition name");
@@ -74,13 +75,10 @@ public class IncomingMessageFormParameterDefinitionDAOImplTest {
     @Test
     public void testSave() {
         System.out.println("save IncomingMessageFromParameterDefinition");
-        Session session = ((Session) impdDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
+
         impdDAO.save(impd1);
-        tx.commit();
 
-
-        IncomingMessageFormParameterDefinition fromdb = (IncomingMessageFormParameterDefinition) session.get(IncomingMessageFormParameterDefinitionImpl.class, impd1.getId());
+        IncomingMessageFormParameterDefinition fromdb = (IncomingMessageFormParameterDefinition) impdDAO.getSessionFactory().getCurrentSession().get(IncomingMessageFormParameterDefinitionImpl.class, impd1.getId());
 
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(fromdb, impd1);

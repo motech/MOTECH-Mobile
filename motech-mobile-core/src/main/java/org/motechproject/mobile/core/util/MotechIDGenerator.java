@@ -1,5 +1,6 @@
 package org.motechproject.mobile.core.util;
 
+import java.util.UUID;
 import org.apache.log4j.Logger;
 
 /**
@@ -43,5 +44,12 @@ public class MotechIDGenerator {
     public static Long generateID() {
         logger.info("Calling Default generateID");
         return generateID(DEFUALT_ID_LENGTH);
+    }
+
+
+    public static String generateUUID(){
+        logger.info("Calling UUID generator");
+        UUID id = UUID.randomUUID();
+        return id.toString();
     }
 }

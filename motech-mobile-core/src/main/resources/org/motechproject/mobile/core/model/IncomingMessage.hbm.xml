@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
-  <union-subclass extends="MotechEntityImpl" name="IncomingMessageImpl" table="incoming_message">
+     <typedef class="org.motechproject.mobile.core.util.StringEnumUserType" name="incMessageStatus">
+    <param name="enumClassname">org.motechproject.mobile.core.model.IncMessageStatus</param>
+  </typedef>
+  <class name="IncomingMessageImpl" table="incoming_message">
+    <id column="id" name="id" type="string">
+      <generator class="assigned"/>
+    </id>
+    <version name="version">
+      <column default="0" name="obj_vesion" sql-type="int"/>
+    </version>
     <many-to-one class="IncomingMessageSessionImpl" column="incoming_message_session_id" name="incomingMsgSession"/>
     <many-to-one cascade="all" class="IncomingMessageFormImpl" column="incoming_message_form_id" name="incomingMessageForm"/>
     <many-to-one cascade="all" class="IncomingMessageResponseImpl" column="incoming_message_response_id" name="incomingMessageResponse" unique="true"/>
@@ -11,5 +20,5 @@
       <column default="current_timestamp" name="last_modified" sql-type="timestamp"/>
     </property>
     <property access="field" column="message_status" name="messageStatus" type="incMessageStatus"/>
-  </union-subclass>
+  </class>
 </hibernate-mapping>

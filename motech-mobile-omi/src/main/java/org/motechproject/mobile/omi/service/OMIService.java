@@ -1,7 +1,6 @@
 package org.motechproject.mobile.omi.service;
 
 import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omi.manager.OMIManager;
 import java.util.Date;
 import org.motechproject.ws.Care;
@@ -68,7 +67,7 @@ public interface OMIService {
      * @param context The current application context
      * @return The status of the message
      */
-    MessageStatus sendMessage(MessageRequest message, MotechContext context);
+    MessageStatus sendMessage(MessageRequest message);
 
     /**
      * Sends a non-templated outgoing message request
@@ -78,7 +77,7 @@ public interface OMIService {
      * @param context  The current application context
      * @return
      */
-    MessageStatus sendMessage(MessageRequest message, String content, MotechContext context);
+    MessageStatus sendMessage(MessageRequest message, String content);
 
     /**
      * Sends a list of care defaulters to a CHPS worker
@@ -146,7 +145,7 @@ public interface OMIService {
      * @param context current application context
      * @return
      */
-    MessageStatus scheduleMessage(MessageRequest message, String content, MotechContext context);
+    MessageStatus scheduleMessage(MessageRequest message, String content);
 
     /**
      * Processes stored MessageRequests into GatewayRequests and schedules them for delivery on the OMP

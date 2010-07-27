@@ -14,15 +14,32 @@ import java.util.Map;
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class IncomingMessageFormImpl extends MotechEntityImpl implements IncomingMessageForm {
+public class IncomingMessageFormImpl implements IncomingMessageForm {
 
+    private String id;
     private IncomingMessageFormDefinition incomingMsgFormDefinition;
     private Date dateCreated;
     private Date lastModified;
     private IncMessageFormStatus messageFormStatus;
     private Map<String,IncomingMessageFormParameter> incomingMsgFormParameters = new HashMap<String,IncomingMessageFormParameter>();
     private List<String> errors = new ArrayList<String>();
-    
+
+
+
+private int version=-1;
+    /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
+    }
     /**
      * @return the incomingMsgFormDefinition
      */
@@ -161,4 +178,18 @@ public class IncomingMessageFormImpl extends MotechEntityImpl implements Incomin
 	public void setErrors(List<String> errors) {
 		this.errors = errors;
 	}
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 }

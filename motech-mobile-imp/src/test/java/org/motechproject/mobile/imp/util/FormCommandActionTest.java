@@ -1,5 +1,6 @@
 package org.motechproject.mobile.imp.util;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.IncMessageFormDefinitionType;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 
@@ -36,6 +38,8 @@ import static org.easymock.EasyMock.*;
  *  Date : Dec 6, 2009
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
+//@TransactionConfiguration
+//@Transactional
 public class FormCommandActionTest {
 
     CoreManager mockCore;
@@ -101,29 +105,29 @@ public class FormCommandActionTest {
                 mockParser.getFormCode((String) anyObject())
                 ).andReturn("GENERAL");
         expect(
-                mockCore.createIncomingMessageSessionDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageSessionDAO()
                 ).andReturn(mockSessDao);
-        expect(
-                mockSessDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
+//        expect(
+//                mockSessDao.getDBSession()
+//                ).andReturn(mockSession);
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockSessDao.save((IncomingMessageSession) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
 
 
         //Generate form
         expect(
-                mockCore.createIncomingMessageFormDefinitionDAO((MotechContext) anyObject())
+                mockCore.createIncomingMessageFormDefinitionDAO()
                 ).andReturn(mockFormDefDao);
         expect(
                 mockFormDefDao.getByCode((String) anyObject())
@@ -135,23 +139,23 @@ public class FormCommandActionTest {
                 mockParser.getParams((String)anyObject())
                 ).andReturn(new HashMap<String,IncomingMessageFormParameter>());
         expect(
-                mockCore.createIncomingMessageFormDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageFormDAO()
                 ).andReturn(mockFormDao);
-        expect(
-                mockFormDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
+//        expect(
+//                mockFormDao.getDBSession()
+//                ).andReturn(mockSession);
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockFormDao.save((IncomingMessageSession) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
 
         //Validate form
@@ -164,50 +168,48 @@ public class FormCommandActionTest {
                 mockCore.createIncomingMessageResponse()
                 ).andReturn(new IncomingMessageResponseImpl());
         expect(
-                mockCore.createIncomingMessageResponseDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageResponseDAO()
                 ).andReturn(mockRespDao);
-        expect(
-                mockRespDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
+
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockRespDao.save((IncomingMessageResponse) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
         
         //Save request
         expect(
-                mockCore.createIncomingMessageSessionDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageSessionDAO()
                 ).andReturn(mockSessDao);
-        expect(
-                mockSessDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
+
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockSessDao.save((IncomingMessageSession) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
         
 
-        replay(mockCore,mockParser,mockSessDao,mockSession,mockTrans,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
-        IncomingMessageResponse result = instance.execute(message, requesterPhone, context);
-        verify(mockCore,mockParser,mockSessDao,mockSession,mockTrans,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
+//        replay(mockCore,mockParser,mockSessDao,mockSession,mockTrans,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
+        replay(mockCore,mockParser,mockSessDao,mockSession,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
+        IncomingMessageResponse result = instance.execute(message, requesterPhone);
+//        verify(mockCore,mockParser,mockSessDao,mockSession,mockTrans,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
+        verify(mockCore,mockParser,mockSessDao,mockSession,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
 
         assertNotNull(result);
         assertEquals(expResult, result.getContent());
@@ -232,28 +234,28 @@ public class FormCommandActionTest {
                 mockParser.getFormCode((String) anyObject())
                 ).andReturn("GENERAL");
         expect(
-                mockCore.createIncomingMessageSessionDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageSessionDAO()
                 ).andReturn(mockSessDao);
-        expect(
-                mockSessDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
+    
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockSessDao.save((IncomingMessageSession) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
 
-        replay(mockCore,mockParser,mockSessDao,mockSession,mockTrans);
-        IncomingMessageSession result = instance.initializeSession(message, requesterPhone, context);
-        verify(mockCore,mockParser,mockSessDao,mockSession,mockTrans);
+//        replay(mockCore,mockParser,mockSessDao,mockSession,mockTrans);
+        replay(mockCore,mockParser,mockSessDao,mockSession);
+        IncomingMessageSession result = instance.initializeSession(message, requesterPhone);
+//        verify(mockCore,mockParser,mockSessDao,mockSession,mockTrans);
+        verify(mockCore,mockParser,mockSessDao,mockSession);
 
         assertNotNull(result);
     }
@@ -267,13 +269,13 @@ public class FormCommandActionTest {
         IncomingMessage message = new IncomingMessageImpl();
         message.setContent("test content");
         String formCode = "GENERAL";
-        MotechContext context = new MotechContextImpl();
+//        MotechContext context = new MotechContextImpl();
 
         mockFormDefDao = createMock(IncomingMessageFormDefinitionDAO.class);
         mockFormDao = createMock(IncomingMessageFormDAO.class);
 
         expect(
-                mockCore.createIncomingMessageFormDefinitionDAO((MotechContext) anyObject())
+                mockCore.createIncomingMessageFormDefinitionDAO()
                 ).andReturn(mockFormDefDao);
         expect(
                 mockFormDefDao.getByCode((String) anyObject())
@@ -285,28 +287,28 @@ public class FormCommandActionTest {
                 mockParser.getParams((String)anyObject())
                 ).andReturn(new HashMap<String,IncomingMessageFormParameter>());
         expect(
-                mockCore.createIncomingMessageFormDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageFormDAO()
                 ).andReturn(mockFormDao);
-        expect(
-                mockFormDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
+//
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockFormDao.save((IncomingMessageForm) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
 
-        replay(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession,mockTrans);
-        IncomingMessageForm result = instance.initializeForm(message, formCode, context);
-        verify(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession,mockTrans);
+//        replay(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession,mockTrans);
+        replay(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession);
+        IncomingMessageForm result = instance.initializeForm(message, formCode);
+//        verify(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession,mockTrans);
+        verify(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession);
 
         assertNotNull(result);
     }
@@ -328,7 +330,7 @@ public class FormCommandActionTest {
                 ).andReturn(new IncomingMessageResponseImpl());
 
         replay(mockCore);
-        IncomingMessageResponse result = instance.prepareResponse(message, null, context);
+        IncomingMessageResponse result = instance.prepareResponse(message, null);
         verify(mockCore);
 
         String expResult ="Invalid request";
@@ -344,28 +346,28 @@ public class FormCommandActionTest {
                 mockCore.createIncomingMessageResponse()
                 ).andReturn(new IncomingMessageResponseImpl());
         expect(
-                mockCore.createIncomingMessageResponseDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageResponseDAO()
                 ).andReturn(mockRespDao);
-        expect(
-                mockRespDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
+      
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockRespDao.save((IncomingMessageResponse) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
 
-        replay(mockCore,mockRespDao,mockSession,mockTrans);
-        result = instance.prepareResponse(message, null, context);
-        verify(mockCore,mockRespDao,mockSession,mockTrans);
+//        replay(mockCore,mockRespDao,mockSession,mockTrans);
+        replay(mockCore,mockRespDao,mockSession);
+        result = instance.prepareResponse(message, null);
+//        verify(mockCore,mockRespDao,mockSession,mockTrans);
+        verify(mockCore,mockRespDao,mockSession);
 
         expResult = "Data saved successfully";
         assertNotNull(result);
@@ -387,34 +389,35 @@ public class FormCommandActionTest {
         message.getIncomingMessageForm().getIncomingMsgFormParameters().put(param1.getName(),param1);
         message.getIncomingMessageForm().getIncomingMsgFormParameters().put(param2.getName(),param2);
 
-        reset(mockCore,mockRespDao,mockSession,mockTrans);
+//        reset(mockCore,mockRespDao,mockSession,mockTrans);
+        reset(mockCore,mockRespDao,mockSession);
 
         expect(
                 mockCore.createIncomingMessageResponse()
                 ).andReturn(new IncomingMessageResponseImpl());
         expect(
-                mockCore.createIncomingMessageResponseDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageResponseDAO()
                 ).andReturn(mockRespDao);
-        expect(
-                mockRespDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
+    
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockRespDao.save((IncomingMessageResponse) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
 
-        replay(mockCore,mockRespDao,mockSession,mockTrans);
-        result = instance.prepareResponse(message, null, context);
-        verify(mockCore,mockRespDao,mockSession,mockTrans);
+//        replay(mockCore,mockRespDao,mockSession,mockTrans);
+        replay(mockCore,mockRespDao,mockSession);
+        result = instance.prepareResponse(message, null);
+//        verify(mockCore,mockRespDao,mockSession,mockTrans);
+        verify(mockCore,mockRespDao,mockSession);
 
         expResult = "Errors:\nage=too long\nname=wrong format";
         assertNotNull(result);
@@ -429,34 +432,35 @@ public class FormCommandActionTest {
         message.getIncomingMessageForm().setIncomingMsgFormParameters(new HashMap<String,IncomingMessageFormParameter>());
         message.getIncomingMessageForm().getIncomingMsgFormParameters().put(param2.getName(),param2);
 
-        reset(mockCore,mockRespDao,mockSession,mockTrans);
+//        reset(mockCore,mockRespDao,mockSession,mockTrans);
+        reset(mockCore,mockRespDao,mockSession);
 
         expect(
                 mockCore.createIncomingMessageResponse()
                 ).andReturn(new IncomingMessageResponseImpl());
         expect(
-                mockCore.createIncomingMessageResponseDAO((MotechContext)anyObject())
+                mockCore.createIncomingMessageResponseDAO()
                 ).andReturn(mockRespDao);
-        expect(
-                mockRespDao.getDBSession()
-                ).andReturn(mockSession);
-        expect(
-                mockSession.getTransaction()
-                ).andReturn(mockTrans);
+    
+//        expect(
+//                mockSession.getTransaction()
+//                ).andReturn(mockTrans);
 
-        mockTrans.begin();
+//        mockTrans.begin();
         expectLastCall();
 
         expect(
                 mockRespDao.save((IncomingMessageResponse) anyObject())
                 ).andReturn(null);
 
-        mockTrans.commit();
+//        mockTrans.commit();
         expectLastCall();
 
-        replay(mockCore,mockRespDao,mockSession,mockTrans);
-        result = instance.prepareResponse(message, null, context);
-        verify(mockCore,mockRespDao,mockSession,mockTrans);
+//        replay(mockCore,mockRespDao,mockSession,mockTrans);
+        replay(mockCore,mockRespDao,mockSession);
+        result = instance.prepareResponse(message, null);
+//        verify(mockCore,mockRespDao,mockSession,mockTrans);
+        verify(mockCore,mockRespDao,mockSession);
 
         expResult = "Errors:\nage=server error";
         assertNotNull(result);

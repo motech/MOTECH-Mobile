@@ -41,7 +41,7 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
     public ClickatellGatewayManagerImpl(){
     }
 
-    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails, MotechContext context) {
+    public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         try {
             postData = "api_id=" + URLEncoder.encode(apiId, "UTF-8");
             postData += "&user=" + URLEncoder.encode(user, "UTF-8");
@@ -102,7 +102,7 @@ public class ClickatellGatewayManagerImpl implements GatewayManager{
         messageDetails.setDateSent(new Date());
         
         //Convert the response to a standard format
-        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse, context);
+        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
     }
 
     public String getMessageStatus(GatewayResponse response) {

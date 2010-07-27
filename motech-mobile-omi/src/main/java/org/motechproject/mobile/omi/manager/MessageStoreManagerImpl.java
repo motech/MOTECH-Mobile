@@ -9,7 +9,6 @@ import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageTemplate;
 import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.core.util.MotechException;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -37,9 +36,9 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * 
      * @see MessageStoreManager.constructMessage
      */
-    public GatewayRequest constructMessage(MessageRequest messageData, MotechContext context, Language defaultLang) {      
+    public GatewayRequest constructMessage(MessageRequest messageData, Language defaultLang) {      
         
-        GatewayRequest gwReq = coreManager.createGatewayRequest(context);        
+        GatewayRequest gwReq = coreManager.createGatewayRequest();        
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
         gwReq.setRecipientsNumber(formatPhoneNumber(messageData.getRecipientNumber(), messageData.getMessageType()));
@@ -47,14 +46,14 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         gwReq.setTryNumber(messageData.getTryNumber());
         gwReq.setMessageRequest(messageData);
         
-        GatewayRequestDetails gatewayDetails = coreManager.createGatewayRequestDetails(context);
+        GatewayRequestDetails gatewayDetails = coreManager.createGatewayRequestDetails();
         gatewayDetails.setMessageType(messageData.getMessageType());
                 
         try{
         	
         	if ( messageData.getMessageType() == MessageType.TEXT ) {
 
-        		String template = fetchTemplate(messageData, context, defaultLang);
+        		String template = fetchTemplate(messageData, defaultLang);
         		logger.debug("message template fetched");
         		logger.debug(template);
 
@@ -82,7 +81,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
             gwReq.setMessageStatus(MStatus.FAILED);
             gwReq.setMessage(null);
             
-            GatewayResponse gwResp = coreManager.createGatewayResponse(context);
+            GatewayResponse gwResp = coreManager.createGatewayResponse();
             gwResp.setGatewayRequest(gwReq);
             gwResp.setMessageStatus(MStatus.FAILED);
             gwResp.setResponseText(ex.getMessage());
@@ -125,11 +124,11 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
      * 
      * @see MessageStoreManager.fetchTemplate
      */
-    public String fetchTemplate(MessageRequest messageData, MotechContext context, Language defaultLang) {        
+    public String fetchTemplate(MessageRequest messageData, Language defaultLang) {        
         if(messageData.getNotificationType() == null)
             return "";
         
-        MessageTemplate template = coreManager.createMessageTemplateDAO(context).getTemplateByLangNotifMType(messageData.getLanguage(), messageData.getNotificationType(), messageData.getMessageType(), defaultLang);
+        MessageTemplate template = coreManager.createMessageTemplateDAO().getTemplateByLangNotifMType(messageData.getLanguage(), messageData.getNotificationType(), messageData.getMessageType(), defaultLang);
         
         if(template == null)
             throw new MotechException("No such NotificationType found");
@@ -195,5 +194,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
     public void setDefaultCountryCode(String defaultCountryCode) {
         this.defaultCountryCode = defaultCountryCode;
     }
+
+ 
     
 }

@@ -34,8 +34,8 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
 
 
         try {
-            Session sess = this.getDBSession().getSession();
-            List msgRequest = sess.createCriteria(this.getPersistentClass())
+           
+            List msgRequest = this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
                     .add(Restrictions.eq("status", status))
                     .add(Restrictions.lt("dateFrom", schedule))
                     .add(Restrictions.gt("dateTo", schedule))
@@ -62,11 +62,11 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
 
         try {
 
-            Session session = this.getDBSession().getSession();
+           
             Criterion eqStatus = Restrictions.eq("status", status);
             Criterion leTrynumb = Restrictions.le("tryNumber", tryNumber);
             LogicalExpression exp = Restrictions.and(eqStatus, leTrynumb);
-            List msgRequest = session.createCriteria(this.getPersistentClass()).add(exp).list();
+            List msgRequest = this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass()).add(exp).list();
 
             logger.debug(msgRequest);
             return msgRequest;
@@ -86,9 +86,9 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
 
         try {
 
-            Session session = this.getDBSession().getSession();
+            
             Criterion eqStatus = Restrictions.eq("status", status);
-            List msgRequest = session.createCriteria(this.getPersistentClass())
+            List msgRequest = this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
                     .add(eqStatus)
                     .list();
 
@@ -111,10 +111,10 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
 
     	try {
 
-    		Session session = this.getDBSession().getSession();
+    		
     		Criterion eqStatus = Restrictions.eq("status", status);
     		Criterion eqRecipient = Restrictions.eq("recipientId", recipientID);
-    		List msgRequest = session.createCriteria(this.getPersistentClass())
+    		List msgRequest = this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
     				.add(eqRecipient)
     				.add(eqStatus)
     				.list();
@@ -137,8 +137,8 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
 
 
         try {
-            Session sess = this.getDBSession().getSession();
-            List msgRequest = sess.createCriteria(this.getPersistentClass())
+           
+            List msgRequest = this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
                     .add(Restrictions.eq("recipientId", recipientID))
                     .add(Restrictions.lt("dateFrom", schedule))
                     .add(Restrictions.gt("dateTo", schedule))

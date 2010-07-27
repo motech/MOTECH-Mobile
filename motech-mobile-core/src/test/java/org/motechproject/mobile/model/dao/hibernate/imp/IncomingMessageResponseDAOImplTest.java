@@ -16,6 +16,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author joseph Djomeda (joseph@dreamoval.com)
@@ -23,6 +25,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:META-INF/test-core-config.xml"})
+@TransactionConfiguration
+@Transactional
 public class IncomingMessageResponseDAOImplTest {
 
      @Autowired
@@ -38,10 +42,9 @@ public class IncomingMessageResponseDAOImplTest {
      @Before
     public void setUp() {
 
-        MotechContext tc = coreManager.createMotechContext();
-        imrDAO = coreManager.createIncomingMessageResponseDAO(tc);
+        imrDAO = coreManager.createIncomingMessageResponseDAO();
 
-        imr1.setId(876L);
+        imr1.setId("12000000018");
         imr1.setContent("content for imr1");
         imr1.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
 
@@ -60,13 +63,8 @@ public class IncomingMessageResponseDAOImplTest {
     @Test
     public void testSave() {
         System.out.println("save IncomingMessageResponse");
-        Session session = ((Session) imrDAO.getDBSession().getSession());
-        Transaction tx = session.beginTransaction();
         imrDAO.save(imr1);
-        tx.commit();
-
-
-        IncomingMessageResponse fromdb = (IncomingMessageResponse) session.get(IncomingMessageResponseImpl.class, imr1.getId());
+        IncomingMessageResponse fromdb = (IncomingMessageResponse) imrDAO.getSessionFactory().getCurrentSession().get(IncomingMessageResponseImpl.class, imr1.getId());
 
         Assert.assertNotNull(fromdb);
         Assert.assertEquals(fromdb, imr1);

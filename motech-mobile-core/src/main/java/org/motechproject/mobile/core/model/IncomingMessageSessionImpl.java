@@ -12,8 +12,9 @@ import java.util.List;
  * Date: Dec 02, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class IncomingMessageSessionImpl extends MotechEntityImpl implements IncomingMessageSession {
+public class IncomingMessageSessionImpl implements IncomingMessageSession {
 
+    private String id;
     private String requesterPhone;
     private Date dateStarted;
     private Date dateEnded;
@@ -22,6 +23,22 @@ public class IncomingMessageSessionImpl extends MotechEntityImpl implements Inco
     private List<IncomingMessage> incomingMessages = new ArrayList<IncomingMessage>();
     private IncMessageSessionStatus messageSessionStatus;
 
+
+
+private int version=-1;
+    /**
+     * @return the version
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(int version) {
+        this.version = version;
+    }
     /**
      * @return the requesterPhone
      */
@@ -170,5 +187,19 @@ public class IncomingMessageSessionImpl extends MotechEntityImpl implements Inco
         }
 
 
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

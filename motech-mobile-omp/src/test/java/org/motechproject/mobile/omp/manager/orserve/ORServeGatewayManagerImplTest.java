@@ -37,7 +37,7 @@ public class ORServeGatewayManagerImplTest {
     public void setUp(){
         mockHandler = createMock(GatewayMessageHandler.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId(89L);
+        mockGatewayRequestDetails.setId("32000000001");
         instance = new ORServeGatewayManagerImpl();
         instance.setProductCode("testId");
         instance.setSenderId("Test Sender");
@@ -61,11 +61,11 @@ public class ORServeGatewayManagerImplTest {
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
         expect(
-                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject(), (MotechContext) anyObject())
+                mockHandler.parseMessageResponse((GatewayRequest) anyObject(), (String) anyObject())
                 ).andReturn(new HashSet<GatewayResponse>());
         replay(mockHandler);
         
-        Set<GatewayResponse> result = instance.sendMessage(messageDetails, context);
+        Set<GatewayResponse> result = instance.sendMessage(messageDetails);
         assertNotNull(result);
         verify(mockHandler);
     }

@@ -1,22 +1,21 @@
+
 package org.motechproject.mobile.core.dao.hibernate;
 
-import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.dao.GenericDAO;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
 
 
 /*
  * HibernateGenericDAOImpl is the hibernate implementation of the genericDAO interface
  * that defines the contract of common persistence methods.
- * This class should be extended by  implementation of every domain DAO 
+ * This class should be extended by  implementation of every domain DAO
  *
  *  Date : Jul 31, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
@@ -25,10 +24,24 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
 
     private static Logger logger = Logger.getLogger(HibernateGenericDAOImpl.class);
     private Class<T> persistentClass;
-    protected DBSession<Session, Transaction> session;
+    private SessionFactory sessionFactory;
 
     public HibernateGenericDAOImpl() {
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
+
+        /**
+     * @return the session
+     */
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    /**
+     * @param session the session to set
+     */
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     /**
@@ -39,26 +52,7 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
         return persistentClass;
     }
 
-    /**
-     * @return the session
-     */
-    public DBSession<Session, Transaction> getDBSession() {
-        logger.info("returning a session");
-        if (session == null) {
-            throw new IllegalStateException("Session has not been set");
-        }
 
-        return session;
-    }
-
-    /**
-     * @param session the session to set
-     */
-    @SuppressWarnings("unchecked")
-    public void setDBSession(DBSession session) {
-        logger.info("setting a session");
-        this.session = session;
-    }
 
     /**
      * Gets all objects of type T
@@ -77,7 +71,8 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
      */
     protected List<T> findByCriteria(Criterion... criterion) {
         logger.info("Callint FindByCriteria");
-        Criteria crit = getDBSession().getSession().createCriteria(getPersistentClass());
+//        Criteria crit = getDBSession().getSession().createCriteria(getPersistentClass());
+        Criteria crit = this.getSessionFactory().getCurrentSession().createCriteria(getPersistentClass());
         for (Criterion c : criterion) {
             crit.add(c);
         }
@@ -93,8 +88,7 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
     public T getById(Serializable id) {
         logger.info("Calling getById");
         T entity;
-
-        entity = (T) getDBSession().getSession().load(getPersistentClass(), id);
+        entity = (T) this.getSessionFactory().getCurrentSession().get(getPersistentClass(), id);
         return entity;
     }
 
@@ -105,7 +99,8 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
      */
     @SuppressWarnings("unchecked")
     public T save(T entity) {
-        getDBSession().getSession().saveOrUpdate(entity);
+//        getDBSession().getSession().saveOrUpdate(entity);
+        this.getSessionFactory().getCurrentSession().saveOrUpdate(entity);
         return entity;
     }
 
@@ -115,26 +110,29 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
      */
     public void delete(T entity) {
         logger.info("Calling delete");
-        getDBSession().getSession().delete(entity);
+//        getDBSession().getSession().delete(entity);
+        this.getSessionFactory().getCurrentSession().delete(entity);
     }
 
     public void flush() {
         logger.info("Calling session fush");
-        getDBSession().getSession().flush();
+//        getDBSession().getSession().flush();
+         this.getSessionFactory().getCurrentSession().flush();
     }
 
     public void clear() {
         logger.info("Calling session clear");
-        getDBSession().getSession().clear();
+//        getDBSession().getSession().clear();
+         this.getSessionFactory().getCurrentSession().clear();
     }
 
     /**
-     *  @see {@link org.motechproject.mobile.core.dao.GenericDAO#findByExample(java.lang.Object) 
+     *  @see {@link org.motechproject.mobile.core.dao.GenericDAO#findByExample(java.lang.Object)
      */
     @SuppressWarnings("unchecked")
     public List<T> findByExample(T exampleInstance, String... excludeProperty) {
         logger.info("Calling findByExample");
-        Criteria crit = getDBSession().getSession().createCriteria(getPersistentClass());
+        Criteria crit =  this.getSessionFactory().getCurrentSession().createCriteria(getPersistentClass());
         Example example = Example.create(exampleInstance);
         if (excludeProperty.length != 0) {
             for (String exclude : excludeProperty) {
@@ -144,4 +142,6 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
         crit.add(example);
         return crit.list();
     }
+
+
 }

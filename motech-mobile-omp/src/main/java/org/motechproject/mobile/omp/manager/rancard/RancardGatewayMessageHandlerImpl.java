@@ -33,7 +33,7 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
      *
      * @see GatewayMessageHandler.parseResponse
      */
-    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse, MotechContext context) {
+    public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         logger.debug("Parsing message gateway response");
         logger.debug(gatewayResponse);
 
@@ -55,7 +55,7 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
             if (responseParts[0].trim().equals("Status:"))
                     continue;
             
-            GatewayResponse response = getCoreManager().createGatewayResponse(context);                
+            GatewayResponse response = getCoreManager().createGatewayResponse();                
             response.setRequestId(message.getRequestId());
             response.setGatewayRequest(message);
             response.setResponseText(gatewayResponse.trim());

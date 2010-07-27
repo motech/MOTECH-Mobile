@@ -34,7 +34,7 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
         try {
 
             List<GatewayRequest> allbyStatus;
-            allbyStatus = (List<GatewayRequest>) getDBSession().getSession().createCriteria(getPersistentClass()).add(Restrictions.eq("messageStatus", status)).list();
+            allbyStatus = (List<GatewayRequest>) this.getSessionFactory().getCurrentSession().createCriteria(getPersistentClass()).add(Restrictions.eq("messageStatus", status)).list();
 
             logger.debug(allbyStatus);
             return allbyStatus;
@@ -58,7 +58,7 @@ public class GatewayRequestDAOImpl extends HibernateGenericDAOImpl<GatewayReques
         try {
 
             List<GatewayRequest> allbystatandSdule;
-            Criteria criteria = getDBSession().getSession().createCriteria(getPersistentClass());
+            Criteria criteria =  this.getSessionFactory().getCurrentSession().createCriteria(getPersistentClass());
             if (schedule == null) {
                 criteria = criteria.add(Restrictions.isNull("dateTo")).add(Restrictions.isNull("dateFrom")).add(Restrictions.eq("messageStatus", status));
             } else {
