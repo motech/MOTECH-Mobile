@@ -8,6 +8,8 @@ import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.util.MotechException;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
+import org.motechproject.ws.ContactNumberType;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -77,8 +79,9 @@ public class SMSMessagingServiceImpl implements MessagingService {
         Set<GatewayResponse> responseList = null;
         Map<Boolean, Set<GatewayResponse>> result = new HashMap<Boolean, Set<GatewayResponse>>();
         try {
-            if (messageDetails.getRecipientsNumber() == null || messageDetails.getRecipientsNumber().isEmpty()) {
-                messageDetails.setMessageStatus(MStatus.FAILED);
+            if ((messageDetails.getRecipientsNumber() == null || messageDetails.getRecipientsNumber().isEmpty())
+            		&& !ContactNumberType.PUBLIC.toString().equals(messageDetails.getMessageRequest().getPhoneNumberType()) ) {
+                messageDetails.setMessageStatus(MStatus.INVALIDNUM);
             } else {
                 responseList = this.gatewayManager.sendMessage(messageDetails);
                 result.put(new Boolean(true), responseList);
@@ -108,8 +111,9 @@ public class SMSMessagingServiceImpl implements MessagingService {
         logger.info("Sending message to gateway");
         GatewayRequest message = (GatewayRequest) messageDetails.getGatewayRequests().toArray()[0];
 
-        if (message.getRecipientsNumber() != null || message.getRecipientsNumber().isEmpty()) {
-            message.setMessageStatus(MStatus.FAILED);
+        if ((message.getRecipientsNumber() != null || message.getRecipientsNumber().isEmpty()) 
+        		&& !ContactNumberType.PUBLIC.toString().equals(message.getMessageRequest().getPhoneNumberType())) {
+            message.setMessageStatus(MStatus.INVALIDNUM);
         } else {
             try {
                 Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message);

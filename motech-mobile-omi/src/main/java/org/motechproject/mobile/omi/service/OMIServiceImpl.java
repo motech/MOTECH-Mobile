@@ -77,8 +77,9 @@ public class OMIServiceImpl implements OMIService {
             return MessageStatus.REJECTED;
         }
 
-        if (patientNumber == null || patientNumber.isEmpty()) {
-            return MessageStatus.FAILED;
+        if ((patientNumber == null || patientNumber.isEmpty()) 
+        		&& patientNumberType != ContactNumberType.PUBLIC) {
+            return MessageStatus.REJECTED;
         }
 
         MessageRequest messageRequest = coreManager.createMessageRequest();
@@ -132,7 +133,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Constructing MessageDetails object...");
 
         if (workerNumber == null || workerNumber.isEmpty()) {
-            return MessageStatus.FAILED;
+            return MessageStatus.REJECTED;
         }
 
         MessageRequest messageRequest = coreManager.createMessageRequest();
@@ -199,8 +200,9 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public synchronized MessageStatus sendMessage(MessageRequest message) {
-        if (message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) {
-            return MessageStatus.FAILED;
+        if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) 
+        		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
+            return MessageStatus.REJECTED;
         }
 
         Language defaultLanguage = coreManager.createLanguageDAO().getByCode(defaultLang);
@@ -245,8 +247,9 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public synchronized MessageStatus sendMessage(MessageRequest message, String content) {
-        if (message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) {
-            return MessageStatus.FAILED;
+        if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) 
+        		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
+            return MessageStatus.REJECTED;
         }
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
@@ -286,10 +289,7 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public synchronized MessageStatus sendMessage(String content, String recipient) {
-        if (recipient == null || recipient.isEmpty()) {
-            return MessageStatus.FAILED;
-        }
-
+        
         logger.info("Constructing MessageDetails object...");
 
         MessageRequest messageRequest = coreManager.createMessageRequest();
@@ -313,7 +313,7 @@ public class OMIServiceImpl implements OMIService {
 
     public synchronized MessageStatus scheduleMessage(String content, String recipient) {
         if (recipient == null || recipient.isEmpty()) {
-            return MessageStatus.FAILED;
+            return MessageStatus.REJECTED;
         }
 
         logger.info("Constructing MessageDetails object...");
@@ -338,8 +338,9 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public synchronized MessageStatus scheduleMessage(MessageRequest message, String content) {
-        if (message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) {
-            return MessageStatus.FAILED;
+        if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty())
+        		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
+            return MessageStatus.REJECTED;
         }
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
@@ -388,7 +389,7 @@ public class OMIServiceImpl implements OMIService {
      */
     public synchronized MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
-            return MessageStatus.FAILED;
+            return MessageStatus.REJECTED;
         }
 
         logger.info("Constructing MessageDetails object...");
@@ -419,7 +420,7 @@ public class OMIServiceImpl implements OMIService {
      */
     public synchronized MessageStatus sendDeliveriesMessage(String messageId, String workerNumber, Patient[] patients, String deliveryStatus, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
-            return MessageStatus.FAILED;
+            return MessageStatus.REJECTED;
         }
 
         logger.info("Constructing MessageDetails object...");
@@ -451,7 +452,7 @@ public class OMIServiceImpl implements OMIService {
      */
     public synchronized MessageStatus sendUpcomingCaresMessage(String messageId, String workerNumber, Patient patient, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
-            return MessageStatus.FAILED;
+            return MessageStatus.REJECTED;
         }
 
         logger.info("Constructing MessageDetails object...");
