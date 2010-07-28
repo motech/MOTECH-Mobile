@@ -22,6 +22,7 @@ import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
@@ -292,7 +293,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					for ( IVRSession possibleSession : ivrSessions.values() ) {
 						if ( !possibleSession.isUserInitiated()
 								&& possibleSession.getUserId().equalsIgnoreCase(recipientID)
-								&& possibleSession.getPhone().equals(phone)
+								&& ObjectUtils.equals(possibleSession.getPhone(), phone)
 								&& possibleSession.getLanguage().equalsIgnoreCase(language.getName())
 								&& possibleSession.getAttempts() == 0
 								&& possibleSession.getDays() == gatewayRequest.getMessageRequest().getDaysAttempted()
