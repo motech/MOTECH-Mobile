@@ -25,15 +25,17 @@ public class ReportStatusActionImpl implements StatusAction {
         if (response.getRequestId() == null || response.getRequestId().isEmpty()) {
             return;
         }
+        if (response.getRecipientNumber() == null || response.getRecipientNumber().isEmpty()) {
+            return;
+        }
 
         try {
-            if (response.getRecipientNumber() == null || response.getRecipientNumber().isEmpty()) {
-                if (response.getMessageStatus() == MStatus.DELIVERED) {
-                    getRegWs().setMessageStatus(response.getRequestId(), true);
-                } else if (response.getMessageStatus() == MStatus.FAILED) {
-                    getRegWs().setMessageStatus(response.getRequestId(), false);
-                }
+            if (response.getMessageStatus() == MStatus.DELIVERED) {
+                getRegWs().setMessageStatus(response.getRequestId(), true);
+            } else if (response.getMessageStatus() == MStatus.FAILED) {
+                getRegWs().setMessageStatus(response.getRequestId(), false);
             }
+
         } catch (Exception e) {
             logger.error("Error communicating with event engine", e);
         }
