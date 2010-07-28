@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
+  <typedef class="org.motechproject.mobile.core.util.StringEnumUserType" name="mStatus">
+    <param name="enumClassname">org.motechproject.mobile.core.model.MStatus</param>
+  </typedef>
   <class name="GatewayRequestImpl" table="gateway_request">
     <id column="id" name="id" type="long">
       <generator class="assigned"/>

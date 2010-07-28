@@ -113,7 +113,6 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         </property>
         <property name="mappingResources">
             <list>
-                <value>org/motechproject/mobile/core/model/MotechEntityImpl.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/GatewayRequest.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/GatewayResponse.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/GatewayRequestDetails.hbm.xml</value>
