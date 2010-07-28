@@ -54,7 +54,7 @@ public class SMSCacheServiceImplTest {
         mockSession = createMock(DBSession.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
         
-        mockGatewayRequestDetails.setId("32000000000");
+        mockGatewayRequestDetails.setId(32000000000l);
         instance = new SMSCacheServiceImpl();
         instance.setCoreManager(mockCore);
         
@@ -108,7 +108,7 @@ public class SMSCacheServiceImplTest {
         response.setMessageStatus(MStatus.PENDING);
         response.setRecipientNumber("000000000000");
         response.setResponseText("Some gateway response message");
-        response.setId("32000000001");
+        response.setId(32000000001l);
         
         mockResponseDAO = createMock(GatewayResponseDAO.class);
         

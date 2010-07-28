@@ -14,13 +14,13 @@ public interface GatewayRequestDetails {
      * 
      * @return
      */
-    public void setId(String id);
+    public void setId(Long id);
 
     /**
      * 
      * @return
      */
-    public String getId();
+    public Long getId();
 
     /**
      * @return the messageType

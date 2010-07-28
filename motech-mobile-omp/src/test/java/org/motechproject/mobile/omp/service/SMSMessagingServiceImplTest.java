@@ -51,7 +51,7 @@ public class SMSMessagingServiceImplTest {
         mockCache = createMock(CacheService.class);
         mockGateway = createMock(GatewayManager.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId("33000000001");
+        mockGatewayRequestDetails.setId(33000000001l);
         mockCore = createMock(CoreManager.class);
         
         instance = new SMSMessagingServiceImpl();

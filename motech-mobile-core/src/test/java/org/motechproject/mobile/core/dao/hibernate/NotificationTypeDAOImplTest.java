@@ -6,8 +6,6 @@ import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

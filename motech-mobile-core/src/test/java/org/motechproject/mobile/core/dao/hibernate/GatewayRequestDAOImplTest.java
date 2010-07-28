@@ -107,29 +107,29 @@ public class GatewayRequestDAOImplTest {
 
 
         text = "First";
-        md1.setId("1000000001");
+        md1.setId(1000000001l);
         md1.setMessage(text);
         md1.setRecipientsNumber("123445");
         md1.setDateFrom(new Date());
 
-        md2.setId("10000000002");
+        md2.setId(10000000002l);
         md2.setMessage("Second");
         md2.setRecipientsNumber("123445");
         md2.setDateFrom(new Date());
 
-        md3.setId("10000000003");
+        md3.setId(10000000003l);
         md3.setMessage("Third");
         md3.setRecipientsNumber("123445");
         md3.setDateFrom(new Date());
 
-        md4.setId("10000000004");
+        md4.setId(10000000004l);
         md4.setMessage("Test for dummies 4");
         md4.setRecipientsNumber("123445, 54321");
         md4.setDateFrom(dateFrom1);
         md4.setDateTo(dateTo1);
         md4.setMessageStatus(MStatus.FAILED);
 
-        md5.setId("10000000005");
+        md5.setId(10000000005l);
         md5.setDateSent(new Date());
         md5.setRecipientsNumber("12345,54321");
         md5.setMessage("insertion with responsedetailsobject");
@@ -137,22 +137,22 @@ public class GatewayRequestDAOImplTest {
         md5.setDateTo(dateTo2);
         md5.setMessageStatus(MStatus.FAILED);
 
-        md6.setId("10000000006");
+        md6.setId(10000000006l);
         md6.setDateSent(new Date());
         md6.setRecipientsNumber("12345,54321");
         md6.setMessage("another test for dummies");
         md6.setDateFrom(new Date());
 
 
-        rd1.setId("40000000001");
+        rd1.setId(40000000001l);
         rd1.setMessageStatus(MStatus.PENDING);
         rd1.setRecipientNumber("123445");
 
-        rd2.setId("40000000002");
+        rd2.setId(40000000002l);
         rd2.setMessageStatus(MStatus.FAILED);
         rd2.setRecipientNumber("54321");
 
-        grd4.setId("40000000003");
+        grd4.setId(40000000003l);
         grd4.setMessage("some messaege 4");
         grd4.setMessageType(MessageType.TEXT);
         grd4.setNumberOfPages(1);
@@ -160,7 +160,7 @@ public class GatewayRequestDAOImplTest {
         gwrs4.add(md4);
         grd4.setGatewayRequests(gwrs4);
 
-        grd5.setId("40000000004");
+        grd5.setId(40000000004l);
         grd5.setMessage("some messaege 5");
         grd5.setMessageType(MessageType.TEXT);
         grd5.setNumberOfPages(1);

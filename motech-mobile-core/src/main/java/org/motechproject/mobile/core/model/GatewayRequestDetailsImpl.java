@@ -12,7 +12,7 @@ public class GatewayRequestDetailsImpl implements GatewayRequestDetails {
     public GatewayRequestDetailsImpl() {
     }
     private int version=-1;
-    private String id;
+    private Long id;
     private MessageType messageType;
     private String message;
     private int numberOfPages;
@@ -124,14 +124,14 @@ public class GatewayRequestDetailsImpl implements GatewayRequestDetails {
     /**
      * @return the id
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

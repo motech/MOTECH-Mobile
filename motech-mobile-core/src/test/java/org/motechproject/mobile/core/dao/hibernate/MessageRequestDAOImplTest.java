@@ -73,7 +73,7 @@ public class MessageRequestDAOImplTest {
 
 
         lDAO = coreManager.createLanguageDAO();
-        lg1.setId("80000000001");
+        lg1.setId(80000000001l);
         lg1.setCode("it");
 
         ntDao = coreManager.createNotificationTypeDAO();
@@ -97,14 +97,14 @@ public class MessageRequestDAOImplTest {
 
 
         mrDAO = coreManager.createMessageRequestDAO();
-        mr1.setId("80000000002");
+        mr1.setId(80000000002l);
         mr1.setDateCreated(new Date());
         mr1.setLanguage(lg1);
         mr1.setRecipientName("jlkj");
         mr1.setRecipientId("r1");
         mr1.setMessageType(t);
 
-        mr2.setId("80000000003");
+        mr2.setId(80000000003l);
         mr2.setDateCreated(new Date());
         mr2.setLanguage(lg1);
         mr2.setRecipientName("jojo");
@@ -115,7 +115,7 @@ public class MessageRequestDAOImplTest {
         mr2.setStatus(sta);
         mr2.setSchedule(schedule);
 
-        mr3.setId("80000000004");
+        mr3.setId(80000000004l);
         mr3.setDateCreated(new Date());
         mr3.setLanguage(lg1);
         mr3.setRecipientName("joseph");
@@ -126,7 +126,7 @@ public class MessageRequestDAOImplTest {
         mr3.setStatus(sta);
         mr3.setSchedule(schedule);
 
-        mr4.setId("80000000005");
+        mr4.setId(80000000005l);
         mr4.setDateCreated(new Date());
         mr4.setLanguage(lg1);
         mr4.setRecipientName("jimmy hendrix");
@@ -138,7 +138,7 @@ public class MessageRequestDAOImplTest {
         mr4.setSchedule(schedule);
         mr4.setTryNumber(2);
 
-        mr5.setId("80000000006");
+        mr5.setId(80000000006l);
         mr5.setDateCreated(new Date());
         mr5.setLanguage(lg1);
         mr5.setRecipientName("Kodjo");

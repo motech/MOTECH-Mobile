@@ -37,7 +37,7 @@ public class DummyGatewayManagerImplTest {
     public void setUp(){
         mockHandler = createMock(GatewayMessageHandler.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId("27000000001");
+        mockGatewayRequestDetails.setId(27000000001l);
         instance = new DummyGatewayManagerImpl();
         instance.setMessageHandler(mockHandler);
     }

@@ -61,20 +61,20 @@ public class IncomingMessageSessionDAOImplTest {
 ;
         imsDAO = coreManager.createIncomingMessageSessionDAO();
 
-        ims1.setId("12000000019");
+        ims1.setId(12000000019l);
         ims1.setDateStarted(new Date());
         ims1.setFormCode("fc_ims1");
         ims1.setLastActivity(new Date());
         ims1.setRequesterPhone("233243667788");
 
 
-        ims2.setId("12000000020");
+        ims2.setId(12000000020l);
         ims2.setDateStarted(new Date());
         ims2.setFormCode("fc_ims2");
         ims2.setLastActivity(new Date());
         ims2.setRequesterPhone(requesterPhone);
 
-        ims3.setId("12000000021");
+        ims3.setId(12000000021l);
         ims3.setDateStarted(new Date());
         ims3.setFormCode("fc_ims3");
         ims3.setLastActivity(new Date());

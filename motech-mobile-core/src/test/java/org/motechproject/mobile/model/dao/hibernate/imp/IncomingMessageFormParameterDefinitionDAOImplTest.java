@@ -57,7 +57,7 @@ public class IncomingMessageFormParameterDefinitionDAOImplTest {
         impdDAO = coreManager.createIncomingMessageFormParameterDefinitionDAO();
 
 
-        impd1.setId("12000000017");
+        impd1.setId(12000000017l);
         impd1.setDateCreated(new Date());
         impd1.setLength(34);
         impd1.setName("paramdefinition name");

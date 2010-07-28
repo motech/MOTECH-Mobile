@@ -90,12 +90,12 @@ public class IntellIVRGatewayMessageHandlerTest {
 	public void testParseMessageResponse() {
 				
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId("31000000001");
+		mr1.setId(31000000001l);
 		mr1.setRecipientId("123456789");
 		mr1.setRequestId("mr1");
 	
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId("31000000002");
+		r1.setId(31000000002l);
 		r1.setMessageRequest(mr1);
 		r1.setRequestId(mr1.getRequestId());
 		r1.setMessageStatus(MStatus.PENDING);
@@ -104,7 +104,7 @@ public class IntellIVRGatewayMessageHandlerTest {
 		for ( String code : statusCodes.keySet()) {
 
 			GatewayResponse gwResponse = new GatewayResponseImpl();
-			gwResponse.setId("31000000003");
+			gwResponse.setId(31000000003l);
 
 			MotechContext context = createMock(MotechContext.class);
 			

@@ -217,7 +217,7 @@ public class OMIServiceImplTest {
         MessageRequest msgReq1 = new MessageRequestImpl();
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
-        msgReq1.setId("19000000001");
+        msgReq1.setId(19000000001l);
         msgReq1.setTryNumber(1);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
@@ -283,7 +283,7 @@ public class OMIServiceImplTest {
         MessageRequest msgReq1 = new MessageRequestImpl();
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
-        msgReq1.setId("19000000002");
+        msgReq1.setId(19000000002l);
         msgReq1.setTryNumber(1);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
@@ -342,7 +342,7 @@ public class OMIServiceImplTest {
         MessageRequest msgReq1 = new MessageRequestImpl();
         msgReq1.setDateFrom(new Date());
         msgReq1.setDateTo(new Date());
-        msgReq1.setId("19000000003");
+        msgReq1.setId(19000000003l);
         msgReq1.setTryNumber(1);
         msgReq1.setMessageType(MessageType.TEXT);
         msgReq1.setRecipientName("Tester");
@@ -351,7 +351,7 @@ public class OMIServiceImplTest {
         messageList.add(msgReq1);
         
         GatewayRequestDetails details = new GatewayRequestDetailsImpl();
-        details.setId("19000000004");
+        details.setId(19000000004l);
         details.setMessage("Some message");
         details.setMessageType(MessageType.TEXT);
         details.setNumberOfPages(1);
@@ -402,14 +402,14 @@ public class OMIServiceImplTest {
         List<MessageRequest> msgList = new ArrayList<MessageRequest>();
         
         MessageRequestImpl request = new MessageRequestImpl();
-        request.setId("19000000005");
+        request.setId(19000000005l);
         request.setStatus(MStatus.PENDING);
         
         msgList.add(request);
 
         GatewayRequest gwReq = new GatewayRequestImpl();
         gwReq.setMessageRequest(request);
-        gwReq.setId("19000000006");
+        gwReq.setId(19000000006l);
 
         GatewayResponseImpl response = new GatewayResponseImpl();
         response.setMessageStatus(MStatus.DELIVERED);
@@ -426,7 +426,7 @@ public class OMIServiceImplTest {
                 mockCore.createGatewayResponseDAO()
                 ).andReturn(mockResponseDao);
         expect(
-                mockResponseDao.getByMessageIdAndTryNumber(String.valueOf(anyInt()), anyInt())
+                mockResponseDao.getByMessageIdAndTryNumber(anyLong(), anyInt())
                 ).andReturn(response);
   
         expectLastCall();

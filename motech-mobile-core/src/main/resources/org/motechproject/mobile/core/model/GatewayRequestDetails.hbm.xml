@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
   <class lazy="false" name="GatewayRequestDetailsImpl" table="gateway_request_details">
-    <id column="id" name="id" type="string">
+    <id column="id" name="id" type="long">
       <generator class="assigned"/>
     </id>
     <version name="version">

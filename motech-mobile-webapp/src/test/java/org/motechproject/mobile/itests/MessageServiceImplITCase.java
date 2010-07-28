@@ -106,22 +106,18 @@ public class MessageServiceImplITCase {
      */
     @Test
     public void testSendPatientMessage_NullDate() {
-        try {
-            System.out.println("sendPatientMessage with null dates");
-            String messageId = "testId3";
+        System.out.println("sendPatientMessage with null dates");
+        String messageId = "testId3";
 
-            NameValuePair attrib = new NameValuePair("PatientFirstName", "Tester");
-            NameValuePair attrib2 = new NameValuePair("DueDate", "now");
-            NameValuePair[] personalInfo = new NameValuePair[]{attrib, attrib2};
+        NameValuePair attrib = new NameValuePair("PatientFirstName", "Tester");
+        NameValuePair attrib2 = new NameValuePair("DueDate", "now");
+        NameValuePair[] personalInfo = new NameValuePair[]{attrib, attrib2};
 
-            String patientNumber = testProps.getProperty("patientNumber", "000000000000");
-            ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
-            MediaType messageType = MediaType.TEXT;
-            MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "kas", messageType, 4L, null, null, "123456789");
-            assertEquals(result, MessageStatus.PENDING);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        String patientNumber = testProps.getProperty("patientNumber", "000000000000");
+        ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
+        MediaType messageType = MediaType.TEXT;
+        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "kas", messageType, 4L, null, null, "123456789");
+        assertEquals(result, MessageStatus.PENDING);
     }
 
     /**
@@ -190,26 +186,23 @@ public class MessageServiceImplITCase {
      */
     @Test
     public void testSendCHPSMessage_NullDates() {
-        try {
-            System.out.println("sendCHPSMessage with null dates");
-            String messageId = "testId7";
-            String workerNumber = testProps.getProperty("workerNumber", "000000000000");
-            Date serviceDate = null;
-            MediaType messageType = MediaType.TEXT;
+        System.out.println("sendCHPSMessage with null dates");
+        String messageId = "testId7";
+        String workerNumber = testProps.getProperty("workerNumber", "000000000000");
+        Date serviceDate = null;
+        MediaType messageType = MediaType.TEXT;
 
-            NameValuePair attrib = new NameValuePair("Test", "Test");
-            NameValuePair[] personalInfo = new NameValuePair[]{attrib};
+        NameValuePair attrib = new NameValuePair("Test", "Test");
+        NameValuePair[] personalInfo = new NameValuePair[]{attrib};
 
-            Patient patient = new Patient();
-            patient.setPreferredName("Test patient");
-            patient.setMotechId("TS000000001");
-            Patient[] patientList = new Patient[]{patient};
+        Patient patient = new Patient();
+        patient.setPreferredName("Test patient");
+        patient.setMotechId("TS000000001");
+        Patient[] patientList = new Patient[]{patient};
 
-            MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 8L, serviceDate, serviceDate);
-            assertEquals(result, MessageStatus.PENDING);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 8L, serviceDate, serviceDate);
+        assertEquals(result, MessageStatus.PENDING);
+
     }
 
     @Test

@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class IncomingMessageFormImpl implements IncomingMessageForm {
 
-    private String id;
+    private Long id;
     private IncomingMessageFormDefinition incomingMsgFormDefinition;
     private Date dateCreated;
     private Date lastModified;
@@ -182,14 +182,14 @@ private int version=-1;
     /**
      * @return the id
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

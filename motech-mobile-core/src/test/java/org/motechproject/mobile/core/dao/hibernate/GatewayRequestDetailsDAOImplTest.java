@@ -52,32 +52,32 @@ public class GatewayRequestDetailsDAOImplTest {
     public void setUp() {
 
         grDao = coreManager.createGatewayRequestDetailsDAO();
-        grd1.setId("50000000005");
+        grd1.setId(50000000005l);
         grd1.setMessage("message to send");
         grd1.setNumberOfPages(2);
 
-        gr1.setId("20000000001");
+        gr1.setId(20000000001l);
         gr1.setRecipientsNumber("234556");
 
-        gr2.setId("20000000002");
+        gr2.setId(20000000002l);
         gr2.setRecipientsNumber("12345");
 
-        grd2.setId("50000000001");
+        grd2.setId(50000000001l);
         grd2.setMessage("Message for id 802");
         grd2.setMessageType(MessageType.TEXT);
         grd2.setNumberOfPages(2);
 
-        grd3.setId("50000000002");
+        grd3.setId(50000000002l);
         grd3.setMessage("Message for id 803");
         grd3.setMessageType(MessageType.TEXT);
         grd3.setNumberOfPages(2);
 
-        grd4.setId("50000000003");
+        grd4.setId(50000000003l);
         grd4.setMessage("Message for id 803");
         grd4.setMessageType(MessageType.TEXT);
         grd4.setNumberOfPages(2);
 
-        grd5.setId("50000000004");
+        grd5.setId(50000000004l);
         grd5.setMessage("Message for id 805");
         grd5.setMessageType(MessageType.TEXT);
         grd5.setNumberOfPages(2);

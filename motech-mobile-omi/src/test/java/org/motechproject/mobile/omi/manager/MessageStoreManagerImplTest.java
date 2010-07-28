@@ -48,7 +48,7 @@ public class MessageStoreManagerImplTest {
     public void setUp(){
         mockCore = createMock(CoreManager.class);
         mockLang = createMock(Language.class);
-        mockLang.setId("16000000001");
+        mockLang.setId(16000000001l);
         mockLang.setCode("testing");
         mockTemplateDao = createMock(MessageTemplateDAO.class);
 

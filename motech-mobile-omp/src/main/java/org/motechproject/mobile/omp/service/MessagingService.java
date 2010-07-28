@@ -49,7 +49,7 @@ public interface MessagingService {
      * @param messageDetails GatewayRequestDetails object containing information about the message to be sent
      * @return The id of the message sent
      */
-    public String sendMessage(GatewayRequestDetails messageDetails);
+    public Long sendMessage(GatewayRequestDetails messageDetails);
             
     /**
      * Queries and updates the delivery status of all pending messages

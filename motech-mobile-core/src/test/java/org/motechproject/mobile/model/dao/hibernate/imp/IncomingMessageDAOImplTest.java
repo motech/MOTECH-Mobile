@@ -93,53 +93,53 @@ public class IncomingMessageDAOImplTest {
         imsDAO = coreManager.createIncomingMessageSessionDAO();
 
 
-        im1.setId("11000000001");
+        im1.setId(11000000001l);
         im1.setContent("content im1");
         im1.setLastModified(new Date());
         im1.setMessageStatus(IncMessageStatus.PROCESSING);
 
-        im2.setId("11000000002");
+        im2.setId(11000000002l);
         im2.setContent("content im2");
         im2.setLastModified(new Date());
         im2.setMessageStatus(IncMessageStatus.PROCESSING);
 
-        im3.setId("11000000003");
+        im3.setId(11000000003l);
         im3.setContent("content im3");
         im3.setLastModified(new Date());
         im3.setMessageStatus(IncMessageStatus.PROCESSING);
 
-        im4.setId("11000000004");
+        im4.setId(11000000004l);
         im4.setContent("content im4");
         im4.setDateCreated(new Date());
         im4.setMessageStatus(IncMessageStatus.PROCESSING);
 
-        imfr3.setId("11000000005");
+        imfr3.setId(11000000005l);
         imfr3.setContent("response 3");
         imfr3.setDateCreated(new Date());
         imfr3.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
 
-        imfr4.setId("11000000006");
+        imfr4.setId(11000000006l);
         imfr4.setContent("response 4");
         imfr4.setDateCreated(new Date());
         imfr4.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
 
-        ims1.setId("11000000007");
+        ims1.setId(11000000007l);
         ims1.setFormCode("code_IM");
         ims1.setRequesterPhone("1122334455");
         ims1.setMessageSessionStatus(IncMessageSessionStatus.STARTED);
         ims1.setLastActivity(new Date());
 
-        ims4.setId("11000000008");
+        ims4.setId(11000000008l);
         ims4.setFormCode("code_IM654");
         ims4.setRequesterPhone("1122334455");
         ims4.setMessageSessionStatus(IncMessageSessionStatus.STARTED);
         ims4.setLastActivity(new Date());
 
-        imf2.setId("11000000009");
+        imf2.setId(11000000009l);
         imf2.setDateCreated(new Date());
         imf2.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf4.setId("11000000010");
+        imf4.setId(11000000010l);
         imf4.setDateCreated(new Date());
         imf4.setMessageFormStatus(IncMessageFormStatus.NEW);
 

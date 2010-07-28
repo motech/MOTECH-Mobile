@@ -44,7 +44,7 @@ public class IncomingMessageResponseDAOImplTest {
 
         imrDAO = coreManager.createIncomingMessageResponseDAO();
 
-        imr1.setId("12000000018");
+        imr1.setId(12000000018l);
         imr1.setContent("content for imr1");
         imr1.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
 

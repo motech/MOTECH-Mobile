@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class IncomingMessageImpl implements IncomingMessage {
 
-    private String id;
+    private Long id;
     private String content;
     private Date dateCreated;
     private Date lastModified;
@@ -170,14 +170,14 @@ private int version=-1;
     /**
      * @return the id
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

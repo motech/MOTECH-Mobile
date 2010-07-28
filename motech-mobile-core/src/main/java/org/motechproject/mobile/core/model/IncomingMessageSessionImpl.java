@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class IncomingMessageSessionImpl implements IncomingMessageSession {
 
-    private String id;
+    private Long id;
     private String requesterPhone;
     private Date dateStarted;
     private Date dateEnded;
@@ -192,14 +192,14 @@ private int version=-1;
     /**
      * @return the id
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

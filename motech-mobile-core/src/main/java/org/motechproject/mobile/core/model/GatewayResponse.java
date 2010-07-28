@@ -17,14 +17,14 @@ public interface GatewayResponse {
      * 
      * @param id id to set
      */
-    public void setId(String id);
+    public void setId(Long id);
 
 
     /**
      * 
      * @return the id
      */
-    public String getId();
+    public Long getId();
     /**
      * @return the gatewayMessageId
      */

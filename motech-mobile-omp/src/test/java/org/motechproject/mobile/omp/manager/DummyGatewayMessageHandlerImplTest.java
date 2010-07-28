@@ -9,8 +9,6 @@ import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;

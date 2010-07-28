@@ -94,75 +94,75 @@ public class IncomingMessageFormDAOImplTest {
         imfdDAO = coreManager.createIncomingMessageFormDefinitionDAO();
         imfPDAO = coreManager.createIncomingMessageFormParameterDAO();
 
-        imf1.setId("12000000001");
+        imf1.setId(12000000001l);
         imf1.setDateCreated(new Date());
         imf1.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf2.setId("12000000002");
+        imf2.setId(12000000002l);
         imf2.setDateCreated(new Date());
         imf2.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf3.setId("12000000003");
+        imf3.setId(12000000003l);
         imf3.setDateCreated(new Date());
         imf3.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf4.setId("12000000004");
+        imf4.setId(12000000004l);
         imf4.setDateCreated(new Date());
         imf4.setMessageFormStatus(IncMessageFormStatus.NEW);
 
-        imf5.setId("12000000005");
+        imf5.setId(12000000005l);
         imf5.setDateCreated(new Date());
         imf5.setMessageFormStatus(IncMessageFormStatus.INVALID);
 
-        imfd1.setId("12000000006");
+        imfd1.setId(12000000006l);
         imfd1.setFormCode("test_formdef");
         imfd1.setDateCreated(new Date());
 
-        imfd2.setId("12000000007");
+        imfd2.setId(12000000007l);
         imfd2.setFormCode("test_formdef 2");
         imfd2.setDateCreated(new Date());
 
-        imfd3.setId("12000000008");
+        imfd3.setId(12000000008l);
         imfd3.setFormCode("test_formdef 3");
         imfd3.setDateCreated(new Date());
 
-        imfd4.setId("12000000009");
+        imfd4.setId(12000000009l);
         imfd4.setFormCode("test_formdef 4");
         imfd4.setDateCreated(new Date());
 
-        imfd5.setId("12000000010");
+        imfd5.setId(12000000010l);
         imfd5.setFormCode("test_formdef 5");
         imfd5.setDateCreated(new Date());
 
-        imfP1.setId("12000000011");
+        imfP1.setId(12000000011l);
         imfP1.setDateCreated(new Date());
         imfP1.setErrCode(12);
         imfP1.setErrText("err_code1");
         imfP1.setName("param1");
         imfP1.setValue("value1");
 
-        imfP2.setId("12000000012");
+        imfP2.setId(12000000012l);
         imfP2.setDateCreated(new Date());
         imfP2.setErrCode(159);
         imfP2.setErrText("err_code159");
         imfP2.setName("param2");
         imfP2.setValue("value2");
 
-        imfP3.setId("12000000013");
+        imfP3.setId(12000000013l);
         imfP3.setDateCreated(new Date());
         imfP3.setErrCode(125);
         imfP3.setErrText("err_code125");
         imfP3.setName("param3");
         imfP3.setValue("value3");
 
-        imfP4.setId("12000000014");
+        imfP4.setId(12000000014l);
         imfP4.setDateCreated(new Date());
         imfP4.setErrCode(200);
         imfP4.setErrText("err_code200");
         imfP4.setName("param4");
         imfP4.setValue("value4");
 
-        imfP5.setId("12000000015");
+        imfP5.setId(12000000015l);
         imfP5.setDateCreated(new Date());
         imfP5.setErrCode(201);
         imfP5.setErrText("err_code201");

@@ -35,7 +35,7 @@ public class ClickatellGatewayManagerImplTest {
     public void setUp(){
         mockHandler = createMock(GatewayMessageHandler.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId("28000000001");
+        mockGatewayRequestDetails.setId(28000000001l);
         instance = new ClickatellGatewayManagerImpl();
         instance.setMessageHandler(mockHandler);
         instance.setApiId("someid");

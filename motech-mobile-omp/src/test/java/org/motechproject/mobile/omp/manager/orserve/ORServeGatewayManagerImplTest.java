@@ -37,7 +37,7 @@ public class ORServeGatewayManagerImplTest {
     public void setUp(){
         mockHandler = createMock(GatewayMessageHandler.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
-        mockGatewayRequestDetails.setId("32000000001");
+        mockGatewayRequestDetails.setId(32000000001l);
         instance = new ORServeGatewayManagerImpl();
         instance.setProductCode("testId");
         instance.setSenderId("Test Sender");

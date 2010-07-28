@@ -50,7 +50,7 @@ public class LanguageDAOImplTest {
     public void setUp() {
 
         lDao = coreManager.createLanguageDAO();
-        l1.setId("70000000001");
+        l1.setId(70000000001l);
         l1.setCode("aul887");
         l1.setName("day notifier");
         l1.setDescription("some description");
@@ -59,17 +59,17 @@ public class LanguageDAOImplTest {
         code = "de";
 
 
-        l2.setId("70000000002");
+        l2.setId(70000000002l);
         l2.setCode(code);
         l2.setName("german");
         l2.setDescription("description for l2");
 
-        l3.setId("70000000003");
+        l3.setId(70000000003l);
         l3.setCode("fr");
         l3.setName("francais");
         l3.setDescription("description for l3");
 
-        l4.setId("70000000004");
+        l4.setId(70000000004l);
         l4.setCode("es");
         l4.setName("espagnol");
         l4.setDescription("description for l4");

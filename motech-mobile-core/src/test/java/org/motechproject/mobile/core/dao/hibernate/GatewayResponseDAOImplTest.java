@@ -75,52 +75,52 @@ public class GatewayResponseDAOImplTest {
         grDAO = coreManager.createGatewayRequestDAO();
         mrDAO = coreManager.createMessageRequestDAO();
 
-        gr1.setId("60000000001");
+        gr1.setId(60000000001l);
         gr1.setRecipientNumber("123445");
         gr1.setMessageStatus(MStatus.PENDING);
         gr1.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
         gr1.setRequestId("dfpoi234ufkdl");
 
-        gr2.setId("60000000002");
+        gr2.setId(60000000002l);
         gr2.setRecipientNumber("123445");
         gr2.setMessageStatus(MStatus.PENDING);
         gr2.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
         gr2.setRequestId(requestId);
 
-        gr3.setId("60000000003");
+        gr3.setId(60000000003l);
         gr3.setRecipientNumber("234567");
         gr3.setMessageStatus(MStatus.DELIVERED);
         gr3.setDateCreated(DateProvider.convertToDateTime("2009-08-01"));
         gr3.setRequestId(requestId);
 
-        gr4.setId("60000000004");
+        gr4.setId(60000000004l);
         gr4.setRecipientNumber("345678");
         gr4.setMessageStatus(MStatus.DELIVERED);
         gr4.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
         gr4.setRequestId(requestId);
 
-        gr5.setId("60000000005");
+        gr5.setId(60000000005l);
         gr5.setRecipientNumber("765432");
         gr5.setMessageStatus(MStatus.FAILED);
         gr5.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
         gr5.setRequestId(requestId);
 
-        gr7.setId("60000000006");
+        gr7.setId(60000000006l);
         gr7.setRecipientNumber("23459");
         gr7.setMessageStatus(MStatus.FAILED);
         gr7.setDateCreated(DateProvider.convertToDateTime("2009-09-01"));
         gr7.setRequestId("88787");
 
 
-        gr8.setId("60000000007");
+        gr8.setId(60000000007l);
         gr8.setRecipientNumber("23459");
         gr8.setMessageStatus(MStatus.FAILED);
         gr8.setDateCreated(new Date());
         gr8.setRequestId(requestId);
 
-        mr1.setId("60000000008");
+        mr1.setId(60000000008l);
 
-        grq1.setId("30000000001");
+        grq1.setId(30000000001l);
         grq1.setMessage("message to be tested with trynumber and requestID");
         grq1.setMessageStatus(MStatus.FAILED);
         grq1.setRequestId("88787");

@@ -68,14 +68,14 @@ public class CompositeGatewayManagerTest {
 		
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId("25000000000");
+		english.setId(25000000000l);
 		english.setName("English");
 		
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 		
 		MessageRequest voiceMessageRequest = new MessageRequestImpl();
-		voiceMessageRequest.setId("25000000001");
+		voiceMessageRequest.setId(25000000001l);
 		voiceMessageRequest.setLanguage(english);
 		voiceMessageRequest.setRecipientId("123456789");
 		voiceMessageRequest.setRequestId("mr1");
@@ -84,7 +84,7 @@ public class CompositeGatewayManagerTest {
 		voiceMessageRequest.setPhoneNumberType("PERSONAL");
 	
 		voiceGatewayRequest = new GatewayRequestImpl();
-		voiceGatewayRequest.setId("25000000002");
+		voiceGatewayRequest.setId(25000000002l);
 		voiceGatewayRequest.setMessageRequest(voiceMessageRequest);
 		voiceGatewayRequest.setMessageStatus(MStatus.PENDING);
 		voiceGatewayRequest.setRecipientsNumber("15555555555");
@@ -101,7 +101,7 @@ public class CompositeGatewayManagerTest {
 		n2.setId(2L);
 
 		MessageRequest textMessageRequest = new MessageRequestImpl();
-		textMessageRequest.setId("25000000003");
+		textMessageRequest.setId(25000000003l);
 		textMessageRequest.setLanguage(english);
 		textMessageRequest.setRecipientId("123456789");
 		textMessageRequest.setRequestId("mr2");
@@ -110,7 +110,7 @@ public class CompositeGatewayManagerTest {
 		textMessageRequest.setPhoneNumberType("PERSONAL");
 			
 		textGatewayRequest = new GatewayRequestImpl();
-		textGatewayRequest.setId("25000000004");
+		textGatewayRequest.setId(25000000004l);
 		textGatewayRequest.setMessageRequest(textMessageRequest);
 		textGatewayRequest.setMessageStatus(MStatus.PENDING);
 		textGatewayRequest.setRecipientsNumber("15555555555");

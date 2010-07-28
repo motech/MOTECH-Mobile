@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.motechproject.mobile.core.model">
   <class name="NotificationTypeImpl" table="notification_type">
-    <id name="id">
+    <id name="id" type="long">
       <generator class="assigned"/>
     </id>
     <property length="45" name="name"/>

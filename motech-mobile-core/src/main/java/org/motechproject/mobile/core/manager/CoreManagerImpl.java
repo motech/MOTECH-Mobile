@@ -31,7 +31,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         GatewayRequest result = (GatewayRequest) getInstance("gatewayRequest", GatewayRequest.class);
 
         logger.info("Setting generated Id to the GatewayRequest instance created");
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
 
         return result;
     }
@@ -43,7 +43,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         logger.info("Creating GatewayRequestDetails instance");
         GatewayRequestDetails result = (GatewayRequestDetails) getInstance("gatewayRequestDetails", GatewayRequestDetails.class);
 
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -64,7 +64,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         GatewayResponse result = (GatewayResponse) getInstance("gatewayResponse", GatewayResponse.class);
 
         logger.info("Setting generated Id to the GatewayResponse instance created");
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
 
         return result;
     }
@@ -76,7 +76,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         logger.info("Creating MessageRequest instance");
         MessageRequest result = (MessageRequest) getInstance("messageRequest", MessageRequest.class);
 
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -106,7 +106,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageSession createIncomingMessageSession() {
         logger.info("Creating IncomingMessageSession instance");
         IncomingMessageSession result = (IncomingMessageSession) getInstance("incomingMessageSession", IncomingMessageSession.class);
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -116,7 +116,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessage createIncomingMessage() {
         logger.info("Creating IncomingMessage instance");
         IncomingMessage result = (IncomingMessage) getInstance("incomingMessage", IncomingMessage.class);
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -126,7 +126,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageResponse createIncomingMessageResponse() {
         logger.info("Creating IncomingMessageResponse instance");
         IncomingMessageResponse result = (IncomingMessageResponse) getInstance("incomingMessageResponse", IncomingMessageResponse.class);
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -136,7 +136,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormDefinition createIncomingMessageFormDefinition() {
         logger.info("Creating IncomingMessageFormDefinition instance");
         IncomingMessageFormDefinition result = (IncomingMessageFormDefinition) getInstance("incomingMessageFormDefinition", IncomingMessageFormDefinition.class);
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -146,7 +146,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormParameterDefinition createIncomingMessageFormParameterDefinition() {
         logger.info("Creating IncomingMessageFormParameterDefinition instance");
         IncomingMessageFormParameterDefinition result = (IncomingMessageFormParameterDefinition) getInstance("incomingMessageFormParameterDefinition", IncomingMessageFormParameterDefinition.class);
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -156,7 +156,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageForm createIncomingMessageForm() {
         logger.info("Creating IncomingMessageForm instance");
         IncomingMessageForm result = (IncomingMessageForm) getInstance("incomingMessageForm", IncomingMessageForm.class);
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -166,7 +166,7 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormParameter createIncomingMessageFormParameter() {
         logger.info("Creating IncomingMessageFormParameter instance");
         IncomingMessageFormParameter result = (IncomingMessageFormParameter) getInstance("incomingMessageFormParameter", IncomingMessageFormParameter.class);
-        result.setId(MotechIDGenerator.generateUUID());
+        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 

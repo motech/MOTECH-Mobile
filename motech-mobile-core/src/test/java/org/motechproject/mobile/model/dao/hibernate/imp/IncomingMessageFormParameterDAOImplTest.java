@@ -59,7 +59,7 @@ public class IncomingMessageFormParameterDAOImplTest {
         imfDAO = coreManager.createIncomingMessageFormParameterDAO();
 
 
-        imfp1.setId("12000000016");
+        imfp1.setId(12000000016l);
         imfp1.setDateCreated(new Date());
         imfp1.setErrCode(23);
         imfp1.setErrText("error text right?");

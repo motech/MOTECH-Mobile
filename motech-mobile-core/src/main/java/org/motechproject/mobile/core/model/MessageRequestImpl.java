@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class MessageRequestImpl implements MessageRequest {
 
-    private String id;
+    private Long id;
     private int version=-1;
     private Language language;
     private Date schedule;
@@ -366,14 +366,14 @@ public class MessageRequestImpl implements MessageRequest {
     /**
      * @return the id
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

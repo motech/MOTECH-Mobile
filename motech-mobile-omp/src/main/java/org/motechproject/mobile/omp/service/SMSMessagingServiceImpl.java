@@ -101,7 +101,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
      *
      * @see MessagingService.sendMessage(MessageDetails messageDetails)
      */
-    public String sendMessage(GatewayRequestDetails messageDetails) {
+    public Long sendMessage(GatewayRequestDetails messageDetails) {
         logger.info("Sending message to gateway");
         GatewayRequest message = (GatewayRequest) messageDetails.getGatewayRequests().toArray()[0];
         

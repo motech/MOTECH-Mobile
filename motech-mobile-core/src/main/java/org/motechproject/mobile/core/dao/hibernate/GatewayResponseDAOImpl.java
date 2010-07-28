@@ -29,7 +29,7 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
      * @see {@link org.motechproject.mobile.core.dao.GatewayResponseDAO#getMostRecentResponseByRequestId(java.lang.String) }
      */
 
-    public GatewayResponse getMostRecentResponseByMessageId(String messageId) {
+    public GatewayResponse getMostRecentResponseByMessageId(Long messageId) {
         logger.debug("variable passed to getMostRecentResponseByRequestId: " + messageId);
 
         try {
@@ -58,7 +58,7 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
     /**
      * @see {@link org.motechproject.mobile.core.dao.GatewayResponseDAO#getByRequestIdAndTryNumber(java.lang.String, int) }
      */
-    public GatewayResponse getByMessageIdAndTryNumber(String messageId, int tryNumber) {
+    public GatewayResponse getByMessageIdAndTryNumber(Long messageId, int tryNumber) {
         logger.debug("variable passed to getByRequestIdAndTryNumber. messageId: " + messageId + " and tryNumber: " + tryNumber);
 
         try {

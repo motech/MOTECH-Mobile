@@ -8,7 +8,7 @@
         <param name="enumClassname">org.motechproject.mobile.core.model.IncMessageFormDefinitionType</param>
     </typedef>
     <class name="IncomingMessageFormDefinitionImpl" table="incoming_message_form_definition">
-        <id column="id" name="id" type="string">
+        <id column="id" name="id" type="long">
             <generator class="assigned"/>
         </id>
         <version name="version">

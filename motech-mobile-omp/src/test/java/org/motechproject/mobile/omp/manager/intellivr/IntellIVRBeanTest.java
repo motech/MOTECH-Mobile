@@ -164,7 +164,7 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId("30000000000");
+		english.setId(30000000000l);
 		english.setName("English");
 		
 		Date expectedDateFrom = new Date();
@@ -178,7 +178,7 @@ public class IntellIVRBeanTest {
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId("30000000001");
+		mr1.setId(30000000001l);
 		mr1.setDaysAttempted(1);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipient1);
@@ -189,7 +189,7 @@ public class IntellIVRBeanTest {
 		mr1.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId("30000000002");
+		r1.setId(30000000002l);
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone1);
@@ -208,7 +208,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId("30000000003");
+		mr2.setId(30000000003l);
 		mr2.setDaysAttempted(1);
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipient1);
@@ -219,7 +219,7 @@ public class IntellIVRBeanTest {
 		mr2.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId("30000000004");
+		r2.setId(30000000004l);
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone1);
@@ -238,7 +238,7 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 
 		MessageRequest mr3 = new MessageRequestImpl();
-		mr3.setId("30000000005");
+		mr3.setId(30000000005l);
 		mr3.setDaysAttempted(3);
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipient2);
@@ -249,7 +249,7 @@ public class IntellIVRBeanTest {
 		mr3.setDateFrom(expectedDateFrom);
 
 		GatewayRequest r3 = new GatewayRequestImpl();
-		r3.setId("30000000006");
+		r3.setId(30000000006l);
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone2);
@@ -268,7 +268,7 @@ public class IntellIVRBeanTest {
 		n4.setId(4L);
 
 		MessageRequest mr4 = new MessageRequestImpl();
-		mr4.setId("30000000007");
+		mr4.setId(30000000007l);
 		mr4.setLanguage(english);
 		mr4.setRecipientId(recipient1);
 		mr4.setRequestId("mr4");
@@ -277,7 +277,7 @@ public class IntellIVRBeanTest {
 		mr4.setPhoneNumberType("PUBLIC");
 
 		GatewayRequest r4 = new GatewayRequestImpl();
-		r4.setId("30000000008");
+		r4.setId(30000000008l);
 		r4.setMessageRequest(mr4);
 		r4.setMessageStatus(MStatus.PENDING);
 		r4.setRecipientsNumber("15555555556");
@@ -296,7 +296,7 @@ public class IntellIVRBeanTest {
 		n5.setId(5L);
 
 		MessageRequest mr5 = new MessageRequestImpl();
-		mr5.setId("30000000009");
+		mr5.setId(30000000009l);
 		mr5.setLanguage(english);
 		mr5.setRecipientId(recipient1);
 		mr5.setRequestId("mr5");
@@ -305,7 +305,7 @@ public class IntellIVRBeanTest {
 		mr5.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r5 = new GatewayRequestImpl();
-		r5.setId("30000000010");
+		r5.setId(30000000010l);
 		r5.setMessageRequest(mr5);
 		r5.setMessageStatus(MStatus.PENDING);
 		r5.setRecipientsNumber(phone1);
@@ -512,14 +512,14 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId("30000000011");
+		english.setId(30000000011l);
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId("30000000012");
+		mr1.setId(30000000012l);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipient1);
 		mr1.setRequestId("mr1");
@@ -528,7 +528,7 @@ public class IntellIVRBeanTest {
 		mr1.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId("30000000013");
+		r1.setId(30000000013l);
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone1);
@@ -537,7 +537,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId("30000000014");
+		mr2.setId(30000000014l);
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipient1);
 		mr2.setRequestId("mr2");
@@ -546,7 +546,7 @@ public class IntellIVRBeanTest {
 		mr2.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId("30000000015");
+		r2.setId(30000000015l);
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone1);
@@ -593,14 +593,14 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId("30000000016");
+		english.setId(30000000016l);
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId("30000000017");
+		mr1.setId(30000000017l);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipientID);
 		mr1.setRequestId("mr1");
@@ -608,7 +608,7 @@ public class IntellIVRBeanTest {
 		mr1.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId("30000000018");
+		r1.setId(30000000018l);
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone);
@@ -619,7 +619,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId("30000000019");
+		mr2.setId(30000000019l);
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipientID);
 		mr2.setRequestId("mr2");
@@ -627,7 +627,7 @@ public class IntellIVRBeanTest {
 		mr2.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId("30000000020");
+		r2.setId(30000000020l);
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);
@@ -638,7 +638,7 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 
 		MessageRequest mr3 = new MessageRequestImpl();
-		mr3.setId("30000000021");
+		mr3.setId(30000000021l);
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipientID);
 		mr3.setRequestId("mr3");
@@ -646,7 +646,7 @@ public class IntellIVRBeanTest {
 		mr3.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r3 = new GatewayRequestImpl();
-		r3.setId("30000000022");
+		r3.setId(30000000022l);
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone);
@@ -1932,7 +1932,7 @@ public class IntellIVRBeanTest {
 
 		LanguageImpl english = new LanguageImpl();
 		english.setCode("en");
-		english.setId("30000000023");
+		english.setId(30000000023l);
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
@@ -1942,13 +1942,13 @@ public class IntellIVRBeanTest {
 
 		MessageRequest mr1 = new MessageRequestImpl();
 		mr1.setDateFrom(sdf.parse("2010-01-01"));
-		mr1.setId("30000000024");
+		mr1.setId(30000000024l);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipient);
 		mr1.setNotificationType(n1);
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId("30000000025");
+		r1.setId(30000000025l);
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone);
@@ -1957,13 +1957,13 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId("30000000026");
+		mr2.setId(30000000026l);
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipient);
 		mr2.setNotificationType(n2);
 
 		GatewayRequest r2 = new GatewayRequestImpl();
-		r2.setId("30000000027");
+		r2.setId(30000000027l);
 		r2.setMessageRequest(mr2);
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);
@@ -1972,13 +1972,13 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 
 		MessageRequest mr3 = new MessageRequestImpl();
-		mr3.setId("30000000028");
+		mr3.setId(30000000028l);
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipient);
 		mr3.setNotificationType(n3);
 
 		GatewayRequest r3 = new GatewayRequestImpl();
-		r3.setId("30000000029");
+		r3.setId(30000000029l);
 		r3.setMessageRequest(mr3);
 		r3.setMessageStatus(MStatus.PENDING);
 		r3.setRecipientsNumber(phone);
@@ -1988,13 +1988,13 @@ public class IntellIVRBeanTest {
 
 		MessageRequest mr4 = new MessageRequestImpl();
 		mr4.setDateFrom(sdf.parse("2010-01-02"));
-		mr4.setId("30000000030");
+		mr4.setId(30000000030l);
 		mr4.setLanguage(english);
 		mr4.setRecipientId(recipient);
 		mr4.setNotificationType(n4);
 
 		GatewayRequest r4 = new GatewayRequestImpl();
-		r4.setId("30000000031");
+		r4.setId(30000000031l);
 		r4.setMessageRequest(mr4);
 		r4.setMessageStatus(MStatus.PENDING);
 		r4.setRecipientsNumber(phone);
@@ -2047,14 +2047,14 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId("30000000032");
+		english.setId(30000000032l);
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId("30000000033");
+		mr1.setId(30000000033l);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipientID);
 		mr1.setRequestId("mr1");
@@ -2065,7 +2065,7 @@ public class IntellIVRBeanTest {
 		n2.setId(2L);
 
 		MessageRequest mr2 = new MessageRequestImpl();
-		mr2.setId("30000000034");
+		mr2.setId(30000000034l);
 		mr2.setLanguage(english);
 		mr2.setRecipientId(recipientID);
 		mr2.setRequestId("mr2");
@@ -2076,7 +2076,7 @@ public class IntellIVRBeanTest {
 		n3.setId(3L);
 
 		MessageRequest mr3 = new MessageRequestImpl();
-		mr3.setId("30000000035");
+		mr3.setId(30000000035l);
 		mr3.setLanguage(english);
 		mr3.setRecipientId(recipientID);
 		mr3.setRequestId("mr3");
@@ -2251,14 +2251,14 @@ public class IntellIVRBeanTest {
 
 		Language english = new LanguageImpl();
 		english.setCode("en");
-		english.setId("30000000036");
+		english.setId(30000000036l);
 		english.setName("English");
 
 		NotificationType n1 = new NotificationTypeImpl();
 		n1.setId(1L);
 
 		MessageRequest mr1 = new MessageRequestImpl();
-		mr1.setId("30000000037");
+		mr1.setId(30000000037l);
 		mr1.setLanguage(english);
 		mr1.setRecipientId(recipientID);
 		mr1.setRequestId("mr1");
@@ -2266,7 +2266,7 @@ public class IntellIVRBeanTest {
 		mr1.setPhoneNumberType("PERSONAL");
 
 		GatewayRequest r1 = new GatewayRequestImpl();
-		r1.setId("30000000038");
+		r1.setId(30000000038l);
 		r1.setMessageRequest(mr1);
 		r1.setMessageStatus(MStatus.PENDING);
 		r1.setRecipientsNumber(phone);

@@ -19,7 +19,7 @@ public interface GatewayRequest {
     * 
     * @return the id
     */
-    public String getId();
+    public Long getId();
 
 
     /**
@@ -87,7 +87,7 @@ public interface GatewayRequest {
      *
      * @param id the id to set
      */
-    public void setId(String id);
+    public void setId(Long id);
 
 
     /**

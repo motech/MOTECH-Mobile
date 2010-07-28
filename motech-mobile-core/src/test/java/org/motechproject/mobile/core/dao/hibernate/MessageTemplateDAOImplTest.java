@@ -80,41 +80,41 @@ public class MessageTemplateDAOImplTest {
         nt3.setName("third name");
         nt3.setDescription("for third test");
 
-        l1.setId("90000000001");
+        l1.setId(90000000001l);
         l1.setCode("sk");
 
-        l2.setId("90000000002");
+        l2.setId(90000000002l);
         l2.setCode("ch");
 
         mtDao = coreManager.createMessageTemplateDAO();
         lDao = coreManager.createLanguageDAO();
         ntDao = coreManager.createNotificationTypeDAO();
 
-        mt1.setId("90000000003");
+        mt1.setId(90000000003l);
         mt1.setNotificationType(nt1);
         mt1.setLanguage(l1);
         mt1.setMessageType(type);
         mt1.setTemplate("test template for test 1");
 
-        mt2.setId("90000000004");
+        mt2.setId(90000000004l);
         mt2.setNotificationType(nt2);
         mt2.setLanguage(l1);
         mt2.setMessageType(type);
         mt2.setTemplate(template);
 
-        mt3.setId("90000000005");
+        mt3.setId(90000000005l);
         mt3.setNotificationType(nt3);
         mt3.setLanguage(l1);
         mt3.setMessageType(type);
         mt3.setTemplate(template);
 
-        mt4.setId("90000000006");
+        mt4.setId(90000000006l);
         mt4.setNotificationType(nt1);
         mt4.setLanguage(l1);
         mt4.setMessageType(type);
         mt4.setTemplate("template for message 4");
 
-        mt5.setId("90000000007");
+        mt5.setId(90000000007l);
         mt5.setNotificationType(nt3);
         mt5.setLanguage(l1);
         mt5.setMessageType(type);

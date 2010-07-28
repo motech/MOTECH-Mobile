@@ -6,7 +6,7 @@
         <param name="enumClassname">org.motechproject.mobile.core.model.MessageType</param>
     </typedef>
     <class name="MessageTemplateImpl" table="message_template">
-        <id column="id" name="id" type="string">
+        <id column="id" name="id" type="long">
             <generator class="assigned"/>
         </id>
         <version name="version">

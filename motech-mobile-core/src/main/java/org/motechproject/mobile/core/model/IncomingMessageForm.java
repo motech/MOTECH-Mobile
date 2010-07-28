@@ -16,13 +16,13 @@ public interface IncomingMessageForm {
      *
      * @param id the id to set
      */
-    public void setId(String id);
+    public void setId(Long id);
 
     /**
      *
      * @return id to get
      */
-    public String getId();
+    public Long getId();
 
 
     /**
