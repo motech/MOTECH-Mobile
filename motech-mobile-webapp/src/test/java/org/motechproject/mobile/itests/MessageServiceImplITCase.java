@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.motechproject.mobile.itests;
 
 import org.motechproject.mobile.imp.serivce.IMPService;
@@ -35,12 +34,10 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:WEB-INF/webapp-config.xml","classpath:META-INF/client-config.xml"})
+@ContextConfiguration(locations = {"classpath:WEB-INF/webapp-config.xml", "classpath:META-INF/client-config.xml"})
 public class MessageServiceImplITCase {
 
-
     Properties testProps;
-
     @Resource
     MessageService client;
     @Autowired
@@ -50,18 +47,16 @@ public class MessageServiceImplITCase {
     @Autowired
     IMPService impService;
 
-
     public MessageServiceImplITCase() {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         testProps = new Properties();
 
-        try{
+        try {
             testProps.load(getClass().getResourceAsStream("/test.properties"));
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             System.out.print(ex);
         }
     }
@@ -111,18 +106,22 @@ public class MessageServiceImplITCase {
      */
     @Test
     public void testSendPatientMessage_NullDate() {
-        System.out.println("sendPatientMessage with null dates");
-        String messageId = "testId3";
+        try {
+            System.out.println("sendPatientMessage with null dates");
+            String messageId = "testId3";
 
-        NameValuePair attrib = new NameValuePair("PatientFirstName", "Tester");
-        NameValuePair attrib2 = new NameValuePair("DueDate", "now");
-        NameValuePair[] personalInfo = new NameValuePair[]{attrib, attrib2};
+            NameValuePair attrib = new NameValuePair("PatientFirstName", "Tester");
+            NameValuePair attrib2 = new NameValuePair("DueDate", "now");
+            NameValuePair[] personalInfo = new NameValuePair[]{attrib, attrib2};
 
-        String patientNumber = testProps.getProperty("patientNumber", "000000000000");
-        ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
-        MediaType messageType = MediaType.TEXT;
-        MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "kas", messageType, 4L, null, null, "123456789");
-        assertEquals(result, MessageStatus.PENDING);
+            String patientNumber = testProps.getProperty("patientNumber", "000000000000");
+            ContactNumberType patientNumberType = ContactNumberType.PERSONAL;
+            MediaType messageType = MediaType.TEXT;
+            MessageStatus result = client.sendPatientMessage(messageId, personalInfo, patientNumber, patientNumberType, "kas", messageType, 4L, null, null, "123456789");
+            assertEquals(result, MessageStatus.PENDING);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -191,56 +190,60 @@ public class MessageServiceImplITCase {
      */
     @Test
     public void testSendCHPSMessage_NullDates() {
-        System.out.println("sendCHPSMessage with null dates");
-        String messageId = "testId7";
-        String workerNumber = testProps.getProperty("workerNumber", "000000000000");
-        Date serviceDate = null;
-        MediaType messageType = MediaType.TEXT;
+        try {
+            System.out.println("sendCHPSMessage with null dates");
+            String messageId = "testId7";
+            String workerNumber = testProps.getProperty("workerNumber", "000000000000");
+            Date serviceDate = null;
+            MediaType messageType = MediaType.TEXT;
 
-        NameValuePair attrib = new NameValuePair("Test", "Test");
-        NameValuePair[] personalInfo = new NameValuePair[]{attrib};
+            NameValuePair attrib = new NameValuePair("Test", "Test");
+            NameValuePair[] personalInfo = new NameValuePair[]{attrib};
 
-        Patient patient = new Patient();
-        patient.setPreferredName("Test patient");
-        patient.setMotechId("TS000000001");
-        Patient[] patientList = new Patient[]{patient};
+            Patient patient = new Patient();
+            patient.setPreferredName("Test patient");
+            patient.setMotechId("TS000000001");
+            Patient[] patientList = new Patient[]{patient};
 
-        MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 8L, serviceDate, serviceDate);
-        assertEquals(result, MessageStatus.PENDING);
+            MessageStatus result = client.sendCHPSMessage(messageId, personalInfo, workerNumber, patientList, "en", messageType, 8L, serviceDate, serviceDate);
+            assertEquals(result, MessageStatus.PENDING);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Test
-    public void testProcessMessageRequests(){
+    public void testProcessMessageRequests() {
         System.out.println("processMessageRequests");
         omiService.processMessageRequests();
     }
 
     @Test
-    public void testSendScheduledMessages(){
+    public void testSendScheduledMessages() {
         System.out.println("sendScheduledMessages");
         smsService.sendScheduledMessages();
     }
 
     @Test
-    public void testUpdateMessageStatuses(){
+    public void testUpdateMessageStatuses() {
         System.out.println("updateMessageStatuses");
         smsService.updateMessageStatuses();
     }
 
     @Test
-    public void testGetMessageResponses(){
+    public void testGetMessageResponses() {
         System.out.println("getMessageResponses");
         omiService.getMessageResponses();
     }
 
     @Test
-    public void testProcessMessageRetries(){
+    public void testProcessMessageRetries() {
         System.out.println("processMessageRetries");
         omiService.processMessageRetries();
     }
 
     @Test
-    public void testProcessRequest(){
+    public void testProcessRequest() {
         System.out.println("processRequest");
 
         String request = "Type=GeneralOPD\nCHPSID=123ABC\nDate=02-03-2010\nSerialNo=ANC123\nSex=f\nDoB=28/05/1981\nInsured=y\nNewCase=n\nDiagnosis=35\nSecondaryDiagnosis=14\nReferral=yup\ntime=" + new Date().getTime();
@@ -248,13 +251,15 @@ public class MessageServiceImplITCase {
 
         String expResult = "Errors:\nReferral=wrong format";
         IncomingMessageResponse result = impService.processRequest(request, number, false);
-        assertEquals(result.getContent(),expResult);
+        System.out.println("result: " + (result == null ? "NULL" : result.getContent()));
+        System.out.println("expected: " + expResult);
+        assertEquals(result.getContent(), expResult);
 
         request = "Type=GeneralOPD\nCHPSID=123ABC\nDate=02-03-2010\nSerialNo=ANC123\nSex=f\nDoB=28/05/1981\nInsured=y\nNewCase=n\nDiagnosis=35\nSecondaryDiagnosis=14\nReferral=y\ntime=" + new Date().getTime();
         expResult = "An unexpected error occurred! Please try again.";
         result = impService.processRequest(request, number, false);
         System.out.println("result: " + (result == null ? "NULL" : result.getContent()));
         System.out.println("expected: " + expResult);
-        assertEquals(result.getContent(),expResult);
+        assertEquals(result.getContent(), expResult);
     }
 }
