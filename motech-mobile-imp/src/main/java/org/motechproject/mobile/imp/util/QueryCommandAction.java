@@ -5,7 +5,6 @@
 package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO;
 import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
@@ -36,12 +35,12 @@ import org.springframework.transaction.annotation.Transactional;
 @TransactionConfiguration
 @Transactional
 public class QueryCommandAction implements CommandAction {
+
     private String senderFieldName;
     private CoreManager coreManager;
     private FormProcessorImpl formProcessor;
     private IncomingMessageParser parser;
     private IncomingMessageFormValidator formValidator;
-
     private static Logger logger = Logger.getLogger(QueryCommandAction.class);
 
     /**
@@ -67,13 +66,18 @@ public class QueryCommandAction implements CommandAction {
             logger.info("Validating form");
             IncMessageFormStatus result = formValidator.validate(form, requesterPhone);
 
-            if(result == IncMessageFormStatus.VALID)
+            if (result == IncMessageFormStatus.VALID) {
                 formattedResponse = formProcessor.processForm(form);
+            }
 
             message.setIncomingMessageForm(form);
 
             response = prepareResponse(message, formattedResponse);
             response.setMessageResponseStatus(IncMessageResponseStatus.SENT);
+
+            if (message.getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName)) {
+                imSession.setRequesterPhone(message.getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName).getValue());
+            }
         }
         logger.info("Saving request");
         message.setIncomingMessageResponse(response);
@@ -83,20 +87,13 @@ public class QueryCommandAction implements CommandAction {
         imSession.setDateEnded(new Date());
         imSession.setMessageSessionStatus(IncMessageSessionStatus.ENDED);
 
-        if(message.getIncomingMessageForm().getIncomingMsgFormParameters().containsKey(senderFieldName))
-            imSession.setRequesterPhone(message.getIncomingMessageForm().getIncomingMsgFormParameters().get(senderFieldName).getValue());
-
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO();
 
         try {
-       
             sessionDao.save(imSession);
-   
         } catch (Exception ex) {
             logger.error("Error finalizing incoming message session", ex);
-           
         }
-
         return response;
     }
 
@@ -119,14 +116,14 @@ public class QueryCommandAction implements CommandAction {
         imSession.addIncomingMessage(message);
 
         IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO();
-       
+
         try {
-       
+
             sessionDao.save(imSession);
-          
+
         } catch (Exception ex) {
             logger.error("Error initializing incoming message session", ex);
-            
+
         }
 
         return imSession;
@@ -156,12 +153,12 @@ public class QueryCommandAction implements CommandAction {
         IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO();
 
         try {
-      
+
             formDao.save(form);
-    
+
         } catch (Exception ex) {
             logger.error("Error initializing form", ex);
-       
+
         }
 
         return form;
@@ -184,9 +181,9 @@ public class QueryCommandAction implements CommandAction {
             return response;
         }
 
-        if(form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID)){
+        if (form.getMessageFormStatus().equals(IncMessageFormStatus.SERVER_VALID)) {
             response.setContent(formattedResponse);
-        } else{
+        } else {
             String responseText = "Errors:";
             for (Entry<String, IncomingMessageFormParameter> entry : form.getIncomingMsgFormParameters().entrySet()) {
                 if (entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.INVALID) || entry.getValue().getMessageFormParamStatus().equals(IncMessageFormParameterStatus.SERVER_INVALID)) {
@@ -206,12 +203,12 @@ public class QueryCommandAction implements CommandAction {
         IncomingMessageResponseDAO responseDao = coreManager.createIncomingMessageResponseDAO();
 
         try {
-        
+
             responseDao.save(response);
-   
+
         } catch (Exception ex) {
             logger.error("Error initializing form", ex);
-  
+
         }
 
         return response;
@@ -272,6 +269,4 @@ public class QueryCommandAction implements CommandAction {
     public void setFormProcessor(FormProcessorImpl formProcessor) {
         this.formProcessor = formProcessor;
     }
-
- 
 }

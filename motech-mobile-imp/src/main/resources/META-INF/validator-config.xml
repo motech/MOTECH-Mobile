@@ -56,6 +56,25 @@
                 </entry>
             </map>
         </property>
+        <property name="compositeRequirements">
+            <map>
+                <entry key="FINDMOTECHID-JF">
+                    <bean class="org.motechproject.mobile.imp.util.CompositeRequirementValidator">
+                        <property name="requiredMatches" value="1" />
+                        <property name="fields">
+                            <list>
+                                <value>firstname</value>
+                                <value>lastname</value>
+                                <value>preferredname</value>
+                                <value>dob</value>
+                                <value>nhisno</value>
+                                <value>phone</value>
+                            </list>
+                        </property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
         <property name="paramValidators">
             <map key-type="java.lang.String">
                 <entry key="ALPHA">
@@ -737,6 +756,6 @@
     <bean id="regPhone" class="org.motechproject.mobile.imp.util.SubField">
         <property name="parentField" value="phonenumber" />
         <property name="fieldName" value="regphone" />
-        <property name="replaceOn" value="*" />
+        <property name="replaceOn" value="" />
     </bean>
 </beans>

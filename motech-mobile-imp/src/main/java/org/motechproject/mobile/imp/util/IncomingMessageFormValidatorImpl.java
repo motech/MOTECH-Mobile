@@ -28,6 +28,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
     private CoreManager coreManager;
     private Map<String, List<SubField>> subFields;
     private LinkedHashMap<String, ValidatorGroup> paramValidators;
+    private Map<String, List<CompositeRequirementValidator>> compositeRequirements;
     private static Logger logger = Logger.getLogger(IncomingMessageFormValidatorImpl.class);
 
     /**
@@ -40,15 +41,32 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         List<SubField> subs = null;
 
-        if(subFields.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase()))
+        if (subFields.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
             subs = subFields.get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
+        }
 
         Map<String, IncomingMessageFormParameter> params = form.getIncomingMsgFormParameters();
 
-        if(subs != null){
-            for(SubField sub : subs){
-                if(params.containsKey(sub.getParentField().toLowerCase()) && (params.get(sub.getParentField().toLowerCase()).getValue().equalsIgnoreCase(sub.getReplaceOn()) || ("*".equalsIgnoreCase(sub.getReplaceOn()) && params.get(sub.getFieldName().toLowerCase()) != null && params.get(sub.getFieldName().toLowerCase()).getValue() != null && !"".equals(params.get(sub.getFieldName().toLowerCase()).getValue().trim()))) && params.containsKey(sub.getFieldName().toLowerCase()))
-                    params.get(sub.getParentField().toLowerCase()).setValue(params.get(sub.getFieldName().toLowerCase()).getValue());
+        if (subs != null) {
+            for (SubField sub : subs) {
+                if (params.containsKey(sub.getFieldName().toLowerCase())) {
+                    if (params.containsKey(sub.getParentField().toLowerCase()) && (params.get(sub.getParentField().toLowerCase()).getValue().equalsIgnoreCase(sub.getReplaceOn()) || ("*".equalsIgnoreCase(sub.getReplaceOn()) && params.get(sub.getFieldName().toLowerCase()) != null && params.get(sub.getFieldName().toLowerCase()).getValue() != null && !"".equals(params.get(sub.getFieldName().toLowerCase()).getValue().trim()))) && params.containsKey(sub.getFieldName().toLowerCase())) {
+                        params.get(sub.getParentField().toLowerCase()).setValue(params.get(sub.getFieldName().toLowerCase()).getValue());
+                    } else if (sub.getReplaceOn() == null || sub.getReplaceOn().isEmpty()) {
+                        if (!params.containsKey(sub.getParentField().toLowerCase())) {
+                            IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
+                            param.setDateCreated(new Date());
+                            param.setName(sub.getParentField().toLowerCase());
+                            param.setIncomingMsgForm(form);
+                            param.setMessageFormParamStatus(IncMessageFormParameterStatus.NEW);
+
+                            params.put(sub.getParentField().toLowerCase(), param);
+                        }
+                        if (params.get(sub.getParentField().toLowerCase()).getValue() == null || params.get(sub.getParentField().toLowerCase()).getValue().isEmpty()) {
+                            params.get(sub.getParentField().toLowerCase()).setValue(params.get(sub.getFieldName().toLowerCase()).getValue());
+                        }
+                    }
+                }
             }
         }
 
@@ -102,6 +120,15 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         } catch (Exception ex) {
             logger.fatal("Error validating form", ex);
             form.setMessageFormStatus(IncMessageFormStatus.ERROR);
+        }
+
+        if (compositeRequirements.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
+            List<CompositeRequirementValidator> requirements = compositeRequirements.get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
+            for (CompositeRequirementValidator validator : requirements) {
+                if (!validator.validate(form, coreManager)) {
+                    form.setMessageFormStatus(IncMessageFormStatus.INVALID);
+                }
+            }
         }
 
         return form.getMessageFormStatus();
@@ -174,5 +201,12 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      */
     public void setSubFields(Map<String, List<SubField>> subFields) {
         this.subFields = subFields;
+    }
+
+    /**
+     * @param compositeRequirements the compositeRequirements to set
+     */
+    public void setCompositeRequirements(Map<String, List<CompositeRequirementValidator>> compositeRequirements) {
+        this.compositeRequirements = compositeRequirements;
     }
 }

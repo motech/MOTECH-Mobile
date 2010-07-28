@@ -67,6 +67,7 @@ public class IncomingMessageFormValidatorImplTest {
         instance.setParamValidators(validators);
         instance.setCoreManager(mockCore);
         instance.setSubFields(new HashMap<String, List<SubField>>());
+        instance.setCompositeRequirements(new HashMap<String, List<CompositeRequirementValidator>>());
     }
 
     /**
