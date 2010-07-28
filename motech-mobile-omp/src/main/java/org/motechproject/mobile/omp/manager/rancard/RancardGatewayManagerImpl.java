@@ -3,7 +3,6 @@ package org.motechproject.mobile.omp.manager.rancard;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import java.io.BufferedReader;
@@ -41,9 +40,11 @@ public class RancardGatewayManagerImpl implements GatewayManager {
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         String postData = "";
         try {
+            String msg = (messageDetails.getMessage().length() <= 459) ? messageDetails.getMessage() : messageDetails.getMessage().substring(0, 455) + "...";
+
             postData += "&username=" + URLEncoder.encode(user, "UTF-8");
             postData += "&password=" + URLEncoder.encode(password, "UTF-8");
-            postData += "&text=" + URLEncoder.encode(URLEncoder.encode(messageDetails.getMessage(), "UTF-8"), "UTF-8");
+            postData += "&text=" + URLEncoder.encode(URLEncoder.encode(msg, "UTF-8"), "UTF-8");
             postData += "&from=" + URLEncoder.encode(sender, "UTF-8");
             postData += "&concat=" + URLEncoder.encode(String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()), "UTF-8");
             String recipients = "";
@@ -97,7 +98,7 @@ public class RancardGatewayManagerImpl implements GatewayManager {
             in.close();
         } catch (IOException ex) {
             logger.error("Error processing gateway request", ex);
-            gatewayResponse = ex.getMessage();
+            gatewayResponse = "";
         }
         messageDetails.setDateSent(new Date());
         //Convert the response to a standard format

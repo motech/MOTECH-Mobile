@@ -9,7 +9,6 @@ import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import java.util.Date;
 import java.util.HashSet;
@@ -58,7 +57,6 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
             GatewayResponse response = getCoreManager().createGatewayResponse();                
             response.setRequestId(message.getRequestId());
             response.setGatewayRequest(message);
-            response.setResponseText(gatewayResponse.trim());
             response.setDateCreated(new Date());
                 
             if(responseParts[0].equalsIgnoreCase("OK:")){                

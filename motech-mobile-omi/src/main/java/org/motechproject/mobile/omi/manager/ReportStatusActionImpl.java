@@ -11,29 +11,33 @@ import org.motechproject.ws.server.RegistrarService;
  * @author Kofi A. Asamoah (yoofi@dremoval.com)
  * Date Created: Sep 30, 2009
  */
-public class ReportStatusActionImpl implements StatusAction{
-   private RegistrarService regWs;
-   private static Logger logger = Logger.getLogger(ReportStatusActionImpl.class);
+public class ReportStatusActionImpl implements StatusAction {
 
-   /**
-    *
-    * @see StatusAction.doAction
-    */
-   public void doAction(GatewayResponse response){
+    private RegistrarService regWs;
+    private static Logger logger = Logger.getLogger(ReportStatusActionImpl.class);
 
-       if(response.getRequestId() == null || response.getRequestId().isEmpty())
-           return;
-       
-       try{
-           if(response.getMessageStatus() == MStatus.DELIVERED)
-               getRegWs().setMessageStatus(response.getRequestId(), true);
-           else if(response.getMessageStatus() == MStatus.FAILED)
-               getRegWs().setMessageStatus(response.getRequestId(), false);
-       }
-       catch(Exception e){
-           logger.error("Error communicating with event engine", e);
-       }
-   }
+    /**
+     *
+     * @see StatusAction.doAction
+     */
+    public void doAction(GatewayResponse response) {
+
+        if (response.getRequestId() == null || response.getRequestId().isEmpty()) {
+            return;
+        }
+
+        try {
+            if (response.getRecipientNumber() == null || response.getRecipientNumber().isEmpty()) {
+                if (response.getMessageStatus() == MStatus.DELIVERED) {
+                    getRegWs().setMessageStatus(response.getRequestId(), true);
+                } else if (response.getMessageStatus() == MStatus.FAILED) {
+                    getRegWs().setMessageStatus(response.getRequestId(), false);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error communicating with event engine", e);
+        }
+    }
 
     public RegistrarService getRegWs() {
         return regWs;

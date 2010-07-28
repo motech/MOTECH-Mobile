@@ -51,21 +51,21 @@ public class SMSMessagingServiceImpl implements MessagingService {
      */
     @Transactional
     public void sendScheduledMessages() {
-       
+
         logger.info("Fetching cached GatewayRequests");
 
         List<GatewayRequest> scheduledMessages = cache.getMessagesByStatusAndSchedule(MStatus.SCHEDULED, new Date());
-        
+
         if (scheduledMessages != null && scheduledMessages.size() > 0) {
             logger.info("Sending messages");
             for (GatewayRequest message : scheduledMessages) {
                 sendMessage(message);
             }
             logger.info("Sending completed successfully");
-        }else{
+        } else {
             logger.info("No scheduled messages Found");
         }
-       
+
     }
 
     /**
@@ -76,15 +76,18 @@ public class SMSMessagingServiceImpl implements MessagingService {
         logger.info("Sending message to gateway");
         Set<GatewayResponse> responseList = null;
         Map<Boolean, Set<GatewayResponse>> result = new HashMap<Boolean, Set<GatewayResponse>>();
-        try{
-            responseList = this.gatewayManager.sendMessage(messageDetails);
-            result.put(new Boolean(true), responseList);
-            logger.debug(responseList);
-            logger.info("Updating message status");
-            messageDetails.setResponseDetails(responseList);
-            messageDetails.setMessageStatus(MStatus.SENT);
-        }
-        catch(MotechException me){          
+        try {
+            if (messageDetails.getRecipientsNumber() == null || messageDetails.getRecipientsNumber().isEmpty()) {
+                messageDetails.setMessageStatus(MStatus.FAILED);
+            } else {
+                responseList = this.gatewayManager.sendMessage(messageDetails);
+                result.put(new Boolean(true), responseList);
+                logger.debug(responseList);
+                logger.info("Updating message status");
+                messageDetails.setResponseDetails(responseList);
+                messageDetails.setMessageStatus(MStatus.SENT);
+            }
+        } catch (MotechException me) {
             logger.error("Error sending message", me);
             messageDetails.setMessageStatus(MStatus.SCHEDULED);
 
@@ -93,7 +96,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
             result.put(new Boolean(false), responseList);
         }
         this.cache.saveMessage(messageDetails.getGatewayRequestDetails());
-        
+
         return result;
     }
 
@@ -104,17 +107,20 @@ public class SMSMessagingServiceImpl implements MessagingService {
     public Long sendMessage(GatewayRequestDetails messageDetails) {
         logger.info("Sending message to gateway");
         GatewayRequest message = (GatewayRequest) messageDetails.getGatewayRequests().toArray()[0];
-        
-        try{        
-            Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message);
-            logger.debug(responseList);
-            logger.info("Updating message status");
-            message.setResponseDetails(responseList);
-            message.setMessageStatus(MStatus.SENT);
-        }
-        catch(MotechException me){
-            logger.error("Error sending message", me);
-            message.setMessageStatus(MStatus.SCHEDULED);
+
+        if (message.getRecipientsNumber() != null || message.getRecipientsNumber().isEmpty()) {
+            message.setMessageStatus(MStatus.FAILED);
+        } else {
+            try {
+                Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message);
+                logger.debug(responseList);
+                logger.info("Updating message status");
+                message.setResponseDetails(responseList);
+                message.setMessageStatus(MStatus.SENT);
+            } catch (MotechException me) {
+                logger.error("Error sending message", me);
+                message.setMessageStatus(MStatus.SCHEDULED);
+            }
         }
         this.cache.saveMessage(messageDetails);
 
@@ -126,7 +132,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
      */
     public void updateMessageStatuses() {
         logger.info("Updating GatewayResponse objects");
-       
+
         GatewayResponse gwResp = coreManager.createGatewayResponse();
         gwResp.setMessageStatus(MStatus.PENDING);
 
@@ -136,10 +142,10 @@ public class SMSMessagingServiceImpl implements MessagingService {
             response.setResponseText(gatewayManager.getMessageStatus(response));
             response.setMessageStatus(gatewayManager.mapMessageStatus(response));
 
-        
+
             cache.saveResponse(response);
         }
-      
+
     }
 
     /**

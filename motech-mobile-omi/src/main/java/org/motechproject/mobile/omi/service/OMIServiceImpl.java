@@ -73,9 +73,13 @@ public class OMIServiceImpl implements OMIService {
             String recipientId) {
         logger.info("Constructing MessageRequest object...");
 
-        if(patientNumberType == ContactNumberType.PUBLIC && messageType == MediaType.TEXT)
+        if (patientNumberType == ContactNumberType.PUBLIC && messageType == MediaType.TEXT) {
             return MessageStatus.REJECTED;
+        }
 
+        if (patientNumber == null || patientNumber.isEmpty()) {
+            return MessageStatus.FAILED;
+        }
 
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
@@ -127,8 +131,10 @@ public class OMIServiceImpl implements OMIService {
     public synchronized MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
         logger.info("Constructing MessageDetails object...");
 
+        if (workerNumber == null || workerNumber.isEmpty()) {
+            return MessageStatus.FAILED;
+        }
 
-   
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
         NotificationTypeDAO noteTypeDao = coreManager.createNotificationTypeDAO();
@@ -193,6 +199,10 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public synchronized MessageStatus sendMessage(MessageRequest message) {
+        if (message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) {
+            return MessageStatus.FAILED;
+        }
+
         Language defaultLanguage = coreManager.createLanguageDAO().getByCode(defaultLang);
 
         if (message.getLanguage() == null) {
@@ -200,10 +210,10 @@ public class OMIServiceImpl implements OMIService {
         }
 
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
-    
+
         message.setStatus(MStatus.QUEUED);
         msgReqDao.save(message);
-  
+
         logger.info("Constructing GatewayRequest...");
         GatewayRequest gwReq = storeManager.constructMessage(message, defaultLanguage);
 
@@ -212,8 +222,8 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("Sending GatewayRequest...");
 
-   
-        Map<Boolean, Set<GatewayResponse>> responses = msgSvc.sendMessage(gwReq);;
+
+        Map<Boolean, Set<GatewayResponse>> responses = msgSvc.sendMessage(gwReq);
 
         Boolean falseBool = new Boolean(false);
         if (responses.containsKey(falseBool)) {
@@ -235,11 +245,15 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public synchronized MessageStatus sendMessage(MessageRequest message, String content) {
+        if (message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) {
+            return MessageStatus.FAILED;
+        }
+
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
- 
+
         message.setStatus(MStatus.QUEUED);
         msgReqDao.save(message);
- 
+
 
         //TODO Check length of message and break if necessary
         logger.info("Constructing GatewayRequest...");
@@ -272,6 +286,10 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public synchronized MessageStatus sendMessage(String content, String recipient) {
+        if (recipient == null || recipient.isEmpty()) {
+            return MessageStatus.FAILED;
+        }
+
         logger.info("Constructing MessageDetails object...");
 
         MessageRequest messageRequest = coreManager.createMessageRequest();
@@ -293,9 +311,11 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
-
-
     public synchronized MessageStatus scheduleMessage(String content, String recipient) {
+        if (recipient == null || recipient.isEmpty()) {
+            return MessageStatus.FAILED;
+        }
+
         logger.info("Constructing MessageDetails object...");
 
         MessageRequest messageRequest = coreManager.createMessageRequest();
@@ -313,13 +333,17 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        MessageStatus status = scheduleMessage(messageRequest, content );
+        MessageStatus status = scheduleMessage(messageRequest, content);
         return status;
     }
 
     public synchronized MessageStatus scheduleMessage(MessageRequest message, String content) {
+        if (message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) {
+            return MessageStatus.FAILED;
+        }
+
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
-   
+
         msgReqDao.save(message);
 
 
@@ -363,8 +387,11 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.sendDefaulterMessage
      */
     public synchronized MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
-        logger.info("Constructing MessageDetails object...");
+        if (workerNumber == null || workerNumber.isEmpty()) {
+            return MessageStatus.FAILED;
+        }
 
+        logger.info("Constructing MessageDetails object...");
 
         MessageFormatter formatter = omiManager.createMessageFormatter();
         MessageRequest messageRequest = coreManager.createMessageRequest();
@@ -383,7 +410,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
-        MessageStatus status = scheduleMessage(messageRequest, content );
+        MessageStatus status = scheduleMessage(messageRequest, content);
         return status;
     }
 
@@ -391,6 +418,10 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.sendDeliveriesMessage
      */
     public synchronized MessageStatus sendDeliveriesMessage(String messageId, String workerNumber, Patient[] patients, String deliveryStatus, MediaType messageType, Date startDate, Date endDate) {
+        if (workerNumber == null || workerNumber.isEmpty()) {
+            return MessageStatus.FAILED;
+        }
+
         logger.info("Constructing MessageDetails object...");
 
 
@@ -419,6 +450,10 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.sendUpcomingCaresMessage
      */
     public synchronized MessageStatus sendUpcomingCaresMessage(String messageId, String workerNumber, Patient patient, MediaType messageType, Date startDate, Date endDate) {
+        if (workerNumber == null || workerNumber.isEmpty()) {
+            return MessageStatus.FAILED;
+        }
+
         logger.info("Constructing MessageDetails object...");
 
 
@@ -447,7 +482,7 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.processMessageRequests
      */
     public synchronized void processMessageRequests() {
-              MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
+        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
 
         logger.info("Fetching queued messages...");
         List<MessageRequest> messages = msgReqDao.getMsgByStatus(MStatus.QUEUED);
@@ -463,23 +498,23 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("Building GatewayRequests...");
         for (MessageRequest message : messages) {
-            GatewayRequest gwReq = storeManager.constructMessage(message,defaultLanguage);
+            GatewayRequest gwReq = storeManager.constructMessage(message, defaultLanguage);
             message.setGatewayRequestDetails(gwReq.getGatewayRequestDetails());
 
             if (message.getLanguage() == null) {
                 message.setLanguage(defaultLanguage);
             }
 
-        
+
             msgSvc.scheduleMessage(gwReq);
 
             message.setDateProcessed(new Date());
             message.setStatus(MStatus.PENDING);
-            logger.debug(message); 
+            logger.debug(message);
             msgReqDao.save(message);
 
         }
-       
+
         logger.info("Messages processed successfully");
     }
 
@@ -487,7 +522,6 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.processMessageRetries
      */
     public synchronized void processMessageRetries() {
-       
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
 
         logger.info("Fetching messages marked for retry...");
@@ -507,11 +541,12 @@ public class OMIServiceImpl implements OMIService {
             if (message.getTryNumber() >= maxTries) {
                 message.setStatus(MStatus.FAILED);
             } else {
-            
+
                 message.setTryNumber(message.getTryNumber() + 1);
 
-                if(message.getGatewayRequestDetails() == null)
+                if (message.getGatewayRequestDetails() == null) {
                     continue;
+                }
 
                 GatewayRequestDetails gwReqDet = (GatewayRequestDetails) gwReqDao.getById(message.getGatewayRequestDetails().getId());
 
@@ -531,7 +566,7 @@ public class OMIServiceImpl implements OMIService {
                 message.setStatus(MStatus.PENDING);
             }
 
-  
+
             msgReqDao.save(message);
 
         }
@@ -544,8 +579,6 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.getMessageResponses
      */
     public synchronized void getMessageResponses() {
-     
-
         logger.info("Initializing MessageRequestDAO...");
         logger.info("fetching updated message responses...");
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
@@ -570,15 +603,15 @@ public class OMIServiceImpl implements OMIService {
 
                     statHandler.handleStatus(response);
 
-                    message.setStatus(response.getMessageStatus());          
-                
+                    message.setStatus(response.getMessageStatus());
+
                     msgReqDao.save(message);
-            
+
                 }
             }
             logger.info("GatewayResponses processed successfully...");
         }
-      
+
     }
 
     /**
