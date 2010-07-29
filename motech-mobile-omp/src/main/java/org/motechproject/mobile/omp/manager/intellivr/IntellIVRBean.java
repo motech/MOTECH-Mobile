@@ -659,10 +659,37 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					r.setTree(requestType.getTree());
 					r.setVxml(requestType.getVxml());
 
+					StringBuilder notificationIDs = new StringBuilder();
+					boolean firstRequest = true;
+					
+					for ( GatewayRequest gwRequest : session.getGatewayRequests() ) {
+						if ( firstRequest )
+							firstRequest = false;
+						else 
+							notificationIDs.append("|");
+						notificationIDs.append(gwRequest.getMessageRequest().getNotificationType().getId().toString());
+					}
+					
+					StringBuilder reminders = new StringBuilder();
+					boolean firstReminder = true;
+					
+					for ( Object o : r.getVxml().getPrompt().getAudioOrBreak() ) {
+						if ( o instanceof AudioType ) {
+							if ( firstReminder )
+								firstReminder = false;
+							else
+								reminders.append("|");
+							reminders.append(((AudioType)o).getSrc());
+						}
+					}
+					
 					callLog.info("IN,," +
 									request.getUserid() + "," +
 									StatusType.OK.value() + "," +
-									session.getSessionId());
+									session.getSessionId()+ ",," +
+									notificationIDs.toString() + "," +
+									r.getTree() + "," + 
+									reminders.toString());
 
 				}
 
