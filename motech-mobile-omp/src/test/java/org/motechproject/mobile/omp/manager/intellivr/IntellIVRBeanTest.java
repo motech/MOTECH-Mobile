@@ -70,7 +70,7 @@ public class IntellIVRBeanTest {
 		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_CALLEE);
 		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_LANGUAGE);
 		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_METHOD);
-		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_SOUND_FILENAME_FROMAT);
+		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_SOUND_FILENAME_FORMAT);
 		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_TREE);
 		serverErrorCodes.add(ErrorCodeType.IVR_INVALID_URL_FORMAT);
 		serverErrorCodes.add(ErrorCodeType.IVR_MALFORMED_XML);

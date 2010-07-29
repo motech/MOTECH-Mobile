@@ -217,7 +217,7 @@
 					<jxb:typesafeEnumMember value="0000" name="IVR_UNKNOWN_ERROR"/>
 					<jxb:typesafeEnumMember value="0001" name="IVR_NO_ACTION"/>
 					<jxb:typesafeEnumMember value="0002" name="IVR_MALFORMED_XML"/>
-					<jxb:typesafeEnumMember value="0003" name="IVR_INVALID_SOUND_FILENAME_FROMAT"/>
+					<jxb:typesafeEnumMember value="0003" name="IVR_INVALID_SOUND_FILENAME_FORMAT"/>
 					<jxb:typesafeEnumMember value="0004" name="IVR_INVALID_URL_FORMAT"/>
 					<jxb:typesafeEnumMember value="0005" name="IVR_UNSUPPORTED_REPORT_TYPE"/>
 					<jxb:typesafeEnumMember value="0006" name="IVR_INVALID_API_ID"/>
