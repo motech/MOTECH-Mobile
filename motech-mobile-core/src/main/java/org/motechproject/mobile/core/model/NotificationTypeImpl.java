@@ -1,5 +1,6 @@
 package org.motechproject.mobile.core.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -10,7 +11,8 @@ import java.util.Set;
  *  Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class NotificationTypeImpl implements NotificationType {
+@SuppressWarnings("serial")
+public class NotificationTypeImpl implements NotificationType, Serializable {
 
     public NotificationTypeImpl() {
     }

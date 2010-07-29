@@ -1,5 +1,6 @@
 package org.motechproject.mobile.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,7 +11,8 @@ import java.util.Set;
  * Date :Jul 24, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class GatewayRequestImpl implements GatewayRequest {
+@SuppressWarnings("serial")
+public class GatewayRequestImpl implements GatewayRequest, Serializable {
 
     private Long id;
     private GatewayRequestDetails gatewayRequestDetails;

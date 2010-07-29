@@ -1,5 +1,6 @@
 package org.motechproject.mobile.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,8 @@ import java.util.Date;
  *  Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class MessageTemplateImpl implements MessageTemplate {
+@SuppressWarnings("serial")
+public class MessageTemplateImpl implements MessageTemplate, Serializable {
 
     public MessageTemplateImpl() {
     }

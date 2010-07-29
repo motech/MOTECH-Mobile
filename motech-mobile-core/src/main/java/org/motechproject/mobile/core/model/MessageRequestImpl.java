@@ -1,5 +1,6 @@
 package org.motechproject.mobile.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -9,7 +10,8 @@ import java.util.Set;
  *  Date : Sep 25, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
-public class MessageRequestImpl implements MessageRequest {
+@SuppressWarnings("serial")
+public class MessageRequestImpl implements MessageRequest,Serializable {
 
     private Long id;
     private int version=-1;

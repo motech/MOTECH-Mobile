@@ -1,5 +1,6 @@
 package org.motechproject.mobile.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Set;
  * Date :Jul 24, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public class GatewayResponseImpl implements GatewayResponse {
+public class GatewayResponseImpl implements GatewayResponse,Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
