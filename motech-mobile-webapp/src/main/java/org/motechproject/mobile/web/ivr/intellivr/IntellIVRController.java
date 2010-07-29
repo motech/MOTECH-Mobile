@@ -118,7 +118,7 @@ public class IntellIVRController extends AbstractController implements ResourceL
 					output = ac;
 				}
 			} catch ( Exception e ) {
-				log.error("Error unmarshaling content: " + content);
+				log.error("Error unmarshaling content: " + content, e);
 			}
 			
 
@@ -143,7 +143,7 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			marshaller.marshal(output, debugOut);
 			log.debug("Responded with: " + debugOut.toString());
 		} catch (JAXBException e) {
-			log.error("Error marshalling object: " + output.toString());
+			log.error("Error marshalling object: " + output.toString(), e);
 		}
 
 		
@@ -190,10 +190,9 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			validator.validate(new DOMSource(doc));
 			return true;
 		} catch (SAXException e) {
-			log.error(e.getMessage());
+			log.error("",e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("",e);			
 		}
 		
 		return false;

@@ -35,6 +35,7 @@ import org.motechproject.mobile.core.model.Language;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageType;
+import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
@@ -245,6 +246,16 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return messageHandler.lookupStatus(response.getResponseText());
 	}
 
+	/**
+	 * Method for the core mobile server to request a message be delivered to a user of the IVR system.
+	 * 
+	 * Messages may take as long the {@link #getBundlingDelay()} to be sent after a call to this method.  
+	 * 
+	 * When a request is received for a user at a particular phone number, the bean will wait up to the bundling
+	 * delay for other messages for that user at that phone number before triggering a call from the IVR system.  This 
+	 * is to compensate for the lack of message bundling in the underlying system.
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
 	public Set<GatewayResponse> sendMessage(GatewayRequest gatewayRequest) {
 
@@ -356,6 +367,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		request.getMessageRequest().getDaysAttempted();
 	}
 
+	/**
+	 * Send request to the IVR server to initiate a call 
+	 * @param sessionId
+	 */
 	public void sendPending(String sessionId) {
 
 		IVRSession session = null;
@@ -429,6 +444,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	}
 
+	/**
+	 * A non-thread safe way to trigger a call on the IVR system.
+	 * @deprecated
+	 * @param session
+	 */
 	public void sendPending(IVRSession session) {
 
 		session.setAttempts(session.getAttempts() + 1);
@@ -897,183 +917,372 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return messageHandler;
 	}
 
+	/**
+	 * The URL to which the IVR system will be requested to post call reports
+	 * @return reportURL
+	 */
 	public String getReportURL() {
 		return reportURL;
 	}
 
+	/**
+	 * Set URL to which the IVR system will be requested to post call reports
+	 * @param reportURL
+	 */
 	public void setReportURL(String reportURL) {
 		this.reportURL = reportURL;
 	}
 
+	/**
+	 * The API key for the IntellIVR server
+	 * @return
+	 */
 	public String getApiID() {
 		return apiID;
 	}
 
+	/**
+	 * Set the API key for the IntellIVR server
+	 * @param apiID
+	 */
 	public void setApiID(String apiID) {
 		this.apiID = apiID;
 	}
 
+	/**
+	 * The implementation of the {@link IntellIVRServer} interface being used
+	 * @return
+	 */
 	public IntellIVRServer getIvrServer() {
 		return ivrServer;
 	}
 
+	/**
+	 * Set the implementation of the {@link IntellIVRServer} interface being used
+	 * @param ivrServer
+	 */
 	public void setIvrServer(IntellIVRServer ivrServer) {
 		this.ivrServer = ivrServer;
 	}
 
+	/**
+	 * The method being used for IntellIVR server
+	 * @return
+	 */
 	public String getMethod() {
 		return method;
 	}
 
+	/**
+	 * Set the method being used for IntellIVR server.  Generally 'ivroriginate'.
+	 * @param method
+	 */
 	public void setMethod(String method) {
 		this.method = method;
 	}
 
+	/**
+	 * The default language to use if not otherwise specified.
+	 * @return
+	 */
 	public String getDefaultLanguage() {
 		return defaultLanguage;
 	}
 
+	/**
+	 * Set the default language to use if not otherwise specified.
+	 * @param defaultLanguage
+	 */
 	public void setDefaultLanguage(String defaultLanguage) {
 		this.defaultLanguage = defaultLanguage;
 	}
 
+	/**
+	 * The default tree.  Not used.
+	 * @return
+	 */
 	public String getDefaultTree() {
 		return defaultTree;
 	}
 
+	/**
+	 * Set the default tree.  Not used.
+	 * @param defaultTree
+	 */
 	public void setDefaultTree(String defaultTree) {
 		this.defaultTree = defaultTree;
 	}
 
+	/**
+	 * The default reminder.  Not used.
+	 * @return
+	 */
 	public String getDefaultReminder() {
 		return defaultReminder;
 	}
 
+	/**
+	 * Set the default reminder.  Not used.
+	 * @param defaultReminder
+	 */
 	public void setDefaultReminder(String defaultReminder) {
 		this.defaultReminder = defaultReminder;
 	}
 
+	/**
+	 * The {@link MessageStatusStore} used to store request statuses.
+	 * @return
+	 */
 	public MessageStatusStore getStatusStore() {
 		return statusStore;
 	}
 
+	/**
+	 * Set the {@link MessageStatusStore} used to store request statuses.
+	 * @param statusStore
+	 */
 	public void setStatusStore(MessageStatusStore statusStore) {
 		this.statusStore = statusStore;
 	}
 
+	/**
+	 * Delay to bundle additional messages for a user before sending
+	 * See {@link #sendMessage(GatewayRequest, MotechContext)} for more details. 
+	 * @return
+	 */
 	public long getBundlingDelay() {
 		return bundlingDelay;
 	}
 
+	/**
+	 * Set delay in milliseconds to bundle additional messages for a user before sending
+	 * See {@link #sendMessage(GatewayRequest, MotechContext)} for more details. 
+	 * @param bundlingDelay
+	 */
 	public void setBundlingDelay(long bundlingDelay) {
 		this.bundlingDelay = bundlingDelay;
 	}
 
+	/**
+	 * Delay in minutes to wait before retrying after a failed message delivery.
+	 * @return
+	 */
 	public int getRetryDelay() {
 		return retryDelay;
 	}
 
+	/**
+	 * Set delay in minutes to wait before retrying after a failed message delivery.
+	 * @param retryDelay
+	 */
 	public void setRetryDelay(int retryDelay) {
 		this.retryDelay = retryDelay;
 	}
 
+	/**
+	 * Max attempts to try a deliver a message each day.
+	 * @return
+	 */
 	public int getMaxAttempts() {
 		return maxAttempts;
 	}
 
+	/**
+	 * Set max attempts to try a deliver a message each day.
+	 * @param maxAttempts
+	 */
 	public void setMaxAttempts(int maxAttempts) {
 		this.maxAttempts = maxAttempts;
 	}
 
+	/**
+	 * Max days to retry message delivery
+	 * @return
+	 */
 	public int getMaxDays() {
 		return maxDays;
 	}
 
+	/**
+	 * Set max days to retry message delivery
+	 * @param maxDays
+	 */
 	public void setMaxDays(int maxDays) {
 		this.maxDays = maxDays;
 	}
 
+	/**
+	 * Number of days a message should remain available to replayed
+	 * @return
+	 */
 	public int getAvailableDays() {
 		return availableDays;
 	}
 
+	/**
+	 * Set number of days a message should remain available to replayed
+	 * @param availableDays
+	 */
 	public void setAvailableDays(int availableDays) {
 		this.availableDays = availableDays;
 	}
 
+	/**
+	 * Seconds of the first primary informational message that the user
+	 * must have listened to to consider the message delivered.
+	 * @return
+	 */
 	public int getCallCompletedThreshold() {
 		return callCompletedThreshold;
 	}
 
+	/**
+	 * Set seconds of the first primary informational message that the user
+	 * must have listened to to consider the message delivered.
+	 * @param callCompletedThreshold
+	 */
 	public void setCallCompletedThreshold(int callCompletedThreshold) {
 		this.callCompletedThreshold = callCompletedThreshold;
 	}
 
+	/**
+	 * Seconds of silence that is pre-pended to beginning of each call. 
+	 * @return
+	 */
 	public int getPreReminderDelay() {
 		return preReminderDelay;
 	}
 
+	/**
+	 * Set seconds of silence that is pre-pended to beginning of each call.
+	 * @param preReminderDelay
+	 */
 	public void setPreReminderDelay(int preReminderDelay) {
 		this.preReminderDelay = preReminderDelay;
 	}
 
+	/**
+	 * If true, the next day retries are tried immediately.  For testing.
+	 * @return
+	 */
 	public boolean isAccelerateRetries() {
 		return accelerateRetries;
 	}
 
+	/**
+	 * Enables/disables accelerated retries
+	 * @param accelerateRetries
+	 */
 	public void setAccelerateRetries(boolean accelerateRetries) {
 		this.accelerateRetries = accelerateRetries;
 	}
 
+	/**
+	 * Name of recording to play in the event a user has no pending messages
+	 * @return
+	 */
 	public String getNoPendingMessagesRecordingName() {
 		return noPendingMessagesRecordingName;
 	}
 
+	/**
+	 * Set the name of recording to play in the event a user has no pending messages
+	 * @param noPendingMessagesRecordingName
+	 */
 	public void setNoPendingMessagesRecordingName(
 			String noPendingMessagesRecordingName) {
 		this.noPendingMessagesRecordingName = noPendingMessagesRecordingName;
 	}
 
+	/**
+	 * Name of a recording of a welcome message to be played before all other messages
+	 * @return
+	 */
 	public String getWelcomeMessageRecordingName() {
 		return welcomeMessageRecordingName;
 	}
 
+	/**
+	 * Set the name of a recording of a welcome message to be played before all other messages
+	 * @param welcomeMessageRecordingName
+	 */
 	public void setWelcomeMessageRecordingName(String welcomeMessageRecordingName) {
 		this.welcomeMessageRecordingName = welcomeMessageRecordingName;
 	}
 
+	/**
+	 * Name of file resource that contains the mapping between {@link NotificationType} ids
+	 * and file names on the IVR server.  Each line should match the following expression:
+	 * 
+	 * [0-9]+=[IiRr]{1},.+
+	 * 
+	 * @return
+	 */
 	public Resource getMappingResource() {
 		return mappingResource;
 	}
 
+	/**
+	 * Set the file resource for mapping.  See {@link #getMappingResource()}.
+	 * @param mappingsFile
+	 */
 	public void setMappingResource(Resource mappingsFile) {
 		this.mappingResource = mappingsFile;
 	}
 
+	/**
+	 * Resource to serialize pending {@link IVRSession} object to.
+	 * @return
+	 */
 	public Resource getIvrSessionSerialResource() {
 		return ivrSessionSerialResource;
 	}
 
+	/**
+	 * Set resource to serialize pending {@link IVRSession} object to.
+	 * @param ivrSessionSerialResource
+	 */
 	public void setIvrSessionSerialResource(Resource ivrSessionSerialResource) {
 		this.ivrSessionSerialResource = ivrSessionSerialResource;
 	}
 
+	/**
+	 * For access to core motech mobile services
+	 * @return
+	 */
 	public CoreManager getCoreManager() {
 		return coreManager;
 	}
 
+	/**
+	 * Set the {@link CoreManager}.
+	 * @param coreManager
+	 */
 	public void setCoreManager(CoreManager coreManager) {
 		this.coreManager = coreManager;
 	}
 
+	/**
+	 * Interface the to the Motech Server.  
+	 * @return
+	 */
 	public RegistrarService getRegistrarService() {
 		return registrarService;
 	}
 
+	/**
+	 * Set the {@link RegistrarService}.
+	 * @param registrarService
+	 */
 	public void setRegistrarService(RegistrarService registrarService) {
 		this.registrarService = registrarService;
 	}
 
+	/**
+	 * 
+	 * @author fcbrooks
+	 * TimerTask used to implement the bundling delay.
+	 */
 	protected class IVRServerTimerTask extends TimerTask {
 
 		private String sessionId;

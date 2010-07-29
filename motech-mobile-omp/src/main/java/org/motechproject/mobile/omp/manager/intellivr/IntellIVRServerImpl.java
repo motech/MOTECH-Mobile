@@ -89,14 +89,11 @@ public class IntellIVRServerImpl implements IntellIVRServer {
 			}
 			
 		} catch (MalformedURLException e) {
-			log.error(e.getMessage());
-			e.printStackTrace();
+			log.error("",e);
 		} catch (IOException e) {
-			e.printStackTrace();
-			log.error(e.getMessage());
+			log.error("",e);
 		} catch (JAXBException e) {
-			log.error(e.getMessage());
-			e.printStackTrace();
+			log.error("",e);
 		} finally {
 			if ( response == null ){
 				response = new ResponseType();
