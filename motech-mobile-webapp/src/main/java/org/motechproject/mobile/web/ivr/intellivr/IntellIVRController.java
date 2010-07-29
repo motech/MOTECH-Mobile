@@ -60,25 +60,20 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			validator = schema.newValidator();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error initializing controller:", e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error initializing controller:", e);
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error initializing controller:", e);
 		} catch (FactoryConfigurationError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error initializing controller:", e);
 		}
 		try {
 			JAXBContext jaxbc = JAXBContext.newInstance("org.motechproject.mobile.omp.manager.intellivr");
 			marshaller = jaxbc.createMarshaller();
 			unmarshaller = jaxbc.createUnmarshaller();
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error initializing controller:", e);
 		}
 	}
 	
