@@ -23,7 +23,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <import resource="classpath:META-INF/core-config.xml" />
-    
+
     <bean id="date" class="java.util.Date" scope="prototype" />
 
     <bean id="dummyHandler" class="org.motechproject.mobile.omp.manager.DummyGatewayMessageHandlerImpl" scope="prototype">
@@ -51,7 +51,7 @@
     <bean id="dummyManager" class="org.motechproject.mobile.omp.manager.DummyGatewayManagerImpl">
         <property name="messageHandler" ref="dummyHandler" />
     </bean>
-    
+
     <bean id="messageHandler" class="org.motechproject.mobile.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
         <property name="coreManager" ref="coreManager" />
         <property name="codeStatusMap">
@@ -73,7 +73,7 @@
             </map>
         </property>
     </bean>
-    
+
     <bean id="gatewayManager" class="org.motechproject.mobile.omp.manager.orserve.ORServeGatewayManagerImpl">
         <property name="productCode" value="${orserve.gateway.productCode}" />
         <property name="senderId" value="${orserve.gateway.senderId}" />
@@ -115,9 +115,9 @@
     <bean id="intellIVRServer" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRServerImpl" init-method="init">
         <property name="serverURL" value="${intellivr.gateway.serverURL}"/>
     </bean>
-	
+
     <bean id="intellIVRTestServer" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRTestServer"/>
-	
+
     <bean id="intellIVRResponseMap" class="java.util.HashMap">
         <constructor-arg>
             <map>
@@ -190,7 +190,7 @@
             </map>
         </constructor-arg>
     </bean>
-	
+
     <bean id="intellIVRMessageHandler" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRGatewayMessageHandler">
         <property name="coreManager" ref="coreManager"/>
         <property name="statusMap" ref="intellIVRResponseMap"/>
@@ -226,12 +226,12 @@
     </bean>
 
     <bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
-        <property name="textHandler" ref="messageHandler"/>
+        <property name="textHandler" ref="dummyHandler"/>
         <property name="voiceHandler" ref="intellIVRMessageHandler"/>
     </bean>
 
     <bean id="compositeGatewayManager" class="org.motechproject.mobile.omp.manager.CompositeGatewayManager">
-        <property name="textGatewayManager" ref="gatewayManager"/>
+        <property name="textGatewayManager" ref="dummyManager"/>
         <property name="voiceGatewayManager" ref="intellivrBean"/>
         <property name="compositeMessageHandler" ref="compositeHandler"/>
     </bean>
@@ -247,31 +247,41 @@
     </bean>
 
     <bean name="ompManager" class="org.motechproject.mobile.omp.manager.OMPManagerImpl" />
-    
+
     <!--Scheduling-->
         <!--Job-->
     <bean id="sendMessageUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="smsService"/>
         <property name="targetMethod" value="sendScheduledMessages"/>
+        <property name="name" value="OMP Message Sending Service" />
     </bean>
-        
+
     <bean id="gatewayStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="smsService"/>
         <property name="targetMethod" value="updateMessageStatuses"/>
+        <property name="name" value="OMP Status Update Service" />
     </bean>
-        <!--End of Job-->
+    <!--End of Job-->
+
+    <!--Listeners-->
+
+    <bean id="ompJobExecLogger" class="org.motechproject.mobile.core.util.QuartzJobExecutionLogger">
+        <property name="name" value="OMP Job Execution Logger" />
+    </bean>
+
+    <!--End Of Listeners-->
 
         <!--Triggers-->
     <bean id="sendMessageUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="sendMessageUpdater"/>
         <property name="cronExpression" value="0 * * * * ?"/>
     </bean>
-        
+
     <bean id="gatewayStatusUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="gatewayStatusUpdater"/>
         <property name="cronExpression" value="0 * * * * ?"/>
     </bean>
-        <!--End Of Triggers-->
+    <!--End Of Triggers-->
 
         <!--Scheduler Factory-->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
@@ -281,7 +291,12 @@
                 <ref bean="gatewayStatusUpdaterTrigger"/>
             </list>
         </property>
+        <property name="globalJobListeners">
+            <list>
+                <ref bean="ompJobExecLogger"/>
+            </list>
+        </property>
     </bean>
-        <!--End Of scheduler Factory-->
+    <!--End Of scheduler Factory-->
     <!--End of Scheduling-->
 </beans>
