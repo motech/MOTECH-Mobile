@@ -129,7 +129,7 @@ public class OXDFormUploadServlet extends HttpServlet {
 							studyForms[i][j] = impService
 									.processXForm(studyForms[i][j]);
 						} catch (Exception ex) {
-							log.error(ex.getMessage(), ex);
+							log.error("processing form failed", ex);
 							studyForms[i][j] = ex.getMessage();
 						}
 						if (!impService.getFormProcessSuccess()
@@ -158,7 +158,9 @@ public class OXDFormUploadServlet extends HttpServlet {
 			}
 
 			response.setStatus(HttpServletResponse.SC_OK);
-
+		}
+		catch (Exception e) {
+			log.error("failure during upload",e);		
 		} finally {
 			if (dataOutput != null)
 				dataOutput.flush();
