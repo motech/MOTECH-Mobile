@@ -35,7 +35,7 @@ public class QuartzJobExecutionLogger implements JobListener {
     }
 
     public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {
-        String log = "\nFullname: " + context.getJobDetail().getFullName();
+        String log = "\nName: " + context.getJobDetail().getName();
         log       += "\nDuration: " + (context.getJobRunTime() / 1000) + " seconds";
         log       += "\nTime started: " + context.getFireTime();
         logger.info("Logging Job Execution Time:" + log);
