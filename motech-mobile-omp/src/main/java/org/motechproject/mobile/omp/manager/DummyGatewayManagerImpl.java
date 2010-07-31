@@ -5,6 +5,8 @@
 
 package org.motechproject.mobile.omp.manager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
@@ -20,12 +22,19 @@ import java.util.Set;
  */
 public class DummyGatewayManagerImpl implements GatewayManager{
 
+	private static Log log = LogFactory.getLog(DummyGatewayManagerImpl.class);
+	
     private GatewayMessageHandler messageHandler;
     /**
      *
      * @see GatewayManager.send
      */
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails){
+    	if(log.isInfoEnabled()) {
+    		log.info(messageDetails.getId() + "|" + 
+    				messageDetails.getRecipientsNumber() + "|" + 
+    				messageDetails.getMessage());
+    	}
         String msgResponse = (messageDetails.getRecipientsNumber().length() < 8) ? "failed" : "ID: " + MotechIDGenerator.generateID(10);
         return messageHandler.parseMessageResponse(messageDetails, msgResponse);
     }
