@@ -254,12 +254,14 @@
         <property name="targetObject" ref="smsService"/>
         <property name="targetMethod" value="sendScheduledMessages"/>
         <property name="name" value="OMP Message Sending Service" />
+        <property name="concurrent" value="false" />
     </bean>
 
     <bean id="gatewayStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="smsService"/>
         <property name="targetMethod" value="updateMessageStatuses"/>
         <property name="name" value="OMP Status Update Service" />
+        <property name="concurrent" value="false" />
     </bean>
     <!--End of Job-->
 

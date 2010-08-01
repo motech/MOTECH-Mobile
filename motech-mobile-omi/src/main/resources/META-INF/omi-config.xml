@@ -57,17 +57,20 @@
         <property name="targetObject" ref="omiService"/>
         <property name="targetMethod" value="processMessageRequests"/>
         <property name="name" value="OMI Message Request Processor Service" />
+        <property name="concurrent" value="false" />
     </bean>
 
     <bean id="omiStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="omiService"/>
         <property name="targetMethod" value="processMessageResponses"/>
         <property name="name" value="OMI Message Status Update Service" />
+        <property name="concurrent" value="false" />
     </bean>
     <bean id="messageRetriesProcessor" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="omiService"/>
         <property name="targetMethod" value="processMessageRetries"/>
         <property name="name" value="OMI Message Retry Service" />
+        <property name="concurrent" value="false" />
     </bean>
 
     <!--End of Job-->
