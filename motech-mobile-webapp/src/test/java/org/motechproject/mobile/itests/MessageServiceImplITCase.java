@@ -224,9 +224,9 @@ public class MessageServiceImplITCase {
     }
 
     @Test
-    public void testGetMessageResponses() {
-        System.out.println("getMessageResponses");
-        omiService.getMessageResponses();
+    public void testProcessMessageResponses() {
+        System.out.println("processMessageResponses");
+        omiService.processMessageResponses();
     }
 
     @Test

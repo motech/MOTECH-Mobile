@@ -577,9 +577,9 @@ public class OMIServiceImpl implements OMIService {
     }
 
     /**
-     * @see OMIService.getMessageResponses
+     * @see OMIService.processMessageResponses
      */
-    public synchronized void getMessageResponses() {
+    public synchronized void processMessageResponses() {
     	logger.info("Initializing GatewayResponseDAO...");
         GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO();
         

@@ -61,7 +61,7 @@
 
     <bean id="omiStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="omiService"/>
-        <property name="targetMethod" value="getMessageResponses"/>
+        <property name="targetMethod" value="processMessageResponses"/>
         <property name="name" value="OMI Message Status Update Service" />
     </bean>
     <bean id="messageRetriesProcessor" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

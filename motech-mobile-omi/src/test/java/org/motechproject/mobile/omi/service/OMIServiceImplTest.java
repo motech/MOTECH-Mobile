@@ -396,8 +396,8 @@ public class OMIServiceImplTest {
     }
     
     @Test
-    public void testGetMessageResponses(){
-        System.out.println("getMessageResponses");
+    public void testProcessMessageResponses(){
+        System.out.println("processMessageResponses");
         
         List<MessageRequest> msgList = new ArrayList<MessageRequest>();
         
@@ -440,7 +440,7 @@ public class OMIServiceImplTest {
         expectLastCall();
         
         replay(mockCore, mockResponseDao, mockRequestDao, mockHandler);
-        instance.getMessageResponses();
+        instance.processMessageResponses();
         verify(mockCore, mockResponseDao, mockRequestDao, mockHandler);
     }
 }

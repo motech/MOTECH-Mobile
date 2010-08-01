@@ -160,7 +160,7 @@ public interface OMIService {
     /**
      * Queries and updates the statuses of sent messages
      */
-    void getMessageResponses();
+    void processMessageResponses();
     
     
     /**
