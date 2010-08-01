@@ -47,7 +47,7 @@ public class QueryCommandAction implements CommandAction {
      *
      * @see CommandAction.execute
      */
-    public synchronized IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
+    public IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
         IncomingMessageResponse response;
         String formattedResponse = "";
 
@@ -104,7 +104,7 @@ public class QueryCommandAction implements CommandAction {
      * @param context the context of the request
      * @return the initialized session
      */
-    public synchronized IncomingMessageSession initializeSession(IncomingMessage message, String requesterPhone) {
+    public IncomingMessageSession initializeSession(IncomingMessage message, String requesterPhone) {
         String formCode = parser.getFormCode(message.getContent());
 
         IncomingMessageSession imSession = coreManager.createIncomingMessageSession();
@@ -136,7 +136,7 @@ public class QueryCommandAction implements CommandAction {
      * @param context the context of the request
      * @return
      */
-    public synchronized IncomingMessageForm initializeForm(IncomingMessage message, String formCode) {
+    public IncomingMessageForm initializeForm(IncomingMessage message, String formCode) {
         IncomingMessageFormDefinition formDefn = coreManager.createIncomingMessageFormDefinitionDAO().getByCode(formCode);
 
         if (formDefn == null) {
@@ -169,7 +169,7 @@ public class QueryCommandAction implements CommandAction {
      * @param message the message to respond to
      * @return the response to the message
      */
-    public synchronized IncomingMessageResponse prepareResponse(IncomingMessage message, String formattedResponse) {
+    public IncomingMessageResponse prepareResponse(IncomingMessage message, String formattedResponse) {
         IncomingMessageForm form = message.getIncomingMessageForm();
 
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();

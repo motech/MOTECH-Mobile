@@ -35,7 +35,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      * 
      * @see IncomingMessageFormValidator.validate
      */
-    public synchronized IncMessageFormStatus validate(IncomingMessageForm form, String requesterPhone) {
+    public IncMessageFormStatus validate(IncomingMessageForm form, String requesterPhone) {
         ValidatorGroup group;
         IncMessageFormStatus status;
         form.setMessageFormStatus(IncMessageFormStatus.VALID);

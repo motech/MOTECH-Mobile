@@ -61,7 +61,7 @@ public class OMIServiceImpl implements OMIService {
      *
      * @see OMIService.sendPatientMessage
      */
-    public synchronized MessageStatus savePatientMessageRequest(String messageId,
+    public MessageStatus savePatientMessageRequest(String messageId,
             NameValuePair[] personalInfo,
             String patientNumber,
             ContactNumberType patientNumberType,
@@ -129,7 +129,7 @@ public class OMIServiceImpl implements OMIService {
      *logger
      * @see OMIService.sendCHPSMessage
      */
-    public synchronized MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
+    public MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
         logger.info("Constructing MessageDetails object...");
 
         if (workerNumber == null || workerNumber.isEmpty()) {
@@ -199,7 +199,7 @@ public class OMIServiceImpl implements OMIService {
         return MessageStatus.valueOf(messageRequest.getStatus().toString());
     }
 
-    public synchronized MessageStatus sendMessage(MessageRequest message) {
+    public MessageStatus sendMessage(MessageRequest message) {
         if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) 
         		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
             return MessageStatus.REJECTED;
@@ -246,7 +246,7 @@ public class OMIServiceImpl implements OMIService {
         return MessageStatus.valueOf(message.getStatus().toString());
     }
 
-    public synchronized MessageStatus sendMessage(MessageRequest message, String content) {
+    public MessageStatus sendMessage(MessageRequest message, String content) {
         if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) 
         		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
             return MessageStatus.REJECTED;
@@ -288,7 +288,7 @@ public class OMIServiceImpl implements OMIService {
         return MessageStatus.valueOf(message.getStatus().toString());
     }
 
-    public synchronized MessageStatus sendMessage(String content, String recipient) {
+    public MessageStatus sendMessage(String content, String recipient) {
         
         logger.info("Constructing MessageDetails object...");
 
@@ -311,7 +311,7 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
-    public synchronized MessageStatus scheduleMessage(String content, String recipient) {
+    public MessageStatus scheduleMessage(String content, String recipient) {
         if (recipient == null || recipient.isEmpty()) {
             return MessageStatus.REJECTED;
         }
@@ -337,7 +337,7 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
-    public synchronized MessageStatus scheduleMessage(MessageRequest message, String content) {
+    public MessageStatus scheduleMessage(MessageRequest message, String content) {
         if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty())
         		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
             return MessageStatus.REJECTED;
@@ -387,7 +387,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.sendDefaulterMessage
      */
-    public synchronized MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
+    public MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
         }
@@ -418,7 +418,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.sendDeliveriesMessage
      */
-    public synchronized MessageStatus sendDeliveriesMessage(String messageId, String workerNumber, Patient[] patients, String deliveryStatus, MediaType messageType, Date startDate, Date endDate) {
+    public MessageStatus sendDeliveriesMessage(String messageId, String workerNumber, Patient[] patients, String deliveryStatus, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
         }
@@ -450,7 +450,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.sendUpcomingCaresMessage
      */
-    public synchronized MessageStatus sendUpcomingCaresMessage(String messageId, String workerNumber, Patient patient, MediaType messageType, Date startDate, Date endDate) {
+    public MessageStatus sendUpcomingCaresMessage(String messageId, String workerNumber, Patient patient, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
         }
@@ -482,7 +482,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.processMessageRequests
      */
-    public synchronized void processMessageRequests() {
+    public void processMessageRequests() {
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
 
         logger.info("Fetching queued messages...");
@@ -522,7 +522,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.processMessageRetries
      */
-    public synchronized void processMessageRetries() {
+    public void processMessageRetries() {
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
 
         logger.info("Fetching messages marked for retry...");
@@ -579,7 +579,7 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.processMessageResponses
      */
-    public synchronized void processMessageResponses() {
+    public void processMessageResponses() {
     	logger.info("Initializing GatewayResponseDAO...");
         GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO();
         

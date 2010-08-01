@@ -19,7 +19,7 @@ public class ParamValueValidator implements IncomingMessageFormParameterValidato
     private Map<String, String> conversions;
     private boolean caseSensitive;
 
-    public synchronized boolean validate(IncomingMessageFormParameter param) {
+    public boolean validate(IncomingMessageFormParameter param) {
         String value = caseSensitive ? param.getValue().trim() : param.getValue().trim().toUpperCase();
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
         param.setValue(value);

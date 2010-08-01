@@ -17,7 +17,7 @@ public class ParamRangeValidator implements IncomingMessageFormParameterValidato
     private Float minValue = null;
     private Float maxValue = null;
 
-    public synchronized boolean validate(IncomingMessageFormParameter param) {
+    public boolean validate(IncomingMessageFormParameter param) {
         Float value;
 
         if(param.getValue().isEmpty())

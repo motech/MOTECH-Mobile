@@ -55,7 +55,7 @@ public class IMPServiceImpl implements IMPService {
      *
      * @see IMPService.processRequest
      */
-    public synchronized IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo) {
+    public IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo) {
 
         IncomingMessageDAO msgDao = coreManager.createIncomingMessageDAO();
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();

@@ -32,7 +32,7 @@ public class FormProcessorImpl implements FormProcessor {
     private Map<String, MethodSignature> serviceMethods;
     private static Logger logger = Logger.getLogger(FormProcessorImpl.class);
 
-    public synchronized String processForm(IncomingMessageForm form) {
+    public String processForm(IncomingMessageForm form) {
         Object result = null;
         MethodSignature mSig;
         String formattedResult = "";
@@ -120,7 +120,7 @@ public class FormProcessorImpl implements FormProcessor {
         return executeCallback(mSig.getCallback(), result);
     }
 
-    private synchronized String executeCallback(MethodSignature mSig, Object param) {
+    private String executeCallback(MethodSignature mSig, Object param) {
         String formattedResponse = "No matching records found";
 
         if(param == null)
@@ -158,7 +158,7 @@ public class FormProcessorImpl implements FormProcessor {
         return formattedResponse;
     }
 
-    public synchronized void parseValidationErrors(IncomingMessageForm form, ValidationException ex) {
+    public void parseValidationErrors(IncomingMessageForm form, ValidationException ex) {
         List<String> errors = ex.getFaultInfo().getErrors();
         form.setErrors(errors);
     }

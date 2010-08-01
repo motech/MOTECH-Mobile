@@ -26,7 +26,7 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
 
     private static Logger logger = Logger.getLogger(ParamExpressionValidator.class);
 
-    public synchronized boolean validate(IncomingMessageFormParameter param) {
+    public boolean validate(IncomingMessageFormParameter param) {
         String paramType = param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase();
 
         if(paramType.indexOf("TIME") >= 0){

@@ -25,7 +25,7 @@ public class IncomingMessageFormParameterValidatorImpl implements IncomingMessag
     /**
      * @see IncomingMessageFormParameterValidator.validate
      */
-    public synchronized boolean validate(IncomingMessageFormParameter param) {
+    public boolean validate(IncomingMessageFormParameter param) {
         if (!param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.NEW)) {
             return param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID);
         }

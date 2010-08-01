@@ -14,7 +14,7 @@ import java.util.Date;
  * @author user
  */
 public class ParamSizeValidator implements IncomingMessageFormParameterValidator{
-    public synchronized boolean validate(IncomingMessageFormParameter param) {
+    public boolean validate(IncomingMessageFormParameter param) {
         param.setMessageFormParamStatus(IncMessageFormParameterStatus.VALID);
         int paramLength = param.getValue().trim().length();
         int maxLength = param.getIncomingMsgFormParamDefinition().getLength();

@@ -21,7 +21,7 @@ public class IncomingMessageRequestWorkerImpl implements IncomingMessageRequestW
     private CoreManager coreManager;
     private MotechWebSettings webSettings;
 
-    public synchronized String doRequest(Map<String, String[]> params) {
+    public String doRequest(Map<String, String[]> params) {
         IncomingMessageResponse response = getCoreManager().createIncomingMessageResponse();
         response.setContent("No response");
 

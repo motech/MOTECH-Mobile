@@ -32,7 +32,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
     /**
      * @see IncomingMessageParser.parseRequest
      */
-    public synchronized IncomingMessage parseRequest(String message) {
+    public IncomingMessage parseRequest(String message) {
         IncomingMessage inMsg = coreManager.createIncomingMessage();
         inMsg.setContent(message.trim());
         inMsg.setDateCreated(new Date());
@@ -45,7 +45,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getComand
      */
-    public synchronized String getCommand(String message) {
+    public String getCommand(String message) {
         String command = "";
 
         Pattern pattern = Pattern.compile(cmdRegex);
@@ -61,7 +61,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getFormCode
      */
-    public synchronized String getFormCode(String message) {
+    public String getFormCode(String message) {
         String command = "";
         String formCode = "";
 
@@ -82,7 +82,7 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
      *
      * @see IncomingMessageParserImpl.getParams
      */
-    public synchronized Map<String, IncomingMessageFormParameter> getParams(String message) {
+    public Map<String, IncomingMessageFormParameter> getParams(String message) {
         Map<String, IncomingMessageFormParameter> params = new HashMap<String, IncomingMessageFormParameter>();
         List<String> pList = new ArrayList<String>();
 
