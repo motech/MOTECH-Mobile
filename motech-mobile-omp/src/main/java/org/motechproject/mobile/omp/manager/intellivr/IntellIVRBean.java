@@ -43,10 +43,8 @@ import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationException;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-@TransactionConfiguration
 @Transactional
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, ReportHandler {
 

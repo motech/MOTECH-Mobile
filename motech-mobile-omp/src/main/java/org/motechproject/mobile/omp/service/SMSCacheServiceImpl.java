@@ -11,7 +11,6 @@ import org.motechproject.mobile.core.model.MStatus;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
-@TransactionConfiguration
 @Transactional
 public class SMSCacheServiceImpl implements CacheService {
 

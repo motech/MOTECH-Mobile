@@ -24,14 +24,12 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
-@TransactionConfiguration
 @Transactional
 public class IMPServiceImpl implements IMPService {
 

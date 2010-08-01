@@ -31,7 +31,6 @@ import org.motechproject.ws.MediaType;
 import org.motechproject.ws.Patient;
 import org.motechproject.ws.MessageStatus;
 import org.motechproject.ws.NameValuePair;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -41,7 +40,6 @@ import org.springframework.transaction.annotation.Transactional;
  * Date Created: Jul 31, 2009
  *
  */
-@TransactionConfiguration
 @Transactional
 public class OMIServiceImpl implements OMIService {
 

@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -32,7 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
-@TransactionConfiguration
 @Transactional
 public class FormCommandAction implements CommandAction {
     private CoreManager coreManager;

@@ -23,7 +23,6 @@ import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.model.IncMessageSessionStatus;
 import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageResponseDAO;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -32,7 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  *  Date : Dec 5, 2009
  */
-@TransactionConfiguration
 @Transactional
 public class QueryCommandAction implements CommandAction {
 
