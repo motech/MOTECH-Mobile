@@ -414,20 +414,18 @@ public class OMIServiceImplTest {
         GatewayResponseImpl response = new GatewayResponseImpl();
         response.setMessageStatus(MStatus.DELIVERED);
         response.setGatewayRequest(gwReq);
-        
+        List<GatewayResponse> responses = new ArrayList<GatewayResponse>();
+        responses.add(response);
 
         expect(
                 mockCore.createMessageRequestDAO()
                 ).andReturn(mockRequestDao);
         expect(
-                mockRequestDao.getMsgRequestByStatusAndTryNumber((MStatus) anyObject(), anyInt())
-                ).andReturn(msgList);
-        expect(
                 mockCore.createGatewayResponseDAO()
                 ).andReturn(mockResponseDao);
         expect(
-                mockResponseDao.getByMessageIdAndTryNumber(anyLong(), anyInt())
-                ).andReturn(response);
+                mockResponseDao.getByPendingMessageAndMaxTries(anyInt())
+                ).andReturn(responses);
   
         expectLastCall();
         

@@ -580,39 +580,32 @@ public class OMIServiceImpl implements OMIService {
      * @see OMIService.getMessageResponses
      */
     public synchronized void getMessageResponses() {
+    	logger.info("Initializing GatewayResponseDAO...");
+        GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO();
+        
         logger.info("Initializing MessageRequestDAO...");
-        logger.info("fetching updated message responses...");
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
+        
+        logger.info("fetching updated message responses...");
+        List<GatewayResponse> responses = gwRespDao.getByPendingMessageAndMaxTries(maxTries);
 
-        List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndTryNumber(MStatus.PENDING, maxTries);
-
-        if (messages != null) {
-            logger.info("MessageRequest objects fetched successfully");
-            logger.debug(messages);
-
-            logger.info("Initializing GatewayResponseDAO...");
-            GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO();
-
+        if (responses != null) {
             logger.info("Processing GatewayResponses...");
-            for (MessageRequest message : messages) {
-                GatewayResponse response = gwRespDao.getByMessageIdAndTryNumber(message.getId(), message.getTryNumber());
-
-                if (response != null) {
-                    if (response.getMessageStatus() == MStatus.RETRY && message.getTryNumber() >= maxTries) {
-                        response.setMessageStatus(MStatus.FAILED);
-                    }
-
-                    statHandler.handleStatus(response);
-
-                    message.setStatus(response.getMessageStatus());
-
-                    msgReqDao.save(message);
-
+            for (GatewayResponse response : responses) {
+            	MessageRequest message = response.getGatewayRequest().getMessageRequest();
+            	// FIXME: Not expected to occur since maxtries included in query
+        		if (response.getMessageStatus() == MStatus.RETRY && message.getTryNumber() >= maxTries) {
+                    response.setMessageStatus(MStatus.FAILED);
                 }
-            }
-            logger.info("GatewayResponses processed successfully...");
-        }
+                
+                statHandler.handleStatus(response);
 
+                message.setStatus(response.getMessageStatus());
+
+                msgReqDao.save(message);
+            }
+        }
+        logger.info("GatewayResponses processed successfully...");
     }
 
     /**

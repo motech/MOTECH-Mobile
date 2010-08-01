@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.dao;
 
+import java.util.List;
+
 import org.motechproject.mobile.core.model.GatewayResponse;
 
 /**
@@ -18,10 +20,9 @@ public interface GatewayResponseDAO<T extends GatewayResponse> extends GenericDA
     public GatewayResponse getMostRecentResponseByMessageId(Long messageId);
 
     /**
-     * Method to select GatewayResponse based on the requestId and its parent GatewayRequest tryNumber
-     * @param requestId the id of the message associated with the required GatewayResponse objects
-     * @param tryNumber tryNumber of the GatewayRequest
-     * @return a single GatewayResponse object
+     * Method to select GatewayResponse based on its parent GatewayRequest tryNumber
+     * @param maxTries the max for the MessageRequest tryNumber
+     * @return a list of GatewayResponse object
      */
-    public GatewayResponse getByMessageIdAndTryNumber(Long messageId, int tryNumber);
+    public List getByPendingMessageAndMaxTries(int maxTries);
 }

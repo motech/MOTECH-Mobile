@@ -58,16 +58,14 @@ public class GatewayResponseDAOImpl extends HibernateGenericDAOImpl<GatewayRespo
     /**
      * @see {@link org.motechproject.mobile.core.dao.GatewayResponseDAO#getByRequestIdAndTryNumber(java.lang.String, int) }
      */
-    public GatewayResponse getByMessageIdAndTryNumber(Long messageId, int tryNumber) {
-        logger.debug("variable passed to getByRequestIdAndTryNumber. messageId: " + messageId + " and tryNumber: " + tryNumber);
+    public List getByPendingMessageAndMaxTries(int maxTries) {
+        logger.debug("variable passed to getByRequestIdAndTryNumber. maxTries: " + maxTries);
 
         try {
+            List<GatewayResponse> response = null;
+            String query = "from GatewayResponseImpl g where g.gatewayRequest.messageRequest.status = :messageStatus and g.gatewayRequest.messageRequest.tryNumber <= :maxTries and g.gatewayRequest.messageStatus != :requestStatus and g.gatewayRequest.tryNumber = g.gatewayRequest.messageRequest.tryNumber";
 
-            
-            GatewayResponse response = null;
-            String query = "from GatewayResponseImpl g where g.gatewayRequest.messageRequest.id = :reqId and g.gatewayRequest.messageStatus != :status and g.gatewayRequest.tryNumber= :trynum ";
-
-            response = (GatewayResponse) this.getSessionFactory().getCurrentSession().createQuery(query).setParameter("reqId", messageId).setParameter("trynum", tryNumber).setParameter("status", MStatus.PENDING).setMaxResults(1).uniqueResult();
+            response = this.getSessionFactory().getCurrentSession().createQuery(query).setParameter("messageStatus", MStatus.PENDING).setParameter("maxTries", maxTries).setParameter("requestStatus", MStatus.PENDING).list();
             logger.debug(response);
 
             return response;
