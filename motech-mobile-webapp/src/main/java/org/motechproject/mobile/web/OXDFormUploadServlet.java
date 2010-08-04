@@ -4,6 +4,7 @@
  */
 package org.motechproject.mobile.web;
 
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.fcitmuk.epihandy.EpihandyXformSerializer;
 import org.fcitmuk.epihandy.FormNotFoundException;
@@ -38,6 +41,8 @@ public class OXDFormUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = -7887474593037558262L;
 
 	private static Logger log = Logger.getLogger(OXDFormUploadServlet.class);
+	
+	private static Logger rawUploadLog = Logger.getLogger(OXDFormUploadServlet.class.getName() + ".mformsraw");
 
     /**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -80,7 +85,17 @@ public class OXDFormUploadServlet extends HttpServlet {
 			zOutput = new ZOutputStream(output, JZlib.Z_BEST_COMPRESSION);
 			dataInput = new DataInputStream(input);
 			dataOutput = new DataOutputStream(zOutput);
-
+			
+			if (rawUploadLog.isInfoEnabled()) {
+				byte[] rawPayload = IOUtils.toByteArray(dataInput);
+				String hexEncodedPayload = Hex.encodeHexString(rawPayload);
+				rawUploadLog.info(hexEncodedPayload);
+				// Replace the original input stream with one using read payload
+				dataInput.close();
+				dataInput = new DataInputStream(new ByteArrayInputStream(
+						rawPayload));
+			}
+			
 			String name = dataInput.readUTF();
 			String password = dataInput.readUTF();
 			String serializer = dataInput.readUTF();
@@ -97,6 +112,8 @@ public class OXDFormUploadServlet extends HttpServlet {
 			EpihandyXformSerializer serObj = new EpihandyXformSerializer();
 			serObj.addDeserializationListener(studyProcessor);
 
+			
+			
 			try {
 				Map<Integer, String> formVersionMap = formService.getXForms();
 				serObj.deserializeStudiesWithEvents(dataInput, formVersionMap);
