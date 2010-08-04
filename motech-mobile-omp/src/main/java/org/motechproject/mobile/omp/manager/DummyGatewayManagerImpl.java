@@ -24,7 +24,10 @@ public class DummyGatewayManagerImpl implements GatewayManager{
 
 	private static Log log = LogFactory.getLog(DummyGatewayManagerImpl.class);
 	
+	private long sleepTime;
+	
     private GatewayMessageHandler messageHandler;
+    
     /**
      *
      * @see GatewayManager.send
@@ -36,9 +39,28 @@ public class DummyGatewayManagerImpl implements GatewayManager{
     				messageDetails.getMessage());
     	}
         String msgResponse = (messageDetails.getRecipientsNumber().length() < 8) ? "failed" : "ID: " + MotechIDGenerator.generateID(10);
+        
+        if (sleepTime > 0) {
+			try {
+				log.debug("going to sleep to simulate latency");
+				Thread.sleep(sleepTime);
+				log.debug("finished simulated latency");
+			} catch (InterruptedException ie) {
+				log.debug("interrupted while sleeping");
+			}
+		}
+        
         return messageHandler.parseMessageResponse(messageDetails, msgResponse);
     }
 
+    public void setSleepTime(long sleepTime) {
+		this.sleepTime = sleepTime;
+	}
+    
+    public long getSleepTime() {
+		return sleepTime;
+	}
+    
     /**
      *
      * @see GatewayManager.getMessageStatus
