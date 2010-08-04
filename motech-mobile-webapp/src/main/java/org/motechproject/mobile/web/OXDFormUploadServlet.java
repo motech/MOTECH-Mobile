@@ -81,6 +81,9 @@ public class OXDFormUploadServlet extends HttpServlet {
 		DataInputStream dataInput = null;
 		DataOutputStream dataOutput = null;
 
+		// Set the MIME type so clients don't misinterpret
+		response.setContentType("application/octet-stream");
+		
 		try {
 			zOutput = new ZOutputStream(output, JZlib.Z_BEST_COMPRESSION);
 			dataInput = new DataInputStream(input);
@@ -112,7 +115,6 @@ public class OXDFormUploadServlet extends HttpServlet {
 			EpihandyXformSerializer serObj = new EpihandyXformSerializer();
 			serObj.addDeserializationListener(studyProcessor);
 
-			
 			
 			try {
 				Map<Integer, String> formVersionMap = formService.getXForms();
