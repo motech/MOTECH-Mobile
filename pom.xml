@@ -3,7 +3,7 @@
     <groupId>org.motechproject</groupId>
     <artifactId>motech-mobile</artifactId>
     <packaging>pom</packaging>
-    <version>0.7.1-SNAPSHOT</version>
+    <version>0.7.1</version>
     <name>MoTeCH Mobile</name>
     <url>https://motech.rcg.usm.maine.edu/redmine/projects/show/motech-mobile</url>
 
@@ -225,27 +225,27 @@
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-core</artifactId>
-                <version>0.7.1-SNAPSHOT</version>
+                <version>0.7.1</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-omp</artifactId>
-                <version>0.7.1-SNAPSHOT</version>
+                <version>0.7.1</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-omi</artifactId>
-                <version>0.7.1-SNAPSHOT</version>
+                <version>0.7.1</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-imp</artifactId>
-                <version>0.7.1-SNAPSHOT</version>
+                <version>0.7.1</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-modemgw</artifactId>
-                <version>0.7.1-SNAPSHOT</version>
+                <version>0.7.1</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject</groupId>
@@ -574,9 +574,9 @@
         </profile>
     </profiles>
     <scm>
-        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/trunk</url>
-        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/trunk</connection>
-        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/trunk</developerConnection>
+        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/tags/0.7.1</url>
+        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/tags/0.7.1</connection>
+        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/tags/0.7.1</developerConnection>
     </scm>
 
 </project>
