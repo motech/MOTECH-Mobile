@@ -66,7 +66,8 @@ public class IMPServiceImpl implements IMPService {
         if (inMsg != null && inMsg.getContent().equalsIgnoreCase(message)) {
             if (inMsg.getIncomingMessageForm() != null && inMsg.getIncomingMessageForm().getMessageFormStatus() == IncMessageFormStatus.SERVER_VALID) {
                 if (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.DISALLOWED || (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.TIME_BOUND && inMsg.getDateCreated().after(beforeDate))) {
-                    response.setContent("Error:\nThis form has already been processed!");
+                	logger.warn("duplicate form:\n" + inMsg.getContent());
+                    response.setContent(formProcessSuccess);
                     return response;
                 }
             }

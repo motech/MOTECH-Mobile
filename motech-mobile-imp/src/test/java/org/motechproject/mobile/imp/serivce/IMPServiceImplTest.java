@@ -166,7 +166,7 @@ public class IMPServiceImplTest {
 //        verify(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
         verify(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn);
 
-        assertEquals(duplicateResp, result.getContent());
+        assertEquals(instance.getFormProcessSuccess(), result.getContent());
     }
 
     @Test
