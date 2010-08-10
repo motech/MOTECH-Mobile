@@ -412,7 +412,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					requestIds.append("|");
 					notificationIDs.append("|");
 				}
-				requestIds.append(gwRequest.getId().toString());
+				requestIds.append(gwRequest.getId());
 				notificationIDs.append(gwRequest.getMessageRequest().getNotificationType().getId().toString());
 			}
 			
