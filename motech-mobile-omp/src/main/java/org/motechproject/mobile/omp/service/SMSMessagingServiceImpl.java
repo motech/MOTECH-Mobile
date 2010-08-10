@@ -51,7 +51,6 @@ public class SMSMessagingServiceImpl implements MessagingService {
      *
      * @see MessagingService.sendScheduledMessages
      */
-    @Transactional
     public void sendScheduledMessages() {
 
         logger.info("Fetching cached GatewayRequests");
@@ -74,6 +73,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
      *
      * @see MessagingService.sendMessage(MessageDetails messageDetails)
      */
+    @Transactional
     public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails) {
         logger.info("Sending message to gateway");
         Set<GatewayResponse> responseList = null;
