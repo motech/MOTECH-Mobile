@@ -256,99 +256,103 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	 */
 	@SuppressWarnings("unchecked")
 	public Set<GatewayResponse> sendMessage(GatewayRequest gatewayRequest) {
-
-		log.debug("Received GatewayRequest:" + gatewayRequest);
-
-		initializeGatewayRequest(gatewayRequest);
-
-		IVRServerTimerTask task = null;
-
-		String recipientID = gatewayRequest
-			.getMessageRequest()
-			.getRecipientId();
-
-		String phone = gatewayRequest
-			.getRecipientsNumber();
-
-		Language language = gatewayRequest
-			.getMessageRequest().getLanguage();
-
-		String status = StatusType.OK.value();
-		if ( recipientID == null || gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT ) {
-			status = StatusType.ERROR.value();
-		} else {
-
-			if ( gatewayRequest.getMessageRequest().getDateFrom() == null )
-				gatewayRequest.getMessageRequest().setDateFrom(new Date());
-
-			if ( gatewayRequest.getMessageRequest().getDateTo() == null ) {
-
-				GregorianCalendar endTime = new GregorianCalendar();
-				endTime.setTime(gatewayRequest.getMessageRequest().getDateFrom());
-				endTime.add(GregorianCalendar.DAY_OF_MONTH, availableDays);
-
-				gatewayRequest.getMessageRequest().setDateTo(endTime.getTime());
-
-			}
-
-			String phoneType = gatewayRequest.getMessageRequest().getPhoneNumberType();
-
-			if ( phoneType.equalsIgnoreCase("PERSONAL") || phoneType.equalsIgnoreCase("HOUSEHOLD") ) {
-
-				synchronized (ivrSessions) {
-
-					IVRSession session = null;
-
-					for ( IVRSession possibleSession : ivrSessions.values() ) {
-						if ( !possibleSession.isUserInitiated()
-								&& possibleSession.getUserId().equalsIgnoreCase(recipientID)
-								&& ObjectUtils.equals(possibleSession.getPhone(), phone)
-								&& possibleSession.getLanguage().equalsIgnoreCase(language.getName())
-								&& possibleSession.getAttempts() == 0
-								&& possibleSession.getDays() == gatewayRequest.getMessageRequest().getDaysAttempted()
-								&& possibleSession.getState() == IVRSession.OPEN) {
-							session = possibleSession;
-						}
-					}
-
-					if ( session == null ) {
-						log.debug("Creating new IVR Session for " + recipientID + "@" + phone);
-						session = new IVRSession(recipientID,
-								phone,
-								language.getName(),
-								gatewayRequest.getMessageRequest().getDaysAttempted());
-						session.addGatewayRequest(gatewayRequest);
-
-						ivrSessions.put(session.getSessionId(), session);
-
-						task = new IVRServerTimerTask(session);
-
-					} else {
-						log.debug("Using existing IVR Session for " + recipientID + "@" + phone);
-						session.addGatewayRequest(gatewayRequest);
-					}
-
-				}
-
+		Set<GatewayResponse> responses = null;
+		try {
+			log.debug("Received GatewayRequest:" + gatewayRequest);
+	
+			initializeGatewayRequest(gatewayRequest);
+	
+			IVRServerTimerTask task = null;
+	
+			String recipientID = gatewayRequest
+				.getMessageRequest()
+				.getRecipientId();
+	
+			String phone = gatewayRequest
+				.getRecipientsNumber();
+	
+			Language language = gatewayRequest
+				.getMessageRequest().getLanguage();
+	
+			String status = StatusType.OK.value();
+			if ( recipientID == null || gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT ) {
+				status = StatusType.ERROR.value();
 			} else {
-				log.debug("GatewayRequest " + gatewayRequest.getId() + " has phone type " +
-						gatewayRequest.getMessageRequest().getPhoneNumberType() +
-						".  Call will not be made and message will remain pending.");
+	
+				if ( gatewayRequest.getMessageRequest().getDateFrom() == null )
+					gatewayRequest.getMessageRequest().setDateFrom(new Date());
+	
+				if ( gatewayRequest.getMessageRequest().getDateTo() == null ) {
+	
+					GregorianCalendar endTime = new GregorianCalendar();
+					endTime.setTime(gatewayRequest.getMessageRequest().getDateFrom());
+					endTime.add(GregorianCalendar.DAY_OF_MONTH, availableDays);
+	
+					gatewayRequest.getMessageRequest().setDateTo(endTime.getTime());
+	
+				}
+	
+				String phoneType = gatewayRequest.getMessageRequest().getPhoneNumberType();
+	
+				if ( phoneType.equalsIgnoreCase("PERSONAL") || phoneType.equalsIgnoreCase("HOUSEHOLD") ) {
+	
+					synchronized (ivrSessions) {
+	
+						IVRSession session = null;
+	
+						for ( IVRSession possibleSession : ivrSessions.values() ) {
+							if ( !possibleSession.isUserInitiated()
+									&& possibleSession.getUserId().equalsIgnoreCase(recipientID)
+									&& ObjectUtils.equals(possibleSession.getPhone(), phone)
+									&& possibleSession.getLanguage().equalsIgnoreCase(language.getName())
+									&& possibleSession.getAttempts() == 0
+									&& possibleSession.getDays() == gatewayRequest.getMessageRequest().getDaysAttempted()
+									&& possibleSession.getState() == IVRSession.OPEN) {
+								session = possibleSession;
+							}
+						}
+	
+						if ( session == null ) {
+							log.debug("Creating new IVR Session for " + recipientID + "@" + phone);
+							session = new IVRSession(recipientID,
+									phone,
+									language.getName(),
+									gatewayRequest.getMessageRequest().getDaysAttempted());
+							session.addGatewayRequest(gatewayRequest);
+	
+							ivrSessions.put(session.getSessionId(), session);
+	
+							task = new IVRServerTimerTask(session);
+	
+						} else {
+							log.debug("Using existing IVR Session for " + recipientID + "@" + phone);
+							session.addGatewayRequest(gatewayRequest);
+						}
+	
+					}
+	
+				} else {
+					log.debug("GatewayRequest " + gatewayRequest.getId() + " has phone type " +
+							gatewayRequest.getMessageRequest().getPhoneNumberType() +
+							".  Call will not be made and message will remain pending.");
+				}
+	
+	
 			}
-
-
-		}
-
-		Set<GatewayResponse> responses = messageHandler
-			.parseMessageResponse(gatewayRequest, status);
-
-		for ( GatewayResponse response : responses )
-			statusStore.updateStatus(response.getGatewayMessageId(),
-					response.getResponseText());
-
-		if ( task != null && bundlingDelay >= 0 )
+	
+			responses = messageHandler
+				.parseMessageResponse(gatewayRequest, status);
+	
+			for ( GatewayResponse response : responses )
+				statusStore.updateStatus(response.getGatewayMessageId(),
+						response.getResponseText());
+	
+			if ( task != null && bundlingDelay >= 0 )
 			timer.schedule(task, bundlingDelay);
-
+			
+		} catch (Exception e) {
+			log.error("Error scheduling intellIVR call", e);
+		}
 		return responses;
 	}
 
@@ -370,76 +374,78 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	 * @param sessionId
 	 */
 	public void sendPending(String sessionId) {
-
-		IVRSession session = null;
-
-		synchronized (ivrSessions) {
-			session = ivrSessions.get(sessionId);
+		try {
+			IVRSession session = null;
+	
+			synchronized (ivrSessions) {
+				session = ivrSessions.get(sessionId);
+				if ( session != null ) {
+					session.setState(IVRSession.SEND_WAIT);
+					session.setAttempts(session.getAttempts() + 1);
+				}
+			}
+	
 			if ( session != null ) {
-				session.setState(IVRSession.SEND_WAIT);
-				session.setAttempts(session.getAttempts() + 1);
-			}
-		}
-
-		if ( session != null ) {
-
-			RequestType request = createIVRRequest(session);
-
-			log.debug("Created IVR Request: " + request);
-
-			ResponseType response = ivrServer.requestCall(request);
-
-			log.debug("Received response from IVR Server: " + response);
-
-			String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
-
-			for (GatewayRequest gatewayRequest : session.getGatewayRequests())
-				statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), status);
-
-			if ( response.getStatus() == StatusType.ERROR )
-				ivrSessions.remove(session.getSessionId());
-			else
-				session.setState(IVRSession.REPORT_WAIT);
-
-			StringBuilder requestIds = new StringBuilder();
-			StringBuilder notificationIDs = new StringBuilder();
-			boolean firstRequest = true;
-			
-			for ( GatewayRequest gwRequest : session.getGatewayRequests() ) {
-				if ( firstRequest )
-					firstRequest = false;
-				else {
-					requestIds.append("|");
-					notificationIDs.append("|");
+	
+				RequestType request = createIVRRequest(session);
+	
+				log.debug("Created IVR Request: " + request);
+	
+				ResponseType response = ivrServer.requestCall(request);
+	
+				log.debug("Received response from IVR Server: " + response);
+	
+				String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
+	
+				for (GatewayRequest gatewayRequest : session.getGatewayRequests())
+					statusStore.updateStatus(gatewayRequest.getMessageRequest().getId().toString(), status);
+	
+				if ( response.getStatus() == StatusType.ERROR )
+					ivrSessions.remove(session.getSessionId());
+				else
+					session.setState(IVRSession.REPORT_WAIT);
+	
+				StringBuilder requestIds = new StringBuilder();
+				StringBuilder notificationIDs = new StringBuilder();
+				boolean firstRequest = true;
+				
+				for ( GatewayRequest gwRequest : session.getGatewayRequests() ) {
+					if ( firstRequest )
+						firstRequest = false;
+					else {
+						requestIds.append("|");
+						notificationIDs.append("|");
+					}
+					requestIds.append(gwRequest.getId());
+					notificationIDs.append(gwRequest.getMessageRequest().getNotificationType().getId().toString());
 				}
-				requestIds.append(gwRequest.getId());
-				notificationIDs.append(gwRequest.getMessageRequest().getNotificationType().getId().toString());
-			}
-			
-			StringBuilder reminders = new StringBuilder();
-			boolean firstReminder = true;
-			
-			for ( Object o : request.getVxml().getPrompt().getAudioOrBreak() ) {
-				if ( o instanceof AudioType ) {
-					if ( firstReminder )
-						firstReminder = false;
-					else
-						reminders.append("|");
-					reminders.append(((AudioType)o).getSrc());
+				
+				StringBuilder reminders = new StringBuilder();
+				boolean firstReminder = true;
+				
+				for ( Object o : request.getVxml().getPrompt().getAudioOrBreak() ) {
+					if ( o instanceof AudioType ) {
+						if ( firstReminder )
+							firstReminder = false;
+						else
+							reminders.append("|");
+						reminders.append(((AudioType)o).getSrc());
+					}
 				}
+				
+				callLog.info("OUT," +
+						session.getPhone() + "," +
+						session.getUserId() + "," +
+						status + "," +
+						session.getSessionId() + "," +
+						requestIds.toString() + "," +
+						notificationIDs.toString() + "," +
+						request.getTree() + "," + 
+						reminders.toString());
 			}
-			
-			callLog.info("OUT," +
-					session.getPhone() + "," +
-					session.getUserId() + "," +
-					status + "," +
-					session.getSessionId() + "," +
-					requestIds.toString() + "," +
-					notificationIDs.toString() + "," +
-					request.getTree() + "," + 
-					reminders.toString());
+		} catch (Exception e) {
+			log.error("Error sending intellIVR call", e);
 		}
-
 	}
 
 	/**
