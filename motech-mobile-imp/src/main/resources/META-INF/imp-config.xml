@@ -21,12 +21,17 @@
     <import resource="classpath:META-INF/validator-config.xml" />
     <import resource="classpath:META-INF/registrar-services.xml" />
 
+    <bean id="msgRegistry" class="org.motechproject.mobile.imp.serivce.MessageRegistryImpl">
+    	<property name="coreManager" ref="coreManager" />
+        <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
+        <property name="parser" ref="imParser" />
+    </bean>
+
     <bean id="impService" scope="prototype" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
         <property name="coreManager" ref="coreManager" />
         <property name="impManager" ref="impManager" />
         <property name="omiManager" ref="omiManager" />
         <property name="parser" ref="imParser" />
-        <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
         <property name="formProcessSuccess" value="${imp.form.successResponse}" />
         <property name="xmlParser" ref="imXMLParser" />
         <property name="concatAllowance" value="${imp.response.concatAllowance}" />
@@ -41,6 +46,7 @@
                 <entry key="QUERY" value-ref="qryCmdAxn" />
             </map>
         </property>
+        <property name="messageRegistry" ref="msgRegistry" />
     </bean>
 
     <bean id="impManager" class="org.motechproject.mobile.imp.manager.IMPManagerImpl" />

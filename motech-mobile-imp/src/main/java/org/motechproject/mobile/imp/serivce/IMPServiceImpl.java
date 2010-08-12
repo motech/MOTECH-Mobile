@@ -4,26 +4,23 @@
  */
 package org.motechproject.mobile.imp.serivce;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
+import org.jdom.JDOMException;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.Duplicatable;
+import org.motechproject.mobile.core.model.IncMessageFormStatus;
+import org.motechproject.mobile.core.model.IncomingMessage;
+import org.motechproject.mobile.core.model.IncomingMessageResponse;
 import org.motechproject.mobile.imp.manager.IMPManager;
 import org.motechproject.mobile.imp.util.CommandAction;
 import org.motechproject.mobile.imp.util.IncomingMessageParser;
-import org.motechproject.mobile.core.model.IncomingMessage;
-import org.motechproject.mobile.core.model.IncomingMessageResponse;
 import org.motechproject.mobile.imp.util.IncomingMessageXMLParser;
 import org.motechproject.mobile.imp.util.exception.MotechParseException;
-import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.motechproject.mobile.omi.manager.OMIManager;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.regex.Pattern;
-import org.apache.log4j.Logger;
-import org.jdom.JDOMException;
-import org.motechproject.mobile.core.model.IncMessageFormStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -34,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class IMPServiceImpl implements IMPService {
 
     private static Logger logger = Logger.getLogger(IMPServiceImpl.class);
-    private int duplicatePeriod;
+
     private IMPManager impManager;
     private OMIManager omiManager;
     private CoreManager coreManager;
@@ -48,6 +45,7 @@ public class IMPServiceImpl implements IMPService {
     private int maxSMS;
     private String localNumberExpression;
     private String defaultCountryCode;
+    private MessageRegistry messageRegistry;
 
     /**
      *
@@ -55,31 +53,18 @@ public class IMPServiceImpl implements IMPService {
      */
     public IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo) {
 
-        IncomingMessageDAO msgDao = coreManager.createIncomingMessageDAO();
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
 
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, 0 - duplicatePeriod);
-        Date beforeDate = cal.getTime();
-        IncomingMessage inMsg = msgDao.getByContentNonDuplicatable(message);
+        try {
+			messageRegistry.registerMessage(message);
+		} catch (DuplicateMessageException e) {
+        	logger.warn("duplicate form:\n" + message);
+            response.setContent(formProcessSuccess);
+            return response;
+		}
 
-        if (inMsg != null && inMsg.getContent().equalsIgnoreCase(message)) {
-            if (inMsg.getIncomingMessageForm() != null && inMsg.getIncomingMessageForm().getMessageFormStatus() == IncMessageFormStatus.SERVER_VALID) {
-                if (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.DISALLOWED || (inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getDuplicatable() == Duplicatable.TIME_BOUND && inMsg.getDateCreated().after(beforeDate))) {
-                	logger.warn("duplicate form:\n" + inMsg.getContent());
-                    response.setContent(formProcessSuccess);
-                    return response;
-                }
-            }
-        }
-
-        inMsg = parser.parseRequest(message);
+		IncomingMessage inMsg = parser.parseRequest(message);
         String cmd = parser.getCommand(message);
-
-
-
-        msgDao.save(inMsg);
-
 
         CommandAction action = cmdActionMap.get(cmd.toUpperCase());
         if (action == null) {
@@ -99,7 +84,6 @@ public class IMPServiceImpl implements IMPService {
 
     public String processRequest(String message) {
         IncomingMessageResponse result = null;
-        String requester = null;
 
         //TODO We must also separate the processing of java forms - Logically
         result = processRequest(message, null, false);
@@ -287,14 +271,7 @@ public class IMPServiceImpl implements IMPService {
     public void setImpManager(IMPManager impManager) {
         this.impManager = impManager;
     }
-
-    /**
-     * @param duplicatePeriod the duplicatePeriod to set
-     */
-    public void setDuplicatePeriod(int duplicatePeriod) {
-        this.duplicatePeriod = duplicatePeriod;
-    }
-
+    
     /**
      * @return the xmlParser
      */
@@ -371,4 +348,11 @@ public class IMPServiceImpl implements IMPService {
     public void setDefaultCountryCode(String defaultCountryCode) {
         this.defaultCountryCode = defaultCountryCode;
     }
+    
+    /**
+     * @param messageRegistry 
+     */
+    public void setMessageRegistry(MessageRegistry messageRegistry) {
+		this.messageRegistry = messageRegistry;
+	}
 }

@@ -34,7 +34,6 @@
     <bean id="impService" scope="prototype" class="org.motechproject.mobile.imp.serivce.IMPServiceImpl">
         <property name="impManager" ref="impManager" />
         <property name="parser" ref="imParser" />
-        <property name="duplicatePeriod" value="${imp.request.duplicatePeriod}" />
         <property name="formProcessSuccess" value="${imp.form.successResponse}" />
         <property name="xmlParser" ref="imXMLParser" />
         <property name="concatAllowance" value="${imp.response.concatAllowance}" />
