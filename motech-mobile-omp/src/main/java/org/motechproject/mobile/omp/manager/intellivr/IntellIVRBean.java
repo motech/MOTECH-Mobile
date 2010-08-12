@@ -138,8 +138,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		if ( bundlingDelay >= 0 ) {
 			synchronized (ivrSessions) {
 				for ( IVRSession session : ivrSessions.values() ) {
-					if ( session.getState() == IVRSession.OPEN
-							|| session.getState() == IVRSession.SEND_WAIT ) {
+					if ( !session.isUserInitiated()
+							&& (session.getState() == IVRSession.OPEN || session.getState() == IVRSession.SEND_WAIT) ) {
 						IVRServerTimerTask task = new IVRServerTimerTask(session);
 						timer.schedule(task, bundlingDelay);
 					}
@@ -622,6 +622,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				List<MessageRequest> pendingMessageRequests = mrDAO.getMsgRequestByRecipientAndSchedule(request.getUserid(), new Date());
 
 				IVRSession session = new IVRSession(userId);
+				session.setState(IVRSession.REPORT_WAIT);
 
 				if ( pendingMessageRequests.size() == 0 ) {
 					log.debug("No pending messages found for " + request.getUserid());
