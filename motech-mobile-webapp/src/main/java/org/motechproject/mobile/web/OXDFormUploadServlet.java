@@ -44,6 +44,8 @@ public class OXDFormUploadServlet extends HttpServlet {
 	
 	private static Logger rawUploadLog = Logger.getLogger(OXDFormUploadServlet.class.getName() + ".mformsraw");
 
+	private static final long MAX_PROCESSING_TIME = 25000;
+
     /**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
 	 * methods.
@@ -59,6 +61,8 @@ public class OXDFormUploadServlet extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
+		long startTime = System.currentTimeMillis();
 
 		FormDefinitionService formService;
 		IMPService impService;
@@ -115,7 +119,6 @@ public class OXDFormUploadServlet extends HttpServlet {
 			EpihandyXformSerializer serObj = new EpihandyXformSerializer();
 			serObj.addDeserializationListener(studyProcessor);
 
-			
 			try {
 				Map<Integer, String> formVersionMap = formService.getXForms();
 				serObj.deserializeStudiesWithEvents(dataInput, formVersionMap);
@@ -139,10 +142,12 @@ public class OXDFormUploadServlet extends HttpServlet {
 			log.debug("upload contains: studies=" + studyForms.length
 					+ ", forms=" + numForms);
 
-			// Starting processing here
+			// Starting processing here, only process until we run out of time
+			int processedForms = 0;
 			int faultyForms = 0;
 			if (studyForms != null && numForms > 0) {
-				for (int i = 0; i < studyForms.length; i++) {
+				for (int i = 0; i < studyForms.length
+						&& System.currentTimeMillis() - startTime < MAX_PROCESSING_TIME; i++, processedForms++) {
 					for (int j = 0; j < studyForms[i].length; j++) {
 						try {
 							studyForms[i][j] = impService
@@ -162,7 +167,7 @@ public class OXDFormUploadServlet extends HttpServlet {
 			// Write out usual upload response
 			dataOutput.writeByte(ResponseHeader.STATUS_SUCCESS);
 
-			dataOutput.writeByte((byte) studyProcessor.getNumForms());
+			dataOutput.writeByte((byte) processedForms);
 			dataOutput.writeByte((byte) faultyForms);
 
 			for (int s = 0; s < studyForms.length; s++) {
