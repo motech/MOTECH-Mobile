@@ -20,6 +20,7 @@ import org.motechproject.mobile.imp.util.CommandAction;
 import org.motechproject.mobile.imp.util.IncomingMessageParser;
 import org.motechproject.mobile.imp.util.IncomingMessageXMLParser;
 import org.motechproject.mobile.imp.util.exception.MotechParseException;
+import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.motechproject.mobile.omi.manager.OMIManager;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,19 +52,24 @@ public class IMPServiceImpl implements IMPService {
      *
      * @see IMPService.processRequest
      */
-    public IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo) {
+    @SuppressWarnings("unchecked")
+	public IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo) {
 
+		IncomingMessageDAO<IncomingMessage> msgDao = coreManager.createIncomingMessageDAO();
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
 
+        IncomingMessage inMsg = null;
         try {
-			messageRegistry.registerMessage(message);
+			inMsg = messageRegistry.registerMessage(message);
 		} catch (DuplicateMessageException e) {
         	logger.warn("duplicate form:\n" + message);
             response.setContent(formProcessSuccess);
             return response;
 		}
-
-		IncomingMessage inMsg = parser.parseRequest(message);
+		
+		// Ensure object is attached to persistent context
+		msgDao.save(inMsg); 
+		
         String cmd = parser.getCommand(message);
 
         CommandAction action = cmdActionMap.get(cmd.toUpperCase());

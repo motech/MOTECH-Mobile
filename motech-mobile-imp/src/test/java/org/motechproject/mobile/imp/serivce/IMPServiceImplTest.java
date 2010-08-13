@@ -85,7 +85,8 @@ public class IMPServiceImplTest {
      * Test of processRequest method, of class IMPServiceImpl.
      * @throws DuplicateMessageException 
      */
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void testProcessRequest() throws DuplicateMessageException {
         System.out.println("processRequest");
         String message = "Type=EditPatient\nCHPSID=123\nPatientRegNum=123";
@@ -106,13 +107,12 @@ public class IMPServiceImplTest {
 //        expect(
 //                mockCore.createMotechContext()
 //                ).andReturn(new MotechContextImpl());
+        expect(mockCore.createIncomingMessageDAO()).andReturn(mockMsgDao);
         expect(
                 mockCore.createIncomingMessageResponse()
                 ).andReturn(new IncomingMessageResponseImpl());
-        expect(mockRegistry.registerMessage(message)).andReturn(null);
-        expect(
-                mockParser.parseRequest((String) anyObject())
-                ).andReturn(inMsg);
+        expect(mockRegistry.registerMessage(message)).andReturn(inMsg);
+        expect(mockMsgDao.save(inMsg)).andReturn(inMsg);
         expect(
                 mockParser.getCommand((String)anyObject())
                 ).andReturn("Type");
@@ -122,7 +122,6 @@ public class IMPServiceImplTest {
 //        expect(
 //                mockSession.getTransaction()
 //                ).andReturn(mockTrans);
-    
         expect(
                 mockCmdAxn.execute((IncomingMessage) anyObject(), (String) anyObject())
                 ).andReturn(response);
@@ -154,6 +153,7 @@ public class IMPServiceImplTest {
         expect(
                 mockCore.createIncomingMessageResponse()
                 ).andReturn(new IncomingMessageResponseImpl());
+        expect(mockCore.createIncomingMessageDAO()).andReturn(mockMsgDao);
 
 //        replay(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
         replay(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn, mockRegistry);
