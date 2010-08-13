@@ -146,9 +146,12 @@ public class OXDFormUploadServlet extends HttpServlet {
 			int processedForms = 0;
 			int faultyForms = 0;
 			if (studyForms != null && numForms > 0) {
-				for (int i = 0; i < studyForms.length
-						&& System.currentTimeMillis() - startTime < MAX_PROCESSING_TIME; i++, processedForms++) {
-					for (int j = 0; j < studyForms[i].length; j++) {
+				formprocessing: for (int i = 0; i < studyForms.length; i++) {
+					for (int j = 0; j < studyForms[i].length; j++, processedForms++) {
+
+						if (System.currentTimeMillis() - startTime > MAX_PROCESSING_TIME)
+							break formprocessing;
+						
 						try {
 							studyForms[i][j] = impService
 									.processXForm(studyForms[i][j]);
