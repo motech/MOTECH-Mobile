@@ -6,10 +6,12 @@ import java.util.Date;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.Duplicatable;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
+import org.motechproject.mobile.core.model.IncMessageStatus;
 import org.motechproject.mobile.core.model.IncomingMessage;
 import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.imp.util.IncomingMessageParser;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
+import org.motechproject.ws.MessageStatus;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,11 @@ public class MessageRegistryImpl implements MessageRegistry {
 				.getByContentNonDuplicatable(message);
 
 		if (existingMsg != null) {
+
+			if (existingMsg.getMessageStatus() == IncMessageStatus.PROCESSING)
+				throw new DuplicateProcessingException(
+						"message is already processing");
+
 			IncomingMessageForm existingMsgForm = existingMsg
 					.getIncomingMessageForm();
 			if (existingMsgForm != null

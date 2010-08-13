@@ -59,12 +59,17 @@ public class IMPServiceImpl implements IMPService {
         IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
 
         IncomingMessage inMsg = null;
-        try {
+		try {
 			inMsg = messageRegistry.registerMessage(message);
+		} catch (DuplicateProcessingException dpe) {
+			logger.info("duplicate form in process, returning wait message");
+			response
+					.setContent("Error: Duplicate in progress, please try again.");
+			return response;
 		} catch (DuplicateMessageException e) {
-        	logger.warn("duplicate form:\n" + message);
-            response.setContent(formProcessSuccess);
-            return response;
+			logger.warn("duplicate form:\n" + message);
+			response.setContent(formProcessSuccess);
+			return response;
 		}
 		
 		// Ensure object is attached to persistent context

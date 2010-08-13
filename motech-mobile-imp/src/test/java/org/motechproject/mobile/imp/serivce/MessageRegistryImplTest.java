@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.Duplicatable;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
+import org.motechproject.mobile.core.model.IncMessageStatus;
 import org.motechproject.mobile.core.model.IncomingMessage;
 import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
@@ -91,6 +92,29 @@ public class MessageRegistryImplTest {
 			instance.registerMessage(message);
 			fail("should fail with duplicate exception");
 		} catch (DuplicateMessageException e) {
+		}
+		verify(mockCoreMgr, mockMsgDao, mockParser);
+	}
+
+	@Test
+	public void testDuplicateInProcess() {
+
+		IncomingMessage existingMsg = new IncomingMessageImpl();
+
+		existingMsg.setMessageStatus(IncMessageStatus.PROCESSING);
+		existingMsg.setContent(message);
+
+		expect(mockCoreMgr.createIncomingMessageDAO()).andReturn(mockMsgDao);
+		expect(mockMsgDao.getByContentNonDuplicatable(message)).andReturn(
+				existingMsg);
+
+		replay(mockCoreMgr, mockMsgDao, mockParser);
+		try {
+			instance.registerMessage(message);
+			fail("should fail with duplicate exception");
+		} catch (DuplicateProcessingException e) {
+		} catch (DuplicateMessageException de) {
+			fail("should fail with duplicate processing exception");
 		}
 		verify(mockCoreMgr, mockMsgDao, mockParser);
 	}

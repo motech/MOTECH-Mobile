@@ -13,6 +13,7 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.reset;
 import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.Duplicatable;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
+import org.motechproject.mobile.core.model.IncMessageStatus;
 import org.motechproject.mobile.core.model.IncomingMessage;
 import org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl;
 import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
@@ -138,8 +140,6 @@ public class IMPServiceImplTest {
 //        reset(mockParser, mockCore, mockMsgDao, mockSession, mockTrans, mockImp, mockCmdAxn);
         reset(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn, mockRegistry);
 
-        String duplicateResp = "Error:\nThis form has already been processed!";
-
         inMsg.setContent(message);
         inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().setDuplicatable(Duplicatable.DISALLOWED);
         inMsg.getIncomingMessageForm().setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
@@ -162,6 +162,26 @@ public class IMPServiceImplTest {
         verify(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn, mockRegistry);
 
         assertEquals(instance.getFormProcessSuccess(), result.getContent());
+        
+        reset(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn, mockRegistry);
+
+        inMsg.setContent(message);
+        inMsg.setMessageStatus(IncMessageStatus.PROCESSING);
+        
+        expect(mockRegistry.registerMessage(message)).andThrow(
+				new DuplicateProcessingException());
+        expect(
+                mockCore.createIncomingMessageResponse()
+                ).andReturn(new IncomingMessageResponseImpl());
+        expect(mockCore.createIncomingMessageDAO()).andReturn(mockMsgDao);
+
+        replay(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn, mockRegistry);
+        result = instance.processRequest(message, requesterPhone, false);
+        verify(mockParser, mockCore, mockMsgDao, mockImp, mockCmdAxn, mockRegistry);
+
+        String uploadResponse = result.getContent();
+		assertTrue(uploadResponse.startsWith("Error:")
+				&& uploadResponse.contains("try again"));
     }
 
     @Test
