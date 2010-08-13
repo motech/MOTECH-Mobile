@@ -102,10 +102,10 @@ public class FormProcessorImpl implements FormProcessor {
             form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             logger.fatal("Could not invoke method " + methodName + " due to IllegalAccessException", ex);
         } catch (InvocationTargetException ex) {
+        	form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             if (ex.getCause().getClass().equals(ValidationException.class)) {
                 parseValidationErrors(form, (ValidationException) ex.getCause());
             } else {
-                form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
                 logger.fatal("Could not invoke method " + methodName + " due to InvocationTargetException", ex);
             }
         } catch (Exception ex) {
