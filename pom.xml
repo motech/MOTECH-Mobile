@@ -584,9 +584,9 @@
         </profile>
     </profiles>
     <scm>
-        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/trunk</url>
-        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/trunk</connection>
-        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/trunk</developerConnection>
+        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/branches/0.7.X</url>
+        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/0.7.X</connection>
+        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/0.7.X</developerConnection>
     </scm>
 
 </project>
