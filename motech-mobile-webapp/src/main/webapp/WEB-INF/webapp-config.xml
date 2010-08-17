@@ -88,4 +88,5 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <!--Manager -->
     <bean id="webManagerBean" class="org.motechproject.mobile.web.manager.WebManagerImpl"/>
+    
 </beans>

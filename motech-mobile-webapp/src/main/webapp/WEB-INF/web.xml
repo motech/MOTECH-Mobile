@@ -45,26 +45,10 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
-        <servlet-name>OXDFormUploadServlet</servlet-name>
-        <servlet-class>org.motechproject.mobile.web.OXDFormUploadServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>OXDFormDownloadServlet</servlet-name>
-        <servlet-class>org.motechproject.mobile.web.OXDFormDownloadServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MessageServiceImplService</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>OXDFormDownloadServlet</servlet-name>
-        <url-pattern>/formdownload</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>OXDFormUploadServlet</servlet-name>
-        <url-pattern>/formupload</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/webservices/*</url-pattern>
@@ -102,6 +86,16 @@
     <servlet-mapping>
         <servlet-name>intellivr</servlet-name>
         <url-pattern>/intellivr</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>oxduldl</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>oxduldl</servlet-name>
+        <url-pattern>/formupload</url-pattern>
+        <url-pattern>/formdownload</url-pattern>
     </servlet-mapping>
     
 </web-app>

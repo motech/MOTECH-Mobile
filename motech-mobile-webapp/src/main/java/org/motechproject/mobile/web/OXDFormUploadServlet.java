@@ -13,7 +13,6 @@ import java.io.OutputStream;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,8 +25,12 @@ import org.fcitmuk.epihandy.ResponseHeader;
 import org.motechproject.mobile.imp.serivce.IMPService;
 import org.motechproject.mobile.imp.serivce.oxd.FormDefinitionService;
 import org.motechproject.mobile.imp.serivce.oxd.StudyProcessor;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jcraft.jzlib.JZlib;
 import com.jcraft.jzlib.ZOutputStream;
@@ -36,7 +39,9 @@ import com.jcraft.jzlib.ZOutputStream;
  *
  * @author Henry Sampson (henry@dreamoval.com) and Brent Atkinson
  */
-public class OXDFormUploadServlet extends HttpServlet {
+@Controller
+@RequestMapping(value = "/formupload")
+public class OXDFormUploadServlet implements ApplicationContextAware {
 
 	private static final long serialVersionUID = -7887474593037558262L;
 
@@ -44,9 +49,34 @@ public class OXDFormUploadServlet extends HttpServlet {
 	
 	private static Logger rawUploadLog = Logger.getLogger(OXDFormUploadServlet.class.getName() + ".mformsraw");
 
-	private static final long MAX_PROCESSING_TIME = 25000;
+	private FormDefinitionService formService;
+	
+	private ApplicationContext appCtx;
+	
+	private long maxProcessingTime;
 
-    /**
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		appCtx = applicationContext;
+	}	
+
+	public FormDefinitionService getFormService() {
+		return formService;
+	}
+
+	public void setFormService(FormDefinitionService formService) {
+		this.formService = formService;
+	}
+
+	public long getMaxProcessingTime() {
+		return maxProcessingTime;
+	}
+
+	public void setMaxProcessingTime(long maxProcessingTime) {
+		this.maxProcessingTime = maxProcessingTime;
+	}
+
+	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
 	 * methods.
 	 * 
@@ -59,25 +89,18 @@ public class OXDFormUploadServlet extends HttpServlet {
 	 * @throws IOException
 	 *             if an I/O error occurs
 	 */
-	protected void processRequest(HttpServletRequest request,
+	@RequestMapping(method = RequestMethod.POST)
+	public void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		long startTime = System.currentTimeMillis();
 
-		FormDefinitionService formService;
-		IMPService impService;
+		IMPService impService = (IMPService) appCtx.getBean("impService");
+		StudyProcessor studyProcessor = (StudyProcessor) appCtx
+				.getBean("studyProcessor");
 
 		InputStream input = request.getInputStream();
 		OutputStream output = response.getOutputStream();
-
-		WebApplicationContext context = WebApplicationContextUtils
-				.getRequiredWebApplicationContext(getServletContext());
-		StudyProcessor studyProcessor = (StudyProcessor) context
-				.getBean("studyProcessor");
-
-		formService = (FormDefinitionService) context
-				.getBean("oxdFormDefService");
-		impService = (IMPService) context.getBean("impService");
 
 		ZOutputStream zOutput = null; // Wrap the streams for compression
 
@@ -149,9 +172,10 @@ public class OXDFormUploadServlet extends HttpServlet {
 				formprocessing: for (int i = 0; i < studyForms.length; i++) {
 					for (int j = 0; j < studyForms[i].length; j++, processedForms++) {
 
-						if (System.currentTimeMillis() - startTime > MAX_PROCESSING_TIME)
+						if (maxProcessingTime > 0
+								&& System.currentTimeMillis() - startTime > maxProcessingTime)
 							break formprocessing;
-						
+
 						try {
 							studyForms[i][j] = impService
 									.processXForm(studyForms[i][j]);
@@ -196,40 +220,4 @@ public class OXDFormUploadServlet extends HttpServlet {
 			response.flushBuffer();
 		}
 	}
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "OXD Upload Service";
-    }// </editor-fold>
 }

@@ -13,7 +13,6 @@ import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,8 +21,9 @@ import org.fcitmuk.epihandy.EpihandyXformSerializer;
 import org.motechproject.mobile.imp.serivce.oxd.FormDefinitionService;
 import org.motechproject.mobile.imp.serivce.oxd.StudyDefinitionService;
 import org.motechproject.mobile.imp.serivce.oxd.UserDefinitionService;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jcraft.jzlib.JZlib;
 import com.jcraft.jzlib.ZOutputStream;
@@ -35,7 +35,9 @@ import com.jcraft.jzlib.ZOutputStream;
  * 
  * @author Brent Atkinson
  */
-public class OXDFormDownloadServlet extends HttpServlet {
+@Controller
+@RequestMapping(value = "/formdownload", method = RequestMethod.POST)
+public class OXDFormDownloadServlet {
 
 	private static final long serialVersionUID = -1584248665268894165L;
 
@@ -48,16 +50,34 @@ public class OXDFormDownloadServlet extends HttpServlet {
 	public static final byte RESPONSE_SUCCESS = 1;
 	public static final byte RESPONSE_ACCESS_DENIED = 2;
 
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+	private FormDefinitionService formService;
+	
+	private UserDefinitionService userService;
+	
+	private StudyDefinitionService studyService;
+	
+	public FormDefinitionService getFormService() {
+		return formService;
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+	public void setFormService(FormDefinitionService formService) {
+		this.formService = formService;
+	}
+
+	public UserDefinitionService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserDefinitionService userService) {
+		this.userService = userService;
+	}
+
+	public StudyDefinitionService getStudyService() {
+		return studyService;
+	}
+
+	public void setStudyService(StudyDefinitionService studyService) {
+		this.studyService = studyService;
 	}
 
 	/**
@@ -73,20 +93,9 @@ public class OXDFormDownloadServlet extends HttpServlet {
 	 * @throws IOException
 	 *             if an I/O error occurs
 	 */
-	protected void processRequest(HttpServletRequest request,
+	@RequestMapping(method = RequestMethod.POST)
+	public void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		// Get Spring context so we can lookup our services
-		WebApplicationContext context = WebApplicationContextUtils
-				.getRequiredWebApplicationContext(getServletContext());
-
-		// Lookup our services
-		FormDefinitionService formService = (FormDefinitionService) context
-				.getBean("oxdFormDefService");
-		UserDefinitionService userService = (UserDefinitionService) context
-				.getBean("oxdUserDefService");
-		StudyDefinitionService studyService = (StudyDefinitionService) context
-				.getBean("oxdStudyDefService");
 
 		// Get our raw input and output streams
 		InputStream input = request.getInputStream();
