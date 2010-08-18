@@ -45,8 +45,11 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for (Patient p : care.getPatients()) {
-            data.add(new NameValuePair("PreferredName" + num, p.getPreferredName()));
-            data.add(new NameValuePair("LastName" + num, p.getLastName()));
+            String preferredName = (p.getPreferredName() == null) ? "" : p.getPreferredName();
+            String lastName = (p.getLastName() == null) ? "" : p.getLastName();
+
+            data.add(new NameValuePair("PreferredName" + num, preferredName));
+            data.add(new NameValuePair("LastName" + num, lastName));
             data.add(new NameValuePair("MoTeCHID" + num, p.getMotechId()));
             data.add(new NameValuePair("Community" + num, p.getCommunity()));
 
@@ -127,14 +130,26 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         int num = 0;
         String careDate;
         String message = "";
+        String preferredName = "";
 
         if (patient == null) {
             return "No upcoming care required for this patient";
         } else if (patient.getCares() == null || patient.getCares().length < 1) {
-            return "No upcoming care required for " + patient.getPreferredName() + " " + patient.getLastName();
+            preferredName = patient.getPreferredName();
+            if(preferredName == null || preferredName.isEmpty()){
+                if(patient.getAge() != null && patient.getAge() < 3){
+                    preferredName = "Baby";
+                    if(patient.getSex() == null){
+                        preferredName += (patient.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
+                    }
+                }
+                else
+                    preferredName = (patient.getSex() == Gender.FEMALE) ? "Woman" : "Man";
+            }
+            return "No upcoming care required for " + preferredName + " " + patient.getLastName();
         }
 
-        String template = "Upcoming care for " + patient.getPreferredName() + patient.getLastName() + ":";
+        String template = "Upcoming care for " + preferredName  + " " + patient.getLastName() + ":";
 
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
 
@@ -174,9 +189,22 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for (Patient p : patients) {
+
+            String preferredName = p.getPreferredName();
+            if(preferredName == null || preferredName.isEmpty()){
+                if(p.getAge() != null && p.getAge() < 3){
+                    preferredName = "Baby";
+                    if(p.getSex() == null){
+                        preferredName += (p.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
+                    }
+                }
+                else
+                    preferredName = (p.getSex() == Gender.FEMALE) ? "Woman" : "Man";
+            }
+
             birthDate = p.getBirthDate() == null ? "" : dFormat.format(p.getBirthDate());
             sex = p.getSex() == null ? "" : p.getSex().toString();
-            data.add(new NameValuePair("PreferredName" + num, p.getPreferredName()));
+            data.add(new NameValuePair("PreferredName" + num, preferredName));
             data.add(new NameValuePair("LastName" + num, p.getLastName()));
             data.add(new NameValuePair("DoB" + num, birthDate));
             data.add(new NameValuePair("Sex" + num, sex));
@@ -199,7 +227,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         if (patient == null) {
             return "No matching patients found";
         }
-
         SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
 
         String message = "";
@@ -210,13 +237,24 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         String sex = patient.getSex() == null ? "" : patient.getSex().toString();
         String phone = patient.getPhoneNumber() == null ? "" : patient.getPhoneNumber();
 
+        String preferredName = patient.getPreferredName();
+        if(preferredName == null || preferredName.isEmpty()){
+            if(patient.getAge() != null && patient.getAge() < 3){
+                preferredName = "Baby";
+                if(patient.getSex() == null){
+                    preferredName += (patient.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
+                }
+            }
+            else
+                preferredName = (patient.getSex() == Gender.FEMALE) ? "Woman" : "Man";
+        }
 
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         data.add(new NameValuePair("MoTeCHID", patient.getMotechId()));
         data.add(new NameValuePair("FirstName", patient.getFirstName()));
         data.add(new NameValuePair("LastName", patient.getLastName()));
-        data.add(new NameValuePair("PreferredName", patient.getPreferredName()));
+        data.add(new NameValuePair("PreferredName", preferredName));
         data.add(new NameValuePair("Sex", sex));
         data.add(new NameValuePair("DoB", dob));
         data.add(new NameValuePair("Age", age));
