@@ -2,6 +2,7 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.easymock.EasyMock.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,10 +18,13 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.mobile.core.dao.MessageRequestDAO;
+import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
@@ -32,6 +36,8 @@ import org.motechproject.mobile.core.model.MessageRequestImpl;
 import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
+import org.motechproject.ws.server.RegistrarService;
+import org.motechproject.ws.server.ValidationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -44,7 +50,7 @@ public class IntellIVRBeanTest {
 	
 	Language english;
 	NotificationType n1,n2,n3,n4,n5;
-	String recipientId1 = "recipientId1";
+	String recipientId1 = "1234567";
 	String phone1 = "5555551";
 	String recipientId2 = "recipientId2";
 	String phone2 = "5555552";
@@ -198,7 +204,7 @@ public class IntellIVRBeanTest {
 			assertEquals(StatusType.ERROR.value(), r.getResponseText());
 		
 	}
-	
+
 	@Test
 	public void testSendMessageSetToDateOnNullToDate() {
 		
@@ -346,6 +352,115 @@ public class IntellIVRBeanTest {
 		assertEquals(intellivrBean.getMethod(), request.getMethod());
 		assertEquals(expectedVxml, request.getVxml());
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testHandleRequestNoPending() throws NumberFormatException, ValidationException {
+		
+		GetIVRConfigRequest request = new GetIVRConfigRequest();
+		request.setUserid(recipientId1);
+		
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setStatus(StatusType.OK);
+		RequestType.Vxml vxml = new RequestType.Vxml();
+		vxml.setPrompt(new RequestType.Vxml.Prompt());
+		AudioType audio = new AudioType();
+		audio.setSrc(intellivrBean.getNoPendingMessagesRecordingName());
+		vxml.getPrompt().getAudioOrBreak().add(audio);
+		expectedResponse.setVxml(vxml);
+		expectedResponse.setReportUrl(intellivrBean.getReportURL());
+
+		CoreManager mockCoreManager = createMock(CoreManager.class);
+		intellivrBean.setCoreManager(mockCoreManager);
+
+		MessageRequestDAO<MessageRequest> mockDao = createMock(MessageRequestDAO.class);
+
+		RegistrarService mockRegistrarService = createMock(RegistrarService.class);
+		intellivrBean.setRegistrarService(mockRegistrarService);
+		
+		String[] registrarResponse = { "string1" };
+		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientId1))).andReturn(registrarResponse);
+		
+		expect(mockCoreManager.createMessageRequestDAO()).andReturn(mockDao);
+		
+		List<MessageRequest> expectedDAOResponse = new ArrayList<MessageRequest>();
+		expect(mockDao.getMsgRequestByRecipientAndSchedule(EasyMock.eq(recipientId1), (Date)EasyMock.anyObject())).andReturn(expectedDAOResponse);
+		
+		replay(mockCoreManager,mockDao,mockRegistrarService);
+		
+		ResponseType actualResponse = intellivrBean.handleRequest(request);
+		expectedResponse.setPrivate(actualResponse.getPrivate());
+		assertEquals(expectedResponse, actualResponse);
+		
+		verify(mockCoreManager,mockDao,mockRegistrarService);
+
+	}
+	
+	@Test
+	public void testHandleRequestValidationException() throws NumberFormatException, ValidationException {
+		
+		GetIVRConfigRequest request = new GetIVRConfigRequest();
+		request.setUserid(recipientId1);
+		
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+		expectedResponse.setStatus(StatusType.ERROR);
+
+		RegistrarService mockRegistrarService = createMock(RegistrarService.class);
+		intellivrBean.setRegistrarService(mockRegistrarService);
+
+		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientId1))).andThrow(new ValidationException());
+		replay(mockRegistrarService);
+
+		ResponseType actualResponse = intellivrBean.handleRequest(request);
+		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
+		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
+
+		verify(mockRegistrarService);
+		
+	}
+	
+	@Test
+	public void testHandleRequestUnenrolledId() throws NumberFormatException, ValidationException {
+		
+		GetIVRConfigRequest request = new GetIVRConfigRequest();
+		request.setUserid(recipientId1);
+		
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+		expectedResponse.setStatus(StatusType.ERROR);
+
+		String[] registrarResponse = new String[0];
+		
+		RegistrarService mockRegistrarService = createMock(RegistrarService.class);
+		intellivrBean.setRegistrarService(mockRegistrarService);
+
+		expect(mockRegistrarService.getPatientEnrollments(Integer.parseInt(recipientId1))).andReturn(registrarResponse);
+		replay(mockRegistrarService);
+
+		ResponseType actualResponse = intellivrBean.handleRequest(request);
+		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
+		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
+
+		verify(mockRegistrarService);
+		
+	}
+	
+	@Test
+	public void testHandleRequestNonNumericId(){
+
+		GetIVRConfigRequest request = new GetIVRConfigRequest();
+		request.setUserid("NaN");
+		
+		ResponseType expectedResponse = new ResponseType();
+		expectedResponse.setErrorCode(ErrorCodeType.MOTECH_INVALID_USER_ID);
+		expectedResponse.setStatus(StatusType.ERROR);
+
+		ResponseType actualResponse = intellivrBean.handleRequest(request);
+		assertEquals(expectedResponse.getErrorCode(), actualResponse.getErrorCode());
+		assertEquals(expectedResponse.getStatus(), actualResponse.getStatus());
+		
 	}
 
 	private GatewayRequest getNormalGatewayRequest() {
