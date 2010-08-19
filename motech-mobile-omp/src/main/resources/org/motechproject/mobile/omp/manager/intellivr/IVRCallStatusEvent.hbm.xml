@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.motechproject.mobile.omp.manager.intellivr">
+  <typedef class="org.motechproject.mobile.core.util.StringEnumUserType" name="ivrCallStatusEnum">
+    <param name="enumClassname">org.motechproject.mobile.omp.manager.intellivr.IVRCallStatus</param>
+  </typedef>
+	<class name="IVRCallStatusEvent" table="ivr_call_status_event">
+		<id name="id" column="ivr_call_status_event_id">
+			<generator class="native" />
+		</id>
+		<version column="version" name="version"/>
+		<property name="ivrCallStatus" column="ivr_call_status" type="ivrCallStatusEnum"/>
+		<property name="time" type="date" column="timestamp"/>
+		<property name="reason" type="string" column="reason"/>
+	</class>
+</hibernate-mapping>

@@ -224,9 +224,13 @@
 		</constructor-arg>
 	</bean>
   
+  	<bean id="coreManager" class="org.motechproject.mobile.core.manager.CoreManagerImpl"/>
+    <bean id="gatewayResponse" class="org.motechproject.mobile.core.model.GatewayResponseImpl" scope="prototype"/>
+  
     <bean id="intellIVRMessageHandler" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRGatewayMessageHandler">
 		<property name="statusMap" ref="intellIVRResponseMap"/>     
-		<property name="responseMap" ref="intellIVRResponseMap"/>    
+		<property name="responseMap" ref="intellIVRResponseMap"/>  
+		<property name="coreManager" ref="coreManager"/>  
 	</bean>
     
     <bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean" init-method="init" destroy-method="cleanUp">
@@ -250,6 +254,7 @@
 		<property name="welcomeMessageRecordingName" value="welcome.wav"/>
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
 		<property name="ivrSessionSerialResource" value="file:src/test/resources/ivrsession.cache"/>
+		<property name="coreManager" ref="coreManager"/>  
 	</bean>
 
 	<bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">

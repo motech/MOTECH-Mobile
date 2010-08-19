@@ -2,7 +2,6 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 
 import static org.junit.Assert.*;
-import static org.easymock.EasyMock.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,15 +12,12 @@ import javax.annotation.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageRequestImpl;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -31,7 +27,6 @@ public class IntellIVRGatewayMessageHandlerTest {
 
 	@Resource
 	IntellIVRGatewayMessageHandler intellIVRMessageHandler;
-	CoreManager coreManager;
 	
 	Map<String, MStatus> statusCodes = new HashMap<String, MStatus>();
 	
@@ -85,7 +80,6 @@ public class IntellIVRGatewayMessageHandlerTest {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testParseMessageResponse() {
 				
@@ -103,17 +97,6 @@ public class IntellIVRGatewayMessageHandlerTest {
 		
 		for ( String code : statusCodes.keySet()) {
 
-			GatewayResponse gwResponse = new GatewayResponseImpl();
-			gwResponse.setId(31000000003l);
-
-			MotechContext context = createMock(MotechContext.class);
-			
-			coreManager = createMock(CoreManager.class);
-			intellIVRMessageHandler.setCoreManager(coreManager);
-			
-			expect(coreManager.createGatewayResponse()).andReturn(gwResponse);			
-			replay(coreManager);
-			
 			Set<GatewayResponse> responses = intellIVRMessageHandler.parseMessageResponse(r1, code);
 			
 			for ( GatewayResponse response : responses ) {
@@ -126,10 +109,7 @@ public class IntellIVRGatewayMessageHandlerTest {
 				assertEquals(code, response.getResponseText());
 			}
 			
-			verify(coreManager);
-			
 		}
-		
 		
 	}
 

@@ -275,7 +275,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				.getMessageRequest().getLanguage();
 	
 			String status = StatusType.OK.value();
-			if ( recipientID == null || gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT ) {
+			if ( recipientID == null 
+					|| phone == null 
+					|| gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT ) {
 				status = StatusType.ERROR.value();
 			} else {
 	

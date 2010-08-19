@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.motechproject.mobile.omp.manager.intellivr">
+	<class name="IVRMenu" table="ivr_menu" dynamic-update="true">
+		<id name="id" column="ivr_menu_id">
+			<generator class="native" />
+		</id>
+		<version column="version" name="version"/>
+		<property name="name" type="string" column="name"/>
+		<property name="entryTime" type="date" column="entryTime"/>
+		<property name="duration" type="int" column="duration"/>
+		<property name="keyPressed" type="string" column="key_pressed"/>
+		<property name="recording" type="string" column="recording"/>
+	</class>
+</hibernate-mapping>

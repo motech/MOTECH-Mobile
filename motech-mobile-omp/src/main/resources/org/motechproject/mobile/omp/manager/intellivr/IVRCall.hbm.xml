@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.motechproject.mobile.omp.manager.intellivr">
+	<class name="IVRCall" table="ivr_call">
+		<id name="id" column="ivr_call_id">
+			<generator class="native" />
+		</id>
+		<version column="version" name="version"/>
+		<property name="created" type="date" column="created" not-null="true"/>
+		<property name="connected" type="date" column="connected"/>
+		<property name="disconnected" type="date" column="disconnected"/>
+		<property name="duration" type="int"/>
+		<set name="menus" order-by="entryTime">
+			<key column="ivr_call_id"/>
+			<one-to-many class="IVRMenu"/>
+		</set>
+		<set name="callStatusEvents" order-by="timestamp">
+			<key column="ivr_call_id"/>
+			<one-to-many class="IVRCallStatusEvent"/>
+		</set>
+	</class>
+</hibernate-mapping>
