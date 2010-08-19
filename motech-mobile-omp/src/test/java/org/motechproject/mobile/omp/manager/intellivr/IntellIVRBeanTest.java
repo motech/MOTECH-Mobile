@@ -170,6 +170,18 @@ public class IntellIVRBeanTest {
 	}
 	
 	@Test
+	public void testSendMessageResponseHouserholdPhone(){
+		
+		GatewayRequest gr = getNormalGatewayRequest();
+		gr.getMessageRequest().setPhoneNumberType("HOUSEHOLD");
+		Set<GatewayResponse> actualGrsSet = intellivrBean.sendMessage(gr);
+		
+		for ( GatewayResponse r : actualGrsSet )
+			assertEquals(StatusType.OK.value(), r.getResponseText());
+		
+	}
+	
+	@Test
 	public void testSendMessageResponseNullRecipientId() {
 
 		GatewayRequest gr = getNormalGatewayRequest();
@@ -204,7 +216,7 @@ public class IntellIVRBeanTest {
 			assertEquals(StatusType.ERROR.value(), r.getResponseText());
 		
 	}
-
+	
 	@Test
 	public void testSendMessageSetToDateOnNullToDate() {
 		
