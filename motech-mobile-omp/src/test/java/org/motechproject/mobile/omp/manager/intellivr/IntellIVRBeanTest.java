@@ -4,6 +4,8 @@ package org.motechproject.mobile.omp.manager.intellivr;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -208,6 +210,144 @@ public class IntellIVRBeanTest {
 		
 	}
 	
+	@Test
+	public void testCreateRequestType() throws ParseException {
+
+		String recipient = "123456789";
+		String phone = "5555555555";
+
+		IVRNotificationMapping m1 = new IVRNotificationMapping();
+		m1.setId(1);
+		m1.setIvrEntityName("tree");
+		m1.setType(IVRNotificationMapping.INFORMATIONAL);
+
+		IVRNotificationMapping m2 = new IVRNotificationMapping();
+		m2.setId(2);
+		m2.setIvrEntityName("message.wav");
+		m2.setType(IVRNotificationMapping.REMINDER);
+
+		IVRNotificationMapping m3 = new IVRNotificationMapping();
+		m3.setId(3);
+		m3.setIvrEntityName("message2.wav");
+		m3.setType(IVRNotificationMapping.REMINDER);
+
+		IVRNotificationMapping m4 = new IVRNotificationMapping();
+		m4.setId(4);
+		m4.setIvrEntityName("tree2");
+		m4.setType(IVRNotificationMapping.INFORMATIONAL);
+
+		Map<Long, IVRNotificationMapping> mapping = new HashMap<Long, IVRNotificationMapping>();
+		mapping.put(m1.getId(), m1);
+		mapping.put(m2.getId(), m2);
+		mapping.put(m3.getId(), m3);
+		mapping.put(m4.getId(), m4);
+
+		LanguageImpl english = new LanguageImpl();
+		english.setCode("en");
+		english.setId(30000000023l);
+		english.setName("English");
+
+		NotificationType n1 = new NotificationTypeImpl();
+		n1.setId(1L);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		MessageRequest mr1 = new MessageRequestImpl();
+		mr1.setDateFrom(sdf.parse("2010-01-01"));
+		mr1.setId(30000000024l);
+		mr1.setLanguage(english);
+		mr1.setRecipientId(recipient);
+		mr1.setNotificationType(n1);
+
+		GatewayRequest r1 = new GatewayRequestImpl();
+		r1.setId(30000000025l);
+		r1.setMessageRequest(mr1);
+		r1.setMessageStatus(MStatus.PENDING);
+		r1.setRecipientsNumber(phone);
+
+		NotificationType n2 = new NotificationTypeImpl();
+		n2.setId(2L);
+
+		MessageRequest mr2 = new MessageRequestImpl();
+		mr2.setId(30000000026l);
+		mr2.setLanguage(english);
+		mr2.setRecipientId(recipient);
+		mr2.setNotificationType(n2);
+
+		GatewayRequest r2 = new GatewayRequestImpl();
+		r2.setId(30000000027l);
+		r2.setMessageRequest(mr2);
+		r2.setMessageStatus(MStatus.PENDING);
+		r2.setRecipientsNumber(phone);
+
+		NotificationType n3 = new NotificationTypeImpl();
+		n3.setId(3L);
+
+		MessageRequest mr3 = new MessageRequestImpl();
+		mr3.setId(30000000028l);
+		mr3.setLanguage(english);
+		mr3.setRecipientId(recipient);
+		mr3.setNotificationType(n3);
+
+		GatewayRequest r3 = new GatewayRequestImpl();
+		r3.setId(30000000029l);
+		r3.setMessageRequest(mr3);
+		r3.setMessageStatus(MStatus.PENDING);
+		r3.setRecipientsNumber(phone);
+
+		NotificationType n4 = new NotificationTypeImpl();
+		n4.setId(4L);
+
+		MessageRequest mr4 = new MessageRequestImpl();
+		mr4.setDateFrom(sdf.parse("2010-01-02"));
+		mr4.setId(30000000030l);
+		mr4.setLanguage(english);
+		mr4.setRecipientId(recipient);
+		mr4.setNotificationType(n4);
+
+		GatewayRequest r4 = new GatewayRequestImpl();
+		r4.setId(30000000031l);
+		r4.setMessageRequest(mr4);
+		r4.setMessageStatus(MStatus.PENDING);
+		r4.setRecipientsNumber(phone);
+
+		IVRSession session = new IVRSession(recipient, phone, english.getName());
+		session.addGatewayRequest(r1);
+		session.addGatewayRequest(r2);
+		session.addGatewayRequest(r3);
+		session.addGatewayRequest(r4);
+
+		intellivrBean.ivrNotificationMap = mapping;
+		intellivrBean.setPreReminderDelay(1);
+		intellivrBean.setWelcomeMessageRecordingName("welcome.wav");
+
+		RequestType request = intellivrBean.createIVRRequest(session);
+
+		RequestType.Vxml expectedVxml = new RequestType.Vxml();
+		expectedVxml.setPrompt(new RequestType.Vxml.Prompt());
+		BreakType b1 = new BreakType();
+		b1.setTime("1s");
+		AudioType w1 = new AudioType();
+		w1.setSrc("welcome.wav");
+		AudioType a1 = new AudioType();
+		a1.setSrc("message.wav");
+		AudioType a2 = new AudioType();
+		a2.setSrc("message2.wav");
+		expectedVxml.getPrompt().getAudioOrBreak().add(b1);
+		expectedVxml.getPrompt().getAudioOrBreak().add(w1);
+		expectedVxml.getPrompt().getAudioOrBreak().add(a1);
+		expectedVxml.getPrompt().getAudioOrBreak().add(a2);
+
+		assertEquals("tree2", request.getTree());
+		assertEquals("5555555555", request.getCallee());
+		assertEquals("English", request.getLanguage());
+		assertEquals(intellivrBean.getApiID(), request.getApiId());
+		assertEquals(intellivrBean.getReportURL(), request.getReportUrl());
+		assertEquals(intellivrBean.getMethod(), request.getMethod());
+		assertEquals(expectedVxml, request.getVxml());
+
+	}
+
 	private GatewayRequest getNormalGatewayRequest() {
 		
 		MessageRequest mr = new MessageRequestImpl();

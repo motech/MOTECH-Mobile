@@ -25,7 +25,6 @@ import org.motechproject.mobile.core.model.MessageRequestImpl;
 import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
