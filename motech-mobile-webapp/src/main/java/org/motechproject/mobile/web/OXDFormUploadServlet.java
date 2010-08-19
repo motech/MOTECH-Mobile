@@ -194,8 +194,8 @@ public class OXDFormUploadServlet implements ApplicationContextAware {
 			// Write out usual upload response
 			dataOutput.writeByte(ResponseHeader.STATUS_SUCCESS);
 
-			dataOutput.writeByte((byte) processedForms);
-			dataOutput.writeByte((byte) faultyForms);
+			dataOutput.writeInt(processedForms);
+			dataOutput.writeInt(faultyForms);
 
 			for (int s = 0; s < studyForms.length; s++) {
 				for (int f = 0; f < studyForms[s].length; f++) {
