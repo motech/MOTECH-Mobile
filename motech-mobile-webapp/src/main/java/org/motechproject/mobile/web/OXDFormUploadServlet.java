@@ -202,7 +202,7 @@ public class OXDFormUploadServlet implements ApplicationContextAware {
 					if (!impService.getFormProcessSuccess().equalsIgnoreCase(
 							studyForms[s][f])) {
 						dataOutput.writeByte((byte) s);
-						dataOutput.writeByte((byte) f);
+						dataOutput.writeShort((short) f);
 						dataOutput.writeUTF(studyForms[s][f]);
 					}
 				}
