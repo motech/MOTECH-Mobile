@@ -39,7 +39,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <list>
                 <value>classpath:hsql.hibernate.properties</value>
                 <value>classpath:hsql.jdbc.properties</value>
-<!--                <value>classpath:liquibase.properties</value>-->
+                <value>classpath:liquibase.properties</value>
             </list>
         </property>
     </bean>
@@ -108,7 +108,6 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
             </props>
         </property>
         <property name="mappingResources">
@@ -133,11 +132,11 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
 
 <!-- Liquibase Settings   -->
-<!--    <bean id="liquibase" class="liquibase.spring.SpringLiquibase">
+    <bean id="liquibase" class="liquibase.spring.SpringLiquibase">
         <property name="dataSource" ref="dataSource" />
         <property name="changeLog" value="${changeLogFile}" />
         <property name="contexts" value="${contexts}" />
-    </bean>-->
+    </bean>
 
 <!--  End of liquibase settings  -->
     <bean id="gatewayRequestDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayRequestDAOImpl" scope="prototype">
