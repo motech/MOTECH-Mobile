@@ -921,7 +921,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		List<IvrEntryType> entries = report.getINTELLIVREntry();
 
 		for (IvrEntryType entry : entries)
-			if ( ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("break") )
+			if ( ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("break") || entry.getMenu().equalsIgnoreCase(welcomeMessageRecordingName) )
 				reminderCount++;
 			else
 				if ( firstInfoEntry == null && (!session.isUserInitiated() || reminderCount > 0) )

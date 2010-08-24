@@ -715,6 +715,11 @@ public class IntellIVRBeanTest {
 		b1.setDuration(0);
 		b1.setMenu("break");
 		b1.setKeypress("1s");
+		
+		IvrEntryType w1 = new IvrEntryType();
+		w1.setDuration(0);
+		w1.setMenu("welcome.wav");
+		w1.setKeypress("1s");
 
 		IvrEntryType e1 = new IvrEntryType();
 		e1.setDuration(10);
@@ -733,6 +738,7 @@ public class IntellIVRBeanTest {
 
 		List<IvrEntryType> entryList = new ArrayList<IvrEntryType>();
 		entryList.add(b1);
+		entryList.add(w1);
 		entryList.add(e1);
 		entryList.add(e2);
 		entryList.add(e3);
