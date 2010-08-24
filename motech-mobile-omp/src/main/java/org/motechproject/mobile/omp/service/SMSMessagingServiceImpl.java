@@ -7,7 +7,6 @@ import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.util.MotechException;
 import org.motechproject.mobile.omp.manager.GatewayManager;
-import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.ws.ContactNumberType;
 
 import java.util.Date;
@@ -16,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.log4j.Logger;
+import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -29,12 +29,14 @@ public class SMSMessagingServiceImpl implements MessagingService {
     private CacheService cache;
     private GatewayManager gatewayManager;
     private CoreManager coreManager;
+    private SMSMessagingServiceWorker worker;
     private static Logger logger = Logger.getLogger(SMSMessagingServiceImpl.class);
 
     /**
      * 
      * @see MessageService.scheduleMessage
      */
+    @Transactional
     public void scheduleMessage(GatewayRequest message) {
         cache.saveMessage(message.getGatewayRequestDetails());
     }
@@ -43,14 +45,21 @@ public class SMSMessagingServiceImpl implements MessagingService {
      * 
      * @see MessageService.scheduleMessage
      */
+    @Transactional
     public void scheduleMessage(GatewayRequestDetails message) {
         cache.saveMessage(message);
+    }
+
+    @Transactional
+    public void scheduleTransactionalMessage(GatewayRequest message) {
+        cache.mergeMessage(message);
     }
 
     /**
      *
      * @see MessagingService.sendScheduledMessages
      */
+    @Transactional(readOnly = true)
     public void sendScheduledMessages() {
 
         logger.info("Fetching cached GatewayRequests");
@@ -60,7 +69,11 @@ public class SMSMessagingServiceImpl implements MessagingService {
         if (scheduledMessages != null && scheduledMessages.size() > 0) {
             logger.info("Sending messages");
             for (GatewayRequest message : scheduledMessages) {
-                sendMessage(message);
+                try {
+                    sendTransactionalMessage(message);
+                } catch (Exception e) {
+                    logger.error("SMS message sending error: ", e);
+                }
             }
             logger.info("Sending completed successfully");
         } else {
@@ -73,20 +86,28 @@ public class SMSMessagingServiceImpl implements MessagingService {
      *
      * @see MessagingService.sendMessage(MessageDetails messageDetails)
      */
+    public Map<Boolean, Set<GatewayResponse>> sendTransactionalMessage(GatewayRequest messageDetails) {
+        return getWorker().sendMessage(messageDetails);
+    }
+
+    /**
+     *
+     * @see MessagingService.sendMessage(MessageDetails messageDetails)
+     */
     @Transactional
     public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails) {
-        logger.info("Sending message to gateway");
+        logger.debug("Sending message to gateway");
         Set<GatewayResponse> responseList = null;
         Map<Boolean, Set<GatewayResponse>> result = new HashMap<Boolean, Set<GatewayResponse>>();
         try {
             if ((messageDetails.getRecipientsNumber() == null || messageDetails.getRecipientsNumber().isEmpty())
-            		&& !ContactNumberType.PUBLIC.toString().equals(messageDetails.getMessageRequest().getPhoneNumberType()) ) {
+                    && !ContactNumberType.PUBLIC.toString().equals(messageDetails.getMessageRequest().getPhoneNumberType())) {
                 messageDetails.setMessageStatus(MStatus.INVALIDNUM);
             } else {
-                responseList = this.gatewayManager.sendMessage(messageDetails);
-                result.put(new Boolean(true), responseList);
+                responseList = this.getGatewayManager().sendMessage(messageDetails);
+                result.put(true, responseList);
                 logger.debug(responseList);
-                logger.info("Updating message status");
+                logger.debug("Updating message status");
                 messageDetails.setResponseDetails(responseList);
                 messageDetails.setMessageStatus(MStatus.SENT);
             }
@@ -94,11 +115,11 @@ public class SMSMessagingServiceImpl implements MessagingService {
             logger.error("Error sending message", me);
             messageDetails.setMessageStatus(MStatus.SCHEDULED);
 
-            GatewayMessageHandler orHandler = gatewayManager.getMessageHandler();
+            GatewayMessageHandler orHandler = getGatewayManager().getMessageHandler();
             responseList = orHandler.parseMessageResponse(messageDetails, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage());
-            result.put(new Boolean(false), responseList);
+            result.put(false, responseList);
         }
-        this.cache.saveMessage(messageDetails.getGatewayRequestDetails());
+        this.getCache().saveMessage(messageDetails);
 
         return result;
     }
@@ -107,6 +128,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
      *
      * @see MessagingService.sendMessage(MessageDetails messageDetails)
      */
+    @Transactional
     public Long sendMessage(GatewayRequestDetails messageDetails) {
         logger.info("Sending message to gateway");
         GatewayRequest message = (GatewayRequest) messageDetails.getGatewayRequests().toArray()[0];
@@ -134,6 +156,7 @@ public class SMSMessagingServiceImpl implements MessagingService {
     /**
      * 
      */
+    @Transactional(readOnly = true)
     public void updateMessageStatuses() {
         logger.info("Updating GatewayResponse objects");
 
@@ -143,13 +166,17 @@ public class SMSMessagingServiceImpl implements MessagingService {
         List<GatewayResponse> pendingMessages = cache.getResponses(gwResp);
 
         for (GatewayResponse response : pendingMessages) {
-            response.setResponseText(gatewayManager.getMessageStatus(response));
-            response.setMessageStatus(gatewayManager.mapMessageStatus(response));
-
-
-            cache.saveResponse(response);
+            try {
+                updateMessageStatus(response);
+            } catch (Exception e) {
+                logger.error("SMS message update error");
+            }
         }
 
+    }
+
+    public void updateMessageStatus(GatewayResponse response){
+        getWorker().updateMessageStatus(response);
     }
 
     /**
@@ -199,5 +226,19 @@ public class SMSMessagingServiceImpl implements MessagingService {
 
     public void setCoreManager(CoreManager coreManager) {
         this.coreManager = coreManager;
+    }
+
+    /**
+     * @return the worker
+     */
+    public SMSMessagingServiceWorker getWorker() {
+        return worker;
+    }
+
+    /**
+     * @param worker the worker to set
+     */
+    public void setWorker(SMSMessagingServiceWorker worker) {
+        this.worker = worker;
     }
 }

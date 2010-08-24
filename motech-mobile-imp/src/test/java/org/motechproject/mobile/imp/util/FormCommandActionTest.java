@@ -1,6 +1,5 @@
 package org.motechproject.mobile.imp.util;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.IncMessageFormDefinitionType;
@@ -28,7 +27,6 @@ import java.util.HashMap;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
 

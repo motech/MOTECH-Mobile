@@ -41,7 +41,7 @@ public interface MessagingService {
      * @param messageDetails GatewayRequest object containing information about the message to be sent
      * @return The id of the message sent
      */
-    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails);
+    public Map<Boolean, Set<GatewayResponse>> sendTransactionalMessage(GatewayRequest messageDetails);
 
     /**
      * Sends a message with the provided details
@@ -81,4 +81,14 @@ public interface MessagingService {
      * @param gatewayManager the gatewayManager to set
      */
     public void setGatewayManager(GatewayManager gatewayManager);
+
+    void updateMessageStatus(GatewayResponse response);
+
+    /**
+     *
+     * @see MessagingService.sendMessage(MessageDetails messageDetails)
+     */
+    Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails);
+
+    void scheduleTransactionalMessage(GatewayRequest message);
 }
