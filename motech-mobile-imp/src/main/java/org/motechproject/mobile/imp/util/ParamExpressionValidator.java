@@ -8,7 +8,6 @@ import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
@@ -72,11 +71,10 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
                         param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
                     }
                     else if (paramType.equalsIgnoreCase("DELIVERYDATE")) {
-                        Calendar cal = Calendar.getInstance();
-                        cal.add(Calendar.WEEK_OF_YEAR, 40);
-                        Date endDate = cal.getTime();
+                        long timeDiff =  val.getTime() - new Date().getTime();
+                        long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
 
-                        if(val.before(new Date()) || val.after(endDate)){
+                        if(val.before(new Date()) || (dayDiff > 280)){
                             param.setErrCode(1);
                             param.setErrText("invalid date");
                             param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
