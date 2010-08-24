@@ -1,13 +1,12 @@
 package org.motechproject.mobile.omi.service;
 
-import org.motechproject.mobile.core.dao.GatewayRequestDetailsDAO;
+import java.util.Arrays;
 import org.motechproject.mobile.core.dao.GatewayResponseDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.dao.NotificationTypeDAO;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayRequestDetails;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.Language;
 import org.motechproject.mobile.core.model.MStatus;
@@ -51,6 +50,7 @@ public class OMIServiceImpl implements OMIService {
     private static Logger logger = Logger.getLogger(OMIServiceImpl.class);
     private String defaultLang;
     private int maxTries;
+    private OMIServiceWorker worker;
 
     public OMIServiceImpl() {
     }
@@ -69,14 +69,14 @@ public class OMIServiceImpl implements OMIService {
             Date startDate,
             Date endDate,
             String recipientId) {
-        logger.info("Constructing MessageRequest object...");
+        logger.debug("Constructing MessageRequest object...");
 
         if (patientNumberType == ContactNumberType.PUBLIC && messageType == MediaType.TEXT) {
             return MessageStatus.REJECTED;
         }
 
-        if ((patientNumber == null || patientNumber.isEmpty()) 
-        		&& patientNumberType != ContactNumberType.PUBLIC) {
+        if ((patientNumber == null || patientNumber.isEmpty())
+                && patientNumberType != ContactNumberType.PUBLIC) {
             return MessageStatus.REJECTED;
         }
 
@@ -89,9 +89,7 @@ public class OMIServiceImpl implements OMIService {
 
         if (personalInfo != null) {
             HashSet<NameValuePair> details = new HashSet<NameValuePair>();
-            for (NameValuePair detail : personalInfo) {
-                details.add(detail);
-            }
+            details.addAll(Arrays.asList(personalInfo));
             messageRequest.setPersInfos(details);
         }
 
@@ -109,7 +107,7 @@ public class OMIServiceImpl implements OMIService {
         messageRequest.setStatus(MStatus.QUEUED);
         messageRequest.setDateCreated(new Date());
 
-        logger.info("MessageRequest object successfully constructed");
+        logger.debug("MessageRequest object successfully constructed");
         logger.debug(messageRequest);
 
         if (messageRequest.getDateFrom() == null && messageRequest.getDateTo() == null) {
@@ -143,9 +141,7 @@ public class OMIServiceImpl implements OMIService {
 
         HashSet<NameValuePair> details = new HashSet<NameValuePair>();
         if (personalInfo != null) {
-            for (NameValuePair detail : personalInfo) {
-                details.add(detail);
-            }
+            details.addAll(Arrays.asList(personalInfo));
         }
         if (patientList != null) {
             for (Patient p : patientList) {
@@ -198,8 +194,8 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public MessageStatus sendMessage(MessageRequest message) {
-        if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) 
-        		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
+        if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty())
+                && !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType())) {
             return MessageStatus.REJECTED;
         }
 
@@ -214,10 +210,11 @@ public class OMIServiceImpl implements OMIService {
         message.setStatus(MStatus.QUEUED);
         msgReqDao.save(message);
 
-        logger.info("Constructing GatewayRequest...");
+        logger.debug("Constructing GatewayRequest...");
         GatewayRequest gwReq = storeManager.constructMessage(message, defaultLanguage);
+        message.setGatewayRequestDetails(null);
 
-        logger.info("Initializing OMP MessagingService...");
+        logger.debug("Initializing OMP MessagingService...");
         MessagingService msgSvc = ompManager.createMessagingService();
 
         logger.info("Sending GatewayRequest...");
@@ -225,7 +222,7 @@ public class OMIServiceImpl implements OMIService {
 
         Map<Boolean, Set<GatewayResponse>> responses = msgSvc.sendMessage(gwReq);
 
-        Boolean falseBool = new Boolean(false);
+        Boolean falseBool = false;
         if (responses.containsKey(falseBool)) {
             Set<GatewayResponse> resps = responses.get(falseBool);
             for (GatewayResponse gp : resps) {
@@ -234,6 +231,7 @@ public class OMIServiceImpl implements OMIService {
         }
 
         logger.info("Updating MessageRequest...");
+        message.setGatewayRequestDetails(gwReq.getGatewayRequestDetails());
         message.setDateProcessed(new Date());
         message.setStatus(MStatus.PENDING);
         logger.debug(message);
@@ -245,8 +243,8 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public MessageStatus sendMessage(MessageRequest message, String content) {
-        if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty()) 
-        		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
+        if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty())
+                && !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType())) {
             return MessageStatus.REJECTED;
         }
 
@@ -268,7 +266,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Sending GatewayRequest...");
         Map<Boolean, Set<GatewayResponse>> responses = msgSvc.sendMessage(gwReq);
 
-        Boolean falseBool = new Boolean(false);
+        Boolean falseBool = false;
         if (responses.containsKey(falseBool)) {
             Set<GatewayResponse> resps = responses.get(falseBool);
             for (GatewayResponse gp : resps) {
@@ -287,7 +285,7 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public MessageStatus sendMessage(String content, String recipient) {
-        
+
         logger.info("Constructing MessageDetails object...");
 
         MessageRequest messageRequest = coreManager.createMessageRequest();
@@ -337,7 +335,7 @@ public class OMIServiceImpl implements OMIService {
 
     public MessageStatus scheduleMessage(MessageRequest message, String content) {
         if ((message.getRecipientNumber() == null || message.getRecipientNumber().isEmpty())
-        		&& !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType()) ) {
+                && !ContactNumberType.PUBLIC.toString().equals(message.getPhoneNumberType())) {
             return MessageStatus.REJECTED;
         }
 
@@ -357,25 +355,12 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("Scheduling GatewayRequest...");
 
-//        if (context.getDBSession() != null) {
-//            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
-//            ((Session) context.getDBSession().getSession()).evict(message);
-//            ((Session) context.getDBSession().getSession()).evict(gwReq);
-//        }
-
         msgSvc.scheduleMessage(gwReq);
 
         logger.info("Updating MessageRequest...");
         message.setDateProcessed(new Date());
         message.setStatus(MStatus.PENDING);
         logger.debug(message);
-
-//        if (context.getDBSession() != null) {
-//            ((Session) context.getDBSession().getSession()).evict(gwReq.getGatewayRequestDetails());
-//            ((Session) context.getDBSession().getSession()).evict(message);
-//            ((Session) context.getDBSession().getSession()).evict(gwReq);
-//        }
-
 
         msgReqDao.save(message);
         logger.info("Messages sent successfully");
@@ -480,130 +465,92 @@ public class OMIServiceImpl implements OMIService {
     /**
      * @see OMIService.processMessageRequests
      */
+    @Transactional(readOnly = true)
     public void processMessageRequests() {
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
 
-        logger.info("Fetching queued messages...");
         List<MessageRequest> messages = msgReqDao.getMsgByStatus(MStatus.QUEUED);
 
         int numMsgs = (messages == null) ? 0 : messages.size();
         logger.info("MessageRequest fetched: " + numMsgs);
         logger.debug(messages);
 
-        logger.info("Initializing OMP MessagingService...");
-        MessagingService msgSvc = ompManager.createMessagingService();
-
         Language defaultLanguage = coreManager.createLanguageDAO().getByCode(defaultLang);
 
         logger.info("Building GatewayRequests...");
         for (MessageRequest message : messages) {
-            GatewayRequest gwReq = storeManager.constructMessage(message, defaultLanguage);
-            message.setGatewayRequestDetails(gwReq.getGatewayRequestDetails());
-
-            if (message.getLanguage() == null) {
-                message.setLanguage(defaultLanguage);
+            try {
+                processMessageRequest(message, defaultLanguage);
+            } catch (Exception e) {
+                logger.error("Error while processing message requests: ", e);
             }
-
-
-            msgSvc.scheduleMessage(gwReq);
-
-            message.setDateProcessed(new Date());
-            message.setStatus(MStatus.PENDING);
-            logger.debug(message);
-            msgReqDao.save(message);
-
         }
 
         logger.info("Messages processed successfully");
+    }
+
+    public void processMessageRequest(MessageRequest message, Language defaultLanguage) {
+        worker.processMessageRequest(message, defaultLanguage);
     }
 
     /**
      * @see OMIService.processMessageRetries
      */
+    @Transactional(readOnly = true)
     public void processMessageRetries() {
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
-
-        logger.info("Fetching messages marked for retry...");
         List<MessageRequest> messages = msgReqDao.getMsgRequestByStatusAndTryNumber(MStatus.RETRY, maxTries);
 
-        logger.info("MessageRequest objects fetched successfully");
-        logger.debug(messages);
-
-        logger.info("Initializing GatewayRequestDAO...");
-        GatewayRequestDetailsDAO gwReqDao = coreManager.createGatewayRequestDetailsDAO();
-
-        logger.info("Initializing OMP MessagingService");
-        MessagingService msgSvc = ompManager.createMessagingService();
+        if (messages == null || messages.isEmpty()) {
+            logger.info("No message request to retry");
+            return;
+        }
+        logger.info("Fetched " + messages.size() + " message requests for retry");
 
         logger.info("Processing messages...");
         for (MessageRequest message : messages) {
-            if (message.getTryNumber() >= maxTries) {
-                message.setStatus(MStatus.FAILED);
-            } else {
-
-                message.setTryNumber(message.getTryNumber() + 1);
-
-                if (message.getGatewayRequestDetails() == null) {
-                    continue;
-                }
-
-                GatewayRequestDetails gwReqDet = (GatewayRequestDetails) gwReqDao.getById(message.getGatewayRequestDetails().getId());
-
-                GatewayRequest gwReq = coreManager.createGatewayRequest();
-                gwReq.setDateFrom(message.getDateFrom());
-                gwReq.setDateTo(message.getDateTo());
-                gwReq.setMessageRequest(message);
-                gwReq.setRecipientsNumber(storeManager.formatPhoneNumber(message.getRecipientNumber(), message.getMessageType()));
-                gwReq.setRequestId(message.getRequestId());
-                gwReq.setTryNumber(message.getTryNumber());
-                gwReq.setMessage(gwReqDet.getMessage());
-                gwReq.setMessageStatus(MStatus.SCHEDULED);
-
-                gwReqDet.getGatewayRequests().add(gwReq);
-                msgSvc.scheduleMessage(gwReqDet);
-
-                message.setStatus(MStatus.PENDING);
+            try {
+                processMessageRetry(message);
+            } catch (Exception e) {
+                logger.error("Error while retrying message requests: ", e);
             }
-
-
-            msgReqDao.save(message);
-
         }
 
-
         logger.info("Messages processed successfully");
+    }
+
+    public void processMessageRetry(MessageRequest message) {
+        worker.processMessageRetry(message);
     }
 
     /**
      * @see OMIService.processMessageResponses
      */
+    @Transactional(readOnly = true)
     public void processMessageResponses() {
-    	logger.info("Initializing GatewayResponseDAO...");
         GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO();
-        
-        logger.info("Initializing MessageRequestDAO...");
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
-        
-        logger.info("fetching updated message responses...");
+
         List<GatewayResponse> responses = gwRespDao.getByPendingMessageAndMaxTries(maxTries);
+        if (responses == null || responses.isEmpty()) {
+            logger.info("No updated gateway responses to process");
+        }
+        logger.info("Fetched " + responses.size() + "updated message responses");
 
         if (responses != null) {
             logger.info("Processing GatewayResponses...");
             for (GatewayResponse response : responses) {
-            	MessageRequest message = response.getGatewayRequest().getMessageRequest();
-            	// FIXME: Not expected to occur since maxtries included in query
-        		if (response.getMessageStatus() == MStatus.RETRY && message.getTryNumber() >= maxTries) {
-                    response.setMessageStatus(MStatus.FAILED);
+                try {
+                    processMessageResponse(response);
+                } catch (Exception e) {
+                    logger.error("Error while getting message responses: ", e);
                 }
-                
-                statHandler.handleStatus(response);
-
-                message.setStatus(response.getMessageStatus());
-
-                msgReqDao.save(message);
             }
         }
-        logger.info("GatewayResponses processed successfully...");
+        logger.info("GatewayResponses processed successfully");
+    }
+
+    public void processMessageResponse(GatewayResponse response) {
+        worker.processMessageResponse(response);
     }
 
     /**
@@ -685,5 +632,19 @@ public class OMIServiceImpl implements OMIService {
      */
     public void setOmiManager(OMIManager omiManager) {
         this.omiManager = omiManager;
+    }
+
+    /**
+     * @return the worker
+     */
+    public OMIServiceWorker getWorker() {
+        return worker;
+    }
+
+    /**
+     * @param worker the worker to set
+     */
+    public void setWorker(OMIServiceWorker worker) {
+        this.worker = worker;
     }
 }

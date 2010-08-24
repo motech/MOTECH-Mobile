@@ -50,6 +50,16 @@
 
     <bean id="dummyManager" class="org.motechproject.mobile.omp.manager.DummyGatewayManagerImpl">
         <property name="messageHandler" ref="dummyHandler" />
+        <property name="sleepTime" value="${omp.dummy.sleepTime}" />
+        <property name="throwRandomExceptions" value="${omp.dummy.throwException}" />
+        <property name="exceptionPointRange" value="${omp.dummy.exceptionPointRange}" />
+        <property name="exceptionPoints">
+            <list>
+                <value>2</value>
+                <value>5</value>
+                <value>7</value>
+            </list>
+        </property>
     </bean>
 
     <bean id="messageHandler" class="org.motechproject.mobile.omp.manager.orserve.ORServeGatewayMessageHandlerImpl" scope="prototype">
@@ -239,11 +249,17 @@
     <bean id="smsCache" class="org.motechproject.mobile.omp.service.SMSCacheServiceImpl">
         <property name="coreManager" ref="coreManager" />
     </bean>
+    
+    <bean id="smsWorker" class="org.motechproject.mobile.omp.service.SMSMessagingServiceWorkerImpl">
+        <property name="cache" ref="smsCache" />
+        <property name="gatewayManager" ref="compositeGatewayManager" />
+    </bean>
 
     <bean id="smsService" class="org.motechproject.mobile.omp.service.SMSMessagingServiceImpl">
         <property name="cache" ref="smsCache" />
         <property name="gatewayManager" ref="compositeGatewayManager" />
         <property name="coreManager" ref="coreManager" />
+        <property name="worker" ref="smsWorker" />
     </bean>
 
     <bean name="ompManager" class="org.motechproject.mobile.omp.manager.OMPManagerImpl" />

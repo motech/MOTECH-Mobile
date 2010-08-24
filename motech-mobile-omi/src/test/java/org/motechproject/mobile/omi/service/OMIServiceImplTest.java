@@ -1,5 +1,7 @@
 package org.motechproject.mobile.omi.service;
 
+import java.io.Serializable;
+import org.junit.Ignore;
 import org.springframework.transaction.annotation.Transactional;
 import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
@@ -22,8 +24,6 @@ import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageRequestImpl;
 import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import org.motechproject.mobile.omi.manager.MessageStoreManager;
 import org.motechproject.mobile.omi.manager.StatusHandler;
 import org.motechproject.mobile.omp.manager.OMPManager;
@@ -71,6 +71,7 @@ public class OMIServiceImplTest {
     GatewayResponseDAO mockResponseDao;
     GatewayRequestDetailsDAO mockGwDetDao;
     StatusHandler mockHandler;
+    OMIServiceWorker mockWorker;
 
     public OMIServiceImplTest() {
     }
@@ -90,12 +91,14 @@ public class OMIServiceImplTest {
         mockGwDetDao = createMock(GatewayRequestDetailsDAO.class);
         mockHandler = createMock(StatusHandler.class);
         mockResponseDao = createMock(GatewayResponseDAO.class);
+        mockWorker = createMock(OMIServiceWorker.class);
         
         instance = new OMIServiceImpl();
         instance.setCoreManager(mockCore);
         instance.setOmpManager(mockOMP);
         instance.setStoreManager(mockStore);
         instance.setStatHandler(mockHandler);
+        instance.setWorker(mockWorker);
         instance.setMaxTries(3);
         instance.setDefaultLang("en");
     }
@@ -244,8 +247,6 @@ public class OMIServiceImplTest {
         expect(
                 mockRequestDao.save((MessageRequest) anyObject())
                 ).andReturn(new MessageRequestImpl());
-
-        expectLastCall();
         
         expect(
                 mockStore.constructMessage((MessageRequest) anyObject(), (Language) anyObject())
@@ -256,7 +257,6 @@ public class OMIServiceImplTest {
         expect(
                 mockMessagingService.sendMessage((GatewayRequest) anyObject() )
                 ).andReturn(respMap);
-        
 
         expectLastCall();
         
@@ -302,33 +302,15 @@ public class OMIServiceImplTest {
                 mockRequestDao.getMsgByStatus((MStatus) anyObject())
                 ).andReturn(messageList);
         expect(
-                mockOMP.createMessagingService()
-                ).andReturn(mockMessagingService);
-        expect(
                 mockCore.createLanguageDAO()
                 ).andReturn(mockLangDao);
         expect(
                 mockLangDao.getByCode((String) anyObject())
                 ).andReturn(new LanguageImpl());
-        expect(
-                mockStore.constructMessage((MessageRequest) anyObject(),  (Language) anyObject())
-                ).andReturn(gwReq);
 
-        mockMessagingService.scheduleMessage((GatewayRequest) anyObject());
-        expectLastCall();
-
-        expectLastCall();
-        
-        expect(
-                mockRequestDao.save((MessageRequest) anyObject())
-                ).andReturn(msgReq1);
-        
-
-        expectLastCall();
-        
-        replay(mockCore, mockRequestDao, mockOMP, mockMessagingService, mockStore);
+        replay(mockCore, mockRequestDao, mockStore);
         instance.processMessageRequests();
-        verify(mockCore, mockRequestDao, mockOMP, mockMessagingService,  mockStore);
+        verify(mockCore, mockRequestDao,  mockStore);
     }
     
     /**
@@ -358,7 +340,6 @@ public class OMIServiceImplTest {
         details.setGatewayRequests(new HashSet());
         
         msgReq1.setGatewayRequestDetails(details);
-        
       
         expect(
                 mockCore.createMessageRequestDAO()
@@ -366,35 +347,12 @@ public class OMIServiceImplTest {
         expect(
                 mockRequestDao.getMsgRequestByStatusAndTryNumber((MStatus) anyObject(), anyInt())
                 ).andReturn(messageList);
-        expect(
-                mockCore.createGatewayRequestDetailsDAO()
-                ).andReturn(mockGwDetDao);
-        expect(
-                mockOMP.createMessagingService()
-                ).andReturn(mockMessagingService);
-        expect(
-                mockGwDetDao.getById(anyLong())
-                ).andReturn(details);
-        expect(
-                mockCore.createGatewayRequest()
-                ).andReturn(new GatewayRequestImpl());
         
-        mockMessagingService.scheduleMessage((GatewayRequestDetails) anyObject());
-        expectLastCall();
-
-        expectLastCall();
-        
-        expect(
-                mockRequestDao.save((MessageRequest) anyObject())
-                ).andReturn(msgReq1);
-        
-        expectLastCall();
-        
-        replay(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService, mockGwDetDao);
+        replay(mockCore, mockRequestDao);
         instance.processMessageRetries();
-        verify(mockCore, mockRequestDao, mockOMP, mockGatewayDao, mockMessagingService, mockGwDetDao);
+        verify(mockCore, mockRequestDao);
     }
-    
+
     @Test
     public void testProcessMessageResponses(){
         System.out.println("processMessageResponses");
@@ -418,29 +376,14 @@ public class OMIServiceImplTest {
         responses.add(response);
 
         expect(
-                mockCore.createMessageRequestDAO()
-                ).andReturn(mockRequestDao);
-        expect(
                 mockCore.createGatewayResponseDAO()
                 ).andReturn(mockResponseDao);
         expect(
                 mockResponseDao.getByPendingMessageAndMaxTries(anyInt())
                 ).andReturn(responses);
-  
-        expectLastCall();
         
-        expect(
-                mockRequestDao.save((MessageRequest) anyObject())
-                ).andReturn(request);
-        
-
-        expectLastCall();
-        
-        mockHandler.handleStatus((GatewayResponse) anyObject());
-        expectLastCall();
-        
-        replay(mockCore, mockResponseDao, mockRequestDao, mockHandler);
+        replay(mockCore, mockResponseDao);
         instance.processMessageResponses();
-        verify(mockCore, mockResponseDao, mockRequestDao, mockHandler);
+        verify(mockCore, mockResponseDao);
     }
 }
