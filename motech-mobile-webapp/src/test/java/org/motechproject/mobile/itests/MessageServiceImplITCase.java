@@ -208,7 +208,7 @@ public class MessageServiceImplITCase {
     @Test
     public void testProcessMessageRequests() {
         System.out.println("processMessageRequests");
-            omiService.processMessageRequests();
+        omiService.processMessageRequests();
     }
 
     @Test

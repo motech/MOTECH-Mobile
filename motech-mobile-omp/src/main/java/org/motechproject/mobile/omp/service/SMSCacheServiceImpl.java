@@ -11,8 +11,6 @@ import org.motechproject.mobile.core.model.MStatus;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.motechproject.mobile.core.dao.MessageRequestDAO;
-import org.motechproject.mobile.core.model.MessageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -34,34 +32,14 @@ public class SMSCacheServiceImpl implements CacheService {
     public void saveMessage(GatewayRequest messageDetails) {
         logger.debug("Initializing DAO");
         GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO();
-
+        
         logger.debug("Caching message");
         logger.debug(messageDetails);
-
+  
         messageDAO.save(messageDetails);
+
     }
-
-    public void mergeMessage(GatewayRequest messageDetails) {
-        logger.debug("Initializing Gsteway Request DAO");
-        GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO();
-
-        logger.debug("Caching message");
-        logger.debug(messageDetails);
-
-        messageDAO.merge(messageDetails);
-    }
-
-    //TODO refactor to conform with non-intrusive OMP pattern
-    public void mergeMessage(MessageRequest messageDetails) {
-        logger.debug("Initializing Message Request DAO");
-        MessageRequestDAO messageDAO = coreManager.createMessageRequestDAO();
-
-        logger.debug("Caching message request");
-        logger.debug(messageDetails);
-
-        messageDAO.merge(messageDetails);
-    }
-
+    
     /**
      *
      * @see CacheService.saveMessage
@@ -69,14 +47,15 @@ public class SMSCacheServiceImpl implements CacheService {
     public void saveMessage(GatewayRequestDetails messageDetails) {
         logger.debug("Initializing DAO");
         GatewayRequestDetailsDAO messageDAO = coreManager.createGatewayRequestDetailsDAO();
-
+        
         logger.debug("Caching message");
         logger.debug(messageDetails);
+        
 
         messageDAO.save(messageDetails);
 
     }
-
+    
     /**
      *
      * @see CacheService.saveResponse
@@ -84,14 +63,14 @@ public class SMSCacheServiceImpl implements CacheService {
     public void saveResponse(GatewayResponse responseDetails) {
         logger.debug("Initializing DAO");
         GatewayResponseDAO responseDAO = coreManager.createGatewayResponseDAO();
-
+        
         logger.debug("Caching response");
         logger.debug(responseDetails);
-
-        responseDAO.merge(responseDetails);
+    
+        responseDAO.save(responseDetails);
 
     }
-
+    
     /**
      * 
      * see CacheService.getMessages
@@ -100,7 +79,7 @@ public class SMSCacheServiceImpl implements CacheService {
         GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO();
         return messageDao.findByExample(criteria);
     }
-
+    
     /**
      * 
      * see CacheService.getMessagesByStatus
@@ -118,7 +97,7 @@ public class SMSCacheServiceImpl implements CacheService {
         GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO();
         return messageDao.getByStatusAndSchedule(criteria, schedule);
     }
-
+    
     /**
      * 
      * see CacheService.getMessages

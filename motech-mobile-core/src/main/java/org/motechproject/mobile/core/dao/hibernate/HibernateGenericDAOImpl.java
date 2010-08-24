@@ -99,12 +99,9 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
      */
     @SuppressWarnings("unchecked")
     public T save(T entity) {
+//        getDBSession().getSession().saveOrUpdate(entity);
         this.getSessionFactory().getCurrentSession().saveOrUpdate(entity);
         return entity;
-    }
-
-    public T merge(T entity){
-        return (T)this.getSessionFactory().getCurrentSession().merge(entity);
     }
 
     /**
@@ -113,16 +110,19 @@ public abstract class HibernateGenericDAOImpl<T> implements GenericDAO<T> {
      */
     public void delete(T entity) {
         logger.info("Calling delete");
+//        getDBSession().getSession().delete(entity);
         this.getSessionFactory().getCurrentSession().delete(entity);
     }
 
     public void flush() {
         logger.info("Calling session fush");
+//        getDBSession().getSession().flush();
          this.getSessionFactory().getCurrentSession().flush();
     }
 
     public void clear() {
         logger.info("Calling session clear");
+//        getDBSession().getSession().clear();
          this.getSessionFactory().getCurrentSession().clear();
     }
 

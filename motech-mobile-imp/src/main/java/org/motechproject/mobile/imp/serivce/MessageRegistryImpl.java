@@ -11,6 +11,7 @@ import org.motechproject.mobile.core.model.IncomingMessage;
 import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.imp.util.IncomingMessageParser;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
+import org.motechproject.ws.MessageStatus;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

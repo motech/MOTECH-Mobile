@@ -77,15 +77,20 @@ public class SMSCacheServiceImplTest {
         messageDetails.setMessageStatus(MStatus.PENDING);
         
         mockMessageDAO = createMock(GatewayRequestDAO.class);
-
+        
         expect(
                 mockCore.createGatewayRequestDAO()
                 ).andReturn(mockMessageDAO);
-          
+  
+        expectLastCall();
+        
         expect(
-                mockMessageDAO.save(messageDetails)
+                mockMessageDAO.save((GatewayRequest) anyObject())
                 ).andReturn(messageDetails);
-
+        
+        mockTrans.commit();
+        expectLastCall();
+        
         replay(mockCore, mockMessageDAO);
         instance.saveMessage(messageDetails);
         verify(mockCore, mockMessageDAO);
@@ -110,10 +115,15 @@ public class SMSCacheServiceImplTest {
         expect(
                 mockCore.createGatewayResponseDAO()
                 ).andReturn(mockResponseDAO);
-              
+      
+        expectLastCall();
+        
         expect(
-                mockResponseDAO.merge((GatewayRequest) anyObject())
+                mockResponseDAO.save((GatewayRequest) anyObject())
                 ).andReturn(response);
+        
+        mockTrans.commit();
+        expectLastCall();
         
         replay(mockCore, mockResponseDAO);
         instance.saveResponse(response);

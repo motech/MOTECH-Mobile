@@ -1,6 +1,5 @@
 package org.motechproject.mobile.omp.service;
 
-import org.junit.Ignore;
 import org.motechproject.mobile.core.manager.CoreManager;
 import static org.easymock.EasyMock.*;
 
@@ -37,8 +36,7 @@ import static org.junit.Assert.*;
 public class SMSMessagingServiceImplTest {
 
     SMSMessagingServiceImpl instance;
-
-    SMSMessagingServiceWorker mockWorker;
+    
     MotechContext mCtx;
     CoreManager mockCore;
     CacheService mockCache;
@@ -55,13 +53,11 @@ public class SMSMessagingServiceImplTest {
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
         mockGatewayRequestDetails.setId(33000000001l);
         mockCore = createMock(CoreManager.class);
-        mockWorker = createMock(SMSMessagingServiceWorker.class);
         
         instance = new SMSMessagingServiceImpl();
         instance.setCache(mockCache);
         instance.setGatewayManager(mockGateway);
         instance.setCoreManager(mockCore);
-        instance.setWorker(mockWorker);
         
         mCtx = new MotechContextImpl();
     }
@@ -111,13 +107,16 @@ public class SMSMessagingServiceImplTest {
                 mockCache.getMessagesByStatusAndSchedule((MStatus) anyObject(), (Date) anyObject())
                 ).andReturn(messages);
         expect(
-                mockWorker.sendMessage((GatewayRequest) anyObject())
+                mockGateway.sendMessage((GatewayRequest) anyObject())
                 ).andReturn(null);
+        
+        mockCache.saveMessage((GatewayRequestDetails) anyObject());
+        expectLastCall();
 
-        replay(mockCore, mockCache, mockWorker);
+        replay(mockCore, mockCache, mockGateway);
 
         instance.sendScheduledMessages();
-        verify(mockCore, mockCache, mockWorker);
+        verify(mockCore, mockCache, mockGateway);
     }
 
     /**
@@ -134,19 +133,20 @@ public class SMSMessagingServiceImplTest {
         messageDetails.setRecipientsNumber("000000000000");
         messageDetails.setGatewayRequestDetails(mockGatewayRequestDetails);
 
-        Map<Boolean, Set<GatewayResponse>> expResult = new HashMap<Boolean, Set<GatewayResponse>>();
-        expResult.put(true, new HashSet<GatewayResponse>());
-
         expect(
-                mockWorker.sendMessage((GatewayRequest) anyObject())
-                ).andReturn(expResult);
-
-        replay(mockWorker);
-
+                mockGateway.sendMessage((GatewayRequest) anyObject())
+                ).andReturn(null);
         
-        Map<Boolean, Set<GatewayResponse>> result = instance.sendTransactionalMessage(messageDetails);
-        assertEquals(expResult.get(true), result.get(true));
-        verify(mockWorker);
+        mockCache.saveMessage((GatewayRequestDetails) anyObject());
+        expectLastCall();
+
+        replay(mockGateway, mockCache);
+
+        Map<Boolean, Set<GatewayResponse>> expResult = new HashMap<Boolean, Set<GatewayResponse>>();
+        expResult.put(new Boolean(true), new HashSet<GatewayResponse>());
+        Map<Boolean, Set<GatewayResponse>> result = instance.sendMessage(messageDetails);
+        assertEquals(expResult.containsKey(new Boolean(true)), result.containsKey(new Boolean(true)));
+        verify(mockGateway, mockCache);
     }
 
     /**
@@ -172,14 +172,20 @@ public class SMSMessagingServiceImplTest {
         expect(
                 mockCache.getResponses((GatewayResponse) anyObject())
                 ).andReturn(responses);
-
-        mockWorker.updateMessageStatus((GatewayResponse)anyObject());
+        expect(
+                mockGateway.getMessageStatus((GatewayResponse) anyObject())
+                ).andReturn("Some gateway response details");
+        expect(
+                mockGateway.mapMessageStatus((GatewayResponse) anyObject())
+                ).andReturn(MStatus.DELIVERED);
+        
+        mockCache.saveResponse((GatewayResponse) anyObject());
         expectLastCall();
 
-        replay(mockCore, mockCache, mockGateway, mockWorker);
+        replay(mockCore, mockCache, mockGateway);
 
         instance.updateMessageStatuses();
-        verify(mockCore, mockCache, mockGateway, mockWorker);
+        verify(mockCore, mockCache, mockGateway);
     }
 
     /**

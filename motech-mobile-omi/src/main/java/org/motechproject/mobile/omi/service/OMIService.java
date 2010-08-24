@@ -191,14 +191,4 @@ public interface OMIService {
      * @param omiManager the omiManager to set
      */
     public void setOmiManager(OMIManager omiManager);
-
-    /**
-     * @return the worker
-     */
-    OMIServiceWorker getWorker();
-
-    /**
-     * @param worker the worker to set
-     */
-    void setWorker(OMIServiceWorker worker);
 }

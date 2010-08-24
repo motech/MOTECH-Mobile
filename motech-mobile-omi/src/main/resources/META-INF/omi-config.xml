@@ -38,21 +38,13 @@
         <property name="dateFormat" value="${omi.settings.dateFormat}" />
     </bean>
 
-    <bean id="omiServiceWorker" class="org.motechproject.mobile.omi.service.OMIServiceWorkerImpl">
-        <property name="ompManager" ref="ompManager" />
-        <property name="coreManager" ref="coreManager" />
-        <property name="storeManager" ref="storeManager" />
-        <property name="statHandler" ref="statusHandler" />
-        <property name="maxTries" value="${omi.settings.maxTries}" />
-    </bean>
-
     <bean name="omiService" class="org.motechproject.mobile.omi.service.OMIServiceImpl">
         <property name="omiManager" ref="omiManager" />
         <property name="ompManager" ref="ompManager" />
         <property name="coreManager" ref="coreManager" />
         <property name="storeManager" ref="storeManager" />
         <property name="statHandler" ref="statusHandler" />
-        <property name="worker" ref="omiServiceWorker" />
+        <property name="defaultLang" value="${omi.settings.defaultLang}" />
         <property name="maxTries" value="${omi.settings.maxTries}" />
     </bean>
 

@@ -92,9 +92,9 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         gatewayDetails.getGatewayRequests().add(gwReq);
         logger.debug("GatewayRequest object successfully constructed");
         logger.debug(gatewayDetails);
-            
-////        messageData.setGatewayRequestDetails(gatewayDetails);
 
+        messageData.setGatewayRequestDetails(gatewayDetails);
+            
         return gwReq;
     }
 

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 import junit.framework.Assert;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -27,7 +28,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.motechproject.mobile.core.model.GatewayRequestDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -233,7 +233,7 @@ public class GatewayRequestDAOImplTest {
         Assert.assertFalse(text.equals(fromdb.getMessage()));
     }
 
-    /**
+/**
      * Test of save method with child saving purpose, of class GatewayRequestDAOImpl.
      */
     @Test
@@ -256,52 +256,6 @@ public class GatewayRequestDAOImplTest {
         }
 
         Assert.assertEquals(2, fromdbchild.size());
-    }
-
-    /**
-     * Test of save method with GatewayRequestDetails.
-     */
-    @Test
-    public void testSaveWithDetails() {
-        System.out.println("saving with with request details");
-        GatewayRequestDetails grd = coreManager.createGatewayRequestDetails();
-        grd.setMessage("Test message");
-        grd.setMessageType(MessageType.TEXT);
-        grd.setNumberOfPages(1);
-
-        GatewayRequest md8 = coreManager.createGatewayRequest();
-        md8.setMessage("Test message");
-        md8.setRecipientsNumber("123445");
-        md8.setDateFrom(new Date());
-        md8.setGatewayRequestDetails(grd);
-
-        mDDAO.save(md8);
-        GatewayRequest result = (GatewayRequest) mDDAO.getById(md8.getId());
-
-        Assert.assertEquals(result.getGatewayRequestDetails().getId(), md8.getGatewayRequestDetails().getId());
-    }
-
-    /**
-     * Test of save method with GatewayRequestDetails.
-     */
-    @Test
-    public void testMergeWithDetails() {
-        System.out.println("saving with with request details");
-        GatewayRequestDetails grd = coreManager.createGatewayRequestDetails();
-        grd.setMessage("Test message");
-        grd.setMessageType(MessageType.TEXT);
-        grd.setNumberOfPages(1);
-
-        GatewayRequest md9 = coreManager.createGatewayRequest();
-        md9.setMessage("Test message");
-        md9.setRecipientsNumber("123445");
-        md9.setDateFrom(new Date());
-        md9.setGatewayRequestDetails(grd);
-
-        mDDAO.merge(md9);
-        GatewayRequest result = (GatewayRequest) mDDAO.getById(md9.getId());
-
-        Assert.assertEquals(result.getGatewayRequestDetails().getId(), md9.getGatewayRequestDetails().getId());
     }
 
     /**

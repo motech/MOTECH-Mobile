@@ -65,6 +65,4 @@ public interface GenericDAO<T> {
      * @param session the session to set
      */
     public void setSessionFactory(SessionFactory sessionFactory);
-
-    T merge(T entity);
 }
