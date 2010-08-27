@@ -371,6 +371,18 @@
         </update>
     </changeSet>
 
+    <changeSet context="update" id="1000000000000-34" author="joseph">
+         <comment>
+            change to make motechid required for Out Patient Visit.issue #739 in redmine.
+            updating motechid required field for ChildOPD-jf and MotherOPD-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+
+            <column name="required" valueBoolean="true"  />
+            <where>id IN (10000000001605,10000000001705)</where>
+        </update>
+    </changeSet>
+
 <!--    <changeSet context="update" id="1000000000000-32" author="joseph">
          <comment>
             change to enforce id rules.issue #732 in redmine.
