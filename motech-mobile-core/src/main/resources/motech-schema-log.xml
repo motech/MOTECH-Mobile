@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <changeSet author="joseph (generated)" id="1282409084036-1">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-1">
         <createTable tableName="gateway_request">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -23,7 +23,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-2">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-2">
         <createTable tableName="gateway_request_details">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -36,7 +36,7 @@
             <column name="number_of_pages" type="INT"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-3">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-3">
         <createTable tableName="gateway_response">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -56,7 +56,7 @@
             <column name="message_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-4">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-4">
         <createTable tableName="incoming_message">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -75,7 +75,7 @@
             <column name="message_status" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-5">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-5">
         <createTable tableName="incoming_message_form">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -91,7 +91,7 @@
             <column name="message_form_status" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-6">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-6">
         <createTable tableName="incoming_message_form_definition">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -109,7 +109,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-7">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-7">
         <createTable tableName="incoming_message_form_parameter">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -130,7 +130,7 @@
             <column name="message_form_status" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-8">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-8">
         <createTable tableName="incoming_message_form_parameter_definition">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -149,7 +149,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-9">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-9">
         <createTable tableName="incoming_message_response">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -165,7 +165,7 @@
             <column name="message_status" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-10">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-10">
         <createTable tableName="incoming_message_session">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -183,7 +183,7 @@
             <column name="message_session_status" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-11">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-11">
         <createTable tableName="LANGUAGE">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -193,7 +193,7 @@
             <column name="description" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-12">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-12">
         <createTable tableName="message_request">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -223,7 +223,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-13">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-13">
         <createTable tableName="message_template">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -238,7 +238,7 @@
             <column name="language" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-14">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-14">
         <createTable tableName="notification_type">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -247,7 +247,7 @@
             <column name="description" type="VARCHAR(200)"/>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-15">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-15">
         <createTable tableName="personalization_info">
             <column name="requestId" type="BIGINT">
                 <constraints nullable="false"/>
@@ -260,100 +260,100 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-16">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-16">
         <addPrimaryKey columnNames="requestId, name, value" tableName="personalization_info"/>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-17">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-17">
         <createIndex indexName="FK81205B94893C52A" tableName="gateway_request" unique="false">
             <column name="message_request_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-18">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-18">
         <createIndex indexName="FK81205B94C79DBF80" tableName="gateway_request" unique="false">
             <column name="request_details_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-19">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-19">
         <createIndex indexName="FKA612CBDC1A05AB1D" tableName="gateway_response" unique="false">
             <column name="message_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-20">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-20">
         <createIndex indexName="FKA1B318EEBCC820C9" tableName="incoming_message" unique="false">
             <column name="incoming_message_session_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-21">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-21">
         <createIndex indexName="FKA1B318EECB919A2B" tableName="incoming_message" unique="false">
             <column name="incoming_message_response_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-22">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-22">
         <createIndex indexName="FKA1B318EEDF41FE4B" tableName="incoming_message" unique="false">
             <column name="incoming_message_form_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-23">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-23">
         <createIndex indexName="incoming_message_response_id" tableName="incoming_message" unique="true">
             <column name="incoming_message_response_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-24">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-24">
         <createIndex indexName="FK6081175AA3990D6" tableName="incoming_message_form" unique="false">
             <column name="incoming_message_form_definition_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-25">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-25">
         <createIndex indexName="form_code" tableName="incoming_message_form_definition" unique="true">
             <column name="form_code"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-26">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-26">
         <createIndex indexName="FK742C315F6C6BD0C1" tableName="incoming_message_form_parameter" unique="false">
             <column name="incoming_message_from_message_definition_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-27">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-27">
         <createIndex indexName="FK742C315FDF41FE4B" tableName="incoming_message_form_parameter" unique="false">
             <column name="incoming_message_form_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-28">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-28">
         <createIndex indexName="FK584F1833AA3990D6" tableName="incoming_message_form_parameter_definition" unique="false">
             <column name="incoming_message_form_definition_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-29">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-29">
         <createIndex indexName="code" tableName="LANGUAGE" unique="true">
             <column name="code"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-30">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-30">
         <createIndex indexName="FKF9A8A25710567610" tableName="message_request" unique="false">
             <column name="notification_type_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-31">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-31">
         <createIndex indexName="FKF9A8A257AA9B8299" tableName="message_request" unique="false">
             <column name="language_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-32">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-32">
         <createIndex indexName="FKF9A8A257C79DBF80" tableName="message_request" unique="false">
             <column name="request_details_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-33">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-33">
         <createIndex indexName="FK41715B29084168F" tableName="message_template" unique="false">
             <column name="language"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-34">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-34">
         <createIndex indexName="FK41715B2D9AA1B32" tableName="message_template" unique="false">
             <column name="notification_type"/>
         </createIndex>
     </changeSet>
-    <changeSet author="joseph (generated)" id="1282409084036-35">
+    <changeSet context="setup" author="joseph (generated)" id="1282409084036-35">
         <createIndex indexName="FK7233DE922CB4111" tableName="personalization_info" unique="false">
             <column name="requestId"/>
         </createIndex>

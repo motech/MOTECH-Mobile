@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <changeSet author="joseph (generated)" id="2282410859067-1">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-1">
         <loadData encoding="UTF-8" file="data/language.csv" tableName="LANGUAGE">
             <column header="id" type="NUMERIC"/>
             <column header="code" type="STRING"/>
@@ -8,7 +8,7 @@
             <column header="description" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-2">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-2">
         <loadData encoding="UTF-8" file="data/incoming_message_session.csv" tableName="incoming_message_session">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -20,7 +20,7 @@
             <column header="message_session_status" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-3">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-3">
         <loadData encoding="UTF-8" file="data/incoming_message_form.csv" tableName="incoming_message_form">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -30,7 +30,7 @@
             <column header="message_form_status" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-4">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-4">
         <loadData encoding="UTF-8" file="data/incoming_message.csv" tableName="incoming_message">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -43,14 +43,14 @@
             <column header="message_status" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-5">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-5">
         <loadData encoding="UTF-8" file="data/notification_type.csv" tableName="notification_type">
             <column header="id" type="NUMERIC"/>
             <column header="name" type="STRING"/>
             <column header="description" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-6">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-6">
         <loadData encoding="UTF-8" file="data/gateway_response.csv" tableName="gateway_response">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -64,14 +64,14 @@
             <column header="message_id" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-7">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-7">
         <loadData encoding="UTF-8" file="data/personalization_info.csv" tableName="personalization_info">
             <column header="requestId" type="NUMERIC"/>
             <column header="name" type="STRING"/>
             <column header="value" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-8">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-8">
         <loadData encoding="UTF-8" file="data/incoming_message_form_parameter.csv" tableName="incoming_message_form_parameter">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -86,7 +86,7 @@
             <column header="message_form_status" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-9">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-9">
         <loadData encoding="UTF-8" file="data/gateway_request.csv" tableName="gateway_request">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -103,7 +103,7 @@
             <column header="last_modified" type="DATE"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-10">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-10">
         <loadData encoding="UTF-8" file="data/incoming_message_form_parameter_definition.csv" tableName="incoming_message_form_parameter_definition">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -116,7 +116,7 @@
             <column header="last_modified" type="DATE"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-11">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-11">
         <loadData encoding="UTF-8" file="data/message_request.csv" tableName="message_request">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -140,7 +140,7 @@
             <column header="last_modified" type="DATE"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-12">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-12">
         <loadData encoding="UTF-8" file="data/message_template.csv" tableName="message_template">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -151,7 +151,7 @@
             <column header="language" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-13">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-13">
         <loadData encoding="UTF-8" file="data/gateway_request_details.csv" tableName="gateway_request_details">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -160,7 +160,7 @@
             <column header="number_of_pages" type="NUMERIC"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-14">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-14">
         <loadData encoding="UTF-8" file="data/incoming_message_response.csv" tableName="incoming_message_response">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
@@ -170,7 +170,7 @@
             <column header="message_status" type="STRING"/>
         </loadData>
     </changeSet>
-    <changeSet author="joseph (generated)" id="2282410859067-15">
+    <changeSet context="setup" author="joseph (generated)" id="2282410859067-15">
         <loadData encoding="UTF-8" file="data/incoming_message_form_definition.csv" tableName="incoming_message_form_definition">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>

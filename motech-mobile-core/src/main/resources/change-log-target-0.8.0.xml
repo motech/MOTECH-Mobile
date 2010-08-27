@@ -13,8 +13,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-
-    <changeSet id="100-1" author="joseph">
+ 
+    <changeSet context="update" id="1000000000000-1" author="joseph">
         <comment>
             change to enforce mandatory BP Diastolic on ANC java form.issue #444 in redmine
         </comment>
@@ -23,7 +23,7 @@
             <where>id=10000000000012</where>
         </update>
     </changeSet>
-    <changeSet id="100-2" author="joseph">
+    <changeSet context="update" id="1000000000000-2" author="joseph">
         <comment>
             change to add new field in incoming_message_form_parameter_definition for lochia odour for PNC (mother).
             documented as issue #606 in redmine
@@ -40,5 +40,347 @@
            <column name="last_modified" valueDate="2010-08-24 12:18:00"/>
        </insert>
     </changeSet>
+
+    <changeSet context="update" id="1000000000000-3" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motherMotechId in RegisterChild sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=53475686867887</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-4" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for childMotechId in RegisterChild sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=7645645756876</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-5" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in DeliveryNotify-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000000404</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-6" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in MotherPNC-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000000504</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-7" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in ChildPNC-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000000804</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-8" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in ChildCWC-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000000904</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-9" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in Abortion-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000000104</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-10" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in ChildOPD-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000001605</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-11" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in MotherOPD-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000001705</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-12" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in ANC sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=434546463984501</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-13" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in ANC sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000000005</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-14" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in Abortion sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=464546463987801</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-15" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId,C1MotechId,C2MotechId,C3MotechId in Delivery sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id IN (473346463981210,473346463981216,473346463981222,473346463981201)</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-17" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId, child1MotechId,child2MotechId,child3MotechId in Delivery-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id In (10000000000203,10000000000217,10000000000225,10000000000233)</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-18" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId  in PPC sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=254546463981101</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-19" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in Death sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=154546463981441</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-20" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in Death-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000000604</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-21" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in TT-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000000704</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-22" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in Child form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=064546463981701</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-23" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in ChildOPD form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=879874663983211</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-24" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in MotherOPD form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=695474663923331</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-25" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in RegisterPatient-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000001005</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-26" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motherMotechId in RegisterPatient-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000001017</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-27" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in RegisterPregnancy-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000001104</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-28" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in RegisterCWCChild-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000001304</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-29" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in EditPatient-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=10000000001404</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-30" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in UpcomingCare sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=695474663923354</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-31" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in UpcomingCare-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=1232874663923354</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-32" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in ViewPatient sms form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=695474663923356</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-33" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in ViewPatient-jf form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id=1233174663923356</where>
+        </update>
+    </changeSet>
+
+<!--    <changeSet context="update" id="1000000000000-32" author="joseph">
+         <comment>
+            change to enforce id rules.issue #732 in redmine.
+            changing id length for motechId in all forms
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="length" valueNumeric="7"  />
+            <where>id In (53475686867887,7645645756876,10000000000404,10000000000504,10000000000804,10000000000904,10000000000104,10000000001605,10000000001705,434546463984501,10000000000005,464546463987801,473346463981210,473346463981216,473346463981222,473346463981201,10000000000203,10000000000217,10000000000225,10000000000233,254546463981101154546463981441,10000000000604,10000000000704,064546463981701,879874663983211,695474663923331,10000000001005,10000000001017,10000000001104,10000000001304,10000000001404,695474663923354,1232874663923354,695474663923356,1233174663923356,1233174663923356)</where>
+        </update>
+    </changeSet>-->
+
 
 </databaseChangeLog>
