@@ -139,7 +139,7 @@
     &lt;xf:bind id="chpsid" nodeset="/pat-query/chpsid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind id="facilityid" nodeset="/pat-query/facilityid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind id="formname" nodeset="/pat-query/formname" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="motechid" nodeset="/pat-query/motechid" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf'" required="true()" type="xsd:int" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="motechid" nodeset="/pat-query/motechid" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
     &lt;xf:bind action="show" id="firstname" nodeset="/pat-query/firstname" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="lastname" nodeset="/pat-query/lastname" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="PreferredName" nodeset="/pat-query/PreferredName" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
@@ -253,6 +253,7 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
     &lt;text xpath="xforms/model/bind[@id='chpsid'][@message]" value="Number too large. Keep under 2147483647"/&gt;
     &lt;text xpath="xforms/model/bind[@id='facilityid'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='motechid'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
     &lt;text xpath="xforms/model/bind[@id='dob'][@message]" value="Invalid date: date specified is in the future"/&gt;
     &lt;text xpath="xforms/model/bind[@id='phonenumber'][@message]" value="Number too large. Keep under 2147483647"/&gt;
     &lt;text xpath="xforms/model/bind[@id='sender'][@message]" value="Number too large. Keep under 2147483647"/&gt;
