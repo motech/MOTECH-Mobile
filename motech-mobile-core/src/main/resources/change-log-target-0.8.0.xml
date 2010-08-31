@@ -383,6 +383,17 @@
         </update>
     </changeSet>
 
+    <changeSet context="update" id="1000000000000-35" author="yoofi">
+         <comment>
+            change to set type field of form parameters to DELIVERYDATE. Partial fix for issue #586 in redmine.
+            updating estDeliveryDate and expDeliveryDate fields for ANC-jf, RegisterPatient-jf and RegisterPregnancy-jf forms
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="parameter_type" value="DELIVERYDATE"  />
+            <where>id IN (10000000001206,10000000001024,10000000001105)</where>
+        </update>
+    </changeSet>
+
 <!--    <changeSet context="update" id="1000000000000-32" author="joseph">
          <comment>
             change to enforce id rules.issue #732 in redmine.
