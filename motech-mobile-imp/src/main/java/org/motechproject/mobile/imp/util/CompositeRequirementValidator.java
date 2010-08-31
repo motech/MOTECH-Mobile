@@ -22,8 +22,13 @@ public class CompositeRequirementValidator {
     public boolean validate(IncomingMessageForm form, CoreManager coreManager) {
         boolean valid = false;
         int matchCount = 0;
+        String fieldName = "";
 
         for (String field : fields) {
+            if (fieldName.isEmpty()) {
+                fieldName = field;
+            }
+
             if (form.getIncomingMsgFormParameters().containsKey(field.toLowerCase())) {
                 matchCount++;
             }
@@ -32,15 +37,19 @@ public class CompositeRequirementValidator {
         if (matchCount >= requiredMatches) {
             valid = true;
         } else {
-            for (String field : fields) {
-                IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
-                param.setName(field.toLowerCase());
-                param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
-                param.setErrCode(1);
-                param.setErrText("missing (at least " + requiredMatches + " of these fields required)");
+            String error = "At least " + requiredMatches + " of the fields below required:";
 
-                form.getIncomingMsgFormParameters().put(field.toLowerCase(), param);
+            IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
+            param.setName(fieldName.toLowerCase());
+            param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
+
+            for (String field : fields) {
+                error += "\n" + field;
             }
+            param.setErrCode(1);
+            param.setErrText(error);
+
+            form.getIncomingMsgFormParameters().put(fieldName.toLowerCase(), param);
         }
         return valid;
     }
