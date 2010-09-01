@@ -6,7 +6,6 @@ import org.motechproject.mobile.core.model.GatewayRequestDetails;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.service.MotechContext;
 import java.util.Date;
 import java.util.List;
 

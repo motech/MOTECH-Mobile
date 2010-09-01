@@ -8,8 +8,6 @@ import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import java.util.Date;
 import java.util.HashSet;
@@ -51,8 +49,7 @@ public class ORServeGatewayManagerImplTest {
     @Test
     public void testSendMessage() {
         System.out.println("sendMessage");
-        
-        MotechContext context = new MotechContextImpl();
+
         GatewayRequest messageDetails = new GatewayRequestImpl();
         messageDetails.setDateFrom(new Date());
         messageDetails.setMessage("a message for testing");

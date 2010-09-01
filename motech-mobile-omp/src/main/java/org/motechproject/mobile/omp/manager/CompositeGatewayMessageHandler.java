@@ -7,7 +7,6 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.service.MotechContext;
 
 public class CompositeGatewayMessageHandler implements GatewayMessageHandler {
 

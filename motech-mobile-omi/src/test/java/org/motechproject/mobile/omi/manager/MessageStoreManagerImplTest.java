@@ -15,8 +15,6 @@ import org.motechproject.mobile.core.model.MessageTemplateImpl;
 import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationType;
 import org.motechproject.mobile.core.model.NotificationTypeImpl;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import java.util.HashSet;
 import java.util.Set;
 import static org.easymock.EasyMock.*;
@@ -39,7 +37,6 @@ public class MessageStoreManagerImplTest {
     MessageStoreManager instance;
     Language mockLang;
     MessageTemplate template;
-    MotechContext mCtx;
 
     public MessageStoreManagerImplTest() {
     }

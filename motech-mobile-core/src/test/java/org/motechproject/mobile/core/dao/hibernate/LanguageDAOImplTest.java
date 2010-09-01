@@ -4,7 +4,6 @@ import org.motechproject.mobile.core.dao.LanguageDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.Language;
 import org.motechproject.mobile.core.model.LanguageImpl;
-import org.motechproject.mobile.core.service.MotechContext;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -44,7 +43,6 @@ public class LanguageDAOImplTest {
     @Autowired
     CoreManager coreManager;
     String code;
-    MotechContext mc;
 
     @Before
     public void setUp() {
@@ -77,7 +75,7 @@ public class LanguageDAOImplTest {
         lDao.save(l2);
         lDao.save(l3);
         lDao.save(l4);
-  
+
     }
 
     @After
@@ -96,7 +94,7 @@ public class LanguageDAOImplTest {
     @Test
     public void testSave() {
         System.out.println("Test save Language object");
-    
+
         lDao.save(l1);
 
 
@@ -154,7 +152,7 @@ public class LanguageDAOImplTest {
 
         lDao.delete(l4);
 
-        Language fromdb = (LanguageImpl)lDao.getSessionFactory().getCurrentSession().get(LanguageImpl.class, l4.getId());
+        Language fromdb = (LanguageImpl) lDao.getSessionFactory().getCurrentSession().get(LanguageImpl.class, l4.getId());
         Assert.assertNull(fromdb);
 
     }
@@ -170,7 +168,7 @@ public class LanguageDAOImplTest {
         String name = "Netherland";
         l4.setCode(code);
         l4.setName(name);
-   
+
         lDao.save(l4);
 
         Language fromdb = (LanguageImpl) lDao.getSessionFactory().getCurrentSession().get(LanguageImpl.class, l4.getId());

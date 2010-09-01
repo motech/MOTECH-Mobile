@@ -1,7 +1,7 @@
 package org.motechproject.mobile.omp.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.motechproject.mobile.core.dao.DBSession;
+
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
 import org.motechproject.mobile.core.dao.GatewayResponseDAO;
 import static org.easymock.EasyMock.*;
@@ -13,8 +13,6 @@ import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,13 +34,11 @@ public class SMSCacheServiceImplTest {
 
     SMSCacheServiceImpl instance;
 
-    DBSession mockSession;
     Transaction mockTrans;
     CoreManager mockCore;
     GatewayRequestDAO mockMessageDAO;
     GatewayResponseDAO mockResponseDAO;
     GatewayRequestDetails mockGatewayRequestDetails;
-    MotechContext mCtx;
 
     public SMSCacheServiceImplTest() {
     }
@@ -51,14 +47,12 @@ public class SMSCacheServiceImplTest {
     public void setUp(){
         mockCore = createMock(CoreManager.class);
         mockTrans = createMock(Transaction.class);
-        mockSession = createMock(DBSession.class);
         mockGatewayRequestDetails = createMock(GatewayRequestDetails.class);
         
         mockGatewayRequestDetails.setId(32000000000l);
         instance = new SMSCacheServiceImpl();
         instance.setCoreManager(mockCore);
-        
-        mCtx = new MotechContextImpl();
+
     }
 
     /**

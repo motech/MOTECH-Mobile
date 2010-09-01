@@ -10,8 +10,6 @@ import org.motechproject.mobile.core.model.GatewayRequestImpl;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.GatewayResponseImpl;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +37,6 @@ public class SMSMessagingServiceImplTest {
     SMSMessagingServiceImpl instance;
 
     SMSMessagingServiceWorker mockWorker;
-    MotechContext mCtx;
     CoreManager mockCore;
     CacheService mockCache;
     GatewayManager mockGateway;    
@@ -62,8 +59,7 @@ public class SMSMessagingServiceImplTest {
         instance.setGatewayManager(mockGateway);
         instance.setCoreManager(mockCore);
         instance.setWorker(mockWorker);
-        
-        mCtx = new MotechContextImpl();
+
     }
 
     /**

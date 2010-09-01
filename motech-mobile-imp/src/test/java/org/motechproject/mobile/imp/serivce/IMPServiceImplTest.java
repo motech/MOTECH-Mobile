@@ -21,7 +21,6 @@ import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.Duplicatable;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
@@ -49,7 +48,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"classpath:META-INF/imp-test-config.xml"})
 public class IMPServiceImplTest {
     IMPManager mockImp;
-    DBSession mockSession;
     Transaction mockTrans;
     CoreManager mockCore;
     CommandAction mockCmdAxn;
@@ -68,7 +66,6 @@ public class IMPServiceImplTest {
         mockCmdAxn = createMock(CommandAction.class);
         mockParser = createMock(IncomingMessageParser.class);
         mockMsgDao = createMock(IncomingMessageDAO.class);
-        mockSession = createMock(DBSession.class);
         mockTrans = createMock(Transaction.class);
         mockImp = createMock(IMPManager.class);
         mockRegistry = createMock(MessageRegistry.class);

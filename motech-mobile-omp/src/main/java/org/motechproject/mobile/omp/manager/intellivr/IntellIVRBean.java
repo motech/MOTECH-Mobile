@@ -36,7 +36,6 @@ import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationType;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
@@ -601,7 +600,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 		ResponseType r = new ResponseType();
 		String userId = request.getUserid();
-		MotechContext context = null;
+	
 		
 		log.info("Received ivr config request for id " + userId);
 
@@ -717,8 +716,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 			r.setErrorString("Invalid user id: no such id '" + userId + "' on server");
 			r.setStatus(StatusType.ERROR);
 		} finally {
-			if ( context != null )
-				context.cleanUp();
+			
 		}
 
 		return r;

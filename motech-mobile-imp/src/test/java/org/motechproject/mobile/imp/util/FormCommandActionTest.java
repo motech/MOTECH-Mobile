@@ -1,12 +1,9 @@
 package org.motechproject.mobile.imp.util;
 
-import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.IncMessageFormDefinitionType;
 import org.motechproject.mobile.core.model.IncomingMessageSession;
 import org.motechproject.mobile.core.model.IncomingMessageSessionImpl;
-import org.motechproject.mobile.core.service.MotechContext;
-import org.motechproject.mobile.core.service.MotechContextImpl;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDefinitionDAO;
@@ -41,7 +38,6 @@ import static org.easymock.EasyMock.*;
 public class FormCommandActionTest {
 
     CoreManager mockCore;
-    DBSession mockSession;
     Transaction mockTrans;
     FormCommandAction instance;
     FormProcessor mockProcessor;
@@ -60,7 +56,6 @@ public class FormCommandActionTest {
     public void setUp() {
         mockCore = createMock(CoreManager.class);
         mockParser = createMock(IncomingMessageParser.class);
-        mockSession = createMock(DBSession.class);
         mockTrans = createMock(Transaction.class);
         mockProcessor = createMock(FormProcessor.class);
 
@@ -79,7 +74,6 @@ public class FormCommandActionTest {
         
         String requesterPhone = "000000000000";
         IncomingMessage message = new IncomingMessageImpl();
-        MotechContext context = new MotechContextImpl();
         String expResult = "An unexpected error occurred! Please try again.";
         
         IncomingMessageFormImpl msgForm = new IncomingMessageFormImpl();
@@ -204,10 +198,10 @@ public class FormCommandActionTest {
         
 
 //        replay(mockCore,mockParser,mockSessDao,mockSession,mockTrans,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
-        replay(mockCore,mockParser,mockSessDao,mockSession,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
+        replay(mockCore,mockParser,mockSessDao,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
         IncomingMessageResponse result = instance.execute(message, requesterPhone);
 //        verify(mockCore,mockParser,mockSessDao,mockSession,mockTrans,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
-        verify(mockCore,mockParser,mockSessDao,mockSession,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
+        verify(mockCore,mockParser,mockSessDao,mockFormDefDao,mockFormDao, mockValidator, mockRespDao);
 
         assertNotNull(result);
         assertEquals(expResult, result.getContent());
@@ -221,7 +215,7 @@ public class FormCommandActionTest {
         System.out.println("initializeSession");
         IncomingMessage message = new IncomingMessageImpl();
         String requesterPhone = "000000000000";
-        MotechContext context = new MotechContextImpl();
+
 
         mockSessDao = createMock(IncomingMessageSessionDAO.class);
 
@@ -250,10 +244,10 @@ public class FormCommandActionTest {
         expectLastCall();
 
 //        replay(mockCore,mockParser,mockSessDao,mockSession,mockTrans);
-        replay(mockCore,mockParser,mockSessDao,mockSession);
+        replay(mockCore,mockParser,mockSessDao);
         IncomingMessageSession result = instance.initializeSession(message, requesterPhone);
 //        verify(mockCore,mockParser,mockSessDao,mockSession,mockTrans);
-        verify(mockCore,mockParser,mockSessDao,mockSession);
+        verify(mockCore,mockParser,mockSessDao);
 
         assertNotNull(result);
     }
@@ -303,10 +297,10 @@ public class FormCommandActionTest {
         expectLastCall();
 
 //        replay(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession,mockTrans);
-        replay(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession);
+        replay(mockCore,mockFormDefDao,mockParser,mockFormDao);
         IncomingMessageForm result = instance.initializeForm(message, formCode);
 //        verify(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession,mockTrans);
-        verify(mockCore,mockFormDefDao,mockParser,mockFormDao,mockSession);
+        verify(mockCore,mockFormDefDao,mockParser,mockFormDao);
 
         assertNotNull(result);
     }
@@ -318,7 +312,6 @@ public class FormCommandActionTest {
     public void testPrepareResponse() {
         System.out.println("prepareResponse");
         IncomingMessage message = new IncomingMessageImpl();
-        MotechContext context = new MotechContextImpl();
 
         mockRespDao = createMock(IncomingMessageResponseDAO.class);
 
@@ -362,10 +355,10 @@ public class FormCommandActionTest {
         expectLastCall();
 
 //        replay(mockCore,mockRespDao,mockSession,mockTrans);
-        replay(mockCore,mockRespDao,mockSession);
+        replay(mockCore,mockRespDao);
         result = instance.prepareResponse(message, null);
 //        verify(mockCore,mockRespDao,mockSession,mockTrans);
-        verify(mockCore,mockRespDao,mockSession);
+        verify(mockCore,mockRespDao);
 
         expResult = "Data saved successfully";
         assertNotNull(result);
@@ -388,7 +381,7 @@ public class FormCommandActionTest {
         message.getIncomingMessageForm().getIncomingMsgFormParameters().put(param2.getName(),param2);
 
 //        reset(mockCore,mockRespDao,mockSession,mockTrans);
-        reset(mockCore,mockRespDao,mockSession);
+        reset(mockCore,mockRespDao);
 
         expect(
                 mockCore.createIncomingMessageResponse()
@@ -412,10 +405,10 @@ public class FormCommandActionTest {
         expectLastCall();
 
 //        replay(mockCore,mockRespDao,mockSession,mockTrans);
-        replay(mockCore,mockRespDao,mockSession);
+        replay(mockCore,mockRespDao);
         result = instance.prepareResponse(message, null);
 //        verify(mockCore,mockRespDao,mockSession,mockTrans);
-        verify(mockCore,mockRespDao,mockSession);
+        verify(mockCore,mockRespDao);
 
         expResult = "Errors:\nage=too long\nname=wrong format";
         assertNotNull(result);
@@ -431,7 +424,7 @@ public class FormCommandActionTest {
         message.getIncomingMessageForm().getIncomingMsgFormParameters().put(param2.getName(),param2);
 
 //        reset(mockCore,mockRespDao,mockSession,mockTrans);
-        reset(mockCore,mockRespDao,mockSession);
+        reset(mockCore,mockRespDao);
 
         expect(
                 mockCore.createIncomingMessageResponse()
@@ -455,10 +448,10 @@ public class FormCommandActionTest {
         expectLastCall();
 
 //        replay(mockCore,mockRespDao,mockSession,mockTrans);
-        replay(mockCore,mockRespDao,mockSession);
+        replay(mockCore,mockRespDao);
         result = instance.prepareResponse(message, null);
 //        verify(mockCore,mockRespDao,mockSession,mockTrans);
-        verify(mockCore,mockRespDao,mockSession);
+        verify(mockCore,mockRespDao);
 
         expResult = "Errors:\nage=server error";
         assertNotNull(result);

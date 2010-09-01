@@ -3,7 +3,6 @@ package org.motechproject.mobile.omp.manager.orserve;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.service.MotechContext;
 import org.motechproject.mobile.core.util.MotechException;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
@@ -13,7 +12,6 @@ import java.net.URL;
 import java.util.Set;
 import javax.xml.namespace.QName;
 import java.net.MalformedURLException;
-import java.net.URLEncoder;
 import java.util.Date;
 import org.apache.log4j.Logger;
 

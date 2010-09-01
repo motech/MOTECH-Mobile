@@ -1,9 +1,6 @@
 package org.motechproject.mobile.omi.service;
 
-import java.io.Serializable;
-import org.junit.Ignore;
 import org.springframework.transaction.annotation.Transactional;
-import org.motechproject.mobile.core.dao.DBSession;
 import org.motechproject.mobile.core.dao.GatewayRequestDAO;
 import org.motechproject.mobile.core.dao.GatewayRequestDetailsDAO;
 import org.motechproject.mobile.core.dao.GatewayResponseDAO;
@@ -59,7 +56,6 @@ public class OMIServiceImplTest {
 
     OMPManager mockOMP;
     CoreManager mockCore;
-    DBSession mockSession;
     Transaction mockTrans;
     OMIServiceImpl instance;
     MessageStoreManager mockStore;
@@ -86,7 +82,6 @@ public class OMIServiceImplTest {
         mockRequestDao = createMock(MessageRequestDAO.class);
         mockNoteDao = createMock(NotificationTypeDAO.class);
         mockLangDao = createMock(LanguageDAO.class);
-        mockSession = createMock(DBSession.class);
         mockTrans = createMock(Transaction.class);
         mockGwDetDao = createMock(GatewayRequestDetailsDAO.class);
         mockHandler = createMock(StatusHandler.class);
