@@ -154,7 +154,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("MOTHERPNC-JF");
 
-        mockWS.recordMotherPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (String) anyObject());
+        mockWS.recordMotherPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (String) anyObject());
         expectLastCall();
 
         replay(mockWS);

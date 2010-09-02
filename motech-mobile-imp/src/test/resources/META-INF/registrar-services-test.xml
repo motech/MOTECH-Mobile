@@ -237,6 +237,7 @@
                 <entry key="ttDose" value="java.lang.Integer" />
                 <entry key="lochiaColour" value="java.lang.Integer" />
                 <entry key="lochiaAmountExcess" value="java.lang.Boolean" />
+                <entry key="lochiaOdourFoul" value="java.lang.Boolean" />
                 <entry key="temperature" value="java.lang.Double" />
                 <entry key="fht" value="java.lang.Double" />
                 <entry key="comments" value="java.lang.String" />

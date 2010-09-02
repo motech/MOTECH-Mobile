@@ -33,8 +33,8 @@
            <column name="obj_vesion" valueNumeric="0"/>
            <column name="incoming_message_form_definition_id" valueNumeric="200000000000005"/>
            <column name="name" value="locOdour" />
-           <column name="parameter_type" value="ALPHANUM"/>
-           <column name="length" valueNumeric="50"/>
+           <column name="parameter_type" value="BOOLEAN"/>
+           <column name="length" valueNumeric="1"/>
            <column name="required" valueBoolean="true" />
            <column name="date_created" valueDate="2010-08-24 12:18:00" />
            <column name="last_modified" valueDate="2010-08-24 12:18:00"/>
