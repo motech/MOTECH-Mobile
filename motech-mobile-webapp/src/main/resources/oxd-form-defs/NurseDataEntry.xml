@@ -249,13 +249,13 @@
     &lt;/xf:input&gt;
     &lt;xf:select1 bind="urineTestProteinPositive"&gt;
       &lt;xf:label&gt;Urine test-protein&lt;/xf:label&gt;
-      &lt;xf:item id="N"&gt;
+      &lt;xf:item id="0"&gt;
         &lt;xf:label&gt;Negative&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
+        &lt;xf:value&gt;0&lt;/xf:value&gt;
       &lt;/xf:item&gt;
-      &lt;xf:item id="Y"&gt;
+      &lt;xf:item id="1"&gt;
         &lt;xf:label&gt;Positive&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
+        &lt;xf:value&gt;1&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
     &lt;xf:select1 bind="urineTestGlucosePositive"&gt;
@@ -551,8 +551,8 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='fht']/label" value="FHt (cm)"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='fhr']/label" value="FHr (bpm)"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestProteinPositive']/label" value="Urine test-protein"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestProteinPositive']/item[@id='N']/label" value="Negative"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestProteinPositive']/item[@id='Y']/label" value="Positive"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestProteinPositive']/item[@id='0']/label" value="Negative"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestProteinPositive']/item[@id='1']/label" value="Positive"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/label" value="Urine test-glucose"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='0']/label" value="Negative"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='1']/label" value="Positive"/&gt;
