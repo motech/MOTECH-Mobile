@@ -102,8 +102,8 @@
                 <entry key="itnUse" value="java.lang.Boolean" />
                 <entry key="fht" value="java.lang.Double" />
                 <entry key="fhr" value="java.lang.Integer" />
-                <entry key="urineTestProteinPositive" value="java.lang.Boolean" />
-                <entry key="urineTestGlucosePositive" value="java.lang.Boolean" />
+                <entry key="urineTestProteinPositive" value="java.lang.Integer" />
+                <entry key="urineTestGlucosePositive" value="java.lang.Integer" />
                 <entry key="hemoglobin" value="java.lang.Double" />
                 <entry key="vdrlReactive" value="java.lang.Boolean" />
                 <entry key="vdrlTreatment" value="java.lang.Boolean" />
