@@ -21,6 +21,7 @@ import org.motechproject.ws.MediaType;
 import org.motechproject.ws.MessageStatus;
 import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
+import org.motechproject.ws.PatientMessage;
 import org.motechproject.ws.mobile.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -61,6 +62,52 @@ public class MessageServiceImplITCase {
         }
     }
 
+    /**
+     * Test of sendPatientMessages method, of class MessageServiceImpl.
+     */
+    @Test
+    public void testSendPatientMessages() {
+        System.out.println("sendPatientMessages");
+        
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        
+        PatientMessage msg1 = new PatientMessage();
+        msg1.setMessageId("testId1");
+        NameValuePair attrib1 = new NameValuePair("PatientFirstName", "Tester1");
+        NameValuePair attrib2 = new NameValuePair("DueDate", "now");
+        msg1.setPersonalInfo(new NameValuePair[]{attrib1, attrib2});
+        msg1.setStartDate(date);
+        cal.add(Calendar.HOUR, 1);
+        msg1.setEndDate(cal.getTime());
+        msg1.setPatientNumber("0900000001");
+        msg1.setPatientNumberType(ContactNumberType.PERSONAL);
+        msg1.setMediaType(MediaType.TEXT);
+        msg1.setLangCode("en");
+        msg1.setNotificationType(2L);
+        msg1.setRecipientId("1234567");
+        
+        PatientMessage msg2 = new PatientMessage();
+        msg1.setMessageId("testId1");
+        NameValuePair attrib3 = new NameValuePair("PatientFirstName", "Tester2");
+        NameValuePair attrib4 = new NameValuePair("DueDate", "now");
+        msg1.setPersonalInfo(new NameValuePair[]{attrib3, attrib4});
+        msg1.setStartDate(date);
+        cal.setTime(date);
+        cal.add(Calendar.HOUR, 1);
+        msg1.setEndDate(cal.getTime());
+        msg1.setPatientNumber("0900000002");
+        msg1.setPatientNumberType(ContactNumberType.HOUSEHOLD);
+        msg1.setMediaType(MediaType.VOICE);
+        msg1.setLangCode("en");
+        msg1.setNotificationType(2L);
+        msg1.setRecipientId("1234568");
+        
+        PatientMessage[] messages = new PatientMessage[]{msg1,msg2};
+        
+        client.sendPatientMessages(messages);
+    }
+    
     /**
      * Test of sendPatientMessage method, of class MessageServiceImpl.
      */
