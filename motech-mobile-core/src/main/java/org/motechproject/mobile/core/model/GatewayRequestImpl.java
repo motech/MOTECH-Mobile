@@ -1,11 +1,16 @@
 package org.motechproject.mobile.core.model;
 
+import org.apache.log4j.Logger;
+import org.motechproject.mobile.core.util.MotechException;
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Date :Jul 24, 2009
@@ -29,10 +34,11 @@ public class GatewayRequestImpl implements GatewayRequest, Serializable {
     private MessageRequest messageRequest;
 
     public GatewayRequestImpl() {
+        this.id = MotechIDGenerator.generateID();
     }
 
     public GatewayRequestImpl(Date dateTo, String messageText, String recipientsNumber, Date dateFrom, Date dateSent) {
-
+        this();
         this.dateTo = dateTo;
         this.message = messageText;
         this.dateFrom = dateFrom;

@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.model;
 
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -24,10 +26,11 @@ public class IncomingMessageFormDefinitionImpl implements IncomingMessageFormDef
     private Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinitions = new HashSet<IncomingMessageFormParameterDefinition>();
     private Set<IncomingMessageForm> incomingMessageForms = new HashSet<IncomingMessageForm>();
 
+    public IncomingMessageFormDefinitionImpl() {
+        this.id = MotechIDGenerator.generateID();
+    }
 
-
-
-private int version=-1;
+    private int version=-1;
     /**
      * @return the version
      */

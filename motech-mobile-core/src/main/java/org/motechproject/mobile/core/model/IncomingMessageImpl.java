@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.model;
 
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.util.Date;
 
 /**
@@ -21,6 +23,9 @@ public class IncomingMessageImpl implements IncomingMessage {
     private IncMessageStatus messageStatus;
 
 
+    public IncomingMessageImpl(){
+        this.id = MotechIDGenerator.generateID();
+    }
 
 private int version=-1;
     /**

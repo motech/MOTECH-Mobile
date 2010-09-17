@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.model;
 
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.util.Date;
 
 /*
@@ -20,8 +22,11 @@ public class IncomingMessageFormParameterDefinitionImpl  implements IncomingMess
     private Date dateCreated;
     private Date lastModified;
 
+    public IncomingMessageFormParameterDefinitionImpl() {
+        this.id = MotechIDGenerator.generateID();
+    }
 
-private int version=-1;
+    private int version=-1;
     /**
      * @return the version
      */

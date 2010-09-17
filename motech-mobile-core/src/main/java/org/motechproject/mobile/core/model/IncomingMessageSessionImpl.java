@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.model;
 
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -23,6 +25,9 @@ public class IncomingMessageSessionImpl implements IncomingMessageSession {
     private List<IncomingMessage> incomingMessages = new ArrayList<IncomingMessage>();
     private IncMessageSessionStatus messageSessionStatus;
 
+    public IncomingMessageSessionImpl(){
+        this.id = MotechIDGenerator.generateID();
+    }
 
 
 private int version=-1;

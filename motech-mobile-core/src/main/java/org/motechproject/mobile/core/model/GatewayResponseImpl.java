@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.model;
 
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -25,9 +27,11 @@ public class GatewayResponseImpl implements GatewayResponse,Serializable {
     private Date lastModified;
 
     public GatewayResponseImpl() {
+        this.id = MotechIDGenerator.generateID();
     }
 
     public GatewayResponseImpl(String gatewayMessageId, String recipientNumber, MStatus messageStatus) {
+        this();
         this.gatewayMessageId = gatewayMessageId;
         this.recipientNumber = recipientNumber;
         this.messageStatus = messageStatus;

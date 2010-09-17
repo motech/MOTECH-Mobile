@@ -140,45 +140,59 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
 <!--  End of liquibase settings  -->
     <bean id="gatewayRequestDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayRequestDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="gatewayResponseDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayResponseDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="messageRequestDAO" class="org.motechproject.mobile.core.dao.hibernate.MessageRequestDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="languageDAO" class="org.motechproject.mobile.core.dao.hibernate.LanguageDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="messageTemplateDAO" class="org.motechproject.mobile.core.dao.hibernate.MessageTemplateDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="notificationTypeDAO" class="org.motechproject.mobile.core.dao.hibernate.NotificationTypeDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="gatewayRequestDetailsDAO" class="org.motechproject.mobile.core.dao.hibernate.GatewayRequestDetailsDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
 
     <bean id="incomingMessageSessionDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageSessionDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="incomingMessageDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="incomingMessageResponseDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageResponseDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="incomingMessageFormDefinitionDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormDefinitionDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="incomingMessageFormParameterDefinitionDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormParameterDefinitionDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="incomingMessageFormDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="incomingMessageFormParameterDAO" class="org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormParameterDAOImpl" scope="prototype">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <!-- End of Data Access-->
 

@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.model;
 
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -36,6 +38,9 @@ public class MessageRequestImpl implements MessageRequest,Serializable {
     private String phoneNumberType;
     private GatewayRequestDetails gatewayRequestDetails;
 
+    public MessageRequestImpl(){
+        this.id = MotechIDGenerator.generateID();
+    }
 
 
     /**

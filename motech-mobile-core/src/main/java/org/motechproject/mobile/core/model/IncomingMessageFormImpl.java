@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.model;
 
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,8 +27,11 @@ public class IncomingMessageFormImpl implements IncomingMessageForm {
     private List<String> errors = new ArrayList<String>();
 
 
+    public IncomingMessageFormImpl() {
+        this.id = MotechIDGenerator.generateID();
+    }
 
-private int version=-1;
+    private int version=-1;
     /**
      * @return the version
      */

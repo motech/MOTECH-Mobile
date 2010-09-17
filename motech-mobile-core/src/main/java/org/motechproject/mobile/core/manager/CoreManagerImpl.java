@@ -29,10 +29,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public GatewayRequest createGatewayRequest() {
         logger.info("Creating GatewayRequest instance");
         GatewayRequest result = (GatewayRequest) getInstance("gatewayRequest", GatewayRequest.class);
-
-        logger.info("Setting generated Id to the GatewayRequest instance created");
-        result.setId(MotechIDGenerator.generateID());
-
         return result;
     }
 
@@ -42,8 +38,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public GatewayRequestDetails createGatewayRequestDetails() {
         logger.info("Creating GatewayRequestDetails instance");
         GatewayRequestDetails result = (GatewayRequestDetails) getInstance("gatewayRequestDetails", GatewayRequestDetails.class);
-
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -62,10 +56,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public GatewayResponse createGatewayResponse() {
         logger.info("Creating GatewayResponse  instance");
         GatewayResponse result = (GatewayResponse) getInstance("gatewayResponse", GatewayResponse.class);
-
-        logger.info("Setting generated Id to the GatewayResponse instance created");
-        result.setId(MotechIDGenerator.generateID());
-
         return result;
     }
 
@@ -75,8 +65,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public MessageRequest createMessageRequest() {
         logger.info("Creating MessageRequest instance");
         MessageRequest result = (MessageRequest) getInstance("messageRequest", MessageRequest.class);
-
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -106,7 +94,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageSession createIncomingMessageSession() {
         logger.info("Creating IncomingMessageSession instance");
         IncomingMessageSession result = (IncomingMessageSession) getInstance("incomingMessageSession", IncomingMessageSession.class);
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -116,7 +103,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessage createIncomingMessage() {
         logger.info("Creating IncomingMessage instance");
         IncomingMessage result = (IncomingMessage) getInstance("incomingMessage", IncomingMessage.class);
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -126,7 +112,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageResponse createIncomingMessageResponse() {
         logger.info("Creating IncomingMessageResponse instance");
         IncomingMessageResponse result = (IncomingMessageResponse) getInstance("incomingMessageResponse", IncomingMessageResponse.class);
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -136,7 +121,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormDefinition createIncomingMessageFormDefinition() {
         logger.info("Creating IncomingMessageFormDefinition instance");
         IncomingMessageFormDefinition result = (IncomingMessageFormDefinition) getInstance("incomingMessageFormDefinition", IncomingMessageFormDefinition.class);
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -146,7 +130,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormParameterDefinition createIncomingMessageFormParameterDefinition() {
         logger.info("Creating IncomingMessageFormParameterDefinition instance");
         IncomingMessageFormParameterDefinition result = (IncomingMessageFormParameterDefinition) getInstance("incomingMessageFormParameterDefinition", IncomingMessageFormParameterDefinition.class);
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -156,7 +139,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageForm createIncomingMessageForm() {
         logger.info("Creating IncomingMessageForm instance");
         IncomingMessageForm result = (IncomingMessageForm) getInstance("incomingMessageForm", IncomingMessageForm.class);
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -166,7 +148,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormParameter createIncomingMessageFormParameter() {
         logger.info("Creating IncomingMessageFormParameter instance");
         IncomingMessageFormParameter result = (IncomingMessageFormParameter) getInstance("incomingMessageFormParameter", IncomingMessageFormParameter.class);
-        result.setId(MotechIDGenerator.generateID());
         return result;
     }
 
@@ -176,9 +157,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public GatewayRequestDAO createGatewayRequestDAO() {
         logger.info("Creating GatewayRequestDAO instance");
         GatewayRequestDAO mdDAO = (GatewayRequestDAO) getInstance("gatewayRequestDAO", GatewayRequestDAO.class);
-
-        mdDAO.setSessionFactory(getSessionFactory());
-
         return mdDAO;
     }
 
@@ -188,9 +166,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public GatewayRequestDetailsDAO createGatewayRequestDetailsDAO() {
         logger.info("Creating GatewayRequestDetailsDAO instance");
         GatewayRequestDetailsDAO mdDAO = (GatewayRequestDetailsDAO) getInstance("gatewayRequestDetailsDAO", GatewayRequestDetailsDAO.class);
-
-        mdDAO.setSessionFactory(getSessionFactory());
-
         return mdDAO;
     }
 
@@ -200,9 +175,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public GatewayResponseDAO createGatewayResponseDAO() {
         logger.info("Creating GatewayResponseDAO instance");
         GatewayResponseDAO rdDAO = (GatewayResponseDAO) getInstance("gatewayResponseDAO", GatewayResponseDAO.class);
-
-        rdDAO.setSessionFactory(getSessionFactory());
-
         return rdDAO;
     }
 
@@ -213,7 +185,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public MessageRequestDAO createMessageRequestDAO() {
         logger.info("Creating ResponseDetailsDAO instance");
         MessageRequestDAO mrDAO = (MessageRequestDAO) getInstance("messageRequestDAO", MessageRequestDAO.class);
-        mrDAO.setSessionFactory(getSessionFactory());
         return mrDAO;
     }
 
@@ -223,7 +194,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public LanguageDAO createLanguageDAO() {
         logger.info("Creating LanguageDAO instance");
         LanguageDAO lDAO = (LanguageDAO) getInstance("languageDAO", LanguageDAO.class);
-        lDAO.setSessionFactory(getSessionFactory());
         return lDAO;
     }
 
@@ -233,7 +203,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public MessageTemplateDAO createMessageTemplateDAO() {
         logger.info("Creating messageTemplateDAO instance");
         MessageTemplateDAO mDAO = (MessageTemplateDAO) getInstance("messageTemplateDAO", MessageTemplateDAO.class);
-        mDAO.setSessionFactory(getSessionFactory());
         return mDAO;
     }
 
@@ -243,7 +212,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public NotificationTypeDAO createNotificationTypeDAO() {
         logger.info("Creating notiticationTypeDAO instance");
         NotificationTypeDAO nDAO = (NotificationTypeDAO) getInstance("notificationTypeDAO", NotificationTypeDAO.class);
-        nDAO.setSessionFactory(getSessionFactory());
         return nDAO;
     }
 
@@ -253,7 +221,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageSessionDAO createIncomingMessageSessionDAO() {
         logger.info("Creating IncomingMessageSessionDAO instance");
         IncomingMessageSessionDAO imsDAO = (IncomingMessageSessionDAO) getInstance("incomingMessageSessionDAO", IncomingMessageSessionDAO.class);
-        imsDAO.setSessionFactory(getSessionFactory());
         return imsDAO;
     }
 
@@ -263,7 +230,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageDAO createIncomingMessageDAO() {
         logger.info("Creating IncomingMessageDAO instance");
         IncomingMessageDAO imDAO = (IncomingMessageDAO) getInstance("incomingMessageDAO", IncomingMessageDAO.class);
-        imDAO.setSessionFactory(getSessionFactory());
         return imDAO;
     }
 
@@ -273,7 +239,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageResponseDAO createIncomingMessageResponseDAO() {
         logger.info("Creating IncomingMessageResponseDAO instance");
         IncomingMessageResponseDAO imDAO = (IncomingMessageResponseDAO) getInstance("incomingMessageResponseDAO", IncomingMessageResponseDAO.class);
-        imDAO.setSessionFactory(getSessionFactory());
         return imDAO;
     }
 
@@ -283,7 +248,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormDefinitionDAO createIncomingMessageFormDefinitionDAO() {
         logger.info("Creating IncomingMessageFormDefinitionDAO instance");
         IncomingMessageFormDefinitionDAO imDAO = (IncomingMessageFormDefinitionDAO) getInstance("incomingMessageFormDefinitionDAO", IncomingMessageFormDefinitionDAO.class);
-        imDAO.setSessionFactory(getSessionFactory());
         return imDAO;
     }
 
@@ -293,7 +257,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormParameterDefinitionDAO createIncomingMessageFormParameterDefinitionDAO() {
         logger.info("Creating IncomingMessageFormParameterDefinitionDAO instance");
         IncomingMessageFormParameterDefinitionDAO imDAO = (IncomingMessageFormParameterDefinitionDAO) getInstance("incomingMessageFormParameterDefinitionDAO", IncomingMessageFormParameterDefinitionDAO.class);
-        imDAO.setSessionFactory(getSessionFactory());
         return imDAO;
     }
 
@@ -303,7 +266,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormDAO createIncomingMessageFormDAO() {
         logger.info("Creating IncomingMessageFormDAO instance");
         IncomingMessageFormDAO imDAO = (IncomingMessageFormDAO) getInstance("incomingMessageFormDAO", IncomingMessageFormDAO.class);
-        imDAO.setSessionFactory(getSessionFactory());
         return imDAO;
     }
 
@@ -313,7 +275,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormParameterDAO createIncomingMessageFormParameterDAO() {
         logger.info("Creating IncomingMessageFormParameterDAO instance");
         IncomingMessageFormParameterDAO imDAO = (IncomingMessageFormParameterDAO) getInstance("incomingMessageFormParameterDAO", IncomingMessageFormParameterDAO.class);
-        imDAO.setSessionFactory(getSessionFactory());
         return imDAO;
     }
 

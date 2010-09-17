@@ -1,5 +1,7 @@
 package org.motechproject.mobile.core.model;
 
+import org.motechproject.mobile.core.util.MotechIDGenerator;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +13,6 @@ import java.util.Set;
 @SuppressWarnings("serial")
 public class GatewayRequestDetailsImpl implements GatewayRequestDetails, Serializable {
 
-    public GatewayRequestDetailsImpl() {
-    }
     private int version=-1;
     private Long id;
     private MessageType messageType;
@@ -20,6 +20,9 @@ public class GatewayRequestDetailsImpl implements GatewayRequestDetails, Seriali
     private int numberOfPages;
     private Set gatewayRequests = new HashSet();
 
+    public GatewayRequestDetailsImpl() {
+        this.id = MotechIDGenerator.generateID();  
+    }
     /**
      * @return the messageType
      */
