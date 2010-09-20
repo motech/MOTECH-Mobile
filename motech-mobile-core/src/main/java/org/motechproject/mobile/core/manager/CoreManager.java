@@ -205,15 +205,4 @@ public interface CoreManager extends Serializable {
      */
     public IncomingMessageFormParameterDAO createIncomingMessageFormParameterDAO();
     
-    /**
-     * @return the sessionContainer
-     */
-    SessionFactory getSessionFactory();
-
-    /**
-     * @param sessionContainer the sessionContainer to set
-     */
-    void setSessionFactory(SessionFactory sessionFactory);
-
-
 }

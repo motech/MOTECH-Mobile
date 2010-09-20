@@ -21,7 +21,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
 
     private static Logger logger = Logger.getLogger(CoreManagerImpl.class);
     ApplicationContext applicationContext;
-    private SessionFactory sessionFactory;
 
     /**
      * @see {@link org.motechproject.mobile.core.manager.CoreManager#createGatewayRequest( )  }
@@ -285,32 +284,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
         logger.info("Setting te applicationContext property");
         this.applicationContext = applicationContext;
     }
-
-    /**
-     * @see {@link org.motechproject.mobile.core.manager.CoreManager#getSessionContainer() }
-     */
-    public SessionFactory getSessionFactory() {
-        logger.info("Getting the sessionContainer");
-        return sessionFactory;
-    }
-
-    /**
-     * @see {@link org.motechproject.mobile.core.manager.CoreManager#setSessionContainer(org.motechproject.mobile.core.dao.SessionContainer) 
-     */
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        logger.info("Setting the sessionContainer");
-        this.sessionFactory = sessionFactory;
-    }
-
-//    /**
-//     * @see {@link org.motechproject.mobile.core.manager.CoreManager#createMotechContext() }
-//     */
-//    public MotechContext createMotechContext() {
-//        logger.info("Calling createMotechContext method");
-//        MotechContext<Session, Transaction> mc = (MotechContext) getInstance("motechContext", MotechContext.class);
-//        mc.getDBSession().setSession(sessionContainer.requestSession());
-//        return mc;
-//    }
 
     private Object getInstance(String beanName, Class<?> reqType) {
         logger.debug("Calling getInstance");

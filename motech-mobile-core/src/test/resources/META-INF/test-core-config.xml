@@ -203,9 +203,7 @@ class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
     <!-- Managers -->
 
-    <bean id="coreManager" class="org.motechproject.mobile.core.manager.CoreManagerImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+    <bean id="coreManager" class="org.motechproject.mobile.core.manager.CoreManagerImpl" />
     <!-- End of Managers -->
 
 <!-- Transaction Management    -->
