@@ -1,6 +1,8 @@
 package org.motechproject.mobile.omi.ws;
 
 import org.motechproject.mobile.omi.manager.OMIManager;
+import org.motechproject.mobile.omi.service.OMIService;
+
 import java.util.Date;
 import javax.jws.WebParam;
 import javax.jws.WebMethod;
@@ -12,6 +14,7 @@ import org.motechproject.ws.MediaType;
 import org.motechproject.ws.MessageStatus;
 import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
+import org.motechproject.ws.PatientMessage;
 import org.motechproject.ws.mobile.MessageService;
 
 /**
@@ -26,6 +29,28 @@ public class MessageServiceImpl implements MessageService {
     private OMIManager omiManager;
     private static Logger logger = Logger.getLogger(MessageServiceImpl.class);
 
+    /**
+    *
+    * @see MessageService.sendPatientMessages
+    */
+   @WebMethod
+    public void sendPatientMessages(@WebParam(name="messages") PatientMessage[] messages) {
+        logger.debug("Called MessageService.sendPatientMessages with number of messages: " + 
+            (messages != null ? messages.length : "null"));
+       
+        logger.info("Processing request...");
+        if( messages != null) {
+            OMIService omiService = omiManager.createOMIService();
+            
+            for( PatientMessage message:messages) {
+                omiService.savePatientMessageRequest(message.getMessageId(), message.getPersonalInfo(), 
+                        message.getPatientNumber(), message.getPatientNumberType(), message.getLangCode(), 
+                        message.getMediaType(), message.getNotificationType(), message.getStartDate(), 
+                        message.getEndDate(), message.getRecipientId());
+            }
+        }
+    }
+    
     /**
      *
      * @see MessageService.sendPatientMessage
