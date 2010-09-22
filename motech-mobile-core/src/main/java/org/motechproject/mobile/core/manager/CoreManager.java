@@ -18,18 +18,6 @@ import org.hibernate.SessionFactory;
 public interface CoreManager extends Serializable {
 
     /**
-     * Creates a new instance of GatewayRequest
-     * @return The newly created GatewayRequest
-     */
-    public GatewayRequest createGatewayRequest();
-
-    /**
-     * Creates a new instance of GatewayRequestDetails
-     * @return The newly created GatewayRequestDetails
-     */
-    public GatewayRequestDetails createGatewayRequestDetails();
-
-    /**
      * Creates a new instance of GatewayResponse
      * @return The newly created GatewayResponse
      */
@@ -198,11 +186,4 @@ public interface CoreManager extends Serializable {
      */
     public IncomingMessageFormDAO createIncomingMessageFormDAO();
 
-    /**
-     * Creates a new instance of IncomingMessageFormParameterDAO
-     * @param motechContext takes a instance of MotechContext
-     * @return the newly created IncomingMessageFormParameterDAO
-     */
-    public IncomingMessageFormParameterDAO createIncomingMessageFormParameterDAO();
-    
 }

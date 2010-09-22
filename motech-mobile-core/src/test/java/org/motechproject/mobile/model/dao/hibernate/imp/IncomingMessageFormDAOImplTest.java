@@ -42,7 +42,6 @@ public class IncomingMessageFormDAOImplTest {
     CoreManager coreManager;
     IncomingMessageFormDAO imfDAO;
     IncomingMessageFormDefinitionDAO imfdDAO;
-    IncomingMessageFormParameterDAO imfPDAO;
     @Autowired
     private IncomingMessageFormDefinition imfd1;
     @Autowired
@@ -92,7 +91,6 @@ public class IncomingMessageFormDAOImplTest {
 
         imfDAO = coreManager.createIncomingMessageFormDAO();
         imfdDAO = coreManager.createIncomingMessageFormDefinitionDAO();
-        imfPDAO = coreManager.createIncomingMessageFormParameterDAO();
 
         imf1.setId(12000000001l);
         imf1.setDateCreated(new Date());

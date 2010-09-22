@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.model.GatewayRequestDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -48,7 +49,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class GatewayRequestDAOImplTest {
 
     @Autowired
-    CoreManager coreManager;
+    ApplicationContext applicationContext;
+    
     GatewayRequestDAO mDDAO;
     @Autowired
     private GatewayRequest md1;
@@ -90,10 +92,8 @@ public class GatewayRequestDAOImplTest {
 
     @Before
     public void setUp() {
-        mDDAO = coreManager.createGatewayRequestDAO();
-
-
-
+        mDDAO = (GatewayRequestDAO) applicationContext.getBean("gatewayRequestDAO", GatewayRequestDAO.class);
+        
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try {
             dateFrom1 = df.parse("2009-08-21");
@@ -264,12 +264,12 @@ public class GatewayRequestDAOImplTest {
     @Test
     public void testSaveWithDetails() {
         System.out.println("saving with with request details");
-        GatewayRequestDetails grd = coreManager.createGatewayRequestDetails();
+        GatewayRequestDetails grd = (GatewayRequestDetails) applicationContext.getBean("gatewayRequestDetails", GatewayRequestDetails.class);
         grd.setMessage("Test message");
         grd.setMessageType(MessageType.TEXT);
         grd.setNumberOfPages(1);
 
-        GatewayRequest md8 = coreManager.createGatewayRequest();
+        GatewayRequest md8 = (GatewayRequest) applicationContext.getBean("gatewayRequest", GatewayRequest.class);
         md8.setMessage("Test message");
         md8.setRecipientsNumber("123445");
         md8.setDateFrom(new Date());
@@ -287,12 +287,12 @@ public class GatewayRequestDAOImplTest {
     @Test
     public void testMergeWithDetails() {
         System.out.println("saving with with request details");
-        GatewayRequestDetails grd = coreManager.createGatewayRequestDetails();
+        GatewayRequestDetails grd = (GatewayRequestDetails) applicationContext.getBean("gatewayRequestDetails",GatewayRequestDetails.class);
         grd.setMessage("Test message");
         grd.setMessageType(MessageType.TEXT);
         grd.setNumberOfPages(1);
 
-        GatewayRequest md9 = coreManager.createGatewayRequest();
+        GatewayRequest md9 = (GatewayRequest) applicationContext.getBean("gatewayRequest", GatewayRequest.class);
         md9.setMessage("Test message");
         md9.setRecipientsNumber("123445");
         md9.setDateFrom(new Date());

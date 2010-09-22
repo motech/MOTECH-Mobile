@@ -1,20 +1,11 @@
 package org.motechproject.mobile.omi.manager;
 
 
+import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.GatewayRequestImpl;
-import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.model.MessageRequestImpl;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.core.dao.MessageTemplateDAO;
-import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayRequestDetailsImpl;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.LanguageImpl;
-import org.motechproject.mobile.core.model.MessageTemplate;
-import org.motechproject.mobile.core.model.MessageTemplateImpl;
-import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.model.NotificationType;
-import org.motechproject.mobile.core.model.NotificationTypeImpl;
+
 import java.util.HashSet;
 import java.util.Set;
 import static org.easymock.EasyMock.*;
@@ -22,6 +13,12 @@ import static org.easymock.EasyMock.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.motechproject.ws.NameValuePair;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
 import static org.junit.Assert.*;
 
 /**
@@ -34,9 +31,10 @@ public class MessageStoreManagerImplTest {
 
     CoreManager mockCore;
     MessageTemplateDAO mockTemplateDao;
-    MessageStoreManager instance;
+    MessageStoreManagerImpl instance;
     Language mockLang;
     MessageTemplate template;
+    ApplicationContext applicationContext;
 
     public MessageStoreManagerImplTest() {
     }
@@ -45,11 +43,13 @@ public class MessageStoreManagerImplTest {
     public void setUp(){
         mockCore = createMock(CoreManager.class);
         mockLang = createMock(Language.class);
+        applicationContext = createMock(ApplicationContext.class);
         mockLang.setId(16000000001l);
         mockLang.setCode("testing");
         mockTemplateDao = createMock(MessageTemplateDAO.class);
 
         instance = new MessageStoreManagerImpl();
+        instance.setApplicationContext(applicationContext);
         instance.setCoreManager(mockCore);
         instance.setCharsPerSMS(160);
         instance.setConcatAllowance(7);
@@ -80,17 +80,18 @@ public class MessageStoreManagerImplTest {
                 mockTemplateDao.getTemplateByLangNotifMType((Language)anyObject(), (NotificationType) anyObject(), (MessageType) anyObject(), (Language) anyObject())
                 ).andReturn(template);
         expect(
-                mockCore.createGatewayRequest()
+                applicationContext.getBean("gatewayRequest", GatewayRequest.class)
                 ).andReturn(new GatewayRequestImpl());
         expect(
-                mockCore.createGatewayRequestDetails()
+                applicationContext.getBean("gatewayRequestDetails", GatewayRequestDetails.class)
                 ).andReturn(new GatewayRequestDetailsImpl());
-        
-        replay(mockCore, mockTemplateDao);
 
+        replay(mockCore, mockTemplateDao, applicationContext);
+
+        System.out.println("111111" + instance);
         GatewayRequest result = instance.constructMessage(message, defaultLang);
         assertNotNull(result);
-        verify(mockCore, mockTemplateDao);
+        verify(mockCore, mockTemplateDao, applicationContext);
     }
 
     /**

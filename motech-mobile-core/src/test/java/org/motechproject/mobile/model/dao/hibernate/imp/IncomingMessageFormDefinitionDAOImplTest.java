@@ -31,7 +31,6 @@ public class IncomingMessageFormDefinitionDAOImplTest {
     @Autowired
     IncomingMessageFormDefinition fdef1;
 
-    IncomingMessageFormDefinition fdef2;
     String formCode = "TESTFORM";
 
     public IncomingMessageFormDefinitionDAOImplTest() {

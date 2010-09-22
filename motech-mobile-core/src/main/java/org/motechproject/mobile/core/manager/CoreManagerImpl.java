@@ -23,24 +23,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     ApplicationContext applicationContext;
 
     /**
-     * @see {@link org.motechproject.mobile.core.manager.CoreManager#createGatewayRequest( )  }
-     */
-    public GatewayRequest createGatewayRequest() {
-        logger.info("Creating GatewayRequest instance");
-        GatewayRequest result = (GatewayRequest) getInstance("gatewayRequest", GatewayRequest.class);
-        return result;
-    }
-
-    /**
-     * @see {@link org.motechproject.mobile.core.manager.CoreManager#createGatewayRequestDetails( )  }
-     */
-    public GatewayRequestDetails createGatewayRequestDetails() {
-        logger.info("Creating GatewayRequestDetails instance");
-        GatewayRequestDetails result = (GatewayRequestDetails) getInstance("gatewayRequestDetails", GatewayRequestDetails.class);
-        return result;
-    }
-
-    /**
      * @see {@link org.motechproject.mobile.core.manager.CoreManager#createLanguage() }
      */
     public Language createLanguage() {
@@ -265,15 +247,6 @@ public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
     public IncomingMessageFormDAO createIncomingMessageFormDAO() {
         logger.info("Creating IncomingMessageFormDAO instance");
         IncomingMessageFormDAO imDAO = (IncomingMessageFormDAO) getInstance("incomingMessageFormDAO", IncomingMessageFormDAO.class);
-        return imDAO;
-    }
-
-    /**
-     * @see {@link org.motechproject.mobile.core.manager.CoreManager#createIncomingMessageFormParameterDAO( )  }
-     */
-    public IncomingMessageFormParameterDAO createIncomingMessageFormParameterDAO() {
-        logger.info("Creating IncomingMessageFormParameterDAO instance");
-        IncomingMessageFormParameterDAO imDAO = (IncomingMessageFormParameterDAO) getInstance("incomingMessageFormParameterDAO", IncomingMessageFormParameterDAO.class);
         return imDAO;
     }
 

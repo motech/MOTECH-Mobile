@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -30,7 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class IncomingMessageFormParameterDAOImplTest {
 
     @Autowired
-    CoreManager coreManager;
+    ApplicationContext applicationContext;
+    
     IncomingMessageFormParameterDAO imfDAO;
     @Autowired
     private IncomingMessageFormParameter imfp1;
@@ -52,9 +54,7 @@ public class IncomingMessageFormParameterDAOImplTest {
 
     @Before
     public void setUp() {
-    
-        imfDAO = coreManager.createIncomingMessageFormParameterDAO();
-
+        imfDAO = (IncomingMessageFormParameterDAO) applicationContext.getBean("incomingMessageFormParameterDAO", IncomingMessageFormParameterDAO.class);
 
         imfp1.setId(12000000016l);
         imfp1.setDateCreated(new Date());

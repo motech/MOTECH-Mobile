@@ -19,6 +19,9 @@ import org.motechproject.mobile.omi.manager.MessageStoreManager;
 import org.motechproject.mobile.omi.manager.StatusHandler;
 import org.motechproject.mobile.omp.manager.OMPManager;
 import org.motechproject.mobile.omp.service.MessagingService;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Kweku
  */
-public class OMIServiceWorkerImpl implements OMIServiceWorker {
+public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContextAware {
 
     private static Logger logger = Logger.getLogger(OMIServiceWorkerImpl.class);
     private MessageStoreManager storeManager;
@@ -34,6 +37,7 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker {
     private CoreManager coreManager;
     private StatusHandler statHandler;
     private int maxTries;
+    private ApplicationContext applicationContext;
 
     public OMIServiceWorkerImpl() {
     }
@@ -80,7 +84,7 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker {
 
                 GatewayRequestDetails gwReqDet = (GatewayRequestDetails) gwReqDao.getById(message.getGatewayRequestDetails().getId());
 
-                GatewayRequest gwReq = getCoreManager().createGatewayRequest();
+                GatewayRequest gwReq = (GatewayRequest) applicationContext.getBean("gatewayRequest", GatewayRequest.class);
                 gwReq.setDateFrom(message.getDateFrom());
                 gwReq.setDateTo(message.getDateTo());
                 gwReq.setMessageRequest(message);
@@ -196,5 +200,9 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker {
      */
     public void setMaxTries(int maxTries) {
         this.maxTries = maxTries;
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

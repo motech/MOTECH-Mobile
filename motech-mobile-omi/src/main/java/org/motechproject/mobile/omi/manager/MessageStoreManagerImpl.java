@@ -14,6 +14,9 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.NameValuePair;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * An implementation of the MessageStore interface
@@ -23,7 +26,7 @@ import org.motechproject.ws.NameValuePair;
  * @date 30-JULY-2009
  *
  */
-public class MessageStoreManagerImpl implements MessageStoreManager {
+public class MessageStoreManagerImpl implements MessageStoreManager, ApplicationContextAware {
     private static Logger logger = Logger.getLogger(MessageStoreManagerImpl.class);
     private CoreManager coreManager;
     private int maxConcat;
@@ -31,14 +34,15 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
     private int concatAllowance;
     private String localNumberExpression = "";
     private String defaultCountryCode = "";
+    private ApplicationContext applicationContext;
 
     /**
      * 
      * @see MessageStoreManager.constructMessage
      */
-    public GatewayRequest constructMessage(MessageRequest messageData, Language defaultLang) {      
-        
-        GatewayRequest gwReq = coreManager.createGatewayRequest();        
+    public GatewayRequest constructMessage(MessageRequest messageData, Language defaultLang) {
+
+        GatewayRequest gwReq = (GatewayRequest) applicationContext.getBean("gatewayRequest", GatewayRequest.class);
         gwReq.setDateFrom(messageData.getDateFrom());
         gwReq.setDateTo(messageData.getDateTo());
         gwReq.setRecipientsNumber(formatPhoneNumber(messageData.getRecipientNumber(), messageData.getMessageType()));
@@ -46,7 +50,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         gwReq.setTryNumber(messageData.getTryNumber());
         gwReq.setMessageRequest(messageData);
         
-        GatewayRequestDetails gatewayDetails = coreManager.createGatewayRequestDetails();
+        GatewayRequestDetails gatewayDetails = (GatewayRequestDetails) applicationContext.getBean("gatewayRequestDetails", GatewayRequestDetails.class);
         gatewayDetails.setMessageType(messageData.getMessageType());
                 
         try{
@@ -195,6 +199,8 @@ public class MessageStoreManagerImpl implements MessageStoreManager {
         this.defaultCountryCode = defaultCountryCode;
     }
 
- 
-    
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

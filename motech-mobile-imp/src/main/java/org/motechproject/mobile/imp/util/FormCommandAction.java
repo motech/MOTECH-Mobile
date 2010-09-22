@@ -17,12 +17,16 @@ import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.core.model.IncomingMessageResponse;
 import org.motechproject.mobile.core.model.IncomingMessageSession;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
+import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDefinitionDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageResponseDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -32,13 +36,13 @@ import org.springframework.transaction.annotation.Transactional;
  *  Date : Dec 5, 2009
  */
 @Transactional
-public class FormCommandAction implements CommandAction {
-    private CoreManager coreManager;
+public class FormCommandAction implements CommandAction, ApplicationContextAware {
     private FormProcessor formProcessor;
     private IncomingMessageParser parser;
     private IncomingMessageFormValidator formValidator;
     private String senderFieldName;
     private static Logger logger = Logger.getLogger(FormCommandAction.class);
+    private ApplicationContext applicationContext;
 
     /**
      * 
@@ -54,7 +58,7 @@ public class FormCommandAction implements CommandAction {
         logger.info("Generating form");
         IncomingMessageForm form = initializeForm(message, imSession.getFormCode());
         if (form == null) {
-            response = coreManager.createIncomingMessageResponse();
+            response = (IncomingMessageResponse) applicationContext.getBean("incomingMessageResponse", IncomingMessageResponse.class);
             response.setContent("Errors: Unknown Form!\n\n'Type' parameter missing or invalid.");
             response.setIncomingMessage(message);
             response.setDateCreated(new Date());
@@ -83,7 +87,7 @@ public class FormCommandAction implements CommandAction {
             imSession.setRequesterPhone(message.getIncomingMessageForm().getIncomingMsgFormParameters().get(getSenderFieldName()).getValue());
 
 
-        IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO();
+        IncomingMessageSessionDAO sessionDao = (IncomingMessageSessionDAO) applicationContext.getBean("incomingMessageSessionDAO", IncomingMessageSessionDAO.class);
     
         try {
       
@@ -107,7 +111,7 @@ public class FormCommandAction implements CommandAction {
     public IncomingMessageSession initializeSession(IncomingMessage message, String requesterPhone) {
         String formCode = parser.getFormCode(message.getContent());
 
-        IncomingMessageSession imSession = coreManager.createIncomingMessageSession();
+        IncomingMessageSession imSession = (IncomingMessageSession) applicationContext.getBean("incomingMessageSession", IncomingMessageSession.class);
         imSession.setFormCode(formCode);
         imSession.setRequesterPhone(requesterPhone);
         imSession.setMessageSessionStatus(IncMessageSessionStatus.STARTED);
@@ -115,7 +119,7 @@ public class FormCommandAction implements CommandAction {
         imSession.setLastActivity(new Date());
         imSession.addIncomingMessage(message);
 
-        IncomingMessageSessionDAO sessionDao = coreManager.createIncomingMessageSessionDAO();
+        IncomingMessageSessionDAO sessionDao = (IncomingMessageSessionDAO) applicationContext.getBean("incomingMessageSessionDAO", IncomingMessageSessionDAO.class);
      
 
         try {
@@ -138,20 +142,20 @@ public class FormCommandAction implements CommandAction {
      * @return
      */
     public IncomingMessageForm initializeForm(IncomingMessage message, String formCode) {
-        IncomingMessageFormDefinition formDefn = coreManager.createIncomingMessageFormDefinitionDAO().getByCode(formCode);
+        IncomingMessageFormDefinition formDefn = ((IncomingMessageFormDefinitionDAO)applicationContext.getBean("incomingMessageFormDefinitionDAO", IncomingMessageFormDefinitionDAO.class)).getByCode(formCode);
 
         if (formDefn == null) {
             return null;
         }
 
-        IncomingMessageForm form = coreManager.createIncomingMessageForm();
+        IncomingMessageForm form = (IncomingMessageForm) applicationContext.getBean("incomingMessageForm", IncomingMessageForm.class);
         form.setIncomingMsgFormDefinition(formDefn);
         form.setMessageFormStatus(IncMessageFormStatus.NEW);
         form.setDateCreated(new Date());
         form.setIncomingMsgFormParameters(new HashMap<String, IncomingMessageFormParameter>());
         form.getIncomingMsgFormParameters().putAll(parser.getParams(message.getContent()));
 
-        IncomingMessageFormDAO formDao = coreManager.createIncomingMessageFormDAO();
+        IncomingMessageFormDAO formDao = (IncomingMessageFormDAO) applicationContext.getBean("incomingMessageFormDAO", IncomingMessageFormDAO.class);
 
 
         try {
@@ -174,7 +178,7 @@ public class FormCommandAction implements CommandAction {
     public IncomingMessageResponse prepareResponse(IncomingMessage message, String wsResponse) {
         IncomingMessageForm form = message.getIncomingMessageForm();
 
-        IncomingMessageResponse response = coreManager.createIncomingMessageResponse();
+        IncomingMessageResponse response = (IncomingMessageResponse) applicationContext.getBean("incomingMessageResponse", IncomingMessageResponse.class);
         response.setDateCreated(new Date());
         response.setIncomingMessage(message);
 
@@ -205,7 +209,7 @@ public class FormCommandAction implements CommandAction {
         }
         response.setMessageResponseStatus(IncMessageResponseStatus.SAVED);
 
-        IncomingMessageResponseDAO responseDao = coreManager.createIncomingMessageResponseDAO();
+        IncomingMessageResponseDAO responseDao = (IncomingMessageResponseDAO) applicationContext.getBean("incomingMessageResponseDAO", IncomingMessageResponseDAO.class);
   
 
         try {
@@ -218,20 +222,6 @@ public class FormCommandAction implements CommandAction {
         }
 
         return response;
-    }
-
-    /**
-     * @return the coreManager
-     */
-    public CoreManager getCoreManager() {
-        return coreManager;
-    }
-
-    /**
-     * @param coreManager the coreManager to set
-     */
-    public void setCoreManager(CoreManager coreManager) {
-        this.coreManager = coreManager;
     }
 
     /**
@@ -283,4 +273,7 @@ public class FormCommandAction implements CommandAction {
         this.senderFieldName = senderFieldName;
     }
 
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

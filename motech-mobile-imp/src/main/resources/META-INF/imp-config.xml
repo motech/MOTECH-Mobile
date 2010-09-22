@@ -82,7 +82,6 @@
     <bean id="formCmdAxn" scope="prototype" class="org.motechproject.mobile.imp.util.FormCommandAction">
         <property name="formValidator" ref="imFormValidator" />
         <property name="formProcessor" ref="formProcessor" />
-        <property name="coreManager" ref="coreManager" />
         <property name="parser" ref="imParser" />
         <property name="senderFieldName" value="${imp.oxd.senderField}" />
         </bean>
@@ -91,7 +90,6 @@
             <property name="senderFieldName" value="${imp.oxd.senderField}" />
             <property name="formValidator" ref="imFormValidator" />
             <property name="formProcessor" ref="formProcessor" />
-            <property name="coreManager" ref="coreManager" />
             <property name="parser" ref="imParser" />
         </bean>
 

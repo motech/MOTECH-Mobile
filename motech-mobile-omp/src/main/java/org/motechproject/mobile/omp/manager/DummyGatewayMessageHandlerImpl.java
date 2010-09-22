@@ -26,10 +26,6 @@ public class DummyGatewayMessageHandlerImpl implements GatewayMessageHandler {
     private Map<MStatus, String> codeStatusMap;
     private Map<MStatus, String> codeResponseMap;
 
-    public GatewayRequest prepareMessage(String message) {
-        return coreManager.createGatewayRequest();
-    }
-
     public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         if(message == null)
             return null;
