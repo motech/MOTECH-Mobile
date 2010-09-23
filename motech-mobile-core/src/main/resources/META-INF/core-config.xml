@@ -113,6 +113,9 @@
                 <value>org/motechproject/mobile/core/model/IncomingMessageFormParameterDefinition.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/IncomingMessageForm.hbm.xml</value>
                 <value>org/motechproject/mobile/core/model/IncomingMessageFormParameter.hbm.xml</value>
+                <value>org/motechproject/mobile/omp/manager/intellivr/IVRCallSession.hbm.xml</value>
+                <value>org/motechproject/mobile/omp/manager/intellivr/IVRCall.hbm.xml</value>
+                <value>org/motechproject/mobile/omp/manager/intellivr/IVRMenu.hbm.xml</value>
             </list>
         </property>
     </bean>

@@ -27,7 +27,7 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:ivrdaotest.properties</value>
+                <value>classpath:conv-ivr-session-config.properties</value>
             </list>
         </property>
     </bean>
@@ -78,6 +78,13 @@
     
     <bean id="ivrDao" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDAO">
     	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="convBean" class="org.motechproject.mobile.omp.manager.intellivr.ConvertSerializedIVRSessionsBean">
+    	<property name="ivrDao" ref="ivrDao"/>
+    	<property name="ivrSessionSerialResource" value="${convBean.sessionCacheFile}"/>
+    	<property name="bundlingDelay" value="${convBean.bundlingDelay}"/>
+    	<property name="dryRun" value="${convBean.dryRun}"/>
     </bean>
     
 

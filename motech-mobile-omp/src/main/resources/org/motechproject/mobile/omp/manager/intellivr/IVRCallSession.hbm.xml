@@ -13,12 +13,13 @@
 			<property name="attempts" type="int" column="attempts" not-null="true"/>
 			<property name="days" type="int" column="days" not-null="true"/>
 			<property name="state" type="int" column="state" not-null="true"/>
-			<property name="externalId" type="string" column="external_id" not-null="true"/>
-			<set name="gatewayRequests" table="ivr_call_session_requests">
+			<property name="created" type="timestamp" column="created"/>
+			<property name="nextAttempt" type="timestamp" column="next_attempt"/>
+			<set name="messageRequests" table="ivr_call_session_requests">
 				<key column="ivr_call_session_id"/>
-				<many-to-many column="gateway_request_id" class="org.motechproject.mobile.core.model.GatewayRequestImpl"/>
+				<many-to-many column="message_request_id" class="org.motechproject.mobile.core.model.MessageRequestImpl"/>
 			</set>
-			<set name="calls">
+			<set name="calls" inverse="true" cascade="all">
 				<key column="ivr_call_session"/>
 				<one-to-many class="IVRCall"/>
 			</set>

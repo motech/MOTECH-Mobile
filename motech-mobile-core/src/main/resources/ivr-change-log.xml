@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+	<changeSet context="setup" author="fcbrooks" id="ivr-1">
+		<createTable tableName="ivr_call_session">
+			<column name="call_session_id" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column defaultValueNumeric="0" name="version" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="user_id" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="phone" type="VARCHAR(255)"/>
+			<column name="language" type="VARCHAR(255)"/>
+			<column name="call_direction" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="attempts" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="days" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="state" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="created" type="DATETIME"/>
+			<column name="next_attempt" type="DATETIME"/>
+		</createTable>
+		<createTable tableName="ivr_call">
+			<column name="ivr_call_id" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column defaultValueNumeric="0" name="version" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="created" type="DATETIME"/>
+			<column name="connected" type="DATETIME"/>
+			<column name="disconnected" type="DATETIME"/>
+			<column name="duration" type="INT"/>
+			<column name="external_id" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="status" type="VARCHAR(255)"/>
+			<column name="status_reason" type="VARCHAR(255)"/>
+			<column name="ivr_call_session" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<createTable tableName="ivr_call_session_requests">
+			<column name="ivr_call_session_id" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="message_request_id" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+		</createTable>
+		<createTable tableName="ivr_menu">
+			<column name="ivr_menu_id" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column defaultValueNumeric="0" name="version" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="VARCHAR(255)"/>
+			<column name="entryTime" type="DATETIME"/>
+			<column name="duration" type="INT"/>
+			<column name="key_pressed" type="VARCHAR(255)"/>
+			<column name="recording" type="VARCHAR(255)"/>
+			<column name="ivr_call_id" type="BIGINT"/>
+		</createTable>
+
+		<addAutoIncrement tableName="ivr_call_session" columnName="call_session_id" columnDataType="BIGINT"/>
+		<addAutoIncrement tableName="ivr_call" columnName="ivr_call_id" columnDataType="BIGINT"/>
+		<addAutoIncrement tableName="ivr_menu" columnName="ivr_menu_id" columnDataType="BIGINT"/>
+
+		<addForeignKeyConstraint constraintName="fk_ivr_call_ivr_call_session" baseTableName="ivr_call" baseColumnNames="ivr_call_session" referencedTableName="ivr_call_session" referencedColumnNames="call_session_id" />
+		<addForeignKeyConstraint constraintName="fk_ivr_menu_ivr_call" baseTableName="ivr_menu" baseColumnNames="ivr_call_id" referencedTableName="ivr_call" referencedColumnNames="ivr_call_id" />
+		<addForeignKeyConstraint constraintName="fk_session_requests_ivr_call_session" baseTableName="ivr_call_session_requests" baseColumnNames="ivr_call_session_id" referencedTableName="ivr_call_session" referencedColumnNames="call_session_id" />
+		<addForeignKeyConstraint constraintName="fk_session_requests_message_requests" baseTableName="ivr_call_session_requests" baseColumnNames="message_request_id" referencedTableName="message_request" referencedColumnNames="id" />
+		
+		<createIndex tableName="ivr_call" indexName="idx_ivr_call_ivr_call_session">
+			<column name="ivr_call_session"/>
+		</createIndex>
+		<createIndex tableName="ivr_menu" indexName="idx_ivr_menu_ivr_call_id">
+			<column name="ivr_call_id"/>
+		</createIndex>
+
+	</changeSet>
+</databaseChangeLog>

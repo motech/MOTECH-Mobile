@@ -1,5 +1,6 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -31,21 +32,44 @@ public class IntellIVRDAO implements IVRDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IVRCallSession> loadIVRCallSessionsByUserPhoneAndState(
-			String user, String phone, Integer[] states) {
+	public List<IVRCallSession> loadIVRCallSessions(
+			String user, String phone, String language, Integer[] states, int attempts, int days, String callDirection) {
 		return sessionFactory
 		.getCurrentSession()
 		.createCriteria(IVRCallSession.class)
 		.add(Restrictions.eq("userId", user))
 		.add(Restrictions.eq("phone", phone))
 		.add(Restrictions.in("state", states))
+		.add(Restrictions.eq("attempts", attempts))
+		.add(Restrictions.eq("days", days))
+		.add(Restrictions.eq("callDirection", callDirection))
 		.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<IVRCallSession> loadIVRCallSessionsByStateNextAttemptBeforeDate(
+			Integer[] states, Date date) {
+		return sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCallSession.class)
+		.add(Restrictions.in("state", states))
+		.add(Restrictions.le("nextAttempt", date))
+		.list();
+		
 	}
 	
 	public IVRCallSession loadIVRCallSessionByExternalId(String externalId) {
 		return (IVRCallSession)sessionFactory
 		.getCurrentSession()
 		.createCriteria(IVRCallSession.class)
+		.add(Restrictions.eq("externalId", externalId))
+		.uniqueResult();
+	}
+
+	public IVRCall loadIVRCallByExternalId(String externalId) {
+		return (IVRCall)sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCall.class)
 		.add(Restrictions.eq("externalId", externalId))
 		.uniqueResult();
 	}

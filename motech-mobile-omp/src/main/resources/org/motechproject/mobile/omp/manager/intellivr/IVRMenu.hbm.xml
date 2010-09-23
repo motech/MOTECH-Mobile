@@ -7,7 +7,7 @@
 		</id>
 		<version column="version" name="version"/>
 		<property name="name" type="string" column="name"/>
-		<property name="entryTime" type="date" column="entryTime"/>
+		<property name="entryTime" type="timestamp" column="entryTime"/>
 		<property name="duration" type="int" column="duration"/>
 		<property name="keyPressed" type="string" column="key_pressed"/>
 		<property name="recording" type="string" column="recording"/>

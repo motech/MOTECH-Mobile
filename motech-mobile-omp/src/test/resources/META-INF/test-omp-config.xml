@@ -253,10 +253,10 @@
 		<property name="noPendingMessagesRecordingName" value="prompt_H.wav"/>
 		<property name="welcomeMessageRecordingName" value="welcome.wav"/>
 		<property name="mappingResource" value="classpath:intellivr.conf"/>
-		<property name="ivrSessionSerialResource" value="file:src/test/resources/ivrsession.cache"/>
-		<property name="coreManager" ref="coreManager"/>  
+		<property name="coreManager" ref="coreManager"/>
+		<property name="ivrCallRequester" ref="intellivrBean"/>  
 	</bean>
-
+	
 	<bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
 		<property name="voiceHandler" ref="dummyHandler"/>
 		<property name="textHandler" ref="dummyHandler"/>

@@ -206,8 +206,12 @@
         <property name="statusMap" ref="intellIVRResponseMap"/>
         <property name="responseMap" ref="intellIVRResponseMap"/>
     </bean>
-
-    <bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDummyBean" init-method="init" destroy-method="cleanUp">
+    
+    <bean id="ivrDao" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRDAO">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="intellivrBean" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRBean" init-method="init" destroy-method="cleanUp">
         <property name="reportURL" value="${intellivr.gateway.reportURL}"/>
         <property name="apiID" value="${intellivr.gateway.apiID}"/>
         <property name="method" value="ivroriginate"/>
@@ -230,9 +234,32 @@
         <property name="noPendingMessagesRecordingName" value="${intellivr.gateway.noPendingMessagesRecordingName}"/>
         <property name="welcomeMessageRecordingName" value="${intellivr.gateway.welcomeMessageRecordingName}"/>
         <property name="mappingResource" value="${intellivr.gateway.ivrConfig}"/>
-        <property name="ivrSessionSerialResource" value="${intellivr.gateway.sessionCacheFile}"/>
         <property name="coreManager" ref="coreManager"/>
         <property name="registrarService" ref="registrarClient"/>
+        <property name="ivrDao" ref="ivrDao"/>
+        <property name="ivrCallRequester" ref="intellivrBean"/>
+    </bean>
+    
+   	<bean id="processOpenIvrSessionsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="intellivrBean"/>
+  		<property name="targetMethod" value="processOpenSessions" />
+  		<property name="concurrent" value="false" />
+	</bean>
+
+    <bean id="processWaitingIvrSessionsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="intellivrBean"/>
+  		<property name="targetMethod" value="processWaitingSessions" />
+  		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="processOpenIvrSessionsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="processOpenIvrSessionsJob"/>
+        <property name="cronExpression" value="15/30 * * * * ?"/>
+    </bean>
+	
+	<bean id="processWaitingIvrSessionsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="processWaitingIvrSessionsJob"/>
+        <property name="cronExpression" value="0/30 * * * * ?"/>
     </bean>
 
     <bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
@@ -307,6 +334,8 @@
             <list>
                 <ref bean="sendMessageUpdaterTrigger"/>
                 <ref bean="gatewayStatusUpdaterTrigger"/>
+                <ref bean="processOpenIvrSessionsTrigger"/>
+                <ref bean="processWaitingIvrSessionsTrigger"/>
             </list>
         </property>
         <property name="globalJobListeners">

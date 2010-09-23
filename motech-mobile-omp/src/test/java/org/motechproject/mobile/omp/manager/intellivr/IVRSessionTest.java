@@ -161,19 +161,18 @@ public class IVRSessionTest {
 		r2.setMessageStatus(MStatus.PENDING);
 		r2.setRecipientsNumber(phone);
 
-		IVRCallSession serverSession = new IVRCallSession(userid,phone,language,IVRCallSession.OUTBOUND,0,0,IVRCallSession.OPEN,externalId);
+		IVRCallSession serverSession = new IVRCallSession(userid,phone,language,IVRCallSession.OUTBOUND,0,0,IVRCallSession.OPEN, new Date(), new Date());
 		
 		assertEquals(userid, serverSession.getUserId());
 		assertEquals(phone, serverSession.getPhone());
 		assertEquals(language, serverSession.getLanguage());
 		assertEquals(IVRCallSession.OUTBOUND, serverSession.getCallDirection());
-		assertEquals(externalId, serverSession.getExternalId());
+				
+		serverSession.getMessageRequests().add(mr1);
+		serverSession.getMessageRequests().add(mr2);
 		
-		serverSession.getGatewayRequests().add(r1);
-		serverSession.getGatewayRequests().add(r2);
-		
-		assertTrue(serverSession.getGatewayRequests().contains(r1));
-		assertTrue(serverSession.getGatewayRequests().contains(r2));
+		assertTrue(serverSession.getMessageRequests().contains(mr1));
+		assertTrue(serverSession.getMessageRequests().contains(mr2));
 		
 		assertEquals(0,serverSession.getAttempts());
 		serverSession.setAttempts(1);
@@ -185,10 +184,7 @@ public class IVRSessionTest {
 
 		assertEquals(IVRCallSession.OPEN, serverSession.getState());
 		
-		IVRCall call = new IVRCall(new Date(),null,null,0);
-		IVRCallStatusEvent event = new IVRCallStatusEvent(IVRCallStatus.REQUESTED,new Date(),"API accepted request");
-		call.getCallStatusEvents().add(event);
-		call.getCallStatusEvents().contains(event);
+		IVRCall call = new IVRCall(new Date(), null,null,0,externalId,IVRCallStatus.REQUESTED,"API accepted request",serverSession);
 		
 		IVRMenu menu = new IVRMenu("menu.wav",new Date(),10,"1",null);
 		call.getMenus().add(menu);
@@ -196,10 +192,10 @@ public class IVRSessionTest {
 		
 		serverSession.getCalls().add(call);
 		
-		IVRCallSession userSession = new IVRCallSession(userid,null,null,IVRCallSession.INBOUND,0,0,IVRCallSession.REPORT_WAIT,externalId);
+		IVRCallSession userSession = new IVRCallSession(userid,null,null,IVRCallSession.INBOUND,0,0,IVRCallSession.REPORT_WAIT, new Date(), null);
 		
 		assertEquals(userid, userSession.getUserId());
-		assertEquals(IVRCallSession.INBOUND, userSession.getCallDirection());
+		assertEquals(IVRCallSession.INBOUND, userSession.getCallDirection());System.out.println(userSession.toString());
 				
 	}
 	

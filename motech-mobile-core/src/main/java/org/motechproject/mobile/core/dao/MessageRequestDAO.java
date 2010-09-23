@@ -51,4 +51,12 @@ public interface MessageRequestDAO<T extends MessageRequest> extends GenericDAO<
      */
     public List<MessageRequest> getMsgRequestByRecipientAndSchedule(String recipientID, Date schedule);
     
+    /**
+     * Method to select MessageRequest objects for a recipient with dateFrom between startDate and endDate
+     * @param recipientID
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public List<MessageRequest> getMsgRequestByRecipientDateFromBetweenDates(String recipientID, Date startDate, Date endDate);
 }

@@ -21,5 +21,6 @@
     <include file="motech-schema-log.xml" />
     <include file="motech-schema-insert-log.xml" />
      <include file="change-log-target-0.8.0.xml" />
+     <include file="ivr-change-log.xml" />
 </databaseChangeLog>
 

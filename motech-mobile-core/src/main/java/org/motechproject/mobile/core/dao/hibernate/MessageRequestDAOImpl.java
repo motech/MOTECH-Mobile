@@ -133,7 +133,7 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
 
 	public List<MessageRequest> getMsgRequestByRecipientAndSchedule(
 			String recipientID, Date schedule) {
-        logger.debug("variables passed to getMsgRequestByStatusAndSchedule. recipientID: " + recipientID + "And schedule: " + schedule);
+        logger.debug("variables passed to getMsgRequestByRecipientAndSchedule. recipientID: " + recipientID + "And schedule: " + schedule);
 
 
         try {
@@ -142,6 +142,30 @@ public class MessageRequestDAOImpl extends HibernateGenericDAOImpl<MessageReques
                     .add(Restrictions.eq("recipientId", recipientID))
                     .add(Restrictions.lt("dateFrom", schedule))
                     .add(Restrictions.gt("dateTo", schedule))
+                    .list();
+            logger.debug(msgRequest);
+            return msgRequest;
+
+        } catch (HibernateException he) {
+            logger.error("Persistence or JDBC Exception in Method getMsgRequestByStatusAndSchedule", he);
+            return null;
+        } catch (Exception ex) {
+            logger.error("Exception in Method getMsgRequestByStatusAndSchedule", ex);
+            return null;
+        }
+	}
+
+	public List<MessageRequest> getMsgRequestByRecipientDateFromBetweenDates(
+			String recipientID, Date startDate, Date endDate) {
+        logger.debug("variables passed to getMsgRequestByRecipientDateFromBetweenDates. recipientID: " + recipientID + " dateFrom after " + startDate + " before " + endDate);
+
+
+        try {
+           
+            List msgRequest = this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
+                    .add(Restrictions.eq("recipientId", recipientID))
+                    .add(Restrictions.gt("dateFrom", startDate))
+                    .add(Restrictions.lt("dateFrom", endDate))
                     .list();
             logger.debug(msgRequest);
             return msgRequest;

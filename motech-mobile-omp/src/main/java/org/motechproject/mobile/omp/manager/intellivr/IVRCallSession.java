@@ -1,9 +1,10 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.motechproject.mobile.core.model.GatewayRequest;
+import org.motechproject.mobile.core.model.MessageRequest;
 
 public class IVRCallSession {
 
@@ -24,8 +25,9 @@ public class IVRCallSession {
 	private int attempts;
 	private int days;
 	private int state;
-	private String externalId;
-	private Set<GatewayRequest> gatewayRequests;
+	private Date created;
+	private Date nextAttempt;
+	private Set<MessageRequest> messageRequests;
 	private Set<IVRCall> calls;
 	
 	public IVRCallSession() {}
@@ -37,7 +39,8 @@ public class IVRCallSession {
 							int attempts, 
 							int days, 
 							int state,
-							String externalId) {
+							Date created,
+							Date nextAttempt) {
 		this.userId = userId;
 		this.phone = phone;
 		this.language = language;
@@ -45,8 +48,9 @@ public class IVRCallSession {
 		this.attempts = attempts;
 		this.days = days;
 		this.state = state;
-		this.externalId = externalId;
-		gatewayRequests = new HashSet<GatewayRequest>();
+		this.created = created == null ? new Date() : created;
+		this.nextAttempt = nextAttempt;
+		messageRequests = new HashSet<MessageRequest>();
 		calls = new HashSet<IVRCall>();
 	}
 	
@@ -122,20 +126,28 @@ public class IVRCallSession {
 		this.state = state;
 	}
 
-	public String getExternalId() {
-		return externalId;
+	public Date getCreated() {
+		return created;
 	}
 
-	public void setExternalId(String externalId) {
-		this.externalId = externalId;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
-	public Set<GatewayRequest> getGatewayRequests() {
-		return gatewayRequests;
+	public Date getNextAttempt() {
+		return nextAttempt;
 	}
 
-	public void setGatewayRequests(Set<GatewayRequest> gatewayRequests) {
-		this.gatewayRequests = gatewayRequests;
+	public void setNextAttempt(Date nextAttempt) {
+		this.nextAttempt = nextAttempt;
+	}
+
+	public Set<MessageRequest> getMessageRequests() {
+		return messageRequests;
+	}
+
+	public void setMessageRequests(Set<MessageRequest> messageRequests) {
+		this.messageRequests = messageRequests;
 	}
 
 	public Set<IVRCall> getCalls() {
@@ -154,13 +166,14 @@ public class IVRCallSession {
 		result = prime * result
 				+ ((callDirection == null) ? 0 : callDirection.hashCode());
 		result = prime * result + ((calls == null) ? 0 : calls.hashCode());
+		result = prime * result + ((created == null) ? 0 : created.hashCode());
 		result = prime * result + days;
 		result = prime * result
-				+ ((externalId == null) ? 0 : externalId.hashCode());
-		result = prime * result
-				+ ((gatewayRequests == null) ? 0 : gatewayRequests.hashCode());
-		result = prime * result
 				+ ((language == null) ? 0 : language.hashCode());
+		result = prime * result
+				+ ((messageRequests == null) ? 0 : messageRequests.hashCode());
+		result = prime * result
+				+ ((nextAttempt == null) ? 0 : nextAttempt.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + state;
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
@@ -188,22 +201,27 @@ public class IVRCallSession {
 				return false;
 		} else if (!calls.equals(other.calls))
 			return false;
+		if (created == null) {
+			if (other.created != null)
+				return false;
+		} else if (!created.equals(other.created))
+			return false;
 		if (days != other.days)
-			return false;
-		if (externalId == null) {
-			if (other.externalId != null)
-				return false;
-		} else if (!externalId.equals(other.externalId))
-			return false;
-		if (gatewayRequests == null) {
-			if (other.gatewayRequests != null)
-				return false;
-		} else if (!gatewayRequests.equals(other.gatewayRequests))
 			return false;
 		if (language == null) {
 			if (other.language != null)
 				return false;
 		} else if (!language.equals(other.language))
+			return false;
+		if (messageRequests == null) {
+			if (other.messageRequests != null)
+				return false;
+		} else if (!messageRequests.equals(other.messageRequests))
+			return false;
+		if (nextAttempt == null) {
+			if (other.nextAttempt != null)
+				return false;
+		} else if (!nextAttempt.equals(other.nextAttempt))
 			return false;
 		if (phone == null) {
 			if (other.phone != null)
@@ -218,6 +236,42 @@ public class IVRCallSession {
 		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {	
+		
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("[IVRCallSession");
+		builder.append(" id=");
+		builder.append(id);
+		builder.append(" version=");
+		builder.append(version);
+		builder.append(" userId=");
+		builder.append(userId == null ? "null" : userId);
+		builder.append(" phone=");
+		builder.append(phone == null ? "null" : phone);
+		builder.append(" language=");
+		builder.append(language == null ? "null" : language);
+		builder.append(" direction=");
+		builder.append(callDirection == null ? "null" : callDirection);
+		builder.append(" attempt=");
+		builder.append(attempts);
+		builder.append(" days=");
+		builder.append(days);
+		builder.append(" created=");
+		builder.append(created == null ? "null" : created);
+		builder.append(" nextAttempt=");
+		builder.append(nextAttempt == null ? "null" : nextAttempt);
+		builder.append(" state=");
+		builder.append(state == OPEN ? "OPEN" : 
+					  (state == SEND_WAIT ? "SEND_WAIT" : 
+					  (state == REPORT_WAIT ? "REPORT_WAIT" : 
+					  (state == CLOSED ? "CLOSED" : "INVALID"))));
+		builder.append("]");
+		
+		return builder.toString();
 	}
 
 

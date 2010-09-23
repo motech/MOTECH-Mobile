@@ -12,18 +12,24 @@ public class IVRCall {
 	private Date connected;
 	private Date disconnected;
 	private int duration;
+	private String externalId;
+	private IVRCallStatus status;
+	private String statusReason;
+	private IVRCallSession session;
 	private Set<IVRMenu> menus;
-	private Set<IVRCallStatusEvent> callStatusEvents;
 	
 	public IVRCall() {}
 	
-	public IVRCall(Date created,Date connected,Date disconnected,int duration) {
-		this.created = created;
+	public IVRCall(Date created, Date connected,Date disconnected,int duration,String externalId,IVRCallStatus status, String statusReason, IVRCallSession session) {
+		this.created = created == null ? new Date() : created;
 		this.connected = connected;
 		this.disconnected = disconnected;
 		this.duration = duration;
+		this.externalId = externalId;
+		this.status = status;
+		this.statusReason = statusReason;
+		this.session = session;
 		menus = new HashSet<IVRMenu>();
-		callStatusEvents = new HashSet<IVRCallStatusEvent>();
 	}
 	
 	public long getId() {
@@ -41,9 +47,11 @@ public class IVRCall {
 	public Date getCreated() {
 		return created;
 	}
+
 	public void setCreated(Date created) {
 		this.created = created;
 	}
+
 	public Date getConnected() {
 		return connected;
 	}
@@ -63,6 +71,38 @@ public class IVRCall {
 		this.duration = duration;
 	}
 
+	public String getExternalId() {
+		return externalId;
+	}
+
+	public void setExternalId(String externalId) {
+		this.externalId = externalId;
+	}
+
+	public IVRCallStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(IVRCallStatus status) {
+		this.status = status;
+	}
+
+	public String getStatusReason() {
+		return statusReason;
+	}
+
+	public void setStatusReason(String statusReason) {
+		this.statusReason = statusReason;
+	}
+
+	public IVRCallSession getSession() {
+		return session;
+	}
+
+	public void setSession(IVRCallSession session) {
+		this.session = session;
+	}
+
 	public Set<IVRMenu> getMenus() {
 		return menus;
 	}
@@ -71,28 +111,21 @@ public class IVRCall {
 		this.menus = menus;
 	}
 
-	public Set<IVRCallStatusEvent> getCallStatusEvents() {
-		return callStatusEvents;
-	}
-
-	public void setCallStatusEvents(Set<IVRCallStatusEvent> callStatusEvents) {
-		this.callStatusEvents = callStatusEvents;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((callStatusEvents == null) ? 0 : callStatusEvents.hashCode());
 		result = prime * result
 				+ ((connected == null) ? 0 : connected.hashCode());
-		result = prime * result + ((created == null) ? 0 : created.hashCode());
 		result = prime * result
 				+ ((disconnected == null) ? 0 : disconnected.hashCode());
 		result = prime * result + duration;
+		result = prime * result
+				+ ((externalId == null) ? 0 : externalId.hashCode());
 		result = prime * result + ((menus == null) ? 0 : menus.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result
+				+ ((statusReason == null) ? 0 : statusReason.hashCode());
 		return result;
 	}
 
@@ -105,20 +138,10 @@ public class IVRCall {
 		if (getClass() != obj.getClass())
 			return false;
 		IVRCall other = (IVRCall) obj;
-		if (callStatusEvents == null) {
-			if (other.callStatusEvents != null)
-				return false;
-		} else if (!callStatusEvents.equals(other.callStatusEvents))
-			return false;
 		if (connected == null) {
 			if (other.connected != null)
 				return false;
 		} else if (!connected.equals(other.connected))
-			return false;
-		if (created == null) {
-			if (other.created != null)
-				return false;
-		} else if (!created.equals(other.created))
 			return false;
 		if (disconnected == null) {
 			if (other.disconnected != null)
@@ -127,11 +150,59 @@ public class IVRCall {
 			return false;
 		if (duration != other.duration)
 			return false;
+		if (externalId == null) {
+			if (other.externalId != null)
+				return false;
+		} else if (!externalId.equals(other.externalId))
+			return false;
 		if (menus == null) {
 			if (other.menus != null)
 				return false;
 		} else if (!menus.equals(other.menus))
 			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (statusReason == null) {
+			if (other.statusReason != null)
+				return false;
+		} else if (!statusReason.equals(other.statusReason))
+			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("[IVRCall");
+		builder.append(" id=");
+		builder.append(id);
+		builder.append(" version=");
+		builder.append(version);
+		builder.append(" created=");
+		builder.append(created == null ? "null" : created);
+		builder.append(" connected=");
+		builder.append(connected == null ? "null" : connected);
+		builder.append(" disconnected=");
+		builder.append(disconnected == null ? "null" : disconnected);
+		builder.append(" duration=");
+		builder.append(duration);
+		builder.append(" externalId=");
+		builder.append(externalId == null ? "null" : externalId);
+		builder.append(" status=");
+		builder.append(status == null ? "null" : status.name());
+		builder.append(" statusReason=");
+		builder.append(statusReason == null ? "null" : statusReason);
+		builder.append(" session=");
+		builder.append(session.getId());
+		builder.append("]");
+				
+		return builder.toString();
+	}
+
+
+
 }

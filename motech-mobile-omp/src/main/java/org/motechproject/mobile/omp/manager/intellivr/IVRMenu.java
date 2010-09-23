@@ -111,6 +111,31 @@ public class IVRMenu {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("[IVRMenu");
+		builder.append(" id=");
+		builder.append(id);
+		builder.append(" version=");
+		builder.append(version);
+		builder.append(" name=");
+		builder.append(name);
+		builder.append(" entryTime=");
+		builder.append(entryTime == null ? "null" : entryTime);
+		builder.append(" duration=");
+		builder.append(duration);
+		builder.append(" keyPressed=");
+		builder.append(keyPressed);
+		builder.append(" recording=");
+		builder.append(recording);
+		builder.append("]");
+
+		return builder.toString();
+		
+	}
 	
 	
 	
