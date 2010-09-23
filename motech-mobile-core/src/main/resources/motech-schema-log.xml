@@ -18,7 +18,7 @@
             <column name="message" type="TEXT"/>
             <column name="request_id" type="VARCHAR(255)"/>
             <column name="message_status" type="VARCHAR(255)"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column  name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -50,7 +50,7 @@
             <column name="message_status" type="VARCHAR(255)"/>
             <column name="response_text" type="TEXT"/>
             <column name="date_created" type="DATETIME"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column  name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="message_id" type="BIGINT"/>
@@ -69,7 +69,7 @@
             <column name="incoming_message_response_id" type="BIGINT"/>
             <column name="message_content" type="TEXT"/>
             <column name="date_created" type="DATETIME"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column  name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="message_status" type="VARCHAR(255)"/>
@@ -85,7 +85,7 @@
             </column>
             <column name="incoming_message_form_definition_id" type="BIGINT"/>
             <column name="date_created" type="DATETIME"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column  name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="message_form_status" type="VARCHAR(255)"/>
@@ -104,7 +104,7 @@
             <column name="duplicatable" type="VARCHAR(255)"/>
             <column name="date_created" type="DATETIME"/>
             <column name="send_response" type="BIT"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -124,7 +124,7 @@
             <column name="err_code" type="INT"/>
             <column name="err_text" type="VARCHAR(200)"/>
             <column name="date_created" type="DATETIME"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="message_form_status" type="VARCHAR(255)"/>
@@ -144,7 +144,7 @@
             <column name="length" type="INT"/>
             <column name="required" type="BIT"/>
             <column name="date_created" type="DATETIME"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -159,7 +159,7 @@
             </column>
             <column name="response_content" type="TEXT"/>
             <column name="date_created" type="DATETIME"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="message_status" type="VARCHAR(255)"/>
@@ -177,7 +177,7 @@
             <column name="form_code" type="VARCHAR(100)"/>
             <column name="date_started" type="DATETIME"/>
             <column name="date_ended" type="DATETIME"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_activity" type="DATETIME">
+            <column name="last_activity" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
             <column name="message_session_status" type="VARCHAR(255)"/>
@@ -218,7 +218,7 @@
             <column name="status" type="VARCHAR(255)"/>
             <column name="max_try_number" type="INT"/>
             <column name="days_attempted" type="INT"/>
-            <column defaultValueDate="CURRENT_TIMESTAMP" name="last_modified" type="DATETIME">
+            <column name="last_modified" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -358,4 +358,127 @@
             <column name="requestId"/>
         </createIndex>
     </changeSet>
+
+
+
+
+    <changeSet  context="mysql" id="1282409084036-36" author="joseph">
+        <sql>ALTER TABLE gateway_request change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE gateway_request MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-37" author="joseph">
+        <sql>ALTER TABLE gateway_response change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE gateway_response MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-38" author="joseph">
+        <sql>ALTER TABLE incoming_message change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE incoming_message MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-39" author="joseph">
+        <sql>ALTER TABLE incoming_message_form change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE incoming_message_form MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-40" author="joseph">
+        <sql>ALTER TABLE incoming_message_form_definition change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE incoming_message_form_definition MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-41" author="joseph">
+        <sql>ALTER TABLE incoming_message_form_parameter change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE incoming_message_form_parameter MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-42" author="joseph">
+        <sql>ALTER TABLE incoming_message_form_parameter_definition change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE incoming_message_form_parameter_definition MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-43" author="joseph">
+        <sql>ALTER TABLE incoming_message_response change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE incoming_message_response MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-44" author="joseph">
+        <sql>ALTER TABLE incoming_message_session change last_activity last_activity TIMESTAMP </sql>
+        <sql>ALTER TABLE incoming_message_session MODIFY last_activity TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+    <changeSet context="mysql"  id="1282409084036-45" author="joseph">
+        <sql>ALTER TABLE message_request change last_modified last_modified TIMESTAMP </sql>
+        <sql>ALTER TABLE message_request MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
+    </changeSet>
+
+
+
+
+    <changeSet  context="hsql" id="1282409084036-46" author="joseph">
+        <modifyColumn tableName="gateway_request">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-47" author="joseph">
+        <modifyColumn tableName="gateway_response">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-48" author="joseph">
+        <modifyColumn tableName="incoming_message">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-49" author="joseph">
+        <modifyColumn tableName="incoming_message_form">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-50" author="joseph">
+        <modifyColumn tableName="incoming_message_form_definition">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-51" author="joseph">
+        <modifyColumn tableName="incoming_message_form_parameter">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+        
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-52" author="joseph">
+        <modifyColumn tableName="incoming_message_form_parameter_definition">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-53" author="joseph">
+        <modifyColumn tableName="incoming_message_response">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-54" author="joseph">
+        <modifyColumn tableName="incoming_message_session">
+            <column name="last_activity" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet context="hsql"  id="1282409084036-55" author="joseph">
+        <modifyColumn tableName="message_request">
+            <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
+        </modifyColumn>
+    </changeSet>
+
+
+
+
+
+
 </databaseChangeLog>

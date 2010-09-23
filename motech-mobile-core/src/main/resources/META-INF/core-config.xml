@@ -38,11 +38,6 @@
     </bean>
     <!--  Transaction Management  -->
     <!-- Model -->
-
-    <bean id="sessionContainer" class="org.motechproject.mobile.core.dao.hibernate.HibernateUtils">
-        <constructor-arg ref="sessionFactory" />
-    </bean>
-
     <bean id="gatewayRequest" class="org.motechproject.mobile.core.model.GatewayRequestImpl" scope="prototype">
     </bean>
 
