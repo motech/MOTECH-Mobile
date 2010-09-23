@@ -37,8 +37,8 @@
 class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:mysql.hibernate.properties</value>
-                <value>classpath:mysql.jdbc.properties</value>
+                <value>classpath:hsql.hibernate.properties</value>
+                <value>classpath:hsql.jdbc.properties</value>
                 <value>classpath:liquibase.properties</value>
             </list>
         </property>
