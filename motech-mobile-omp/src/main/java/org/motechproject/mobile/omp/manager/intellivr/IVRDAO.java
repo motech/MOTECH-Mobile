@@ -10,7 +10,6 @@ public interface IVRDAO {
 	public List<IVRCallSession> loadIVRCallSessionsByState(Integer[] states);
 	public List<IVRCallSession> loadIVRCallSessions(String user,String phone,String language, Integer[] states, int attempts, int days, String callDirection);
 	public List<IVRCallSession> loadIVRCallSessionsByStateNextAttemptBeforeDate(Integer[] states, Date date);
-	public IVRCallSession loadIVRCallSessionByExternalId(String externalId);
 	public IVRCall loadIVRCallByExternalId(String externalId);
 	
 }

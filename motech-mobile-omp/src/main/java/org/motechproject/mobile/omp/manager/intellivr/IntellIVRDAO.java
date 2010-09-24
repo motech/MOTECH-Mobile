@@ -58,14 +58,6 @@ public class IntellIVRDAO implements IVRDAO {
 		
 	}
 	
-	public IVRCallSession loadIVRCallSessionByExternalId(String externalId) {
-		return (IVRCallSession)sessionFactory
-		.getCurrentSession()
-		.createCriteria(IVRCallSession.class)
-		.add(Restrictions.eq("externalId", externalId))
-		.uniqueResult();
-	}
-
 	public IVRCall loadIVRCallByExternalId(String externalId) {
 		return (IVRCall)sessionFactory
 		.getCurrentSession()

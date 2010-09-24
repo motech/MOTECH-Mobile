@@ -19,7 +19,6 @@ public class IntellIVRGatewayMessageHandler implements GatewayMessageHandler {
 	private Map<String, MStatus> responseMap;
 	private CoreManager coreManager;
 	
-	@SuppressWarnings("unchecked")
 	public Set<GatewayResponse> parseMessageResponse(GatewayRequest gatewayRequest,
 			String statusMessage) {
 
