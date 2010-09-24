@@ -12,8 +12,6 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
-
 public class ConvertSerializedIVRSessionsBean {
 
 	private IVRDAO ivrDao;
