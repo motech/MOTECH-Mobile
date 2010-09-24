@@ -81,68 +81,76 @@ public class IntellIVRController extends AbstractController implements ResourceL
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		String content = getContent(request);
-		
-		log.debug("Received: " + content);
-		
-		Object output = null;
-		
-		if ( !contentIsValid(content) ) {
-			log.debug("Received invalid content");
-			AutoCreate ac = new AutoCreate();
-			ResponseType rt = new ResponseType();
-			rt.setStatus(StatusType.ERROR);
-			rt.setErrorCode(ErrorCodeType.MOTECH_MALFORMED_XML);
-			rt.setErrorString("Malformed XML content");
-			ac.setResponse(rt);
-			output = ac;
+		if ( request.getMethod().equalsIgnoreCase(METHOD_GET) ) {
+			
+			return new ModelAndView("ivrstats");
+			
 		} else {
-			
-			try {
-				Object obj = unmarshaller.unmarshal(new ByteArrayInputStream(content.getBytes()));
-				if ( obj instanceof AutoCreate ) {
-					AutoCreate ac = new AutoCreate();
-					ac.setResponse(reportHandler.handleReport(((AutoCreate)obj).getReport()));
-					log.info("Received valid call report");
-					output = ac;
+
+			String content = getContent(request);
+
+			log.debug("Received: " + content);
+
+			Object output = null;
+
+			if ( !contentIsValid(content) ) {
+				log.debug("Received invalid content");
+				AutoCreate ac = new AutoCreate();
+				ResponseType rt = new ResponseType();
+				rt.setStatus(StatusType.ERROR);
+				rt.setErrorCode(ErrorCodeType.MOTECH_MALFORMED_XML);
+				rt.setErrorString("Malformed XML content");
+				ac.setResponse(rt);
+				output = ac;
+			} else {
+
+				try {
+					Object obj = unmarshaller.unmarshal(new ByteArrayInputStream(content.getBytes()));
+					if ( obj instanceof AutoCreate ) {
+						AutoCreate ac = new AutoCreate();
+						ac.setResponse(reportHandler.handleReport(((AutoCreate)obj).getReport()));
+						log.info("Received valid call report");
+						output = ac;
+					}
+					if ( obj instanceof GetIVRConfigRequest ) {
+						AutoCreate ac = new AutoCreate();
+						ac.setResponse(ivrConfigHandler.handleRequest((GetIVRConfigRequest)obj));
+						log.info("Received valid ivr config request");
+						output = ac;
+					}
+				} catch ( Exception e ) {
+					log.error("Error unmarshaling content: " + content, e);
 				}
-				if ( obj instanceof GetIVRConfigRequest ) {
-					AutoCreate ac = new AutoCreate();
-					ac.setResponse(ivrConfigHandler.handleRequest((GetIVRConfigRequest)obj));
-					log.info("Received valid ivr config request");
-					output = ac;
-				}
-			} catch ( Exception e ) {
-				log.error("Error unmarshaling content: " + content, e);
+
+
 			}
+
+			if ( output == null ) {
+				AutoCreate ac = new AutoCreate();
+				ResponseType rt = new ResponseType();
+				rt.setStatus(StatusType.ERROR);
+				rt.setErrorCode(ErrorCodeType.MOTECH_UNKNOWN_ERROR);
+				rt.setErrorString("An unknown error has occured");
+				ac.setResponse(rt);
+				output = ac;
+			}
+
+			PrintWriter out = response.getWriter();
+
+			try {
+				response.setContentType("text/xml");
+				marshaller.marshal(output, out);
+				ByteArrayOutputStream debugOut = new ByteArrayOutputStream();
+				marshaller.marshal(output, debugOut);
+				log.debug("Responded with: " + debugOut.toString());
+			} catch (JAXBException e) {
+				log.error("Error marshalling object: " + output.toString(), e);
+			}
+
+			return null;
 			
-
 		}
 
-		if ( output == null ) {
-			AutoCreate ac = new AutoCreate();
-			ResponseType rt = new ResponseType();
-			rt.setStatus(StatusType.ERROR);
-			rt.setErrorCode(ErrorCodeType.MOTECH_UNKNOWN_ERROR);
-			rt.setErrorString("An unknown error has occured");
-			ac.setResponse(rt);
-			output = ac;
-		}
-		
-		PrintWriter out = response.getWriter();
-		
-		try {
-			response.setContentType("text/xml");
-			marshaller.marshal(output, out);
-			ByteArrayOutputStream debugOut = new ByteArrayOutputStream();
-			marshaller.marshal(output, debugOut);
-			log.debug("Responded with: " + debugOut.toString());
-		} catch (JAXBException e) {
-			log.error("Error marshalling object: " + output.toString(), e);
-		}
-
-		
-		return null;
 	}
 
 	public void setResourceLoader(ResourceLoader resourceLoader) {
