@@ -5,4 +5,8 @@ public interface IVRCallStatsProvider {
 	int getCountIVRSessionsInLastMinutes(int minutes);
 	int getCountIVRCallSessionsInLastHours(int hours);
 	int getCountIVRCallSessionsInLastDays(int days);
+	int getCountIVRCalls();
+	int getCountIVRCallsInLastMinutes(int minutes);
+	int getCountIVRCallsInLastHours(int hours);
+	int getCountIVRCallsInLastDays(int days);
 }

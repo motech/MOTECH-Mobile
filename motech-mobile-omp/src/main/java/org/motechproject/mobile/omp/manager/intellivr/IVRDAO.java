@@ -13,6 +13,8 @@ public interface IVRDAO {
 	public List<IVRCallSession> loadIVRCallSessionsCreatedBetweenDates(Date start, Date end);
 	public int countIVRCallSessionsCreatedBetweenDates(Date start, Date end);
 	public int countIVRCallSesssions();
+	public int countIVRCalls();
+	public int countIVRCallsCreatedBetweenDates(Date start, Date end);
 	public IVRCall loadIVRCallByExternalId(String externalId);
 	
 }

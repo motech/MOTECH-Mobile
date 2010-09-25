@@ -2,7 +2,6 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -95,6 +94,26 @@ public class IntellIVRDAO implements IVRDAO {
 		.getCurrentSession()
 		.createCriteria(IVRCallSession.class)
 		.setProjection(Projections.rowCount())
+		.list()
+		.get(0);
+	}
+
+	public int countIVRCalls() {
+		return (Integer)sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCall.class)
+		.setProjection(Projections.rowCount())
+		.list()
+		.get(0);
+	}
+
+	public int countIVRCallsCreatedBetweenDates(Date start, Date end) {
+		return (Integer)sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCall.class)
+		.setProjection(Projections.rowCount())
+		.add(Restrictions.ge("created", start))
+		.add(Restrictions.le("created", end))
 		.list()
 		.get(0);
 	}

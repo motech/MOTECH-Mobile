@@ -763,7 +763,39 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		Date start = addToDate(lastMidnight.getTime(), GregorianCalendar.DAY_OF_MONTH, (int)(days-1)*(-1));
 		return ivrDao.countIVRCallSessionsCreatedBetweenDates(start, end.getTime());
 	}
-
+	
+	@Transactional
+	public int getCountIVRCalls() {
+		return ivrDao.countIVRCalls();
+	}
+	
+	@Transactional
+	public int getCountIVRCallsInLastMinutes(int minutes) {
+		minutes = minutes < 0 ? 0 : minutes;
+		Date end = new Date();
+		Date start = addToDate(end, GregorianCalendar.MINUTE, (int)minutes*(-1));
+		return ivrDao.countIVRCallsCreatedBetweenDates(start, end);
+	}
+	
+	@Transactional
+	public int getCountIVRCallsInLastHours(int hours) {
+		hours = hours < 0 ? 0 : hours;
+		Date end = new Date();
+		Date start = addToDate(end, GregorianCalendar.HOUR_OF_DAY, (int)hours*(-1));
+		return ivrDao.countIVRCallSessionsCreatedBetweenDates(start, end);
+	}
+	
+	@Transactional
+	public int getCountIVRCallsInLastDays(int days) {
+		days = days < 0 ? 0 : days;
+		GregorianCalendar end = new GregorianCalendar();
+		GregorianCalendar lastMidnight = new GregorianCalendar(
+				end.get(GregorianCalendar.YEAR), 
+				end.get(GregorianCalendar.MONTH),
+				end.get(GregorianCalendar.DAY_OF_MONTH));
+		Date start = addToDate(lastMidnight.getTime(), GregorianCalendar.DAY_OF_MONTH, (int)(days-1)*(-1));
+		return ivrDao.countIVRCallsCreatedBetweenDates(start, end.getTime());
+	}
 	
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
 		this.messageHandler = messageHandler;

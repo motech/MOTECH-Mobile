@@ -190,7 +190,114 @@ public class IVRCallStatsProviderTest {
 		
 	}
 	
+	@Test
+	@Transactional
+	public void testGetCountIVRCalls() {
+		
+		Date now = new Date();
+		Date oneDayAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -1);
+		Date tenDaysAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -10);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, oneDayAgo, now);
 	
+		IVRCallSession session2 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenDaysAgo, now);
+
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+		
+		IVRCall call1 = new IVRCall(now, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session1);
+		session1.getCalls().add(call1);
+		
+		IVRCall call2 = new IVRCall(now, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session2);
+		session2.getCalls().add(call2);
+
+		assertEquals(2, ivrCallStatsProvider.getCountIVRCalls());
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testGetCountIVRCallsInLastMinutes() {
+		
+		Date now = new Date();
+		Date twoMinuteAgo = addToDate(now, GregorianCalendar.MINUTE, -2);
+		Date tenMinuteAgo = addToDate(now, GregorianCalendar.MINUTE, -10);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, twoMinuteAgo, now);
+
+		IVRCallSession session2 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenMinuteAgo, now);
+
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		IVRCall call1 = new IVRCall(twoMinuteAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session1);
+		session1.getCalls().add(call1);
+		
+		IVRCall call2 = new IVRCall(tenMinuteAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session2);
+		session2.getCalls().add(call2);
+
+		assertEquals(0, ivrCallStatsProvider.getCountIVRCallsInLastMinutes(1));
+		assertEquals(1, ivrCallStatsProvider.getCountIVRCallsInLastMinutes(5));
+		assertEquals(2, ivrCallStatsProvider.getCountIVRCallsInLastMinutes(11));
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testGetCountIVRCallsInLastHour() {
+		
+		Date now = new Date();
+		Date twoHoursAgo = addToDate(now, GregorianCalendar.HOUR, -2);
+		Date tenHoursAgo = addToDate(now, GregorianCalendar.HOUR, -10);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, twoHoursAgo, now);
+
+		IVRCallSession session2 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenHoursAgo, now);
+		
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		IVRCall call1 = new IVRCall(twoHoursAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session1);
+		session1.getCalls().add(call1);
+		
+		IVRCall call2 = new IVRCall(tenHoursAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session2);
+		session2.getCalls().add(call2);
+
+		assertEquals(0, ivrCallStatsProvider.getCountIVRCallsInLastHours(1));
+		assertEquals(1, ivrCallStatsProvider.getCountIVRCallsInLastHours(5));
+		assertEquals(2, ivrCallStatsProvider.getCountIVRCallsInLastHours(11));
+
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testGetCountIVRCallsInLastDays() {
+		
+		Date now = new Date();
+		Date oneDayAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -1);
+		Date tenDaysAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -10);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, oneDayAgo, now);
+
+		IVRCallSession session2 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenDaysAgo, now);
+		
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		IVRCall call1 = new IVRCall(oneDayAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session1);
+		session1.getCalls().add(call1);
+		
+		IVRCall call2 = new IVRCall(tenDaysAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session2);
+		session2.getCalls().add(call2);
+
+		assertEquals(0, ivrCallStatsProvider.getCountIVRCallsInLastDays(1));
+		assertEquals(1, ivrCallStatsProvider.getCountIVRCallsInLastDays(5));	
+		assertEquals(1, ivrCallStatsProvider.getCountIVRCallsInLastDays(10));
+		assertEquals(2, ivrCallStatsProvider.getCountIVRCallsInLastDays(11));
+
+		
+	}
 	
 	private MessageRequest getMessageRequestTemplate() {
 		MessageRequest mr = new MessageRequestImpl();
