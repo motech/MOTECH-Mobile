@@ -782,7 +782,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		hours = hours < 0 ? 0 : hours;
 		Date end = new Date();
 		Date start = addToDate(end, GregorianCalendar.HOUR_OF_DAY, (int)hours*(-1));
-		return ivrDao.countIVRCallSessionsCreatedBetweenDates(start, end);
+		return ivrDao.countIVRCallsCreatedBetweenDates(start, end);
 	}
 	
 	@Transactional
@@ -795,6 +795,39 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				end.get(GregorianCalendar.DAY_OF_MONTH));
 		Date start = addToDate(lastMidnight.getTime(), GregorianCalendar.DAY_OF_MONTH, (int)(days-1)*(-1));
 		return ivrDao.countIVRCallsCreatedBetweenDates(start, end.getTime());
+	}
+	
+	@Transactional
+	public int getCountIVRCallsWithStatus(IVRCallStatus status) {
+		return ivrDao.countIVRCallsWithStatus(status);
+	}
+	
+	@Transactional
+	public int getCountIVRCallsInLastMinutesWithStatus(int minutes, IVRCallStatus status) {
+		minutes = minutes < 0 ? 0 : minutes;
+		Date end = new Date();
+		Date start = addToDate(end, GregorianCalendar.MINUTE, (int)minutes*(-1));
+		return ivrDao.countIVRCallsCreatedBetweenDatesWithStatus(start, end, status);
+	}
+	
+	@Transactional
+	public int getCountIVRCallsInLastHoursWithStatus(int hours, IVRCallStatus status) {
+		hours = hours < 0 ? 0 : hours;
+		Date end = new Date();
+		Date start = addToDate(end, GregorianCalendar.HOUR_OF_DAY, (int)hours*(-1));
+		return ivrDao.countIVRCallsCreatedBetweenDatesWithStatus(start, end, status);
+	}
+	
+	@Transactional
+	public int getCountIVRCallsInLastDaysWithStatus(int days, IVRCallStatus status) {
+		days = days < 0 ? 0 : days;
+		GregorianCalendar end = new GregorianCalendar();
+		GregorianCalendar lastMidnight = new GregorianCalendar(
+				end.get(GregorianCalendar.YEAR), 
+				end.get(GregorianCalendar.MONTH),
+				end.get(GregorianCalendar.DAY_OF_MONTH));
+		Date start = addToDate(lastMidnight.getTime(), GregorianCalendar.DAY_OF_MONTH, (int)(days-1)*(-1));
+		return ivrDao.countIVRCallsCreatedBetweenDatesWithStatus(start, end.getTime(), status);
 	}
 	
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {

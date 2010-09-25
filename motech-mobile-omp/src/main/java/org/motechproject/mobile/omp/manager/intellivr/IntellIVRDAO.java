@@ -118,4 +118,26 @@ public class IntellIVRDAO implements IVRDAO {
 		.get(0);
 	}
 
+	public int countIVRCallsWithStatus(IVRCallStatus status) {
+		return (Integer)sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCall.class)
+		.setProjection(Projections.rowCount())
+		.add(Restrictions.eq("status", status))
+		.list()
+		.get(0);
+	}
+
+	public int countIVRCallsCreatedBetweenDatesWithStatus(Date start, Date end, IVRCallStatus status) {
+		return (Integer)sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCall.class)
+		.setProjection(Projections.rowCount())
+		.add(Restrictions.ge("created", start))
+		.add(Restrictions.le("created", end))
+		.add(Restrictions.eq("status", status))
+		.list()
+		.get(0);
+	}
+
 }
