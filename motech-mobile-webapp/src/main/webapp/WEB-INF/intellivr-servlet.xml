@@ -34,6 +34,7 @@
 		</property>
 		<property name="ivrConfigHandler" ref="intellivrBean"/>
 		<property name="reportHandler" ref="intellivrBean"/>
+		<property name="ivrStatsProvider" ref="intellivrBean"/>
 	</bean>
 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">

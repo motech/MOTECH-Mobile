@@ -2,8 +2,10 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 public class IntellIVRDAO implements IVRDAO {
@@ -64,6 +66,37 @@ public class IntellIVRDAO implements IVRDAO {
 		.createCriteria(IVRCall.class)
 		.add(Restrictions.eq("externalId", externalId))
 		.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<IVRCallSession> loadIVRCallSessionsCreatedBetweenDates(
+			Date start, Date end) {
+		return sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCallSession.class)
+		.add(Restrictions.ge("created", start))
+		.add(Restrictions.le("created", end))
+		.list();
+	}
+
+	public int countIVRCallSessionsCreatedBetweenDates(Date start, Date end) {
+		return (Integer)sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCallSession.class)
+		.setProjection(Projections.rowCount())
+		.add(Restrictions.ge("created", start))
+		.add(Restrictions.le("created", end))
+		.list()
+		.get(0);
+	}
+
+	public int countIVRCallSesssions() {
+		return (Integer)sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCallSession.class)
+		.setProjection(Projections.rowCount())
+		.list()
+		.get(0);
 	}
 
 }

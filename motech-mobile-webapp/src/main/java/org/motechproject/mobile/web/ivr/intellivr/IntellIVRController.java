@@ -33,6 +33,7 @@ import org.xml.sax.SAXException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequestHandler;
+import org.motechproject.mobile.omp.manager.intellivr.IVRCallStatsProvider;
 import org.motechproject.mobile.omp.manager.intellivr.ReportHandler;
 import org.motechproject.mobile.omp.manager.intellivr.AutoCreate;
 import org.motechproject.mobile.omp.manager.intellivr.ErrorCodeType;
@@ -49,6 +50,7 @@ public class IntellIVRController extends AbstractController implements ResourceL
 	private Unmarshaller unmarshaller;
 	private GetIVRConfigRequestHandler ivrConfigHandler;
 	private ReportHandler reportHandler;
+	private IVRCallStatsProvider ivrStatsProvider;
 	
 	private Log log = LogFactory.getLog(IntellIVRController.class);
 	
@@ -83,7 +85,14 @@ public class IntellIVRController extends AbstractController implements ResourceL
 		
 		if ( request.getMethod().equalsIgnoreCase(METHOD_GET) ) {
 			
-			return new ModelAndView("ivrstats");
+			ModelAndView mav = new ModelAndView("ivrstats");
+			
+			mav.addObject("fiveMinuteSessionCount", ivrStatsProvider.getCountIVRSessionsInLastMinutes(5));
+			mav.addObject("oneHourSessionCount", ivrStatsProvider.getCountIVRCallSessionsInLastHours(1));
+			mav.addObject("oneDaySessionCount", ivrStatsProvider.getCountIVRCallSessionsInLastDays(1));
+			mav.addObject("allSessionCount", ivrStatsProvider.getCountIVRCallSessions());
+			
+			return mav;
 			
 		} else {
 
@@ -171,6 +180,14 @@ public class IntellIVRController extends AbstractController implements ResourceL
 
 	public void setReportHandler(ReportHandler reportHandler) {
 		this.reportHandler = reportHandler;
+	}
+
+	public IVRCallStatsProvider getIvrStatsProvider() {
+		return ivrStatsProvider;
+	}
+
+	public void setIvrStatsProvider(IVRCallStatsProvider ivrStatsProvider) {
+		this.ivrStatsProvider = ivrStatsProvider;
 	}
 
 	private String getContent(HttpServletRequest request) throws Exception {

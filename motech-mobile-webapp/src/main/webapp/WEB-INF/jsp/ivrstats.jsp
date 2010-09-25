@@ -8,6 +8,23 @@
 <title>IVR Call Statistics</title>
 </head>
 <body>
+<h1>Count of IVR Call Sessions</h1>
+<table border="1">
+<tr>
+<th>Created in:</th>
+<th>Last 5 Minutes</th>
+<th>Last Hour</th>
+<th>Last Day</th>
+<th>All</th>
+</tr>
+<tr>
+<td></td>
+<td>${fiveMinuteSessionCount}</td>
+<td>${oneHourSessionCount}</td>
+<td>${oneDaySessionCount}</td>
+<td>${allSessionCount}</td>
+</tr>
+</table>
 
 </body>
 </html>

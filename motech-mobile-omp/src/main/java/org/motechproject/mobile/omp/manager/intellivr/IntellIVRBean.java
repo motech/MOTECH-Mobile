@@ -38,7 +38,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 
-public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, IVRCallRequester, IVRCallSessionProcessor, ReportHandler {
+public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, IVRCallRequester, IVRCallSessionProcessor, IVRCallStatsProvider, ReportHandler {
 
 	private GatewayMessageHandler messageHandler;
 	protected String reportURL;
@@ -730,6 +730,40 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 		return effectiveCallTime >= callCompletedThreshold;
 	}
+	
+	@Transactional
+	public int getCountIVRCallSessions() {
+		return ivrDao.countIVRCallSesssions();
+	}
+	
+	@Transactional
+	public int getCountIVRSessionsInLastMinutes(int minutes) {
+		minutes = minutes < 0 ? 0 : minutes;
+		Date end = new Date();
+		Date start = addToDate(end, GregorianCalendar.MINUTE, (int)minutes*(-1));
+		return ivrDao.countIVRCallSessionsCreatedBetweenDates(start, end);
+	}
+
+	@Transactional
+	public int getCountIVRCallSessionsInLastHours(int hours) {
+		hours = hours < 0 ? 0 : hours;
+		Date end = new Date();
+		Date start = addToDate(end, GregorianCalendar.HOUR_OF_DAY, (int)hours*(-1));
+		return ivrDao.countIVRCallSessionsCreatedBetweenDates(start, end);
+	}
+
+	@Transactional
+	public int getCountIVRCallSessionsInLastDays(int days) {
+		days = days < 0 ? 0 : days;
+		GregorianCalendar end = new GregorianCalendar();
+		GregorianCalendar lastMidnight = new GregorianCalendar(
+				end.get(GregorianCalendar.YEAR), 
+				end.get(GregorianCalendar.MONTH),
+				end.get(GregorianCalendar.DAY_OF_MONTH));
+		Date start = addToDate(lastMidnight.getTime(), GregorianCalendar.DAY_OF_MONTH, (int)(days-1)*(-1));
+		return ivrDao.countIVRCallSessionsCreatedBetweenDates(start, end.getTime());
+	}
+
 	
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
 		this.messageHandler = messageHandler;
