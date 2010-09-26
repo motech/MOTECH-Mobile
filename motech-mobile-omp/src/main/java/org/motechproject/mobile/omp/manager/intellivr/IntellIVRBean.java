@@ -835,6 +835,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return ivrDao.getIVRRecordingStats();
 	}
 	
+	@Transactional
+	public List<IVRCallStatusStat> getIVRCallStatusStats() {
+		return ivrDao.getIVRCallStatusStats();
+ 	}
+	
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
 		this.messageHandler = messageHandler;
 	}

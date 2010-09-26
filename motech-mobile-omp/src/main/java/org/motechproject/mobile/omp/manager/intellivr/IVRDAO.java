@@ -19,5 +19,6 @@ public interface IVRDAO {
 	public int countIVRCallsCreatedBetweenDatesWithStatus(Date start, Date end, IVRCallStatus status);
 	public IVRCall loadIVRCallByExternalId(String externalId);
 	public List<IVRRecordingStat> getIVRRecordingStats();
+	public List<IVRCallStatusStat> getIVRCallStatusStats();
 	
 }

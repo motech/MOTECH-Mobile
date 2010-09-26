@@ -2,7 +2,9 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -152,6 +154,29 @@ public class IntellIVRDAO implements IVRDAO {
 		for ( Object o : queryResult ) {
 			Object[] row = (Object[]) o;
 			returnValue.add(new IVRRecordingStat((String)row[0], (Long)row[1], (Double)row[2]));
+		}
+		return returnValue;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<IVRCallStatusStat> getIVRCallStatusStats() {
+		List queryResult = 
+			sessionFactory
+			.getCurrentSession()
+			.createQuery("select status, count(ivr_call_id) from org.motechproject.mobile.omp.manager.intellivr.IVRCall group by status")
+			.list();
+		Map<IVRCallStatus, Object[]> map = new HashMap<IVRCallStatus, Object[]>();
+		for ( Object o : queryResult ) {
+			Object[] row = (Object[])o;
+			map.put((IVRCallStatus)row[0], row);
+		}
+		List<IVRCallStatusStat> returnValue = new ArrayList<IVRCallStatusStat>();
+		for ( IVRCallStatus s : IVRCallStatus.values() ) {
+			if ( map.containsKey(s) ) {
+				Object[] o = map.get(s);
+				returnValue.add(new IVRCallStatusStat((IVRCallStatus)o[0], (Long)o[1]));
+			} else
+				returnValue.add(new IVRCallStatusStat(s,0));
 		}
 		return returnValue;
 	}
