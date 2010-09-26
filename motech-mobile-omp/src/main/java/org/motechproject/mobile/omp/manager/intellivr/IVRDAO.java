@@ -20,5 +20,5 @@ public interface IVRDAO {
 	public IVRCall loadIVRCallByExternalId(String externalId);
 	public List<IVRRecordingStat> getIVRRecordingStats();
 	public List<IVRCallStatusStat> getIVRCallStatusStats();
-	
+	public List<IVRCallStatusStat> getIVRCallStatusStatsBetweenDates(Date start, Date end);	
 }

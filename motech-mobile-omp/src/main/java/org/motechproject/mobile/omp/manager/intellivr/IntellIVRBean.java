@@ -840,6 +840,34 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return ivrDao.getIVRCallStatusStats();
  	}
 	
+	@Transactional
+	public List<IVRCallStatusStat> getIVRCallStatusStatsFromLastMinutes(int minutes) {
+		minutes = minutes < 0 ? 0 : minutes;
+		Date end = new Date();
+		Date start = addToDate(end, GregorianCalendar.MINUTE, (int)minutes*(-1));
+		return ivrDao.getIVRCallStatusStatsBetweenDates(start, end);
+	}
+	
+	@Transactional
+	public List<IVRCallStatusStat> getIVRCallStatusStatsFromLastHours(int hours) {
+		hours = hours < 0 ? 0 : hours;
+		Date end = new Date();
+		Date start = addToDate(end, GregorianCalendar.HOUR_OF_DAY, (int)hours*(-1));
+		return ivrDao.getIVRCallStatusStatsBetweenDates(start, end);
+	}
+	
+	@Transactional
+	public List<IVRCallStatusStat> getIVRCallStatusStatsFromLastDays(int days) {
+		days = days < 0 ? 0 : days;
+		GregorianCalendar end = new GregorianCalendar();
+		GregorianCalendar lastMidnight = new GregorianCalendar(
+				end.get(GregorianCalendar.YEAR), 
+				end.get(GregorianCalendar.MONTH),
+				end.get(GregorianCalendar.DAY_OF_MONTH));
+		Date start = addToDate(lastMidnight.getTime(), GregorianCalendar.DAY_OF_MONTH, (int)(days-1)*(-1));
+		return ivrDao.getIVRCallStatusStatsBetweenDates(start, end.getTime());
+	}
+	
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
 		this.messageHandler = messageHandler;
 	}

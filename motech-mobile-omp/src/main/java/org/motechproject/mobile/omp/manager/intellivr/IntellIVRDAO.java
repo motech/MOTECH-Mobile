@@ -181,4 +181,30 @@ public class IntellIVRDAO implements IVRDAO {
 		return returnValue;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<IVRCallStatusStat> getIVRCallStatusStatsBetweenDates(
+			Date start, Date end) {
+		List queryResult = 
+			sessionFactory
+			.getCurrentSession()
+			.createQuery("select status, count(ivr_call_id) from org.motechproject.mobile.omp.manager.intellivr.IVRCall where created >= :start and created <= :end group by status")
+			.setTimestamp("start", start)
+			.setTimestamp("end", end)
+			.list();
+		Map<IVRCallStatus, Object[]> map = new HashMap<IVRCallStatus, Object[]>();
+		for ( Object o : queryResult ) {
+			Object[] row = (Object[])o;
+			map.put((IVRCallStatus)row[0], row);
+		}
+		List<IVRCallStatusStat> returnValue = new ArrayList<IVRCallStatusStat>();
+		for ( IVRCallStatus s : IVRCallStatus.values() ) {
+			if ( map.containsKey(s) ) {
+				Object[] o = map.get(s);
+				returnValue.add(new IVRCallStatusStat((IVRCallStatus)o[0], (Long)o[1]));
+			} else
+				returnValue.add(new IVRCallStatusStat(s,0));
+		}
+		return returnValue;
+	}
+
 }

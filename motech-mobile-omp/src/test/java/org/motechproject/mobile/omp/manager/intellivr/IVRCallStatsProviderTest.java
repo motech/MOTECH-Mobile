@@ -472,7 +472,7 @@ public class IVRCallStatsProviderTest {
 	
 	@Test
 	@Transactional
-	public void getIVRCallStatusStats() {
+	public void testGetIVRCallStatusStats() {
 		
 		Date now = new Date();
 		Date twoMinuteAgo = addToDate(now, GregorianCalendar.MINUTE, -2);
@@ -496,12 +496,147 @@ public class IVRCallStatsProviderTest {
 		assertEquals(IVRCallStatus.values().length, stats.size());
 		
 		for ( IVRCallStatusStat s : stats ) {
-			System.out.println(s);
 			if ( s.getStatus() == IVRCallStatus.REQUESTED ) 
 				assertEquals(2, s.getCount());
 			else 
 				assertEquals(0, s.getCount());
 		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testGetIVRCallStatusStatsInLastMinutes() {
+		
+		Date now = new Date();
+		Date twoMinuteAgo = addToDate(now, GregorianCalendar.MINUTE, -2);
+		Date tenMinuteAgo = addToDate(now, GregorianCalendar.MINUTE, -10);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, twoMinuteAgo, now);
+
+		IVRCallSession session2 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenMinuteAgo, now);
+
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		IVRCall call1 = new IVRCall(twoMinuteAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session1);
+		session1.getCalls().add(call1);
+		
+		IVRCall call2 = new IVRCall(tenMinuteAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session2);
+		session2.getCalls().add(call2);
+
+		List<IVRCallStatusStat> fiveMinuteStats = ivrCallStatsProvider.getIVRCallStatusStatsFromLastMinutes(5);
+		
+		assertEquals(IVRCallStatus.values().length, fiveMinuteStats.size());
+		
+		for ( IVRCallStatusStat s : fiveMinuteStats ) {
+			if ( s.getStatus() == IVRCallStatus.REQUESTED ) 
+				assertEquals(1, s.getCount());
+			else 
+				assertEquals(0, s.getCount());
+		}
+		
+		List<IVRCallStatusStat> ellevenMinuteStats = ivrCallStatsProvider.getIVRCallStatusStatsFromLastMinutes(11);
+		
+		assertEquals(IVRCallStatus.values().length, ellevenMinuteStats.size());
+		
+		for ( IVRCallStatusStat s : ellevenMinuteStats ) {
+			if ( s.getStatus() == IVRCallStatus.REQUESTED ) 
+				assertEquals(2, s.getCount());
+			else 
+				assertEquals(0, s.getCount());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testGetIVRCallStatusStatsInLastHours() {
+		
+		Date now = new Date();
+		Date twoHoursAgo = addToDate(now, GregorianCalendar.HOUR, -2);
+		Date tenHoursAgo = addToDate(now, GregorianCalendar.HOUR, -10);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, twoHoursAgo, now);
+
+		IVRCallSession session2 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenHoursAgo, now);
+		
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		IVRCall call1 = new IVRCall(twoHoursAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session1);
+		session1.getCalls().add(call1);
+		
+		IVRCall call2 = new IVRCall(tenHoursAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session2);
+		session2.getCalls().add(call2);
+		
+		List<IVRCallStatusStat> fiveHourStats = ivrCallStatsProvider.getIVRCallStatusStatsFromLastHours(5);
+		
+		assertEquals(IVRCallStatus.values().length, fiveHourStats.size());
+		
+		for ( IVRCallStatusStat s : fiveHourStats ) {
+			if ( s.getStatus() == IVRCallStatus.REQUESTED ) 
+				assertEquals(1, s.getCount());
+			else 
+				assertEquals(0, s.getCount());
+		}
+		
+		List<IVRCallStatusStat> ellevenHourStats = ivrCallStatsProvider.getIVRCallStatusStatsFromLastHours(11);
+		
+		assertEquals(IVRCallStatus.values().length, ellevenHourStats.size());
+		
+		for ( IVRCallStatusStat s : ellevenHourStats ) {
+			if ( s.getStatus() == IVRCallStatus.REQUESTED ) 
+				assertEquals(2, s.getCount());
+			else 
+				assertEquals(0, s.getCount());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testGetIVRCallStatusStatsInLastDays() {
+	
+		Date now = new Date();
+		Date oneDayAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -1);
+		Date tenDaysAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -10);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, oneDayAgo, now);
+
+		IVRCallSession session2 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenDaysAgo, now);
+		
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		IVRCall call1 = new IVRCall(oneDayAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session1);
+		session1.getCalls().add(call1);
+		
+		IVRCall call2 = new IVRCall(tenDaysAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session2);
+		session2.getCalls().add(call2);
+
+		List<IVRCallStatusStat> fiveDayStats = ivrCallStatsProvider.getIVRCallStatusStatsFromLastDays(5);
+		
+		assertEquals(IVRCallStatus.values().length, fiveDayStats.size());
+		
+		for ( IVRCallStatusStat s : fiveDayStats ) {
+			if ( s.getStatus() == IVRCallStatus.REQUESTED ) 
+				assertEquals(1, s.getCount());
+			else 
+				assertEquals(0, s.getCount());
+		}
+
+		List<IVRCallStatusStat> ellevenDayStats = ivrCallStatsProvider.getIVRCallStatusStatsFromLastDays(11);
+		
+		assertEquals(IVRCallStatus.values().length, ellevenDayStats.size());
+		
+		for ( IVRCallStatusStat s : ellevenDayStats ) {
+			if ( s.getStatus() == IVRCallStatus.REQUESTED ) 
+				assertEquals(2, s.getCount());
+			else 
+				assertEquals(0, s.getCount());
+		}
+
 		
 	}
 	

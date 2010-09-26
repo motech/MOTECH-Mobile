@@ -17,4 +17,7 @@ public interface IVRCallStatsProvider {
 	int getCountIVRCallsInLastDaysWithStatus(int days, IVRCallStatus status);
 	List<IVRRecordingStat> getIVRRecordingStats();
 	List<IVRCallStatusStat> getIVRCallStatusStats();
+	List<IVRCallStatusStat> getIVRCallStatusStatsFromLastMinutes(int minutes);
+	List<IVRCallStatusStat> getIVRCallStatusStatsFromLastHours(int hours);
+	List<IVRCallStatusStat> getIVRCallStatusStatsFromLastDays(int days);
 }
