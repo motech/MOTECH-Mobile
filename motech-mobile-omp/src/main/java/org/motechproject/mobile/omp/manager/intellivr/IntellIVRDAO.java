@@ -1,5 +1,6 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -138,6 +139,21 @@ public class IntellIVRDAO implements IVRDAO {
 		.add(Restrictions.eq("status", status))
 		.list()
 		.get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<IVRRecordingStat> getIVRRecordingStats() {
+		List queryResult = 
+		sessionFactory
+		.getCurrentSession()
+		.createQuery("select name, count(ivr_menu_id), avg(duration) from org.motechproject.mobile.omp.manager.intellivr.IVRMenu group by name")
+		.list();
+		List<IVRRecordingStat> returnValue = new ArrayList<IVRRecordingStat>();
+		for ( Object o : queryResult ) {
+			Object[] row = (Object[]) o;
+			returnValue.add(new IVRRecordingStat((String)row[0], (Long)row[1], (Double)row[2]));
+		}
+		return returnValue;
 	}
 
 }

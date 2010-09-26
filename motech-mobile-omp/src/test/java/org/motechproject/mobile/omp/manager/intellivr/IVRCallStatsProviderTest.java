@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -423,6 +424,48 @@ public class IVRCallStatsProviderTest {
 				assertEquals(0, ivrCallStatsProvider.getCountIVRCallsInLastDaysWithStatus(10, cs));
 				assertEquals(0, ivrCallStatsProvider.getCountIVRCallsInLastDaysWithStatus(11, cs));
 			}
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testGetRecordingStats() {
+
+		Date now = new Date();
+		Date twoMinuteAgo = addToDate(now, GregorianCalendar.MINUTE, -2);
+		Date tenMinuteAgo = addToDate(now, GregorianCalendar.MINUTE, -10);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, twoMinuteAgo, now);
+
+		IVRCallSession session2 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenMinuteAgo, now);
+
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		IVRCall call1 = new IVRCall(twoMinuteAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session1);
+		session1.getCalls().add(call1);
+		
+		IVRCall call2 = new IVRCall(tenMinuteAgo, null, null, 0, UUID.randomUUID().toString(), IVRCallStatus.REQUESTED, "Call request accepted", session2);
+		session2.getCalls().add(call2);
+
+		IVRMenu m1 = new IVRMenu(n2IvrEntityName, twoMinuteAgo, 10, "", "");
+		IVRMenu m2 = new IVRMenu(n2IvrEntityName, twoMinuteAgo, 20, "", "");
+		IVRMenu m3 = new IVRMenu(primaryInfoRecordingName, twoMinuteAgo, 10, "", "");
+		IVRMenu m4 = new IVRMenu(primaryInfoRecordingName, twoMinuteAgo, 20, "", "");
+		
+		call1.getMenus().add(m1);
+		call2.getMenus().add(m2);
+		call1.getMenus().add(m3);
+		call2.getMenus().add(m4);
+		
+		List<IVRRecordingStat> stats = (List<IVRRecordingStat>)ivrCallStatsProvider.getIVRRecordingStats();
+		
+		assertEquals(2, stats.size());
+		
+		for ( IVRRecordingStat r : stats ) {
+			assertEquals(2, r.getTotalListens());
+			assertEquals(15, r.getAverageTimeListened(),1);
 		}
 		
 	}
