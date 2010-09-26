@@ -28,12 +28,11 @@
        http://cxf.apache.org/jaxws
        http://cxf.apache.org/schemas/jaxws.xsd">
 
-	<bean id="intellivrController" name="/intellivr" class="org.motechproject.mobile.web.ivr.intellivr.IntellIVRController" init-method="init">
+	<bean id="ivrStatsController" name="/ivrstats" class="org.motechproject.mobile.web.ivr.intellivr.IVRStatsController">
 		<property name="supportedMethods">
-			<value>POST</value>
+			<value>GET,POST</value>
 		</property>
-		<property name="ivrConfigHandler" ref="intellivrBean"/>
-		<property name="reportHandler" ref="intellivrBean"/>
+		<property name="ivrStatsProvider" ref="intellivrBean"/>
 	</bean>
 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">

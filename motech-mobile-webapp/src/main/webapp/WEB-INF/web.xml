@@ -88,6 +88,15 @@
         <url-pattern>/intellivr</url-pattern>
     </servlet-mapping>
     
+   <servlet>
+        <servlet-name>ivrstats</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ivrstats</servlet-name>
+        <url-pattern>/ivrstats</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>oxduldl</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

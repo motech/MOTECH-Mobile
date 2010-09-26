@@ -50,8 +50,7 @@ public class IntellIVRController extends AbstractController implements ResourceL
 	private Unmarshaller unmarshaller;
 	private GetIVRConfigRequestHandler ivrConfigHandler;
 	private ReportHandler reportHandler;
-	private IVRCallStatsProvider ivrStatsProvider;
-	
+		
 	private Log log = LogFactory.getLog(IntellIVRController.class);
 	
 	public void init() {		
@@ -78,94 +77,72 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			log.error("Error initializing controller:", e);
 		}
 	}
-	
+
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-		if ( request.getMethod().equalsIgnoreCase(METHOD_GET) ) {
-			
-			ModelAndView mav = new ModelAndView("ivrstats");
-			
-			mav.addObject("fiveMinuteSessionCount", ivrStatsProvider.getCountIVRSessionsInLastMinutes(5));
-			mav.addObject("oneHourSessionCount", ivrStatsProvider.getCountIVRCallSessionsInLastHours(1));
-			mav.addObject("oneDaySessionCount", ivrStatsProvider.getCountIVRCallSessionsInLastDays(1));
-			mav.addObject("allSessionCount", ivrStatsProvider.getCountIVRCallSessions());
-			
-			mav.addObject("fiveMinuteCallStats", ivrStatsProvider.getIVRCallStatusStatsFromLastMinutes(5));
-			mav.addObject("oneHourCallStats", ivrStatsProvider.getIVRCallStatusStatsFromLastHours(1));
-			mav.addObject("oneDayCallStats", ivrStatsProvider.getIVRCallStatusStatsFromLastDays(1));
-			mav.addObject("allCallStats", ivrStatsProvider.getIVRCallStatusStats());
-			
-			mav.addObject("recordingStats", ivrStatsProvider.getIVRRecordingStats());
-			
-			return mav;
-			
+
+		String content = getContent(request);
+
+		log.debug("Received: " + content);
+
+		Object output = null;
+
+		if ( !contentIsValid(content) ) {
+			log.debug("Received invalid content");
+			AutoCreate ac = new AutoCreate();
+			ResponseType rt = new ResponseType();
+			rt.setStatus(StatusType.ERROR);
+			rt.setErrorCode(ErrorCodeType.MOTECH_MALFORMED_XML);
+			rt.setErrorString("Malformed XML content");
+			ac.setResponse(rt);
+			output = ac;
 		} else {
 
-			String content = getContent(request);
-
-			log.debug("Received: " + content);
-
-			Object output = null;
-
-			if ( !contentIsValid(content) ) {
-				log.debug("Received invalid content");
-				AutoCreate ac = new AutoCreate();
-				ResponseType rt = new ResponseType();
-				rt.setStatus(StatusType.ERROR);
-				rt.setErrorCode(ErrorCodeType.MOTECH_MALFORMED_XML);
-				rt.setErrorString("Malformed XML content");
-				ac.setResponse(rt);
-				output = ac;
-			} else {
-
-				try {
-					Object obj = unmarshaller.unmarshal(new ByteArrayInputStream(content.getBytes()));
-					if ( obj instanceof AutoCreate ) {
-						AutoCreate ac = new AutoCreate();
-						ac.setResponse(reportHandler.handleReport(((AutoCreate)obj).getReport()));
-						log.info("Received valid call report");
-						output = ac;
-					}
-					if ( obj instanceof GetIVRConfigRequest ) {
-						AutoCreate ac = new AutoCreate();
-						ac.setResponse(ivrConfigHandler.handleRequest((GetIVRConfigRequest)obj));
-						log.info("Received valid ivr config request");
-						output = ac;
-					}
-				} catch ( Exception e ) {
-					log.error("Error unmarshaling content: " + content, e);
-				}
-
-
-			}
-
-			if ( output == null ) {
-				AutoCreate ac = new AutoCreate();
-				ResponseType rt = new ResponseType();
-				rt.setStatus(StatusType.ERROR);
-				rt.setErrorCode(ErrorCodeType.MOTECH_UNKNOWN_ERROR);
-				rt.setErrorString("An unknown error has occured");
-				ac.setResponse(rt);
-				output = ac;
-			}
-
-			PrintWriter out = response.getWriter();
-
 			try {
-				response.setContentType("text/xml");
-				marshaller.marshal(output, out);
-				ByteArrayOutputStream debugOut = new ByteArrayOutputStream();
-				marshaller.marshal(output, debugOut);
-				log.debug("Responded with: " + debugOut.toString());
-			} catch (JAXBException e) {
-				log.error("Error marshalling object: " + output.toString(), e);
+				Object obj = unmarshaller.unmarshal(new ByteArrayInputStream(content.getBytes()));
+				if ( obj instanceof AutoCreate ) {
+					AutoCreate ac = new AutoCreate();
+					ac.setResponse(reportHandler.handleReport(((AutoCreate)obj).getReport()));
+					log.info("Received valid call report");
+					output = ac;
+				}
+				if ( obj instanceof GetIVRConfigRequest ) {
+					AutoCreate ac = new AutoCreate();
+					ac.setResponse(ivrConfigHandler.handleRequest((GetIVRConfigRequest)obj));
+					log.info("Received valid ivr config request");
+					output = ac;
+				}
+			} catch ( Exception e ) {
+				log.error("Error unmarshaling content: " + content, e);
 			}
 
-			return null;
-			
+
 		}
+
+		if ( output == null ) {
+			AutoCreate ac = new AutoCreate();
+			ResponseType rt = new ResponseType();
+			rt.setStatus(StatusType.ERROR);
+			rt.setErrorCode(ErrorCodeType.MOTECH_UNKNOWN_ERROR);
+			rt.setErrorString("An unknown error has occured");
+			ac.setResponse(rt);
+			output = ac;
+		}
+
+		PrintWriter out = response.getWriter();
+
+		try {
+			response.setContentType("text/xml");
+			marshaller.marshal(output, out);
+			ByteArrayOutputStream debugOut = new ByteArrayOutputStream();
+			marshaller.marshal(output, debugOut);
+			log.debug("Responded with: " + debugOut.toString());
+		} catch (JAXBException e) {
+			log.error("Error marshalling object: " + output.toString(), e);
+		}
+
+		return null;
 
 	}
 
@@ -187,14 +164,6 @@ public class IntellIVRController extends AbstractController implements ResourceL
 
 	public void setReportHandler(ReportHandler reportHandler) {
 		this.reportHandler = reportHandler;
-	}
-
-	public IVRCallStatsProvider getIvrStatsProvider() {
-		return ivrStatsProvider;
-	}
-
-	public void setIvrStatsProvider(IVRCallStatsProvider ivrStatsProvider) {
-		this.ivrStatsProvider = ivrStatsProvider;
 	}
 
 	private String getContent(HttpServletRequest request) throws Exception {
