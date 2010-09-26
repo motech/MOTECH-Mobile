@@ -8,7 +8,7 @@
 <title>IVR Call Statistics</title>
 </head>
 <body>
-<h1>Count of IVR Call Sessions</h1>
+<h1>Call Session Stats</h1>
 <table border="1">
 <tr>
 <th>Created in:</th>
@@ -24,6 +24,79 @@
 <td>${oneDaySessionCount}</td>
 <td>${allSessionCount}</td>
 </tr>
+</table>
+
+<h1>Call Stats</h1>
+
+
+<table>
+<tr>
+
+<td>
+<table border="1">
+<th colspan="2">Last 5 Minutes</th>
+<c:forEach var="stat" items="${fiveMinuteCallStats}">
+<tr>
+<td>${stat.status}</td>
+<td>${stat.count}</td>
+</tr>
+</c:forEach>
+</table>
+</td>
+
+<td>
+<table border="1">
+<th colspan="2">Last Hour</th>
+<c:forEach var="stat" items="${oneHourCallStats}">
+<tr>
+<td>${stat.status}</td>
+<td>${stat.count}</td>
+</tr>
+</c:forEach>
+</table>
+</td>
+
+<td>
+<table border="1">
+<th colspan="2">Last Day</th>
+<c:forEach var="stat" items="${oneDayCallStats}">
+<tr>
+<td>${stat.status}</td>
+<td>${stat.count}</td>
+</tr>
+</c:forEach>
+</table>
+</td>
+
+<td>
+<table border="1">
+<th colspan="2">All</th>
+<c:forEach var="stat" items="${allCallStats}">
+<tr>
+<td>${stat.status}</td>
+<td>${stat.count}</td>
+</tr>
+</c:forEach>
+</table>
+</td>
+
+</tr>
+</table>
+
+<h1>Recording Stats</h1>
+
+<table border="1">
+<th>Name</th>
+<th>Listens</th>
+<th>Average Time Listened</th>
+<c:forEach var="stat" items="${recordingStats}">
+<tr>
+<td>${stat.name}</td>
+<td>${stat.totalListens }</td>
+<td>${stat.averageTimeListened }</td>
+</tr>
+</c:forEach>
+
 </table>
 
 </body>

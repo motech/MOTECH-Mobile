@@ -92,6 +92,13 @@ public class IntellIVRController extends AbstractController implements ResourceL
 			mav.addObject("oneDaySessionCount", ivrStatsProvider.getCountIVRCallSessionsInLastDays(1));
 			mav.addObject("allSessionCount", ivrStatsProvider.getCountIVRCallSessions());
 			
+			mav.addObject("fiveMinuteCallStats", ivrStatsProvider.getIVRCallStatusStatsFromLastMinutes(5));
+			mav.addObject("oneHourCallStats", ivrStatsProvider.getIVRCallStatusStatsFromLastHours(1));
+			mav.addObject("oneDayCallStats", ivrStatsProvider.getIVRCallStatusStatsFromLastDays(1));
+			mav.addObject("allCallStats", ivrStatsProvider.getIVRCallStatusStats());
+			
+			mav.addObject("recordingStats", ivrStatsProvider.getIVRRecordingStats());
+			
 			return mav;
 			
 		} else {
