@@ -29,7 +29,25 @@ public class IntellIVRDAO implements IVRDAO {
 		.createCriteria(IVRCallSession.class)
 		.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<IVRCallSession> loadIVRCallSessionsByUser(String user) {
+		return sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCallSession.class)
+		.add(Restrictions.eq("userId", user))
+		.list();
+	}
 
+	@SuppressWarnings("unchecked")
+	public List<IVRCallSession> loadIVRCallSessionsByPhone(String phone) {
+		return sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCallSession.class)
+		.add(Restrictions.eq("phone", phone))
+		.list();		
+	}
+	
 	public IVRCallSession loadIVRCallSession(long id) {
 		return (IVRCallSession)sessionFactory.getCurrentSession().load(IVRCallSession.class, id);
 	}
@@ -214,5 +232,6 @@ public class IntellIVRDAO implements IVRDAO {
 		}
 		return returnValue;
 	}
+
 
 }

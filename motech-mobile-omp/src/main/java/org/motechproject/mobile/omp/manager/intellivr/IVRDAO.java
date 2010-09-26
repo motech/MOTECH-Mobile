@@ -7,6 +7,8 @@ public interface IVRDAO {
 
 	public long saveIVRCallSession(IVRCallSession callSession);
 	public List<IVRCallSession> loadIVRCallSessions();
+	public List<IVRCallSession> loadIVRCallSessionsByUser(String user);
+	public List<IVRCallSession> loadIVRCallSessionsByPhone(String phone);
 	public IVRCallSession loadIVRCallSession(long id);
 	public List<IVRCallSession> loadIVRCallSessionsByState(Integer[] states);
 	public List<IVRCallSession> loadIVRCallSessions(String user,String phone,String language, Integer[] states, int attempts, int days, String callDirection);

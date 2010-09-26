@@ -24,4 +24,6 @@ public interface IVRCallStatsProvider {
 	List<IVRCallSession> getIVRCallSessionsInLastMinutes(int minutes);
 	List<IVRCallSession> getIVRCallSessionsInLastHours(int hours);
 	List<IVRCallSession> getIVRCallSessionsInLastDays(int days);
+	List<IVRCallSession> getIVRCallSessionsForUser(String user);
+	List<IVRCallSession> getIVRCallSessionsForPhone(String phone);
 }

@@ -901,6 +901,16 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return ivrDao.loadIVRCallSessionsCreatedBetweenDates(start, end.getTime());
 	}
 	
+	@Transactional
+	public List<IVRCallSession> getIVRCallSessionsForUser(String user) {
+		return ivrDao.loadIVRCallSessionsByUser(user);
+	}
+	
+	@Transactional
+	public List<IVRCallSession> getIVRCallSessionsForPhone(String phone) {
+		return ivrDao.loadIVRCallSessionsByPhone(phone);
+	}
+	
 	public void setMessageHandler(GatewayMessageHandler messageHandler) {
 		this.messageHandler = messageHandler;
 	}

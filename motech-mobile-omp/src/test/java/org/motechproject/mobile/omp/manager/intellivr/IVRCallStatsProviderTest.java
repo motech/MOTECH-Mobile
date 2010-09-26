@@ -764,6 +764,68 @@ public class IVRCallStatsProviderTest {
 		
 	}
 	
+	@Test
+	@Transactional
+	public void testGetIVRCallSessionForUser() {
+		
+		Date now = new Date();
+		Date oneDayAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -1);
+		Date tenDaysAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -10);
+		
+		MessageRequest mr1 = getMessageRequestTemplate();
+		mr1.setNotificationType(n1);
+		
+		MessageRequest mr2 = getMessageRequestTemplate();
+		mr2.setNotificationType(n2);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, oneDayAgo, now);
+		session1.getMessageRequests().add(mr1);
+		session1.getMessageRequests().add(mr2);
+
+		IVRCallSession session2 = new IVRCallSession("notRecip1", "notPhone1", english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenDaysAgo, now);
+		session2.getMessageRequests().add(mr1);
+		session2.getMessageRequests().add(mr2);
+		
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		List<IVRCallSession> sessions = ivrCallStatsProvider.getIVRCallSessionsForUser(recipientId1);
+		
+		assertEquals(1, sessions.size());
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testGetIVRCallSessionsForPhone() {
+		
+		Date now = new Date();
+		Date oneDayAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -1);
+		Date tenDaysAgo = addToDate(now, GregorianCalendar.DAY_OF_MONTH, -10);
+		
+		MessageRequest mr1 = getMessageRequestTemplate();
+		mr1.setNotificationType(n1);
+		
+		MessageRequest mr2 = getMessageRequestTemplate();
+		mr2.setNotificationType(n2);
+		
+		IVRCallSession session1 = new IVRCallSession(recipientId1, phone1, english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, oneDayAgo, now);
+		session1.getMessageRequests().add(mr1);
+		session1.getMessageRequests().add(mr2);
+
+		IVRCallSession session2 = new IVRCallSession("notRecip1", "notPhone1", english.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, tenDaysAgo, now);
+		session2.getMessageRequests().add(mr1);
+		session2.getMessageRequests().add(mr2);
+		
+		ivrDao.saveIVRCallSession(session1);
+		ivrDao.saveIVRCallSession(session2);
+
+		List<IVRCallSession> sessions = ivrCallStatsProvider.getIVRCallSessionsForPhone(phone1);
+		
+		assertEquals(1, sessions.size());
+		
+	}
+	
 	private MessageRequest getMessageRequestTemplate() {
 		MessageRequest mr = new MessageRequestImpl();
 		mr.setDateCreated(new Date());
