@@ -20,4 +20,8 @@ public interface IVRCallStatsProvider {
 	List<IVRCallStatusStat> getIVRCallStatusStatsFromLastMinutes(int minutes);
 	List<IVRCallStatusStat> getIVRCallStatusStatsFromLastHours(int hours);
 	List<IVRCallStatusStat> getIVRCallStatusStatsFromLastDays(int days);
+	List<IVRCallSession> getIVRCallSessions();
+	List<IVRCallSession> getIVRCallSessionsInLastMinutes(int minutes);
+	List<IVRCallSession> getIVRCallSessionsInLastHours(int hours);
+	List<IVRCallSession> getIVRCallSessionsInLastDays(int days);
 }

@@ -6,6 +6,7 @@ import java.util.List;
 public interface IVRDAO {
 
 	public long saveIVRCallSession(IVRCallSession callSession);
+	public List<IVRCallSession> loadIVRCallSessions();
 	public IVRCallSession loadIVRCallSession(long id);
 	public List<IVRCallSession> loadIVRCallSessionsByState(Integer[] states);
 	public List<IVRCallSession> loadIVRCallSessions(String user,String phone,String language, Integer[] states, int attempts, int days, String callDirection);

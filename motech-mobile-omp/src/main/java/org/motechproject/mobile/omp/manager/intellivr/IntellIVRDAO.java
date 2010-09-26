@@ -21,6 +21,14 @@ public class IntellIVRDAO implements IVRDAO {
 	public long saveIVRCallSession(IVRCallSession callSession) {
 		return ((Long)sessionFactory.getCurrentSession().save(callSession)).longValue();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<IVRCallSession> loadIVRCallSessions() {
+		return sessionFactory
+		.getCurrentSession()
+		.createCriteria(IVRCallSession.class)
+		.list();
+	}
 
 	public IVRCallSession loadIVRCallSession(long id) {
 		return (IVRCallSession)sessionFactory.getCurrentSession().load(IVRCallSession.class, id);
