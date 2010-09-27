@@ -36,9 +36,15 @@ Phone Number:<input type="text" name="phone"/>
 </tr>
 <tr>
 <td></td>
-<td>${fiveMinuteSessionCount}</td>
-<td>${oneHourSessionCount}</td>
-<td>${oneDaySessionCount}</td>
+<td>
+<a href="ivrstats?stime=m">${fiveMinuteSessionCount}</a>
+</td>
+<td>
+<a href="ivrstats?stime=h">${oneHourSessionCount}</a>
+</td>
+<td>
+<a href="ivrstats?stime=d">${oneDaySessionCount}</a>
+</td>
 <td>${allSessionCount}</td>
 </tr>
 </table>

@@ -26,27 +26,38 @@ public class IVRStatsController extends AbstractController implements ResourceLo
 		
 		String userId = request.getParameter("userid");
 		String phone = request.getParameter("phone");
+		String stime = request.getParameter("stime");
 		
 		ModelAndView mav = null;
 		
 		if ( (userId != null && !userId.equalsIgnoreCase(""))
-				|| (phone != null && !phone.equalsIgnoreCase("")) ) {
+				|| (phone != null && !phone.equalsIgnoreCase(""))
+				|| (stime != null && !stime.equalsIgnoreCase(""))) {
 			
 			List<IVRCallSession> sessions = null;
 			
 			if ( userId != null ) 
 				sessions = ivrStatsProvider.getIVRCallSessionsForUser(userId);
-			else 
+			else if ( stime != null ) {
+				if ( stime.equalsIgnoreCase("d") )
+					sessions = ivrStatsProvider.getIVRCallSessionsInLastDays(1);
+				else if ( stime.equalsIgnoreCase("h"))
+					sessions = ivrStatsProvider.getIVRCallSessionsInLastHours(1);
+				else
+					sessions = ivrStatsProvider.getIVRCallSessionsInLastMinutes(5);
+			} else 
 				sessions = ivrStatsProvider.getIVRCallSessionsForPhone(phone);
 			
 			StringBuilder builder = new StringBuilder();
-			
-			for ( IVRCallSession s : sessions ) {
-				builder.append("\n\n" + s.toString());
-				for ( IVRCall c : s.getCalls() ) {
-					builder.append("\n\t" + c.toString());
-					for ( IVRMenu m : c.getMenus() ) {
-						builder.append("\n\t\t" + m.toString());
+	
+			if ( sessions != null ) {
+				for ( IVRCallSession s : sessions ) {
+					builder.append("\n\n" + s.toString());
+					for ( IVRCall c : s.getCalls() ) {
+						builder.append("\n\t" + c.toString());
+						for ( IVRMenu m : c.getMenus() ) {
+							builder.append("\n\t\t" + m.toString());
+						}
 					}
 				}
 			}
