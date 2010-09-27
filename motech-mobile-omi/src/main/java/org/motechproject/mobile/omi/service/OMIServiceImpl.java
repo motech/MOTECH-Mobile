@@ -463,6 +463,38 @@ public class OMIServiceImpl implements OMIService {
     }
 
     /**
+     * @see OMIService.sendBulkCaresMessage
+     */
+    public MessageStatus sendBulkCaresMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
+        if (workerNumber == null || workerNumber.isEmpty()) {
+            return MessageStatus.REJECTED;
+        }
+
+        logger.info("Constructing MessageDetails object...");
+
+
+        MessageFormatter formatter = omiManager.createMessageFormatter();
+        MessageRequest messageRequest = coreManager.createMessageRequest();
+
+        String content = formatter.formatBulkCaresMessage(cares);
+
+        messageRequest.setTryNumber(1);
+        messageRequest.setRequestId(messageId);
+        messageRequest.setDateFrom(startDate);
+        messageRequest.setDateTo(endDate);
+        messageRequest.setRecipientNumber(workerNumber);
+        messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
+        messageRequest.setStatus(MStatus.QUEUED);
+        messageRequest.setDateCreated(new Date());
+
+        logger.info("MessageRequest object successfully constructed");
+        logger.debug(messageRequest);
+
+        MessageStatus status = scheduleMessage(messageRequest, content);
+        return status;
+    }
+
+    /**
      * @see OMIService.processMessageRequests
      */
     @Transactional(readOnly = true)

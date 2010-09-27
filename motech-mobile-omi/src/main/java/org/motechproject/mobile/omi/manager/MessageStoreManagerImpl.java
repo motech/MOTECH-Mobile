@@ -121,7 +121,7 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
                 template = template.replaceAll(tag, value);
         }
         
-        return template;
+        return template.trim();
     }
 
     /**

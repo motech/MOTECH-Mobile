@@ -37,7 +37,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
 
         if (care == null) {
             return "No defaulters found for this clinic";
-        } else if (care.getPatients().length < 0) {
+        } else if (care.getPatients() == null || care.getPatients().length < 0) {
             return "No " + care.getName() + " defaulters found for this clinic";
         }
 
@@ -46,8 +46,27 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for (Patient p : care.getPatients()) {
-            String preferredName = (p.getPreferredName() == null) ? "" : p.getPreferredName();
             String lastName = (p.getLastName() == null) ? "" : p.getLastName();
+            String preferredName = p.getPreferredName();
+
+            if (preferredName == null || preferredName.isEmpty()) {
+                if (p.getBirthDate() != null) {
+                    long timeDiff = p.getBirthDate().getTime() - new Date().getTime();
+                    long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+                    if (dayDiff < 1095) {
+                        preferredName = "Baby ";
+                    } else {
+                        preferredName = "";
+                    }
+
+                    if (dayDiff < 6570) {
+                        preferredName += (p.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
+                    } else {
+                        preferredName = (p.getSex() == Gender.FEMALE) ? "Woman" : "Man";
+                    }
+                }
+            }
 
             data.add(new NameValuePair("PreferredName" + num, preferredName));
             data.add(new NameValuePair("LastName" + num, lastName));
@@ -137,7 +156,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
             return "No upcoming care required for this patient";
         } else if (patient.getCares() == null || patient.getCares().length < 1) {
             preferredName = patient.getPreferredName();
-            
+
             if (preferredName == null || preferredName.isEmpty()) {
                 if (patient.getBirthDate() != null) {
                     if (preferredName == null || preferredName.isEmpty()) {
@@ -175,6 +194,73 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
             template += "\n<Care" + num + ">:<Date" + num + ">";
 
             num++;
+        }
+        message = omiManager.createMessageStoreManager().parseTemplate(template, data);
+        return message;
+    }
+
+    /**
+     *
+     * @param see MessageFormatter.formatBulkCaresMessage
+     */
+    public String formatBulkCaresMessage(Care[] cares) {
+        if (cares == null) {
+            return "No upcoming care.";
+        }
+
+        int careNum = 0;
+        String message = "";
+        String template = "Upcoming care:";
+
+        SimpleDateFormat dFormat = new SimpleDateFormat(dateFormat);
+
+        Set<NameValuePair> data = new HashSet<NameValuePair>();
+
+        for (Care c : cares) {
+            if (c.getPatients() != null) {
+                String careDate = c.getDate() == null ? "" : dFormat.format(c.getDate());
+                data.add(new NameValuePair("Care" + careNum, c.getName()));
+                data.add(new NameValuePair("Date" + careNum, careDate));
+
+                template += "\n<Care" + careNum + "> - <Date" + careNum + ">:";
+
+                int patientNum = 0;
+                for (Patient p : c.getPatients()) {
+                    String lastName = (p.getLastName() == null) ? "" : p.getLastName();
+                    String preferredName = p.getPreferredName();
+
+                    if (preferredName == null || preferredName.isEmpty()) {
+                        if (p.getBirthDate() != null) {
+                            if (preferredName == null || preferredName.isEmpty()) {
+                                long timeDiff = p.getBirthDate().getTime() - new Date().getTime();
+                                long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+                                if (dayDiff < 1095) {
+                                    preferredName = "Baby ";
+                                } else {
+                                    preferredName = "";
+                                }
+
+                                if (dayDiff < 6570) {
+                                    preferredName += (p.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
+                                } else {
+                                    preferredName = (p.getSex() == Gender.FEMALE) ? "Woman" : "Man";
+                                }
+                            }
+                        }
+                    }
+                    data.add(new NameValuePair("PreferredName" + careNum + patientNum, preferredName));
+                    data.add(new NameValuePair("LastName" + careNum + patientNum, lastName));
+                    data.add(new NameValuePair("MoTeCHID" + careNum + patientNum, p.getMotechId()));
+                    data.add(new NameValuePair("Community" + careNum + patientNum, p.getCommunity()));
+
+                    template += "\n<PreferredName" + careNum + patientNum + "> <LastName" + careNum + patientNum + ">-<MoTeCHID" + careNum + patientNum + "> (<Community" + careNum + patientNum + ">)";
+
+                    patientNum++;
+                }
+                template += "\n";
+                careNum++;
+            }
         }
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);
         return message;

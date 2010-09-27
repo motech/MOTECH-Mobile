@@ -34,15 +34,15 @@ public interface OMIService {
      * @return The status of the message
      */
     public MessageStatus savePatientMessageRequest(String messageId, 
-    											   NameValuePair[] personalInfo, 
-    											   String patientNumber, 
-    											   ContactNumberType patientNumberType, 
-    											   String langCode, 
-    											   MediaType messageType, 
-    											   Long notificationType, 
-    											   Date startDate, 
-    											   Date endDate,
-    											   String recipientId);
+                                                   NameValuePair[] personalInfo,
+                                                   String patientNumber,
+                                                   ContactNumberType patientNumberType,
+                                                   String langCode,
+                                                   MediaType messageType,
+                                                   Long notificationType,
+                                                   Date startDate,
+                                                   Date endDate,
+                                                   String recipientId);
 
     /**
      * Processes and stores a message to a registered CHPS worker
@@ -146,6 +146,19 @@ public interface OMIService {
      * @return
      */
     MessageStatus scheduleMessage(MessageRequest message, String content);
+
+    /**
+     * Sends multiple upcoming care messages to a CHPS worker
+     *
+     * @param messageId Id of the message to send
+     * @param workerNumber CHPS worker's mobile contact number
+     * @param cares List of upcoming care
+     * @param mediaType Patient's preferred communication medium
+     * @param startDate Date to begin message sending attempts
+     * @param endDate Date to stop message sending attempts
+     * @return The status of the message
+     */
+    MessageStatus sendBulkCaresMessage(String messageId, String workerNumber, Care[] cares, MediaType mediaType, Date startDate, Date endDate);
 
     /**
      * Processes stored MessageRequests into GatewayRequests and schedules them for delivery on the OMP

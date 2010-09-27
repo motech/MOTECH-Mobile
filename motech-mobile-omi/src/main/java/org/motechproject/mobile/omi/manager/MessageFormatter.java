@@ -82,6 +82,13 @@ public interface MessageFormatter {
     String formatUpcomingCaresMessage(Patient patient);
 
     /**
+     * Constructs a upcoming care message for multiple patients
+     * @param patient object containing list of upcoming care
+     * @return the formatted message
+     */
+    String formatBulkCaresMessage(Care[] cares);
+
+    /**
      * Constructs a formatted patient registration response message
      * @param patient object containing patient details
      * @return the formatted message

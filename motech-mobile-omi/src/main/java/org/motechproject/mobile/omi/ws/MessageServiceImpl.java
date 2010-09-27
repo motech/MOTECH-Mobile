@@ -144,6 +144,21 @@ public class MessageServiceImpl implements MessageService {
 
     /**
      *
+     * @see MessageService.sendBulkCaresMessage
+     */
+    @WebMethod
+    public MessageStatus sendBulkCaresMessage(@WebParam(name = "messageId") String messageId,
+                                                  @WebParam(name = "workerNumber") String workerNumber,
+                                                  @WebParam(name = "patient") Care[] cares,
+                                                  @WebParam(name = "mediaType") MediaType mediaType,
+                                                  @WebParam(name = "startDate") Date startDate,
+                                                  @WebParam(name = "endDate") Date endDate) {
+        logger.info("Processing request...");
+        return this.omiManager.createOMIService().sendBulkCaresMessage(messageId, workerNumber, cares, mediaType, startDate, endDate);
+    }
+
+    /**
+     *
      * @see MessageService.sendMessage
      */
     @WebMethod
