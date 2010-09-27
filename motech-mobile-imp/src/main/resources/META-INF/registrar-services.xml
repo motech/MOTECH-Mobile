@@ -44,6 +44,7 @@
                 <entry key="REGISTERCWCCHILD-JF" value-ref="registerCWCChildSignatureBean" />
                 <entry key="CHILDOPD-JF" value-ref="recordChildVisitSignatureBean" />
                 <entry key="MOTHEROPD-JF" value-ref="recordMotherVisitSignatureBean" />
+                <entry key="CAREHISTORY-JF" value-ref="recordCareHistorySignatureBean" />
                 <entry key="ANCDEFAULT-JF" value-ref="queryANCDefaultersSignatureBean" />
                 <entry key="TTDEFAULT-JF" value-ref="queryTTDefaultersSignatureBean" />
                 <!-- Rename PPC to MotherPNC, PNC to ChildPNC when database definitions are renamed -->
@@ -56,6 +57,32 @@
                 <entry key="UPCOMINGCARE-JF" value-ref="queryUpcomingCareSignatureBean" />
                 <entry key="VIEWPATIENT-JF" value-ref="queryPatientSignatureBean" />
                 <entry key="FINDMOTECHID-JF" value-ref="queryMotechIdSignatureBean" />
+            </map>
+        </property>
+    </bean>
+
+    <bean scope="prototype" name="recordCareHistorySignatureBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+        <property name="methodName" value="recordPatientHistory" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="staffId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
+                <entry key="date" value="java.util.Date" />
+                <entry key="motechId" value="java.lang.Integer" />
+                <entry key="lastIPT" value="java.lang.Integer" />
+                <entry key="lastIPTDate" value="java.util.Date" />
+                <entry key="lastTT" value="java.lang.Integer" />
+                <entry key="lastTTDate" value="java.util.Date" />
+                <entry key="bcgDate" value="java.util.Date" />
+                <entry key="lastOPV" value="java.lang.Integer" />
+                <entry key="lastOPVDate" value="java.util.Date" />
+                <entry key="lastPenta" value="java.lang.Integer" />
+                <entry key="lastPentaDate" value="java.util.Date" />
+                <entry key="measlesDate" value="java.util.Date" />
+                <entry key="yellowFeverDate" value="java.util.Date" />
+                <entry key="lastIPTI" value="java.lang.Integer" />
+                <entry key="lastIPTIDate" value="java.util.Date" />
+                <entry key="lastVitaminADate" value="java.util.Date" />
             </map>
         </property>
     </bean>
