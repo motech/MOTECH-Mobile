@@ -1,5 +1,6 @@
 package org.motechproject.mobile.omp.manager.clickatell;
 
+import org.junit.Ignore;
 import org.motechproject.mobile.core.manager.CoreManager;
 import static org.easymock.EasyMock.*;
 
@@ -18,6 +19,7 @@ import static org.junit.Assert.*;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created Aug 10, 2009
  */
+@Ignore
 public class ClickatellGatewayMessageHandlerImplTest {
 
     CoreManager mockCoreManager;
