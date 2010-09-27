@@ -8,6 +8,23 @@
 <title>IVR Call Statistics</title>
 </head>
 <body>
+<h1>Search</h1>
+<table>
+<tr>
+<form>
+<td>
+User ID:<input type="text" name="userid"/>
+<input type="submit"/>
+</td>
+</form>
+<form>
+<td>
+Phone Number:<input type="text" name="phone"/>
+<input type="submit"/>
+</td>
+</form>
+</tr>
+</table>
 <h1>Call Session Stats</h1>
 <table border="1">
 <tr>

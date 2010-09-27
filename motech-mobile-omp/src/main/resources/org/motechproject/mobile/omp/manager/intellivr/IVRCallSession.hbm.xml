@@ -19,7 +19,7 @@
 				<key column="ivr_call_session_id"/>
 				<many-to-many column="message_request_id" class="org.motechproject.mobile.core.model.MessageRequestImpl"/>
 			</set>
-			<set name="calls" inverse="true" cascade="all">
+			<set name="calls" inverse="true" cascade="all" lazy="false">
 				<key column="ivr_call_session"/>
 				<one-to-many class="IVRCall"/>
 			</set>

@@ -17,7 +17,7 @@
 		<property name="status" type="ivrCallStatus" column="status"/>
 		<property name="statusReason" type="string" column="status_reason"/>
 		<many-to-one class="IVRCallSession" name="session" column="ivr_call_session" not-null="true"/>
-		<set name="menus" order-by="entryTime" cascade="all">
+		<set name="menus" order-by="entryTime" cascade="all" lazy="false">
 			<key column="ivr_call_id"/>
 			<one-to-many class="IVRMenu"/>
 		</set>
