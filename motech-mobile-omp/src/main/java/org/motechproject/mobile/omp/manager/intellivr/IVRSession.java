@@ -7,6 +7,12 @@ import java.util.UUID;
 
 import org.motechproject.mobile.core.model.GatewayRequest;
 
+/**
+ * Replaced by {@link IVRCallSession}
+ * @author fcbrooks
+ *
+ */
+@Deprecated
 @SuppressWarnings("serial")
 public class IVRSession implements Serializable {
 

@@ -1,5 +1,8 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+/**
+ * Stub for simulating a call the IVR system for testing
+ */
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

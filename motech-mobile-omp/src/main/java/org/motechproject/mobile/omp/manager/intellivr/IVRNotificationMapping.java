@@ -1,5 +1,13 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+import org.motechproject.mobile.core.model.NotificationType;
+
+/**
+ * Provides the mapping between a {@link NotificationType} and a recording or tree name
+ * in the IVR system.  Tells if is an informational or reminder message
+ * @author fcbrooks
+ *
+ */
 public class IVRNotificationMapping {
 	
 	public static String INFORMATIONAL = "I";
@@ -9,6 +17,10 @@ public class IVRNotificationMapping {
 	private String type;
 	private String ivrEntityName;
 
+	/**
+	 * 
+	 * @return id of the {@link NotificationType} 
+	 */
 	public long getId() {
 		return id;
 	}
@@ -17,6 +29,10 @@ public class IVRNotificationMapping {
 		this.id = id;
 	}
 
+	/**
+	 * 
+	 * @return INFORMATIONAL or REMINDER depending on type
+	 */
 	public String getType() {
 		return type;
 	}
@@ -28,6 +44,10 @@ public class IVRNotificationMapping {
 			this.type = type;
 	}
 
+	/**
+	 * 
+	 * @return recording or tree name in the IVR system
+	 */
 	public String getIvrEntityName() {
 		return ivrEntityName;
 	}

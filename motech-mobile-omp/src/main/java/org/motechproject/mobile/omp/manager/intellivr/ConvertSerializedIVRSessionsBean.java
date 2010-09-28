@@ -12,6 +12,14 @@ import org.motechproject.mobile.core.model.GatewayRequest;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Standalone program for converting {@link IVRSession} objects that have been serialized to the
+ * file system in the previous version of the {@link IntellIVRBean} to the new style {@link IVRCallSession}
+ * objects that are persisted to the database.  SEtting dry run to true will just result in a print
+ * out of the objects that would be created based on the input.
+ * @author fcbrooks
+ *
+ */
 public class ConvertSerializedIVRSessionsBean {
 
 	private IVRDAO ivrDao;

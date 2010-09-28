@@ -15,6 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+/**
+ * 
+ * @author fcbrooks
+ *
+ * Controller for provide basic operational reporting about the IVR gateway
+ * 
+ * If no parameters are provided it returns a summary page. If parameter userid is set 
+ * it provides a listing of sessions for that userid.  If phone parameter is set if 
+ * provides a listing of sessions for that phone number.  If stime is set to a value of
+ * either 'd', 'h', or 'm', it will provide a listing of sessions for the last day, last hour,
+ * and last 5 minutes respectively. 
+ */
 public class IVRStatsController extends AbstractController implements ResourceLoaderAware  {
 
 	private IVRCallStatsProvider ivrStatsProvider;

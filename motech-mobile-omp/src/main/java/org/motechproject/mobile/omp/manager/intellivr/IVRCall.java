@@ -4,6 +4,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a request for the IVR system to place an outbound call or an 
+ * inbound call by a user to the IVR system
+ * @author fcbrooks
+ *
+ */
 public class IVRCall {
 
 	private long id;
@@ -71,6 +77,10 @@ public class IVRCall {
 		this.duration = duration;
 	}
 
+	/**
+	 * 
+	 * @return the identifier shared with the IVR system for identifying this call
+	 */
 	public String getExternalId() {
 		return externalId;
 	}
@@ -87,6 +97,10 @@ public class IVRCall {
 		this.status = status;
 	}
 
+	/**
+	 * 
+	 * @return a String with human readable detail about the call status
+	 */
 	public String getStatusReason() {
 		return statusReason;
 	}
@@ -95,6 +109,10 @@ public class IVRCall {
 		this.statusReason = statusReason;
 	}
 
+	/**
+	 * 
+	 * @return the {@link IVRCallSession} this belongs to
+	 */
 	public IVRCallSession getSession() {
 		return session;
 	}
@@ -103,6 +121,10 @@ public class IVRCall {
 		this.session = session;
 	}
 
+	/**
+	 * 
+	 * @return the {@link IVRMenu} that make up the call
+	 */
 	public Set<IVRMenu> getMenus() {
 		return menus;
 	}

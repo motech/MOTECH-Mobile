@@ -1,5 +1,10 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+/**
+ * Encapsulates stats about the a particular recording
+ * @author fcbrooks
+ *
+ */
 public class IVRRecordingStat {
 
 	private String name;

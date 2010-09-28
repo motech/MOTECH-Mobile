@@ -17,6 +17,12 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Implementation of the {@link IntellIVRServer} interface for requesting calls
+ * be initiated to the user
+ * @author fcbrooks
+ *
+ */
 public class IntellIVRServerImpl implements IntellIVRServer {
 
 	private String serverURL;

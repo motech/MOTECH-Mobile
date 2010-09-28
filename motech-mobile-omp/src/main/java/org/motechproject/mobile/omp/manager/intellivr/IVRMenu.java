@@ -2,6 +2,11 @@ package org.motechproject.mobile.omp.manager.intellivr;
 
 import java.util.Date;
 
+/**
+ * Represents a recording heard as part of an interaction with the IVR system
+ * @author fcbrooks
+ *
+ */
 public class IVRMenu {
 
 	private long id;
@@ -34,30 +39,55 @@ public class IVRMenu {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+	
+	/**
+	 * 
+	 * @return name of the recording
+	 */
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * 
+	 * @return time caller starting listening to menu
+	 */
 	public Date getEntryTime() {
 		return entryTime;
 	}
 	public void setEntryTime(Date entryTime) {
 		this.entryTime = entryTime;
 	}
+	
+	/**
+	 * 
+	 * @return time user spent in menu
+	 */
 	public int getDuration() {
 		return duration;
 	}
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+	
+	/**
+	 * 
+	 * @return key pressed to exit menu
+	 */
 	public String getKeyPressed() {
 		return keyPressed;
 	}
 	public void setKeyPressed(String keyPressed) {
 		this.keyPressed = keyPressed;
 	}
+	
+	/**
+	 * 
+	 * @return url to feedback recording if one was made by user
+	 */
 	public String getRecording() {
 		return recording;
 	}

@@ -37,7 +37,18 @@ import org.motechproject.ws.server.ValidationException;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
-
+/**
+ * Central class for handling the interaction with the Intell IVR system.  Provides several functions.
+ *  
+ * {@link GatewayManager} to handle the bundling and sending of {@link MessageRequest} to users.
+ * {@link GetIVRConfigRequest} to handle requests from the IVR system for content for inbound callers
+ * {@link IVRCallRequester} to handle placing requests for calls with the ivr system.  
+ * {@link IVRCallSessionProcessor} to handle the initial lifecycle of an {@link IVRCallSession} up to the point the call is requested.
+ * {@link ReportHandler} to handle reports from the ivr system about completed calls.    
+ * {@link IVRCallStatsProvider} to provider data to be used for operational reporting.
+ * @author fcbrooks
+ *
+ */
 public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler, IVRCallRequester, IVRCallSessionProcessor, IVRCallStatsProvider, ReportHandler {
 
 	private GatewayMessageHandler messageHandler;
@@ -140,7 +151,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 	/**
 	 * Method for the core mobile server to request a message be delivered to a user of the IVR system.
 	 * 
-	 * Messages may take as long the {@link #getBundlingDelay()} to be sent after a call to this method.  
+	 * Messages will take at least as long as the {@link #getBundlingDelay()} to be sent after a call to this method.  
 	 * 
 	 * When a request is received for a user at a particular phone number, the bean will wait up to the bundling
 	 * delay for other messages for that user at that phone number before triggering a call from the IVR system.  This 
@@ -213,6 +224,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return responses;
 	}
 
+	/**
+	 * Queries database for the {@link IVRCallSession} in OPEN state with nextAttempt before 
+	 * the current time.  Changes them to SEND_WAIT state.
+	 */
 	@Transactional
 	public void processOpenSessions() {
 		
@@ -231,6 +246,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 	}
 
+	/**
+	 * Queries database for {@link IVRCallSession} in SEND_WAIT state with nextAttempt 
+	 * before the current time.  Passed request to the {@link IVRCallRequester} interface
+	 * implementation.
+	 */
 	@Transactional
 	public void processWaitingSessions() {
 		
@@ -247,6 +267,12 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 	}
 
+	/**
+	 * Places request with {@link IntellIVRServer} to place the call.  If the server returns
+	 * a success code the {@link IVRCallSession} is placed into a REPORT_WAIT to await the 
+	 * report of the completed call.  If the server returns an error the {@link IVRCallSession}
+	 * is set to a CLOSED state
+	 */
 	@Transactional
 	public void requestCall(IVRCallSession session, String externalId) {
 		
@@ -256,15 +282,20 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 			log.debug("Requesting call for session: " + session);
 			
+			//format the request
 			RequestType request = createIVRRequest(session, externalId);
 			
+			//request the call
 			ResponseType response = ivrServer.requestCall(request);
 			
+			//parse the response
 			String status = response.getStatus() == StatusType.OK ? StatusType.OK.value() : response.getErrorCode().value();
 			
+			//update the local status store
 			for (MessageRequest messageRequest : session.getMessageRequests())
 				statusStore.updateStatus(messageRequest.getId().toString(), status);
 
+			//if response was OK wait for report, if not close the session and take no further action
 			if ( response.getStatus() == StatusType.OK ) {
 				session.setState(IVRCallSession.REPORT_WAIT);
 				session.setAttempts(session.getAttempts()+1);
@@ -324,6 +355,13 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		
 	}
 	
+	/**
+	 * Method to request a {@link RequestType} instance based on the content of the 
+	 * {@link IVRCallSession} instance and the provided externalId
+	 * @param session
+	 * @param externalId
+	 * @return
+	 */
 	public RequestType createIVRRequest(IVRCallSession session, String externalId) {
 		
 		Set<MessageRequest> messageRequests = session.getMessageRequests();
@@ -446,6 +484,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return handleRequest(request, UUID.randomUUID().toString());
 	}
 
+	/**
+	 * Handles the request from the IVR system for content for incoming callers
+	 */
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public ResponseType handleRequest(GetIVRConfigRequest request, String externalId) {
@@ -572,6 +613,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return r;
 	}
 
+	/**
+	 * Handles reports detailing the results of calls placed or received by the IVR system
+	 * {@link IVRCallSession} and {@link IVRCall} instances are updated based on the data
+	 * received. 
+	 */
 	@Transactional
 	public ResponseType handleReport(ReportType report) {
 		log.info("Received call report: " + report.toString());
@@ -580,24 +626,28 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		for ( String message : messages )
 			reportLog.info(message);
 
+		//private field contains the external id specified in the original request
 		String externalId = report.getPrivate();
 
 		if ( externalId == null )
 			log.error("Unable to identify call in report: " + externalId);
 		else {
 			
+			//look up the call
 			IVRCall call = ivrDao.loadIVRCallByExternalId(externalId);
 
 			if ( call == null ) {
 				log.error("Unable to find IVRCall with external id " + externalId);
 			} else {
 
+				//update the call's fields
 				call.setConnected(toDate(report.getConnectTime()));
 				call.setDisconnected(toDate(report.getDisconnectTime()));
 				call.setDuration(report.getDuration());
 				call.setStatus(toIvrCallStatus(report.getStatus()));
 				call.setStatusReason("");
 				
+				//add menu entries to the database
 				for ( IvrEntryType entry : report.getINTELLIVREntry() ) {
 					IVRMenu menu = new IVRMenu(
 									entry.getMenu() 		== null ? null : entry.getMenu(), 
@@ -620,22 +670,28 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					 * Retry if necessary
 					 */
 					if ( report.getStatus() == ReportStatusType.COMPLETED && callExceedsThreshold(session,report) ) {
+						//Success.  Call was complete and over the required call time threshold.
 						session.setState(IVRCallSession.CLOSED);
 					} else {
 
 						if ( session.getCallDirection().equalsIgnoreCase(IVRCallSession.INBOUND) ) {
+							//can't retry or update status for failed inbound calls.  
 							status = null;
 							session.setState(IVRCallSession.CLOSED);
 						} else {
 							
+							//set to SEND_WAIT to be retried
 							session.setState(IVRCallSession.SEND_WAIT);
 							
+							//if the status is completed it must have been below the call time threshold
 							if ( report.getStatus() == ReportStatusType.COMPLETED ) {
 								call.setStatus(IVRCallStatus.BELOWTHRESHOLD);
 								status = "BELOWTHRESHOLD";
 							}
 
+							//check the number of attempts today
 							if ( session.getAttempts() < this.maxAttempts ) {
+								//try again after the retry delay
 								session.setNextAttempt(addToDate(session.getNextAttempt(), GregorianCalendar.MINUTE, retryDelay));
 							} else {
 
@@ -643,8 +699,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 								session.setDays(session.getDays() + 1);
 								session.setAttempts(0);
 
+								//check the number of days attempted
 								if ( session.getDays() < this.maxDays ) {
 
+									//have not exhausted days.  try again tomorrow
+									//acceletateRetries is a debug option to speed up next day retries to the same day
 									if ( accelerateRetries )
 										session.setNextAttempt(addToDate(new Date(), GregorianCalendar.MINUTE, 1));
 									else
@@ -692,13 +751,22 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 		return r;
 	}
 
-
+	/**
+	 * Contains logic for a call being over the threshold for a completed calls.
+	 * Basically if the first non-reminder message is greater than the callCompleteThreshold value
+	 * it is considered complete.  
+	 * @param session
+	 * @param report
+	 * @return
+	 */
 	protected boolean callExceedsThreshold(IVRCallSession session, ReportType report) {
 
 		int effectiveCallTime = 0;
 		int reminderCount = 0;
 		boolean shouldHaveInformationalMessage = false;
 
+		//get the message request and determine if we should expect to find a informational message in the report
+		//if there is no informational message then the first non-reminder logic does not apply
 		for ( MessageRequest request : session.getMessageRequests() ) {
 			long notificationId = request.getNotificationType().getId();
 			if ( ivrNotificationMap.containsKey(notificationId) )
@@ -706,10 +774,13 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 					shouldHaveInformationalMessage = true;
 		}
 
+		//to hold a reference to the first non-reminder
 		IvrEntryType firstInfoEntry = null;
 
+		//get the list of recording that were heard
 		List<IvrEntryType> entries = report.getINTELLIVREntry();
 
+		//iterate.  increment counter for reminder messages.  identify the first non-reminder 
 		for (IvrEntryType entry : entries)
 			if ( ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("break") || entry.getMenu().equalsIgnoreCase(welcomeMessageRecordingName) )
 				reminderCount++;
@@ -717,16 +788,16 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 				if ( firstInfoEntry == null && ( session.getCallDirection().equalsIgnoreCase(IVRCallSession.OUTBOUND) || reminderCount > 0) )
 					firstInfoEntry = entry;
 
-		if ( firstInfoEntry == null )
-			if ( shouldHaveInformationalMessage )
-				effectiveCallTime = 0;
+		if ( firstInfoEntry == null )//did not find first non-reminder
+			if ( shouldHaveInformationalMessage )//there should have been one
+				effectiveCallTime = 0;//insure it is below threshold
 			else
-				if ( reminderCount > 0 )
-					effectiveCallTime = callCompletedThreshold;
+				if ( reminderCount > 0 )//no info message expected but no reminders play either
+					effectiveCallTime = callCompletedThreshold;//say it was over threshold
 				else
-					effectiveCallTime = report.getDuration();
+					effectiveCallTime = report.getDuration();//fall back to the duration of the entire call
 		else
-			effectiveCallTime = firstInfoEntry.getDuration();
+			effectiveCallTime = firstInfoEntry.getDuration();//duration of the first non-reminder
 
 		return effectiveCallTime >= callCompletedThreshold;
 	}

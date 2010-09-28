@@ -33,7 +33,6 @@ import org.xml.sax.SAXException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequestHandler;
-import org.motechproject.mobile.omp.manager.intellivr.IVRCallStatsProvider;
 import org.motechproject.mobile.omp.manager.intellivr.ReportHandler;
 import org.motechproject.mobile.omp.manager.intellivr.AutoCreate;
 import org.motechproject.mobile.omp.manager.intellivr.ErrorCodeType;
@@ -41,6 +40,12 @@ import org.motechproject.mobile.omp.manager.intellivr.GetIVRConfigRequest;
 import org.motechproject.mobile.omp.manager.intellivr.ResponseType;
 import org.motechproject.mobile.omp.manager.intellivr.StatusType;
 
+/**
+ * 
+ * @author fcbrooks
+ * Controller implementation to handle requests from the IVR system for content for 
+ * users that call the IVR system, as well as accepting reports about completed calls.
+ */
 public class IntellIVRController extends AbstractController implements ResourceLoaderAware {
 
 	private ResourceLoader resourceLoader;

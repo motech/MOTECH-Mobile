@@ -3,6 +3,13 @@ package org.motechproject.mobile.omp.manager.intellivr;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Provides a response for a test userid '123456789' for generating test content
+ * when calling into the ivr system.  All other ids are pased to the real
+ * {@link IntellIVRBean}
+ * @author fcbrooks
+ *
+ */
 public class IntellIVRDummyBean extends IntellIVRBean { 
 	
 	private String testID = "123456789";

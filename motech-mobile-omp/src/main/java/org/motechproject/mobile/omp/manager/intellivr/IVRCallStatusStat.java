@@ -1,5 +1,10 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
+/**
+ * For holding stats about a particular call status
+ * @author fcbrooks
+ *
+ */
 public class IVRCallStatusStat {
 
 	private IVRCallStatus status;
@@ -12,6 +17,10 @@ public class IVRCallStatusStat {
 		this.count = count;
 	}
 
+	/**
+	 * 
+	 * @return {@link IVRCallStatus} 
+	 */
 	public IVRCallStatus getStatus() {
 		return status;
 	}
@@ -20,6 +29,10 @@ public class IVRCallStatusStat {
 		this.status = status;
 	}
 
+	/**
+	 * 
+	 * @return Count of {@link IVRCall} with this status
+	 */
 	public long getCount() {
 		return count;
 	}

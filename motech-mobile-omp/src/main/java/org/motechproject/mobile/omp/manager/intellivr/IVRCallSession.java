@@ -6,6 +6,14 @@ import java.util.Set;
 
 import org.motechproject.mobile.core.model.MessageRequest;
 
+/**
+ * Represents a group of MessageRequest to be delivered to a particular user at
+ * a particular number at the same time.  Tracks the number of time delivery has been attempted,
+ * when it will be retried if at all, and if the session was the result of a user calling the system
+ * or the reverse. 
+ * @author fcbrooks
+ *
+ */
 public class IVRCallSession {
 
 	public static String INBOUND 	= "IN";
@@ -70,6 +78,10 @@ public class IVRCallSession {
 		this.version = version;
 	}
 
+	/**
+	 * 
+	 * @return identifier for the user
+	 */
 	public String getUserId() {
 		return userId;
 	}
@@ -78,6 +90,10 @@ public class IVRCallSession {
 		this.userId = userId;
 	}
 	
+	/**
+	 * 
+	 * @return phone number to call. Null for INBOUND calls
+	 */
 	public String getPhone() {
 		return phone;
 	}
@@ -86,6 +102,10 @@ public class IVRCallSession {
 		this.phone = phone;
 	}
 	
+	/**
+	 * 
+	 * @return language of call.  Null for INBOUND
+	 */
 	public String getLanguage() {
 		return language;
 	}
@@ -94,6 +114,10 @@ public class IVRCallSession {
 		this.language = language;
 	}
 
+	/**
+	 * 
+	 * @return OUT if system called user.  IN if user called system
+	 */
 	public String getCallDirection() {
 		return callDirection;
 	}
@@ -102,6 +126,10 @@ public class IVRCallSession {
 		this.callDirection = callDirection;
 	}
 
+	/**
+	 * 
+	 * @return number of attempts to call the user requested
+	 */
 	public int getAttempts() {
 		return attempts;
 	}
@@ -110,6 +138,10 @@ public class IVRCallSession {
 		this.attempts = attempts;
 	}
 
+	/**
+	 * 
+	 * @return number of days call requests have been completed for
+	 */
 	public int getDays() {
 		return days;
 	}
@@ -134,6 +166,10 @@ public class IVRCallSession {
 		this.created = created;
 	}
 
+	/**
+	 * 
+	 * @return next time a call rquest will be made
+	 */
 	public Date getNextAttempt() {
 		return nextAttempt;
 	}
@@ -142,7 +178,11 @@ public class IVRCallSession {
 		this.nextAttempt = nextAttempt;
 	}
 
-	public Set<MessageRequest> getMessageRequests() {
+	/**
+	 * 
+	 * @return the underlying {@link MessageRequest}
+	 */
+	public Set<MessageRequest> getMessageRequests(){
 		return messageRequests;
 	}
 
@@ -150,6 +190,10 @@ public class IVRCallSession {
 		this.messageRequests = messageRequests;
 	}
 
+	/**
+	 * 
+	 * @return {@link IVRCall}.  One for each OUTBOUND request or INBOUND call.
+	 */
 	public Set<IVRCall> getCalls() {
 		return calls;
 	}
