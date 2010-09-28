@@ -27,6 +27,8 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
     private CoreManager coreManager;
     private Map<String, List<SubField>> subFields;
+    private Map<String, List<SubField>> conditionalRequirements;
+    private ConditionalRequirementValidator conditionalValidator;
     private LinkedHashMap<String, ValidatorGroup> paramValidators;
     private Map<String, List<CompositeRequirementValidator>> compositeRequirements;
     private static Logger logger = Logger.getLogger(IncomingMessageFormValidatorImpl.class);
@@ -40,9 +42,14 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         IncMessageFormStatus status;
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         List<SubField> subs = null;
+        List<SubField> conditionals = null;
 
-        if (subFields.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
+        if (subFields != null && subFields.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
             subs = subFields.get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
+        }
+
+        if (conditionalRequirements != null && conditionalRequirements.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
+            conditionals = conditionalRequirements.get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
         }
 
         Map<String, IncomingMessageFormParameter> params = form.getIncomingMsgFormParameters();
@@ -69,6 +76,9 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                 }
             }
         }
+
+        if(conditionals != null)
+            conditionalValidator.validate(form, conditionals, coreManager);
 
         try {
             for (IncomingMessageFormParameterDefinition paramDef : form.getIncomingMsgFormDefinition().getIncomingMsgParamDefinitions()) {
@@ -208,5 +218,33 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
      */
     public void setCompositeRequirements(Map<String, List<CompositeRequirementValidator>> compositeRequirements) {
         this.compositeRequirements = compositeRequirements;
+    }
+
+    /**
+     * @return the conditionalRequirements
+     */
+    public Map<String, List<SubField>> getConditionalRequirements() {
+        return conditionalRequirements;
+    }
+
+    /**
+     * @param conditionalRequirements the conditionalRequirements to set
+     */
+    public void setConditionalRequirements(Map<String, List<SubField>> conditionalRequirements) {
+        this.conditionalRequirements = conditionalRequirements;
+    }
+
+    /**
+     * @return the conditionalValidator
+     */
+    public ConditionalRequirementValidator getConditionalValidator() {
+        return conditionalValidator;
+    }
+
+    /**
+     * @param conditionalValidator the conditionalValidator to set
+     */
+    public void setConditionalValidator(ConditionalRequirementValidator conditionalValidator) {
+        this.conditionalValidator = conditionalValidator;
     }
 }

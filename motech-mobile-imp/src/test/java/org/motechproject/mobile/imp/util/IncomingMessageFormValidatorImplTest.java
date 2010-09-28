@@ -5,6 +5,8 @@
 
 package org.motechproject.mobile.imp.util;
 
+import java.util.Date;
+import java.util.ArrayList;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
 import org.motechproject.mobile.core.model.IncomingMessageForm;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
 import org.motechproject.ws.server.RegistrarService;
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
@@ -78,6 +81,8 @@ public class IncomingMessageFormValidatorImplTest {
         System.out.println("validate");
 
         String reqPhone = "000000000000";
+        instance.setConditionalRequirements(new HashMap<String, List<SubField>>());
+        instance.setConditionalValidator(new ConditionalRequirementValidator());
 
         IncomingMessageFormParameterDefinitionImpl pDef1 = new IncomingMessageFormParameterDefinitionImpl();
         pDef1.setRequired(true);
@@ -146,5 +151,42 @@ public class IncomingMessageFormValidatorImplTest {
         assertEquals(param2.getIncomingMsgFormParamDefinition(), pDef2);
         assertTrue(form.getIncomingMsgFormParameters().size() == 2);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.VALID);
+
+        
+        reset(mockCore, mockParamValidator);
+
+        expResult = IncMessageFormStatus.INVALID;
+
+        SubField sf = new SubField();
+        sf.setFieldName("chpscompound");
+        sf.setParentField("chpsId");
+        sf.setReplaceOn("*");
+        
+//        IncomingMessageFormParameter param3 = new IncomingMessageFormParameterImpl();
+//        param3.setDateCreated(new Date());
+//        param3.setErrText("missing");
+//        param3.setErrCode(0);
+//        param3.setIncomingMsgForm(form);
+//        param3.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
+//        param3.setName("chpscompound");
+        
+        
+        List<SubField> conditionals = new ArrayList<SubField>();
+        conditionals.add(sf);
+        
+        expect(
+                mockCore.createIncomingMessageFormParameter()
+                ).andReturn(new IncomingMessageFormParameterImpl());
+
+        instance.getConditionalRequirements().put(form.getIncomingMsgFormDefinition().getFormCode(), conditionals);
+
+        replay(mockCore, mockParamValidator);
+        result = instance.validate(form, reqPhone);
+        verify(mockCore, mockParamValidator);
+
+        assertEquals(expResult, result);
+        assertEquals(param2.getIncomingMsgFormParamDefinition(), pDef2);
+        assertTrue(form.getIncomingMsgFormParameters().size() == 3);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.INVALID);
     }
 }

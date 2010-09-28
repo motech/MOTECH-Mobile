@@ -13,6 +13,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <bean id="imFormValidator" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
+        <property name="conditionalValidator" ref="conditionalValidator" />
         <property name="subFields">
             <map>
                 <entry key="GENERALOPD-JF">
@@ -465,8 +466,18 @@
                 </entry>
             </map>
         </property>
+        <property name="conditionalRequirements">
+            <map>
+                <entry key="ANC-JF">
+                    <list>
+                        <ref bean="bpSub" />
+                    </list>
+                </entry>
+            </map>
+        </property>
     </bean>
-    
+    <bean id="conditionalValidator" class="org.motechproject.mobile.imp.util.ConditionalRequirementValidator" scope="prototype" />
+
     <bean id="diagSub" class="org.motechproject.mobile.imp.util.SubField">
         <property name="parentField" value="diagnosis" />
         <property name="fieldName" value="otherdiagnosis" />
@@ -476,5 +487,10 @@
         <property name="parentField" value="diagnosis" />
         <property name="fieldName" value="othersecondarydiagnosis" />
         <property name="replaceOn" value="78" />
+    </bean>
+    <bean id="bpSub" class="org.motechproject.mobile.imp.util.SubField">
+        <property name="parentField" value="bpSystolic" />
+        <property name="fieldName" value="bpDiastolic" />
+        <property name="replaceOn" value="*" />
     </bean>
 </beans>

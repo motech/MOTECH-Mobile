@@ -11,8 +11,9 @@ import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 
 /**
+ * Validate an IncominMessageForm
  *
- * @author user
+ * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
 public class CompositeRequirementValidator {
 

@@ -5,6 +5,7 @@
 
 package org.motechproject.mobile.omi.manager;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +26,7 @@ public class SMSMessageFormatterImplTest {
     SMSMessageFormatterImpl instance;
     Care c, c1, c2;
     Patient p, p1, p2, p3;
+    SimpleDateFormat df;
     
     public SMSMessageFormatterImplTest() {
     }
@@ -37,6 +39,8 @@ public class SMSMessageFormatterImplTest {
         instance = new SMSMessageFormatterImpl();
         instance.setOmiManager(mockOMI);
         instance.setDateFormat("dd/MM/yyyy");
+
+        df = new SimpleDateFormat("dd/MM/yyyy");
         
         c = new Care();
         c.setDate(new Date());
@@ -145,7 +149,7 @@ public class SMSMessageFormatterImplTest {
         String type = "Upcoming";
         Patient[] patients = new Patient[]{p};
 
-        String expResult = "Upcoming Deliveries:\n<27/09/2010>: Test Patient - 1234567 (Community)";
+        String expResult = "Upcoming Deliveries:\n<"+df.format(new Date())+">: Test Patient - 1234567 (Community)";
 
         expect(
                 mockOMI.createMessageStoreManager()
@@ -166,7 +170,7 @@ public class SMSMessageFormatterImplTest {
 
         p3.setCares(new Care[]{c1, c2});
         
-        String expResult = "Upcoming care for  Patient:\nCare1:27/09/2010\nCare2:27/09/2010";
+        String expResult = "Upcoming care for  Patient:\nCare1:"+df.format(new Date())+"\nCare2:"+df.format(new Date());
 
         expect(
                 mockOMI.createMessageStoreManager()
@@ -191,7 +195,7 @@ public class SMSMessageFormatterImplTest {
 
         Care[] cares = new Care[]{c, c1};
 
-        String expResult = "Upcoming care:\nCare - 27/09/2010:\nBaby Boy Patient-1234561 (Community)\nMan Patient-1234563 (Community)\n\nCare1 - 27/09/2010:\nTest Patient-1234567 (Community)\nLittle Patient-1234562 (Community)";
+        String expResult = "Upcoming care:\nCare - "+df.format(new Date())+":\nBaby Boy Patient-1234561 (Community)\nMan Patient-1234563 (Community)\n\nCare1 - "+df.format(new Date())+":\nTest Patient-1234567 (Community)\nLittle Patient-1234562 (Community)";
 
         expect(
                 mockOMI.createMessageStoreManager()
@@ -232,7 +236,7 @@ public class SMSMessageFormatterImplTest {
     public void testFormatPatientDetailsMessage() {
         System.out.println("formatPatientDetailsMessage");
 
-        String expResult = "MoTeCH ID 1234567\nFirstName=<FirstName>\nLastName=Patient\nPreferredName=Test\nSex=FEMALE\nCommunity=Community\nPhoneNumber=None\nEDD=27/09/2010";
+        String expResult = "MoTeCH ID 1234567\nFirstName=<FirstName>\nLastName=Patient\nPreferredName=Test\nSex=FEMALE\nCommunity=Community\nPhoneNumber=None\nEDD="+df.format(new Date());
 
         expect(
                 mockOMI.createMessageStoreManager()

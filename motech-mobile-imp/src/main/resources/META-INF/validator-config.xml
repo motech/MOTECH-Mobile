@@ -27,8 +27,11 @@
         </property>
     </bean>
 
+    <bean id="conditionalValidator" class="org.motechproject.mobile.imp.util.ConditionalRequirementValidator" scope="prototype" />
+
     <bean id="imFormValidator" scope="prototype" class="org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImpl">
         <property name="coreManager" ref="coreManager" />
+        <property name="conditionalValidator" ref="conditionalValidator" />
         <property name="subFields">
             <map>
                 <entry key="GENERALOPD-JF">
@@ -728,6 +731,15 @@
                 </entry>
             </map>
         </property>
+        <property name="conditionalRequirements">
+            <map>
+                <entry key="ANC-JF">
+                    <list>
+                        <ref bean="bpSub" />
+                    </list>
+                </entry>
+            </map>
+        </property>
     </bean>
     <bean scope="prototype" name="timeExpressionBean" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
         <property name="expression" value="${imp.validator.timeExpression}" />
@@ -757,5 +769,11 @@
         <property name="parentField" value="phonenumber" />
         <property name="fieldName" value="regphone" />
         <property name="replaceOn" value="" />
+    </bean>
+
+    <bean id="bpSub" class="org.motechproject.mobile.imp.util.SubField">
+        <property name="parentField" value="bpSystolic" />
+        <property name="fieldName" value="bpDiastolic" />
+        <property name="replaceOn" value="*" />
     </bean>
 </beans>
