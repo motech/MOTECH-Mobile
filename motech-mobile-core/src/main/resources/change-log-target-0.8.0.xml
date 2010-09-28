@@ -19,7 +19,7 @@
             change to enforce mandatory BP Diastolic on ANC java form.issue #444 in redmine
         </comment>
         <update tableName="incoming_message_form_parameter_definition">
-            <column name="required" valueBoolean="true"  />
+            <column name="required" valueBoolean="false"  />
             <where>id=10000000000012</where>
         </update>
     </changeSet>
