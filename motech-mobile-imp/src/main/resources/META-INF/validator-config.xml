@@ -695,7 +695,7 @@
                                 <entry key="RANGE">
                                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamRangeValidator">
                                         <property name="minValue" value="1" />
-                                        <property name="maxValue" value="3" />
+                                        <property name="maxValue" value="6" />
                                     </bean>
                                 </entry>
                             </map>
