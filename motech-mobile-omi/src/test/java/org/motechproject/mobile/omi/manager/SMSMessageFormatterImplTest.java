@@ -170,7 +170,7 @@ public class SMSMessageFormatterImplTest {
 
         p3.setCares(new Care[]{c1, c2});
         
-        String expResult = "Upcoming care for  Patient:\nCare1:"+df.format(new Date())+"\nCare2:"+df.format(new Date());
+        String expResult = "Upcoming care for Man Patient:\nCare1:"+df.format(new Date())+"\nCare2:"+df.format(new Date());
 
         expect(
                 mockOMI.createMessageStoreManager()

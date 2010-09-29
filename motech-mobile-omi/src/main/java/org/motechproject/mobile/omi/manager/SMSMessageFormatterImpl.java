@@ -47,26 +47,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
 
         for (Patient p : care.getPatients()) {
             String lastName = (p.getLastName() == null) ? "" : p.getLastName();
-            String preferredName = p.getPreferredName();
-
-            if (preferredName == null || preferredName.isEmpty()) {
-                if (p.getBirthDate() != null) {
-                    long timeDiff = p.getBirthDate().getTime() - new Date().getTime();
-                    long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
-
-                    if (dayDiff < 1095) {
-                        preferredName = "Baby ";
-                    } else {
-                        preferredName = "";
-                    }
-
-                    if (dayDiff < 6570) {
-                        preferredName += (p.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
-                    } else {
-                        preferredName = (p.getSex() == Gender.FEMALE) ? "Woman" : "Man";
-                    }
-                }
-            }
+            String preferredName = checkPreferredName(p);
 
             data.add(new NameValuePair("PreferredName" + num, preferredName));
             data.add(new NameValuePair("LastName" + num, lastName));
@@ -110,6 +91,8 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for (Patient p : patients) {
+            String preferredName = checkPreferredName(p);
+
             if (type.toLowerCase().trim().equals("recent")) {
                 edd = (p.getDeliveryDate() == null) ? "" : dFormat.format(p.getDeliveryDate());
             } else {
@@ -117,7 +100,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
             }
 
             data.add(new NameValuePair("EDD" + num, edd));
-            data.add(new NameValuePair("PreferredName" + num, p.getPreferredName()));
+            data.add(new NameValuePair("PreferredName" + num, preferredName));
             data.add(new NameValuePair("LastName" + num, p.getLastName()));
             data.add(new NameValuePair("MoTeCHID" + num, p.getMotechId()));
             data.add(new NameValuePair("Community" + num, p.getCommunity()));
@@ -154,29 +137,12 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
 
         if (patient == null) {
             return "No upcoming care required for this patient";
-        } else if (patient.getCares() == null || patient.getCares().length < 1) {
-            preferredName = patient.getPreferredName();
+        }
 
-            if (preferredName == null || preferredName.isEmpty()) {
-                if (patient.getBirthDate() != null) {
-                    if (preferredName == null || preferredName.isEmpty()) {
-                        long timeDiff = patient.getBirthDate().getTime() - new Date().getTime();
-                        long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+        preferredName = checkPreferredName(patient);
 
-                        if (dayDiff < 1095) {
-                            preferredName = "Baby ";
-                        } else {
-                            preferredName = "";
-                        }
-
-                        if (dayDiff < 6570) {
-                            preferredName += (patient.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
-                        } else {
-                            preferredName = (patient.getSex() == Gender.FEMALE) ? "Woman" : "Man";
-                        }
-                    }
-                }
-            }
+        if (patient.getCares() == null || patient.getCares().length < 1) {
+            preferredName = checkPreferredName(patient);
             return "No upcoming care required for " + preferredName + " " + patient.getLastName();
         }
 
@@ -227,28 +193,8 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
                 int patientNum = 0;
                 for (Patient p : c.getPatients()) {
                     String lastName = (p.getLastName() == null) ? "" : p.getLastName();
-                    String preferredName = p.getPreferredName();
+                    String preferredName = checkPreferredName(p);
 
-                    if (preferredName == null || preferredName.isEmpty()) {
-                        if (p.getBirthDate() != null) {
-                            if (preferredName == null || preferredName.isEmpty()) {
-                                long timeDiff = p.getBirthDate().getTime() - new Date().getTime();
-                                long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
-
-                                if (dayDiff < 1095) {
-                                    preferredName = "Baby ";
-                                } else {
-                                    preferredName = "";
-                                }
-
-                                if (dayDiff < 6570) {
-                                    preferredName += (p.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
-                                } else {
-                                    preferredName = (p.getSex() == Gender.FEMALE) ? "Woman" : "Man";
-                                }
-                            }
-                        }
-                    }
                     data.add(new NameValuePair("PreferredName" + careNum + patientNum, preferredName));
                     data.add(new NameValuePair("LastName" + careNum + patientNum, lastName));
                     data.add(new NameValuePair("MoTeCHID" + careNum + patientNum, p.getMotechId()));
@@ -287,26 +233,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         for (Patient p : patients) {
-            String preferredName = p.getPreferredName();
-
-            if (p.getBirthDate() != null) {
-                if (preferredName == null || preferredName.isEmpty()) {
-                    long timeDiff = p.getBirthDate().getTime() - new Date().getTime();
-                    long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
-
-                    if (dayDiff < 1095) {
-                        preferredName = "Baby ";
-                    } else {
-                        preferredName = "";
-                    }
-
-                    if (dayDiff < 6570) {
-                        preferredName += (p.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
-                    } else {
-                        preferredName = (p.getSex() == Gender.FEMALE) ? "Woman" : "Man";
-                    }
-                }
-            }
+            String preferredName = checkPreferredName(p);
 
             birthDate = p.getBirthDate() == null ? "" : dFormat.format(p.getBirthDate());
             sex = p.getSex() == null ? "" : p.getSex().toString();
@@ -343,27 +270,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         String sex = patient.getSex() == null ? "" : patient.getSex().toString();
         String phone = patient.getPhoneNumber() == null ? "" : patient.getPhoneNumber();
 
-        String preferredName = patient.getPreferredName();
-        if (preferredName == null || preferredName.isEmpty()) {
-            if (patient.getBirthDate() != null) {
-                if (preferredName == null || preferredName.isEmpty()) {
-                    long timeDiff = patient.getBirthDate().getTime() - new Date().getTime();
-                    long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
-
-                    if (dayDiff < 1095) {
-                        preferredName = "Baby ";
-                    } else {
-                        preferredName = "";
-                    }
-
-                    if (dayDiff < 6570) {
-                        preferredName += (patient.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
-                    } else {
-                        preferredName = (patient.getSex() == Gender.FEMALE) ? "Woman" : "Man";
-                    }
-                }
-            }
-        }
+        String preferredName = checkPreferredName(patient);
 
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
@@ -431,14 +338,15 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
             return "Your request for a new MoTeCH ID could not be completed";
         }
 
+        String preferredName = checkPreferredName(patient);
+
         String message = "";
         String template = "";
-
 
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
         data.add(new NameValuePair("MoTeCHID", patient.getMotechId()));
-        data.add(new NameValuePair("PreferredName", patient.getPreferredName()));
+        data.add(new NameValuePair("PreferredName", preferredName));
         data.add(new NameValuePair("LastName", patient.getLastName()));
 
         template += "Your request for a new MoTeCH ID was successful\n";
@@ -447,6 +355,31 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
 
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);
         return message;
+    }
+
+    public String checkPreferredName(Patient patient) {
+        String preferredName = patient.getPreferredName();
+        if (preferredName == null || preferredName.isEmpty()) {
+            preferredName = "Patient";
+
+            if (patient.getBirthDate() != null) {
+                long timeDiff = patient.getBirthDate().getTime() - new Date().getTime();
+                long dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+                if (dayDiff < 1095) {
+                    preferredName = "Baby ";
+                } else {
+                    preferredName = "";
+                }
+
+                if (dayDiff < 6570) {
+                    preferredName += (patient.getSex() == Gender.FEMALE) ? "Girl" : "Boy";
+                } else {
+                    preferredName = (patient.getSex() == Gender.FEMALE) ? "Woman" : "Man";
+                }
+            }
+        }
+        return preferredName;
     }
 
     /**
