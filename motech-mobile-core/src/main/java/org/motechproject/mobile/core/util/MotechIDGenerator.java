@@ -26,7 +26,7 @@ public class MotechIDGenerator {
         Long result = null;
 
         if (length > 0) {
-            StringBuffer id = new StringBuffer(length);
+            StringBuilder id = new StringBuilder(length);
             for (int i = 0; i < length; i++) {
                 id.append(NUMS[(int) Math.floor(Math.random() * 20)]);
             }
