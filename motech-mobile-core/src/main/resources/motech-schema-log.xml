@@ -184,7 +184,7 @@
         </createTable>
     </changeSet>
     <changeSet context="setup" author="joseph (generated)" id="1282409084036-11">
-        <createTable tableName="language">
+        <createTable tableName="LANGUAGE">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -324,7 +324,7 @@
         </createIndex>
     </changeSet>
     <changeSet context="setup" author="joseph (generated)" id="1282409084036-29">
-        <createIndex indexName="code" tableName="language" unique="true">
+        <createIndex indexName="code" tableName="LANGUAGE" unique="true">
             <column name="code"/>
         </createIndex>
     </changeSet>
