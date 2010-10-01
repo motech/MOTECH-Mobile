@@ -32,7 +32,7 @@
            <column name="id" valueNumeric="10000000000518"/>
            <column name="obj_vesion" valueNumeric="0"/>
            <column name="incoming_message_form_definition_id" valueNumeric="200000000000005"/>
-           <column name="name" value="lochiaOdourFoul" />
+           <column name="name" value="locOdour" />
            <column name="parameter_type" value="BOOLEAN"/>
            <column name="length" valueNumeric="1"/>
            <column name="required" valueBoolean="true" />
@@ -609,7 +609,7 @@
         </update>
     </changeSet>
     
-    <changeSet context="update" id="1000000000000-37" author="joseph">
+    <changeSet context="update" id="1000000000000-38" author="joseph">
         <update tableName="message_template">
             <column name="template" value="Labour is different for each woman &amp; some signs show U are in labour.Contractions-when belly muscles tighten &amp; harden-will come regular &amp; hurt.They get stronger,longer &amp; more painful as birth gets close.U may feel pain in the low back &amp; cramps like a period.U may see a “show”-when the mucus plug that blocks neck of womb comes out &amp; looks jelly-like.If waters break &amp; U have contractions contact midwife &amp; get to clinic as babies can sometimes come fast.*From Mobile Midwife*." />
             <where>id=41</where>
@@ -621,6 +621,16 @@
         <update tableName="message_template">
             <column name="template" value="Labour is different for each woman &amp; some signs show U are in labour.Contractions-when belly muscles tighten &amp; harden-will come regular &amp; hurt.They get stronger,longer &amp; more painful as birth gets close.U may feel pain in the low back &amp; cramps like a period.U may see a “show”-when the mucus plug that blocks neck of womb comes out &amp; looks jelly-like.If waters break &amp; U have contractions contact midwife &amp; get to clinic as babies can sometimes come fast.*From Mobile Midwife*.##" />
             <where>id=182</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-40" author="henry">
+        <comment>
+            Changing locOdour to lochiaOdourFoul. Resolves #606
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="name" value="lochiaOdourFoul"  />
+            <where>id=10000000000518</where>
         </update>
     </changeSet>
 </databaseChangeLog>
