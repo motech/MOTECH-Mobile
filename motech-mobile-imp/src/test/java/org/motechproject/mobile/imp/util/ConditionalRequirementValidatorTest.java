@@ -84,7 +84,6 @@ public class ConditionalRequirementValidatorTest {
 
         IncomingMessageForm form = new IncomingMessageFormImpl();
         form.setIncomingMsgFormParameters(new HashMap<String, IncomingMessageFormParameter>());
-        form.getIncomingMsgFormParameters().put(param1.getName(), param1);
 
         SubField sf = new SubField();
         sf.setFieldName("subfield");
@@ -94,10 +93,21 @@ public class ConditionalRequirementValidatorTest {
         List<SubField> subFields = new ArrayList();
         subFields.add(sf);
 
+        //Test with missing parent
         boolean expResult = true;
         boolean result = instance.validate(form, subFields, mockCore);
         assertEquals(expResult, result);
 
+        
+        //Test with parent having value other than required value
+        form.getIncomingMsgFormParameters().put(param1.getName(), param1);
+
+        expResult = true;
+        result = instance.validate(form, subFields, mockCore);
+        assertEquals(expResult, result);
+
+
+        //Test with parent having required value
         param1.setValue("require");
         expResult = false;
 

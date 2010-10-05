@@ -59,6 +59,9 @@ public class ParamExpressionValidator implements IncomingMessageFormParameterVal
     private static Logger logger = Logger.getLogger(ParamExpressionValidator.class);
 
     public boolean validate(IncomingMessageFormParameter param) {
+        if(param.getMessageFormParamStatus() == IncMessageFormParameterStatus.INVALID)
+            return false;
+
         String paramType = param.getIncomingMsgFormParamDefinition().getParamType().toUpperCase();
 
         if(paramType.indexOf("TIME") >= 0){

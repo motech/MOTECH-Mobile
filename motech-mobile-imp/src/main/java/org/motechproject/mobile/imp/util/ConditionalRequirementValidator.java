@@ -71,6 +71,7 @@ public class ConditionalRequirementValidator {
                     param.setMessageFormParamStatus(IncMessageFormParameterStatus.INVALID);
                     param.setName(sf.getFieldName().toLowerCase());
                     param.setErrText("missing");
+                    param.setValue("");
                     param.setErrCode(0);
 
                     form.getIncomingMsgFormParameters().put(sf.getFieldName().toLowerCase(), param);
