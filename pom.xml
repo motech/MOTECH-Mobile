@@ -26,6 +26,12 @@
             <timezone>0</timezone>
             <email>joseph@dreamoval.com</email>
         </developer>
+	<developer>
+	  <id>rlarubbio</id>
+	  <name>Rob LaRubbio</name>
+	  <timezone>-8</timezone>
+	  <email>rlarubbio@grameenfoundation.org</email>
+	</developer>
     </developers>
 
     <ciManagement>
