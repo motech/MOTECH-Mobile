@@ -658,6 +658,10 @@
         </update>
     </changeSet>
 
+    <changeSet context="update" id="1000000000000-39" author="joseph">
+        <renameTable oldTableName="LANGUAGE" newTableName="languages" />
+    </changeSet>
+
     <changeSet context="update" id="1000000000000-40" author="henry">
         <comment>
             Changing locOdour to lochiaOdourFoul. Resolves #606

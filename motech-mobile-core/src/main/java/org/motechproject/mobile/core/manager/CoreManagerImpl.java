@@ -35,10 +35,8 @@ package org.motechproject.mobile.core.manager;
 
 import org.motechproject.mobile.core.dao.*;
 import org.motechproject.mobile.core.model.*;
-import org.motechproject.mobile.core.util.MotechIDGenerator;
 import org.motechproject.mobile.model.dao.imp.*;
 import org.apache.log4j.Logger;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

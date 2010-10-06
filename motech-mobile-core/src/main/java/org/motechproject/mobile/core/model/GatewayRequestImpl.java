@@ -33,8 +33,6 @@
 
 package org.motechproject.mobile.core.model;
 
-import org.apache.log4j.Logger;
-import org.motechproject.mobile.core.util.MotechException;
 import org.motechproject.mobile.core.util.MotechIDGenerator;
 
 import java.io.Serializable;
@@ -43,7 +41,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 /**
  * Date :Jul 24, 2009
