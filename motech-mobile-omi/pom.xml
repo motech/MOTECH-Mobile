@@ -3,13 +3,13 @@
     <groupId>org.motechproject.mobile</groupId>
     <artifactId>motech-mobile-omi</artifactId>
     <packaging>jar</packaging>
-    <version>0.8-SNAPSHOT</version>
+    <version>0.9-SNAPSHOT</version>
     <name>MoTeCH Mobile OMI</name>
     <url>https://motech.rcg.usm.maine.edu/redmine</url>
     <parent>
         <groupId>org.motechproject</groupId>
         <artifactId>motech-mobile</artifactId>
-        <version>0.8-SNAPSHOT</version>
+        <version>0.9-SNAPSHOT</version>
     </parent>
     <dependencies>
         <dependency> 
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>org.motechproject.mobile</groupId>
             <artifactId>motech-mobile-omp</artifactId>
-            <version>0.8-SNAPSHOT</version>
+            <version>0.9-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>
