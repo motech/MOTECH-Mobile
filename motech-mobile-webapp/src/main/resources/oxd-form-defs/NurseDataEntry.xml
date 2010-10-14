@@ -1097,6 +1097,18 @@
     &lt;/xf:input&gt;
     &lt;xf:select1 bind="lastIPTI"&gt;
       &lt;xf:label&gt;Last IPTi&lt;/xf:label&gt;
+      &lt;xf:item id="1"&gt;
+        &lt;xf:label&gt;IPTi 1&lt;/xf:label&gt;
+        &lt;xf:value&gt;1&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="2"&gt;
+        &lt;xf:label&gt;IPTi 2&lt;/xf:label&gt;
+        &lt;xf:value&gt;2&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="3"&gt;
+        &lt;xf:label&gt;IPTi 3&lt;/xf:label&gt;
+        &lt;xf:value&gt;3&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
     &lt;xf:input bind="lastIPTIDate"&gt;
       &lt;xf:label&gt;Last IPTi date&lt;/xf:label&gt;
@@ -1230,6 +1242,9 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='measlesDate']/label" value="Measles date"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='yellowFeverDate']/label" value="YF date"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='lastIPTI']/label" value="Last IPTi"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='lastIPTI']/item[@id='1']/label" value="IPTi 1"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='lastIPTI']/item[@id='2']/label" value="IPTi 2"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='lastIPTI']/item[@id='3']/label" value="IPTi 3"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='lastIPTIDate']/label" value="Last IPTi date"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='lastVitaminADate']/label" value="Last Vit A date"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
