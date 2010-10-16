@@ -682,4 +682,13 @@
             <where>id=10000000000914</where>
         </update>
     </changeSet>
+    <changeSet context="update" id="1000000000000-42" author="mattblanchette">
+        <comment>
+            Changing IPTi parameter name to iptiDose. Resolves #797
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="name" value="iptiDose" />
+            <where>id=10000000000914</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
