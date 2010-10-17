@@ -671,4 +671,24 @@
             <where>id=10000000000518</where>
         </update>
     </changeSet>
+
+    <changeSet context="update" id="1000000000000-41" author="mattblanchette">
+        <comment>
+            Changing IPTi from BOOLEAN to NUMERIC. Resolves #797
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="parameter_type" value="NUMERIC" />
+            <column name="length" value="2" />
+            <where>id=10000000000914</where>
+        </update>
+    </changeSet>
+    <changeSet context="update" id="1000000000000-42" author="mattblanchette">
+        <comment>
+            Changing IPTi parameter name to iptiDose. Resolves #797
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="name" value="iptiDose" />
+            <where>id=10000000000914</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>

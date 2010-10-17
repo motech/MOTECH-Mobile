@@ -378,7 +378,7 @@
                 <entry key="measles" value="java.lang.Boolean" />
                 <entry key="yellowFever" value="java.lang.Boolean" />
                 <entry key="csm" value="java.lang.Boolean" />
-                <entry key="ipti" value="java.lang.Boolean" />
+                <entry key="iptiDose" value="java.lang.Integer" />
                 <entry key="vitaminA" value="java.lang.Boolean" />
                 <entry key="dewormer" value="java.lang.Boolean" />
                 <entry key="weight" value="java.lang.Double" />
