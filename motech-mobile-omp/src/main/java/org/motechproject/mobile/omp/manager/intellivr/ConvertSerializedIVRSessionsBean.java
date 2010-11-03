@@ -36,12 +36,16 @@ package org.motechproject.mobile.omp.manager.intellivr;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.motechproject.mobile.core.model.GatewayRequest;
+import org.motechproject.mobile.core.model.MessageRequest;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -124,8 +128,10 @@ public class ConvertSerializedIVRSessionsBean {
 						newSession);
 				newSession.getCalls().add(call);
 			}
+			Set<MessageRequest> messageRequests = new TreeSet<MessageRequest>(new MessageRequestComparator());
 			for ( GatewayRequest request : session.getGatewayRequests() )
-				newSession.getMessageRequests().add(request.getMessageRequest());
+				messageRequests.add(request.getMessageRequest());
+			newSession.getMessageRequests().addAll(messageRequests);
 			if ( !dryRun )
 				ivrDao.saveIVRCallSession(newSession);
 			System.out.println("Created session: " + newSession);
@@ -196,5 +202,9 @@ public class ConvertSerializedIVRSessionsBean {
 		return cal.getTime();
 	}
 
-
+	private class MessageRequestComparator implements Comparator<MessageRequest> {
+		public int compare(MessageRequest m1, MessageRequest m2) {
+			return m1.getId().compareTo(m2.getId());
+		}		
+	}
 }
