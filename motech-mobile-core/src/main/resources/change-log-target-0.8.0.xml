@@ -658,8 +658,11 @@
         </update>
     </changeSet>
 
-    <changeSet context="update" id="1000000000000-39" author="joseph">
+    <changeSet context="update" dbms="hsqldb" id="1000000000000-39a" author="joseph">
         <renameTable oldTableName="LANGUAGE" newTableName="languages" />
+    </changeSet>
+    <changeSet context="update" dbms="mysql" id="1000000000000-39b" author="joseph">
+        <renameTable oldTableName="language" newTableName="languages" />
     </changeSet>
 
     <changeSet context="update" id="1000000000000-40" author="henry">

@@ -35,8 +35,16 @@
 -->
 
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <changeSet context="setup" author="joseph (generated)" id="2282410859067-1">
+    <changeSet context="setup" dbms="hsqldb" author="joseph (generated)" id="2282410859067-1a">
         <loadData encoding="UTF-8" file="data/language.csv" tableName="LANGUAGE">
+            <column header="id" type="NUMERIC"/>
+            <column header="code" type="STRING"/>
+            <column header="name" type="STRING"/>
+            <column header="description" type="STRING"/>
+        </loadData>
+    </changeSet>
+    <changeSet context="setup" dbms="mysql" author="joseph (generated)" id="2282410859067-1b">
+        <loadData encoding="UTF-8" file="data/language.csv" tableName="language">
             <column header="id" type="NUMERIC"/>
             <column header="code" type="STRING"/>
             <column header="name" type="STRING"/>

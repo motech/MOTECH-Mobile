@@ -218,8 +218,18 @@
             <column name="message_session_status" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet context="setup" author="joseph (generated)" id="1282409084036-11">
+    <changeSet context="setup" dbms="hsqldb" author="joseph (generated)" id="1282409084036-11a">
         <createTable tableName="LANGUAGE">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(10)"/>
+            <column name="name" type="VARCHAR(50)"/>
+            <column name="description" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet context="setup" dbms="mysql" author="joseph (generated)" id="1282409084036-11b">
+        <createTable tableName="language">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -358,8 +368,13 @@
             <column name="incoming_message_form_definition_id"/>
         </createIndex>
     </changeSet>
-    <changeSet context="setup" author="joseph (generated)" id="1282409084036-29">
+    <changeSet context="setup" dbms="hsqldb" author="joseph (generated)" id="1282409084036-29a">
         <createIndex indexName="code" tableName="LANGUAGE" unique="true">
+            <column name="code"/>
+        </createIndex>
+    </changeSet>
+    <changeSet context="setup" dbms="mysql" author="joseph (generated)" id="1282409084036-29b">
+        <createIndex indexName="code" tableName="language" unique="true">
             <column name="code"/>
         </createIndex>
     </changeSet>
@@ -397,52 +412,52 @@
 
 
 
-    <changeSet  context="mysql" id="1282409084036-36" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-36" author="joseph">
         <sql>ALTER TABLE gateway_request change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE gateway_request MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-37" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-37" author="joseph">
         <sql>ALTER TABLE gateway_response change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE gateway_response MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-38" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-38" author="joseph">
         <sql>ALTER TABLE incoming_message change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE incoming_message MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-39" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-39" author="joseph">
         <sql>ALTER TABLE incoming_message_form change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE incoming_message_form MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-40" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-40" author="joseph">
         <sql>ALTER TABLE incoming_message_form_definition change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE incoming_message_form_definition MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-41" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-41" author="joseph">
         <sql>ALTER TABLE incoming_message_form_parameter change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE incoming_message_form_parameter MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-42" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-42" author="joseph">
         <sql>ALTER TABLE incoming_message_form_parameter_definition change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE incoming_message_form_parameter_definition MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-43" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-43" author="joseph">
         <sql>ALTER TABLE incoming_message_response change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE incoming_message_response MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-44" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-44" author="joseph">
         <sql>ALTER TABLE incoming_message_session change last_activity last_activity TIMESTAMP </sql>
         <sql>ALTER TABLE incoming_message_session MODIFY last_activity TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
 
-    <changeSet context="mysql"  id="1282409084036-45" author="joseph">
+    <changeSet context="setup" dbms="mysql" id="1282409084036-45" author="joseph">
         <sql>ALTER TABLE message_request change last_modified last_modified TIMESTAMP </sql>
         <sql>ALTER TABLE message_request MODIFY last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP </sql>
     </changeSet>
@@ -450,62 +465,62 @@
 
 
 
-    <changeSet  context="hsql" id="1282409084036-46" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-46" author="joseph">
         <modifyColumn tableName="gateway_request">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-47" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-47" author="joseph">
         <modifyColumn tableName="gateway_response">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-48" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-48" author="joseph">
         <modifyColumn tableName="incoming_message">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-49" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-49" author="joseph">
         <modifyColumn tableName="incoming_message_form">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-50" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-50" author="joseph">
         <modifyColumn tableName="incoming_message_form_definition">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-51" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-51" author="joseph">
         <modifyColumn tableName="incoming_message_form_parameter">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
         
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-52" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-52" author="joseph">
         <modifyColumn tableName="incoming_message_form_parameter_definition">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-53" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-53" author="joseph">
         <modifyColumn tableName="incoming_message_response">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-54" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-54" author="joseph">
         <modifyColumn tableName="incoming_message_session">
             <column name="last_activity" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
     </changeSet>
 
-    <changeSet context="hsql"  id="1282409084036-55" author="joseph">
+    <changeSet context="setup" dbms="hsqldb" id="1282409084036-55" author="joseph">
         <modifyColumn tableName="message_request">
             <column name="last_modified" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP" />
         </modifyColumn>
