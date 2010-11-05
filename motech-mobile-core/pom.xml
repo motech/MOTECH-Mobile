@@ -3,13 +3,13 @@
     <groupId>org.motechproject.mobile</groupId>
     <artifactId>motech-mobile-core</artifactId>
     <packaging>jar</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.9-SNAPSHOT</version>
     <name>MoTeCH Mobile Core</name>
     <url>https://motech.rcg.usm.maine.edu/redmine</url>
     <parent>
         <groupId>org.motechproject</groupId>
         <artifactId>motech-mobile</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.9-SNAPSHOT</version>
     </parent>
     <build>
         <plugins>
