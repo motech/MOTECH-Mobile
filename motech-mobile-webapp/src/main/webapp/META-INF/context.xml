@@ -34,4 +34,4 @@
 
 -->
 
-<Context antiJARLocking="true" path="/motech-mobile-webapp" />
+<Context antiJARLocking="true" path="/tama-mobile-webapp" />
