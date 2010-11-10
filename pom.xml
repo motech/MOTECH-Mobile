@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.motechproject</groupId>
-    <artifactId>motech-mobile</artifactId>
+    <artifactId>tama-mobile</artifactId>
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
-    <name>MoTeCH Mobile</name>
+    <name>TAMA Mobile</name>
     <url>https://motech.rcg.usm.maine.edu/redmine/projects/show/motech-mobile</url>
 
     <developers>
@@ -241,27 +241,27 @@
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
-                <artifactId>motech-mobile-core</artifactId>
+                <artifactId>tama-mobile-core</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
-                <artifactId>motech-mobile-omp</artifactId>
+                <artifactId>tama-mobile-omp</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
-                <artifactId>motech-mobile-omi</artifactId>
+                <artifactId>tama-mobile-omi</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
-                <artifactId>motech-mobile-imp</artifactId>
+                <artifactId>tama-mobile-imp</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
-                <artifactId>motech-mobile-modemgw</artifactId>
+                <artifactId>tama-mobile-modemgw</artifactId>
                 <version>0.1-SNAPSHOT</version>
             </dependency>
             <dependency>

@@ -2,13 +2,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.motechproject</groupId>
-		<artifactId>motech-mobile</artifactId>
+		<artifactId>tama-mobile</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>org.motechproject.mobile</groupId>
-	<artifactId>motech-mobile-modemgw</artifactId>
+	<artifactId>tama-mobile-modemgw</artifactId>
 	<version>0.1-SNAPSHOT</version>
-	<name>MoTeCH Mobile Modem Gateway</name>
+	<name>TAMA Mobile Modem Gateway</name>
 	<description>A gateway manager implementation based on SMSLib.</description>
 	<dependencies>
 		<dependency>
@@ -17,11 +17,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.motechproject.mobile</groupId>
-			<artifactId>motech-mobile-omp</artifactId>
+			<artifactId>tama-mobile-omp</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.motechproject.mobile</groupId>
-			<artifactId>motech-mobile-imp</artifactId>
+			<artifactId>tama-mobile-imp</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.comm</groupId>
