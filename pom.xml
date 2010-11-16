@@ -606,9 +606,9 @@
         </profile>
     </profiles>
     <scm>
-        <url>https://motech.rcg.usm.maine.edu/redmine/repositories/show/motech-mobile/branches/tama-demo</url>
-        <connection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/tama-demo</connection>
-        <developerConnection>scm:svn:https://motech.rcg.usm.maine.edu/svn/motech-mobile/branches/tama-demo</developerConnection>
+      <url>http://github.com/motech/MOTECH-Mobile</url>
+      <connection>scm:git:ssh://git@github.com/motech/MOTECH-Mobile.git</connection>
+      <developerConnection>scm:git:ssh://git@github.com/motech/MOTECH-Mobile.git</developerConnection>
     </scm>
 
 </project>
