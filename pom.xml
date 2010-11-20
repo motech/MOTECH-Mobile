@@ -35,8 +35,22 @@
     </developers>
 
     <ciManagement>
-        <system>continuum</system>
-        <url>http://motech.rcg.usm.maine.edu/continuum/</url>
+        <system>hudson</system>
+        <url>http://ci.motechproject.org/</url>
+        <notifiers> 
+          <notifier> 
+            <type>mail</type> 
+            <configuration> 
+              <recipients>rlarubbio@grameenfoundation.org</recipients> 
+            </configuration> 
+            <sendOnError>true</sendOnError> 
+            <sendOnFailure>true</sendOnFailure> 
+            <sendOnSuccess>true</sendOnSuccess> 
+            <sendOnWarning>true</sendOnWarning> 
+          </notifier> 
+        </notifiers> 
+
+<!--
         <notifiers>
             <notifier>
                 <type>mail</type>
@@ -63,6 +77,7 @@
                 </configuration>
             </notifier>
         </notifiers>
+-->
     </ciManagement>
 
     <issueManagement>
