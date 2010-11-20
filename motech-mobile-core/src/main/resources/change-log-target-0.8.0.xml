@@ -694,4 +694,14 @@
             <where>id=10000000000914</where>
         </update>
     </changeSet>
+    <changeSet context="update" id="1000000000000-43" author="mattblanchette">
+         <comment>
+            Change urineTestProteinPositive type from BOOLEAN to NUMERIC and adding length 2
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="parameter_type" value="NUMERIC"  />
+            <column name="length" valueNumeric="2"  />
+            <where>id=10000000000020</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
