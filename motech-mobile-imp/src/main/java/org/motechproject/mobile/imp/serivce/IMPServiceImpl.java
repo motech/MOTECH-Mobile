@@ -31,10 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.imp.serivce;
 
 import java.io.IOException;
@@ -81,10 +77,6 @@ public class IMPServiceImpl implements IMPService {
     private String defaultCountryCode;
     private MessageRegistry messageRegistry;
 
-    /**
-     *
-     * @see IMPService.processRequest
-     */
     @SuppressWarnings("unchecked")
 	public IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo) {
 

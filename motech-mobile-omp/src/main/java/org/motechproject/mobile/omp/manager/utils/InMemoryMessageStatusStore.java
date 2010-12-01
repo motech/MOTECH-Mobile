@@ -82,7 +82,7 @@ public class InMemoryMessageStatusStore implements MessageStatusStore {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.example.MessageStatusStore#updateStatus(java.lang.String,
-	 * com.dreamoval.motech.core.model.MStatus)
+	 * org.motechproject.mobile.core.model.MStatus)
 	 */
 	public void updateStatus(String id, String status) {
 		try {

@@ -30,11 +30,6 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.manager.CoreManager;
@@ -66,10 +61,6 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
     private Map<String, List<CompositeRequirementValidator>> compositeRequirements;
     private static Logger logger = Logger.getLogger(IncomingMessageFormValidatorImpl.class);
 
-    /**
-     * 
-     * @see IncomingMessageFormValidator.validate
-     */
     public IncMessageFormStatus validate(IncomingMessageForm form, String requesterPhone) {
         ValidatorGroup group;
         IncMessageFormStatus status;
@@ -89,10 +80,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
         if (subs != null) {
             for (SubField sub : subs) {
+                //Replace value of parent field with value of sub field if the parent field has the specified replacement value
                 if (params.containsKey(sub.getFieldName().toLowerCase())) {
+                    //Check if sub field exists, and is not null or empty and value of parent equals to replacement value
                     if (params.containsKey(sub.getParentField().toLowerCase()) && (params.get(sub.getParentField().toLowerCase()).getValue().equalsIgnoreCase(sub.getReplaceOn()) || ("*".equalsIgnoreCase(sub.getReplaceOn()) && params.get(sub.getFieldName().toLowerCase()) != null && params.get(sub.getFieldName().toLowerCase()).getValue() != null && !"".equals(params.get(sub.getFieldName().toLowerCase()).getValue().trim()))) && params.containsKey(sub.getFieldName().toLowerCase())) {
                         params.get(sub.getParentField().toLowerCase()).setValue(params.get(sub.getFieldName().toLowerCase()).getValue());
                     } else if (sub.getReplaceOn() == null || sub.getReplaceOn().isEmpty()) {
+                        //Set value of parent equal to value of sub field if parent field is null or empty
                         if (!params.containsKey(sub.getParentField().toLowerCase())) {
                             IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
                             param.setDateCreated(new Date());
@@ -110,10 +104,12 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             }
         }
 
-        if(conditionals != null)
+        if (conditionals != null) {
             conditionalValidator.validate(form, conditionals, coreManager);
+        }
 
         try {
+            //Processing individual form parameters having made the necessary replacements
             for (IncomingMessageFormParameterDefinition paramDef : form.getIncomingMsgFormDefinition().getIncomingMsgParamDefinitions()) {
                 paramDef.getParamType();
 
@@ -123,7 +119,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
 
                     if (paramDef.getParamType().endsWith("_ARRAY")) {
                         String type = paramDef.getParamType().substring(0, paramDef.getParamType().lastIndexOf("_"));
-                        group = paramValidators.get(type);
+                        group = paramValidators.get(type.toUpperCase());
                         if (group == null) {
                             throw new Exception("Validator [" + paramDef.getParamType().toUpperCase() + "] not found");
                         }
@@ -143,6 +139,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
                     form.setLastModified(new Date());
                 } else {
                     if (paramDef.isRequired()) {
+                        //Create and mark missing required parameters
                         IncomingMessageFormParameter param = coreManager.createIncomingMessageFormParameter();
                         param.setIncomingMsgFormParamDefinition(paramDef);
                         param.setName(paramDef.getName());
@@ -165,6 +162,7 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
             form.setMessageFormStatus(IncMessageFormStatus.ERROR);
         }
 
+        //Process groups of fields for which one or more are required
         if (compositeRequirements.containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
             List<CompositeRequirementValidator> requirements = compositeRequirements.get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
             for (CompositeRequirementValidator validator : requirements) {
@@ -177,6 +175,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         return form.getMessageFormStatus();
     }
 
+    /**
+     * Validate a parameter containing a single value
+     *
+     * @param param The parameter to validate
+     * @param group The group of validators for the parameter's type
+     * @return The status of the form after validation
+     */
     private IncMessageFormStatus validateSingle(IncomingMessageFormParameter param, ValidatorGroup group) {
         Map<String, IncomingMessageFormParameterValidator> validators = new LinkedHashMap<String, IncomingMessageFormParameterValidator>();
 
@@ -199,6 +204,13 @@ public class IncomingMessageFormValidatorImpl implements IncomingMessageFormVali
         return IncMessageFormStatus.VALID;
     }
 
+    /**
+     * Validate a parameter containing an array value
+     *
+     * @param param The parameter to validate
+     * @param group The group of validators for the parameter's type
+     * @return The status of the form after validation
+     */
     private IncMessageFormStatus validateArray(IncomingMessageFormParameter param, ValidatorGroup group) {
         String value = param.getValue();
         String[] elements = param.getValue().split(" ");

@@ -31,10 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.omp.manager;
 
 import java.util.ArrayList;
@@ -61,10 +57,6 @@ public class DummyGatewayManagerImpl implements GatewayManager {
     private ArrayList<Integer> exceptionPoints;
     private int exceptionPointRange;
 
-    /**
-     *
-     * @see GatewayManager.send
-     */
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         if (log.isInfoEnabled()) {
             log.info(messageDetails.getId() + "|"
@@ -99,10 +91,6 @@ public class DummyGatewayManagerImpl implements GatewayManager {
         return sleepTime;
     }
 
-    /**
-     *
-     * @see GatewayManager.getMessageStatus
-     */
     public String getMessageStatus(GatewayResponse response) {
         return "004";
     }

@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.util;
 
 import java.util.List;
@@ -44,14 +39,21 @@ import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 
 /**
+ * Validates an IncominMessageForm
  *
- * @author user
+ * @author Kofi A. Asamoah
  */
 public class CompositeValidator{
     private List<String> fields;
     private int requiredMatches;
     private IncomingMessageFormParameterValidator validator;
 
+    /**
+     * Checks if a minimum number of a specified group of form fields pass the required validation
+     *
+     * @param form The form to validate
+     * @return
+     */
     public boolean validate(IncomingMessageForm form)
     {
         boolean valid = false;

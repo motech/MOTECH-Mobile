@@ -31,10 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.imp.util;
 
 import java.util.List;
@@ -44,7 +40,7 @@ import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 
 /**
- * Validate an IncominMessageForm
+ * Validates an IncominMessageForm
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  */
@@ -53,12 +49,21 @@ public class CompositeRequirementValidator {
     private List<String> fields;
     private int requiredMatches;
 
+    /**
+     * Checks a form for the existence of a minimum number of a specified group of fields
+     *
+     * @param form The form to validate
+     * @param coreManager Utility class for creating missing fields
+     * @return
+     */
     public boolean validate(IncomingMessageForm form, CoreManager coreManager) {
         boolean valid = false;
         int matchCount = 0;
         String fieldName = "";
 
         for (String field : fields) {
+            //Retrieve the name of the first field in the group. 
+            //This field will be used to store the error should the validation fail.
             if (fieldName.isEmpty()) {
                 fieldName = field;
             }

@@ -88,10 +88,6 @@ public class OMIServiceImpl implements OMIService {
     public OMIServiceImpl() {
     }
 
-    /**String
-     *
-     * @see OMIService.sendPatientMessage
-     */
     public MessageStatus savePatientMessageRequest(String messageId,
             NameValuePair[] personalInfo,
             String patientNumber,
@@ -154,10 +150,6 @@ public class OMIServiceImpl implements OMIService {
         return MessageStatus.valueOf(messageRequest.getStatus().toString());
     }
 
-    /**
-     *logger
-     * @see OMIService.sendCHPSMessage
-     */
     public MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
         logger.info("Constructing MessageDetails object...");
 
@@ -400,9 +392,6 @@ public class OMIServiceImpl implements OMIService {
         return MessageStatus.valueOf(message.getStatus().toString());
     }
 
-    /**
-     * @see OMIService.sendDefaulterMessage
-     */
     public MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
@@ -431,9 +420,6 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
-    /**
-     * @see OMIService.sendDeliveriesMessage
-     */
     public MessageStatus sendDeliveriesMessage(String messageId, String workerNumber, Patient[] patients, String deliveryStatus, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
@@ -463,9 +449,6 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
-    /**
-     * @see OMIService.sendUpcomingCaresMessage
-     */
     public MessageStatus sendUpcomingCaresMessage(String messageId, String workerNumber, Patient patient, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
@@ -495,9 +478,6 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
-    /**
-     * @see OMIService.sendBulkCaresMessage
-     */
     public MessageStatus sendBulkCaresMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
@@ -527,9 +507,6 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
-    /**
-     * @see OMIService.processMessageRequests
-     */
     @Transactional(readOnly = true)
     public void processMessageRequests() {
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
@@ -558,9 +535,6 @@ public class OMIServiceImpl implements OMIService {
         worker.processMessageRequest(message, defaultLanguage);
     }
 
-    /**
-     * @see OMIService.processMessageRetries
-     */
     @Transactional(readOnly = true)
     public void processMessageRetries() {
         MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
@@ -588,9 +562,6 @@ public class OMIServiceImpl implements OMIService {
         worker.processMessageRetry(message);
     }
 
-    /**
-     * @see OMIService.processMessageResponses
-     */
     @Transactional(readOnly = true)
     public void processMessageResponses() {
         GatewayResponseDAO gwRespDao = coreManager.createGatewayResponseDAO();

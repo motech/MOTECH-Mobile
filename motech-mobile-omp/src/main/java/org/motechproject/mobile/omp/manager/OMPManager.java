@@ -45,26 +45,27 @@ import org.motechproject.mobile.omp.service.MessagingService;
 public interface OMPManager{
 
     /**
-     * creates a new GatewayMessageHandler object
-     * @return the created GatewayMessageHandler object
+     * Returns the spring managed instance of GatewayMessageHandler
+     * 
+     * @return the created {@link org.motechproject.mobile.omp.manager.GatewayMessageHandler} object
      */
     public GatewayMessageHandler createGatewayMessageHandler();
 
     /**
-     * creates a new SMSGatewayManager object
-     * @return the created GatewayManager object
+     * Returns the spring managed instance of SMSGatewayManager
+     * @return the created {@link org.motechproject.mobile.omp.manager.SMSGatewayManager} object
      */
     public GatewayManager createGatewayManager();
 
     /**
-     * creates a new CacheService object
-     * @return the created CacheService object
+     * Returns the spring managed instance of CacheService
+     * @return the created {@link org.motechproject.mobile.omp.service.CacheService} object
      */
     public CacheService createCacheService();
 
     /**
-     * creates a new MessagingService object
-     * @return the created MessagingService object
+     * Returns the spring managed instance of MessagingService
+     * @return the created {@link org.motechproject.mobile.omp.service.MessagingService} object
      */
     public MessagingService createMessagingService();
 }

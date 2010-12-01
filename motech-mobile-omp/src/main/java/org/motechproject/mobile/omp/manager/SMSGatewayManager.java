@@ -52,7 +52,7 @@ public interface SMSGatewayManager extends GatewayManager {
     /**
      * Sends an sms message
      * @param messageDetails details of message to be sent
-     * @return
+     * @return A constructed GatewayResponse object
      */
     public GatewayResponse send(GatewayRequest messageDetails);
 }

@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.manager;
 
 import org.motechproject.mobile.imp.serivce.IMPService;
@@ -51,25 +46,29 @@ import org.motechproject.mobile.imp.util.IncomingMessageXMLParser;
 public interface IMPManager {
 
     /**
-     * Creates a wired IMPService instance
+     * Returns the spring managed instance of IMPService
+     *
      * @return the created IMPService
      */
     IMPService createIMPService();
 
     /**
-     * Creates a wired IncomingMessageParser instance
+     * Returns the spring managed instance of IncomingMessageParser
+     *
      * @return the created IncomingMessageParser
      */
     IncomingMessageParser createIncomingMessageParser();
 
     /**
-     * Creates a wired IncomingMessageFormParameter instance
+     * Returns the spring managed instance of IncomingMessageFormParameter
+     *
      * @return the created IncomingMessageFormParameter
      */
     IncomingMessageFormValidator createIncomingMessageFormValidator();
 
     /**
-     * Creates a wired CommandAction instance
+     * Returns the spring managed instance of CommandAction
+     *
      * @return the created CommandAction
      */
     CommandAction createCommandAction();

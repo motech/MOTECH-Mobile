@@ -65,6 +65,12 @@ public class FormProcessorImpl implements FormProcessor {
     private Map<String, MethodSignature> serviceMethods;
     private static Logger logger = Logger.getLogger(FormProcessorImpl.class);
 
+    /**
+     * Submits a form to the server for processing
+     *
+     * @param form The form to submit
+     * @return
+     */
     public String processForm(IncomingMessageForm form) {
         Object result = null;
         MethodSignature mSig;
@@ -79,9 +85,11 @@ public class FormProcessorImpl implements FormProcessor {
         if (getServiceMethods().containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
             mSig = getServiceMethods().get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
         } else {
+            //Server can not process this type of form. Return current form status
             return form.getMessageFormStatus().toString();
         }
 
+        //Using reflection to determine and execute the appropriate serve call for the form
         String methodName = mSig.getMethodName();
         Class[] paramTypes = new Class[mSig.getMethodParams().size()];
         Object[] paramObjs = new Object[mSig.getMethodParams().size()];
@@ -107,6 +115,8 @@ public class FormProcessorImpl implements FormProcessor {
                         Class baseType = e.getValue().getComponentType();
                         Object arrayObj = Array.newInstance(baseType, a.length);
                         for (int i = 0; i < a.length; i++) {
+                            // Assumes the base type of any array passed will
+                            // a constructor which accepts a single string parameter (expecting value types)
                             Constructor constr = baseType.getConstructor(String.class);
                             Object val = constr.newInstance(a[i]);
                             Array.set(arrayObj, i, val);
@@ -114,6 +124,8 @@ public class FormProcessorImpl implements FormProcessor {
 
                         paramObjs[idx] = arrayObj;
                     } else {
+                        // For types other than String, Array, Enum and Date,
+                        // A constructor which accepts a single string parameter is expected
                         Constructor constr = e.getValue().getConstructor(String.class);
                         paramObjs[idx] = constr.newInstance(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
                     }
@@ -153,7 +165,15 @@ public class FormProcessorImpl implements FormProcessor {
         return executeCallback(mSig.getCallback(), result);
     }
 
-    private String executeCallback(MethodSignature mSig, Object param) {
+    /**
+     * Executes a method for a response received from the server after processing a form
+     * Assumes the method accepts a single parameter, being the response from the server call
+     *
+     * @param methodSignature The signature of the method
+     * @param param The parameter required by the method
+     * @return
+     */
+    private String executeCallback(MethodSignature methodSignature, Object param) {
         String formattedResponse = "No matching records found";
 
         if(param == null)
@@ -163,26 +183,26 @@ public class FormProcessorImpl implements FormProcessor {
         
         try {
             int idx = 0;
-            Class[] paramTypes = new Class[mSig.getMethodParams().size()];
+            Class[] paramTypes = new Class[methodSignature.getMethodParams().size()];
 
-            for (Entry<String, Class> entry : mSig.getMethodParams().entrySet()) {
+            for (Entry<String, Class> entry : methodSignature.getMethodParams().entrySet()) {
                 paramTypes[idx] = entry.getValue();
                 idx++;
             }
 
-            Method callback = formatter.getClass().getMethod(mSig.getMethodName(), paramTypes);
+            Method callback = formatter.getClass().getMethod(methodSignature.getMethodName(), paramTypes);
             formattedResponse = (String) callback.invoke(formatter, param);
         } catch (NoSuchMethodException ex) {
-            logger.fatal("Could not find formatter method " + mSig.getMethodName(), ex);
+            logger.fatal("Could not find formatter method " + methodSignature.getMethodName(), ex);
             return "Error: could not process registrar service response";
         } catch (SecurityException ex) {
-            logger.fatal("Could not access formatter method " + mSig.getMethodName() + " due to SecurityException", ex);
+            logger.fatal("Could not access formatter method " + methodSignature.getMethodName() + " due to SecurityException", ex);
             return "Error: could not process registrar service response";
         } catch (IllegalAccessException ex) {
-            logger.fatal("Could not invoke formatter method " + mSig.getMethodName() + " due to IllegalAccessException", ex);
+            logger.fatal("Could not invoke formatter method " + methodSignature.getMethodName() + " due to IllegalAccessException", ex);
             return "Error: could not process registrar service response";
         } catch (InvocationTargetException ex) {
-            logger.fatal("Could not invoke formatter method " + mSig.getMethodName() + " due to InvocationTargetException", ex);
+            logger.fatal("Could not invoke formatter method " + methodSignature.getMethodName() + " due to InvocationTargetException", ex);
             return "Error: could not process registrar service response";
         } catch (Exception ex) {
             logger.error("Could not format webservice response", ex);

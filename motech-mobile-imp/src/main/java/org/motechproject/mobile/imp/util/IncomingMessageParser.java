@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.model.IncomingMessage;
@@ -50,6 +45,7 @@ public interface IncomingMessageParser {
 
     /**
      * Generates an IncomingMessage from a message request
+     *
      * @param message content of request
      * @return the generated IncomingMessag object
      */
@@ -57,6 +53,7 @@ public interface IncomingMessageParser {
 
     /**
      * Extracts command part of message
+     *
      * @param message the text to parse
      * @return the command string
      */
@@ -64,6 +61,7 @@ public interface IncomingMessageParser {
 
     /**
      * Extracts form code from message
+     *
      * @param message the text to parse
      * @return the form code
      */
@@ -71,6 +69,7 @@ public interface IncomingMessageParser {
 
     /**
      * Extracts parameters from message
+     * 
      * @param message the text to parse
      * @return the message parameters
      */

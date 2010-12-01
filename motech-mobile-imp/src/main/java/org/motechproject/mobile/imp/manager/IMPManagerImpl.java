@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.manager;
 
 import org.motechproject.mobile.imp.serivce.IMPService;
@@ -56,18 +51,10 @@ import org.springframework.context.ApplicationContextAware;
 public class IMPManagerImpl implements ApplicationContextAware, IMPManager{
     ApplicationContext context;
 
-    /**
-     * Creates a wired IMPService instance
-     * @return the created IMPService
-     */
     public IMPService createIMPService(){
         return (IMPService)context.getBean("impService");
     }
 
-    /**
-     * Creates a wired IncomingMessageParser instance
-     * @return the created IncomingMessageParser
-     */
     public IncomingMessageParser createIncomingMessageParser(){
         return (IncomingMessageParser)context.getBean("imParser");
     }

@@ -44,7 +44,7 @@ import org.motechproject.ws.NameValuePair;
 import org.motechproject.ws.Patient;
 
 /**
- * Provides external access to OMI methods
+ * Handles all operations on outgoing messages
  *
  * @author Kofi A. Asamoah (yoofi@dremoval.com)
  * Date Created: Jul 31, 2009
@@ -97,7 +97,6 @@ public interface OMIService {
      * Sends a templated outgoing message request
      *
      * @param message The message request to send
-     * @param context The current application context
      * @return The status of the message
      */
     MessageStatus sendMessage(MessageRequest message);
@@ -107,7 +106,6 @@ public interface OMIService {
      *
      * @param message The message request to send
      * @param content The content of the message
-     * @param context  The current application context
      * @return
      */
     MessageStatus sendMessage(MessageRequest message, String content);

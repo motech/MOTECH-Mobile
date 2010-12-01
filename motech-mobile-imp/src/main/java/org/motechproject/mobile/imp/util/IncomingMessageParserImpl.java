@@ -62,9 +62,6 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
     private String paramRegex;
     private static Logger logger = Logger.getLogger(IncomingMessageParserImpl.class);
 
-    /**
-     * @see IncomingMessageParser.parseRequest
-     */
     public IncomingMessage parseRequest(String message) {
         IncomingMessage inMsg = coreManager.createIncomingMessage();
         inMsg.setContent(message.trim());
@@ -74,10 +71,6 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         return inMsg;
     }
 
-    /**
-     *
-     * @see IncomingMessageParserImpl.getComand
-     */
     public String getCommand(String message) {
         String command = "";
 
@@ -90,10 +83,6 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         return command.toLowerCase();
     }
 
-    /**
-     *
-     * @see IncomingMessageParserImpl.getFormCode
-     */
     public String getFormCode(String message) {
         String command = "";
         String formCode = "";
@@ -111,10 +100,6 @@ public class IncomingMessageParserImpl implements IncomingMessageParser {
         return formCode;
     }
 
-    /**
-     *
-     * @see IncomingMessageParserImpl.getParams
-     */
     public Map<String, IncomingMessageFormParameter> getParams(String message) {
         Map<String, IncomingMessageFormParameter> params = new HashMap<String, IncomingMessageFormParameter>();
         List<String> pList = new ArrayList<String>();

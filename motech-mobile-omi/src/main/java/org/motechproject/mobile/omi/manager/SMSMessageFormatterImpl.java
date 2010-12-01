@@ -31,10 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.omi.manager;
 
 import java.text.SimpleDateFormat;
@@ -60,10 +56,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
     private OMIManager omiManager;
     private String dateFormat;
 
-    /**
-     *
-     * @param see MessageFormatter.formatDefaulterMessage
-     */
     public String formatDefaulterMessage(Care care) {
         int num = 0;
         String message = "";
@@ -104,10 +96,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return result.trim();
     }
 
-    /**
-     *
-     * @param see MessageFormatter.formatDeliveriesMessage
-     */
     public String formatDeliveriesMessage(String type, Patient[] patients) {
         int num = 0;
         String edd;
@@ -158,10 +146,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return formatDeliveriesMessage("Overdue", patients);
     }
 
-    /**
-     *
-     * @param see MessageFormatter.formatUpcomingCaresMessage
-     */
     public String formatUpcomingCaresMessage(Patient patient) {
         int num = 0;
         String careDate;
@@ -198,10 +182,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return message;
     }
 
-    /**
-     *
-     * @param see MessageFormatter.formatBulkCaresMessage
-     */
     public String formatBulkCaresMessage(Care[] cares) {
         if (cares == null) {
             return "No upcoming care.";
@@ -245,10 +225,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return message;
     }
 
-    /**
-     *
-     * @param see MessageFormatter.formatMatchingPatientsMessage
-     */
     public String formatMatchingPatientsMessage(Patient[] patients) {
         int num = 0;
 
@@ -285,10 +261,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return message;
     }
 
-    /**
-     *
-     * @param see MessageFormatter.formatPatientDetailsMessage
-     */
     public String formatPatientDetailsMessage(Patient patient) {
         if (patient == null) {
             return "No matching patients found";

@@ -49,16 +49,16 @@ import java.util.Set;
 public interface MessagingService {
 
     /**
-     * Queues a message for delivery within the scheduled period
+     * Queues a message for delivery
      * 
-     * @param message to be scheduled
+     * @param message The {@link org.motechproject.mobile.core.model.GatewayRequest} object to be scheduled
      */
     public void scheduleMessage(GatewayRequest message);
     
     /**
-     * Queues a message for delivery within the scheduled period
+     * Queues a message for delivery
      * 
-     * @param message to be scheduled
+     * @param message The {@link org.motechproject.mobile.core.model.GatewayRequestDetails} object to be scheduled
      */
     public void scheduleMessage(GatewayRequestDetails message);
     
@@ -71,7 +71,7 @@ public interface MessagingService {
     /**
      * Sends a message with the provided details
      *
-     * @param messageDetails GatewayRequest object containing information about the message to be sent
+     * @param messageDetails The {@link org.motechproject.mobile.core.model.GatewayRequest} object containing information about the message to be sent
      * @return The id of the message sent
      */
     public Map<Boolean, Set<GatewayResponse>> sendTransactionalMessage(GatewayRequest messageDetails);
@@ -79,22 +79,24 @@ public interface MessagingService {
     /**
      * Sends a message with the provided details
      *
-     * @param messageDetails GatewayRequestDetails object containing information about the message to be sent
+     * @param messageDetails The {@link org.motechproject.mobile.core.model.GatewayRequestDetails} object containing information about the message to be sent
      * @return The id of the message sent
      */
     public Long sendMessage(GatewayRequestDetails messageDetails);
             
     /**
-     * Queries and updates the delivery status of all pending messages
+     * Queries a message gateway and updates the delivery status of all pending messages
      */
     public void updateMessageStatuses();
     
     /**
-     * 
-     * @param current message response to be updated
-     * @return current status of the message
+     * Queries a message gateway and updates the status of a transmitted message
+     *
+     * @param response The {@link org.motechproject.mobile.core.model.GatewayResponse} object to be updated
+     * @return The current status of the message
      */
     public String getMessageStatus(GatewayResponse response);
+    
     /**
      * @return the cache
      */
@@ -115,6 +117,11 @@ public interface MessagingService {
      */
     public void setGatewayManager(GatewayManager gatewayManager);
 
+    /**
+     * Queries a message gateway and updates the delivery status of a message
+     *
+     * @param response The {@link org.motechproject.mobile.core.model.GatewayResponse} to be updated
+     */
     void updateMessageStatus(GatewayResponse response);
 
     /**

@@ -36,7 +36,7 @@ package org.motechproject.mobile.omi.manager;
 import org.motechproject.mobile.core.model.GatewayResponse;
 
 /**
- * Provides external access to OMI methods
+ * Performs a specified action on a {@link org.motechproject.mobile.core.model.GatewayResponse} object based on it's status
  *
  * @author Kofi A. Asamoah (yoofi@dremoval.com)
  * Date Created: Jul 31, 2009

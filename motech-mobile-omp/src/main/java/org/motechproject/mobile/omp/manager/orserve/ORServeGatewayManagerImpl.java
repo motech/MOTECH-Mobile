@@ -66,7 +66,7 @@ public class ORServeGatewayManagerImpl implements GatewayManager {
      */
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
         String gatewayResponse;
-
+        
         if(messageDetails == null)
             return null;
 

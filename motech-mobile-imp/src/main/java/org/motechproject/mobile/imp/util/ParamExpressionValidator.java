@@ -31,10 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
@@ -46,8 +42,9 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 /**
+ * Validates a form parameter input expression based on the type
  *
- * @author user
+ * @author Kofi A. Asamoah
  */
 public class ParamExpressionValidator implements IncomingMessageFormParameterValidator {
 

@@ -48,10 +48,6 @@ public class StatusHandlerImpl implements StatusHandler {
 
     private Map<MStatus, List<StatusAction>> actionRegister;
 
-    /**
-     *
-     * @see StatusHandler.handleStatus
-     */
     public void handleStatus(GatewayResponse response) {
         List<StatusAction> actions = actionRegister.get(response.getMessageStatus());
         if (actions != null) {
@@ -61,10 +57,6 @@ public class StatusHandlerImpl implements StatusHandler {
         }
     }
 
-    /**
-     *
-     * @see StatusHandler.registerStatusAction
-     */
     public boolean registerStatusAction(MStatus status, StatusAction action) {
         return actionRegister.get(status).add(action);
     }

@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.model.IncomingMessage;
@@ -52,6 +47,7 @@ import org.motechproject.mobile.core.model.IncomingMessageResponse;
 public interface CommandAction {
     /**
      * Executes the associated command on the IncomingMessage object
+     * 
      * @param message IncomingMessage on which the command should be executed
      * @param requesterPhone Phone number by which the request was made
      * @return IncomingMessageResponse generated as a result of command execution
