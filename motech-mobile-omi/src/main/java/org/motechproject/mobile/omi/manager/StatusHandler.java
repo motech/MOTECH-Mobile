@@ -37,7 +37,7 @@ import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 
 /**
- * Provides external access to OMI methods
+ * Controls which actions to perform on GatewayResponse objects based on their status
  *
  * @author Kofi A. Asamoah (yoofi@dremoval.com)
  * Date Created: Sep 30, 2009
@@ -51,7 +51,8 @@ public interface StatusHandler{
     public void handleStatus(GatewayResponse response);
 
     /**
-     * Adds an action to be performed when the provided status is found
+     * Adds an action to the list of actions to be performed when the provided status is found
+     *
      * @param status for which action should be performed
      * @param action to perform when status is found
      * @return

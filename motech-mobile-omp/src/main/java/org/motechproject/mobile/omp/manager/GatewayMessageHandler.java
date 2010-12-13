@@ -48,13 +48,15 @@ import java.util.Set;
 public interface GatewayMessageHandler {
 
     /**
-     * Constructs ResponseDetails objects from a response recieved from a message gateway
-     * @param gatewayResponse
-     * @return
+     * Constructs ResponseDetails objects from a response received from a message gateway
+     *
+     * @param gatewayResponse The response from the gateway
+     * @return A set of {@link org.motechproject.mobile.core.model.GatewayResponse} objects
      */
     public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse);
 
     /**
+     * Converts the status received from the message gateway to a system recognized message status
      *
      * @param messageStatus the status of the message returned by the message gateway
      * @return a more reader-friendly message status

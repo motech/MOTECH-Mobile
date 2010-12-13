@@ -31,18 +31,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.util;
 
 import java.util.LinkedHashMap;
 
 /**
+ * A grouping of validators according to the type of input parameter they validate
  *
- * @author user
+ * @author Kofi A. Asamoah
  */
 public class ValidatorGroup {
     private String parent = null;

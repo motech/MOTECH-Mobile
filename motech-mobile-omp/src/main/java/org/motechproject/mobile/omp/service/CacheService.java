@@ -43,7 +43,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Handles all message caching related functions
+ * Handles all message saving and fetching operations
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
@@ -51,53 +51,58 @@ import java.util.List;
 public interface CacheService {
 
     /**
-     * saves a message to the cache
-     * @param messageDetails MessageDetails object to be saved to the cache
-     * @return value indicating success. True for success, false for failure
+     * Saves a message to the database
+     *
+     * @param messageDetails {@link org.motechproject.mobile.core.model.GatewayRequest} object to be saved
+     * @return void
      */
     public void saveMessage(GatewayRequest messageDetails);
     
     /**
-     * saves a message to the cache
-     * @param messageDetails MessageDetails object to be saved to the cache
-     * @return value indicating success. True for success, false for failure
+     * Saves a message to the database
+     *
+     * @param messageDetails {@link org.motechproject.mobile.core.model.GatewayRequestDetails} object to be saved
+     * @return void
      */
     public void saveMessage(GatewayRequestDetails messageDetails);
     
     /**
-     * saves a message response to the cache
-     * @param messageDetails MessageDetails object to be saved to the cache
-     * @return value indicating success. True for success, false for failure
+     * Saves a message response to the database
+     * @param messageDetails {@link org.motechproject.mobile.core.model.GatewayResponse} object to be saved
+     * @return void
      */
     public void saveResponse(GatewayResponse responseDetails);
 
     /**
-     * fetches messages matching specified criteria
+     * Fetches messages matching specified criteria
      * 
-     * @param criteria by which messages should be fetched
-     * @return list of messages matching specified criteria
+     * @param criteria A {@link org.motechproject.mobile.core.model.GatewayRequest} object with property values matching the messages to be fetched
+     * @return A list of {@link org.motechproject.mobile.core.model.GatewayRequest} objects
      */
     public List<GatewayRequest> getMessages(GatewayRequest criteria);
       
     /**
-     * fetches messages with specified status
+     * Fetches messages with specified status
      * 
-     * @param criteria by which messages should be fetched
-     * @return list of messages matching specified criteria
+     * @param status The status of messages to be fetched
+     * @return A list of {@link org.motechproject.mobile.core.model.GatewayRequest} objects matching specified criteria
      */
-    public List<GatewayRequest> getMessagesByStatus(MStatus criteria);
+    public List<GatewayRequest> getMessagesByStatus(MStatus status);
 
     /**
-     * fetches messages with specified status
+     * Fetches messages with specified status and schedule
      *
-     * @param criteria by which messages should be fetched
-     * @return list of messages matching specified criteria
+     * @param status The status of messages to be fetched
+     * @param schedule The date for which scheduled messages should be fetched
+     * @return A list of {@link org.motechproject.mobile.core.model.GatewayRequest} objects matching the specified criteria
      */
-    public List<GatewayRequest> getMessagesByStatusAndSchedule(MStatus criteria, Date schedule);
+    public List<GatewayRequest> getMessagesByStatusAndSchedule(MStatus status, Date schedule);
             
     /**
-     * 
-     * fetches all GatewayResponse objects matching the specified criteria
+     * Fetches all GatewayResponse objects matching the specified criteria
+     *
+     * @param criteria A {@link org.motechproject.mobile.core.model.GatewayResponse} object with property values matching the messages to be fetched
+     * @return A list of {@link org.motechproject.mobile.core.model.GatewayResponse} objects matching the specified criteria
      */
     public List<GatewayResponse> getResponses(GatewayResponse criteria);
     

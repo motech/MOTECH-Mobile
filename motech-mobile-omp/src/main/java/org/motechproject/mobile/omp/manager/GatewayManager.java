@@ -55,6 +55,7 @@ public interface GatewayManager {
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails);
 
     /**
+     * Queries a message gateway for the status of a transmitted message
      *
      * @param response the GatewayResponse created when the message was sent
      * @return the response message from the gateway
@@ -62,7 +63,8 @@ public interface GatewayManager {
     public String getMessageStatus(GatewayResponse response);
     
     /**
-     * 
+     * Maps a gateway message status to a system recognized status
+     *
      * @param response the GatewayResponse created when the message was sent
      * @return the status of the message
      */

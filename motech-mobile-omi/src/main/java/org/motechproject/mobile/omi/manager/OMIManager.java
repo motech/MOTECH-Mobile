@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.omi.manager;
 
 import org.motechproject.mobile.omi.service.OMIService;
@@ -49,19 +44,22 @@ import org.motechproject.mobile.omi.service.OMIService;
 public interface OMIManager {
 
     /**
-     * creates a new OMIService object
+     * Returns the spring managed instance of OMIService
+     *
      * @return the OMIService object
      */
     OMIService createOMIService();
 
     /**
-     * creates a new MessageStoreManager object
+     * Returns the spring managed instance of MessageStoreManager
+     *
      * @return the MessageStoreManager object
      */
     MessageStoreManager createMessageStoreManager();
 
     /**
-     * creates a MessageFormatter object
+     * Returns the spring managed instance of MessageFormatter
+     * 
      * @return the created MessageFormatter object
      */
     MessageFormatter createMessageFormatter();

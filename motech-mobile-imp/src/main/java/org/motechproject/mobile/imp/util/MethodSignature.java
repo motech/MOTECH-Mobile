@@ -31,18 +31,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.util;
 
 import java.util.Map;
 
 /**
+ * Defines a method's signature
  *
- * @author user
+ * @author Kofi A. Asamoah
  */
 public class MethodSignature {
     private String methodName;

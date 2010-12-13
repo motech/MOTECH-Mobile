@@ -49,10 +49,6 @@ public class ReportStatusActionImpl implements StatusAction {
     private RegistrarService regWs;
     private static Logger logger = Logger.getLogger(ReportStatusActionImpl.class);
 
-    /**
-     *
-     * @see StatusAction.doAction
-     */
     public void doAction(GatewayResponse response) {
 
         if (response.getRequestId() == null || response.getRequestId().isEmpty()) {
@@ -68,7 +64,6 @@ public class ReportStatusActionImpl implements StatusAction {
             } else if (response.getMessageStatus() == MStatus.FAILED) {
                 getRegWs().setMessageStatus(response.getRequestId(), false);
             }
-
         } catch (Exception e) {
             logger.error("Error communicating with event engine", e);
         }

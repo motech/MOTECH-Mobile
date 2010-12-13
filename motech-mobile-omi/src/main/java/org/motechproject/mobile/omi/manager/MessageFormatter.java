@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.omi.manager;
 
 import org.motechproject.ws.Care;
@@ -43,12 +38,13 @@ import org.motechproject.ws.Patient;
 
 /**
  *
- * @author user
+ * @author Kofi A. Asamoah
  */
 public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient care defaulter message
+     *
      * @param care object containing patient information
      * @return the formatted message
      */
@@ -56,6 +52,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient care defaulter message
+     *
      * @param care object containing patient information
      * @return the formatted message
      */
@@ -63,6 +60,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient delivery schedule message
+     *
      * @param type of schedule
      * @param patients list of patients within schedule
      * @return the formatted message
@@ -71,6 +69,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient delivery schedule message
+     *
      * @param type of schedule
      * @param patients list of patients within schedule
      * @return the formatted message
@@ -79,6 +78,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient delivery schedule message
+     * 
      * @param type of schedule
      * @param patients list of patients within schedule
      * @return the formatted message
@@ -87,6 +87,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient delivery schedule message
+     *
      * @param type of schedule
      * @param patients list of patients within schedule
      * @return the formatted message
@@ -95,6 +96,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a patient query response message
+     *
      * @param patients list of patients matching query
      * @return the formatted message
      */
@@ -102,6 +104,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient details message
+     *
      * @param patient object containing patient details
      * @return the formatted message
      */
@@ -109,6 +112,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient upcoming care message
+     *
      * @param patient object containing list of upcoming care
      * @return the formatted message
      */
@@ -116,6 +120,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a upcoming care message for multiple patients
+     *
      * @param patient object containing list of upcoming care
      * @return the formatted message
      */
@@ -123,6 +128,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs a formatted patient registration response message
+     *
      * @param patient object containing patient details
      * @return the formatted message
      */
@@ -130,6 +136,7 @@ public interface MessageFormatter {
 
     /**
      * Constructs formatted patient registration response messages for multiple patients
+     * 
      * @param patient array of patient objects
      * @return the formatted message
      */

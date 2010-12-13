@@ -48,8 +48,8 @@ public class CompositeGatewayManager implements GatewayManager {
 	private GatewayManager textGatewayManager;
 	
 	private CompositeGatewayMessageHandler compositeMessageHandler;
-	
-	public String getMessageStatus(GatewayResponse response) {
+
+        public String getMessageStatus(GatewayResponse response) {
 
 		if ( response
 				.getGatewayRequest()
@@ -69,7 +69,7 @@ public class CompositeGatewayManager implements GatewayManager {
 		
 	}
 
-	public MStatus mapMessageStatus(GatewayResponse response) {
+        public MStatus mapMessageStatus(GatewayResponse response) {
 		
 		if ( response
 				.getGatewayRequest()

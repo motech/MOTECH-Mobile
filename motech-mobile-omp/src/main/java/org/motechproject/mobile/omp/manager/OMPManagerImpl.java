@@ -59,9 +59,6 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
         this.context = applicationContext;
     }
 
-    /**
-     * @see OMPManager.createGatewayMessageHandler()
-     */
     public GatewayMessageHandler createGatewayMessageHandler() {
         try{
             return (GatewayMessageHandler)context.getBean("orserveHandler");
@@ -72,9 +69,6 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
         }
     }
 
-    /**
-     * @see OMPManager.createSMSGatewayManager()
-     */
     public GatewayManager createGatewayManager() {
         try{
             return (GatewayManager)context.getBean("orserveGateway");
@@ -85,9 +79,6 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
         }
     }
 
-    /**
-     * @see OMPManager.createSMSCacheService()
-     */
     public CacheService createCacheService() {
         try{
             return (CacheService)context.getBean("smsCache");
@@ -98,9 +89,6 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
         }
     }
 
-    /**
-     * @see OMPManager.createSMSService()
-     */
     public MessagingService createMessagingService() {
         try{
             return (MessagingService)context.getBean("smsService");

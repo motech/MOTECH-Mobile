@@ -31,13 +31,8 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.imp.util;
 
-import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDefinitionDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO;
@@ -78,10 +73,6 @@ public class QueryCommandAction implements CommandAction, ApplicationContextAwar
     private static Logger logger = Logger.getLogger(QueryCommandAction.class);
     private ApplicationContext applicationContext;
 
-    /**
-     *
-     * @see CommandAction.execute
-     */
     public IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
         IncomingMessageResponse response;
         String formattedResponse = "";
@@ -134,6 +125,7 @@ public class QueryCommandAction implements CommandAction, ApplicationContextAwar
 
     /**
      * Initializes a request session conversation
+     *
      * @param message Incoming message
      * @param requesterPhone phone number of requester
      * @param context the context of the request
@@ -166,6 +158,7 @@ public class QueryCommandAction implements CommandAction, ApplicationContextAwar
 
     /**
      * Initializes a request form
+     *
      * @param message the request message
      * @param formCode the type of form
      * @param context the context of the request
@@ -201,6 +194,7 @@ public class QueryCommandAction implements CommandAction, ApplicationContextAwar
 
     /**
      * Prepares a response to a request message
+     * 
      * @param message the message to respond to
      * @return the response to the message
      */

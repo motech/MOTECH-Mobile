@@ -55,9 +55,6 @@ public class IncomingMessageFormParameterValidatorImpl implements IncomingMessag
 
     private Map<String, String> paramTypeMap;
 
-    /**
-     * @see IncomingMessageFormParameterValidator.validate
-     */
     public boolean validate(IncomingMessageFormParameter param) {
         if (!param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.NEW)) {
             return param.getMessageFormParamStatus().equals(IncMessageFormParameterStatus.VALID);

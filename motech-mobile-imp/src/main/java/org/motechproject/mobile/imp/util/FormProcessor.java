@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.util;
 
 import java.util.Map;
@@ -47,11 +42,17 @@ import org.motechproject.ws.server.ValidationException;
 
 /**
  *
- * @author user
+ * @author Kofi A. Asamoah
  */
 public interface FormProcessor {
     String processForm(IncomingMessageForm form);
 
+    /**
+     * Process validation errors returned by server while submitting form
+     *
+     * @param form The form that was submitted
+     * @param ex The exception returned by the server
+     */
     void parseValidationErrors(IncomingMessageForm form, ValidationException ex);
 
     /**

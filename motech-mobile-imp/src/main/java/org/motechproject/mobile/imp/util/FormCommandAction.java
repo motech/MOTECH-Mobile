@@ -31,13 +31,8 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.imp.util;
 
-import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
 import org.motechproject.mobile.core.model.IncMessageResponseStatus;
@@ -77,10 +72,6 @@ public class FormCommandAction implements CommandAction, ApplicationContextAware
     private static Logger logger = Logger.getLogger(FormCommandAction.class);
     private ApplicationContext applicationContext;
 
-    /**
-     * 
-     * @see CommandAction.execute
-     */
     public IncomingMessageResponse execute(IncomingMessage message, String requesterPhone) {
         IncomingMessageResponse response;
         String wsResponse = null;
@@ -136,6 +127,7 @@ public class FormCommandAction implements CommandAction, ApplicationContextAware
 
     /**
      * Initializes a request session conversation
+     * 
      * @param message Incoming message
      * @param requesterPhone phone number of requester
      * @param context the context of the request
@@ -169,6 +161,7 @@ public class FormCommandAction implements CommandAction, ApplicationContextAware
 
     /**
      * Initializes a request form
+     * 
      * @param message the request message
      * @param formCode the type of form
      * @param context the context of the request
@@ -204,7 +197,8 @@ public class FormCommandAction implements CommandAction, ApplicationContextAware
     }
 
     /**
-     * Prepares a response to a request message
+     * Prepares a response to a processed request
+     * 
      * @param message the message to respond to
      * @return the response to the message
      */

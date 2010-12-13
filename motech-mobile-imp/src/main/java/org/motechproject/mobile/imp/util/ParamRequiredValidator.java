@@ -31,18 +31,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.util;
 
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 
 /**
+ * Validates that a form input parameter value is set as required
  *
- * @author user
+ * @author Kofi A. Asamoah
  */
 public class ParamRequiredValidator implements IncomingMessageFormParameterValidator {
 

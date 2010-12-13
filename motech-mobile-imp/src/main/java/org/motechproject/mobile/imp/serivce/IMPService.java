@@ -31,11 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.motechproject.mobile.imp.serivce;
 
 import org.motechproject.mobile.imp.util.exception.MotechParseException;
@@ -52,6 +47,7 @@ public interface IMPService {
 
     /**
      * Processes an incoming message request
+     * 
      * @param message the content of the request
      * @param requesterPhone the phone number through which the request was made
      * @return the response of the request

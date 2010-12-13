@@ -72,10 +72,6 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
         }
     }
 
-    /**
-     * creates a MessageStoreManager object
-     * @return the created MessageStoreManager object
-     */
     public MessageStoreManager createMessageStoreManager() {
         try{
             return (MessageStoreManager)context.getBean("storeManager");
@@ -86,10 +82,6 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
         }
     }
 
-    /**
-     * creates a MessageFormatter object
-     * @return the created MessageFormatter object
-     */
     public MessageFormatter createMessageFormatter() {
         try{
             return (MessageFormatter)context.getBean("messageFormatter");

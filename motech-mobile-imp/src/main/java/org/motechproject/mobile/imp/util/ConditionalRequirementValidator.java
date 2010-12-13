@@ -31,10 +31,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.motechproject.mobile.imp.util;
 
 import java.util.Date;
@@ -53,6 +49,14 @@ import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
  */
 public class ConditionalRequirementValidator {
 
+    /**
+     * Checks if a field exists in the form based on the value of another field
+     *
+     * @param form The form to validate
+     * @param subFields A list containing information about the fields to validate {@link SubField}
+     * @param coreManager Utility class for creating missing fields
+     * @return
+     */
     public boolean validate(IncomingMessageForm form, List<SubField> subFields, CoreManager coreManager) {
         boolean valid = true;
 

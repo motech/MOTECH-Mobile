@@ -69,10 +69,6 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
     private String defaultCountryCode = "";
     private ApplicationContext applicationContext;
 
-    /**
-     * 
-     * @see MessageStoreManager.constructMessage
-     */
     public GatewayRequest constructMessage(MessageRequest messageData, Language defaultLang) {
 
         GatewayRequest gwReq = (GatewayRequest) applicationContext.getBean("gatewayRequest", GatewayRequest.class);
@@ -129,16 +125,10 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
         gatewayDetails.getGatewayRequests().add(gwReq);
         logger.debug("GatewayRequest object successfully constructed");
         logger.debug(gatewayDetails);
-            
-////        messageData.setGatewayRequestDetails(gatewayDetails);
 
         return gwReq;
     }
 
-    /**
-     * 
-     * @see MessageStoreManager.parseTemplate
-     */
     public String parseTemplate(String template, Set<NameValuePair> templateParams) {
         String tag, value;  
         
@@ -157,10 +147,6 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
         return template.trim();
     }
 
-    /**
-     * 
-     * @see MessageStoreManager.fetchTemplate
-     */
     public String fetchTemplate(MessageRequest messageData, Language defaultLang) {        
         if(messageData.getNotificationType() == null)
             return "";

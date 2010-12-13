@@ -51,7 +51,7 @@ import org.motechproject.ws.PatientMessage;
 import org.motechproject.ws.mobile.MessageService;
 
 /**
- * An implementation of the MessageService interface.
+ * A web service implementation of the MessageService interface.
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created 30-07-09
@@ -62,11 +62,7 @@ public class MessageServiceImpl implements MessageService {
     private OMIManager omiManager;
     private static Logger logger = Logger.getLogger(MessageServiceImpl.class);
 
-    /**
-    *
-    * @see MessageService.sendPatientMessages
-    */
-   @WebMethod
+    @WebMethod
     public void sendPatientMessages(@WebParam(name="messages") PatientMessage[] messages) {
         logger.debug("Called MessageService.sendPatientMessages with number of messages: " + 
             (messages != null ? messages.length : "null"));
@@ -84,10 +80,6 @@ public class MessageServiceImpl implements MessageService {
         }
     }
     
-    /**
-     *
-     * @see MessageService.sendPatientMessage
-     */
     @WebMethod
     public MessageStatus sendPatientMessage(@WebParam(name = "messageId") String messageId, 
     										@WebParam(name = "personalInfo") NameValuePair[] personalInfo, 
@@ -110,10 +102,6 @@ public class MessageServiceImpl implements MessageService {
         return omiManager.createOMIService().savePatientMessageRequest(messageId, personalInfo, patientNumber, patientNumberType, langCode, messageType, notificationType, startDate, endDate, recipientId);
     }
 
-    /**
-     *
-     * @see MessageService.sendCHPSMessage
-     */
     @WebMethod
     public MessageStatus sendCHPSMessage(@WebParam(name = "messageId") String messageId,
                                          @WebParam(name = "personalInfo") NameValuePair[] personalInfo,
@@ -129,10 +117,6 @@ public class MessageServiceImpl implements MessageService {
         return this.omiManager.createOMIService().saveCHPSMessageRequest(messageId, personalInfo, workerNumber, patientList, langCode, messageType, notificationType, startDate, endDate);
     }
 
-    /**
-     *
-     * @see MessageService.sendDefaulterMessage
-     */
     @WebMethod
     public MessageStatus sendDefaulterMessage(@WebParam(name = "messageId") String messageId,
                                               @WebParam(name = "workerNumber") String workerNumber,
@@ -144,10 +128,6 @@ public class MessageServiceImpl implements MessageService {
         return this.omiManager.createOMIService().sendDefaulterMessage(messageId, workerNumber, cares, mediaType, startDate, endDate);
     }
 
-    /**
-     *
-     * @see MessageService.sendDeliveriesMessage
-     */
     @WebMethod
     public MessageStatus sendDeliveriesMessage(@WebParam(name = "messageId") String messageId,
                                                @WebParam(name = "workerNumber") String workerNumber,
@@ -160,10 +140,6 @@ public class MessageServiceImpl implements MessageService {
         return this.omiManager.createOMIService().sendDeliveriesMessage(messageId, workerNumber, patients, deliveryStatus, mediaType, startDate, endDate);
     }
 
-    /**
-     *
-     * @see MessageService.sendUpcomingCaresMessage
-     */
     @WebMethod
     public MessageStatus sendUpcomingCaresMessage(@WebParam(name = "messageId") String messageId,
                                                   @WebParam(name = "workerNumber") String workerNumber,
@@ -175,10 +151,6 @@ public class MessageServiceImpl implements MessageService {
         return this.omiManager.createOMIService().sendUpcomingCaresMessage(messageId, workerNumber, patient, mediaType, startDate, endDate);
     }
 
-    /**
-     *
-     * @see MessageService.sendBulkCaresMessage
-     */
     @WebMethod
     public MessageStatus sendBulkCaresMessage(@WebParam(name = "messageId") String messageId,
                                                   @WebParam(name = "workerNumber") String workerNumber,
@@ -190,10 +162,6 @@ public class MessageServiceImpl implements MessageService {
         return this.omiManager.createOMIService().sendBulkCaresMessage(messageId, workerNumber, cares, mediaType, startDate, endDate);
     }
 
-    /**
-     *
-     * @see MessageService.sendMessage
-     */
     @WebMethod
     public MessageStatus sendMessage(@WebParam(name = "content") String content,
                                      @WebParam(name = "recipient") String recipient) {
