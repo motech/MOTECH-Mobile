@@ -2337,7 +2337,7 @@
   &lt;Page Text="Page1" Binding="Page1" Width="100%" Height="2089px" backgroundColor=""&gt;
     &lt;Item WidgetType="Label" Text="Enter your CHPS ID" HelpText="Staff ID" Binding="staffId" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="200px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Enter patient's MoTeCH ID" HelpText="MoTeCH ID" Binding="motechId" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Enter client's MoTeCH ID" HelpText="MoTeCH ID" Binding="motechId" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechId" Left="270px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Delivery Date" HelpText="Delivery date" Binding="date" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="Delivery date" Binding="date" Left="150px" Top="100px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -2600,13 +2600,13 @@
 </versionText>
 </version>
 </form>
-<form description="" name="Edit Patient">
+<form description="" name="Edit Client">
 <version description="" name="v1">
 <xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="editpatient"&gt;
-      &lt;editpatient id="5" name="Edit Patient"&gt;
+      &lt;editpatient id="5" name="Edit Client"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -2720,7 +2720,7 @@
 &lt;/Form&gt;</layout>
 <versionText locale="en">
 <xform>&lt;xform id="5"&gt;
-    &lt;text xpath="xforms/model/instance/editpatient[@name]" value="Edit Patient"/&gt;
+    &lt;text xpath="xforms/model/instance/editpatient[@name]" value="Edit Client"/&gt;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page8"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
@@ -2809,7 +2809,7 @@
       &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
     &lt;/xf:input&gt;
     &lt;xf:select1 bind="formname"&gt;
-      &lt;xf:label&gt;Type of patient&lt;/xf:label&gt;
+      &lt;xf:label&gt;Type of client&lt;/xf:label&gt;
       &lt;xf:item id="motheropd-jf"&gt;
         &lt;xf:label&gt;Pregnant mother&lt;/xf:label&gt;
         &lt;xf:value&gt;motheropd-jf&lt;/xf:value&gt;
@@ -2819,7 +2819,7 @@
         &lt;xf:value&gt;childopd-jf&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="generalopd-jf"&gt;
-        &lt;xf:label&gt;General patient&lt;/xf:label&gt;
+        &lt;xf:label&gt;General Client&lt;/xf:label&gt;
         &lt;xf:value&gt;generalopd-jf&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
@@ -3026,13 +3026,13 @@
     &lt;Item WidgetType="Label" Text="Enter your CHPS ID" HelpText="Staff ID" Binding="staffId" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="OPD register serial number?" HelpText="Serial number" Binding="serialNumber" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Date of OPD visit" HelpText="Visit date" Binding="date" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Patient's gender" HelpText="Sex" Binding="sex" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Patient's date of birth" HelpText="Date of birth" Binding="dateOfBirth" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Patient Insured?" HelpText="Insured" Binding="insured" Left="20px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Client's gender" HelpText="Sex" Binding="sex" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Client's date of birth" HelpText="Date of birth" Binding="dateOfBirth" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Client Insured?" HelpText="Insured" Binding="insured" Left="20px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Is this a new case?" HelpText="Case status" Binding="newCase" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Primary diagnosis given" HelpText="Principal diagnosis" Binding="diagnosis" Left="20px" Top="300px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Secondary Diagnosis given" HelpText="Additional diagnosis" Binding="secondDiagnosis" Left="20px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Was this patient referred?" HelpText="Referred" Binding="referred" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Was this client referred?" HelpText="Referred" Binding="referred" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="100px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="470px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -3056,10 +3056,10 @@
     &lt;text xpath="xforms/group[@id='1']/label" value="Page5"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/label" value="Type of patient"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/label" value="Type of client"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='motheropd-jf']/label" value="Pregnant mother"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='childopd-jf']/label" value="Child  under 5 yrs"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='generalopd-jf']/label" value="General patient"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='generalopd-jf']/label" value="General client"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Visit date"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='serialNumber']/label" value="Serial number"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;
@@ -3136,15 +3136,15 @@
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='Label'][@HelpText]" value="Visit date"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='Label'][@Top]" value="100px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@Text]" value="Patient's gender"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@Text]" value="Client's gender"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@HelpText]" value="Sex"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@Top]" value="140px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@Text]" value="Patient's date of birth"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@Text]" value="Client's date of birth"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@HelpText]" value="Date of birth"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@Top]" value="180px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@Text]" value="Patient Insured?"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@Text]" value="Client Insured?"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@HelpText]" value="Insured"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@Top]" value="220px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@Left]" value="20px"/&gt;
@@ -3160,7 +3160,7 @@
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='Label'][@HelpText]" value="Additional diagnosis"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='Label'][@Top]" value="340px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@Text]" value="Was this patient referred?"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@Text]" value="Was this client referred?"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@HelpText]" value="Referred"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@Top]" value="380px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@Left]" value="20px"/&gt;
@@ -3226,13 +3226,13 @@
 </versionText>
 </version>
 </form>
-<form description="" name="Patient Death">
+<form description="" name="Client Death">
 <version description="" name="v1">
 <xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="death"&gt;
-      &lt;death id="7" name="Patient Death"&gt;
+      &lt;death id="7" name="Client Death"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -3275,7 +3275,7 @@
   &lt;Page Text="Page3" Binding="Page3" Width="100%" Height="276px" backgroundColor=""&gt;
     &lt;Item WidgetType="Label" Text="Enter your CHPS ID" HelpText="Staff ID" Binding="staffId" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="200px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Enter Patient's MoTeCH ID" HelpText="MoTeCH ID" Binding="motechId" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Enter Client's MoTeCH ID" HelpText="MoTeCH ID" Binding="motechId" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechId" Left="270px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Date of Death" HelpText="Date of death" Binding="date" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="Date of death" Binding="date" Left="150px" Top="100px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -3289,7 +3289,7 @@
 &lt;/Form&gt;</layout>
 <versionText locale="en">
 <xform>&lt;xform id="7"&gt;
-    &lt;text xpath="xforms/model/instance/death[@name]" value="Patient Death"/&gt;
+    &lt;text xpath="xforms/model/instance/death[@name]" value="Client Death"/&gt;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page3"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
@@ -4902,13 +4902,13 @@
 </versionText>
 </version>
 </form>
-<form description="" name="Reg-Patient">
+<form description="" name="Reg-Client">
 <version description="" name="v1">
 <xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="patientRegistration"&gt;
-      &lt;patientRegistration id="13" name="Reg-Patient"&gt;
+      &lt;patientRegistration id="13" name="Reg-Client"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;

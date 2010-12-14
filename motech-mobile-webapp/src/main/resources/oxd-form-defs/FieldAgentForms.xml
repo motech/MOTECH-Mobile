@@ -67,13 +67,13 @@
 </versionText>
 </version>
 </form>
-<form description="" name="Edit Patient">
+<form description="" name="Edit Client">
 <version description="" name="v1">
 <xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="editpatient"&gt;
-      &lt;editpatient id="16" name="Edit Patient"&gt;
+      &lt;editpatient id="16" name="Edit Client"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -187,7 +187,7 @@
 &lt;/Form&gt;</layout>
 <versionText locale="en">
 <xform>&lt;xform id="16"&gt;
-    &lt;text xpath="xforms/model/instance/editpatient[@name]" value="Edit Patient"/&gt;
+    &lt;text xpath="xforms/model/instance/editpatient[@name]" value="Edit Client"/&gt;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page8"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
@@ -217,13 +217,13 @@
 </versionText>
 </version>
 </form>
-<form description="" name="Patient Query">
+<form description="" name="Client Query">
 <version description="" name="v1">
 <xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="patientQuery"&gt;
-      &lt;patientQuery id="17" name="Patient Query"&gt;
+      &lt;patientQuery id="17" name="Client Query"&gt;
         &lt;chpsid/&gt;
         &lt;facilityid/&gt;
         &lt;formname/&gt;
@@ -320,7 +320,7 @@
     &lt;Item WidgetType="DatePicker" HelpText="Birth date" Binding="dob" Left="185px" Top="300px" Width="200px" Height="25px" TabIndex="8" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="NHIS number" HelpText="NHIS number" Binding="nhis_number" Left="95px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="NHIS number" Binding="nhis_number" Left="185px" Top="340px" Width="200px" Height="25px" TabIndex="9" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Patient phone number" HelpText="Client phone number" Binding="phonenumber" Left="35px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Client phone number" HelpText="Client phone number" Binding="phonenumber" Left="35px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Client phone number" Binding="phonenumber" Left="185px" Top="380px" Width="200px" Height="25px" TabIndex="10" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Response phone number" HelpText="Response phone number" Binding="sender" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Response phone number" Binding="sender" Left="185px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -333,7 +333,7 @@
 </layout>
 <versionText locale="en">
 <xform>&lt;xform id="17"&gt;
-    &lt;text xpath="xforms/model/instance/patientQuery[@name]" value="Patient Query"/&gt;
+    &lt;text xpath="xforms/model/instance/patientQuery[@name]" value="Client Query"/&gt;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page2"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='chpsid']/label" value="Staff ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityid']/label" value="Facility ID"/&gt;
@@ -362,13 +362,13 @@
 </versionText>
 </version>
 </form>
-<form description="" name="Reg-Patient">
+<form description="" name="Reg-Client">
 <version description="" name="v1">
 <xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="patientRegistration"&gt;
-      &lt;patientRegistration id="18" name="Reg-Patient"&gt;
+      &lt;patientRegistration id="18" name="Reg-Client"&gt;
         &lt;staffId/&gt;
         &lt;facilityId/&gt;
         &lt;date/&gt;
@@ -2486,7 +2486,7 @@
 &lt;/Form&gt;</layout>
 <versionText locale="en">
 <xform>&lt;xform id="18"&gt;
-    &lt;text xpath="xforms/model/instance/patientRegistration[@name]" value="Reg-Patient"/&gt;
+    &lt;text xpath="xforms/model/instance/patientRegistration[@name]" value="Reg-Client"/&gt;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;

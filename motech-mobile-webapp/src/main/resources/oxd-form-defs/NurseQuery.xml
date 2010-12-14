@@ -150,13 +150,13 @@
 </versionText>
 </version>
 </form>
-<form description="" name="Patient Query">
+<form description="" name="Client Query">
 <version description="" name="v1">
 <xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;xf:model&gt;
     &lt;xf:instance id="pat-query"&gt;
-      &lt;pat-query id="21" name="Patient Query"&gt;
+      &lt;pat-query id="21" name="Client Query"&gt;
         &lt;chpsid/&gt;
         &lt;facilityid/&gt;
         &lt;formname/&gt;
@@ -257,7 +257,7 @@
     &lt;Item WidgetType="TextBox" HelpText="Birth date" Binding="dob" Left="120px" Top="300px" Width="200px" Height="25px" TabIndex="8" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="NHIS number" HelpText="NHIS number" Binding="nhis_number" Left="20px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="NHIS number" Binding="nhis_number" Left="130px" Top="340px" Width="200px" Height="25px" TabIndex="9" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Patient phone number" HelpText="Client phone number" Binding="phonenumber" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Client phone number" HelpText="Client phone number" Binding="phonenumber" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Client phone number" Binding="phonenumber" Left="220px" Top="380px" Width="200px" Height="25px" TabIndex="10" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Response phone number" HelpText="Response phone number" Binding="sender" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Response phone number" Binding="sender" Left="230px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -269,7 +269,7 @@
 &lt;/Form&gt;</layout>
 <versionText locale="en">
 <xform>&lt;xform id="21"&gt;
-    &lt;text xpath="xforms/model/instance/pat-query[@name]" value="Patient Query"/&gt;
+    &lt;text xpath="xforms/model/instance/pat-query[@name]" value="Client Query"/&gt;
     &lt;text xpath="xforms/group[@id='1']/label" value="Page2"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='chpsid']/label" value="Staff ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityid']/label" value="Facility ID"/&gt;
