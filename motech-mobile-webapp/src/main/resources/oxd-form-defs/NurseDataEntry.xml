@@ -3967,11 +3967,11 @@
     &lt;xf:select1 bind="terminationType"&gt;
       &lt;xf:label&gt;Type&lt;/xf:label&gt;
       &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Spontaneous&lt;/xf:label&gt;
+        &lt;xf:label&gt;Elective&lt;/xf:label&gt;
         &lt;xf:value&gt;1&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Elective&lt;/xf:label&gt;
+        &lt;xf:label&gt;Spontaneous&lt;/xf:label&gt;
         &lt;xf:value&gt;2&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="3"&gt;
