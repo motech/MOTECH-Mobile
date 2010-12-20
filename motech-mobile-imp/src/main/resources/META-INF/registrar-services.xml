@@ -139,6 +139,7 @@
                 <entry key="rdtPositive" value="java.lang.Boolean" />
                 <entry key="actTreated" value="java.lang.Boolean" />
                 <entry key="newCase" value="java.lang.Boolean" />
+                <entry key="newPatient" value="java.lang.Boolean"/>
                 <entry key="referred" value="java.lang.Boolean" />
                 <entry key="comments" value="java.lang.String" />
             </map>
@@ -526,6 +527,7 @@
                 <entry key="rdtPositive" value="java.lang.Boolean" />
                 <entry key="actTreated" value="java.lang.Boolean" />
                 <entry key="newCase" value="java.lang.Boolean" />
+                <entry key="newPatient" value="java.lang.Boolean" />
                 <entry key="referred" value="java.lang.Boolean" />
                 <entry key="comments" value="java.lang.String" />
             </map>
@@ -574,6 +576,7 @@
                 <entry key="rdtPositive" value="java.lang.Boolean" />
                 <entry key="actTreated" value="java.lang.Boolean" />
                 <entry key="newCase" value="java.lang.Boolean" />
+                <entry key="newPatient" value="java.lang.Boolean"/>
                 <entry key="referred" value="java.lang.Boolean" />
                 <entry key="comments" value="java.lang.String" />
             </map>

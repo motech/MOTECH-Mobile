@@ -2767,6 +2767,7 @@
         &lt;dateOfBirth/&gt;
         &lt;insured/&gt;
         &lt;newCase/&gt;
+        &lt;newPatient/&gt;
         &lt;diagnosis/&gt;
         &lt;otherdiagnosis/&gt;
         &lt;secondDiagnosis/&gt;
@@ -2789,6 +2790,7 @@
     &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dateOfBirth" message="Invalid date: date specified is in the future" nodeset="/generalopd/dateOfBirth" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:date" visible="false()"/&gt;
     &lt;xf:bind id="insured" nodeset="/generalopd/insured" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="newCase" nodeset="/generalopd/newCase" required="true()" type="xsd:string"/&gt;
+    &lt;xf:bind id="newPatient" nodeset="/generalopd/newPatient" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="diagnosis" nodeset="/generalopd/diagnosis" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;gt;= 1 and . &amp;lt;= 76" id="otherdiagnosis" message="Invalid diagnosis: value must be between 1 and 76" nodeset="/generalopd/otherdiagnosis" relevant="/generalopd/diagnosis = '78'" required="true()" type="xsd:int" visible="false()"/&gt;
     &lt;xf:bind id="secondDiagnosis" nodeset="/generalopd/secondDiagnosis" type="xsd:string"/&gt;
@@ -2867,6 +2869,17 @@
         &lt;xf:label&gt;Old&lt;/xf:label&gt;
         &lt;xf:value&gt;N&lt;/xf:value&gt;
       &lt;/xf:item&gt;
+    &lt;/xf:select1&gt;
+    &lt;xf:select1 bind="newPatient"&gt;
+      &lt;xf:label&gt;Client status&lt;/xf:label&gt;
+      &lt;xf:item id="Y"&gt;
+        &lt;xf:label&gt;New&lt;/xf:label&gt;
+          &lt;xf:value&gt;Y&lt;/xf:value&gt;
+          &lt;/xf:item&gt;
+        &lt;xf:item id="N"&gt;
+          &lt;xf:label&gt;Old&lt;/xf:label&gt;
+          &lt;xf:value&gt;N&lt;/xf:value&gt;
+        &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
     &lt;xf:select1 bind="diagnosis"&gt;
       &lt;xf:label&gt;Principal diagnosis&lt;/xf:label&gt;
@@ -3030,6 +3043,7 @@
     &lt;Item WidgetType="Label" Text="Client's date of birth" HelpText="Date of birth" Binding="dateOfBirth" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Client Insured?" HelpText="Insured" Binding="insured" Left="20px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Is this a new case?" HelpText="Case status" Binding="newCase" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Is this a new client?" HelpText="Cleint status" Binding="newPatient" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,San s-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Primary diagnosis given" HelpText="Principal diagnosis" Binding="diagnosis" Left="20px" Top="300px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Secondary Diagnosis given" HelpText="Additional diagnosis" Binding="secondDiagnosis" Left="20px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Was this client referred?" HelpText="Referred" Binding="referred" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -3044,6 +3058,7 @@
     &lt;Item WidgetType="DatePicker" HelpText="Visit date" Binding="date" Left="190px" Top="96px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="Date of birth" Binding="dateOfBirth" Left="250px" Top="178px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="ListBox" HelpText="Case status" Binding="newCase" Left="210px" Top="258px" Width="200px" Height="25px" TabIndex="7" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="ListBox" HelpText="Case status" Binding="newPatient" Left="210px" Top="258px" Width="200px" Height="25px" TabIndex="7" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="ListBox" HelpText="Principal diagnosis" Binding="diagnosis" Left="250px" Top="299px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="ListBox" HelpText="Additional diagnosis" Binding="secondDiagnosis" Left="270px" Top="339px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="ListBox" HelpText="Referred" Binding="referred" Left="280px" Top="373px" Width="200px" Height="22px" TabIndex="10" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -3073,6 +3088,9 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='newCase']/label" value="Case status"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='newCase']/item[@id='Y']/label" value="New"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='newCase']/item[@id='N']/label" value="Old"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newPatient']/label" value="Client status"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newPatient']/item[@id='Y']/label" value="New"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newPatient']/item[@id='N']/label" value="Old"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/label" value="Principal diagnosis"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='16']/label" value="Diarrhoea Diseases"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='63']/label" value="Malaria (Preg.) - Lab"/&gt;
@@ -3152,6 +3170,10 @@
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='Label'][@HelpText]" value="Case status"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='Label'][@Top]" value="260px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='Label'][@Left]" value="20px"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='Label'][@Text]" value="Is this a new Client?"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='Label'][@HelpText]" value="Client status"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='Label'][@Top]" value="260px"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='Label'][@Left]" value="20px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='Label'][@Text]" value="Primary diagnosis given"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='Label'][@HelpText]" value="Principal diagnosis"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='Label'][@Top]" value="300px"/&gt;
@@ -3210,6 +3232,10 @@
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='ListBox'][@Top]" value="258px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='ListBox'][@Left]" value="210px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='ListBox'][@HelpText]" value="Client status"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='ListBox'][@Top]" value="258px"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='ListBox'][@Left]" value="210px"/&gt;
+    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='ListBox'][@HelpText]" value="Principal diagnosis"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='ListBox'][@Top]" value="299px"/&gt;
     &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='ListBox'][@Left]" value="250px"/&gt;

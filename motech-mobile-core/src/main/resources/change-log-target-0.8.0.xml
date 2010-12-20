@@ -694,4 +694,39 @@
             <where>id=10000000000914</where>
         </update>
     </changeSet>
+    <changeSet context="update" id="1000000000000-43" author="ThoughtWorks">
+        <comment>
+            Adding a new Field Client Status in Outpatients Visit form #868
+        </comment>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001819" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000015" />
+            <column name="name" value="newPatient" />
+            <column name="parameter_type" value="BOOLEAN" />
+            <column name="length" valueNumeric="1"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2010-12-20 16:08:00" />
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001820" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000016" />
+            <column name="name" value="newPatient" />
+            <column name="parameter_type" value="BOOLEAN" />
+            <column name="length" valueNumeric="1"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2010-12-20 16:08:00" />
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001821" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000017" />
+            <column name="name" value="newPatient" />
+            <column name="parameter_type" value="BOOLEAN" />
+            <column name="length" valueNumeric="1"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2010-12-20 16:08:00" />
+        </insert>
+    </changeSet>
 </databaseChangeLog>
