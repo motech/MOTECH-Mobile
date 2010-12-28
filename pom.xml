@@ -3,7 +3,7 @@
     <groupId>org.motechproject</groupId>
     <artifactId>motech-mobile</artifactId>
     <packaging>pom</packaging>
-    <version>0.9-SNAPSHOT</version>
+    <version>0.10-SNAPSHOT</version>
     <name>MoTeCH Mobile</name>
     <url>https://motech.rcg.usm.maine.edu/redmine/projects/show/motech-mobile</url>
 
@@ -247,27 +247,27 @@
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-core</artifactId>
-                <version>0.9-SNAPSHOT</version>
+                <version>0.10-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-omp</artifactId>
-                <version>0.9-SNAPSHOT</version>
+                <version>0.10-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-omi</artifactId>
-                <version>0.9-SNAPSHOT</version>
+                <version>0.10-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-imp</artifactId>
-                <version>0.9-SNAPSHOT</version>
+                <version>0.10-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject.mobile</groupId>
                 <artifactId>motech-mobile-modemgw</artifactId>
-                <version>0.9-SNAPSHOT</version>
+                <version>0.10-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.motechproject</groupId>
