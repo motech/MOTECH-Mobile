@@ -729,4 +729,14 @@
             <column name="date_created" valueDate="2010-12-20 16:08:00" />
         </insert>
     </changeSet>
+    <changeSet context="update" id="1000000000000-44" author="mattblanchette">
+         <comment>
+            Change urineTestProteinPositive type from BOOLEAN to NUMERIC and adding length 2
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="parameter_type" value="NUMERIC"  />
+            <column name="length" valueNumeric="2"  />
+            <where>id=10000000000020</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
