@@ -33,23 +33,21 @@
 
 package org.motechproject.mobile.omp.manager.rancard;
 
+import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
+import org.motechproject.mobile.omp.manager.utils.PostData;
+
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Set;
-import org.apache.log4j.Logger;
 
 /**
  * Handles all interactions with the OutReach Server message gateway
@@ -71,15 +69,16 @@ public class RancardGatewayManagerImpl implements GatewayManager {
     }
 
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
-        String postData = "";
+        PostData postData = new PostData();
         try {
             String msg = (messageDetails.getMessage().length() <= 459) ? messageDetails.getMessage() : messageDetails.getMessage().substring(0, 455) + "...";
 
-            postData += "&username=" + URLEncoder.encode(user, "UTF-8");
-            postData += "&password=" + URLEncoder.encode(password, "UTF-8");
-            postData += "&text=" + URLEncoder.encode(URLEncoder.encode(msg, "UTF-8"), "UTF-8");
-            postData += "&from=" + URLEncoder.encode(sender, "UTF-8");
-            postData += "&concat=" + URLEncoder.encode(String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()), "UTF-8");
+            postData.add("username",user);
+            postData.add("password",password);
+            postData.add("text",URLEncoder.encode(msg, "UTF-8"));
+            postData.add("from",sender);
+            postData.add("concat",String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
+
             String recipients = "";
             String numbers = messageDetails.getRecipientsNumber();
             String[] nums = numbers.split(",");
@@ -92,8 +91,8 @@ public class RancardGatewayManagerImpl implements GatewayManager {
                 }
                 recipients += num;
             }
-            postData += "&to=" + URLEncoder.encode(recipients, "UTF-8");
-            logger.debug("Post Data:\n"+postData);
+            postData.add("to",recipients);
+            logger.debug("Post Data:\n"+postData.without("username","password"));
         } catch (UnsupportedEncodingException ex) {
             logger.fatal("Error building request params: invalid encoding", ex);
         }
@@ -120,7 +119,7 @@ public class RancardGatewayManagerImpl implements GatewayManager {
         try {
             conn.setDoOutput(true);
             OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-            out.write(postData);
+            out.write(postData.toString());
             out.flush();
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             while ((data = in.readLine()) != null) {
