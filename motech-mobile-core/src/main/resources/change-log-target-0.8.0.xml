@@ -729,7 +729,7 @@
             <column name="date_created" valueDate="2010-12-20 16:08:00" />
         </insert>
     </changeSet>
-    <changeSet context="update" id="1000000000000-43" author="mattblanchette">
+    <changeSet context="update" id="1000000000000-44" author="mattblanchette">
          <comment>
             Change urineTestProteinPositive type from BOOLEAN to NUMERIC and adding length 2
         </comment>
@@ -738,5 +738,50 @@
             <column name="length" valueNumeric="2"  />
             <where>id=10000000000020</where>
         </update>
+    </changeSet>
+    <changeSet context="update" id="1000000000000-45" author="ThoughtWorks">
+        <comment>
+            Adding support for editing Patient names
+        </comment>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001822" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000014" />
+            <column name="name" value="firstName" />
+            <column name="parameter_type" value="ALPHANUM" />
+            <column name="length" valueNumeric="50"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2010-12-31 16:08:00" />
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001823" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000014" />
+            <column name="name" value="middleName" />
+            <column name="parameter_type" value="ALPHANUM" />
+            <column name="length" valueNumeric="50"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2010-12-31 16:08:00" />
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001824" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000014" />
+            <column name="name" value="lastName" />
+            <column name="parameter_type" value="ALPHANUM" />
+            <column name="length" valueNumeric="50"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2010-12-31 16:08:00" />
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001825" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000014" />
+            <column name="name" value="preferredName" />
+            <column name="parameter_type" value="ALPHANUM" />
+            <column name="length" valueNumeric="50"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2010-12-31 16:08:00" />
+        </insert>
     </changeSet>
 </databaseChangeLog>

@@ -195,6 +195,10 @@
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
                 <entry key="motechId" value="java.lang.Integer" />
+                <entry key="firstName" value="java.lang.String" />
+                <entry key="middleName" value="java.lang.String" />
+                <entry key="lastName" value="java.lang.String" />
+                <entry key="preferredName" value="java.lang.String" />
                 <entry key="phoneNumber" value="java.lang.String" />
                 <entry key="phoneOwnership" value="org.motechproject.ws.ContactNumberType" />
                 <entry key="nhis" value="java.lang.String" />
