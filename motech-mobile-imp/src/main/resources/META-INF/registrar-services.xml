@@ -203,6 +203,7 @@
                 <entry key="phoneOwnership" value="org.motechproject.ws.ContactNumberType" />
                 <entry key="nhis" value="java.lang.String" />
                 <entry key="nhisExpires" value="java.util.Date" />
+                <entry key="edd" value="java.util.Date" />
                 <entry key="stopEnrollment" value="java.lang.Boolean" />
             </map>
         </property>

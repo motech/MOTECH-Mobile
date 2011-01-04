@@ -116,7 +116,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("EDITPATIENT-JF");
 
-        mockWS.editPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(),(String) anyObject(),(String) anyObject(),(String) anyObject(),(String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (Date) anyObject(), (Boolean) anyObject());
+        mockWS.editPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(),(String) anyObject(),(String) anyObject(),(String) anyObject(),(String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (Date) anyObject(), (Date) anyObject(), (Boolean) anyObject());
         expectLastCall();
 
         replay(mockWS);
