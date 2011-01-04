@@ -793,7 +793,7 @@
             <column name="obj_vesion" valueNumeric="0" />
             <column name="incoming_message_form_definition_id" valueNumeric="200000000000014" />
             <column name="name" value="edd" />
-            <column name="parameter_type" value="DATE" />
+            <column name="parameter_type" value="EXPIRYDATE" />
             <column name="length" valueNumeric="10"/>
             <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-01-11 16:08:00" />
