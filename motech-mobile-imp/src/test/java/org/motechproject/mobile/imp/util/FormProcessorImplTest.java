@@ -37,8 +37,6 @@
  */
 package org.motechproject.mobile.imp.util;
 
-import java.util.Date;
-import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,23 +46,18 @@ import org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl;
 import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import org.motechproject.mobile.omi.manager.OMIManager;
-import org.motechproject.ws.BirthOutcome;
-import org.motechproject.ws.ContactNumberType;
-import org.motechproject.ws.DayOfWeek;
-import org.motechproject.ws.Gender;
-import org.motechproject.ws.HIVResult;
-import org.motechproject.ws.HowLearned;
-import org.motechproject.ws.InterestReason;
-import org.motechproject.ws.MediaType;
-import org.motechproject.ws.RegistrantType;
-import org.motechproject.ws.RegistrationMode;
+import org.motechproject.ws.*;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.junit.Assert.*;
+
+import java.util.Date;
+import java.util.HashMap;
+
 import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -116,7 +109,7 @@ public class FormProcessorImplTest {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("EDITPATIENT-JF");
 
-        mockWS.editPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(),(String) anyObject(),(String) anyObject(),(String) anyObject(),(String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (Date) anyObject(), (Date) anyObject(), (Boolean) anyObject());
+        mockWS.editPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(),(Integer) anyObject(),(String) anyObject(),(String) anyObject(),(String) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (Date) anyObject(),(Date) anyObject(), (Boolean) anyObject());
         expectLastCall();
 
         replay(mockWS);

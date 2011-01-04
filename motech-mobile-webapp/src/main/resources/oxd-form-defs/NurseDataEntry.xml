@@ -2619,6 +2619,7 @@
         &lt;phoneOwnership/&gt;
         &lt;nhis/&gt;
         &lt;nhisExpires/&gt;
+        &lt;mothersMotechId/&gt;
         &lt;edd/&gt;
         &lt;stopEnrollment/&gt;
         &lt;formtype&gt;data_entry&lt;/formtype&gt;
@@ -2637,6 +2638,7 @@
     &lt;xf:bind id="phoneOwnership" nodeset="/editpatient/phoneOwnership" type="xsd:string"/&gt;
     &lt;xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string"/&gt;
     &lt;xf:bind id="nhisExpires" nodeset="/editpatient/nhisExpires" type="xsd:date"/&gt;
+    &lt;xf:bind id="mothersMotechId" nodeset="/editpatient/mothersMotechId" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
     &lt;xf:bind id="edd" nodeset="/editpatient/edd" required="false()" type="xsd:date"/&gt;
     &lt;xf:bind id="stopEnrollment" nodeset="/editpatient/stopEnrollment" type="xsd:string"/&gt;
     &lt;xf:bind id="formtype" nodeset="/editpatient/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -2692,6 +2694,9 @@
     &lt;xf:input bind="nhisExpires"&gt;
       &lt;xf:label&gt;NHIS expiry date&lt;/xf:label&gt;
     &lt;/xf:input&gt;
+    &lt;xf:input bind="mothersMotechId"&gt;
+      &lt;xf:label&gt;Mother's MoTeCH ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
     &lt;xf:input bind="edd"&gt;
       &lt;xf:label&gt;Expected Delivery Date&lt;/xf:label&gt;
     &lt;/xf:input&gt;
@@ -2729,6 +2734,7 @@
     &lt;Item WidgetType="Label" Text="Primary phone type" HelpText="Primary phone type" Binding="/editPatient/phoneOwnership" Left="46px" Top="330px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="NHIS Number" HelpText="NHIS Number" Binding="/editPatient/nhis" Left="88px" Top="370px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="NHIS Expiration date" HelpText="NHIS Expiration date" Binding="/editPatient/nhisExpires" Left="38px" Top="410px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Mother's MoTeCH ID" HelpText="Mother's MoTeCH ID" Binding="/editPatient/mothersMotechId" Left="101px" Top="250px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Expected Delivery date" HelpText="Expected Delivery date" Binding="/editPatient/edd" Left="38px" Top="410px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Stop enrollment" HelpText="Stop enrollment" Binding="/editPatient/stopEnrollment" Left="70px" Top="450px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="/editPatient/formtype" Left="112px" Top="492px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -2737,6 +2743,7 @@
     &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="311px" Top="582px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="formName" Binding="formname" Left="190px" Top="532px" Width="200px" Height="25px" TabIndex="31" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="190px" Top="492px" Width="200px" Height="25px" TabIndex="30" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="TextBox" HelpText="Mother's MoTeCH ID" Binding="mothersMotechId" Left="190px" Top="250px" Width="200px" Height="25px" TabIndex="24" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="NHIS expiry date" Binding="nhisExpires" Left="190px" Top="410px" Width="200px" Height="25px" TabIndex="28" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="Expected Delivery date" Binding="edd" Left="190px" Top="410px" Width="200px" Height="25px" TabIndex="28" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="NHIS Number" Binding="nhis" Left="190px" Top="370px" Width="200px" Height="25px" TabIndex="27" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -2772,6 +2779,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/item[@id='PUBLIC']/label" value="Public phone"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='nhis']/label" value="NHIS Number"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='nhisExpires']/label" value="NHIS expiry date"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='mothersMotechId']/label" value="Mother's MoTeCH ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='edd']/label" value="Expected Delivery date"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='stopEnrollment']/label" value="Stop enrollment"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='stopEnrollment']/item[@id='Y']/label" value="Yes"/&gt;

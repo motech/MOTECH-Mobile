@@ -165,6 +165,7 @@
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
                 <entry key="motechId" value="java.lang.Integer" />
+                <entry key="mothersMotechId" value="java.lang.Integer" />
                 <entry key="firstName" value="java.lang.String" />
                 <entry key="middleName" value="java.lang.String" />
                 <entry key="lastName" value="java.lang.String" />
