@@ -115,10 +115,7 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
                     response.setRecipientNumber(responseParts[3]);
                 }
                 
-                errorCode.replaceAll(",", "");
-                errorCode.trim();
-
-                MStatus status = lookupResponse(errorCode);               
+                MStatus status = lookupResponse(errorCode.replaceAll(",", "").trim());
                 response.setMessageStatus(status);                
             }
             else{

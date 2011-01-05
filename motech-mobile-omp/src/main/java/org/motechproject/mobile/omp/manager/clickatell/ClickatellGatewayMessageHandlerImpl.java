@@ -102,10 +102,8 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
                 logger.error("Gateway returned error: " + gatewayResponse);
                 
                 String errorCode = responseParts[1];
-                errorCode.replaceAll(",", "");
-                errorCode.trim();
-                
-                MStatus status = lookupResponse(errorCode);
+
+                MStatus status = lookupResponse(errorCode.replaceAll(",", "").trim());
                 
                 GatewayResponse response = getCoreManager().createGatewayResponse();
                 
