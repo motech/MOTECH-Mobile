@@ -144,9 +144,7 @@
 	      <version>1.8.0</version>
 	      <configuration>
                 <header>header.txt</header>
-		<properties>
-                  <year>${project.inceptionYear}</year>
-                </properties>
+                <strictCheck>true</strictCheck>
 	      </configuration>
 	    </plugin>
         </plugins>
