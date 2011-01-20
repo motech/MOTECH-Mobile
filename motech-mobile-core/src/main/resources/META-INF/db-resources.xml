@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:flow="http://www.springframework.org/schema/webflow-config"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-1.0.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxPoolSize" value="${hibernate.c3p0.max_size}"/>
+        <property name="minPoolSize" value="${hibernate.c3p0.min_size}"/>
+        <property name="checkoutTimeout" value="${hibernate.c3p0.timeout}"/>
+        <property name="maxStatements" value="${hibernate.c3p0.max_statements}"/>
+        <property name="idleConnectionTestPeriod" value="${hibernate.c3p0.idle_test_period}"/>
+        <property name="acquireIncrement" value="${hibernate.c3p0.acquire_increment}"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" depends-on="liquibase">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+            </props>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>org/motechproject/mobile/core/model/GatewayRequest.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/GatewayResponse.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/GatewayRequestDetails.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/MessageRequest.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/Language.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/MessageTemplate.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/NotificationType.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageSession.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessage.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageResponse.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageFormDefinition.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageFormParameterDefinition.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageForm.hbm.xml</value>
+                <value>org/motechproject/mobile/core/model/IncomingMessageFormParameter.hbm.xml</value>
+                <value>org/motechproject/mobile/omp/manager/intellivr/IVRCallSession.hbm.xml</value>
+                <value>org/motechproject/mobile/omp/manager/intellivr/IVRCall.hbm.xml</value>
+                <value>org/motechproject/mobile/omp/manager/intellivr/IVRMenu.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Liquibase Settings   -->
+    <bean id="liquibase" class="liquibase.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="changeLog" value="${changeLogFile}"/>
+        <property name="contexts" value="${contexts}"/>
+    </bean>
+
+</beans>
+
+        <!--  End of liquibase settings  -->
