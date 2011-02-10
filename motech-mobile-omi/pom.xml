@@ -19,8 +19,6 @@
         <dependency>
             <groupId>org.motechproject.mobile</groupId>
             <artifactId>motech-mobile-omp</artifactId>
-            <version>0.10-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
