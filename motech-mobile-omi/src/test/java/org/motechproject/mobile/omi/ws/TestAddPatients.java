@@ -81,8 +81,9 @@ public class TestAddPatients {
         for (int i = 1; i <= 1500; i++) {
             Integer staffId = 465, facilityId = 11117, motechId = null, motherMotechId = null;
             String firstName = ("New2MotherFirst" + i), middleName = ("New2MotherMiddle" + i), lastName = ("New2MotherLast" + i), prefName = ("New2MotherPref" + i);
-            String nhis = ("New2MotherNHIS" + i), address = ("New2MotherAddress" + i), language = "en", cwcRegNumber = null;
+            String nhis = ("New2MotherNHIS" + i), address = ("New2MotherAddress" + i), language = "en", cwcRegNumber = null, ancRegNumber = null;
             Boolean cwcRegDateToday = true;
+            Boolean ancRegDateToday = true;
             Integer community = 11211;
             Gender gender = Gender.FEMALE;
             Boolean estBirthDate = false, insured = true, delivDateConf = true, enroll = true, consent = true;
@@ -90,6 +91,9 @@ public class TestAddPatients {
             Date dueDate = new Date(System.currentTimeMillis() + 9676800000l);
             Integer messageWeek = 24;
             String phone = ("082000" + i);
+            Double height = 2.0;
+            Integer gravida = 2;
+            Integer parity = 4;
 
             RegistrationMode mode = RegistrationMode.AUTO_GENERATE_ID;
             RegistrantType type = RegistrantType.PREGNANT_MOTHER;
@@ -124,7 +128,9 @@ public class TestAddPatients {
                         address, phone, dueDate, delivDateConf, enroll,
                         consent, phoneType, format, language, day,
                         prefDelivTime, reason, how, messageWeek,
-                         cwcRegNumber, cwcRegDateToday, date);
+                        cwcRegNumber, cwcRegDateToday, date,
+                        ancRegNumber, ancRegDateToday, date,
+                        height, gravida, parity);
 
                 System.out.println("motechid=" + patient.getMotechId());
             } catch (ValidationException e) {

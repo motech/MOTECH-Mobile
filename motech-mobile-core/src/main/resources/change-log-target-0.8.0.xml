@@ -849,4 +849,69 @@
             <column name="date_created" valueDate="2011-02-14 16:08:00"/>
         </insert>
     </changeSet>
+    <changeSet context="update" id="1000000000000-49" author="ThoughtWorks">
+        <comment>
+            Adding the ANC Registration details to Patient Register form
+        </comment>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001831"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="ancRegNumber"/>
+            <column name="parameter_type" value="ALPHANUM"/>
+            <column name="length" value="20"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-15 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001832"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="ancRegDateToday"/>
+            <column name="parameter_type" value="BOOLEAN"/>
+            <column name="length" value="1"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-15 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001833"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="ancRegDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" value="10"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-15 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001834"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="height"/>
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" value="5"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-15 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001835"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="gravida"/>
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" value="2"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-15 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001836"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="parity"/>
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" value="2"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-15 16:08:00"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
