@@ -81,7 +81,8 @@ public class TestAddPatients {
         for (int i = 1; i <= 1500; i++) {
             Integer staffId = 465, facilityId = 11117, motechId = null, motherMotechId = null;
             String firstName = ("New2MotherFirst" + i), middleName = ("New2MotherMiddle" + i), lastName = ("New2MotherLast" + i), prefName = ("New2MotherPref" + i);
-            String nhis = ("New2MotherNHIS" + i), address = ("New2MotherAddress" + i), language = "en";
+            String nhis = ("New2MotherNHIS" + i), address = ("New2MotherAddress" + i), language = "en", cwcRegNumber = null;
+            Boolean cwcRegDateToday = true;
             Integer community = 11211;
             Gender gender = Gender.FEMALE;
             Boolean estBirthDate = false, insured = true, delivDateConf = true, enroll = true, consent = true;
@@ -122,7 +123,8 @@ public class TestAddPatients {
                         insured, nhis, date, motherMotechId, community,
                         address, phone, dueDate, delivDateConf, enroll,
                         consent, phoneType, format, language, day,
-                        prefDelivTime, reason, how, messageWeek);
+                        prefDelivTime, reason, how, messageWeek,
+                         cwcRegNumber, cwcRegDateToday, date);
 
                 System.out.println("motechid=" + patient.getMotechId());
             } catch (ValidationException e) {

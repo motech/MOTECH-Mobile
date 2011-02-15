@@ -433,6 +433,9 @@
                 <entry key="reason" value="org.motechproject.ws.InterestReason" />
                 <entry key="howLearned" value="org.motechproject.ws.HowLearned" />
                 <entry key="messageStartWeek" value="java.lang.Integer" />
+                <entry key="cwcRegNumber" value="java.lang.String"/>
+                <entry key="cwcRegDateToday" value="java.lang.Boolean"/>
+                <entry key="cwcRegDate" value="java.util.Date"/>
             </map>
         </property>
         <property name="callback">

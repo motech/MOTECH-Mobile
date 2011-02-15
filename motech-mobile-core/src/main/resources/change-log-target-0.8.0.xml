@@ -814,4 +814,39 @@
             <column name="date_created" valueDate="2011-01-11 16:08:00" />
         </insert>
     </changeSet>
+    <changeSet context="update" id="1000000000000-48" author="ThoughtWorks">
+        <comment>
+            Adding the CWC Registration details to Patient Register form
+        </comment>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001828"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="cwcRegNumber"/>
+            <column name="parameter_type" value="ALPHANUM"/>
+            <column name="length" value="20"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-14 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001829"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="cwcRegDateToday"/>
+            <column name="parameter_type" value="BOOLEAN"/>
+            <column name="length" value="1"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-14 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001830"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="cwcRegDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" value="10"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-14 16:08:00"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
