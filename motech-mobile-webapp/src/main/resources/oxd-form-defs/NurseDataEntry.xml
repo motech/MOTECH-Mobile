@@ -6503,8 +6503,8 @@
     &lt;xf:bind id="cwcRegNumber" nodeset="/patientRegistration/cwcRegNumber" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="cwcRegDateToday" nodeset="/patientRegistration/cwcRegDateToday" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="cwcRegDate" message="Invalid date: date entered is in the future" nodeset="/patientRegistration/cwcRegDate" relevant="/patientRegistration/cwcRegDateToday = 'Y'" visible="false()" required="false()" type="xsd:date"/&gt;
-    &lt;xf:bind id="ancRegNumber" nodeset="/patientRegistration/ancRegNumber" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="ancRegDateToday" nodeset="/patientRegistration/ancRegDateToday" required="true()" type="xsd:string"/&gt;
+    &lt;xf:bind action="show" id="ancRegNumber" nodeset="/patientRegistration/ancRegNumber" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="ancRegDateToday" nodeset="/patientRegistration/ancRegDateToday" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="ancRegDate" message="Invalid date: date entered is in the future" nodeset="/patientRegistration/ancRegDate" relevant="/patientRegistration/ancRegDateToday = 'Y'" visible="false()" required="false()" type="xsd:date"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;gt;= 60 and . &amp;lt;= 200" id="height" message="Value out of range: must be between 60 and 200" nodeset="/patientRegistration/height" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:decimal" visible="false()"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;gt;= 1 and . &amp;lt;= 20" id="gravida" message="Value out of range: must be between 1 and 20" nodeset="/patientRegistration/gravida" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:int" visible="false()"/&gt;
