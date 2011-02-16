@@ -6500,8 +6500,8 @@
     &lt;xf:bind id="community" nodeset="/patientRegistration/community" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="cwcRegNumber" nodeset="/patientRegistration/cwcRegNumber" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="cwcRegDateToday" nodeset="/patientRegistration/cwcRegDateToday" required="true()" type="xsd:string"/&gt;
+    &lt;xf:bind action="show" id="cwcRegNumber" nodeset="/patientRegistration/cwcRegNumber" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="cwcRegDateToday" nodeset="/patientRegistration/cwcRegDateToday" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="cwcRegDate" message="Invalid date: date entered is in the future" nodeset="/patientRegistration/cwcRegDate" relevant="/patientRegistration/cwcRegDateToday = 'Y'" visible="false()" required="false()" type="xsd:date"/&gt;
     &lt;xf:bind action="show" id="ancRegNumber" nodeset="/patientRegistration/ancRegNumber" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="ancRegDateToday" nodeset="/patientRegistration/ancRegDateToday" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
