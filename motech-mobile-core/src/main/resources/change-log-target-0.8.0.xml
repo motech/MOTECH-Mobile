@@ -825,7 +825,7 @@
             <column name="name" value="cwcRegNumber"/>
             <column name="parameter_type" value="ALPHANUM"/>
             <column name="length" value="20"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-14 16:08:00"/>
         </insert>
         <insert tableName="incoming_message_form_parameter_definition">
@@ -835,7 +835,7 @@
             <column name="name" value="cwcRegDateToday"/>
             <column name="parameter_type" value="BOOLEAN"/>
             <column name="length" value="1"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-14 16:08:00"/>
         </insert>
         <insert tableName="incoming_message_form_parameter_definition">
@@ -845,7 +845,7 @@
             <column name="name" value="cwcRegDate"/>
             <column name="parameter_type" value="DATE"/>
             <column name="length" value="10"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-14 16:08:00"/>
         </insert>
     </changeSet>
@@ -860,7 +860,7 @@
             <column name="name" value="ancRegNumber"/>
             <column name="parameter_type" value="ALPHANUM"/>
             <column name="length" value="20"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-15 16:08:00"/>
         </insert>
         <insert tableName="incoming_message_form_parameter_definition">
@@ -870,7 +870,7 @@
             <column name="name" value="ancRegDateToday"/>
             <column name="parameter_type" value="BOOLEAN"/>
             <column name="length" value="1"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-15 16:08:00"/>
         </insert>
         <insert tableName="incoming_message_form_parameter_definition">
@@ -880,7 +880,7 @@
             <column name="name" value="ancRegDate"/>
             <column name="parameter_type" value="DATE"/>
             <column name="length" value="10"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-15 16:08:00"/>
         </insert>
         <insert tableName="incoming_message_form_parameter_definition">
@@ -890,7 +890,7 @@
             <column name="name" value="height"/>
             <column name="parameter_type" value="NUMERIC"/>
             <column name="length" value="5"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-15 16:08:00"/>
         </insert>
         <insert tableName="incoming_message_form_parameter_definition">
@@ -900,7 +900,7 @@
             <column name="name" value="gravida"/>
             <column name="parameter_type" value="NUMERIC"/>
             <column name="length" value="2"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-15 16:08:00"/>
         </insert>
         <insert tableName="incoming_message_form_parameter_definition">
@@ -910,7 +910,7 @@
             <column name="name" value="parity"/>
             <column name="parameter_type" value="NUMERIC"/>
             <column name="length" value="2"/>
-            <column name="required" valueBoolean="true"/>
+            <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-02-15 16:08:00"/>
         </insert>
     </changeSet>
