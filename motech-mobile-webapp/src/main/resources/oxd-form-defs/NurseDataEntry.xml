@@ -6725,11 +6725,11 @@
     &lt;xf:select1 bind="cwcRegDateToday"&gt;
       &lt;xf:label&gt;CWC Registration Today?&lt;/xf:label&gt;
       &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
+        &lt;xf:label&gt;Today&lt;/xf:label&gt;
         &lt;xf:value&gt;Y&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
+        &lt;xf:label&gt;In the past&lt;/xf:label&gt;
         &lt;xf:value&gt;N&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
@@ -6742,11 +6742,11 @@
     &lt;xf:select1 bind="ancRegDateToday"&gt;
       &lt;xf:label&gt;ANC Registration Today?&lt;/xf:label&gt;
       &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
+        &lt;xf:label&gt;Today&lt;/xf:label&gt;
         &lt;xf:value&gt;Y&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
+        &lt;xf:label&gt;In the past&lt;/xf:label&gt;
         &lt;xf:value&gt;N&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
