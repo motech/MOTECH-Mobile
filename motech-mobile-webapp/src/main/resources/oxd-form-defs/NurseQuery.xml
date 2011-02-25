@@ -174,7 +174,7 @@
     &lt;xf:bind id="chpsid" nodeset="/pat-query/chpsid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind id="facilityid" nodeset="/pat-query/facilityid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind id="formname" nodeset="/pat-query/formname" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="motechid" nodeset="/pat-query/motechid" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
+    &lt;xf:bind action="show" id="motechid" nodeset="/pat-query/motechid" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf' or /pat-query/formname = 'registerforrct-jf' " required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
     &lt;xf:bind action="show" id="firstname" nodeset="/pat-query/firstname" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="lastname" nodeset="/pat-query/lastname" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="PreferredName" nodeset="/pat-query/PreferredName" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
@@ -205,6 +205,10 @@
       &lt;xf:item id="findmotechid-jf"&gt;
         &lt;xf:label&gt;Find client ID&lt;/xf:label&gt;
         &lt;xf:value&gt;findmotechid-jf&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+	  &lt;xf:item id="registerforrct-jf"&gt;
+        &lt;xf:label&gt;Register for RCT&lt;/xf:label&gt;
+        &lt;xf:value&gt;registerforrct-jf&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
     &lt;xf:input bind="motechid"&gt;
@@ -277,6 +281,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='upcomingcare-jf']/label" value="Upcoming care"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='viewpatient-jf']/label" value="Client details"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='findmotechid-jf']/label" value="Find client ID"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='registerforrct-jf']/label" value="Register for RCT"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='motechid']/label" value="MoTeCH ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='firstname']/label" value="First name"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='lastname']/label" value="Last name"/&gt;
