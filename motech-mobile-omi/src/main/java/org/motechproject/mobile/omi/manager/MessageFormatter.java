@@ -35,6 +35,7 @@ package org.motechproject.mobile.omi.manager;
 
 import org.motechproject.ws.Care;
 import org.motechproject.ws.Patient;
+import org.motechproject.ws.rct.RCTRegistrationConfirmation;
 
 /**
  *
@@ -151,5 +152,7 @@ public interface MessageFormatter {
      * @param omiManager the omiManager to set
      */
     void setOmiManager(OMIManager omiManager);
+
+    String formatRCTEnrollmentMessage(RCTRegistrationConfirmation confirmation);
 
 }

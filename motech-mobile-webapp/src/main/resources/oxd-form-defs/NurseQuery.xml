@@ -207,7 +207,7 @@
         &lt;xf:value&gt;findmotechid-jf&lt;/xf:value&gt;
       &lt;/xf:item&gt;
 	  &lt;xf:item id="registerforrct-jf"&gt;
-        &lt;xf:label&gt;Register for RCT&lt;/xf:label&gt;
+        &lt;xf:label&gt;Reg-RCT&lt;/xf:label&gt;
         &lt;xf:value&gt;registerforrct-jf&lt;/xf:value&gt;
       &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
@@ -281,7 +281,7 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='upcomingcare-jf']/label" value="Upcoming care"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='viewpatient-jf']/label" value="Client details"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='findmotechid-jf']/label" value="Find client ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='registerforrct-jf']/label" value="Register for RCT"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='registerforrct-jf']/label" value="Reg-RCT"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='motechid']/label" value="MoTeCH ID"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='firstname']/label" value="First name"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='lastname']/label" value="Last name"/&gt;

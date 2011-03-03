@@ -914,4 +914,50 @@
             <column name="date_created" valueDate="2011-02-15 16:08:00"/>
         </insert>
     </changeSet>
+
+    <changeSet context="update" id="1000000000000-50" author="TW">
+         <comment>
+            Adding form [registerforrct-jf]
+        </comment>
+        <insert tableName="incoming_message_form_definition">
+            <column name="id" valueNumeric="200000000000019" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="form_code" value="RegisterForRCT-jf" />
+            <column name="type" value="JFORM" />
+            <column name="duplicatable" value="ALLOWED" />
+            <column name="send_response" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-28 16:08:00" />
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001837" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000019" />
+            <column name="name" value="chpsId" />
+            <column name="parameter_type" value="NUMERIC" />
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-28 16:08:00" />
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001838" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000019" />
+            <column name="name" value="facilityId" />
+            <column name="parameter_type" value="NUMERIC" />
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-28 16:08:00" />
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001839" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000019" />
+            <column name="name" value="motechId" />
+            <column name="parameter_type" value="NUMERIC" />
+            <column name="length" valueNumeric="7"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="date_created" valueDate="2011-02-28 16:08:00" />
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

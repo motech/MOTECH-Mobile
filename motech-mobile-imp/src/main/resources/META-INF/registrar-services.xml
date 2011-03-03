@@ -92,6 +92,7 @@
                 <entry key="UPCOMINGCARE-JF" value-ref="queryUpcomingCareSignatureBean" />
                 <entry key="VIEWPATIENT-JF" value-ref="queryPatientSignatureBean" />
                 <entry key="FINDMOTECHID-JF" value-ref="queryMotechIdSignatureBean" />
+                <entry key="REGISTERFORRCT-JF" value-ref="registerForRandmoziedControlTrialBean" />
             </map>
         </property>
     </bean>
@@ -825,4 +826,26 @@
             </bean>
         </property>
     </bean>
+
+     <bean scope="prototype" name="registerForRandmoziedControlTrialBean" class="org.motechproject.mobile.imp.util.MethodSignature">
+        <property name="methodName" value="registerForRCT" />
+        <property name="methodParams">
+            <map key-type="java.lang.String">
+                <entry key="chpsId" value="java.lang.Integer" />
+                <entry key="facilityId" value="java.lang.Integer" />
+                <entry key="motechId" value="java.lang.Integer" />
+            </map>
+        </property>
+        <property name="callback">
+            <bean scope="prototype" class="org.motechproject.mobile.imp.util.MethodSignature">
+                <property name="methodName" value="formatRCTEnrollmentMessage" />
+                <property name="methodParams">
+                    <map key-type="java.lang.String">
+                        <entry key="confirmation" value="org.motechproject.ws.rct.RCTRegistrationConfirmation" />
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
 </beans>

@@ -33,15 +33,14 @@
 
 package org.motechproject.mobile.omi.manager;
 
+import org.apache.log4j.Logger;
+import org.motechproject.ws.*;
+import org.motechproject.ws.rct.RCTRegistrationConfirmation;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import org.apache.log4j.Logger;
-import org.motechproject.ws.Care;
-import org.motechproject.ws.Gender;
-import org.motechproject.ws.NameValuePair;
-import org.motechproject.ws.Patient;
 
 /**
  * Formats objects into structured messages for sending
@@ -394,10 +393,16 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         this.omiManager = omiManager;
     }
 
+    public String formatRCTEnrollmentMessage(RCTRegistrationConfirmation confirmation) {
+        return confirmation.toString();
+    }
+
     /**
      * @param dateFormat the dateFormat to set
      */
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
     }
+
+
 }
