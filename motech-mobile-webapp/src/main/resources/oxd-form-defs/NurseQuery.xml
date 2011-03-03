@@ -168,6 +168,8 @@
         &lt;nhis/&gt;
         &lt;phonenumber/&gt;
         &lt;sender/&gt;
+        &lt;ownership/&gt;
+        &lt;regPhone/&gt;
         &lt;formtype&gt;query&lt;/formtype&gt;
       &lt;/pat-query&gt;
     &lt;/xf:instance&gt;
@@ -182,6 +184,8 @@
     &lt;xf:bind action="show" id="nhis" nodeset="/pat-query/nhis" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" required="false()"/&gt;
     &lt;xf:bind id="sender" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" nodeset="/pat-query/sender" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind action="show" id="ownership" nodeset="/pat-query/ownership" relevant="/pat-query/formname = 'registerforrct-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone" relevant="/pat-query/ownership = 'PERSONAL' or /pat-query/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind id="formtype" nodeset="/pat-query/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
   &lt;xf:group id="1"&gt;
@@ -235,6 +239,24 @@
     &lt;xf:input bind="sender"&gt;
       &lt;xf:label&gt;Response phone number&lt;/xf:label&gt;
     &lt;/xf:input&gt;
+    &lt;xf:select1 bind="ownership"&gt;
+      &lt;xf:label&gt;Phone ownership&lt;/xf:label&gt;
+      &lt;xf:item id="PERSONAL"&gt;
+        &lt;xf:label&gt;Personal phone&lt;/xf:label&gt;
+        &lt;xf:value&gt;PERSONAL&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="HOUSEHOLD"&gt;
+        &lt;xf:label&gt;Household phone&lt;/xf:label&gt;
+        &lt;xf:value&gt;HOUSEHOLD&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+      &lt;xf:item id="PUBLIC"&gt;
+        &lt;xf:label&gt;Public phone&lt;/xf:label&gt;
+        &lt;xf:value&gt;PUBLIC&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
+    &lt;/xf:select1&gt;
+    &lt;xf:input bind="regPhone"&gt;
+      &lt;xf:label&gt;Phone number&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
     &lt;xf:input bind="formtype"&gt;
       &lt;xf:label&gt;formType&lt;/xf:label&gt;
     &lt;/xf:input&gt;
@@ -265,6 +287,8 @@
     &lt;Item WidgetType="TextBox" HelpText="Client phone number" Binding="phonenumber" Left="220px" Top="380px" Width="200px" Height="25px" TabIndex="10" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Response phone number" HelpText="Response phone number" Binding="sender" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="Response phone number" Binding="sender" Left="230px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Phone ownership" HelpText="Phone ownership" Binding="ownership" Left="132px" Top="1220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="ListBox" HelpText="Phone ownership" Binding="ownership" Left="248px" Top="1220px" Width="200px" Height="25px" TabIndex="31" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="20px" Top="460px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="100px" Top="460px" Width="200px" Height="25px" TabIndex="12" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="510px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -297,6 +321,11 @@
     &lt;text xpath="xforms/model/bind[@id='dob'][@message]" value="Invalid date: date specified is in the future"/&gt;
     &lt;text xpath="xforms/model/bind[@id='phonenumber'][@message]" value="Number too large. Keep under 2147483647"/&gt;
     &lt;text xpath="xforms/model/bind[@id='sender'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/label" value="Phone ownership"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PERSONAL']/label" value="Personal phone"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='HOUSEHOLD']/label" value="Household phone"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PUBLIC']/label" value="Public phone"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='regPhone']/label" value="Phone number"/&gt;
   &lt;/xform&gt;</xform>
 <layout>&lt;Form id="21"&gt;
     &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
