@@ -959,5 +959,31 @@
             <column name="date_created" valueDate="2011-02-28 16:08:00" />
         </insert>
     </changeSet>
+    <changeSet context="update" id="1000000000000-51" author="ThoughtWorks">
+        <comment>
+            Adding the Phone Ownership field in Client Query Form
+        </comment>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001840" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000019" />
+            <column name="name" value="ownership" />
+            <column name="parameter_type" value="PHONETYPE"/>
+            <column name="length" valueNumeric="50"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-03 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001841" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000019" />
+            <column name="name" value="regPhone" />
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" valueNumeric="50"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-03 16:08:00"/>
+        </insert>
+
+    </changeSet>
 
 </databaseChangeLog>

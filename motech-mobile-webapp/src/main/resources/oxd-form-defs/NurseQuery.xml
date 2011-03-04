@@ -185,7 +185,7 @@
     &lt;xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" required="false()"/&gt;
     &lt;xf:bind id="sender" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" nodeset="/pat-query/sender" required="true()" type="xsd:int"/&gt;
     &lt;xf:bind action="show" id="ownership" nodeset="/pat-query/ownership" relevant="/pat-query/formname = 'registerforrct-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone" relevant="/pat-query/ownership = 'PERSONAL' or /pat-query/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
+    &lt;xf:bind action="show" id="regPhone" nodeset="/pat-query/regPhone" relevant="/pat-query/ownership = 'PERSONAL' or /pat-query/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind id="formtype" nodeset="/pat-query/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
   &lt;xf:group id="1"&gt;

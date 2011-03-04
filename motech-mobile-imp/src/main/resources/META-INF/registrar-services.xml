@@ -834,6 +834,8 @@
                 <entry key="chpsId" value="java.lang.Integer" />
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="motechId" value="java.lang.Integer" />
+                <entry key="ownership" value="org.motechproject.ws.ContactNumberType" />
+                <entry key="regPhone" value="java.lang.String" />
             </map>
         </property>
         <property name="callback">
