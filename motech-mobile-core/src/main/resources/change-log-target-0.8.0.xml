@@ -927,7 +927,7 @@
             <column name="id" valueNumeric="200000000000019"/>
             <column name="obj_vesion" valueNumeric="0"/>
             <column name="form_code" value="RegisterForRCT-jf"/>
-            <column name="type" value="JFORM"/>
+            <column name="type" value="QUERY"/>
             <column name="duplicatable" value="ALLOWED"/>
             <column name="send_response" valueBoolean="true"/>
             <column name="date_created" valueDate="2011-02-28 16:08:00"/>
@@ -989,15 +989,4 @@
         </insert>
 
     </changeSet>
-
-    <changeSet context="update" id="1000000000000-51" author="TW">
-        <comment>
-            Updating type to query for [registerforrct-jf]
-        </comment>
-        <update tableName="incoming_message_form_definition">
-            <column name="type" value="QUERY"/>
-            <where>id=200000000000019</where>
-        </update>
-    </changeSet>
-
 </databaseChangeLog>

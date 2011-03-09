@@ -5032,7 +5032,7 @@
         &lt;nhis/&gt;
         &lt;nhisExpires/&gt;
         &lt;motherMotechId/&gt;
-        &lt;region&gt;ue&lt;/region&gt;
+        &lt;region/&gt;
         &lt;district/&gt;
         &lt;subDistrict/&gt;
         &lt;community/&gt;
@@ -6494,7 +6494,7 @@
     &lt;xf:bind action="show" id="nhis" nodeset="/patientRegistration/nhis" relevant="/patientRegistration/insured = 'Y'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="nhisExpires" nodeset="/patientRegistration/nhisExpires" relevant="/patientRegistration/insured = 'Y'" type="xsd:date" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="motherMotechId" nodeset="/patientRegistration/motherMotechId" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long" required="false()"/&gt;
-    &lt;xf:bind id="region" nodeset="/patientRegistration/region" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind id="region" nodeset="/patientRegistration/region" type="xsd:string" required="true()" visible="true()"/&gt;
     &lt;xf:bind id="district" nodeset="/patientRegistration/district" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="subDistrict" nodeset="/patientRegistration/subDistrict" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="community" nodeset="/patientRegistration/community" required="true()" type="xsd:string"/&gt;
