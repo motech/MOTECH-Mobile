@@ -225,11 +225,4 @@
             <column header="last_modified" type="DATE"/>
         </loadData>
     </changeSet>
-    <changeSet context="update" author="TW" id="2282410859067-16">
-        <loadData encoding="UTF-8" file="data/notification_type_update.csv" tableName="notification_type">
-            <column header="id" type="NUMERIC"/>
-            <column header="name" type="STRING"/>
-            <column header="description" type="STRING"/>
-        </loadData>
-    </changeSet>
 </databaseChangeLog>
