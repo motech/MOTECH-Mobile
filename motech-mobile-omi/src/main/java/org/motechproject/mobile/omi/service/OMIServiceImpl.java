@@ -388,6 +388,7 @@ public class OMIServiceImpl implements OMIService {
         logger.debug(message);
 
         msgReqDao.save(message);
+        logger.info("Message content sent " + content);
         logger.info("Messages sent successfully");
         return MessageStatus.valueOf(message.getStatus().toString());
     }
