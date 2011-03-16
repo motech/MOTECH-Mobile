@@ -30,30 +30,30 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.motechproject.mobile.core.model;
 
 import java.util.Set;
 
 /**
- * Language interface is a POJO to hold Language information for data storage and manipulation
+ * Holds Language information for data storage and manipulation
+ * Represents supported language in the application
  * Date: Sep 27, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface Language {
 
-     /**
+    /*
      *
      * @param id the id to set
      */
     public void setId(Long id);
 
-    /**
+    /*
      *
      * @return id to get
      */
     public Long getId();
-    
+
     public String getCode();
 
     public String getName();
@@ -70,7 +70,7 @@ public interface Language {
 
     public void setDescription(String description);
 
-    /**
+    /*
      * Helper method to display string value of all properties of the object
      * @return formated string value of all properties
      */

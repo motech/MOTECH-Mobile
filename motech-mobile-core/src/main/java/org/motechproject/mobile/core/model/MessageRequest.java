@@ -37,7 +37,11 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- *  MessageRequest interface is a POJO to hold MessageRequest information for data storage and manipulation
+ * Holds MessageRequest information for data storage and manipulation
+ * Represents request sent from motech-server.
+ * When a MessageRequest is received from motech-server via web services
+ * it's persisted immediately and picked up by a cron for various operations
+ *
  *  Date : Sep 25, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */

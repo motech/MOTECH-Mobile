@@ -40,8 +40,6 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * MesasgeRequestImpl class is an implementation of MessageRequest interface which is actually
- * mapped in hibernate.It provides properties to handle MessageRequest operations
  *  Date : Sep 25, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
@@ -76,223 +74,223 @@ public class MessageRequestImpl implements MessageRequest,Serializable {
     }
 
 
-    /**
+    /*
      * @return the version
      */
     public int getVersion() {
         return version;
     }
 
-    /**
+    /*
      * @param version the version to set
      */
     public void setVersion(int version) {
         this.version = version;
     }
-    /**
+    /*
      * @return the language
      */
     public Language getLanguage() {
         return language;
     }
 
-    /**
+    /*
      * @param language the language to set
      */
     public void setLanguage(Language language) {
         this.language = language;
     }
 
-    /**
+    /*
      * @return the schedule
      */
     public Date getSchedule() {
         return schedule;
     }
 
-    /**
+    /*
      * @param schedule the schedule to set
      */
     public void setSchedule(Date schedule) {
         this.schedule = schedule;
     }
 
-    /**
+    /*
      * @return the message_type
      */
     public MessageType getMessageType() {
         return messageType;
     }
 
-    /**
+    /*
      * @param message_type the message_type to set
      */
     public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
     }
 
-    /**
+    /*
      * @return the p13nData
      */
     public String getP13nData() {
         return p13nData;
     }
 
-    /**
+    /*
      * @param p13nData the p13nData to set
      */
     public void setP13nData(String p13nData) {
         this.p13nData = p13nData;
     }
 
-    /**
+    /*
      * @return the notificationType
      */
     public NotificationType getNotificationType() {
         return notificationType;
     }
 
-    /**
+    /*
      * @param notificationType the notificationType to set
      */
     public void setNotificationType(NotificationType notificationType) {
         this.notificationType = notificationType;
     }
 
-    /**
+    /*
      * @return the dateCreated
      */
     public Date getDateCreated() {
         return dateCreated;
     }
 
-    /**
+    /*
      * @param dateCreated the dateCreated to set
      */
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    /**
+    /*
      * @return the dateProcessed
      */
     public Date getDateProcessed() {
         return dateProcessed;
     }
 
-    /**
+    /*
      * @param dateProcessed the dateProcessed to set
      */
     public void setDateProcessed(Date dateProcessed) {
         this.dateProcessed = dateProcessed;
     }
 
-    /**
+    /*
      * @return the recipientName
      */
     public String getRecipientName() {
         return recipientName;
     }
 
-    /**
+    /*
      * @param recipientName the recipientName to set
      */
     public void setRecipientName(String recipientName) {
         this.recipientName = recipientName;
     }
 
-    /**
+    /*
      * @return the recipientNumber
      */
     public String getRecipientNumber() {
         return recipientNumber;
     }
 
-    /**
+    /*
      * @param recipientNumber the recipientNumber to set
      */
     public void setRecipientNumber(String recipientNumber) {
         this.recipientNumber = recipientNumber;
     }
 
-    /**
+    /*
      * @return the dateFrom
      */
     public Date getDateFrom() {
         return dateFrom;
     }
 
-    /**
+    /*
      * @param dateFrom the dateFrom to set
      */
     public void setDateFrom(Date dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    /**
+    /*
      * @return the dateTo
      */
     public Date getDateTo() {
         return dateTo;
     }
 
-    /**
+    /*
      * @param dateTo the dateTo to set
      */
     public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
     }
 
-    /**
+    /*
      * @return the status
      */
     public MStatus getStatus() {
         return status;
     }
 
-    /**
+    /*
      * @param status the status to set
      */
     public void setStatus(MStatus status) {
         this.status = status;
     }
 
-    /**
+    /*
      * @return the requestId
      */
     public String getRequestId() {
         return requestId;
     }
 
-    /**
+    /*
      * @param requestId the requestId to set
      */
     public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
 
-    /**
+    /*
      * @return the persInfos
      */
     public Set getPersInfos() {
         return persInfos;
     }
 
-    /**
+    /*
      * @param persInfos the persInfos to set
      */
     public void setPersInfos(Set persInfos) {
         this.persInfos = persInfos;
     }
 
-    /**
+    /*
      * @return the tryNumber
      */
     public int getTryNumber() {
         return tryNumber;
     }
 
-    /**
+    /*
      * @param tryNumber the tryNumber to set
      */
     public void setTryNumber(int tryNumber) {
@@ -307,28 +305,28 @@ public class MessageRequestImpl implements MessageRequest,Serializable {
 		this.daysAttempted = daysAttempted;
 	}
 
-	/**
+	/*
      * @return the lastModified
      */
     public Date getLastModified() {
         return lastModified;
     }
 
-    /**
+    /*
      * @param lastModified the lastModified to set
      */
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
     }
 
-    /**
+    /*
      * @see org.motechproject.mobile.core.manager.MessageRequest#getRecipientId()
      */
     public String getRecipientId() {
 		return recipientId;
 	}
     
-    /**
+    /*
      * @see org.motechproject.mobile.core.manager.MessageRequest#setRecipientId(String)
      */
 	public void setRecipientId(String recipientId) {
@@ -403,14 +401,14 @@ public class MessageRequestImpl implements MessageRequest,Serializable {
 
     }
 
-    /**
+    /*
      * @return the id
      */
     public Long getId() {
         return id;
     }
 
-    /**
+    /*
      * @param id the id to set
      */
     public void setId(Long id) {

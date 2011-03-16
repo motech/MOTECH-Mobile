@@ -30,112 +30,114 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.motechproject.mobile.core.model;
 
 import java.util.Date;
 
 /**
- * IncomingMessageFormParameterDefinition interface is a POJO to hold IncomingMessageFormParameterDefinition information for data storage and manipulation
+ * Holds IncomingMessageFormParameterDefinition information for data storage and manipulation.
+ * Defines all the attibutes of a parameter in {@link org.motechproject.mobile.core.model.IncomingMessageFormDefinition }
+ *
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface IncomingMessageFormParameterDefinition {
 
-    /**
+    /*
      *
      * @param id the id to set
      */
     public void setId(Long id);
 
-    /**
+    /*
      *
      * @return id to get
      */
     public Long getId();
-    /**
+    /*
      * @return the dateCreated
      */
+
     public Date getDateCreated();
 
-    /**
+    /*
      * @return the IncomingMsgFormDefinition
      */
     public IncomingMessageFormDefinition getIncomingMsgFormDefinition();
 
-    /**
+    /*
      * @return the lastModified
      */
     public Date getLastModified();
 
-    /**
+    /*
      * @return the length
      */
     public int getLength();
 
-    /**
+    /*
      * @return the name
      */
     public String getName();
 
-    /**
+    /*
      * @return the paramType
      */
     public String getParamType();
 
-    /**
+    /*
      * @return the required
      */
     public boolean isRequired();
 
-    /**
+    /*
      * @param dateCreated the dateCreated to set
      */
     public void setDateCreated(Date dateCreated);
 
-    /**
+    /*
      * @param IncomingMsgFormDefinition the IncomingMsgFormDefinition to set
      */
     public void setIncomingMsgFormDefinition(IncomingMessageFormDefinition IncomingMsgFormDefinition);
 
-    /**
+    /*
      * @param lastModified the lastModified to set
      */
     public void setLastModified(Date lastModified);
 
-    /**
+    /*
      * @param length the length to set
      */
     public void setLength(int length);
 
-    /**
+    /*
      * @param name the name to set
      */
     public void setName(String name);
 
-    /**
+    /*
      * @param paramType the paramType to set
      */
     public void setParamType(String paramType);
 
-    /**
+    /*
      * @param required the required to set
      */
     public void setRequired(boolean required);
 
-    /**
+    /*
      * Helper method to display string value of all properties of the object
      * @return formated string value of all properties
      */
     @Override
     public String toString();
 
-      /**
+    /*
      * @return the version
      */
     int getVersion();
 
-    /**
+    /*
      * @param version the version to set
      */
     void setVersion(int version);

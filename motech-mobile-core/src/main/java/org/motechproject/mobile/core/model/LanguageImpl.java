@@ -30,7 +30,6 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.motechproject.mobile.core.model;
 
 import java.io.Serializable;
@@ -39,8 +38,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * LanguageImpl class is an implementation of the Language interface which is actuaally
- * mapped in hibernate.It provides properties to handle Language operations
  * Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
@@ -56,56 +53,56 @@ public class LanguageImpl implements Language, Serializable {
     public LanguageImpl() {
     }
 
-    /**
+    /*
      * @return the code
      */
     public String getCode() {
         return code;
     }
 
-    /**
+    /*
      * @param code the code to set
      */
     public void setCode(String code) {
         this.code = code;
     }
 
-    /**
+    /*
      * @return the name
      */
     public String getName() {
         return name;
     }
 
-    /**
+    /*
      * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
+    /*
      * @return the description
      */
     public String getDescription() {
         return description;
     }
 
-    /**
+    /*
      * @param description the description to set
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /**
+    /*
      * @return the messageRequests
      */
     public Set<MessageRequest> getMessageRequests() {
         return messageRequests;
     }
 
-    /**
+    /*
      * @param messageRequests the messageRequests to set
      */
     public void setMessageRequests(Set<MessageRequest> messageRequests) {
@@ -146,14 +143,14 @@ public class LanguageImpl implements Language, Serializable {
 
     }
 
-    /**
+    /*
      * @return the id
      */
     public Long getId() {
         return id;
     }
 
-    /**
+    /*
      * @param id the id to set
      */
     public void setId(Long id) {

@@ -34,9 +34,9 @@
 package org.motechproject.mobile.core.model;
 
 /**
- * This enumeration is used to describe the IncomingMessageFormDefinition's rule of duplication.It
- * tells whether a form is allowed to be duplicated or not or if duplication is allowed whether it's
- * time bound.
+ * Enumeration that is used to describe {@link org.motechproject.mobile.core.model.IncomingMessageFormDefinition}
+ * rule of duplication.Specifies
+ * whether a duplicated form is allowed, disallowed or whether duplication is time bound.
  *
  * Date : Feb 11, 2010
  * Last Updated : Feb 11, 2010

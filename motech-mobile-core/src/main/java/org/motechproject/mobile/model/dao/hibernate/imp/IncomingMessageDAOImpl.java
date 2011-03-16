@@ -30,7 +30,6 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.motechproject.mobile.model.dao.hibernate.imp;
 
 import org.motechproject.mobile.core.dao.hibernate.HibernateGenericDAOImpl;
@@ -40,14 +39,11 @@ import org.motechproject.mobile.core.model.IncomingMessageImpl;
 import java.util.Date;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * IncomingMessageDAOImpl is the implementation class of the  interface
- * This Class implements only IncomingMessageDAO specific persistent operation to the IncomingMessage model.
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
@@ -55,18 +51,18 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
 
     private static Logger logger = Logger.getLogger(IncomingMessageDAOImpl.class);
 
+    /**
+     * @see {@link org.motechproject.mobile.model.dao.imp.IncomingMessageDAO#getByContent(java.lang.String) }
+     */
     public IncomingMessage getByContent(String content) {
         logger.debug("variable passed to IncomingMessage.getByContent: " + content);
 
         try {
 
-       
+
             Criterion code = Restrictions.eq("content", content);
 
-            IncomingMessage message = (IncomingMessage) this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
-                    .add(code)
-                    .setMaxResults(1)
-                    .uniqueResult();
+            IncomingMessage message = (IncomingMessage) this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass()).add(code).setMaxResults(1).uniqueResult();
 
             logger.debug(message);
 
@@ -82,18 +78,18 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
         }
     }
 
+    /**
+     *
+     * @see {@link org.motechproject.mobile.model.dao.imp.IncomingMessageDAO#getByContentBefore(java.lang.String, java.util.Date)  }
+     */
     public IncomingMessage getByContentBefore(String content, Date beforeDate) {
         logger.debug("variable passed to IncomingMessage.getByContent: " + content);
 
         try {
 
-           
 
-            IncomingMessage message = (IncomingMessage) this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
-                    .add(Restrictions.eq("content", content))
-                    .add(Restrictions.gt("dateCreated", beforeDate))
-                    .setMaxResults(1)
-                    .uniqueResult();
+
+            IncomingMessage message = (IncomingMessage) this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass()).add(Restrictions.eq("content", content)).add(Restrictions.gt("dateCreated", beforeDate)).setMaxResults(1).uniqueResult();
 
             logger.debug(message);
 
@@ -109,15 +105,15 @@ public class IncomingMessageDAOImpl extends HibernateGenericDAOImpl<IncomingMess
         }
     }
 
+    /**
+     *
+     * @see {@link org.motechproject.mobile.model.dao.imp.IncomingMessageDAO#getByContentNonDuplicatable(java.lang.String)  }
+     */
     public IncomingMessage getByContentNonDuplicatable(String content) {
         logger.debug("variable passed to IncomingMessage.getByContent: " + content);
 
         try {
-            IncomingMessage message = (IncomingMessage)this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass())
-                    .add(Restrictions.eq("content", content))
-                    .addOrder(Order.desc("dateCreated"))
-                    .setMaxResults(1)
-                    .uniqueResult();
+            IncomingMessage message = (IncomingMessage) this.getSessionFactory().getCurrentSession().createCriteria(this.getPersistentClass()).add(Restrictions.eq("content", content)).addOrder(Order.desc("dateCreated")).setMaxResults(1).uniqueResult();
 
             logger.debug(message);
 

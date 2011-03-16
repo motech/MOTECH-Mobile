@@ -30,17 +30,13 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.motechproject.mobile.core.model;
 
 import org.motechproject.mobile.core.util.MotechIDGenerator;
 
 import java.util.Date;
 
-/*
- * IncomingMessageFormParameterImpl is the implementation of the IncomingMessageFormParameter interface
- * which is the actually mapped class in the hibernate.It provides properties to handle IncomingMessageFormParameter operations
- *
+/**
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
@@ -60,141 +56,142 @@ public class IncomingMessageFormParameterImpl implements IncomingMessageFormPara
     public IncomingMessageFormParameterImpl() {
         this.id = MotechIDGenerator.generateID();
     }
-
-    private int version=-1;
-    /**
+    private int version = -1;
+    /*
      * @return the version
      */
+
     public int getVersion() {
         return version;
     }
 
-    /**
+    /*
      * @param version the version to set
      */
     public void setVersion(int version) {
         this.version = version;
     }
-    /**
+    /*
      * @return the incomingMsgForm
      */
+
     public IncomingMessageForm getIncomingMsgForm() {
         return incomingMsgForm;
     }
 
-    /**
+    /*
      * @param incomingMsgForm the incomingMsgForm to set
      */
     public void setIncomingMsgForm(IncomingMessageForm incomingMsgForm) {
         this.incomingMsgForm = incomingMsgForm;
     }
 
-    /**
+    /*
      * @return the value
      */
     public String getValue() {
         return value;
     }
 
-    /**
+    /*
      * @param value the value to set
      */
     public void setValue(String value) {
         this.value = value;
     }
 
-    /**
+    /*
      * @return the errCode
      */
     public int getErrCode() {
         return errCode;
     }
 
-    /**
+    /*
      * @param errCode the errCode to set
      */
     public void setErrCode(int errCode) {
         this.errCode = errCode;
     }
 
-    /**
+    /*
      * @return the errText
      */
     public String getErrText() {
         return errText;
     }
 
-    /**
+    /*
      * @param errText the errText to set
      */
     public void setErrText(String errText) {
         this.errText = errText;
     }
 
-    /**
+    /*
      * @return the messageFormParamStatus
      */
     public IncMessageFormParameterStatus getMessageFormParamStatus() {
         return messageFormParamStatus;
     }
 
-    /**
+    /*
      * @param messageFormParamStatus the messageFormParamStatus to set
      */
     public void setMessageFormParamStatus(IncMessageFormParameterStatus messageFormParamStatus) {
         this.messageFormParamStatus = messageFormParamStatus;
     }
 
-    /**
+    /*
      * @return the dateCreated
      */
     public Date getDateCreated() {
         return dateCreated;
     }
 
-    /**
+    /*
      * @param dateCreated the dateCreated to set
      */
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    /**
+    /*
      * @return the lastModified
      */
     public Date getLastModified() {
         return lastModified;
     }
 
-    /**
+    /*
      * @param lastModified the lastModified to set
      */
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
     }
 
-    /**
+    /*
      * @return the incomingMsgFormParamDefinition
      */
     public IncomingMessageFormParameterDefinition getIncomingMsgFormParamDefinition() {
         return incomingMsgFormParamDefinition;
     }
 
-    /**
+    /*
      * @param incomingMsgFormParamDefinition the incomingMsgFormParamDefinition to set
      */
     public void setIncomingMsgFormParamDefinition(IncomingMessageFormParameterDefinition incomingMsgFormParamDefinition) {
         this.incomingMsgFormParamDefinition = incomingMsgFormParamDefinition;
     }
 
-    /**
+    /*
      * @return the name
      */
     public String getName() {
         return name;
     }
 
-    /**
+    /*
      * @param name the name to set
      */
     public void setName(String name) {
@@ -237,14 +234,14 @@ public class IncomingMessageFormParameterImpl implements IncomingMessageFormPara
 
     }
 
-    /**
+    /*
      * @return the id
      */
     public Long getId() {
         return id;
     }
 
-    /**
+    /*
      * @param id the id to set
      */
     public void setId(Long id) {

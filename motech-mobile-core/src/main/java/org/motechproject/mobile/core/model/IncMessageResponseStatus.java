@@ -33,9 +33,8 @@
 
 package org.motechproject.mobile.core.model;
 
-/*
- * IncMessageResponseStatus is an enumeration that describes the state of an instance of IncomingMessageResponse object
- * Status can be Saved as sent
+/**
+ * Describes the state of {@link org.motechproject.mobile.core.model.IncomingMessageResponse }
  *
  * Date: Dec 02, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)

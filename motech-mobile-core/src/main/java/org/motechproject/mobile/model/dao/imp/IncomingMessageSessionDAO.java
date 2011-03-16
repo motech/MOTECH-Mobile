@@ -37,8 +37,10 @@ import org.motechproject.mobile.core.dao.GenericDAO;
 import org.motechproject.mobile.core.model.IncomingMessageSession;
 import java.util.List;
 
-/*
- * IncomingMessageSessionDAO is an interface that defines Operations on IncomingMessageSession Pojo
+/**
+ * Provides Generic CRUD functionalities inherited from {@link org.motechproject.mobile.core.dao.GenericDAO}
+ * with additional Helper methods to manipulate {@link org.motechproject.mobile.core.model.IncomingMessageSession } objects
+ * or Collection of objects
  *
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)

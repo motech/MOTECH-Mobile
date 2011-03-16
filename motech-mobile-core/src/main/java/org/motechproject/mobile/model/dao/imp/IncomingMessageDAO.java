@@ -38,14 +38,35 @@ import org.motechproject.mobile.core.model.IncomingMessage;
 import java.util.Date;
 
 /**
- * IncomingMessageDAO is an interface that defines Operations on IncomingMessage Pojo
+ * Provides Generic CRUD functionalities inherited from {@link org.motechproject.mobile.core.dao.GenericDAO}
+ * with additional Helper methods to manipulate {@link org.motechproject.mobile.core.model.IncomingMessage } objects
+ * or Collection of objects
+ * 
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface IncomingMessageDAO<T extends IncomingMessage> extends GenericDAO<T> {
+
+    /**
+     * Selects an IncomingMessage object based on the passed content
+     * @param content text by which the search is performed
+     * @return IncomingMessage Object
+     */
     IncomingMessage getByContent(String content);
 
+    /**
+     * Selects a non duplicatable IncomingMessage object based on the passed content
+     * @param content text by which the search is performed
+     * @return IncomingMessage Object
+     */
     IncomingMessage getByContentNonDuplicatable(String content);
 
+    /**
+     * Selects an IncomingMessage object based on the passed date and based on
+     * the dates before the passed passed date
+     * @param content text by which the search is performed
+     * @param beforeDate the date before which the search is performed
+     * @return IncomingMessage Object
+     */
     IncomingMessage getByContentBefore(String content, Date beforeDate);
 }

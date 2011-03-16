@@ -34,7 +34,7 @@
 package org.motechproject.mobile.core.model;
 
 /**
- * MStatus is an enumeration that describe the state of instances of various objects
+ * Describes the state of instances of various objects in the system
  * Date: Sep 27, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */

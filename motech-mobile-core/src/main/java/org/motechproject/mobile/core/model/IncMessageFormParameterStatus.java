@@ -33,9 +33,8 @@
 
 package org.motechproject.mobile.core.model;
 
-/*
- * IncMessageFormParameterStatus is an enumeration that describes the state of an instance of IncomingMessageFormParameterImpl object
- * Status can be Started or ended or stopped
+/**
+ * Describes various states of {@link org.motechproject.mobile.core.model.IncomingMessageFormParameter}
  *
  * Date: Dec 02, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)

@@ -36,8 +36,10 @@ package org.motechproject.mobile.model.dao.imp;
 import org.motechproject.mobile.core.dao.GenericDAO;
 import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 
-/*
- * IncomingMessageFormParameterDAO is an interface that defines Operations on IncomingMessageFormParameter Pojo
+/**
+ * Provides Generic CRUD functionalities inherited from {@link org.motechproject.mobile.core.dao.GenericDAO}
+ * with additional Helper methods to manipulate {@link org.motechproject.mobile.core.model.IncomingMessageFormParameter } objects
+ * or Collection of objects
  *
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)

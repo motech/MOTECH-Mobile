@@ -38,22 +38,29 @@ import java.util.List;
 import org.motechproject.mobile.core.model.GatewayResponse;
 
 /**
- * GatewayResponseDao is an interface that defines only methods and attributes that are specific to GatewayResponse entity
- * Date: Jul 29, 2009
+ * Provides Generic CRUD functionalities inherited from {@link org.motechproject.mobile.core.dao.GenericDAO}
+ * with additional Helper methods to manipulate {@link org.motechproject.mobile.core.model.GatewayResponse } objects
+ * or Collection of objects
  * 
+ * Date: Jul 29, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface GatewayResponseDAO<T extends GatewayResponse> extends GenericDAO<T> {
 
     /**
-     * Method to select the most recent GatewayResponse based on the passed requestId
+     * Selects the most recent GatewayResponse based on the passed messageId
+     * The notion recency is based on  the dateCreated attribute of
+     * {@link org.motechproject.mobile.core.model.GatewayResponse }
+     *
      * @param requestId the id of the message associated with the required GatewayResponse objects
      * @return a single GatewayResponse object
      */
     public GatewayResponse getMostRecentResponseByMessageId(Long messageId);
 
     /**
-     * Method to select GatewayResponse based on its parent GatewayRequest tryNumber
+     * Selects a list of GatewayResponses for which corresponding ancestor {@link org.motechproject.mobile.core.model.MessageRequest }
+     *  status is set to Pending and tryNumber is equal to the passed maxTries parameter
+     *
      * @param maxTries the max for the MessageRequest tryNumber
      * @return a list of GatewayResponse object
      */
