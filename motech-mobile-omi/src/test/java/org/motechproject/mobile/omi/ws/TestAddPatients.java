@@ -94,6 +94,20 @@ public class TestAddPatients {
             Double height = 2.0;
             Integer gravida = 2;
             Integer parity = 4;
+            int lastIPT = 1;
+            Date lastIPTDate = new Date();
+            int lastTT = 1;
+            Date lastTTDate = new Date();
+            Date bcgDate = new Date();
+            int lastOPV = 1;
+            Date lastOPVDate = new Date();
+            int lastPenta = 1;
+            Date lastPentaDate = new Date();
+            Date measlesDate = new Date();
+            Date yellowFeverDate = new Date();
+            int lastIPTI = 1;
+            Date lastIPTIDate = new Date();
+            Date lastVitaminADate = new Date();
 
             RegistrationMode mode = RegistrationMode.AUTO_GENERATE_ID;
             RegistrantType type = RegistrantType.PREGNANT_MOTHER;
@@ -130,7 +144,10 @@ public class TestAddPatients {
                         prefDelivTime, reason, how, messageWeek,
                         cwcRegNumber, cwcRegDateToday, date,
                         ancRegNumber, ancRegDateToday, date,
-                        height, gravida, parity);
+                        height, gravida, parity, lastIPT, lastIPTDate,
+                        lastTT,lastTTDate,bcgDate,lastOPV,lastOPVDate,lastPenta,
+                        lastPentaDate,measlesDate,yellowFeverDate,lastIPTI,lastIPTIDate,
+                        lastVitaminADate);
 
                 System.out.println("motechid=" + patient.getMotechId());
             } catch (ValidationException e) {

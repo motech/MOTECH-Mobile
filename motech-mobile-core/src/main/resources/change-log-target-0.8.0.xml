@@ -989,4 +989,149 @@
         </insert>
 
     </changeSet>
+    <changeSet context="update" id="1000000000000-52" author="ThoughtWorks">
+        <comment>
+            Adding the care history section to Reg-Client
+        </comment>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001855"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastIPT"/>
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" valueNumeric="2"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001842"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastIPTDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001843"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastTT"/>
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" valueNumeric="2"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001844"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastTTDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001845"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="bcgDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001846"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastOPV"/>
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" valueNumeric="2"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001847"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastOPVDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001848"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastPenta"/>
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" valueNumeric="2"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001849"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastPentaDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001850"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="measlesDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001851"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="yellowFeverDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001852"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastIPTI"/>
+            <column name="parameter_type" value="NUMERIC"/>
+            <column name="length" valueNumeric="2"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001853"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastIPTIDate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001854"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010"/>
+            <column name="name" value="lastVitaminADate"/>
+            <column name="parameter_type" value="DATE"/>
+            <column name="length" valueNumeric="10"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-03-16 16:08:00"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
