@@ -59,8 +59,15 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
     private static Logger logger = Logger.getLogger(ORServeGatewayMessageHandlerImpl.class);
 
     /**
-     *
      * @see GatewayMessageHandler.parseResponse
+     *
+     * Gateway response format:
+     * ID: {someid} TO: {number}
+     * ID: {someid} TO: {number}
+     * OR
+     * ERR: {errorcode} TO: {number}
+     * ERR: {errorcode} TO: {number}
+     * </pre>
      */
     public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         logger.debug("Parsing message gateway response");
@@ -123,8 +130,12 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
     }
 
     /**
-     *
      * @see GatewayMessageHandler.parseMessageStatus
+     *
+     * <pre>Gateway response format:
+     * Status: {status} TO: {number}
+     * Status: {status} TO: {number}
+     * </pre>
      */
     public MStatus parseMessageStatus(String gatewayResponse) {
         logger.debug("Parsing message gateway status response");
@@ -175,16 +186,10 @@ public class ORServeGatewayMessageHandlerImpl implements GatewayMessageHandler {
         return MStatus.SCHEDULED;
     }
 
-    /**
-     * @return the coreManager
-     */
     public CoreManager getCoreManager() {
         return coreManager;
     }
 
-    /**
-     * @param coreManager the coreManager to set
-     */
     public void setCoreManager(CoreManager coreManager) {
         logger.debug("Setting ORServeGatewayMessageHandlerImpl.coreManager");
         logger.debug(coreManager);

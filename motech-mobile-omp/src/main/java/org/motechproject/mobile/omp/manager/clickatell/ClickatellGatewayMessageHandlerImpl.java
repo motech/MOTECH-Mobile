@@ -62,8 +62,20 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
     private Map<MStatus, String> codeResponseMap;
 
     /**
-     *
      * @see GatewayMessageHandler.parseResponse
+     *
+     * <pre>Gateway response format:
+     * Single recipient:
+     * ID: {someid}
+     * OR
+     * ERR: {errorcode}
+     * Multiple recipient:
+     * ID: {someid} TO: {number}
+     * ID: {someid} TO: {number}
+     * OR
+     * ERR: {errorcode} TO: {number}
+     * ERR: {errorcode} TO: {number}
+     * </pre>
      */
     public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         logger.debug("Parsing message gateway response");
@@ -121,8 +133,12 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
     }
 
     /**
-     *
      * @see GatewayMessageHandler.parseMessageStatus
+     *
+     * <pre>Gateway response format:
+     * ID: {someid} Status: {status}
+     * OR
+     * ERR: {errorcode}</pre>
      */
     public MStatus parseMessageStatus(String gatewayResponse) {
         logger.debug("Parsing message gateway status response");
@@ -176,16 +192,10 @@ public class ClickatellGatewayMessageHandlerImpl implements GatewayMessageHandle
         return MStatus.RETRY;
     }
 
-    /**
-     * @return the coreManager
-     */
     public CoreManager getCoreManager() {
         return coreManager;
     }
 
-    /**
-     * @param coreManager the coreManager to set
-     */
     public void setCoreManager(CoreManager coreManager) {
         logger.debug("Setting ClickatellGatewayMessageHandlerImpl.coreManager");
         logger.debug(coreManager);

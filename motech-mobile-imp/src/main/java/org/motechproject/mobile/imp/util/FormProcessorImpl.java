@@ -89,7 +89,10 @@ public class FormProcessorImpl implements FormProcessor {
             return form.getMessageFormStatus().toString();
         }
 
-        //Using reflection to determine and execute the appropriate serve call for the form
+        /** 
+         * Using reflection to determine and execute the appropriate serve call for the form.
+         * Get the name of the method and initialize arrays to hold the types and values of the arguments
+         */
         String methodName = mSig.getMethodName();
         Class[] paramTypes = new Class[mSig.getMethodParams().size()];
         Object[] paramObjs = new Object[mSig.getMethodParams().size()];
@@ -98,25 +101,29 @@ public class FormProcessorImpl implements FormProcessor {
 
         try {
             for (Entry<String, Class> e : mSig.getMethodParams().entrySet()) {
+                /** Entry key is name of argument, value is class type */
                 logger.debug("Param: "+e.getKey()+" Class:"+e.getValue());
                 paramTypes[idx] = e.getValue();
-                if (form.getIncomingMsgFormParameters().containsKey(e.getKey().toLowerCase())) {
-                    if(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().isEmpty()){
+
+                if (form.getIncomingMsgFormParameters().containsKey(e.getKey().toLowerCase())) {//Form field was passed
+                    if(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().isEmpty()){//Field empty, pass null
                         paramObjs[idx] = null;
-                    } else if (e.getValue().equals(Date.class)) {
+                    } else if (e.getValue().equals(Date.class)) {//Argument is a date, parse date string
                         paramObjs[idx] = dFormat.parse(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
-                    } else if (e.getValue().isEnum()) {
+                    } else if (e.getValue().isEnum()) {//Argument is an enumeration, convert to appropriate Enum type
                         paramObjs[idx] = Enum.valueOf(e.getValue(), form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
                     } else if (e.getValue().equals(String.class)) {
                         paramObjs[idx] = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue();
-                    } else if (e.getValue().isArray()) {
+                    } else if (e.getValue().isArray()) {//Argument is an array. Process further
                         String[] a = form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue().split(" ");
-
+                        //Get array element type
                         Class baseType = e.getValue().getComponentType();
                         Object arrayObj = Array.newInstance(baseType, a.length);
                         for (int i = 0; i < a.length; i++) {
-                            // Assumes the base type of any array passed will
-                            // a constructor which accepts a single string parameter (expecting value types)
+                            /**
+                             * Assumes the base type of any array passed will contain a constructor
+                             * which accepts a single string parameter (expecting primitives or custom types)
+                             */
                             Constructor constr = baseType.getConstructor(String.class);
                             Object val = constr.newInstance(a[i]);
                             Array.set(arrayObj, i, val);
@@ -124,44 +131,49 @@ public class FormProcessorImpl implements FormProcessor {
 
                         paramObjs[idx] = arrayObj;
                     } else {
-                        // For types other than String, Array, Enum and Date,
-                        // A constructor which accepts a single string parameter is expected
+                        /**
+                         * For types other than String, Array, Enum and Date, A constructor
+                         * which accepts a single string parameter is expected. This is default
+                         * for primitive types. Custom types MUST be defined with a matching constructor.
+                         */
                         Constructor constr = e.getValue().getConstructor(String.class);
                         paramObjs[idx] = constr.newInstance(form.getIncomingMsgFormParameters().get(e.getKey().toLowerCase()).getValue());
                     }
-                } else {
+                } else {//Form field was not supplied. Pass null for argument value.
                     paramObjs[idx] = null;
                 }
                 idx++;
             }
+            //Initialize method
             Method method = regWS.getClass().getDeclaredMethod(methodName, paramTypes);
             result = method.invoke(regWS, paramObjs);
             form.setMessageFormStatus(IncMessageFormStatus.SERVER_VALID);
-        } catch (NoSuchMethodException ex) {
+        } catch (NoSuchMethodException ex) {//Method does not exist
             form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             logger.fatal("Could not find web service method " + methodName, ex);
-        } catch (SecurityException ex) {
+        } catch (SecurityException ex) {//Method cannot be accessed (insufficient permissions)
             form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             logger.fatal("Could not access method " + methodName + " due to SecurityException", ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {//Method cannot be accessed (private or protected)
             form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             logger.fatal("Could not invoke method " + methodName + " due to IllegalAccessException", ex);
-        } catch (InvocationTargetException ex) {
+        } catch (InvocationTargetException ex) {//Method threw exception
         	form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             if (ex.getCause().getClass().equals(ValidationException.class)) {
                 parseValidationErrors(form, (ValidationException) ex.getCause());
             } else {
                 logger.fatal("Could not invoke method " + methodName + " due to InvocationTargetException", ex);
             }
-        } catch (Exception ex) {
+        } catch (Exception ex) {//Other exception
             logger.error("Form could not be processed on server", ex);
             form.setMessageFormStatus(IncMessageFormStatus.SERVER_INVALID);
             return "An error occurred on the server";
         }
 
-        if (mSig.getCallback() == null) {
+        if (mSig.getCallback() == null) {//Method result requires no further processing. return
             return (result == null) ? null : String.valueOf(result);
         }
+        //Process method result
         return executeCallback(mSig.getCallback(), result);
     }
 
@@ -211,6 +223,13 @@ public class FormProcessorImpl implements FormProcessor {
         return formattedResponse;
     }
 
+    /**
+     * Parses validation errors thrown as a {@link org.motechproject.ws.server.ValidationException ValidationException}
+     * by the server during processing of form
+     *
+     * @param form the form being processed
+     * @param ex the ValidationException thrown by the server
+     */
     public void parseValidationErrors(IncomingMessageForm form, ValidationException ex) {
         List<String> errors = ex.getFaultInfo().getErrors();
         form.setErrors(errors);
