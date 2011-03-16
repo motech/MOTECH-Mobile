@@ -55,8 +55,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * @see org.motechproject.mobile.omi.service.OMIServiceWorker
  *
- * @author Kweku
+ * @author Henry Sampson(henry@dreamoval.com)
  */
 public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContextAware {
 
@@ -71,6 +72,14 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContex
     public OMIServiceWorkerImpl() {
     }
 
+    /**
+     * Sends a MessageRequest
+     *
+     * @param message
+     * @param defaultLanguage
+     *
+     * @see org.motechproject.mobile.omi.service.OMIServiceWorker#processMessageRequest
+     */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processMessageRequest(MessageRequest message, Language defaultLanguage) {
         if (message != null) {
@@ -93,6 +102,14 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContex
         }
     }
 
+    /**
+     * Reschedules a <code>MessageRequest</code> for sending
+     *
+     * The schedule is only added if <code>maxRetries</code> on the <code>MessageRequest</code> has not been reached
+     *
+     * @param message <code>MessageRequest</code> to reschedule
+     * @see org.motechproject.mobile.omi.service.OMIServiceWorker#processMessageRetry
+     */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processMessageRetry(MessageRequest message) {
         if (message != null) {
@@ -134,6 +151,12 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContex
         }
     }
 
+    /**
+     * Syncs the status of a <code>GatewayRequest</code> to its corresponding <code>MessageRequest</code>
+     *
+     * @param response the <code>Gateway</code> to sync
+     * @see org.motechproject.mobile.omi.service.OMIServiceWorker#processMessageResponse
+     */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void processMessageResponse(GatewayResponse response) {
         if (response != null) {
@@ -152,6 +175,13 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContex
         }
     }
 
+    /**
+     * Merges a <code>MessageRequest</code> to the persistent store.This is needed if a dirty version of the objects exists
+     * within the same persistet context.
+     *
+     * @param mr <code>MessageReques<./code> to merge
+     * @see org.motechproject.mobile.omi.service.OMIServiceWorker#mergeMessageNow
+     */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void mergeMessageNow(MessageRequest mr) {
         if (mr != null) {
