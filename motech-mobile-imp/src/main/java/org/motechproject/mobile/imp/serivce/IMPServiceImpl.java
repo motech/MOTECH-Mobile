@@ -88,8 +88,7 @@ public class IMPServiceImpl implements IMPService {
 			inMsg = messageRegistry.registerMessage(message);
 		} catch (DuplicateProcessingException dpe) {
 			logger.info("duplicate form in process, returning wait message");
-			response
-					.setContent("Error: Duplicate in progress, please try again.");
+			response.setContent("Error: Duplicate in progress, please try again.");
 			return response;
 		} catch (DuplicateMessageException e) {
 			logger.warn("duplicate form:\n" + message);
@@ -109,8 +108,13 @@ public class IMPServiceImpl implements IMPService {
             return response;
         }
 
+        /**
+         * Process the message according to its request type. Separate actions
+         * may be performed for data entry or queries
+         */
         response = action.execute(inMsg, requesterPhone);
 
+        /** Send an SMS response to the requester if required and the form is valid */
         if (inMsg.getIncomingMessageForm() != null && inMsg.getIncomingMessageForm().getIncomingMsgFormDefinition().getSendResponse() && inMsg.getIncomingMessageForm().getMessageFormStatus() == IncMessageFormStatus.SERVER_VALID) {
             sendResponse(response.getContent(), response.getIncomingMessage().getIncomingMsgSession().getRequesterPhone());
         }
@@ -196,6 +200,7 @@ public class IMPServiceImpl implements IMPService {
      * @param recipient the phone number to send the response to
      */
     private void sendResponse(String response, String recipient) {
+        /** Calculate the maximum number of characters that can be sent in a concatenated SMS */
         int msgLength = (charsPerSMS - concatAllowance) * maxConcat;
         recipient = formatPhoneNumber(recipient);
 
@@ -203,15 +208,15 @@ public class IMPServiceImpl implements IMPService {
             return;
         }
 
-        if (response.length() <= msgLength) {
+        if (response.length() <= msgLength) { /** response fits within a concatenated message */
             omiManager.createOMIService().scheduleMessage(response, recipient);
-        } else {
+        } else {/** response exceeds concatenated message length. Split into multiple messages */
             int start = 0;
             int end = 0;
 
-            for (byte smsNum = 1; smsNum <= maxSMS; smsNum++) {
+            for (byte smsNum = 1; smsNum <= maxSMS; smsNum++) {/** While maximum number of SMSes per response hasn't been exceeded */
                 String currSMS = "";
-                end = start + msgLength;
+                end = start + msgLength;/** get boundaries of current SMS within response */
 
                 if(response.length() < start)
                     break;
@@ -220,13 +225,13 @@ public class IMPServiceImpl implements IMPService {
                     currSMS = response.length() < end ? response.substring(start) : response.substring(start, end);
                 }
 
-                if (currSMS.contains("\n")) {
+                if (currSMS.contains("\n")) {/** message contains line-separated details. Avoid splitting in the middle of a line. */
                     String message = "";
                     String[] lines = currSMS.split("\n");
 
                     for (String line : lines) {
                         int currLen = message.length() + line.length() + 1;
-                        if (currLen < msgLength) {
+                        if (currLen < msgLength) {/** only add line if it will fit within current message. */
                             message += line + "\n";
                         }
                     }

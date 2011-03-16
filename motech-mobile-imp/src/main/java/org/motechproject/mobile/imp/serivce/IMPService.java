@@ -46,16 +46,20 @@ import org.motechproject.mobile.core.model.IncomingMessageResponse;
 public interface IMPService {
 
     /**
-     * Processes an incoming message request
+     * Processes an incoming message request. The message argument is a string
+     * formatted as a set of name-value pairs separated by a new line (the
+     * separator character is configurable). The first name-value pair MUST
+     * specify which form is to be processed. Successive pairs specify the input
+     * form parameters and their values.
      * 
-     * @param message the content of the request
-     * @param requesterPhone the phone number through which the request was made
-     * @return the response of the request
+     * @param message a structured string making up the body of the request.
+     * @param requesterPhone the phone number from which the request was made.
+     * @return the system response for the request.
      */
     IncomingMessageResponse processRequest(String message, String requesterPhone, boolean isDemo);
 
     /**
-     * <p>Processes xForms as Motech Forms by converting them to SMS format. It then goes through normal
+     * <p>Processes xForms as MoTeCH Forms by converting them to SMS format. It then goes through normal
      * SMS processing.</p>
      *
      * @param xForms

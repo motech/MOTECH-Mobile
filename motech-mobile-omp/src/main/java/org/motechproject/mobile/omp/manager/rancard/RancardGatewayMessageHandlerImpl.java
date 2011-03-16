@@ -62,8 +62,16 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
     private Map<MStatus, String> codeResponseMap;
 
     /**
-     *
      * @see GatewayMessageHandler.parseResponse
+     *
+     * <pre>Gateway response format:
+     * Status:
+     * OK: number
+     * OK: number
+     * ERROR: {errorcode} TO: {number}
+     * OR
+     * error: param:
+     * </pre>
      */
     public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         logger.debug("Parsing message gateway response");
@@ -129,7 +137,8 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
     }
 
     /**
-     *
+     * Message status querying feature currently not supported by Rancard gateway
+     * 
      * @see GatewayMessageHandler.parseMessageStatus
      */
     public MStatus parseMessageStatus(String gatewayResponse) {

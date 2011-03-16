@@ -443,6 +443,20 @@
                 <entry key="height" value="java.lang.Double" />
                 <entry key="gravida" value="java.lang.Integer" />
                 <entry key="parity" value="java.lang.Integer" />
+                <entry key="lastIPT" value="java.lang.Integer"/>
+                <entry key="lastIPTDate" value="java.util.Date" />
+                <entry key="lastTT" value="java.lang.Integer" />
+                <entry key="lastTTDate" value="java.util.Date" />
+                <entry key="bcgDate" value="java.util.Date" />
+                <entry key="lastOPV" value="java.lang.Integer" />
+                <entry key="lastOPVDate" value="java.util.Date" />
+                <entry key="lastPenta" value="java.lang.Integer" />
+                <entry key="lastPentaDate" value="java.util.Date" />
+                <entry key="measlesDate" value="java.util.Date" />
+                <entry key="yellowFeverDate" value="java.util.Date" />
+                <entry key="lastIPTI" value="java.lang.Integer" />
+                <entry key="lastIPTIDate" value="java.util.Date" />
+                <entry key="lastVitaminADate" value="java.util.Date" />
             </map>
         </property>
         <property name="callback">
