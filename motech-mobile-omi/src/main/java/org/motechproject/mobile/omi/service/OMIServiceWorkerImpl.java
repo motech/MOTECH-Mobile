@@ -86,7 +86,7 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContex
             MessageRequestDAO msgReqDao = getCoreManager().createMessageRequestDAO();
             GatewayRequest gwReq = getStoreManager().constructMessage(message, defaultLanguage);
             message.setGatewayRequestDetails(gwReq.getGatewayRequestDetails());
-
+this.p
             if (message.getLanguage() == null) {
                 message.setLanguage(defaultLanguage);
             }

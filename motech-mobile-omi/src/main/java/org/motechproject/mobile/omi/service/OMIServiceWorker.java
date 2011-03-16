@@ -52,11 +52,11 @@ import org.motechproject.mobile.core.model.MessageRequest;
 public interface OMIServiceWorker {
 
     /**
-     * Sends a {@link org.motechproject.mobile.core.model.MessageRequest) object immediately to recipient.
+     * Sends a {@link MessageRequest} object immediately to recipient.
      *
      * <p>
      * This involves
-     * <li>Parsing the {@link org.motechproject.mobile.core.model.MessageRequest} to a {@link org.motechproject.mobile.core.model.GatewayRequest}</li>
+     * <li>Parsing the {@link MessageRequest} to a {@link org.motechproject.mobile.core.model.GatewayRequest}</li>
      * <li>Sending the <code>GatewayRequest</code> through the {@link org.motechproject.mobile.omp.MessagingService}</li>
      * <li>Update <code>GatewayRequest</code> and <code>MessageRequest</code></li>
      *
