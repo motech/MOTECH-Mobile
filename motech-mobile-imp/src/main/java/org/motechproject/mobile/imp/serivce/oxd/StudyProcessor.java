@@ -47,6 +47,10 @@ import org.fcitmuk.epihandy.StudyData;
 import org.fcitmuk.epihandy.StudyDataList;
 
 /**
+ * The class monitors the deserialization of <code>StudyData</code>, an openXdata mobile-server common object
+ * for transporting form data.
+ *
+ * The Adapter interface is from the openXdata project
  *
  * @author Henry Sampson (henry@dreamoval.com) and Brent Atkinson
  * Date Created: Mar 3, 2010

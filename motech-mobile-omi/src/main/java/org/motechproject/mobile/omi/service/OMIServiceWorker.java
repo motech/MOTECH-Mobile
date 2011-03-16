@@ -38,17 +38,58 @@ import org.motechproject.mobile.core.model.Language;
 import org.motechproject.mobile.core.model.MessageRequest;
 
 /**
+ * <p>
+ * This class enables the OMIService to properly propagate transactions. This was necessitated by the Spring AOP
+ * </p>
  *
- * @author Kweku
+ * <p>
+ * The methods define are annotated with the <code>REQUIRES_NEW</code> propagation option. This ensures that all
+ * handled in these methods are saved on exiting.
+ * </p>
+ *
+ * @author Henry Sampson(henry@dreamoval.com)
  */
 public interface OMIServiceWorker {
 
+    /**
+     * Sends a {@link MessageRequest} object immediately to recipient.
+     *
+     * <p>
+     * This involves
+     * <li>Parsing the {@link MessageRequest} to a {@link org.motechproject.mobile.core.model.GatewayRequest}</li>
+     * <li>Sending the <code>GatewayRequest</code> through the {@link org.motechproject.mobile.omp.MessagingService}</li>
+     * <li>Update <code>GatewayRequest</code> and <code>MessageRequest</code></li>
+     *
+     * @param message <code>MessageRequest</code> to send
+     * @param defaultLanguage language preference
+     *
+     * 
+     */
     void processMessageRequest(MessageRequest message, Language defaultLanguage);
 
+    /**
+     * Syncs the status of a <code>GatewayRequest</code> to its corresponding <code>MessageRequest</code>
+     * 
+     * @param response the <code>Gateway</code> to sync
+     */
     void processMessageResponse(GatewayResponse response);
 
+    /**
+     * Reschedules a <code>MessageRequest</code> for sending
+     *
+     * The schedule is only added if <code>maxRetries</code> on the <code>MessageRequest</code> has not been reached
+     *
+     * @param message <code>MessageRequest</code> to reschedule
+     */
     void processMessageRetry(MessageRequest message);
 
+    /**
+     * Merges a <code>MessageRequest</code> to the persistent store.This is needed if a dirty version of the objects exists
+     * within the same persistet context.
+     *
+     * @param mr <code>MessageReques<./code> to merge
+     *
+     */
     void mergeMessageNow(MessageRequest mr);
 
 }
