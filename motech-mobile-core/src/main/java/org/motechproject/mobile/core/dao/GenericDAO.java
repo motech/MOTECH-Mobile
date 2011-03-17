@@ -38,8 +38,8 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 
 /**
- * GenericDAO interface provides common persistence methods contracts.
- * It's implemented by an abstract class that all the implementations of
+ * Provides common persistence CRUD  Generic methods contracts.
+ * Implemented by an abstract class that all the implementations of
  * various domain should extend.
  * It's should be also extended by domains DAO interfaces.
  *
@@ -90,12 +90,12 @@ public interface GenericDAO<T> {
     void delete(T entity);
 
     /**
-     * @return the session
+     * @return the sessionFactory
      */
     public SessionFactory getSessionFactory();
 
     /**
-     * @param session the session to set
+     * @param session the sessionFactory to set
      */
     public void setSessionFactory(SessionFactory sessionFactory);
 

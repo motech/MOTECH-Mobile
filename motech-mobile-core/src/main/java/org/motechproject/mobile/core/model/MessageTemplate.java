@@ -1,7 +1,7 @@
 /**
  * MOTECH PLATFORM OPENSOURCE LICENSE AGREEMENT
  *
- * Copyright (c) 2010-11 The Trustees of Columbia University in the City of
+ * Copyright (c) 2010 The Trustees of Columbia University in the City of
  * New York and Grameen Foundation USA.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,91 +36,96 @@ package org.motechproject.mobile.core.model;
 import java.util.Date;
 
 /**
- * MessageTemplate interface is a POJO to hold information for storage and manipulations
+ * Holds information for storage and manipulations.
+ * Contains all the predefined message to be sent to handset
+ * in all the languages supported in the system
+ * <p>
+ * @see org.motechproject.mobile.core.model.Language
+ * </>p
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
 public interface MessageTemplate {
 
-     /**
+     /*
      *
      * @param id the id to set
      */
     public void setId(Long id);
 
-    /**
+    /*
      *
      * @return id to get
      */
     public Long getId();
 
-    /**
+    /*
      * @return the date_created
      */
     Date getDateCreated();
 
-    /**
+    /*
      * @return the language
      */
     Language getLanguage();
 
-    /**
+    /*
      * @return the notification_type
      */
     NotificationType getNotificationType();
 
-    /**
+    /*
      *
      * @return the message_type
      */
     MessageType getMessageType();
 
-    /**
+    /*
      *
      * @return the template
      */
     String getTemplate();
 
-    /**
+    /*
      * @param date_created the date_created to set
      */
     void setDateCreated(Date dateCreated);
 
-    /**
+    /*
      * @param language the language to set
      */
     void setLanguage(Language language);
 
-    /**
+    /*
      * @param notification_type the notification_type to set
      */
     void setNotificationType(NotificationType notificationType);
 
-    /**
+    /*
      *
      * @param message_type the message_tpe to set
      */
     void setMessageType(MessageType messageType);
 
-    /**
+    /*
      * 
      * @param template the template to set
      */
     void setTemplate(String template);
 
-    /**
+    /*
      * Helper method to display string value of all properties of the object
      * @return formated string value of all properties
      */
     @Override
     public String toString();
 
-      /**
+      /*
      * @return the version
      */
     int getVersion();
 
-    /**
+    /*
      * @param version the version to set
      */
     void setVersion(int version);

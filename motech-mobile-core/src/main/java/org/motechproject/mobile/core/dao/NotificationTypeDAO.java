@@ -36,7 +36,10 @@ package org.motechproject.mobile.core.dao;
 import org.motechproject.mobile.core.model.NotificationType;
 
 /**
- * NotificationTypeDao is an interface that defines only methods and attributes that are specific to NotificationType entity
+ * Provides Generic CRUD functionalities inherited from {@link org.motechproject.mobile.core.dao.GenericDAO}
+ * with additional Helper methods to manipulate {@link org.motechproject.mobile.core.model.NotificationType } objects
+ * or Collection of objects
+ * 
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */

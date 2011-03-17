@@ -39,8 +39,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * NotificationTypeImpl class in an implementation of NotificationType which is actually mapped
- * in hibernate.it provides properties to handle NotificationType operations
  *  Date : Sep 27, 2009
  * @author joseph Djomeda (joseph@dreamoval.com)
  */
@@ -55,42 +53,42 @@ public class NotificationTypeImpl implements NotificationType, Serializable {
     private String description;
     private Set<MessageTemplate> messageTemplates = new HashSet<MessageTemplate>();
 
-    /**
+    /*
      * @return the name
      */
     public String getName() {
         return name;
     }
 
-    /**
+    /*
      * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
+    /*
      * @return the description
      */
     public String getDescription() {
         return description;
     }
 
-    /**
+    /*
      * @param description the description to set
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /**
+    /*
      * @return the messageTemplates
      */
     public Set<MessageTemplate> getMessageTemplates() {
         return messageTemplates;
     }
 
-    /**
+    /*
      * @param messageTemplates the messageTemplates to set
      */
     public void setMessageTemplates(Set<MessageTemplate> messageTemplates) {
@@ -129,14 +127,14 @@ public class NotificationTypeImpl implements NotificationType, Serializable {
 
     }
 
-    /**
+    /*
      * @return the id
      */
     public Long getId() {
         return id;
     }
 
-    /**
+    /*
      * @param id the id to set
      */
     public void setId(Long id) {

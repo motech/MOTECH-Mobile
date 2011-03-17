@@ -30,7 +30,6 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.motechproject.mobile.core.model;
 
 import org.motechproject.mobile.core.util.MotechIDGenerator;
@@ -46,7 +45,7 @@ import java.util.Set;
 @SuppressWarnings("serial")
 public class GatewayRequestDetailsImpl implements GatewayRequestDetails, Serializable {
 
-    private int version=-1;
+    private int version = -1;
     private Long id;
     private MessageType messageType;
     private String message;
@@ -54,65 +53,66 @@ public class GatewayRequestDetailsImpl implements GatewayRequestDetails, Seriali
     private Set gatewayRequests = new HashSet();
 
     public GatewayRequestDetailsImpl() {
-        this.id = MotechIDGenerator.generateID();  
+        this.id = MotechIDGenerator.generateID();
     }
-    /**
+    /*
      * @return the messageType
      */
+
     public MessageType getMessageType() {
         return messageType;
     }
 
-    /**
+    /*
      * @param messageType the messageType to set
      */
     public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
     }
 
-    /**
+    /*
      * @return the message
      */
     public String getMessage() {
         return message;
     }
 
-    /**
+    /*
      * @param message the message to set
      */
     public void setMessage(String message) {
         this.message = message;
     }
 
-    /**
+    /*
      * @return the numberOfPages
      */
     public int getNumberOfPages() {
         return numberOfPages;
     }
 
-    /**
+    /*
      * @param numberOfPages the numberOfPages to set
      */
     public void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
     }
 
-    /**
+    /*
      * @return the gatewayRequests
      */
     public Set getGatewayRequests() {
         return gatewayRequests;
     }
 
-    /**
+    /*
      * @param gatewayRequests the gatewayRequests to set
      */
     public void setGatewayRequests(Set gatewayRequests) {
         this.gatewayRequests = gatewayRequests;
     }
 
-    /**
+    /*
      * Helper method to add GatewayRequest Object to GatewayRequestDetails
      * @param gatewayRequest the gatewayRequest object to add
      */
@@ -123,7 +123,7 @@ public class GatewayRequestDetailsImpl implements GatewayRequestDetails, Seriali
         }
     }
 
-    /**
+    /*
      * Helper method to add GatewayRequest Object to GatewayRequestDetails
      * @param gatewayRequest the gatewayRequest object to add
      */
@@ -159,28 +159,28 @@ public class GatewayRequestDetailsImpl implements GatewayRequestDetails, Seriali
 
     }
 
-    /**
+    /*
      * @return the id
      */
     public Long getId() {
         return id;
     }
 
-    /**
+    /*
      * @param id the id to set
      */
     public void setId(Long id) {
         this.id = id;
     }
 
-     /**
+    /*
      * @return the version
      */
     public int getVersion() {
         return version;
     }
 
-    /**
+    /*
      * @param version the version to set
      */
     public void setVersion(int version) {

@@ -33,9 +33,8 @@
 
 package org.motechproject.mobile.core.model;
 
-/*
- * IncMessageStatus is an enumeration that describes the state of an instance of IncomingMessageImpl object
- * Status can be processing or processed
+/**
+ * Describes the state of {@link org.motechproject.mobile.core.model.IncomingMessage}
  *
  * Date: Dec 02, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)

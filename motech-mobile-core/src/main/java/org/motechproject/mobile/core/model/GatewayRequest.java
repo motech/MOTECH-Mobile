@@ -39,190 +39,196 @@ import java.util.Set;
 
 /**
  *
- * MessageDetails interface is a POJO to hold MessageDetails information for data storage and manipulation
- * It has properties for example the text message itself or the numberofpages of that sms text in case it's
- * sms send
+ * Holds GatewayRequest information for data storage and manipulation.
+ * Reprensents a request to sms or voice telco gateway.Has a many-to-one
+ * relationship with {@link org.motechproject.mobile.core.model.GatewayRequestDetails}
+ * where it gets the actual data to send to telco.
+ *
+ *<p>
+ * upon failure in the communication with the telco gateway, this GatewayRequest is
+ * picked up and resent later and the number of reset is tracked by tryNumber property
+ *</p>
  *
  * Date: Jul 24, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface GatewayRequest {
 
-    /**
+    /*
     * 
     * @return the id
     */
     public Long getId();
 
 
-    /**
+    /*
      * @return the dateSent
      */
     public Date getDateSent();
 
-    /**
+    /*
      * @return the dateFrom
      */
     public Date getDateFrom();
 
-    /**
+    /*
      * @return the message
      */
     public String getMessage();
 
-    /**
+    /*
      * @return the gatewayRequestDetails Object
      */
     public GatewayRequestDetails getGatewayRequestDetails();
 
-    /**
+    /*
      * @return the RequestId
      */
     public String getRequestId();
 
-    /**
+    /*
      * @return the  dateTo
      */
     public Date getDateTo();
 
-    /**
+    /*
      * @return the recipientsNumber
      */
     public String getRecipientsNumber();
 
-    /**
+    /*
      * @return the responseDetails
      */
     public Set<GatewayResponse> getResponseDetails();
 
-    /**
+    /*
      * @return the try number
      */
     public int getTryNumber();
 
-    /**
+    /*
      * @return the messageStatus
      */
     public MStatus getMessageStatus();
 
-    /**
+    /*
      * @return the lastModified
      */
     public Date getLastModified();
 
-    /**
+    /*
      * @return the MessageRequest for which this GatewayRequest was generated
      */
     public MessageRequest getMessageRequest();
 
 
-    /**
+    /*
      *
      * @param id the id to set
      */
     public void setId(Long id);
 
 
-    /**
+    /*
      *
      * @param tryNumber the tryNumber to set
      */
     public void setTryNumber(int tryNumber);
 
-    /**
+    /*
      * @param dateSent the dateSent to set
      */
     public void setDateSent(Date dateSent);
 
-    /**
+    /*
      * @param dateFrom the dateFrom to set
      */
     public void setDateFrom(Date dateFrom);
 
-    /**
+    /*
      * @param messageText the message to set
      */
     public void setMessage(String message);
 
-    /**
+    /*
      * @param messageType the requestId to set
      */
     public void setGatewayRequestDetails(GatewayRequestDetails gatewayRequestDetails);
 
-    /**
+    /*
      * @param numberOfPages the dateTo to set
      */
     public void setDateTo(Date dateTo);
 
-    /**
+    /*
      * @param recipientsNumbers the recipientsNumbers to set
      */
     public void setRecipientsNumber(String recipientsNumber);
 
-    /**
+    /*
      *
      * @param requestId the requestId to set
      */
     public void setRequestId(String requestId);
 
-    /**
+    /*
      * @param responseDetails the responseDetails to set
      */
     public void setResponseDetails(Set<GatewayResponse> responseDetails);
 
-    /**
+    /*
      * @param MStatus the status to set
      */
     public void setMessageStatus(MStatus status);
 
-    /**
+    /*
      * @param lastModified lastModified to set
      */
     public void setLastModified(Date lastModified);
 
-    /**
+    /*
      * MessageRequest on which this GatewayRequest is based
      * @param messageRequest MessageRequest Object that corresponds to this GatewayRequest
      */
     public void setMessageRequest(MessageRequest messageRequest);
     
-    /**
+    /*
      * Helper method to add a GatewayResponse Object to GatewayRequest
      * @param  GatewayResponse GatewayResponse Object to pass
      */
     public void addResponse(GatewayResponse response);
 
-    /**
+    /*
      * Helper method to remove the passed GatewayResponse  object from GatewayRequest
      * @param  GatewayRespone the GatewayResponse to pass
      */
     public void removeResponse(GatewayResponse response);
 
-    /**
+    /*
      * Helper method to add a list of  GatewayResponse Objects to GatewayRequest
      * @param  List the GatewayRespone List to pass
      */
     public void addResponse(List<GatewayResponse> responses);
 
-    /**
+    /*
      *Helper method to remove the passed List of GatewayResponse objects from GatewayRequest
      * @param  List the List of GatewayResponse to pass
      */
     public void removeResponse(List<GatewayResponse> responses);
 
-    /**
+    /*
      * Helper method to display string value of all properties of the object
      * @return formated string value of all properties
      */
     @Override
     public String toString();
 
-      /**
+      /*
      * @return the version
      */
     int getVersion();
 
-    /**
+    /*
      * @param version the version to set
      */
     void setVersion(int version);

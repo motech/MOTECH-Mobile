@@ -39,57 +39,60 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * MessageRequestDao is an interface that defines only methods and attributes that are specific to MessageRequest entity
+ * Provides Generic CRUD functionalities inherited from {@link org.motechproject.mobile.core.dao.GenericDAO}
+ * with additional Helper methods to manipulate {@link org.motechproject.mobile.core.model.MessageRequest } objects
+ * or Collection of objects
+ * 
  *  Date : Sep 25, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
 public interface MessageRequestDAO<T extends MessageRequest> extends GenericDAO<T> {
 
     /**
-     *  Method to select MessageRequest Objects based on its status and its schedule time
+     * Selects a list of MessageRequest objects based on status and schedule time
      * @param status the Status of the message
      * @param schedule the Date schedule
-     * @return a list of MessageRequest
+     * @return a list of MessageRequest objects
      */
     public List getMsgRequestByStatusAndSchedule(MStatus status, Date schedule);
 
     /**
-     * Method to select MessageRequest Objects based on status and tryNumber
+     * Selects a list of MessageRequest objects based on status and tryNumber
      * @param status the Status of the message
      * @param tryNumber number of retries for the message
-     * @return list of MessageRequest Objects
+     * @return list of MessageRequest objects
      */
     public List getMsgRequestByStatusAndTryNumber(MStatus status, int tryNumber);
 
     /**
-     * Method to select MessageRequest Objects based on status
+     * Selects a list of MessageRequest objects based on status
      * @param status the Status of the message
-     * @return list of MessageRequest Objects
+     * @return list of MessageRequest objects
      */
     public List<MessageRequest> getMsgByStatus(MStatus status);
     
     /**
-     * Method to select MessageRequest object based on recipient ID and status
+     * Selects a list of MessageRequest objects based on recipient ID and status
      * @param recipientID id of the recipient
      * @param status status of the message request
-     * @return list of matching message requests
+     * @return list of MessageRequest objects
      */
     public List<MessageRequest> getMsgRequestByRecipientAndStatus(String recipientID, MStatus status);
     
     /**
-     * Method to select MessageRequest object based on recipient ID and status
+     * Selects a list of MessageRequesst object based on recipient ID and status
      * @param recipientID id of the recipient
      * @param schedule the Date schedule
-     * @return list of matching message requests
+     * @return list of MessageRequest objects
      */
     public List<MessageRequest> getMsgRequestByRecipientAndSchedule(String recipientID, Date schedule);
     
     /**
-     * Method to select MessageRequest objects for a recipient with dateFrom between startDate and endDate
-     * @param recipientID
-     * @param startDate
-     * @param endDate
-     * @return
+     * Selects a list of MessageRequest objects based on recipientId, startdate and enddate
+     * @param recipientID the id for the recipient to search for
+     * @param startDate the starting date of the date period
+     * @param endDate the ending date of the date period
+     * @return list of MessageRequest objects
      */
     public List<MessageRequest> getMsgRequestByRecipientDateFromBetweenDates(String recipientID, Date startDate, Date endDate);
 }

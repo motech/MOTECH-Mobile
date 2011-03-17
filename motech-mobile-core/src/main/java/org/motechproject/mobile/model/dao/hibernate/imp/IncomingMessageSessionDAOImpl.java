@@ -42,10 +42,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 
-/*
- * IncomingMessageSessionDAOImpl is the implementation class of the  interface
- * This Class implements only IncomingMessageSessionDAO specific persistent operation to the IncomingMessageSession model.
- *
+/* *
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
@@ -53,6 +50,10 @@ public class IncomingMessageSessionDAOImpl extends HibernateGenericDAOImpl<Incom
 
     private static Logger logger = Logger.getLogger(IncomingMessageSessionImpl.class);
 
+    /**
+     *
+     * @see {@link org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO#getIncomingMsgSessionByRequestedPhone(java.lang.String)  }
+     */
     public List<IncomingMessageSession> getIncomingMsgSessionByRequestedPhone(String requesterPhone) {
         
          logger.debug("varaible passed to getIncomingMsgSessionByRequestedPhone " + requesterPhone);

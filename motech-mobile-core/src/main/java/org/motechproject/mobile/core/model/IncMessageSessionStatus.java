@@ -33,9 +33,8 @@
 
 package org.motechproject.mobile.core.model;
 
-/*
- * IncMessageSessionStatus is an enumeration that describes the state of an instance of IncomingSessionImpl object
- * Status can be Started or ended or stopped
+/**
+ * Describes the state of {@link org.motechproject.mobile.core.model.IncomingMessageSession}
  *
  * Date: Dec 02, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)

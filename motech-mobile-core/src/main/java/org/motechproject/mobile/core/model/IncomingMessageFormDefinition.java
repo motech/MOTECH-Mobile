@@ -30,136 +30,139 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.motechproject.mobile.core.model;
 
 import java.util.Date;
 import java.util.Set;
 
 /**
- * IncomingMessageFormDefinition interface is a POJO to hold IncomingMessageFormDefinition information for data storage and manipulation
+ * Holds IncomingMessageFormDefinition information for data storage and manipulation
+ * Defines a form with its basic behavior.Has a one-to-many with
+ * {@link org.motechproject.mobile.core.model.IncomingMessageFormParameterDefinition }
+ * which is defines each parameter on the form.
+ *
  * Date: Dec 14, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
-public interface IncomingMessageFormDefinition  {
+public interface IncomingMessageFormDefinition {
 
-    /**
+    /*
      *
      * @param id the id to set
      */
     public void setId(Long id);
 
-    /**
+    /*
      *
      * @return id to get
      */
     public Long getId();
 
-    /**
+    /*
      * @return the dateCreated
      */
     public Date getDateCreated();
 
-    /**
+    /*
      * @return the formCode
      */
     public String getFormCode();
 
-    /**
+    /*
      * @return the lastModified
      */
     public Date getLastModified();
 
-    /**
+    /*
      * @return the incomingMsgParamDefinition
      */
     public Set<IncomingMessageFormParameterDefinition> getIncomingMsgParamDefinitions();
 
-    /**
+    /*
      * @param dateCreated the dateCreated to set
      */
     public void setDateCreated(Date dateCreated);
 
-    /**
+    /*
      * @param formCode the formCode to set
      */
     public void setFormCode(String formCode);
 
-    /**
+    /*
      * @param lastModified the lastModified to set
      */
     public void setLastModified(Date lastModified);
 
-    /**
+    /*
      * @param incomingMsgParamDefinition the incomingMsgParamDefinition to set
      */
     public void setIncomingMsgParamDefinitions(Set<IncomingMessageFormParameterDefinition> incomingMsgParamDefinition);
 
-    /**
+    /*
      * Helper method to display string value of all properties of the object
      * @return formated string value of all properties
      */
     @Override
     public String toString();
 
-    /**
+    /*
      * @return the incomingMessageForms
      */
     Set<IncomingMessageForm> getIncomingMessageForms();
 
-    /**
+    /*
      * @param incomingMessageForms the incomingMessageForms to set
      */
     void setIncomingMessageForms(Set<IncomingMessageForm> incomingMessageForms);
 
-    /**
+    /*
      * Helper method to add IncomingMesasgeForm to IncomingMessageFormDefinition
      * @param form the IncomingMessageForm object to add
      */
     void addIncomingMessageForm(IncomingMessageForm form);
 
-    /**
+    /*
      * Helper method to remove IncomingMesasgeForm to IncomingMessageFormDefinition
      * @param form the IncomingMessageForm object to remove
      */
     void removeIncomingMessageForm(IncomingMessageForm form);
 
-    /**
+    /*
      * @return the duplicatable
      */
     Duplicatable getDuplicatable();
 
-    /**
+    /*
      * @param duplicatable the duplicatable to set
      */
     void setDuplicatable(Duplicatable duplicatable);
 
-    /**
+    /*
      * @return the type
      */
     IncMessageFormDefinitionType getType();
 
-    /**
+    /*
      * @param type the type to set
      */
     void setType(IncMessageFormDefinitionType type);
 
-    /**
+    /*
      * @return the sendResponse
      */
     Boolean getSendResponse();
 
-    /**
+    /*
      * @param sendResponse the sendResponse to set
      */
     void setSendResponse(Boolean sendResponse);
 
-      /**
+    /*
      * @return the version
      */
     int getVersion();
 
-    /**
+    /*
      * @param version the version to set
      */
     void setVersion(int version);

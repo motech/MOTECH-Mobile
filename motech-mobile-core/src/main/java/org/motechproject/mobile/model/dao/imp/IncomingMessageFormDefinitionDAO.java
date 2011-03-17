@@ -30,19 +30,25 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package org.motechproject.mobile.model.dao.imp;
 
 import org.motechproject.mobile.core.dao.GenericDAO;
 import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
 
-/*
- * IncomingMessageFormDefinitionDAO is an interface that defines Operations on IncomingMessageFormDefinition Pojo
+/**
+ * Provides Generic CRUD functionalities inherited from {@link org.motechproject.mobile.core.dao.GenericDAO}
+ * with additional Helper methods to manipulate {@link org.motechproject.mobile.core.model.IncomingMessageFormDefinition } objects
+ * or Collection of objects
  *
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  */
 public interface IncomingMessageFormDefinitionDAO<T extends IncomingMessageFormDefinition> extends GenericDAO<T> {
 
+    /**
+     * Retrieve the most recent GatewayResponse Object based on the request id and the fact its status is not pending nor processing
+     * @param requestId the requestId to pass
+     * @return GatewayResponse object
+     */
     IncomingMessageFormDefinition getByCode(String formCode);
 }

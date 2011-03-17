@@ -36,14 +36,17 @@ package org.motechproject.mobile.core.dao;
 import org.motechproject.mobile.core.model.Language;
 
 /**
- * LanguageDao is an interface that defines only methods and attributes that are specific to Language entity
+ * Provides Generic CRUD functionalities inherited from {@link org.motechproject.mobile.core.dao.GenericDAO}
+ * with additional Helper methods to manipulate {@link org.motechproject.mobile.core.model.Language } objects
+ * 
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
 public interface LanguageDAO<T extends Language> extends GenericDAO<T> {
 
     /**
-     * Method to take a language code and return the language object representing that row in the database
+     * Selects a language object based on the language code passed
+     *
      * @param code the code of the registered language
      * @return the language object
      */

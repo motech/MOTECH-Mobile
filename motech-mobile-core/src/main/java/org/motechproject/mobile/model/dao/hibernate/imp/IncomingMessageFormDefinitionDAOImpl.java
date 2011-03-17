@@ -39,14 +39,10 @@ import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
 import org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
-/*
- * IncomingMessageFormDefinitionDAOImpl is the implementation class of the  interface
- * This Class implements only IncomingMessageFormDefinitionDAO specific persistent operation to the IncomingMessageFormDefinition model.
- *
+/* *
  * Date: Dec 03, 2009
  * @author Joseph Djomeda (joseph@dreamoval.com)
  * @author Kofi Asamoah (yoofi@dreamoval.com)
@@ -55,9 +51,7 @@ public class IncomingMessageFormDefinitionDAOImpl extends HibernateGenericDAOImp
     private static Logger logger = Logger.getLogger(IncomingMessageFormDefinitionDAOImpl.class);
 
     /**
-     * Retrieve the most recent GatewayResponse Object based on the request id and the fact its status is not pending nor processing
-     * @param requestId the requestId to pass
-     * @return GatewayResponse object
+     * @see {@link org.motechproject.mobile.model.dao.imp.IncomingMessageFormDefinitionDAO#getByCode(java.lang.String) }
      */
     public IncomingMessageFormDefinition getByCode(String formCode) {
         logger.debug("variable passed to getByCode: " + formCode);

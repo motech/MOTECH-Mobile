@@ -36,39 +36,44 @@ package org.motechproject.mobile.core.model;
 import java.util.Set;
 
 /**
- * Notification interface is a POJO that holds NotificationType information for storage and manipulation
+ * Holds NotificationType information for storage and manipulation.
+ * Represents a specific notification to be sent to handset.
+ * A number of {@link org.motechproject.mobile.core.model.MessageTemplate }
+ * corresponds to this class
+ *
+ * 
  *  Date : Sep 27, 2009
  * @author joseph Djomeda(joseph@dreamoval.com)
  */
 public interface NotificationType {
 
-     /**
+     /*
      *
      * @param id the id to set
      */
     public void setId(Long id);
 
-    /**
+    /*
      *
      * @return id to get
      */
     public Long getId();
-    /**
+    /*
      * @return the description
      */
     String getDescription();
 
-    /**
+    /*
      * @return the name
      */
     String getName();
 
-    /**
+    /*
      * @param description the description to set
      */
     void setDescription(String description);
 
-    /**
+    /*
      * @param name the name to set
      */
     void setName(String name);
@@ -77,7 +82,7 @@ public interface NotificationType {
 
     void setMessageTemplates(Set<MessageTemplate> messageTemplate);
 
-    /**
+    /*
      * Helper method to display string value of all properties of the object
      * @return formated string value of all properties
      */
