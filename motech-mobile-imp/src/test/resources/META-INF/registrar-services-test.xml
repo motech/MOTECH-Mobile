@@ -426,6 +426,7 @@
                 <entry key="lastIPTI" value="java.lang.Integer" />
                 <entry key="lastIPTIDate" value="java.util.Date" />
                 <entry key="lastVitaminADate" value="java.util.Date" />
+                <entry key="whyNoHistory" value="java.lang.Integer" />
             </map>
         </property>
         <property name="callback">

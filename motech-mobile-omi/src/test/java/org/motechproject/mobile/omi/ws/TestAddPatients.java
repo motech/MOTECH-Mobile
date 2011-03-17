@@ -108,6 +108,7 @@ public class TestAddPatients {
             int lastIPTI = 1;
             Date lastIPTIDate = new Date();
             Date lastVitaminADate = new Date();
+            int whyNoHistory = 1;
 
             RegistrationMode mode = RegistrationMode.AUTO_GENERATE_ID;
             RegistrantType type = RegistrantType.PREGNANT_MOTHER;
@@ -147,7 +148,7 @@ public class TestAddPatients {
                         height, gravida, parity, lastIPT, lastIPTDate,
                         lastTT,lastTTDate,bcgDate,lastOPV,lastOPVDate,lastPenta,
                         lastPentaDate,measlesDate,yellowFeverDate,lastIPTI,lastIPTIDate,
-                        lastVitaminADate);
+                        lastVitaminADate, whyNoHistory);
 
                 System.out.println("motechid=" + patient.getMotechId());
             } catch (ValidationException e) {

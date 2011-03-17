@@ -239,7 +239,7 @@ public class FormProcessorImplTest {
 
         expect(
                 mockWS.registerPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (RegistrantType) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Gender) anyObject(), (Boolean) anyObject(), (String) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (InterestReason) anyObject(), (HowLearned) anyObject(), (Integer) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(),
-                        (Integer)anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(),(Date) anyObject())
+                        (Integer)anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(),(Date) anyObject(), (Integer) anyObject())
                 ).andReturn(null);
 
         replay(mockWS);
