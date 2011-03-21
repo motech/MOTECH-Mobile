@@ -6697,7 +6697,7 @@
     &lt;xf:bind id="lastIPTI" nodeset="/patientRegistration/lastIPTI" type="xsd:string" visible="false()" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory = '4' and /patientRegistration/addHistory = '1'" action="show" required="true()"/&gt;
     &lt;xf:bind id="lastIPTIDate" nodeset="/patientRegistration/lastIPTIDate" type="xsd:date" visible="false()" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory = '4' and /patientRegistration/addHistory = '1'" action="show" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/&gt;
     &lt;xf:bind id="lastVitaminADate" nodeset="/patientRegistration/lastVitaminADate" type="xsd:date" visible="false()" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory = '3' and /patientRegistration/addHistory = '1'" action="show" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/&gt;
-    &lt;xf:bind action="show" id="whyNoHistory" nodeset="/patientRegistration/whyNoHistory" relevant="/patientRegistration/addHistory = '0' and /patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" visible="false()" type="xsd:int"/&gt;
+    &lt;xf:bind action="show" id="whyNoHistory" nodeset="/patientRegistration/whyNoHistory" relevant="/patientRegistration/addHistory = '0'" required="true()" visible="false()" type="xsd:int"/&gt;
     &lt;xf:bind action="show" id="expDeliveryDate" nodeset="/patientRegistration/expDeliveryDate" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:date" visible="false()"/&gt;
     &lt;xf:bind action="show" id="deliveryDateConfirmed" nodeset="/patientRegistration/deliveryDateConfirmed" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="enroll" nodeset="/patientRegistration/enroll" required="true()" type="xsd:string"/&gt;
@@ -7585,6 +7585,8 @@
     &lt;Item WidgetType="DatePicker" HelpText="Last IPTi date" Binding="lastIPTIDate" Left="155px" Top="1380px" Width="200px" Height="25px" TabIndex="35" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Last Vit A date" HelpText="Last Vit A date" Binding="lastVitaminADate" Left="50px" Top="1420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="Last Vit A date" Binding="lastVitaminADate" Left="155px" Top="1420px" Width="200px" Height="25px" TabIndex="36" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="Label" Text="Why No History" HelpText="Why No History" Binding="whyNoHistory" Left="95px" Top="740px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
+    &lt;Item WidgetType="ListBox" HelpText="Why No History" Binding="whyNoHistory" Left="155px" Top="740px" Width="200px" Height="25px" TabIndex="19" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Expected delivery date" HelpText="Expected delivery date" Binding="expDeliveryDate" Left="91px" Top="980px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="DatePicker" HelpText="Expected delivery date" Binding="expDeliveryDate" Left="248px" Top="980px" Width="200px" Height="25px" TabIndex="25" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
     &lt;Item WidgetType="Label" Text="Delivery date confirmed by CHW" HelpText="Delivery date confirmed by CHW" Binding="deliveryDateConfirmed" Left="30px" Top="1020px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
@@ -7725,6 +7727,10 @@
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='lastIPTI']/item[@id='3']/label" value="IPTi 3"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='lastIPTIDate']/label" value="Last IPTi date"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='lastVitaminADate']/label" value="Last Vit A date"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='whyNoHistory']/label" value="Why No History"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='whyNoHistory']/item[@id='1']/label" value="No care received yet"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='whyNoHistory']/item[@id='2']/label" value="Misplaced health card"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/select1[@bind='whyNoHistory']/item[@id='3']/label" value="No known record"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='expDeliveryDate']/label" value="Expected delivery date"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryDateConfirmed']/label" value="Delivery date confirmed by CHW"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryDateConfirmed']/item[@id='Y']/label" value="Yes"/&gt;
