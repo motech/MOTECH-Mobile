@@ -1133,5 +1133,15 @@
             <column name="required" valueBoolean="false"/>
             <column name="date_created" valueDate="2011-03-16 16:08:00"/>
         </insert>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001856" />
+            <column name="obj_vesion" valueNumeric="0" />
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000010" />
+            <column name="name" value="whyNoHistory" />
+            <column name="parameter_type" value="NUMERIC" />
+            <column name="length" valueNumeric="2" />
+            <column name="required" valueBoolean="false" />
+            <column name="date_created" valueDate="2011-03-21 16:08:00" />
+        </insert>
     </changeSet>
 </databaseChangeLog>
