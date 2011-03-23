@@ -1,0 +1,67 @@
+<form description="" name="Delivery Notification">
+<version description="" name="v1">
+<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xf:model&gt;
+    &lt;xf:instance id="deliverynotify"&gt;
+      &lt;deliverynotify id="4" name="Delivery Notification"&gt;
+        &lt;staffId/&gt;
+        &lt;facilityId/&gt;
+        &lt;motechId/&gt;
+        &lt;datetime/&gt;
+        &lt;formtype&gt;data_entry&lt;/formtype&gt;
+        &lt;formname&gt;deliverynotify-jf&lt;/formname&gt;
+      &lt;/deliverynotify&gt;
+    &lt;/xf:instance&gt;
+    &lt;xf:bind id="staffId" nodeset="/deliverynotify/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
+    &lt;xf:bind id="facilityId" nodeset="/deliverynotify/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
+    &lt;xf:bind id="motechId" nodeset="/deliverynotify/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
+    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="datetime" message="Invalid date: date specified is in the future" nodeset="/deliverynotify/datetime" required="true()" type="xsd:dateTime"/&gt;
+    &lt;xf:bind id="formtype" nodeset="/deliverynotify/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind id="formname" nodeset="/deliverynotify/formname" required="true()" type="xsd:string" visible="false()"/&gt;
+  &lt;/xf:model&gt;
+  &lt;xf:group id="1"&gt;
+    &lt;xf:label&gt;Page1&lt;/xf:label&gt;
+    &lt;xf:input bind="staffId"&gt;
+      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="facilityId"&gt;
+      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="motechId"&gt;
+      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="datetime"&gt;
+      &lt;xf:label&gt;Date of delivery&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="formtype"&gt;
+      &lt;xf:label&gt;formType&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+    &lt;xf:input bind="formname"&gt;
+      &lt;xf:label&gt;formName&lt;/xf:label&gt;
+    &lt;/xf:input&gt;
+  &lt;/xf:group&gt;
+&lt;/xf:xforms&gt;
+</xform>
+<layout/>
+<versionText locale="en">
+<xform>&lt;xform id="4"&gt;
+    &lt;text xpath="xforms/model/instance/deliverynotify[@name]" value="Delivery Notification"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='datetime']/label" value="Date of delivery"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
+    &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='staffId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='datetime'][@message]" value="Invalid date: date specified is in the future"/&gt;
+  &lt;/xform&gt;</xform>
+<layout>&lt;Form id="4"&gt;
+    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
+  &lt;/Form&gt;</layout>
+</versionText>
+</version>
+</form>

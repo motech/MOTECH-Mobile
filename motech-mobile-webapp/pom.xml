@@ -63,64 +63,60 @@
             <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.motechproject.mobile</groupId>
-          <artifactId>motech-mobile-core</artifactId>
+            <groupId>org.motechproject.mobile</groupId>
+            <artifactId>motech-mobile-core</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.motechproject.mobile</groupId>
-          <artifactId>motech-mobile-omp</artifactId>
+            <groupId>org.motechproject.mobile</groupId>
+            <artifactId>motech-mobile-omp</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.motechproject.mobile</groupId>
-          <artifactId>motech-mobile-omi</artifactId>
+            <groupId>org.motechproject.mobile</groupId>
+            <artifactId>motech-mobile-omi</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.motechproject.mobile</groupId>
-          <artifactId>motech-mobile-imp</artifactId>
+            <groupId>org.motechproject.mobile</groupId>
+            <artifactId>motech-mobile-imp</artifactId>
         </dependency>
         <dependency>
-        	<groupId>org.motechproject.mobile</groupId>
-        	<artifactId>motech-mobile-modemgw</artifactId>
+            <groupId>org.motechproject.mobile</groupId>
+            <artifactId>motech-mobile-modemgw</artifactId>
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-wsapi</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>cxf-rt-core</artifactId>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-core</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>cxf-rt-core</artifactId>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>cxf-rt-transports-http</artifactId>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-databinding-aegis</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>cxf-rt-databinding-aegis</artifactId>
-        </dependency>
-        <dependency>
-           <groupId>org.apache.neethi</groupId>
-           <artifactId>neethi</artifactId>
+            <groupId>org.apache.neethi</groupId>
+            <artifactId>neethi</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
         </dependency>
         <dependency>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.ws.commons.schema</groupId>
@@ -159,25 +155,25 @@
             <artifactId>xforms-server</artifactId>
         </dependency>
         <dependency>
-                <groupId>com.jcraft</groupId>
-                <artifactId>jzlib</artifactId>
-            </dependency>
-      <dependency>
-          <groupId>org.liquibase</groupId>
-          <artifactId>liquibase-core</artifactId>
-      </dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jzlib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <resources>
-		  <resource>
-			<directory>src/main/resources</directory>
-			<filtering>true</filtering>
-		  </resource>
-		</resources>
-		<filters>
-			<filter>${env}.properties</filter>
-		</filters>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <filters>
+            <filter>${env}.properties</filter>
+        </filters>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -187,6 +183,28 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.motechproject.mobile.util.FileMerger</mainClass>
+                    <arguments>
+                        <argument>${project.build.directory}/classes/oxd-form-defs/NurseDataEntry</argument>
+                        <argument>${project.build.directory}/classes/oxd-form-defs/NurseDataEntry.xml</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
+
         </plugins>
         <finalName>motech-mobile-webapp</finalName>
         <testResources>
