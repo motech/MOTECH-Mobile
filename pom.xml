@@ -8,74 +8,17 @@
     <name>MoTeCH Mobile</name>
     <url>https://motech.rcg.usm.maine.edu/redmine/projects/show/motech-mobile</url>
 
-    <developers>
-        <developer>
-            <id>henry</id>
-            <name>Henry Sampson</name>
-            <timezone>0</timezone>
-            <email>henry@dreamoval.com</email>
-        </developer>
-        <developer>
-            <id>yoofi</id>
-            <name>Kofi Asamoah</name>
-            <timezone>0</timezone>
-            <email>yoofi@dreamoval.com</email>
-        </developer>
-        <developer>
-            <id>jojo</id>
-            <name>Joseph Djomeda</name>
-            <timezone>0</timezone>
-            <email>joseph@dreamoval.com</email>
-        </developer>
-        <developer>
-            <id>rlarubbio</id>
-            <name>Rob LaRubbio</name>
-            <timezone>-8</timezone>
-            <email>rlarubbio@grameenfoundation.org</email>
-        </developer>
-    </developers>
-
-    <ciManagement>
-        <system>continuum</system>
-        <url>http://motech.rcg.usm.maine.edu/continuum/</url>
-        <notifiers>
-            <notifier>
-                <type>mail</type>
-                <configuration>
-                    <address>henry@dreamoval.com</address>
-                </configuration>
-            </notifier>
-            <notifier>
-                <type>mail</type>
-                <configuration>
-                    <address>yoofi@dreamoval.com</address>
-                </configuration>
-            </notifier>
-            <notifier>
-                <type>mail</type>
-                <configuration>
-                    <address>joseph@dreamoval.com</address>
-                </configuration>
-            </notifier>
-            <notifier>
-                <type>mail</type>
-                <configuration>
-                    <address>fcbrooks@usm.maine.edu</address>
-                </configuration>
-            </notifier>
-        </notifiers>
-    </ciManagement>
 
     <issueManagement>
-        <system>redmine</system>
-        <url>https://motech.rcg.usm.maine.edu/redmine/projects/motech-mobile/issues</url>
+        <system>jira</system>
+        <url>http://pmo.applab.org</url>
     </issueManagement>
 
     <repositories>
         <repository>
             <id>motech-repo</id>
             <name>Motech Maven Repository</name>
-            <url>http://motech.rcg.usm.maine.edu/archiva/repository/all</url>
+		    <url>http://nexus.motechproject.org/content/repositories/all</url>
         </repository>
     </repositories>
 
@@ -83,8 +26,9 @@
         <pluginRepository>
             <id>motech-repo</id>
             <name>Motech Maven Repository</name>
-            <url>http://motech.rcg.usm.maine.edu/archiva/repository/all</url>
+		    <url>http://nexus.motechproject.org/content/repositories/all</url>
             <snapshots>
+                <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
@@ -600,14 +544,14 @@
             </activation>
             <distributionManagement>
                 <repository>
-                    <id>usm.motech.archiva</id>
+                    <id>motech.nexus</id>
                     <name>Motech Releases Repository</name>
-                    <url>http://motech.rcg.usm.maine.edu/archiva/repository/internal</url>
+                    <url>http://nexus.motechproject.org/content/repositories/releases</url>
                 </repository>
                 <snapshotRepository>
-                    <id>usm.motech.archiva</id>
+                    <id>motech.nexus</id>
                     <name>Motech Snapshots Repository</name>
-                    <url>http://motech.rcg.usm.maine.edu/archiva/repository/snapshots</url>
+                    <url>http://nexus.motechproject.org/content/repositories/snapshots</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
