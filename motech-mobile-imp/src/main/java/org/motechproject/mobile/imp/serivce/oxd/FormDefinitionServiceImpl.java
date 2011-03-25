@@ -37,101 +37,47 @@
  */
 package org.motechproject.mobile.imp.serivce.oxd;
 
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.util.*;
+
 /**
- *
  * @author Henry Sampson (henry@dreamoval.com) and Brent Atkinson
- * Date Created: Mar 3, 2010
+ *         Date Created: Mar 3, 2010
  */
 public class FormDefinitionServiceImpl implements FormDefinitionService,
         StudyDefinitionService, UserDefinitionService {
 
-	private List<Object[]> users;
-	private PasswordEncoder encoder;
+    private List<Object[]> users;
+    private PasswordEncoder encoder;
     private List<String> studies;
     private Map<String, List<Integer>> studyForms;
     private Map<Integer, String> formMap;
     private Set<String> oxdFormDefResources;
 
-    public void init() throws Exception {
+    public FormDefinitionServiceImpl() {
         studies = new ArrayList<String>();
         studyForms = new LinkedHashMap<String, List<Integer>>();
         formMap = new HashMap<Integer, String>();
+    }
 
+    public void init() throws Exception {
+        XmlPullParserFactory xmlPullParserFactory = getXMLPullParserFactory();
+        XmlPullParser xmlPullParser = xmlPullParserFactory.newPullParser();
+        for (String resource : getOxdFormDefResources()) {
+            new StudyFormsParser(xmlPullParserFactory, xmlPullParser, resource).invoke();
+        }
+    }
+
+    private XmlPullParserFactory getXMLPullParserFactory() throws XmlPullParserException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         factory.setNamespaceAware(true);
-
-        XmlPullParser xpp = factory.newPullParser();
-
-        for (String resource : getOxdFormDefResources()) {
-            xpp.setInput(new InputStreamReader(getClass().getResourceAsStream(
-                    resource)));
-
-            boolean isXform = false;
-            boolean isVersionText = false;
-            String xformDef = null;
-            Integer formId = null;
-            String studyName = null;
-
-            for (int eventType = xpp.getEventType(); eventType != XmlPullParser.END_DOCUMENT; eventType = xpp.next()) {
-
-                if (eventType == XmlPullParser.START_TAG) {
-                    if ("study".equals(xpp.getName())) {
-                        studyName = xpp.getAttributeValue(null, "name");
-                        studies.add(studyName);
-                        studyForms.put(studyName, new ArrayList<Integer>());
-                    } else if ("xform".equals(xpp.getName())) {
-                        isXform = true;
-                    } else if ("versionText".equals(xpp.getName())) {
-                        isVersionText = true;
-                    }
-                } else if (eventType == XmlPullParser.END_TAG) {
-                    if ("xform".equals(xpp.getName())) {
-                        isXform = false;
-                    } else if ("versionText".equals(xpp.getName())) {
-                        isVersionText = false;
-                    }
-                } else if (eventType == XmlPullParser.TEXT) {
-                    if (isXform) {
-                        if (!isVersionText) {
-                            xformDef = xpp.getText();
-                        } else {
-                            // Parse xform element in versionText to get id
-                            String versionTextXform = xpp.getText();
-                            XmlPullParser formXpp = factory.newPullParser();
-                            formXpp.setInput(new StringReader(versionTextXform));
-                            for (int formEvent = formXpp.getEventType(); formEvent != XmlPullParser.END_DOCUMENT; formEvent = formXpp.next()) {
-                                if (formEvent == XmlPullParser.START_TAG && "xform".equals(formXpp.getName())) {
-                                    String formIdStr = formXpp.getAttributeValue(null, "id");
-                                    formId = Integer.valueOf(formIdStr);
-                                }
-                            }
-
-                            // Store form def keyed on id, don't re-process
-                            if (formId != null && formMap.get(formId) == null) {
-                                formMap.put(formId, xformDef);
-                                if (studyForms.get(studyName) != null) {
-                                    studyForms.get(studyName).add(formId);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        return factory;
     }
 
     /**
@@ -192,41 +138,41 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
     }
 
     /**
-	 * Used to set the password encoder implementation.
-	 * 
-	 * @param encoder
-	 */
-	public void setPasswordEncoder(PasswordEncoder encoder) {
-		this.encoder = encoder;
-	}
-    
+     * Used to set the password encoder implementation.
+     *
+     * @param encoder
+     */
+    public void setPasswordEncoder(PasswordEncoder encoder) {
+        this.encoder = encoder;
+    }
+
     /**
      * Returns the list of openxdata users.
      */
     public List<Object[]> getUsers() {
         return users;
     }
-    
+
     /**
-	 * Sets the list of openxdata users.
-	 * 
-	 * @return
-	 */
-	public void setUsers(List<String[]> users) {
+     * Sets the list of openxdata users.
+     *
+     * @return
+     */
+    public void setUsers(List<String[]> users) {
 
-		this.users = new ArrayList<Object[]>();
+        this.users = new ArrayList<Object[]>();
 
-		int i = 0;
-		for (Object[] user : users) {
-			Integer userId = ++i;
-			String name = (String) user[0];
-			String password = (String) user[1];
-			String salt = (String) user[2];
-			String encodedPassword = encoder.encodePassword(password, salt);
-			Object[] completeUser = { userId, name, encodedPassword, salt };
-			this.users.add(completeUser);
-		}
-	}
+        int i = 0;
+        for (Object[] user : users) {
+            Integer userId = ++i;
+            String name = (String) user[0];
+            String password = (String) user[1];
+            String salt = (String) user[2];
+            String encodedPassword = encoder.encodePassword(password, salt);
+            Object[] completeUser = {userId, name, encodedPassword, salt};
+            this.users.add(completeUser);
+        }
+    }
 
     /**
      * Returns the name of the study for the given id
@@ -248,5 +194,118 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
         }
 
         return result;
+    }
+
+    private class StudyFormsParser {
+        private XmlPullParserFactory xmlPullParserFactory;
+        private XmlPullParser xmlPullParser;
+        private String resource;
+        private boolean isXform = false;
+        private boolean isVersionText = false;
+        private String studyName;
+        private String currentXFormDefinition;
+
+        public StudyFormsParser(XmlPullParserFactory xmlPullParserFactory, XmlPullParser xmlPullParser, String resource) {
+            this.xmlPullParserFactory = xmlPullParserFactory;
+            this.xmlPullParser = xmlPullParser;
+            this.resource = resource;
+        }
+
+        public void invoke() throws XmlPullParserException, IOException {
+            xmlPullParser.setInput(new InputStreamReader(getClass().getResourceAsStream(resource)));
+            for (int eventType = xmlPullParser.getEventType(); eventType != XmlPullParser.END_DOCUMENT; eventType = xmlPullParser.next()) {
+
+                if (eventType == XmlPullParser.START_TAG) {
+                    handleStartTag();
+                } else if (eventType == XmlPullParser.END_TAG) {
+                    handleEndTag();
+                } else if (eventType == XmlPullParser.TEXT) {
+                    if (isXform) {
+                        processXForm();
+                    }
+                }
+            }
+        }
+
+        private void processXForm() throws XmlPullParserException, IOException {
+            if (isVersionText) {
+                Integer formId = extractFormIdFromVersionText(xmlPullParserFactory, xmlPullParser.getText());
+                saveFormDetails(formId);
+            } else {
+                extractXFormDefinition();
+            }
+        }
+
+        private void extractXFormDefinition() {
+            currentXFormDefinition = xmlPullParser.getText();
+        }
+
+        private void saveFormDetails(Integer formId) throws XmlPullParserException, IOException {
+
+            if (formId != null && formMap.get(formId) == null) {
+                formMap.put(formId, currentXFormDefinition);
+                addFormToStudy(formId, studyName);
+            }
+        }
+
+        private void handleEndTag() {
+            if ("xform".equals(xmlPullParser.getName())) {
+                xFormTagEnd();
+            } else if ("versionText".equals(xmlPullParser.getName())) {
+                versionTextTagEnd();
+            }
+        }
+
+        private void handleStartTag() {
+            if ("study".equals(xmlPullParser.getName())) {
+                captureStudyDetails(xmlPullParser);
+            } else if ("xform".equals(xmlPullParser.getName())) {
+                xFormTagStart();
+            } else if ("versionText".equals(xmlPullParser.getName())) {
+                versionTextTagStart();
+            }
+        }
+
+        public void xFormTagStart() {
+            isXform = true;
+        }
+
+        public void xFormTagEnd() {
+            isXform = false;
+        }
+
+        public void versionTextTagStart() {
+            isVersionText = true;
+        }
+
+        public void versionTextTagEnd() {
+            isVersionText = false;
+        }
+
+
+        private void addFormToStudy(Integer formId, String studyName) {
+            if (studyForms.get(studyName) != null) {
+                studyForms.get(studyName).add(formId);
+            }
+        }
+
+        private void captureStudyDetails(XmlPullParser xmlPullParser) {
+            studyName = xmlPullParser.getAttributeValue(null, "name");
+            studies.add(studyName);
+            studyForms.put(studyName, new ArrayList<Integer>());
+        }
+
+        private Integer extractFormIdFromVersionText(XmlPullParserFactory xmlPullParserFactory, String versionTextXform) throws XmlPullParserException, IOException {
+            Integer formId = null;
+            XmlPullParser formXpp = xmlPullParserFactory.newPullParser();
+            formXpp.setInput(new StringReader(versionTextXform));
+            for (int formEvent = formXpp.getEventType(); formEvent != XmlPullParser.END_DOCUMENT; formEvent = formXpp.next()) {
+                if (formEvent == XmlPullParser.START_TAG && "xform".equals(formXpp.getName())) {
+                    String formIdStr = formXpp.getAttributeValue(null, "id");
+                    formId = Integer.valueOf(formIdStr);
+                }
+            }
+            return formId;
+        }
     }
 }
