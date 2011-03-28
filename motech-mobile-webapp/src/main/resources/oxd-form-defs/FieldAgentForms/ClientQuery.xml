@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="17">
+  <xf:model>
+    <xf:instance id="patientQuery">
+      <patientQuery id="17" name="Client Query">
+        <chpsid/>
+        <facilityid/>
+        <formname/>
+        <motechid/>
+        <firstname/>
+        <lastname/>
+        <PreferredName/>
+        <dob/>
+        <nhis/>
+        <phonenumber/>
+        <sender/>
+        <formtype>query</formtype>
+      </patientQuery>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/patientQuery/chpsid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityid" nodeset="/patientQuery/facilityid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="formname" nodeset="/patientQuery/formname" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="motechid" nodeset="/patientQuery/motechid" relevant="/patientQuery/formname = 'viewpatient-jf'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind action="show" id="firstname" nodeset="/patientQuery/firstname" relevant="/patientQuery/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="lastname" nodeset="/patientQuery/lastname" relevant="/patientQuery/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="PreferredName" nodeset="/patientQuery/PreferredName" relevant="/patientQuery/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dob" message="Invalid date: date specified is in the future" nodeset="/patientQuery/dob" relevant="/patientQuery/formname = 'findmotechid-jf'" type="xsd:date" visible="false()" required="false()"/>
+    <xf:bind action="show" id="nhis" nodeset="/patientQuery/nhis" relevant="/patientQuery/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="phonenumber" nodeset="/patientQuery/phonenumber" relevant="/patientQuery/formname = 'findmotechid-jf'" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" required="false()"/>
+    <xf:bind id="sender" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" nodeset="/patientQuery/sender" required="true()" type="xsd:int"/>
+    <xf:bind id="formtype" nodeset="/patientQuery/formtype" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page2</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="formname">
+      <xf:label>Query type</xf:label>
+      <xf:item id="viewpatient-jf">
+        <xf:label>Client details</xf:label>
+        <xf:value>viewpatient-jf</xf:value>
+      </xf:item>
+      <xf:item id="findmotechid-jf">
+        <xf:label>Find client ID</xf:label>
+        <xf:value>findmotechid-jf</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="motechid">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="firstname">
+      <xf:label>First name</xf:label>
+    </xf:input>
+    <xf:input bind="lastname">
+      <xf:label>Last name</xf:label>
+    </xf:input>
+    <xf:input bind="PreferredName">
+      <xf:label>Preferred name</xf:label>
+    </xf:input>
+    <xf:input bind="dob">
+      <xf:label>Birth date</xf:label>
+    </xf:input>
+    <xf:input bind="nhis">
+      <xf:label>NHIS number</xf:label>
+    </xf:input>
+    <xf:input bind="phonenumber">
+      <xf:label>Client phone number</xf:label>
+    </xf:input>
+    <xf:input bind="sender">
+      <xf:label>Response phone number</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

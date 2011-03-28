@@ -55,7 +55,7 @@ public class FormDefinitionServiceImplTest {
 
     @Test
     public void testInit() throws Exception {
-        String resource = "/MoTeCHDataEntry.xml";
+        String resource = "MoTechDataEntry";
         FormDefinitionServiceImpl fds = new FormDefinitionServiceImpl();
         Set resources = new HashSet();
         resources.add(resource);

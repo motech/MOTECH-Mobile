@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="77">
+  <xf:model>
+    <xf:instance id="child">
+      <child id="77" name="CWC Visit -v1">
+        <chpsid/>
+        <facilityid/>
+        <date/>
+        <motechid/>
+        <immunization/>
+        <bcg/>
+        <opvdose/>
+        <pentadose/>
+        <measles/>
+        <yellowfever/>
+        <csm/>
+        <ipti/>
+        <vita/>
+        <formtype>data_entry</formtype>
+        <formname>child</formname>
+      </child>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/child/chpsid" required="true()" type="xsd:int"/>
+    <xf:bind id="facilityid" nodeset="/child/facilityid" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/child/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechid" nodeset="/child/motechid" required="true()" type="xsd:int"/>
+    <xf:bind id="immunization" nodeset="/child/immunization" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="bcg" nodeset="/child/bcg" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="opvdose" nodeset="/child/opvdose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="pentadose" nodeset="/child/pentadose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="measles" nodeset="/child/measles" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="yellowfever" nodeset="/child/yellowfever" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="csm" nodeset="/child/csm" required="true()" type="xsd:string"/>
+    <xf:bind id="ipti" nodeset="/child/ipti" required="true()" type="xsd:string"/>
+    <xf:bind id="vita" nodeset="/child/vita" required="true()" type="xsd:string"/>
+    <xf:bind id="formtype" nodeset="/child/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/child/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page4</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Visit date</xf:label>
+    </xf:input>
+    <xf:input bind="motechid">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="immunization">
+      <xf:label>Immunization</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="bcg">
+      <xf:label>BCG</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="opvdose">
+      <xf:label>OPV</xf:label>
+      <xf:item id="NA">
+        <xf:label>None given</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>OPV 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>OPV 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>OPV 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="pentadose">
+      <xf:label>Penta</xf:label>
+      <xf:item id="NA">
+        <xf:label>None given</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>Penta 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Penta 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Penta 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="measles">
+      <xf:label>Measles</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="yellowfever">
+      <xf:label>Yellow Fever</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="csm">
+      <xf:label>CSM</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="ipti">
+      <xf:label>IPTi</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="vita">
+      <xf:label>Vitamin A</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

@@ -1,502 +1,281 @@
-<form description="" name="Outpatient Visit">
-<version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;xf:model&gt;
-    &lt;xf:instance id="generalopd"&gt;
-      &lt;generalopd id="6" name="Outpatient Visit-"&gt;
-        &lt;staffId/&gt;
-        &lt;facilityId/&gt;
-        &lt;formname/&gt;
-        &lt;date/&gt;
-        &lt;serialNumber/&gt;
-        &lt;motechId/&gt;
-        &lt;sex/&gt;
-        &lt;dateOfBirth/&gt;
-        &lt;insured/&gt;
-        &lt;newCase/&gt;
-        &lt;newPatient/&gt;
-        &lt;diagnosis/&gt;
-        &lt;otherdiagnosis/&gt;
-        &lt;secondDiagnosis/&gt;
-        &lt;othersecondarydiagnosis/&gt;
-        &lt;rdtGiven/&gt;
-        &lt;rdtPositive/&gt;
-        &lt;actTreated/&gt;
-        &lt;referred/&gt;
-        &lt;comments/&gt;
-        &lt;formtype&gt;data_entry&lt;/formtype&gt;
-      &lt;/generalopd&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:bind id="staffId" nodeset="/generalopd/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="facilityId" nodeset="/generalopd/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="formname" nodeset="/generalopd/formname" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/generalopd/date" required="true()" type="xsd:date"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 0 and . &amp;lt; 2147483647" id="serialNumber" message="Number too large or negative. Keep under 2147483647" nodeset="/generalopd/serialNumber" required="true()" type="xsd:int"/&gt;
-    &lt;xf:bind action="show" id="motechId" nodeset="/generalopd/motechId" relevant="/generalopd/formname = 'motheropd-jf' or /generalopd/formname = 'childopd-jf'" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long" required="true()"/&gt;
-    &lt;xf:bind action="show" id="sex" nodeset="/generalopd/sex" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dateOfBirth" message="Invalid date: date specified is in the future" nodeset="/generalopd/dateOfBirth" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:date" visible="false()"/&gt;
-    &lt;xf:bind id="insured" nodeset="/generalopd/insured" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="newCase" nodeset="/generalopd/newCase" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="newPatient" nodeset="/generalopd/newPatient" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="diagnosis" nodeset="/generalopd/diagnosis" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" constraint=". &amp;gt;= 1 and . &amp;lt;= 76" id="otherdiagnosis" message="Invalid diagnosis: value must be between 1 and 76" nodeset="/generalopd/otherdiagnosis" relevant="/generalopd/diagnosis = '78'" required="true()" type="xsd:int" visible="false()"/&gt;
-    &lt;xf:bind id="secondDiagnosis" nodeset="/generalopd/secondDiagnosis" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" constraint=". &amp;gt;= 1 and . &amp;lt;= 76" id="othersecondarydiagnosis" message="Invalid diagnosis: value must be between 1 and 76" nodeset="/generalopd/othersecondarydiagnosis" relevant="/generalopd/secondDiagnosis = '78'" required="true()" type="xsd:int" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="rdtGiven" nodeset="/generalopd/rdtGiven" relevant="/generalopd/diagnosis = '63' or /generalopd/diagnosis = '64' or /generalopd/diagnosis = '10' or /generalopd/diagnosis = '11' or /generalopd/diagnosis = '13' or /generalopd/diagnosis = '12' or /generalopd/secondDiagnosis = '63' or /generalopd/secondDiagnosis = '64' or /generalopd/secondDiagnosis = '10' or /generalopd/secondDiagnosis = '11' or /generalopd/secondDiagnosis = '13' or /generalopd/secondDiagnosis = '12'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="rdtPositive" nodeset="/generalopd/rdtPositive" relevant="/generalopd/rdtGiven = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="actTreated" nodeset="/generalopd/actTreated" relevant="/generalopd/diagnosis = '63' or /generalopd/diagnosis = '64' or /generalopd/secondDiagnosis = '63' or /generalopd/secondDiagnosis = '64'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="referred" nodeset="/generalopd/referred" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="comments" nodeset="/generalopd/comments" relevant="/generalopd/formname = 'motheropd-jf' or /generalopd/formname = 'childopd-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/generalopd/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
-  &lt;/xf:model&gt;
-  &lt;xf:group id="1"&gt;
-    &lt;xf:label&gt;Page5&lt;/xf:label&gt;
-    &lt;xf:input bind="staffId"&gt;
-      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="facilityId"&gt;
-      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="formname"&gt;
-      &lt;xf:label&gt;Type of client&lt;/xf:label&gt;
-      &lt;xf:item id="motheropd-jf"&gt;
-        &lt;xf:label&gt;Pregnant mother&lt;/xf:label&gt;
-        &lt;xf:value&gt;motheropd-jf&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="childopd-jf"&gt;
-        &lt;xf:label&gt;Child  under 5 yrs&lt;/xf:label&gt;
-        &lt;xf:value&gt;childopd-jf&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="generalopd-jf"&gt;
-        &lt;xf:label&gt;General Client&lt;/xf:label&gt;
-        &lt;xf:value&gt;generalopd-jf&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="date"&gt;
-      &lt;xf:label&gt;Visit date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="serialNumber"&gt;
-      &lt;xf:label&gt;Serial number&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="motechId"&gt;
-      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="sex"&gt;
-      &lt;xf:label&gt;Sex&lt;/xf:label&gt;
-      &lt;xf:item id="M"&gt;
-        &lt;xf:label&gt;Male&lt;/xf:label&gt;
-        &lt;xf:value&gt;M&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="F"&gt;
-        &lt;xf:label&gt;Female&lt;/xf:label&gt;
-        &lt;xf:value&gt;F&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="dateOfBirth"&gt;
-      &lt;xf:label&gt;Date of birth&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="insured"&gt;
-      &lt;xf:label&gt;Insured&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="newCase"&gt;
-      &lt;xf:label&gt;Case status&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;New&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;Old&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="newPatient"&gt;
-      &lt;xf:label&gt;Client status&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;New&lt;/xf:label&gt;
-          &lt;xf:value&gt;Y&lt;/xf:value&gt;
-          &lt;/xf:item&gt;
-        &lt;xf:item id="N"&gt;
-          &lt;xf:label&gt;Old&lt;/xf:label&gt;
-          &lt;xf:value&gt;N&lt;/xf:value&gt;
-        &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="diagnosis"&gt;
-      &lt;xf:label&gt;Principal diagnosis&lt;/xf:label&gt;
-      &lt;xf:item id="16"&gt;
-        &lt;xf:label&gt;Diarrhoea Diseases&lt;/xf:label&gt;
-        &lt;xf:value&gt;16&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="63"&gt;
-        &lt;xf:label&gt;Malaria (Preg.) - Lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;63&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="64"&gt;
-        &lt;xf:label&gt;Malaria (Preg.) - Non-Lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;64&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="62"&gt;
-        &lt;xf:label&gt;Other ARI&lt;/xf:label&gt;
-        &lt;xf:value&gt;62&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="61"&gt;
-        &lt;xf:label&gt;Pneumonia&lt;/xf:label&gt;
-        &lt;xf:value&gt;61&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="10"&gt;
-        &lt;xf:label&gt;Simple malaria - Lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;10&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="11"&gt;
-        &lt;xf:label&gt;Simple malaria - Non-lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;11&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="13"&gt;
-        &lt;xf:label&gt;Severe malaria - Lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;13&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="12"&gt;
-        &lt;xf:label&gt;Severe malaria - Non-lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;12&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="65"&gt;
-        &lt;xf:label&gt;Skin Diseases &amp;amp; ulcers&lt;/xf:label&gt;
-        &lt;xf:value&gt;65&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="78"&gt;
-        &lt;xf:label&gt;Other&lt;/xf:label&gt;
-        &lt;xf:value&gt;78&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="otherdiagnosis"&gt;
-      &lt;xf:label&gt;Code for principal diagnosis&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="secondDiagnosis"&gt;
-      &lt;xf:label&gt;Additional diagnosis&lt;/xf:label&gt;
-      &lt;xf:item id="16"&gt;
-        &lt;xf:label&gt;Diarrhoea Diseases&lt;/xf:label&gt;
-        &lt;xf:value&gt;16&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="63"&gt;
-        &lt;xf:label&gt;Malaria (Preg.) - Lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;63&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="64"&gt;
-        &lt;xf:label&gt;Malaria (Preg.) - Non-Lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;64&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="62"&gt;
-        &lt;xf:label&gt;Other ARI&lt;/xf:label&gt;
-        &lt;xf:value&gt;62&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="61"&gt;
-        &lt;xf:label&gt;Pneumonia&lt;/xf:label&gt;
-        &lt;xf:value&gt;61&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="10"&gt;
-        &lt;xf:label&gt;Simple malaria - Lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;10&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="11"&gt;
-        &lt;xf:label&gt;Simple malaria - Non-lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;11&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="13"&gt;
-        &lt;xf:label&gt;Severe malaria - Lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;13&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="12"&gt;
-        &lt;xf:label&gt;Severe malaria - Non-lab&lt;/xf:label&gt;
-        &lt;xf:value&gt;12&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="65"&gt;
-        &lt;xf:label&gt;Skin Diseases &amp;amp; ulcers&lt;/xf:label&gt;
-        &lt;xf:value&gt;65&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="78"&gt;
-        &lt;xf:label&gt;Other&lt;/xf:label&gt;
-        &lt;xf:value&gt;78&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="othersecondarydiagnosis"&gt;
-      &lt;xf:label&gt;Code for additional diagnosis&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="rdtGiven"&gt;
-      &lt;xf:label&gt;RDT given&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="rdtPositive"&gt;
-      &lt;xf:label&gt;RDT result&lt;/xf:label&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;Negative&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Positive&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="actTreated"&gt;
-      &lt;xf:label&gt;ACT given?&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="referred"&gt;
-      &lt;xf:label&gt;Referred&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="comments"&gt;
-      &lt;xf:label&gt;Comments&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formtype"&gt;
-      &lt;xf:label&gt;formType&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-  &lt;/xf:group&gt;
-&lt;/xf:xforms&gt;
-</xform>
-<layout>&lt;Form id="6"&gt;
-  &lt;Page Text="Page5" Binding="Page5" Width="100%" Height="516px" backgroundColor=""&gt;
-    &lt;Item WidgetType="Label" Text="Enter your CHPS ID" HelpText="Staff ID" Binding="staffId" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="OPD register serial number?" HelpText="Serial number" Binding="serialNumber" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Date of OPD visit" HelpText="Visit date" Binding="date" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Client's gender" HelpText="Sex" Binding="sex" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Client's date of birth" HelpText="Date of birth" Binding="dateOfBirth" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Client Insured?" HelpText="Insured" Binding="insured" Left="20px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Is this a new case?" HelpText="Case status" Binding="newCase" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Is this a new client?" HelpText="Cleint status" Binding="newPatient" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,San s-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Primary diagnosis given" HelpText="Principal diagnosis" Binding="diagnosis" Left="20px" Top="300px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Secondary Diagnosis given" HelpText="Additional diagnosis" Binding="secondDiagnosis" Left="20px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Was this client referred?" HelpText="Referred" Binding="referred" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="100px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="470px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="470px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Sex" Binding="sex" Left="180px" Top="140px" Width="200px" Height="24px" TabIndex="4" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Insured" Binding="insured" Left="180px" Top="220px" Width="200px" Height="25px" TabIndex="6" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="200px" Top="16px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Serial number" Binding="serialNumber" Left="290px" Top="56px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Visit date" Binding="date" Left="190px" Top="96px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Date of birth" Binding="dateOfBirth" Left="250px" Top="178px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Case status" Binding="newCase" Left="210px" Top="258px" Width="200px" Height="25px" TabIndex="7" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Case status" Binding="newPatient" Left="210px" Top="258px" Width="200px" Height="25px" TabIndex="7" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Principal diagnosis" Binding="diagnosis" Left="250px" Top="299px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Additional diagnosis" Binding="secondDiagnosis" Left="270px" Top="339px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Referred" Binding="referred" Left="280px" Top="373px" Width="200px" Height="22px" TabIndex="10" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-  &lt;/Page&gt;
-&lt;/Form&gt;
-</layout>
-<versionText locale="en">
-<xform>&lt;xform id="6"&gt;
-    &lt;text xpath="xforms/model/instance/generalopd[@name]" value="Outpatient Visit-"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/label" value="Page5"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/label" value="Type of client"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='motheropd-jf']/label" value="Pregnant mother"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='childopd-jf']/label" value="Child  under 5 yrs"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='formname']/item[@id='generalopd-jf']/label" value="General client"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Visit date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='serialNumber']/label" value="Serial number"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='sex']/label" value="Sex"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='sex']/item[@id='M']/label" value="Male"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='sex']/item[@id='F']/label" value="Female"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='dateOfBirth']/label" value="Date of birth"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='insured']/label" value="Insured"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='insured']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='insured']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newCase']/label" value="Case status"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newCase']/item[@id='Y']/label" value="New"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newCase']/item[@id='N']/label" value="Old"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newPatient']/label" value="Client status"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newPatient']/item[@id='Y']/label" value="New"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='newPatient']/item[@id='N']/label" value="Old"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/label" value="Principal diagnosis"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='16']/label" value="Diarrhoea Diseases"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='63']/label" value="Malaria (Preg.) - Lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='64']/label" value="Malaria (Preg.) - Non-Lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='62']/label" value="Other ARI"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='61']/label" value="Pneumonia"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='10']/label" value="Simple malaria - Lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='11']/label" value="Simple malaria - Non-lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='13']/label" value="Severe malaria - Lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='12']/label" value="Severe malaria - Non-lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='65']/label" value="Skin Diseases &amp;amp; ulcers"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='diagnosis']/item[@id='78']/label" value="Other"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='otherdiagnosis']/label" value="Code for principal diagnosis"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/label" value="Additional diagnosis"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='16']/label" value="Diarrhoea Diseases"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='63']/label" value="Malaria (Preg.) - Lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='64']/label" value="Malaria (Preg.) - Non-Lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='62']/label" value="Other ARI"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='61']/label" value="Pneumonia"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='10']/label" value="Simple malaria - Lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='11']/label" value="Simple malaria - Non-lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='13']/label" value="Severe malaria - Lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='12']/label" value="Severe malaria - Non-lab"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='65']/label" value="Skin Diseases &amp;amp; ulcers"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='secondDiagnosis']/item[@id='78']/label" value="Other"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='othersecondarydiagnosis']/label" value="Code for additional diagnosis"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtGiven']/label" value="RDT given"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtGiven']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtGiven']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtPositive']/label" value="RDT result"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtPositive']/item[@id='N']/label" value="Negative"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='rdtPositive']/item[@id='Y']/label" value="Positive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='actTreated']/label" value="ACT given?"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='actTreated']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='actTreated']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='referred']/label" value="Referred"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='referred']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='referred']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='comments']/label" value="Comments"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='staffId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='serialNumber'][@message]" value="Number too large or negative. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='dateOfBirth'][@message]" value="Invalid date: date specified is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='otherdiagnosis'][@message]" value="Invalid diagnosis: value must be between 1 and 76"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='othersecondarydiagnosis'][@message]" value="Invalid diagnosis: value must be between 1 and 76"/&gt;
-  &lt;/xform&gt;</xform>
-<layout>&lt;Form id="6"&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5'][@Text]" value="Page5"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='staffId' and @WidgetType='Label'][@Text]" value="Enter your CHPS ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='staffId' and @WidgetType='Label'][@HelpText]" value="Staff ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='staffId' and @WidgetType='Label'][@Top]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='staffId' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='serialNumber' and @WidgetType='Label'][@Text]" value="OPD register serial number?"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='serialNumber' and @WidgetType='Label'][@HelpText]" value="Serial number"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='serialNumber' and @WidgetType='Label'][@Top]" value="60px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='serialNumber' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='Label'][@Text]" value="Date of OPD visit"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='Label'][@HelpText]" value="Visit date"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='Label'][@Top]" value="100px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@Text]" value="Client's gender"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@HelpText]" value="Sex"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@Top]" value="140px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@Text]" value="Client's date of birth"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@HelpText]" value="Date of birth"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@Top]" value="180px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@Text]" value="Client Insured?"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@HelpText]" value="Insured"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@Top]" value="220px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='Label'][@Text]" value="Is this a new case?"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='Label'][@HelpText]" value="Case status"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='Label'][@Top]" value="260px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='Label'][@Text]" value="Is this a new Client?"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='Label'][@HelpText]" value="Client status"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='Label'][@Top]" value="260px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='Label'][@Text]" value="Primary diagnosis given"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='Label'][@HelpText]" value="Principal diagnosis"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='Label'][@Top]" value="300px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='Label'][@Text]" value="Secondary Diagnosis given"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='Label'][@HelpText]" value="Additional diagnosis"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='Label'][@Top]" value="340px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@Text]" value="Was this client referred?"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@HelpText]" value="Referred"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@Top]" value="380px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='formtype' and @WidgetType='Label'][@Text]" value="formType"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='formtype' and @WidgetType='Label'][@HelpText]" value="formType"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='formtype' and @WidgetType='Label'][@Top]" value="420px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='formtype' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='formtype' and @WidgetType='TextBox'][@HelpText]" value="formType"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Top]" value="420px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Left]" value="100px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='submit' and @WidgetType='Button'][@Text]" value="Submit"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='submit' and @WidgetType='Button'][@HelpText]" value="submit"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='submit' and @WidgetType='Button'][@Top]" value="470px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='submit' and @WidgetType='Button'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='submit' and @WidgetType='Button'][@Width]" value="70px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='cancel' and @WidgetType='Button'][@Text]" value="Cancel"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='cancel' and @WidgetType='Button'][@HelpText]" value="cancel"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='cancel' and @WidgetType='Button'][@Top]" value="470px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='cancel' and @WidgetType='Button'][@Left]" value="220px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='cancel' and @WidgetType='Button'][@Width]" value="70px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='ListBox'][@HelpText]" value="Sex"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='ListBox'][@Top]" value="140px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='ListBox'][@Left]" value="180px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='sex' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='ListBox'][@HelpText]" value="Insured"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='ListBox'][@Top]" value="220px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='ListBox'][@Left]" value="180px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='insured' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='staffId' and @WidgetType='TextBox'][@HelpText]" value="Staff ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='staffId' and @WidgetType='TextBox'][@Top]" value="16px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='staffId' and @WidgetType='TextBox'][@Left]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='staffId' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='serialNumber' and @WidgetType='TextBox'][@HelpText]" value="Serial number"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='serialNumber' and @WidgetType='TextBox'][@Top]" value="56px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='serialNumber' and @WidgetType='TextBox'][@Left]" value="290px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='serialNumber' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='DatePicker'][@HelpText]" value="Visit date"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='DatePicker'][@Top]" value="96px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='DatePicker'][@Left]" value="190px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='date' and @WidgetType='DatePicker'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='DatePicker'][@HelpText]" value="Date of birth"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='DatePicker'][@Top]" value="178px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='DatePicker'][@Left]" value="250px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='dateOfBirth' and @WidgetType='DatePicker'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='ListBox'][@HelpText]" value="Case status"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='ListBox'][@Top]" value="258px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='ListBox'][@Left]" value="210px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newCase' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='ListBox'][@HelpText]" value="Client status"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='ListBox'][@Top]" value="258px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='ListBox'][@Left]" value="210px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='newPatient' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='ListBox'][@HelpText]" value="Principal diagnosis"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='ListBox'][@Top]" value="299px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='ListBox'][@Left]" value="250px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='diagnosis' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='ListBox'][@HelpText]" value="Additional diagnosis"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='ListBox'][@Top]" value="339px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='ListBox'][@Left]" value="270px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='secondDiagnosis' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='ListBox'][@HelpText]" value="Referred"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='ListBox'][@Top]" value="373px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='ListBox'][@Left]" value="280px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page5']/Item[@Binding='referred' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-  &lt;/Form&gt;</layout>
-</versionText>
-</version>
-</form>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="6">
+  <xf:model>
+    <xf:instance id="generalopd">
+      <generalopd id="6" name="Outpatient Visit-">
+        <staffId/>
+        <facilityId/>
+        <formname/>
+        <date/>
+        <serialNumber/>
+        <motechId/>
+        <sex/>
+        <dateOfBirth/>
+        <insured/>
+        <newCase/>
+        <newPatient/>
+        <diagnosis/>
+        <otherdiagnosis/>
+        <secondDiagnosis/>
+        <othersecondarydiagnosis/>
+        <rdtGiven/>
+        <rdtPositive/>
+        <actTreated/>
+        <referred/>
+        <comments/>
+        <formtype>data_entry</formtype>
+      </generalopd>
+    </xf:instance>
+    <xf:bind id="staffId" nodeset="/generalopd/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/generalopd/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="formname" nodeset="/generalopd/formname" required="true()" type="xsd:string"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/generalopd/date" required="true()" type="xsd:date"/>
+    <xf:bind constraint=". &amp;gt;= 0 and . &amp;lt; 2147483647" id="serialNumber" message="Number too large or negative. Keep under 2147483647" nodeset="/generalopd/serialNumber" required="true()" type="xsd:int"/>
+    <xf:bind action="show" id="motechId" nodeset="/generalopd/motechId" relevant="/generalopd/formname = 'motheropd-jf' or /generalopd/formname = 'childopd-jf'" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long" required="true()"/>
+    <xf:bind action="show" id="sex" nodeset="/generalopd/sex" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dateOfBirth" message="Invalid date: date specified is in the future" nodeset="/generalopd/dateOfBirth" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:date" visible="false()"/>
+    <xf:bind id="insured" nodeset="/generalopd/insured" required="true()" type="xsd:string"/>
+    <xf:bind id="newCase" nodeset="/generalopd/newCase" required="true()" type="xsd:string"/>
+    <xf:bind id="newPatient" nodeset="/generalopd/newPatient" required="true()" type="xsd:string"/>
+    <xf:bind id="diagnosis" nodeset="/generalopd/diagnosis" required="true()" type="xsd:string"/>
+    <xf:bind action="show" constraint=". &amp;gt;= 1 and . &amp;lt;= 76" id="otherdiagnosis" message="Invalid diagnosis: value must be between 1 and 76" nodeset="/generalopd/otherdiagnosis" relevant="/generalopd/diagnosis = '78'" required="true()" type="xsd:int" visible="false()"/>
+    <xf:bind id="secondDiagnosis" nodeset="/generalopd/secondDiagnosis" type="xsd:string"/>
+    <xf:bind action="show" constraint=". &amp;gt;= 1 and . &amp;lt;= 76" id="othersecondarydiagnosis" message="Invalid diagnosis: value must be between 1 and 76" nodeset="/generalopd/othersecondarydiagnosis" relevant="/generalopd/secondDiagnosis = '78'" required="true()" type="xsd:int" visible="false()"/>
+    <xf:bind action="show" id="rdtGiven" nodeset="/generalopd/rdtGiven" relevant="/generalopd/diagnosis = '63' or /generalopd/diagnosis = '64' or /generalopd/diagnosis = '10' or /generalopd/diagnosis = '11' or /generalopd/diagnosis = '13' or /generalopd/diagnosis = '12' or /generalopd/secondDiagnosis = '63' or /generalopd/secondDiagnosis = '64' or /generalopd/secondDiagnosis = '10' or /generalopd/secondDiagnosis = '11' or /generalopd/secondDiagnosis = '13' or /generalopd/secondDiagnosis = '12'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="rdtPositive" nodeset="/generalopd/rdtPositive" relevant="/generalopd/rdtGiven = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="actTreated" nodeset="/generalopd/actTreated" relevant="/generalopd/diagnosis = '63' or /generalopd/diagnosis = '64' or /generalopd/secondDiagnosis = '63' or /generalopd/secondDiagnosis = '64'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="referred" nodeset="/generalopd/referred" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="comments" nodeset="/generalopd/comments" relevant="/generalopd/formname = 'motheropd-jf' or /generalopd/formname = 'childopd-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind id="formtype" nodeset="/generalopd/formtype" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page5</xf:label>
+    <xf:input bind="staffId">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityId">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="formname">
+      <xf:label>Type of client</xf:label>
+      <xf:item id="motheropd-jf">
+        <xf:label>Pregnant mother</xf:label>
+        <xf:value>motheropd-jf</xf:value>
+      </xf:item>
+      <xf:item id="childopd-jf">
+        <xf:label>Child  under 5 yrs</xf:label>
+        <xf:value>childopd-jf</xf:value>
+      </xf:item>
+      <xf:item id="generalopd-jf">
+        <xf:label>General Client</xf:label>
+        <xf:value>generalopd-jf</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="date">
+      <xf:label>Visit date</xf:label>
+    </xf:input>
+    <xf:input bind="serialNumber">
+      <xf:label>Serial number</xf:label>
+    </xf:input>
+    <xf:input bind="motechId">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="sex">
+      <xf:label>Sex</xf:label>
+      <xf:item id="M">
+        <xf:label>Male</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="F">
+        <xf:label>Female</xf:label>
+        <xf:value>F</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="dateOfBirth">
+      <xf:label>Date of birth</xf:label>
+    </xf:input>
+    <xf:select1 bind="insured">
+      <xf:label>Insured</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="newCase">
+      <xf:label>Case status</xf:label>
+      <xf:item id="Y">
+        <xf:label>New</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>Old</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="newPatient">
+      <xf:label>Client status</xf:label>
+      <xf:item id="Y">
+        <xf:label>New</xf:label>
+          <xf:value>Y</xf:value>
+          </xf:item>
+        <xf:item id="N">
+          <xf:label>Old</xf:label>
+          <xf:value>N</xf:value>
+        </xf:item>
+    </xf:select1>
+    <xf:select1 bind="diagnosis">
+      <xf:label>Principal diagnosis</xf:label>
+      <xf:item id="16">
+        <xf:label>Diarrhoea Diseases</xf:label>
+        <xf:value>16</xf:value>
+      </xf:item>
+      <xf:item id="63">
+        <xf:label>Malaria (Preg.) - Lab</xf:label>
+        <xf:value>63</xf:value>
+      </xf:item>
+      <xf:item id="64">
+        <xf:label>Malaria (Preg.) - Non-Lab</xf:label>
+        <xf:value>64</xf:value>
+      </xf:item>
+      <xf:item id="62">
+        <xf:label>Other ARI</xf:label>
+        <xf:value>62</xf:value>
+      </xf:item>
+      <xf:item id="61">
+        <xf:label>Pneumonia</xf:label>
+        <xf:value>61</xf:value>
+      </xf:item>
+      <xf:item id="10">
+        <xf:label>Simple malaria - Lab</xf:label>
+        <xf:value>10</xf:value>
+      </xf:item>
+      <xf:item id="11">
+        <xf:label>Simple malaria - Non-lab</xf:label>
+        <xf:value>11</xf:value>
+      </xf:item>
+      <xf:item id="13">
+        <xf:label>Severe malaria - Lab</xf:label>
+        <xf:value>13</xf:value>
+      </xf:item>
+      <xf:item id="12">
+        <xf:label>Severe malaria - Non-lab</xf:label>
+        <xf:value>12</xf:value>
+      </xf:item>
+      <xf:item id="65">
+        <xf:label>Skin Diseases &amp;amp; ulcers</xf:label>
+        <xf:value>65</xf:value>
+      </xf:item>
+      <xf:item id="78">
+        <xf:label>Other</xf:label>
+        <xf:value>78</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="otherdiagnosis">
+      <xf:label>Code for principal diagnosis</xf:label>
+    </xf:input>
+    <xf:select1 bind="secondDiagnosis">
+      <xf:label>Additional diagnosis</xf:label>
+      <xf:item id="16">
+        <xf:label>Diarrhoea Diseases</xf:label>
+        <xf:value>16</xf:value>
+      </xf:item>
+      <xf:item id="63">
+        <xf:label>Malaria (Preg.) - Lab</xf:label>
+        <xf:value>63</xf:value>
+      </xf:item>
+      <xf:item id="64">
+        <xf:label>Malaria (Preg.) - Non-Lab</xf:label>
+        <xf:value>64</xf:value>
+      </xf:item>
+      <xf:item id="62">
+        <xf:label>Other ARI</xf:label>
+        <xf:value>62</xf:value>
+      </xf:item>
+      <xf:item id="61">
+        <xf:label>Pneumonia</xf:label>
+        <xf:value>61</xf:value>
+      </xf:item>
+      <xf:item id="10">
+        <xf:label>Simple malaria - Lab</xf:label>
+        <xf:value>10</xf:value>
+      </xf:item>
+      <xf:item id="11">
+        <xf:label>Simple malaria - Non-lab</xf:label>
+        <xf:value>11</xf:value>
+      </xf:item>
+      <xf:item id="13">
+        <xf:label>Severe malaria - Lab</xf:label>
+        <xf:value>13</xf:value>
+      </xf:item>
+      <xf:item id="12">
+        <xf:label>Severe malaria - Non-lab</xf:label>
+        <xf:value>12</xf:value>
+      </xf:item>
+      <xf:item id="65">
+        <xf:label>Skin Diseases &amp;amp; ulcers</xf:label>
+        <xf:value>65</xf:value>
+      </xf:item>
+      <xf:item id="78">
+        <xf:label>Other</xf:label>
+        <xf:value>78</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="othersecondarydiagnosis">
+      <xf:label>Code for additional diagnosis</xf:label>
+    </xf:input>
+    <xf:select1 bind="rdtGiven">
+      <xf:label>RDT given</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="rdtPositive">
+      <xf:label>RDT result</xf:label>
+      <xf:item id="N">
+        <xf:label>Negative</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+      <xf:item id="Y">
+        <xf:label>Positive</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="actTreated">
+      <xf:label>ACT given?</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="referred">
+      <xf:label>Referred</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="comments">
+      <xf:label>Comments</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

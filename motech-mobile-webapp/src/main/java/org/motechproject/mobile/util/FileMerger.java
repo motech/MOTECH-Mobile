@@ -60,9 +60,7 @@ public class FileMerger {
         return builder.toString();
     }
 
-    private static List<String> getFileList
-            (String
-                    directorySource) {
+    public static List<String> getFileList(String  directorySource) {
         File directory = new File(directorySource);
 
         if (!directory.exists())

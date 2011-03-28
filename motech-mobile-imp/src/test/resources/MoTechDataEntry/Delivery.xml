@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="78">
+  <xf:model>
+    <xf:instance id="delivery">
+      <delivery id="78" name="Delivery-v1">
+        <chpsid/>
+        <facilityid/>
+        <visitdate/>
+        <motechid/>
+        <dod/>
+        <mod/>
+        <ood/>
+        <location/>
+        <deliveredby/>
+        <maternaldeath/>
+        <cause/>
+        <c1birthoutcome/>
+        <c1motechid/>
+        <c1sex/>
+        <c1name/>
+        <c1opv/>
+        <c1bcg/>
+        <c2birthoutcome/>
+        <c2sex/>
+        <c2motechid/>
+        <c2name/>
+        <c2opv/>
+        <c2bcg/>
+        <c3birthoutcome/>
+        <c3sex/>
+        <c3motechid/>
+        <c3name/>
+        <c3opv/>
+        <c3bcg/>
+        <formtype>data_entry</formtype>
+        <formname>delivery</formname>
+      </delivery>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/delivery/chpsid" required="true()" type="xsd:int"/>
+    <xf:bind id="facilityid" nodeset="/delivery/facilityid" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="visitdate" message="Invalid date: date specified is in the future" nodeset="/delivery/visitdate" required="true()" type="xsd:date"/>
+    <xf:bind id="motechid" nodeset="/delivery/motechid" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="dod" message="Invalid date: date specified is in the future" nodeset="/delivery/dod" required="true()" type="xsd:date"/>
+    <xf:bind id="mod" nodeset="/delivery/mod" required="true()" type="xsd:string"/>
+    <xf:bind id="ood" nodeset="/delivery/ood" required="true()" type="xsd:string"/>
+    <xf:bind id="location" nodeset="/delivery/location" required="true()" type="xsd:string"/>
+    <xf:bind id="deliveredby" nodeset="/delivery/deliveredby" required="true()" type="xsd:string"/>
+    <xf:bind id="maternaldeath" nodeset="/delivery/maternaldeath" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="cause" nodeset="/delivery/cause" relevant="/delivery/maternaldeath = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="c1birthoutcome" nodeset="/delivery/c1birthoutcome" required="true()" type="xsd:string"/>
+    <xf:bind id="c1motechid" nodeset="/delivery/c1motechid" required="true()" type="xsd:int"/>
+    <xf:bind id="c1sex" nodeset="/delivery/c1sex" required="true()" type="xsd:string"/>
+    <xf:bind id="c1name" nodeset="/delivery/c1name" required="true()" type="xsd:string"/>
+    <xf:bind id="c1opv" nodeset="/delivery/c1opv" required="true()" type="xsd:string"/>
+    <xf:bind id="c1bcg" nodeset="/delivery/c1bcg" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="c2birthoutcome" nodeset="/delivery/c2birthoutcome" relevant="/delivery/ood = '2' or /delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c2sex" nodeset="/delivery/c2sex" relevant="/delivery/ood = '2' or /delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c2motechid" nodeset="/delivery/c2motechid" relevant="/delivery/ood = '2' or /delivery/ood = '3'" required="true()" type="xsd:int" visible="false()"/>
+    <xf:bind action="show" id="c2name" nodeset="/delivery/c2name" relevant="/delivery/ood = '2' or /delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c2opv" nodeset="/delivery/c2opv" relevant="/delivery/ood = '2' or /delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c2bcg" nodeset="/delivery/c2bcg" relevant="/delivery/ood = '2' or /delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c3birthoutcome" nodeset="/delivery/c3birthoutcome" relevant="/delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c3sex" nodeset="/delivery/c3sex" relevant="/delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c3motechid" nodeset="/delivery/c3motechid" relevant="/delivery/ood = '3'" required="true()" type="xsd:int" visible="false()"/>
+    <xf:bind action="show" id="c3name" nodeset="/delivery/c3name" relevant="/delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c3opv" nodeset="/delivery/c3opv" relevant="/delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="c3bcg" nodeset="/delivery/c3bcg" relevant="/delivery/ood = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formtype" nodeset="/delivery/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/delivery/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page1</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="visitdate">
+      <xf:label>Visit date</xf:label>
+    </xf:input>
+    <xf:input bind="motechid">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="dod">
+      <xf:label>Date of delivery</xf:label>
+    </xf:input>
+    <xf:select1 bind="mod">
+      <xf:label>Mode of delivery</xf:label>
+      <xf:item id="1">
+        <xf:label>NVD</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>CS</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>NVD and CS</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>Instruments or Vacuum</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="ood">
+      <xf:label>Outcome of delivery</xf:label>
+      <xf:item id="1">
+        <xf:label>Singleton</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Twins</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Triplets</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="location">
+      <xf:label>Location</xf:label>
+      <xf:item id="1">
+        <xf:label>Health center or hospital</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Community health clinic</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Home</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="deliveredby">
+      <xf:label>Delivered by</xf:label>
+      <xf:item id="D">
+        <xf:label>Doctor</xf:label>
+        <xf:value>D</xf:value>
+      </xf:item>
+      <xf:item id="M">
+        <xf:label>Midwife</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="CHO">
+        <xf:label>Community Health Officer</xf:label>
+        <xf:value>CHO</xf:value>
+      </xf:item>
+      <xf:item id="TTBA">
+        <xf:label>Trained TBA</xf:label>
+        <xf:value>TTBA</xf:value>
+      </xf:item>
+      <xf:item id="UTBA">
+        <xf:label>Untrained TBA</xf:label>
+        <xf:value>UTBA</xf:value>
+      </xf:item>
+      <xf:item id="O">
+        <xf:label>Other</xf:label>
+        <xf:value>O</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="maternaldeath">
+      <xf:label>Maternal death</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="cause">
+      <xf:label>Cause of Death</xf:label>
+      <xf:item id="1">
+        <xf:label>Eclampsia</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Puerperal infection/sepsis</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>PPH (total blood above 500ml)</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>Ruptured Uterus</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+      <xf:item id="5">
+        <xf:label>Cardiac Arrest</xf:label>
+        <xf:value>5</xf:value>
+      </xf:item>
+      <xf:item id="6">
+        <xf:label>Other</xf:label>
+        <xf:value>6</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="c1birthoutcome">
+      <xf:label>Child 1 birth outcome</xf:label>
+      <xf:item id="A">
+        <xf:label>Alive</xf:label>
+        <xf:value>A</xf:value>
+      </xf:item>
+      <xf:item id="FSB">
+        <xf:label>Fresh Still Birth</xf:label>
+        <xf:value>FSB</xf:value>
+      </xf:item>
+      <xf:item id="MSB">
+        <xf:label>Macerated Still Birth</xf:label>
+        <xf:value>MSB</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="c1motechid">
+      <xf:label>Child 1 MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="c1sex">
+      <xf:label>Child 1 gender</xf:label>
+      <xf:item id="M">
+        <xf:label>Male</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="F">
+        <xf:label>Female</xf:label>
+        <xf:value>F</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="c1name">
+      <xf:label>Child 1 name</xf:label>
+    </xf:input>
+    <xf:select1 bind="c1opv">
+      <xf:label>Child 1 OPV</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="c1bcg">
+      <xf:label>Child 1 BCG</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="c2birthoutcome">
+      <xf:label>Child 2 birth outcome</xf:label>
+      <xf:item id="A">
+        <xf:label>Alive</xf:label>
+        <xf:value>A</xf:value>
+      </xf:item>
+      <xf:item id="FSB">
+        <xf:label>Fresh Still Birth</xf:label>
+        <xf:value>FSB</xf:value>
+      </xf:item>
+      <xf:item id="MSB">
+        <xf:label>Macerated Still Birth</xf:label>
+        <xf:value>MSB</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="c2sex">
+      <xf:label>Child 2 sex</xf:label>
+      <xf:item id="M">
+        <xf:label>Male</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="F">
+        <xf:label>Female</xf:label>
+        <xf:value>F</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="c2motechid">
+      <xf:label>Child 2 MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="c2name">
+      <xf:label>Child 2 name</xf:label>
+    </xf:input>
+    <xf:select1 bind="c2opv">
+      <xf:label>Child 2 OPV</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="c2bcg">
+      <xf:label>Child 2 BCG</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="c3birthoutcome">
+      <xf:label>Child 3 birth outcome</xf:label>
+      <xf:item id="A">
+        <xf:label>Alive</xf:label>
+        <xf:value>A</xf:value>
+      </xf:item>
+      <xf:item id="FSB">
+        <xf:label>Fresh Still Birth</xf:label>
+        <xf:value>FSB</xf:value>
+      </xf:item>
+      <xf:item id="MSB">
+        <xf:label>Macerated Still Birth</xf:label>
+        <xf:value>MSB</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="c3sex">
+      <xf:label>Child 3 sex</xf:label>
+      <xf:item id="M">
+        <xf:label>Male</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="F">
+        <xf:label>Female</xf:label>
+        <xf:value>F</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="c3motechid">
+      <xf:label>Child 3 MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="c3name">
+      <xf:label>Child 3 name</xf:label>
+    </xf:input>
+    <xf:select1 bind="c3opv">
+      <xf:label>Child 3 OPV</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="c3bcg">
+      <xf:label>Child 3 BCG</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

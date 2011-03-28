@@ -183,26 +183,26 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1</version>
-                <executions>
-                    <execution>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>org.motechproject.mobile.util.FileMerger</mainClass>
-                    <arguments>
-                        <argument>${project.build.directory}/classes/oxd-form-defs/NurseDataEntry</argument>
-                        <argument>${project.build.directory}/classes/oxd-form-defs/NurseDataEntry.xml</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>exec-maven-plugin</artifactId>-->
+                <!--<version>1.1</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>test-compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>java</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<mainClass>org.motechproject.mobile.util.FileMerger</mainClass>-->
+                    <!--<arguments>-->
+                        <!--<argument>${project.build.directory}/classes/oxd-form-defs/NurseDataEntry</argument>-->
+                        <!--<argument>${project.build.directory}/classes/oxd-form-defs/NurseDataEntry.xml</argument>-->
+                    <!--</arguments>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
 
 
         </plugins>

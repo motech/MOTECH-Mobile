@@ -1,82 +1,42 @@
-<form description="" name="Client Death">
-<version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;xf:model&gt;
-    &lt;xf:instance id="death"&gt;
-      &lt;death id="7" name="Client Death"&gt;
-        &lt;staffId/&gt;
-        &lt;facilityId/&gt;
-        &lt;date/&gt;
-        &lt;motechId/&gt;
-        &lt;formtype&gt;data_entry&lt;/formtype&gt;
-        &lt;formname&gt;death-jf&lt;/formname&gt;
-      &lt;/death&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:bind id="staffId" nodeset="/death/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="facilityId" nodeset="/death/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/death/date" required="true()" type="xsd:date"/&gt;
-    &lt;xf:bind id="motechId" nodeset="/death/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/death/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/death/formname" required="true()" type="xsd:string" visible="false()"/&gt;
-  &lt;/xf:model&gt;
-  &lt;xf:group id="1"&gt;
-    &lt;xf:label&gt;Page3&lt;/xf:label&gt;
-    &lt;xf:input bind="staffId"&gt;
-      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="facilityId"&gt;
-      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="date"&gt;
-      &lt;xf:label&gt;Date of death&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="motechId"&gt;
-      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formtype"&gt;
-      &lt;xf:label&gt;formType&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formname"&gt;
-      &lt;xf:label&gt;formName&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-  &lt;/xf:group&gt;
-&lt;/xf:xforms&gt;
-</xform>
-<layout>&lt;Form id="7"&gt;
-  &lt;Page Text="Page3" Binding="Page3" Width="100%" Height="276px" backgroundColor=""&gt;
-    &lt;Item WidgetType="Label" Text="Enter your CHPS ID" HelpText="Staff ID" Binding="staffId" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="200px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Enter Client's MoTeCH ID" HelpText="MoTeCH ID" Binding="motechId" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechId" Left="270px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Date of Death" HelpText="Date of death" Binding="date" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Date of death" Binding="date" Left="150px" Top="100px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Cause of death" HelpText="Cause of death" Binding="cause" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Cause of death" Binding="cause" Left="160px" Top="140px" Width="200px" Height="25px" TabIndex="4" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="100px" Top="180px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="230px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="230px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-  &lt;/Page&gt;
-&lt;/Form&gt;</layout>
-<versionText locale="en">
-<xform>&lt;xform id="7"&gt;
-    &lt;text xpath="xforms/model/instance/death[@name]" value="Client Death"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/label" value="Page3"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Date of death"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='staffId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-  &lt;/xform&gt;</xform>
-<layout>&lt;Form id="7"&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
-  &lt;/Form&gt;</layout>
-</versionText>
-</version>
-</form>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="7">
+  <xf:model>
+    <xf:instance id="death">
+      <death id="7" name="Client Death">
+        <staffId/>
+        <facilityId/>
+        <date/>
+        <motechId/>
+        <formtype>data_entry</formtype>
+        <formname>death-jf</formname>
+      </death>
+    </xf:instance>
+    <xf:bind id="staffId" nodeset="/death/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/death/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/death/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/death/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="formtype" nodeset="/death/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/death/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page3</xf:label>
+    <xf:input bind="staffId">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityId">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Date of death</xf:label>
+    </xf:input>
+    <xf:input bind="motechId">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

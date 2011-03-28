@@ -1,356 +1,248 @@
-<form description="" name="Reg-CWC">
-<version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;xf:model&gt;
-    &lt;xf:instance id="CWCRegistration"&gt;
-      &lt;CWCRegistration id="12" name="Reg-CWC"&gt;
-        &lt;staffId/&gt;
-        &lt;facilityId/&gt;
-        &lt;date/&gt;
-        &lt;motechId/&gt;
-        &lt;cwcRegNumber/&gt;
-        &lt;enroll/&gt;
-        &lt;consent/&gt;
-        &lt;ownership/&gt;
-        &lt;phoneNumber/&gt;
-        &lt;format/&gt;
-        &lt;language/&gt;
-        &lt;dayOfWeek/&gt;
-        &lt;timeOfDay/&gt;
-        &lt;howLearned/&gt;
-        &lt;formtype&gt;data_entry&lt;/formtype&gt;
-        &lt;formname&gt;registerCWCChild-jf&lt;/formname&gt;
-      &lt;/CWCRegistration&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:instance id="format"&gt;
-      &lt;dynamiclist&gt;
-        &lt;item id="PERS_VOICE" parent="PERSONAL"&gt;
-          &lt;label&gt;Voice&lt;/label&gt;
-          &lt;value&gt;PERS_VOICE&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="PERS_TEXT" parent="PERSONAL"&gt;
-          &lt;label&gt;SMS&lt;/label&gt;
-          &lt;value&gt;PERS_TEXT&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="HSE_VOICE" parent="HOUSEHOLD"&gt;
-          &lt;label&gt;Voice&lt;/label&gt;
-          &lt;value&gt;HSE_VOICE&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="HSE_TEXT" parent="HOUSEHOLD"&gt;
-          &lt;label&gt;SMS&lt;/label&gt;
-          &lt;value&gt;HSE_TEXT&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="PUB_VOICE" parent="PUBLIC"&gt;
-          &lt;label&gt;Voice&lt;/label&gt;
-          &lt;value&gt;PUB_VOICE&lt;/value&gt;
-        &lt;/item&gt;
-      &lt;/dynamiclist&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:instance id="language"&gt;
-      &lt;dynamiclist&gt;
-        &lt;item id="en" parent="PERS_VOICE"&gt;
-          &lt;label&gt;English&lt;/label&gt;
-          &lt;value&gt;en&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="kas" parent="PERS_VOICE"&gt;
-          &lt;label&gt;Kassim&lt;/label&gt;
-          &lt;value&gt;kas&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="nan" parent="PERS_VOICE"&gt;
-          &lt;label&gt;Nankam&lt;/label&gt;
-          &lt;value&gt;nan&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="en" parent="PERS_TEXT"&gt;
-          &lt;label&gt;English&lt;/label&gt;
-          &lt;value&gt;en&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="en" parent="HSE_VOICE"&gt;
-          &lt;label&gt;English&lt;/label&gt;
-          &lt;value&gt;en&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="kas" parent="HSE_VOICE"&gt;
-          &lt;label&gt;Kassim&lt;/label&gt;
-          &lt;value&gt;kas&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="nan" parent="HSE_VOICE"&gt;
-          &lt;label&gt;Nankam&lt;/label&gt;
-          &lt;value&gt;nan&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="en" parent="HSE_TEXT"&gt;
-          &lt;label&gt;English&lt;/label&gt;
-          &lt;value&gt;en&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="en" parent="PUB_VOICE"&gt;
-          &lt;label&gt;English&lt;/label&gt;
-          &lt;value&gt;en&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="kas" parent="PUB_VOICE"&gt;
-          &lt;label&gt;Kassim&lt;/label&gt;
-          &lt;value&gt;kas&lt;/value&gt;
-        &lt;/item&gt;
-        &lt;item id="nan" parent="PUB_VOICE"&gt;
-          &lt;label&gt;Nankam&lt;/label&gt;
-          &lt;value&gt;nan&lt;/value&gt;
-        &lt;/item&gt;
-      &lt;/dynamiclist&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:bind id="staffId" nodeset="/CWCRegistration/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="facilityId" nodeset="/CWCRegistration/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date entered is in the future" nodeset="/CWCRegistration/date" required="true()" type="xsd:date"/&gt;
-    &lt;xf:bind id="motechId" nodeset="/CWCRegistration/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind id="cwcRegNumber" nodeset="/CWCRegistration/cwcRegNumber" type="xsd:string"/&gt;
-    &lt;xf:bind id="enroll" nodeset="/CWCRegistration/enroll" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="consent" nodeset="/CWCRegistration/consent" relevant="/CWCRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="ownership" nodeset="/CWCRegistration/ownership" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="phoneNumber" nodeset="/CWCRegistration/phoneNumber" relevant="/CWCRegistration/ownership = 'PERSONAL' or /CWCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind action="show" id="format" nodeset="/CWCRegistration/format" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="language" nodeset="/CWCRegistration/language" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="dayOfWeek" nodeset="/CWCRegistration/dayOfWeek" relevant="/CWCRegistration/format = 'PERS_VOICE' or /CWCRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="timeOfDay" nodeset="/CWCRegistration/timeOfDay" relevant="/CWCRegistration/format = 'PERS_VOICE' or /CWCRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:time" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="howLearned" nodeset="/CWCRegistration/howLearned" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/CWCRegistration/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/CWCRegistration/formname" required="true()" type="xsd:string" visible="false()"/&gt;
-  &lt;/xf:model&gt;
-  &lt;xf:group id="1"&gt;
-    &lt;xf:label&gt;Page2&lt;/xf:label&gt;
-    &lt;xf:input bind="staffId"&gt;
-      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="facilityId"&gt;
-      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="date"&gt;
-      &lt;xf:label&gt;Reg. date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="motechId"&gt;
-      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="cwcRegNumber"&gt;
-      &lt;xf:label&gt;CWC Reg No&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="enroll"&gt;
-      &lt;xf:label&gt;Join Mobile Midwife?&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="consent"&gt;
-      &lt;xf:label&gt;Consent?&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="ownership"&gt;
-      &lt;xf:label&gt;Phone ownership&lt;/xf:label&gt;
-      &lt;xf:item id="PERSONAL"&gt;
-        &lt;xf:label&gt;Personal phone&lt;/xf:label&gt;
-        &lt;xf:value&gt;PERSONAL&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="HOUSEHOLD"&gt;
-        &lt;xf:label&gt;Household phone&lt;/xf:label&gt;
-        &lt;xf:value&gt;HOUSEHOLD&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="PUBLIC"&gt;
-        &lt;xf:label&gt;Public phone&lt;/xf:label&gt;
-        &lt;xf:value&gt;PUBLIC&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="phoneNumber"&gt;
-      &lt;xf:label&gt;Phone number&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="format"&gt;
-      &lt;xf:label&gt;Message format&lt;/xf:label&gt;
-      &lt;xf:itemset nodeset="instance('format')/item[@parent=instance('CWCRegistration')/ownership]"&gt;
-        &lt;xf:label ref="label"/&gt;
-        &lt;xf:value ref="value"/&gt;
-      &lt;/xf:itemset&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="language"&gt;
-      &lt;xf:label&gt;Message language&lt;/xf:label&gt;
-      &lt;xf:itemset nodeset="instance('language')/item[@parent=instance('CWCRegistration')/format]"&gt;
-        &lt;xf:label ref="label"/&gt;
-        &lt;xf:value ref="value"/&gt;
-      &lt;/xf:itemset&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="dayOfWeek"&gt;
-      &lt;xf:label&gt;Day of week to receive messages&lt;/xf:label&gt;
-      &lt;xf:item id="monday"&gt;
-        &lt;xf:label&gt;Monday&lt;/xf:label&gt;
-        &lt;xf:value&gt;monday&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="tuesday"&gt;
-        &lt;xf:label&gt;Tuesday&lt;/xf:label&gt;
-        &lt;xf:value&gt;tuesday&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="wednesday"&gt;
-        &lt;xf:label&gt;Wednesday&lt;/xf:label&gt;
-        &lt;xf:value&gt;wednesday&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="thursday"&gt;
-        &lt;xf:label&gt;Thursday&lt;/xf:label&gt;
-        &lt;xf:value&gt;thursday&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="friday"&gt;
-        &lt;xf:label&gt;Friday&lt;/xf:label&gt;
-        &lt;xf:value&gt;friday&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="saturday"&gt;
-        &lt;xf:label&gt;Saturday&lt;/xf:label&gt;
-        &lt;xf:value&gt;saturday&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="sunday"&gt;
-        &lt;xf:label&gt;Sunday&lt;/xf:label&gt;
-        &lt;xf:value&gt;sunday&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="timeOfDay"&gt;
-      &lt;xf:label&gt;Time of day to receive messages&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="howLearned"&gt;
-      &lt;xf:label&gt;How learned of Mobile Midwife&lt;/xf:label&gt;
-      &lt;xf:item id="GHS_NURSE"&gt;
-        &lt;xf:label&gt;GHS Nurse&lt;/xf:label&gt;
-        &lt;xf:value&gt;GHS_NURSE&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="MOTECH_FIELD_AGENT"&gt;
-        &lt;xf:label&gt;MoTeCH field agent&lt;/xf:label&gt;
-        &lt;xf:value&gt;MOTECH_FIELD_AGENT&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="FRIEND"&gt;
-        &lt;xf:label&gt;Friend&lt;/xf:label&gt;
-        &lt;xf:value&gt;FRIEND&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="POSTERS_ADS"&gt;
-        &lt;xf:label&gt;Posters/ads&lt;/xf:label&gt;
-        &lt;xf:value&gt;POSTERS_ADS&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="RADIO"&gt;
-        &lt;xf:label&gt;Radio&lt;/xf:label&gt;
-        &lt;xf:value&gt;RADIO&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="formtype"&gt;
-      &lt;xf:label&gt;formType&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formname"&gt;
-      &lt;xf:label&gt;formName&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-  &lt;/xf:group&gt;
-&lt;/xf:xforms&gt;
-</xform>
-<layout>&lt;Form id="12"&gt;
-  &lt;Page Text="Page2" Binding="Page2" Width="100%" Height="867px" backgroundColor=""&gt;
-    &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="staffId" Left="191px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="248px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Facility ID" HelpText="Facility ID" Binding="facilityId" Left="177px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Facility ID" Binding="facilityId" Left="248px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Reg. date" HelpText="Reg. date" Binding="date" Left="179px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Reg. date" Binding="date" Left="248px" Top="100px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="MoTeCH ID" HelpText="MoTeCH ID" Binding="motechId" Left="170px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechId" Left="248px" Top="140px" Width="200px" Height="25px" TabIndex="4" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="CWC Reg No" HelpText="CWC Reg No" Binding="cwcRegNumber" Left="161px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="CWC Reg No" Binding="cwcRegNumber" Left="248px" Top="180px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Join Mobile Midwife?" HelpText="Join Mobile Midwife?" Binding="enroll" Left="111px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Join Mobile Midwife?" Binding="enroll" Left="248px" Top="220px" Width="200px" Height="25px" TabIndex="6" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Consent?" HelpText="Consent?" Binding="consent" Left="182px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Consent?" Binding="consent" Left="248px" Top="260px" Width="200px" Height="25px" TabIndex="7" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Phone ownership" HelpText="Phone ownership" Binding="ownership" Left="132px" Top="300px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Phone ownership" Binding="ownership" Left="248px" Top="300px" Width="200px" Height="25px" TabIndex="8" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Phone number" HelpText="Phone number" Binding="phoneNumber" Left="150px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Phone number" Binding="phoneNumber" Left="248px" Top="340px" Width="200px" Height="25px" TabIndex="9" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Message format" HelpText="Message format" Binding="format" Left="138px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Message format" Binding="format" Left="248px" Top="380px" Width="200px" Height="25px" TabIndex="10" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Message language" HelpText="Message language" Binding="language" Left="122px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Message language" Binding="language" Left="248px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Day of week to receive messages" HelpText="Day of week to receive messages" Binding="dayOfWeek" Left="20px" Top="460px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Day of week to receive messages" Binding="dayOfWeek" Left="248px" Top="460px" Width="200px" Height="25px" TabIndex="12" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Time of day to receive messages" HelpText="Time of day to receive messages" Binding="timeOfDay" Left="24px" Top="500px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Time of day to receive messages" Binding="timeOfDay" Left="248px" Top="500px" Width="200px" Height="25px" TabIndex="13" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="How learned of Mobile Midwife" HelpText="How learned of Mobile Midwife" Binding="howLearned" Left="44px" Top="540px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="How learned of Mobile Midwife" Binding="howLearned" Left="248px" Top="540px" Width="200px" Height="25px" TabIndex="14" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="181px" Top="580px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="248px" Top="580px" Width="200px" Height="25px" TabIndex="15" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formName" HelpText="formName" Binding="formname" Left="178px" Top="620px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formName" Binding="formname" Left="248px" Top="620px" Width="200px" Height="25px" TabIndex="16" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="670px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="670px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-  &lt;/Page&gt;
-&lt;/Form&gt;</layout>
-<versionText locale="en">
-<xform>&lt;xform id="12"&gt;
-    &lt;text xpath="xforms/model/instance/CWCRegistration[@name]" value="Reg-CWC"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/label" value="Page2"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Reg. date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='cwcRegNumber']/label" value="CWC Reg No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='enroll']/label" value="Join Mobile Midwife?"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='enroll']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='enroll']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='consent']/label" value="Consent?"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='consent']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='consent']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/label" value="Phone ownership"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PERSONAL']/label" value="Personal phone"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='HOUSEHOLD']/label" value="Household phone"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PUBLIC']/label" value="Public phone"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='phoneNumber']/label" value="Phone number"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='format']/label" value="Message format"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='language']/label" value="Message language"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/label" value="Day of week to receive messages"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/item[@id='monday']/label" value="Monday"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/item[@id='tuesday']/label" value="Tuesday"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/item[@id='wednesday']/label" value="Wednesday"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/item[@id='thursday']/label" value="Thursday"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/item[@id='friday']/label" value="Friday"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/item[@id='saturday']/label" value="Saturday"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dayOfWeek']/item[@id='sunday']/label" value="Sunday"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='timeOfDay']/label" value="Time of day to receive messages"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='howLearned']/label" value="How learned of Mobile Midwife"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='howLearned']/item[@id='GHS_NURSE']/label" value="GHS Nurse"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='howLearned']/item[@id='MOTECH_FIELD_AGENT']/label" value="MoTeCH field agent"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='howLearned']/item[@id='FRIEND']/label" value="Friend"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='howLearned']/item[@id='POSTERS_ADS']/label" value="Posters/ads"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='howLearned']/item[@id='RADIO']/label" value="Radio"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='staffId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date entered is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='phoneNumber'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='PERS_VOICE']/label" value="Voice"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='PERS_TEXT']/label" value="SMS"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='HSE_VOICE']/label" value="Voice"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='HSE_TEXT']/label" value="SMS"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='format']/dynamiclist/item[@id='PUB_VOICE']/label" value="Voice"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='en']/label" value="English"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='kas']/label" value="Kassim"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='nan']/label" value="Nankam"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='en']/label" value="English"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='en']/label" value="English"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='kas']/label" value="Kassim"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='nan']/label" value="Nankam"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='en']/label" value="English"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='en']/label" value="English"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='kas']/label" value="Kassim"/&gt;
-    &lt;text xpath="xforms/model/instance[@id='language']/dynamiclist/item[@id='nan']/label" value="Nankam"/&gt;
-  &lt;/xform&gt;</xform>
-<layout>&lt;Form id="12"&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
-  &lt;/Form&gt;</layout>
-</versionText>
-</version>
-</form>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="12">
+  <xf:model>
+    <xf:instance id="CWCRegistration">
+      <CWCRegistration id="12" name="Reg-CWC">
+        <staffId/>
+        <facilityId/>
+        <date/>
+        <motechId/>
+        <cwcRegNumber/>
+        <enroll/>
+        <consent/>
+        <ownership/>
+        <phoneNumber/>
+        <format/>
+        <language/>
+        <dayOfWeek/>
+        <timeOfDay/>
+        <howLearned/>
+        <formtype>data_entry</formtype>
+        <formname>registerCWCChild-jf</formname>
+      </CWCRegistration>
+    </xf:instance>
+    <xf:instance id="format">
+      <dynamiclist>
+        <item id="PERS_VOICE" parent="PERSONAL">
+          <label>Voice</label>
+          <value>PERS_VOICE</value>
+        </item>
+        <item id="PERS_TEXT" parent="PERSONAL">
+          <label>SMS</label>
+          <value>PERS_TEXT</value>
+        </item>
+        <item id="HSE_VOICE" parent="HOUSEHOLD">
+          <label>Voice</label>
+          <value>HSE_VOICE</value>
+        </item>
+        <item id="HSE_TEXT" parent="HOUSEHOLD">
+          <label>SMS</label>
+          <value>HSE_TEXT</value>
+        </item>
+        <item id="PUB_VOICE" parent="PUBLIC">
+          <label>Voice</label>
+          <value>PUB_VOICE</value>
+        </item>
+      </dynamiclist>
+    </xf:instance>
+    <xf:instance id="language">
+      <dynamiclist>
+        <item id="en" parent="PERS_VOICE">
+          <label>English</label>
+          <value>en</value>
+        </item>
+        <item id="kas" parent="PERS_VOICE">
+          <label>Kassim</label>
+          <value>kas</value>
+        </item>
+        <item id="nan" parent="PERS_VOICE">
+          <label>Nankam</label>
+          <value>nan</value>
+        </item>
+        <item id="en" parent="PERS_TEXT">
+          <label>English</label>
+          <value>en</value>
+        </item>
+        <item id="en" parent="HSE_VOICE">
+          <label>English</label>
+          <value>en</value>
+        </item>
+        <item id="kas" parent="HSE_VOICE">
+          <label>Kassim</label>
+          <value>kas</value>
+        </item>
+        <item id="nan" parent="HSE_VOICE">
+          <label>Nankam</label>
+          <value>nan</value>
+        </item>
+        <item id="en" parent="HSE_TEXT">
+          <label>English</label>
+          <value>en</value>
+        </item>
+        <item id="en" parent="PUB_VOICE">
+          <label>English</label>
+          <value>en</value>
+        </item>
+        <item id="kas" parent="PUB_VOICE">
+          <label>Kassim</label>
+          <value>kas</value>
+        </item>
+        <item id="nan" parent="PUB_VOICE">
+          <label>Nankam</label>
+          <value>nan</value>
+        </item>
+      </dynamiclist>
+    </xf:instance>
+    <xf:bind id="staffId" nodeset="/CWCRegistration/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/CWCRegistration/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date entered is in the future" nodeset="/CWCRegistration/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/CWCRegistration/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="cwcRegNumber" nodeset="/CWCRegistration/cwcRegNumber" type="xsd:string"/>
+    <xf:bind id="enroll" nodeset="/CWCRegistration/enroll" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="consent" nodeset="/CWCRegistration/consent" relevant="/CWCRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="ownership" nodeset="/CWCRegistration/ownership" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="phoneNumber" nodeset="/CWCRegistration/phoneNumber" relevant="/CWCRegistration/ownership = 'PERSONAL' or /CWCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind action="show" id="format" nodeset="/CWCRegistration/format" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="language" nodeset="/CWCRegistration/language" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="dayOfWeek" nodeset="/CWCRegistration/dayOfWeek" relevant="/CWCRegistration/format = 'PERS_VOICE' or /CWCRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="timeOfDay" nodeset="/CWCRegistration/timeOfDay" relevant="/CWCRegistration/format = 'PERS_VOICE' or /CWCRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:time" visible="false()"/>
+    <xf:bind action="show" id="howLearned" nodeset="/CWCRegistration/howLearned" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formtype" nodeset="/CWCRegistration/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/CWCRegistration/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page2</xf:label>
+    <xf:input bind="staffId">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityId">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Reg. date</xf:label>
+    </xf:input>
+    <xf:input bind="motechId">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="cwcRegNumber">
+      <xf:label>CWC Reg No</xf:label>
+    </xf:input>
+    <xf:select1 bind="enroll">
+      <xf:label>Join Mobile Midwife?</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="consent">
+      <xf:label>Consent?</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="ownership">
+      <xf:label>Phone ownership</xf:label>
+      <xf:item id="PERSONAL">
+        <xf:label>Personal phone</xf:label>
+        <xf:value>PERSONAL</xf:value>
+      </xf:item>
+      <xf:item id="HOUSEHOLD">
+        <xf:label>Household phone</xf:label>
+        <xf:value>HOUSEHOLD</xf:value>
+      </xf:item>
+      <xf:item id="PUBLIC">
+        <xf:label>Public phone</xf:label>
+        <xf:value>PUBLIC</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="phoneNumber">
+      <xf:label>Phone number</xf:label>
+    </xf:input>
+    <xf:select1 bind="format">
+      <xf:label>Message format</xf:label>
+      <xf:itemset nodeset="instance('format')/item[@parent=instance('CWCRegistration')/ownership]">
+        <xf:label ref="label"/>
+        <xf:value ref="value"/>
+      </xf:itemset>
+    </xf:select1>
+    <xf:select1 bind="language">
+      <xf:label>Message language</xf:label>
+      <xf:itemset nodeset="instance('language')/item[@parent=instance('CWCRegistration')/format]">
+        <xf:label ref="label"/>
+        <xf:value ref="value"/>
+      </xf:itemset>
+    </xf:select1>
+    <xf:select1 bind="dayOfWeek">
+      <xf:label>Day of week to receive messages</xf:label>
+      <xf:item id="monday">
+        <xf:label>Monday</xf:label>
+        <xf:value>monday</xf:value>
+      </xf:item>
+      <xf:item id="tuesday">
+        <xf:label>Tuesday</xf:label>
+        <xf:value>tuesday</xf:value>
+      </xf:item>
+      <xf:item id="wednesday">
+        <xf:label>Wednesday</xf:label>
+        <xf:value>wednesday</xf:value>
+      </xf:item>
+      <xf:item id="thursday">
+        <xf:label>Thursday</xf:label>
+        <xf:value>thursday</xf:value>
+      </xf:item>
+      <xf:item id="friday">
+        <xf:label>Friday</xf:label>
+        <xf:value>friday</xf:value>
+      </xf:item>
+      <xf:item id="saturday">
+        <xf:label>Saturday</xf:label>
+        <xf:value>saturday</xf:value>
+      </xf:item>
+      <xf:item id="sunday">
+        <xf:label>Sunday</xf:label>
+        <xf:value>sunday</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="timeOfDay">
+      <xf:label>Time of day to receive messages</xf:label>
+    </xf:input>
+    <xf:select1 bind="howLearned">
+      <xf:label>How learned of Mobile Midwife</xf:label>
+      <xf:item id="GHS_NURSE">
+        <xf:label>GHS Nurse</xf:label>
+        <xf:value>GHS_NURSE</xf:value>
+      </xf:item>
+      <xf:item id="MOTECH_FIELD_AGENT">
+        <xf:label>MoTeCH field agent</xf:label>
+        <xf:value>MOTECH_FIELD_AGENT</xf:value>
+      </xf:item>
+      <xf:item id="FRIEND">
+        <xf:label>Friend</xf:label>
+        <xf:value>FRIEND</xf:value>
+      </xf:item>
+      <xf:item id="POSTERS_ADS">
+        <xf:label>Posters/ads</xf:label>
+        <xf:value>POSTERS_ADS</xf:value>
+      </xf:item>
+      <xf:item id="RADIO">
+        <xf:label>Radio</xf:label>
+        <xf:value>RADIO</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="79">
+  <xf:model>
+    <xf:instance id="editpatient">
+      <editpatient id="79" name="Edit Patient Record-v1">
+        <chpsid/>
+        <facilityid/>
+        <date/>
+        <patientregnum/>
+        <primaryphone/>
+        <primaryphonetype/>
+        <secondaryphone/>
+        <secondaryphonetype/>
+        <nhis/>
+        <nhisexp/>
+        <formtype>data_entry</formtype>
+        <formname>editpatient</formname>
+      </editpatient>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/editpatient/chpsid" required="true()" type="xsd:int"/>
+    <xf:bind id="facilityid" nodeset="/editpatient/facilityid" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/editpatient/date" required="true()" type="xsd:date"/>
+    <xf:bind id="patientregnum" nodeset="/editpatient/patientregnum" required="true()" type="xsd:int"/>
+    <xf:bind id="primaryphone" nodeset="/editpatient/primaryphone" type="xsd:int"/>
+    <xf:bind id="primaryphonetype" nodeset="/editpatient/primaryphonetype" type="xsd:string"/>
+    <xf:bind id="secondaryphone" nodeset="/editpatient/secondaryphone" type="xsd:int"/>
+    <xf:bind id="secondaryphonetype" nodeset="/editpatient/secondaryphonetype" type="xsd:string"/>
+    <xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string"/>
+    <xf:bind id="nhisexp" nodeset="/editpatient/nhisexp" type="xsd:date" visible="false()"/>
+    <xf:bind id="formtype" nodeset="/editpatient/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/editpatient/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page8</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Date</xf:label>
+    </xf:input>
+    <xf:input bind="patientregnum">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="primaryphone">
+      <xf:label>Primary phone number</xf:label>
+    </xf:input>
+    <xf:select1 bind="primaryphonetype">
+      <xf:label>Primary phone type</xf:label>
+      <xf:item id="PERSONAL">
+        <xf:label>Personal</xf:label>
+        <xf:value>PERSONAL</xf:value>
+      </xf:item>
+      <xf:item id="HOUSEHOLD">
+        <xf:label>Household</xf:label>
+        <xf:value>HOUSEHOLD</xf:value>
+      </xf:item>
+      <xf:item id="PUBLIC">
+        <xf:label>Public</xf:label>
+        <xf:value>PUBLIC</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="secondaryphone">
+      <xf:label>Secondary phone number</xf:label>
+    </xf:input>
+    <xf:select1 bind="secondaryphonetype">
+      <xf:label>Secondary phone type</xf:label>
+      <xf:item id="PERSONAL">
+        <xf:label>Personal</xf:label>
+        <xf:value>PERSONAL</xf:value>
+      </xf:item>
+      <xf:item id="household">
+        <xf:label>Household</xf:label>
+        <xf:value>household</xf:value>
+      </xf:item>
+      <xf:item id="PUBLIC">
+        <xf:label>Public</xf:label>
+        <xf:value>PUBLIC</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="nhis">
+      <xf:label>NHIS No</xf:label>
+    </xf:input>
+    <xf:input bind="nhisexp">
+      <xf:label>NHIS Expiration date</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

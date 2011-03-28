@@ -1,198 +1,117 @@
-<form description="" name="Edit Client">
-<version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;xf:model&gt;
-    &lt;xf:instance id="editpatient"&gt;
-      &lt;editpatient id="5" name="Edit Client"&gt;
-        &lt;staffId/&gt;
-        &lt;facilityId/&gt;
-        &lt;date/&gt;
-        &lt;motechId/&gt;
-        &lt;firstName/&gt;
-        &lt;middleName/&gt;
-        &lt;lastName/&gt;
-        &lt;preferredName/&gt;
-        &lt;phoneNumber/&gt;
-        &lt;phoneOwnership/&gt;
-        &lt;nhis/&gt;
-        &lt;nhisExpires/&gt;
-        &lt;mothersMotechId/&gt;
-        &lt;edd/&gt;
-        &lt;stopEnrollment/&gt;
-        &lt;formtype&gt;data_entry&lt;/formtype&gt;
-        &lt;formname&gt;editPatient-jf&lt;/formname&gt;
-      &lt;/editpatient&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:bind id="staffId" nodeset="/editpatient/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="facilityId" nodeset="/editpatient/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/editpatient/date" required="true()" type="xsd:date"/&gt;
-    &lt;xf:bind id="motechId" nodeset="/editpatient/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind id="firstName" nodeset="/editpatient/firstName" required="false()" type="xsd:string"/&gt;
-    &lt;xf:bind id="middleName" nodeset="/editpatient/middleName" required="false()" type="xsd:string"/&gt;
-    &lt;xf:bind id="lastName" nodeset="/editpatient/lastName" required="false()" type="xsd:string"/&gt;
-    &lt;xf:bind id="preferredName" nodeset="/editpatient/preferredName" required="false()" type="xsd:string"/&gt;
-    &lt;xf:bind id="phoneNumber" nodeset="/editpatient/phoneNumber" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="phoneOwnership" nodeset="/editpatient/phoneOwnership" type="xsd:string"/&gt;
-    &lt;xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string"/&gt;
-    &lt;xf:bind id="nhisExpires" nodeset="/editpatient/nhisExpires" type="xsd:date"/&gt;
-    &lt;xf:bind id="mothersMotechId" nodeset="/editpatient/mothersMotechId" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind id="edd" nodeset="/editpatient/edd" required="false()" type="xsd:date"/&gt;
-    &lt;xf:bind id="stopEnrollment" nodeset="/editpatient/stopEnrollment" type="xsd:string"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/editpatient/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/editpatient/formname" required="true()" type="xsd:string" visible="false()"/&gt;
-  &lt;/xf:model&gt;
-  &lt;xf:group id="1"&gt;
-    &lt;xf:label&gt;Page8&lt;/xf:label&gt;
-    &lt;xf:input bind="staffId"&gt;
-      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="facilityId"&gt;
-      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="date"&gt;
-      &lt;xf:label&gt;Date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="motechId"&gt;
-      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="firstName"&gt;
-      &lt;xf:label&gt;First Name&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="middleName"&gt;
-      &lt;xf:label&gt;Middle Name&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="lastName"&gt;
-      &lt;xf:label&gt;Last Name&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="preferredName"&gt;
-      &lt;xf:label&gt;Preferred Name&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="phoneNumber"&gt;
-      &lt;xf:label&gt;Phone number&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="phoneOwnership"&gt;
-      &lt;xf:label&gt;Phone Ownership?&lt;/xf:label&gt;
-      &lt;xf:item id="PERSONAL"&gt;
-        &lt;xf:label&gt;Personal phone&lt;/xf:label&gt;
-        &lt;xf:value&gt;PERSONAL&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="HOUSEHOLD"&gt;
-        &lt;xf:label&gt;Owned by household&lt;/xf:label&gt;
-        &lt;xf:value&gt;HOUSEHOLD&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="PUBLIC"&gt;
-        &lt;xf:label&gt;Public phone&lt;/xf:label&gt;
-        &lt;xf:value&gt;PUBLIC&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="nhis"&gt;
-      &lt;xf:label&gt;NHIS Number&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="nhisExpires"&gt;
-      &lt;xf:label&gt;NHIS expiry date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="mothersMotechId"&gt;
-      &lt;xf:label&gt;Mother's MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="edd"&gt;
-      &lt;xf:label&gt;Expected Delivery Date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="stopEnrollment"&gt;
-      &lt;xf:label&gt;Stop enrollment&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="formtype"&gt;
-      &lt;xf:label&gt;formType&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formname"&gt;
-      &lt;xf:label&gt;formName&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-  &lt;/xf:group&gt;
-&lt;/xf:xforms&gt;
-</xform>
-<layout>&lt;Form id="5"&gt;
-  &lt;Page Text="Page8" Binding="Page8" Width="100%" Height="1091px" backgroundColor=""&gt;
-    &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="/editPatient/staffId" Left="118px" Top="130px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Facility ID" HelpText="Facility ID" Binding="/editPatient/facilityId" Left="104px" Top="170px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Date" HelpText="Date" Binding="/editPatient/date" Left="139px" Top="210px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="MoTeCH ID" HelpText="MoTeCH ID" Binding="/editPatient/motechId" Left="101px" Top="250px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="First Name" HelpText="First Name" Binding="/editPatient/firstName" Left="101px" Top="250px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Middle Name" HelpText="Middle Name" Binding="/editPatient/middleName" Left="101px" Top="250px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Last Name" HelpText="Last Name" Binding="/editPatient/lastName" Left="101px" Top="250px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Preferred name" HelpText="MoTeCH ID" Binding="/editPatient/preferredName" Left="101px" Top="250px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Primary phone number" HelpText="Primary phone number" Binding="/editPatient/phoneNumber" Left="28px" Top="290px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Primary phone type" HelpText="Primary phone type" Binding="/editPatient/phoneOwnership" Left="46px" Top="330px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="NHIS Number" HelpText="NHIS Number" Binding="/editPatient/nhis" Left="88px" Top="370px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="NHIS Expiration date" HelpText="NHIS Expiration date" Binding="/editPatient/nhisExpires" Left="38px" Top="410px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Mother's MoTeCH ID" HelpText="Mother's MoTeCH ID" Binding="/editPatient/mothersMotechId" Left="101px" Top="250px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Expected Delivery date" HelpText="Expected Delivery date" Binding="/editPatient/edd" Left="38px" Top="410px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Stop enrollment" HelpText="Stop enrollment" Binding="/editPatient/stopEnrollment" Left="70px" Top="450px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="/editPatient/formtype" Left="112px" Top="492px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formName" HelpText="formName" Binding="/editPatient/formname" Left="109px" Top="532px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="236px" Top="583px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="311px" Top="582px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formName" Binding="formname" Left="190px" Top="532px" Width="200px" Height="25px" TabIndex="31" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="190px" Top="492px" Width="200px" Height="25px" TabIndex="30" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Mother's MoTeCH ID" Binding="mothersMotechId" Left="190px" Top="250px" Width="200px" Height="25px" TabIndex="24" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="NHIS expiry date" Binding="nhisExpires" Left="190px" Top="410px" Width="200px" Height="25px" TabIndex="28" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Expected Delivery date" Binding="edd" Left="190px" Top="410px" Width="200px" Height="25px" TabIndex="28" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="NHIS Number" Binding="nhis" Left="190px" Top="370px" Width="200px" Height="25px" TabIndex="27" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Phone number" Binding="phoneNumber" Left="190px" Top="290px" Width="200px" Height="25px" TabIndex="25" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechId" Left="190px" Top="250px" Width="200px" Height="25px" TabIndex="24" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="First Name" Binding="firstName" Left="190px" Top="250px" Width="200px" Height="25px" TabIndex="24" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Middle Name" Binding="middleName" Left="190px" Top="250px" Width="200px" Height="25px" TabIndex="24" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Last Name" Binding="lastName" Left="190px" Top="250px" Width="200px" Height="25px" TabIndex="24" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Preferred Name" Binding="preferredName" Left="190px" Top="250px" Width="200px" Height="25px" TabIndex="24" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Date" Binding="date" Left="190px" Top="210px" Width="200px" Height="25px" TabIndex="23" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Facility ID" Binding="facilityId" Left="190px" Top="170px" Width="200px" Height="25px" TabIndex="22" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="190px" Top="130px" Width="200px" Height="25px" TabIndex="21" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Stop enrollment" Binding="stopEnrollment" Left="189px" Top="445px" Width="200px" Height="29px" TabIndex="29" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Phone Ownership?" Binding="phoneOwnership" Left="188px" Top="326px" Width="200px" Height="25px" TabIndex="26" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-  &lt;/Page&gt;
-&lt;/Form&gt;</layout>
-<versionText locale="en">
-<xform>&lt;xform id="5"&gt;
-    &lt;text xpath="xforms/model/instance/editpatient[@name]" value="Edit Client"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/label" value="Page8"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='firstName']/label" value="First Name"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='middleName']/label" value="Middle Name"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='lastName']/label" value="Last Name"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='preferredName']/label" value="Preferred Name"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='phoneNumber']/label" value="Phone number"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/label" value="Phone Ownership?"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/item[@id='PERSONAL']/label" value="Personal phone"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/item[@id='HOUSEHOLD']/label" value="Owned by household"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='phoneOwnership']/item[@id='PUBLIC']/label" value="Public phone"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='nhis']/label" value="NHIS Number"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='nhisExpires']/label" value="NHIS expiry date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='mothersMotechId']/label" value="Mother's MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='edd']/label" value="Expected Delivery date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='stopEnrollment']/label" value="Stop enrollment"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='stopEnrollment']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='stopEnrollment']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='staffId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='phoneNumber'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-  &lt;/xform&gt;</xform>
-<layout>&lt;Form id="5"&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
-  &lt;/Form&gt;</layout>
-</versionText>
-</version>
-</form>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="5">
+  <xf:model>
+    <xf:instance id="editpatient">
+      <editpatient id="5" name="Edit Client">
+        <staffId/>
+        <facilityId/>
+        <date/>
+        <motechId/>
+        <firstName/>
+        <middleName/>
+        <lastName/>
+        <preferredName/>
+        <phoneNumber/>
+        <phoneOwnership/>
+        <nhis/>
+        <nhisExpires/>
+        <mothersMotechId/>
+        <edd/>
+        <stopEnrollment/>
+        <formtype>data_entry</formtype>
+        <formname>editPatient-jf</formname>
+      </editpatient>
+    </xf:instance>
+    <xf:bind id="staffId" nodeset="/editpatient/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/editpatient/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/editpatient/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/editpatient/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="firstName" nodeset="/editpatient/firstName" required="false()" type="xsd:string"/>
+    <xf:bind id="middleName" nodeset="/editpatient/middleName" required="false()" type="xsd:string"/>
+    <xf:bind id="lastName" nodeset="/editpatient/lastName" required="false()" type="xsd:string"/>
+    <xf:bind id="preferredName" nodeset="/editpatient/preferredName" required="false()" type="xsd:string"/>
+    <xf:bind id="phoneNumber" nodeset="/editpatient/phoneNumber" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="phoneOwnership" nodeset="/editpatient/phoneOwnership" type="xsd:string"/>
+    <xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string"/>
+    <xf:bind id="nhisExpires" nodeset="/editpatient/nhisExpires" type="xsd:date"/>
+    <xf:bind id="mothersMotechId" nodeset="/editpatient/mothersMotechId" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="edd" nodeset="/editpatient/edd" required="false()" type="xsd:date"/>
+    <xf:bind id="stopEnrollment" nodeset="/editpatient/stopEnrollment" type="xsd:string"/>
+    <xf:bind id="formtype" nodeset="/editpatient/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/editpatient/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page8</xf:label>
+    <xf:input bind="staffId">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityId">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Date</xf:label>
+    </xf:input>
+    <xf:input bind="motechId">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="firstName">
+      <xf:label>First Name</xf:label>
+    </xf:input>
+    <xf:input bind="middleName">
+      <xf:label>Middle Name</xf:label>
+    </xf:input>
+    <xf:input bind="lastName">
+      <xf:label>Last Name</xf:label>
+    </xf:input>
+    <xf:input bind="preferredName">
+      <xf:label>Preferred Name</xf:label>
+    </xf:input>
+    <xf:input bind="phoneNumber">
+      <xf:label>Phone number</xf:label>
+    </xf:input>
+    <xf:select1 bind="phoneOwnership">
+      <xf:label>Phone Ownership?</xf:label>
+      <xf:item id="PERSONAL">
+        <xf:label>Personal phone</xf:label>
+        <xf:value>PERSONAL</xf:value>
+      </xf:item>
+      <xf:item id="HOUSEHOLD">
+        <xf:label>Owned by household</xf:label>
+        <xf:value>HOUSEHOLD</xf:value>
+      </xf:item>
+      <xf:item id="PUBLIC">
+        <xf:label>Public phone</xf:label>
+        <xf:value>PUBLIC</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="nhis">
+      <xf:label>NHIS Number</xf:label>
+    </xf:input>
+    <xf:input bind="nhisExpires">
+      <xf:label>NHIS expiry date</xf:label>
+    </xf:input>
+    <xf:input bind="mothersMotechId">
+      <xf:label>Mother's MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="edd">
+      <xf:label>Expected Delivery Date</xf:label>
+    </xf:input>
+    <xf:select1 bind="stopEnrollment">
+      <xf:label>Stop enrollment</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

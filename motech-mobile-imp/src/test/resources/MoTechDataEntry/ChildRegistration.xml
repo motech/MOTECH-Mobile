@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="76">
+  <xf:model>
+    <xf:instance id="registerchild">
+      <registerchild id="76" name="Child Registration-v1">
+        <chpsid/>
+        <mothermotechid/>
+        <childmotechid/>
+        <dob/>
+        <firstname/>
+        <sex/>
+        <nhis/>
+        <nhisexpiration/>
+        <formtype>data_entry</formtype>
+        <formname>registerchild</formname>
+      </registerchild>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/registerchild/chpsid" required="true()" type="xsd:int"/>
+    <xf:bind id="mothermotechid" nodeset="/registerchild/mothermotechid" required="true()" type="xsd:int"/>
+    <xf:bind id="childmotechid" nodeset="/registerchild/childmotechid" required="true()" type="xsd:int"/>
+    <xf:bind id="dob" nodeset="/registerchild/dob" required="true()" type="xsd:date"/>
+    <xf:bind id="firstname" nodeset="/registerchild/firstname" type="xsd:string"/>
+    <xf:bind id="sex" nodeset="/registerchild/sex" required="true()" type="xsd:string"/>
+    <xf:bind id="nhis" nodeset="/registerchild/nhis" type="xsd:int"/>
+    <xf:bind id="nhisexpiration" nodeset="/registerchild/nhisexpiration" type="xsd:date" visible="false()"/>
+    <xf:bind id="formtype" nodeset="/registerchild/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/registerchild/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page2</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="mothermotechid">
+      <xf:label>Mother's MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="childmotechid">
+      <xf:label>Child's MoTeCh ID</xf:label>
+    </xf:input>
+    <xf:input bind="dob">
+      <xf:label>Date of birth</xf:label>
+    </xf:input>
+    <xf:input bind="firstname">
+      <xf:label>First name</xf:label>
+    </xf:input>
+    <xf:select1 bind="sex">
+      <xf:label>Sex</xf:label>
+      <xf:item id="M">
+        <xf:label>Male</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="F">
+        <xf:label>Female</xf:label>
+        <xf:value>F</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="nhis">
+      <xf:label>NHIS number</xf:label>
+    </xf:input>
+    <xf:input bind="nhisexpiration">
+      <xf:label>NHIS Expiration</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

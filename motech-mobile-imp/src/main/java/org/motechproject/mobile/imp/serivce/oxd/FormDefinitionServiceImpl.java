@@ -37,14 +37,15 @@
  */
 package org.motechproject.mobile.imp.serivce.oxd;
 
+import org.springframework.core.io.ClassPathResource;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
+import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Henry Sampson (henry@dreamoval.com) and Brent Atkinson
@@ -67,11 +68,74 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
     }
 
     public void init() throws Exception {
-        XmlPullParserFactory xmlPullParserFactory = getXMLPullParserFactory();
-        XmlPullParser xmlPullParser = xmlPullParserFactory.newPullParser();
+
         for (String resource : getOxdFormDefResources()) {
-            new StudyFormsParser(xmlPullParserFactory, xmlPullParser, resource).invoke();
+            int index = resource.lastIndexOf("/");
+            String studyName = resource.substring(index + 1);
+            List<File> fileList = getFileList(resource);
+            if (fileList == null || fileList.isEmpty())
+                throw new FileNotFoundException(" No files in the directory " + resource);
+            List<Integer> formIdList = new ArrayList<Integer>();
+            for (File fileName : fileList) {
+                String formDefinition = getFileContent(fileName.getAbsolutePath());
+                Integer extractedFormId = extractFormId(formDefinition);
+                formMap.put(extractedFormId, formDefinition);
+                formIdList.add(extractedFormId);
+            }
+
+            studyForms.put(studyName, formIdList);
+            studies.add(studyName);
         }
+
+    }
+
+    private Integer extractFormId(String formDefinition) {
+        Matcher matcher = Pattern.compile("<xf:xforms.*?id=\"(.*?)\"", Pattern.CASE_INSENSITIVE).matcher(formDefinition);
+        Integer formId = null;
+        if (matcher.find()) {
+            String formIdString = matcher.group(1);
+            formId = Integer.valueOf(formIdString);
+        }
+        return formId;
+    }
+
+    private String getFileContent(String fileName) {
+        StringBuilder builder = new StringBuilder();
+        Scanner scanner;
+        try {
+            scanner = new Scanner(new File(fileName));
+            scanner.useDelimiter("\n");
+            while (scanner.hasNextLine()) {
+                builder.append(scanner.nextLine() + "\n");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return builder.toString();
+    }
+
+    public List<File> getFileList(String directorySource) throws IOException {
+
+        File directory = new ClassPathResource(directorySource).getFile();
+        if (directory == null)
+            throw new RuntimeException(new FileNotFoundException(" resource not found" + directorySource));
+
+        if (!directory.exists())
+            return Collections.emptyList();
+
+        List<File> fileList = Arrays.asList(directory.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                if (name.endsWith(".xml"))
+                    return true;
+                return false;
+            }
+        }));
+        Collections.sort(fileList, new Comparator<File>() {
+            public int compare(File o1, File o2) {
+                return o1.getName().compareToIgnoreCase(o2.getName());
+            }
+        });
+        return fileList;
     }
 
     private XmlPullParserFactory getXMLPullParserFactory() throws XmlPullParserException {
@@ -84,8 +148,6 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
      * @return a map of xml xforms definitions, keyed on their definition ids
      */
     public Map<Integer, String> getXForms() throws Exception {
-
-
         return formMap;
     }
 
@@ -123,17 +185,13 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
      * get the proper study based on the numerical index of the study.
      */
     public List<Object[]> getStudies() {
-
         List<Object[]> result = new ArrayList<Object[]>();
-
         if (studies == null) {
             return Collections.emptyList();
         }
-
         for (int studyidx = 0; studyidx < studies.size(); studyidx++) {
             result.add(new Object[]{studyidx, studies.get(studyidx)});
         }
-
         return result;
     }
 
@@ -200,10 +258,13 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
         private XmlPullParserFactory xmlPullParserFactory;
         private XmlPullParser xmlPullParser;
         private String resource;
-        private boolean isXform = false;
-        private boolean isVersionText = false;
         private String studyName;
         private String currentXFormDefinition;
+        private static final String xFormTag = "xform";
+        private static final String versionTextTag = "versionText";
+        private static final String studyTag = "study";
+        private boolean isXform;
+        private boolean isVersionText;
 
         public StudyFormsParser(XmlPullParserFactory xmlPullParserFactory, XmlPullParser xmlPullParser, String resource) {
             this.xmlPullParserFactory = xmlPullParserFactory;
@@ -249,39 +310,38 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
         }
 
         private void handleEndTag() {
-            if ("xform".equals(xmlPullParser.getName())) {
-                xFormTagEnd();
-            } else if ("versionText".equals(xmlPullParser.getName())) {
-                versionTextTagEnd();
+            if (xFormTag.equals(xmlPullParser.getName())) {
+                endXFormTag();
+            } else if (versionTextTag.equals(xmlPullParser.getName())) {
+                endVersionTextTag();
             }
         }
 
         private void handleStartTag() {
-            if ("study".equals(xmlPullParser.getName())) {
+            if (studyTag.equals(xmlPullParser.getName())) {
                 captureStudyDetails(xmlPullParser);
-            } else if ("xform".equals(xmlPullParser.getName())) {
-                xFormTagStart();
-            } else if ("versionText".equals(xmlPullParser.getName())) {
-                versionTextTagStart();
+            } else if (xFormTag.equals(xmlPullParser.getName())) {
+                startXFormTag();
+            } else if (versionTextTag.equals(xmlPullParser.getName())) {
+                startVersionTextTag();
             }
         }
 
-        public void xFormTagStart() {
+        public void startXFormTag() {
             isXform = true;
         }
 
-        public void xFormTagEnd() {
+        public void endXFormTag() {
             isXform = false;
         }
 
-        public void versionTextTagStart() {
+        public void startVersionTextTag() {
             isVersionText = true;
         }
 
-        public void versionTextTagEnd() {
+        public void endVersionTextTag() {
             isVersionText = false;
         }
-
 
         private void addFormToStudy(Integer formId, String studyName) {
             if (studyForms.get(studyName) != null) {
@@ -290,22 +350,26 @@ public class FormDefinitionServiceImpl implements FormDefinitionService,
         }
 
         private void captureStudyDetails(XmlPullParser xmlPullParser) {
-            studyName = xmlPullParser.getAttributeValue(null, "name");
+            studyName = getAttributeValue(xmlPullParser, "name");
             studies.add(studyName);
             studyForms.put(studyName, new ArrayList<Integer>());
         }
 
         private Integer extractFormIdFromVersionText(XmlPullParserFactory xmlPullParserFactory, String versionTextXform) throws XmlPullParserException, IOException {
             Integer formId = null;
-            XmlPullParser formXpp = xmlPullParserFactory.newPullParser();
-            formXpp.setInput(new StringReader(versionTextXform));
-            for (int formEvent = formXpp.getEventType(); formEvent != XmlPullParser.END_DOCUMENT; formEvent = formXpp.next()) {
-                if (formEvent == XmlPullParser.START_TAG && "xform".equals(formXpp.getName())) {
-                    String formIdStr = formXpp.getAttributeValue(null, "id");
-                    formId = Integer.valueOf(formIdStr);
+            XmlPullParser xFormXmlPullParser = xmlPullParserFactory.newPullParser();
+            xFormXmlPullParser.setInput(new StringReader(versionTextXform));
+            for (int formEvent = xFormXmlPullParser.getEventType(); formEvent != XmlPullParser.END_DOCUMENT; formEvent = xFormXmlPullParser.next()) {
+                if (formEvent == XmlPullParser.START_TAG && xFormTag.equals(xFormXmlPullParser.getName())) {
+                    String formIdString = getAttributeValue(xFormXmlPullParser, "id");
+                    formId = Integer.valueOf(formIdString);
                 }
             }
             return formId;
+        }
+
+        private String getAttributeValue(XmlPullParser xmlPullParser, String attributeName) {
+            return xmlPullParser.getAttributeValue(null, attributeName);
         }
     }
 }

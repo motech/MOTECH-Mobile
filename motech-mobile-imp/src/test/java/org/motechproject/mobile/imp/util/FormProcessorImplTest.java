@@ -37,7 +37,6 @@
  */
 package org.motechproject.mobile.imp.util;
 
-import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,7 +60,6 @@ import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
 
 /**
- *
  * @author user
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -70,10 +68,11 @@ public class FormProcessorImplTest {
 
     @Autowired
     FormProcessorImpl instance;
-    
-    OMIManager mockOMI;
-    CoreManager mockCore;
-    RegistrarService mockWS;
+
+    private OMIManager mockOMI;
+    private CoreManager mockCore;
+    private RegistrarService mockWebService;
+    private IncomingMessageFormImpl form;
 
     public FormProcessorImplTest() {
     }
@@ -82,407 +81,457 @@ public class FormProcessorImplTest {
     public void setUp() throws Exception {
         mockOMI = createMock(OMIManager.class);
         mockCore = createMock(CoreManager.class);
-        mockWS = createMock(RegistrarService.class);
-        instance.setRegWS(mockWS);
+        mockWebService = createMock(RegistrarService.class);
+        instance.setRegWS(mockWebService);
+        form = new IncomingMessageFormImpl();
+        form.setIncomingMsgFormParameters(new HashMap<String, IncomingMessageFormParameter>());
+        form.setIncomingMsgFormDefinition(new IncomingMessageFormDefinitionImpl());
     }
 
     @Test
-    public void testProcessForm() throws ValidationException{
-        IncomingMessageFormImpl form = new IncomingMessageFormImpl();
-        form.setIncomingMsgFormParameters(new HashMap<String, IncomingMessageFormParameter>());
-        form.setIncomingMsgFormDefinition(new IncomingMessageFormDefinitionImpl());
-
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("GENERALOPD-JF");
-
-        //Test genetal visit
-        mockWS.recordGeneralVisit((Integer) anyObject(), (Integer)anyObject(), (Date)anyObject(), (String)anyObject(), (Gender)anyObject(), (Date)anyObject(), (Boolean)anyObject(), (Integer)anyObject(), (Integer)anyObject(), (Boolean)anyObject(), (Boolean)anyObject(), (Boolean)anyObject(), (Boolean)anyObject(), (Boolean)anyObject(), (Boolean)anyObject(), (String)anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        String result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test edit patient
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("EDITPATIENT-JF");
-
-        mockWS.editPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(),(Integer) anyObject(),(String) anyObject(),(String) anyObject(),(String) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (Date) anyObject(),(Date) anyObject(), (Boolean) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test mother ANC visit
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("ANC-JF");
-
-        mockWS.recordMotherANCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Double) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (HIVResult) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (String) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test pregnancy termination
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("ABORTION-JF");
-
-        mockWS.recordPregnancyTermination((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer[]) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test delivery
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("DELIVERY-JF");
-
-        expect(
-                mockWS.recordPregnancyDelivery((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer[]) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (String) anyObject(), (BirthOutcome) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (Gender) anyObject(), (String) anyObject(), (Double) anyObject(), (BirthOutcome) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (Gender) anyObject(), (String) anyObject(), (Double) anyObject(), (BirthOutcome) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (Gender) anyObject(), (String) anyObject(), (Double) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test delivery notification
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("DELIVERYNOTIFY-JF");
-
-        mockWS.recordDeliveryNotification((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test mother PNC
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("MOTHERPNC-JF");
-
-        mockWS.recordMotherPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (String) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test death
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("DEATH-JF");
-
-        mockWS.recordDeath((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test TT
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("TT-JF");
-
-        mockWS.recordTTVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test child PNC
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("CHILDPNC-JF");
-
-        mockWS.recordChildPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test register patient
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("REGISTERPATIENT-JF");
-
-        expect(
-                mockWS.registerPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (RegistrantType) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Gender) anyObject(), (Boolean) anyObject(), (String) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (InterestReason) anyObject(), (HowLearned) anyObject(), (Integer) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(),
-                        (Integer)anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer)anyObject(), (Date) anyObject(),(Date) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test register pregnancy
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("REGISTERPREGNANCY-JF");
-
-        mockWS.registerPregnancy((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test register ANC mother
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("REGISTERANCMOTHER-JF");
-
-        mockWS.registerANCMother((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (String) anyObject(), (Date) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test register CWC child
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("REGISTERCWCCHILD-JF");
-
-        mockWS.registerCWCChild((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test child OPD
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("CHILDOPD-JF");
-
-        mockWS.recordChildVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean)anyObject(), (Boolean) anyObject(), (String) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test mother OPD
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("MOTHEROPD-JF");
-
-        mockWS.recordMotherVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean)anyObject(), (Boolean) anyObject(), (String) anyObject());
-        expectLastCall();
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test ANC defaulters
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("ANCDEFAULT-JF");
-
-        expect(
-                mockWS.queryANCDefaulters((Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test TT defaulters
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("TTDEFAULT-JF");
-
-        expect(
-                mockWS.queryTTDefaulters((Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test Mother PNC defaulters
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("PPCDEFAULT-JF");
-
-        expect(
-                mockWS.queryMotherPNCDefaulters((Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test Child PNC defaulters
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("PNCDEFAULT-JF");
-
-        expect(
-                mockWS.queryChildPNCDefaulters((Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test CWC defaulters
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("CWCDEFAULT-JF");
-
-        expect(
-                mockWS.queryCWCDefaulters((Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test Upcoming Deliveries
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("UPCOMINGDELIVERIES-JF");
-
-        expect(
-                mockWS.queryUpcomingDeliveries((Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test Recent Deliveries
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("RECENTDELIVERIES-JF");
-
-        expect(
-                mockWS.queryRecentDeliveries((Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test Overdue Deliveries
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("OVERDUEDELIVERIES-JF");
-
-        expect(
-                mockWS.queryOverdueDeliveries((Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test Upcoming Care
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("UPCOMINGCARE-JF");
-
-        expect(
-                mockWS.queryUpcomingCare((Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test view patient details
-        form.setMessageFormStatus(IncMessageFormStatus.VALID);
-        form.getIncomingMsgFormDefinition().setFormCode("VIEWPATIENT-JF");
-
-        expect(
-                mockWS.queryPatient((Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject())
-                ).andReturn(null);
-
-        replay(mockWS);
-        result = instance.processForm(form);
-        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
-
-        reset(mockWS);
-
-        //Test find MoTeCHID
+    public void shouldFindMotechId() throws ValidationException {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("FINDMOTECHID-JF");
 
         expect(
-                mockWS.queryMotechId((Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (String) anyObject(), (String) anyObject())
-                ).andReturn(null);
+                mockWebService.queryMotechId((Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (String) anyObject(), (String) anyObject())
+        ).andReturn(null);
 
-        replay(mockWS);
-        result = instance.processForm(form);
+        replay(mockWebService);
+        instance.processForm(form);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
-        verify(mockWS);
+        verify(mockWebService);
 
-        reset(mockWS);
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldViewPatientDetails() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("VIEWPATIENT-JF");
+
+        expect(
+                mockWebService.queryPatient((Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldUpcomingCare() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("UPCOMINGCARE-JF");
+
+        expect(
+                mockWebService.queryUpcomingCare((Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldOverDueDeliveries() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("OVERDUEDELIVERIES-JF");
+
+        expect(
+                mockWebService.queryOverdueDeliveries((Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessRecentDeliveries() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("RECENTDELIVERIES-JF");
+
+        expect(
+                mockWebService.queryRecentDeliveries((Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessUpcomingDeliveries() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("UPCOMINGDELIVERIES-JF");
+
+        expect(
+                mockWebService.queryUpcomingDeliveries((Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessCWCDefaulters() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("CWCDEFAULT-JF");
+
+        expect(
+                mockWebService.queryCWCDefaulters((Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessChildPNCDefaulters() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("PNCDEFAULT-JF");
+
+        expect(
+                mockWebService.queryChildPNCDefaulters((Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessMotherPNCDefaulters() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("PPCDEFAULT-JF");
+
+        expect(
+                mockWebService.queryMotherPNCDefaulters((Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessTTDefaulters() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("TTDEFAULT-JF");
+
+        expect(
+                mockWebService.queryTTDefaulters((Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessANCDefaulters() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("ANCDEFAULT-JF");
+
+        expect(
+                mockWebService.queryANCDefaulters((Integer) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessMotherOPD() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("MOTHEROPD-JF");
+
+        mockWebService.recordMotherVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessChildOPD() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("CHILDOPD-JF");
+
+        mockWebService.recordChildVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessReisterCWCChild() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("REGISTERCWCCHILD-JF");
+
+        mockWebService.registerCWCChild((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessRegisterANCMother() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("REGISTERANCMOTHER-JF");
+
+        mockWebService.registerANCMother((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (String) anyObject(), (Date) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessRegisterPregnancy() throws ValidationException {
+
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("REGISTERPREGNANCY-JF");
+
+        mockWebService.registerPregnancy((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessRegisterPatient() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("REGISTERPATIENT-JF");
+
+        expect(
+                mockWebService.registerPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (RegistrantType) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Gender) anyObject(), (Boolean) anyObject(), (String) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (MediaType) anyObject(), (String) anyObject(), (DayOfWeek) anyObject(), (Date) anyObject(), (InterestReason) anyObject(), (HowLearned) anyObject(), (Integer) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(),
+                        (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Date) anyObject(), (Integer) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessChildPNC() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("CHILDPNC-JF");
+
+        mockWebService.recordChildPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessTT() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("TT-JF");
+
+        mockWebService.recordTTVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessDeath() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("DEATH-JF");
+
+        mockWebService.recordDeath((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessMotherPNC() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("MOTHERPNC-JF");
+
+        mockWebService.recordMotherPNCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (String) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessDeliveryNotification() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("DELIVERYNOTIFY-JF");
+
+        mockWebService.recordDeliveryNotification((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessDelivery() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("DELIVERY-JF");
+
+        expect(
+                mockWebService.recordPregnancyDelivery((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Integer[]) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (String) anyObject(), (BirthOutcome) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (Gender) anyObject(), (String) anyObject(), (Double) anyObject(), (BirthOutcome) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (Gender) anyObject(), (String) anyObject(), (Double) anyObject(), (BirthOutcome) anyObject(), (RegistrationMode) anyObject(), (Integer) anyObject(), (Gender) anyObject(), (String) anyObject(), (Double) anyObject())
+        ).andReturn(null);
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessPregnancyTermination() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("ABORTION-JF");
+
+        mockWebService.recordPregnancyTermination((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer[]) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessMotherANCVisit() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("ANC-JF");
+
+        mockWebService.recordMotherANCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Double) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (HIVResult) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Date) anyObject(), (String) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessEditPatient() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("EDITPATIENT-JF");
+
+        mockWebService.editPatient((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (String) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (Date) anyObject(), (Date) anyObject(), (Boolean) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shuouldProcessGeneralVisit() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("GENERALOPD-JF");
+        mockWebService.recordGeneralVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Gender) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
     }
 
     @Test
