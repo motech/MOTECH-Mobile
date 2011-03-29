@@ -75,11 +75,11 @@
             <dynamiclist>
             <item id="upper_east" parent="ue">
             <label>KND</label>
-            <value>upper_east</value>
+            <value>knd</value>
             </item>
-            <item id="kassena-nakana_west" parent="ue">
+            <item id="kassena_nakana_west" parent="ue">
             <label>KNW</label>
-            <value>kassena-nakana_west</value>
+            <value>kassena_nakana_west</value>
             </item>
             <item id="ue_other" parent="ue">
             <label>Other</label>
@@ -97,62 +97,84 @@
             </xf:instance>
             <xf:instance id="subDistrict">
             <dynamiclist>
-            <item id="ce" parent="upper_east">
+            <item id="ce" parent="knd">
             <label>Central East</label>
             <value>ce</value>
             </item>
-            <item id="cnv" parent="upper_east">
+            <item id="cnv" parent="knd">
             <label>Central Navrongo</label>
             <value>cnv</value>
             </item>
-            <item id="cn" parent="upper_east">
+            <item id="cn" parent="knd">
             <label>Central North</label>
             <value>cn</value>
             </item>
-            <item id="cne" parent="upper_east">
+            <item id="cne" parent="knd">
             <label>Central North East</label>
             <value>cne</value>
             </item>
-            <item id="cs" parent="upper_east">
+            <item id="cs" parent="knd">
             <label>Central South</label>
             <value>cs</value>
             </item>
-            <item id="cw" parent="upper_east">
+            <item id="cw" parent="knd">
             <label>Central West</label>
             <value>cw</value>
             </item>
-            <item id="nav" parent="kassena-nakana_west">
+            <item id="nav" parent="kassena_nakana_west">
             <label>Navio</label>
             <value>nav</value>
             </item>
-            <item id="kna" parent="kassena-nakana_west">
+            <item id="kna" parent="kassena_nakana_west">
             <label>Katiu-Nakong</label>
             <value>kna</value>
             </item>
-            <item id="kay" parent="kassena-nakana_west">
+            <item id="kay" parent="kassena_nakana_west">
             <label>Kayoro</label>
             <value>kay</value>
             </item>
-            <item id="cha" parent="kassena-nakana_west">
+            <item id="cha" parent="kassena_nakana_west">
             <label>Chiana</label>
             <value>cha</value>
             </item>
-            <item id="kanku" parent="kassena-nakana_west">
+            <item id="kanku" parent="kassena_nakana_west">
             <label>Kandiga-Kuguru</label>
             <value>kanku</value>
             </item>
-            <item id="sir" parent="kassena-nakana_west">
+            <item id="sir" parent="kassena_nakana_west">
             <label>Sirigu</label>
             <value>sir</value>
             </item>
-            <item id="pac" parent="kassena-nakana_west">
+            <item id="pac" parent="kassena_nakana_west">
             <label>Paga Central</label>
             <value>pac</value>
             </item>
-            <item id="mir" parent="kassena-nakana_west">
+            <item id="mir" parent="kassena_nakana_west">
             <label>Mirigu</label>
             <value>mir</value>
             </item>
+
+            <item id="awutu" parent="awutu_senya">
+            <label>Awutu</label>
+            <value>awutu</value>
+            </item>
+            <item id="bawjiase" parent="awutu_senya">
+            <label>Bawjiase</label>
+            <value>bawjiase</value>
+            </item>
+            <item id="bontrase" parent="awutu_senya">
+            <label>Bontrase</label>
+            <value>bontrase</value>
+            </item>
+            <item id="kasoa" parent="awutu_senya">
+            <label>Kasoa</label>
+            <value>kasoa</value>
+            </item>
+            <item id="senya" parent="awutu_senya">
+            <label>Senya</label>
+            <value>senya</value>
+            </item>
+                
             </dynamiclist>
             </xf:instance>
             <xf:instance id="community">
@@ -1705,8 +1727,9 @@
             <xf:bind action="show" id="district" nodeset="/patientRegistration/district"
             relevant="/patientRegistration/region = 'ue' or /patientRegistration/region = 'cen'" visible="false()"
             required="true()" type="xsd:string"/>
-            <xf:bind id="subDistrict" nodeset="/patientRegistration/subDistrict" required="true()"
-            type="xsd:string"/>
+            <xf:bind id="subDistrict" nodeset="/patientRegistration/subDistrict" type="xsd:string" action="show"
+            relevant="/patientRegistration/district = 'knd' or /patientRegistration/district = 'kassena_nakana_west' or /patientRegistration/district = 'awutu_senya'"
+            visible="false()" required="true()" />
             <xf:bind id="community" nodeset="/patientRegistration/community" required="true()"
             type="xsd:string"/>
             <xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/>
