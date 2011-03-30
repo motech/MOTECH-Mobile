@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="82">
+  <xf:model>
+    <xf:instance id="ppc">
+      <ppc id="82" name="Post-partum care (mother)-v1">
+        <chpsId/>
+        <facilityid/>
+        <date/>
+        <motechId/>
+        <visitno/>
+        <ttdose/>
+        <vita/>
+        <formtype>data_entry</formtype>
+        <formname>ppc</formname>
+      </ppc>
+    </xf:instance>
+    <xf:bind id="chpsId" nodeset="/ppc/chpsId" required="true()" type="xsd:int"/>
+    <xf:bind id="facilityid" nodeset="/ppc/facilityid" required="true()" type="xsd:int"/>
+    <xf:bind id="date" nodeset="/ppc/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/ppc/motechId" required="true()" type="xsd:int"/>
+    <xf:bind id="visitno" nodeset="/ppc/visitno" required="true()" type="xsd:string"/>
+    <xf:bind id="ttdose" nodeset="/ppc/ttdose" required="true()" type="xsd:string"/>
+    <xf:bind id="vita" nodeset="/ppc/vita" required="true()" type="xsd:string"/>
+    <xf:bind id="formtype" nodeset="/ppc/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/ppc/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page3</xf:label>
+    <xf:input bind="chpsId">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Visit date</xf:label>
+    </xf:input>
+    <xf:input bind="motechId">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="visitno">
+      <xf:label>Visit Number</xf:label>
+      <xf:item id="1">
+        <xf:label>PPC 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>PPC 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>PPC 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="ttdose">
+      <xf:label>TT</xf:label>
+      <xf:item id="NA">
+        <xf:label>No TT on this visit</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>TT 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>TT 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>TT 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="fourth">
+        <xf:label>TT 4</xf:label>
+        <xf:value>fourth</xf:value>
+      </xf:item>
+      <xf:item id="fifth">
+        <xf:label>TT 5</xf:label>
+        <xf:value>fifth</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="vita">
+      <xf:label>Vitamin A</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

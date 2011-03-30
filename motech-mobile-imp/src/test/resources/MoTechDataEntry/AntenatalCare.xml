@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="75">
+  <xf:model>
+    <xf:instance id="newform">
+      <newform id="75" name="Antenatal Care-v1">
+        <chpsid/>
+        <facilityid/>
+        <date/>
+        <motechid/>
+        <visitno/>
+        <ttdose/>
+        <iptdose/>
+        <itn/>
+        <hivresult/>
+        <nextanc/>
+        <formname>anc</formname>
+        <formtype>data_entry</formtype>
+      </newform>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/newform/chpsid" required="true()" type="xsd:int"/>
+    <xf:bind id="facilityid" nodeset="/newform/facilityid" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/newform/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechid" nodeset="/newform/motechid" required="true()" type="xsd:int"/>
+    <xf:bind id="visitno" nodeset="/newform/visitno" required="true()" type="xsd:string"/>
+    <xf:bind id="ttdose" nodeset="/newform/ttdose" required="true()" type="xsd:string"/>
+    <xf:bind id="iptdose" nodeset="/newform/iptdose" required="true()" type="xsd:string"/>
+    <xf:bind id="itn" nodeset="/newform/itn" required="true()" type="xsd:string"/>
+    <xf:bind id="hivresult" nodeset="/newform/hivresult" required="true()" type="xsd:string"/>
+    <xf:bind id="nextanc" nodeset="/newform/nextanc" type="xsd:date" visible="false()"/>
+    <xf:bind id="formname" nodeset="/newform/formname" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formtype" nodeset="/newform/formtype" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page1</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Visit date</xf:label>
+    </xf:input>
+    <xf:input bind="motechid">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="visitno">
+      <xf:label>Visit number</xf:label>
+      <xf:item id="1">
+        <xf:label>ANC 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>ANC 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>ANC 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>ANC 4</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+      <xf:item id="5">
+        <xf:label>ANC 5</xf:label>
+        <xf:value>5</xf:value>
+      </xf:item>
+      <xf:item id="6">
+        <xf:label>ANC 6</xf:label>
+        <xf:value>6</xf:value>
+      </xf:item>
+      <xf:item id="7">
+        <xf:label>ANC 7</xf:label>
+        <xf:value>7</xf:value>
+      </xf:item>
+      <xf:item id="8">
+        <xf:label>ANC 8</xf:label>
+        <xf:value>8</xf:value>
+      </xf:item>
+      <xf:item id="9">
+        <xf:label>ANC 9</xf:label>
+        <xf:value>9</xf:value>
+      </xf:item>
+      <xf:item id="10">
+        <xf:label>ANC 10</xf:label>
+        <xf:value>10</xf:value>
+      </xf:item>
+      <xf:item id="11">
+        <xf:label>ANC 11</xf:label>
+        <xf:value>11</xf:value>
+      </xf:item>
+      <xf:item id="12">
+        <xf:label>ANC 12</xf:label>
+        <xf:value>12</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="ttdose">
+      <xf:label>TT</xf:label>
+      <xf:item id="NA">
+        <xf:label>No TT on this visit</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>TT 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>TT 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>TT 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>TT 4</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+      <xf:item id="5">
+        <xf:label>TT 5</xf:label>
+        <xf:value>5</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="iptdose">
+      <xf:label>IPT</xf:label>
+      <xf:item id="NA">
+        <xf:label>No SP on this visit</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>SP 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>SP 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>SP 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="itn">
+      <xf:label>ITN</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="hivresult">
+      <xf:label>HIV Test</xf:label>
+      <xf:item id="NA">
+        <xf:label>No HIV test on this visit</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="P">
+        <xf:label>Positive</xf:label>
+        <xf:value>P</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>Negative</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="nextanc">
+      <xf:label>Next ANC Date</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

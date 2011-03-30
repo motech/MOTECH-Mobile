@@ -33,6 +33,15 @@
 
 package org.motechproject.mobile.imp.util;
 
+import org.apache.log4j.Logger;
+import org.motechproject.mobile.core.manager.CoreManager;
+import org.motechproject.mobile.core.model.IncomingMessageForm;
+import org.motechproject.mobile.core.model.IncMessageFormStatus;
+import org.motechproject.mobile.omi.manager.MessageFormatter;
+import org.motechproject.mobile.omi.manager.OMIManager;
+import org.motechproject.ws.server.RegistrarService;
+import org.motechproject.ws.server.ValidationException;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -42,14 +51,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.apache.log4j.Logger;
-import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.IncMessageFormStatus;
-import org.motechproject.mobile.core.model.IncomingMessageForm;
-import org.motechproject.mobile.omi.manager.MessageFormatter;
-import org.motechproject.mobile.omi.manager.OMIManager;
-import org.motechproject.ws.server.RegistrarService;
-import org.motechproject.ws.server.ValidationException;
 
 /**
  *
@@ -73,8 +74,7 @@ public class FormProcessorImpl implements FormProcessor {
      */
     public String processForm(IncomingMessageForm form) {
         Object result = null;
-        MethodSignature mSig;
-        String formattedResult = "";
+        MethodSignature methodSignature;
 
         if(form.getMessageFormStatus() != IncMessageFormStatus.VALID)
             return "Invalid form";
@@ -83,7 +83,7 @@ public class FormProcessorImpl implements FormProcessor {
         dFormat.setLenient(true);
 
         if (getServiceMethods().containsKey(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase())) {
-            mSig = getServiceMethods().get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
+            methodSignature = getServiceMethods().get(form.getIncomingMsgFormDefinition().getFormCode().toUpperCase());
         } else {
             //Server can not process this type of form. Return current form status
             return form.getMessageFormStatus().toString();
@@ -93,14 +93,14 @@ public class FormProcessorImpl implements FormProcessor {
          * Using reflection to determine and execute the appropriate serve call for the form.
          * Get the name of the method and initialize arrays to hold the types and values of the arguments
          */
-        String methodName = mSig.getMethodName();
-        Class[] paramTypes = new Class[mSig.getMethodParams().size()];
-        Object[] paramObjs = new Object[mSig.getMethodParams().size()];
+        String methodName = methodSignature.getMethodName();
+        Class[] paramTypes = new Class[methodSignature.getMethodParams().size()];
+        Object[] paramObjs = new Object[methodSignature.getMethodParams().size()];
 
         int idx = 0;
 
         try {
-            for (Entry<String, Class> e : mSig.getMethodParams().entrySet()) {
+            for (Entry<String, Class> e : methodSignature.getMethodParams().entrySet()) {
                 /** Entry key is name of argument, value is class type */
                 logger.debug("Param: "+e.getKey()+" Class:"+e.getValue());
                 paramTypes[idx] = e.getValue();
@@ -170,11 +170,11 @@ public class FormProcessorImpl implements FormProcessor {
             return "An error occurred on the server";
         }
 
-        if (mSig.getCallback() == null) {//Method result requires no further processing. return
+        if (methodSignature.getCallback() == null) {//Method result requires no further processing. return
             return (result == null) ? null : String.valueOf(result);
         }
         //Process method result
-        return executeCallback(mSig.getCallback(), result);
+        return executeCallback(methodSignature.getCallback(), result);
     }
 
     /**

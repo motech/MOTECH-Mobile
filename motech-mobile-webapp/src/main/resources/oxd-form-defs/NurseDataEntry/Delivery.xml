@@ -1,621 +1,418 @@
-<form description="" name="Delivery">
-<version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;xf:model&gt;
-    &lt;xf:instance id="delivery"&gt;
-      &lt;delivery id="3" name="Delivery"&gt;
-        &lt;staffId/&gt;
-        &lt;facilityId/&gt;
-        &lt;motechId/&gt;
-        &lt;date/&gt;
-        &lt;mode/&gt;
-        &lt;outcome/&gt;
-        &lt;maleInvolved/&gt;
-        &lt;deliveryLocation/&gt;
-        &lt;deliveredBy/&gt;
-        &lt;complications/&gt;
-        &lt;vvf/&gt;
-        &lt;maternalDeath/&gt;
-        &lt;comments/&gt;
-        &lt;child1Outcome/&gt;
-        &lt;child1RegistrationType/&gt;
-        &lt;child1MotechId/&gt;
-        &lt;child1Sex/&gt;
-        &lt;child1FirstName/&gt;
-        &lt;child1Weight/&gt;
-        &lt;child2Outcome/&gt;
-        &lt;child2RegistrationType/&gt;
-        &lt;child2MotechId/&gt;
-        &lt;child2Sex/&gt;
-        &lt;child2FirstName/&gt;
-        &lt;child2Weight/&gt;
-        &lt;child3Outcome/&gt;
-        &lt;child3RegistrationType/&gt;
-        &lt;child3MotechId/&gt;
-        &lt;child3Sex/&gt;
-        &lt;child3FirstName/&gt;
-        &lt;child3Weight/&gt;
-        &lt;sender/&gt;
-        &lt;formtype&gt;data_entry&lt;/formtype&gt;
-        &lt;formname&gt;delivery-jf&lt;/formname&gt;
-      &lt;/delivery&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:bind id="staffId" nodeset="/delivery/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="facilityId" nodeset="/delivery/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="motechId" nodeset="/delivery/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/delivery/date" required="true()" type="xsd:dateTime"/&gt;
-    &lt;xf:bind id="mode" nodeset="/delivery/mode" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="outcome" nodeset="/delivery/outcome" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="maleInvolved" nodeset="/delivery/maleInvolved" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="deliveryLocation" nodeset="/delivery/deliveryLocation" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="deliveredBy" nodeset="/delivery/deliveredBy" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="complications" nodeset="/delivery/complications" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="vvf" nodeset="/delivery/vvf" relevant="/delivery/complications = '6'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="maternalDeath" nodeset="/delivery/maternalDeath" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="comments" nodeset="/delivery/comments" type="xsd:string"/&gt;
-    &lt;xf:bind id="child1Outcome" nodeset="/delivery/child1Outcome" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="child1RegistrationType" nodeset="/delivery/child1RegistrationType" relevant="/delivery/child1Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="child1MotechId" nodeset="/delivery/child1MotechId" relevant="/delivery/child1RegistrationType = 'USE_PREPRINTED_ID'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind action="show" id="child1Sex" nodeset="/delivery/child1Sex" relevant="/delivery/child1Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="child1FirstName" nodeset="/delivery/child1FirstName" relevant="/delivery/child1Outcome = 'A'" type="xsd:string" visible="false()" required="false()"/&gt;
-    &lt;xf:bind action="show" id="child1Weight" nodeset="/delivery/child1Weight" relevant="/delivery/child1Outcome = 'A'" required="true()" type="xsd:decimal" visible="false()" constraint=". &gt;= 0.2 and . &lt;= 11" message="Value out of range: must be between 0.2 and 11"/&gt;
-    &lt;xf:bind action="show" id="child2Outcome" nodeset="/delivery/child2Outcome" relevant="/delivery/outcome = '2' or /delivery/outcome = '3'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="child2RegistrationType" nodeset="/delivery/child2RegistrationType" relevant="/delivery/child2Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="child2MotechId" nodeset="/delivery/child2MotechId" relevant="/delivery/child2RegistrationType = 'USE_PREPRINTED_ID'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind action="show" id="child2Sex" nodeset="/delivery/child2Sex" relevant="/delivery/child2Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="child2FirstName" nodeset="/delivery/child2FirstName" relevant="/delivery/child2Outcome = 'A'" type="xsd:string" visible="false()" required="false()"/&gt;
-    &lt;xf:bind action="show" id="child2Weight" nodeset="/delivery/child2Weight" relevant="/delivery/child2Outcome = 'A'" required="true()" type="xsd:decimal" visible="false()" constraint=". &gt;= 0.2 and . &lt;= 11" message="Value out of range: must be between 0.2 and 11"/&gt;
-    &lt;xf:bind action="show" id="child3Outcome" nodeset="/delivery/child3Outcome" relevant="/delivery/outcome = '3'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="child3RegistrationType" nodeset="/delivery/child3RegistrationType" relevant="/delivery/child3Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="child3MotechId" nodeset="/delivery/child3MotechId" relevant="/delivery/child3RegistrationType = 'USE_PREPRINTED_ID'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind action="show" id="child3Sex" nodeset="/delivery/child3Sex" relevant="/delivery/child3Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="child3FirstName" nodeset="/delivery/child3FirstName" relevant="/delivery/child3Outcome = 'A'" type="xsd:string" visible="false()" required="false()"/&gt;
-    &lt;xf:bind action="show" id="child3Weight" nodeset="/delivery/child3Weight" relevant="/delivery/child3Outcome = 'A'" required="true()" type="xsd:decimal" visible="false()" constraint=". &gt;= 0.2 and . &lt;= 11" message="Value out of range: must be between 0.2 and 11"/&gt;
-    &lt;xf:bind action="show" constraint=". &amp;lt; 2147483647" id="sender" message="Invalid phone number:  number too large" nodeset="/delivery/sender" relevant="/delivery/child1RegistrationType = 'AUTO_GENERATE_ID' or /delivery/child2RegistrationType = 'AUTO_GENERATE_ID' or /delivery/child3RegistrationType = 'AUTO_GENERATE_ID'" required="true()" type="xsd:int" visible="false()"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/delivery/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/delivery/formname" required="true()" type="xsd:string" visible="false()"/&gt;
-  &lt;/xf:model&gt;
-  &lt;xf:group id="1"&gt;
-    &lt;xf:label&gt;Page1&lt;/xf:label&gt;
-    &lt;xf:input bind="staffId"&gt;
-      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="facilityId"&gt;
-      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="motechId"&gt;
-      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="date"&gt;
-      &lt;xf:label&gt;Delivery date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="mode"&gt;
-      &lt;xf:label&gt;Delivery mode&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Normal&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;C-Section&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;Vacuum&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="4"&gt;
-        &lt;xf:label&gt;Forceps&lt;/xf:label&gt;
-        &lt;xf:value&gt;4&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="outcome"&gt;
-      &lt;xf:label&gt;Delivery outcome&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Singleton&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Twins&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;Triplets&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="maleInvolved"&gt;
-      &lt;xf:label&gt;Male involvement&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="deliveryLocation"&gt;
-      &lt;xf:label&gt;Location&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Gov't HC/HP&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Teaching hospital&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;Gov't hospital&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="4"&gt;
-        &lt;xf:label&gt;Private hospital&lt;/xf:label&gt;
-        &lt;xf:value&gt;4&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="5"&gt;
-        &lt;xf:label&gt;CHAG&lt;/xf:label&gt;
-        &lt;xf:value&gt;5&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="6"&gt;
-        &lt;xf:label&gt;Quasi-gov't institute&lt;/xf:label&gt;
-        &lt;xf:value&gt;6&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="7"&gt;
-        &lt;xf:label&gt;Mines&lt;/xf:label&gt;
-        &lt;xf:value&gt;7&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="8"&gt;
-        &lt;xf:label&gt;Home&lt;/xf:label&gt;
-        &lt;xf:value&gt;8&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="deliveredBy"&gt;
-      &lt;xf:label&gt;Delivered by&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Doctor&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Medical assistant&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;Midwife - private&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="4"&gt;
-        &lt;xf:label&gt;Midwife - gov't&lt;/xf:label&gt;
-        &lt;xf:value&gt;4&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="5"&gt;
-        &lt;xf:label&gt;CHO or CHN&lt;/xf:label&gt;
-        &lt;xf:value&gt;5&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="6"&gt;
-        &lt;xf:label&gt;Trained TBA&lt;/xf:label&gt;
-        &lt;xf:value&gt;6&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="7"&gt;
-        &lt;xf:label&gt;Untrained TBA&lt;/xf:label&gt;
-        &lt;xf:value&gt;7&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="8"&gt;
-        &lt;xf:label&gt;Friend or relative&lt;/xf:label&gt;
-        &lt;xf:value&gt;8&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select bind="complications"&gt;
-      &lt;xf:label&gt;Complications&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Eclampsia&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Puerperal inf/sepsis&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;PPH&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="4"&gt;
-        &lt;xf:label&gt;Ruptured uterus&lt;/xf:label&gt;
-        &lt;xf:value&gt;4&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="5"&gt;
-        &lt;xf:label&gt;Cardiac arrest&lt;/xf:label&gt;
-        &lt;xf:value&gt;5&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="6"&gt;
-        &lt;xf:label&gt;VVF&lt;/xf:label&gt;
-        &lt;xf:value&gt;6&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="7"&gt;
-        &lt;xf:label&gt;Drop foot&lt;/xf:label&gt;
-        &lt;xf:value&gt;7&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="8"&gt;
-        &lt;xf:label&gt;Puerperal psychosis&lt;/xf:label&gt;
-        &lt;xf:value&gt;8&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="9"&gt;
-        &lt;xf:label&gt;Other&lt;/xf:label&gt;
-        &lt;xf:value&gt;9&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select&gt;
-    &lt;xf:select1 bind="vvf"&gt;
-      &lt;xf:label&gt;VVF&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Repaired&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Referred&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="maternalDeath"&gt;
-      &lt;xf:label&gt;Maternal death&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="comments"&gt;
-      &lt;xf:label&gt;Comments&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="child1Outcome"&gt;
-      &lt;xf:label&gt;Child 1 outcome&lt;/xf:label&gt;
-      &lt;xf:item id="A"&gt;
-        &lt;xf:label&gt;Alive&lt;/xf:label&gt;
-        &lt;xf:value&gt;A&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="FSB"&gt;
-        &lt;xf:label&gt;Fresh Still Birth&lt;/xf:label&gt;
-        &lt;xf:value&gt;FSB&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="MSB"&gt;
-        &lt;xf:label&gt;Macerated Still Birth&lt;/xf:label&gt;
-        &lt;xf:value&gt;MSB&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="child1RegistrationType"&gt;
-      &lt;xf:label&gt;Child 1 reg. mode&lt;/xf:label&gt;
-      &lt;xf:item id="USE_PREPRINTED_ID"&gt;
-        &lt;xf:label&gt;Pre-printed ID&lt;/xf:label&gt;
-        &lt;xf:value&gt;USE_PREPRINTED_ID&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="AUTO_GENERATE_ID"&gt;
-        &lt;xf:label&gt;Auto-generated ID&lt;/xf:label&gt;
-        &lt;xf:value&gt;AUTO_GENERATE_ID&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="child1MotechId"&gt;
-      &lt;xf:label&gt;Child 1 MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="child1Sex"&gt;
-      &lt;xf:label&gt;Child 1 sex&lt;/xf:label&gt;
-      &lt;xf:item id="M"&gt;
-        &lt;xf:label&gt;Male&lt;/xf:label&gt;
-        &lt;xf:value&gt;M&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="F"&gt;
-        &lt;xf:label&gt;Female&lt;/xf:label&gt;
-        &lt;xf:value&gt;F&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="child1FirstName"&gt;
-      &lt;xf:label&gt;Child 1 name&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="child1Weight"&gt;
-      &lt;xf:label&gt;Child 1 weight (kg)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="child2Outcome"&gt;
-      &lt;xf:label&gt;Child 2 outcome&lt;/xf:label&gt;
-      &lt;xf:item id="A"&gt;
-        &lt;xf:label&gt;Alive&lt;/xf:label&gt;
-        &lt;xf:value&gt;A&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="FSB"&gt;
-        &lt;xf:label&gt;Fresh Still Birth&lt;/xf:label&gt;
-        &lt;xf:value&gt;FSB&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="MSB"&gt;
-        &lt;xf:label&gt;Macerated Still Birth&lt;/xf:label&gt;
-        &lt;xf:value&gt;MSB&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="child2RegistrationType"&gt;
-      &lt;xf:label&gt;Child 2 reg. mode&lt;/xf:label&gt;
-      &lt;xf:item id="USE_PREPRINTED_ID"&gt;
-        &lt;xf:label&gt;Pre-printed ID&lt;/xf:label&gt;
-        &lt;xf:value&gt;USE_PREPRINTED_ID&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="AUTO_GENERATE_ID"&gt;
-        &lt;xf:label&gt;Auto-generated ID&lt;/xf:label&gt;
-        &lt;xf:value&gt;AUTO_GENERATE_ID&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="child2MotechId"&gt;
-      &lt;xf:label&gt;Child 2 MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="child2Sex"&gt;
-      &lt;xf:label&gt;Child 2 sex&lt;/xf:label&gt;
-      &lt;xf:item id="M"&gt;
-        &lt;xf:label&gt;Male&lt;/xf:label&gt;
-        &lt;xf:value&gt;M&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="F"&gt;
-        &lt;xf:label&gt;Female&lt;/xf:label&gt;
-        &lt;xf:value&gt;F&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="child2FirstName"&gt;
-      &lt;xf:label&gt;Child 2 name&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="child2Weight"&gt;
-      &lt;xf:label&gt;Child 2 weight (kg)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="child3Outcome"&gt;
-      &lt;xf:label&gt;Child 3 outcome&lt;/xf:label&gt;
-      &lt;xf:item id="A"&gt;
-        &lt;xf:label&gt;Alive&lt;/xf:label&gt;
-        &lt;xf:value&gt;A&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="FSB"&gt;
-        &lt;xf:label&gt;Fresh Still Birth&lt;/xf:label&gt;
-        &lt;xf:value&gt;FSB&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="MSB"&gt;
-        &lt;xf:label&gt;Macerated Still Birth&lt;/xf:label&gt;
-        &lt;xf:value&gt;MSB&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="child3RegistrationType"&gt;
-      &lt;xf:label&gt;Child 3 reg. mode&lt;/xf:label&gt;
-      &lt;xf:item id="USE_PREPRINTED_ID"&gt;
-        &lt;xf:label&gt;Pre-printed ID&lt;/xf:label&gt;
-        &lt;xf:value&gt;USE_PREPRINTED_ID&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="AUTO_GENERATE_ID"&gt;
-        &lt;xf:label&gt;Auto-generated ID&lt;/xf:label&gt;
-        &lt;xf:value&gt;AUTO_GENERATE_ID&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="child3MotechId"&gt;
-      &lt;xf:label&gt;Child 3 MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="child3Sex"&gt;
-      &lt;xf:label&gt;Child 3 sex&lt;/xf:label&gt;
-      &lt;xf:item id="M"&gt;
-        &lt;xf:label&gt;Male&lt;/xf:label&gt;
-        &lt;xf:value&gt;M&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="F"&gt;
-        &lt;xf:label&gt;Female&lt;/xf:label&gt;
-        &lt;xf:value&gt;F&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="child3FirstName"&gt;
-      &lt;xf:label&gt;Child 3 name&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="child3Weight"&gt;
-      &lt;xf:label&gt;Child 3 weight (kg)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="sender"&gt;
-      &lt;xf:label&gt;Response phone number&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formtype"&gt;
-      &lt;xf:label&gt;formType&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formname"&gt;
-      &lt;xf:label&gt;formName&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-  &lt;/xf:group&gt;
-&lt;/xf:xforms&gt;
-</xform>
-<layout>&lt;Form id="3"&gt;
-  &lt;Page Text="Page1" Binding="Page1" Width="100%" Height="2089px" backgroundColor=""&gt;
-    &lt;Item WidgetType="Label" Text="Enter your CHPS ID" HelpText="Staff ID" Binding="staffId" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="200px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Enter client's MoTeCH ID" HelpText="MoTeCH ID" Binding="motechId" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechId" Left="270px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Delivery Date" HelpText="Delivery date" Binding="date" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Delivery date" Binding="date" Left="150px" Top="100px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Delivery Method" HelpText="Delivery mode" Binding="mode" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Delivery mode" Binding="mode" Left="170px" Top="140px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Delivery Outcome" HelpText="Delivery outcome" Binding="outcome" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Delivery outcome" Binding="outcome" Left="180px" Top="180px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Place of delivery" HelpText="Location" Binding="deliveryLocation" Left="20px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Location" Binding="deliveryLocation" Left="190px" Top="220px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Delivered by?" HelpText="Delivered by" Binding="deliveredBy" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Delivered by" Binding="deliveredBy" Left="150px" Top="260px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Maternal death?" HelpText="Maternal death" Binding="maternalDeath" Left="20px" Top="300px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Maternal death" Binding="maternalDeath" Left="170px" Top="300px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Cause of Death" HelpText="Cause of Death" Binding="cause" Left="20px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Cause of Death" Binding="cause" Left="160px" Top="340px" Width="200px" Height="25px" TabIndex="9" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 1 birth outcome" HelpText="Child 1 outcome" Binding="child1Outcome" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 1 outcome" Binding="child1Outcome" Left="230px" Top="380px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 1 MoTeCH ID" HelpText="Child 1 MoTeCH ID" Binding="child1MotechId" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 1 MoTeCH ID" Binding="child1MotechId" Left="190px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 1 Gender" HelpText="Child 1 sex" Binding="child1Sex" Left="20px" Top="460px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 1 sex" Binding="child1Sex" Left="160px" Top="460px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 1 name" HelpText="Child 1 name" Binding="child1FirstName" Left="20px" Top="500px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 1 name" Binding="child1FirstName" Left="140px" Top="500px" Width="200px" Height="25px" TabIndex="13" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 1 was given OPV?" HelpText="Child 1 OPV" Binding="child1OPV" Left="20px" Top="540px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 1 OPV" Binding="child1OPV" Left="240px" Top="540px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 1 was given BCG?" HelpText="Child 1 BCG" Binding="child1BCG" Left="20px" Top="580px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 1 BCG" Binding="child1BCG" Left="240px" Top="580px" Width="200px" Height="25px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="630px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="630px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Facility ID" HelpText="Facility ID" Binding="facilityId" Left="114px" Top="680px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Facility ID" Binding="facilityId" Left="185px" Top="680px" Width="200px" Height="25px" TabIndex="33" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Male involvement" HelpText="Male involvement" Binding="maleInvolved" Left="66px" Top="720px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Male involvement" Binding="maleInvolved" Left="185px" Top="720px" Width="200px" Height="25px" TabIndex="34" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Complications" HelpText="Complications" Binding="complications" Left="20px" Top="760px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="Eclampsia" HelpText="Eclampsia" Binding="1" ParentBinding="complications" Left="150px" Top="760px" TabIndex="35" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="Puerperal inf/sepsis" HelpText="Puerperal inf/sepsis" Binding="2" ParentBinding="complications" Left="150px" Top="800px" TabIndex="36" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="PPH" HelpText="PPH" Binding="3" ParentBinding="complications" Left="150px" Top="840px" TabIndex="37" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="Ruptured uterus" HelpText="Ruptured uterus" Binding="4" ParentBinding="complications" Left="150px" Top="880px" TabIndex="38" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="Cardiac arrest" HelpText="Cardiac arrest" Binding="5" ParentBinding="complications" Left="150px" Top="920px" TabIndex="39" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="VVF" HelpText="VVF" Binding="6" ParentBinding="complications" Left="150px" Top="960px" TabIndex="40" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="Drop foot" HelpText="Drop foot" Binding="7" ParentBinding="complications" Left="150px" Top="1000px" TabIndex="41" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="Puerperal psychosis" HelpText="Puerperal psychosis" Binding="8" ParentBinding="complications" Left="150px" Top="1040px" TabIndex="42" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="CheckBox" Text="Other" HelpText="Other" Binding="9" ParentBinding="complications" Left="150px" Top="1080px" TabIndex="43" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="VVF" HelpText="VVF" Binding="vvf" Left="154px" Top="1120px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="VVF" Binding="vvf" Left="185px" Top="1120px" Width="200px" Height="25px" TabIndex="44" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Comments" HelpText="Comments" Binding="comments" Left="112px" Top="1160px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Comments" Binding="comments" Left="185px" Top="1160px" Width="200px" Height="25px" TabIndex="45" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 1 reg. mode" HelpText="Child 1 reg. mode" Binding="child1RegistrationType" Left="65px" Top="1200px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 1 reg. mode" Binding="child1RegistrationType" Left="185px" Top="1200px" Width="200px" Height="25px" TabIndex="46" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 1 weight (kg)" HelpText="Child 1 weight (kg)" Binding="child1Weight" Left="55px" Top="1240px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 1 weight (kg)" Binding="child1Weight" Left="185px" Top="1240px" Width="200px" Height="25px" TabIndex="47" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 2 outcome" HelpText="Child 2 outcome" Binding="child2Outcome" Left="74px" Top="1280px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 2 outcome" Binding="child2Outcome" Left="185px" Top="1280px" Width="200px" Height="25px" TabIndex="48" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 2 reg. mode" HelpText="Child 2 reg. mode" Binding="child2RegistrationType" Left="65px" Top="1320px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 2 reg. mode" Binding="child2RegistrationType" Left="185px" Top="1320px" Width="200px" Height="25px" TabIndex="49" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 2 MoTeCH ID" HelpText="Child 2 MoTeCH ID" Binding="child2MotechId" Left="58px" Top="1360px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 2 MoTeCH ID" Binding="child2MotechId" Left="185px" Top="1360px" Width="200px" Height="25px" TabIndex="50" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 2 sex" HelpText="Child 2 sex" Binding="child2Sex" Left="109px" Top="1400px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 2 sex" Binding="child2Sex" Left="185px" Top="1400px" Width="200px" Height="25px" TabIndex="51" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 2 name" HelpText="Child 2 name" Binding="child2FirstName" Left="96px" Top="1440px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 2 name" Binding="child2FirstName" Left="185px" Top="1440px" Width="200px" Height="25px" TabIndex="52" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 2 weight (kg)" HelpText="Child 2 weight (kg)" Binding="child2Weight" Left="55px" Top="1480px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 2 weight (kg)" Binding="child2Weight" Left="185px" Top="1480px" Width="200px" Height="25px" TabIndex="53" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 3 outcome" HelpText="Child 3 outcome" Binding="child3Outcome" Left="74px" Top="1520px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 3 outcome" Binding="child3Outcome" Left="185px" Top="1520px" Width="200px" Height="25px" TabIndex="54" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 3 reg. mode" HelpText="Child 3 reg. mode" Binding="child3RegistrationType" Left="65px" Top="1560px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 3 reg. mode" Binding="child3RegistrationType" Left="185px" Top="1560px" Width="200px" Height="25px" TabIndex="55" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 3 MoTeCH ID" HelpText="Child 3 MoTeCH ID" Binding="child3MotechId" Left="58px" Top="1600px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 3 MoTeCH ID" Binding="child3MotechId" Left="185px" Top="1600px" Width="200px" Height="25px" TabIndex="56" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 3 sex" HelpText="Child 3 sex" Binding="child3Sex" Left="109px" Top="1640px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Child 3 sex" Binding="child3Sex" Left="185px" Top="1640px" Width="200px" Height="25px" TabIndex="57" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 3 name" HelpText="Child 3 name" Binding="child3FirstName" Left="96px" Top="1680px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 3 name" Binding="child3FirstName" Left="185px" Top="1680px" Width="200px" Height="25px" TabIndex="58" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child 3 weight (kg)" HelpText="Child 3 weight (kg)" Binding="child3Weight" Left="55px" Top="1720px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Child 3 weight (kg)" Binding="child3Weight" Left="185px" Top="1720px" Width="200px" Height="25px" TabIndex="59" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Response phone number" HelpText="Response phone number" Binding="sender" Left="20px" Top="1760px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Response phone number" Binding="sender" Left="185px" Top="1760px" Width="200px" Height="25px" TabIndex="60" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="118px" Top="1800px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="185px" Top="1800px" Width="200px" Height="25px" TabIndex="61" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formName" HelpText="formName" Binding="formname" Left="115px" Top="1840px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formName" Binding="formname" Left="185px" Top="1840px" Width="200px" Height="25px" TabIndex="62" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-  &lt;/Page&gt;
-&lt;/Form&gt;</layout>
-<versionText locale="en">
-<xform>&lt;xform id="3"&gt;
-    &lt;text xpath="xforms/model/instance/delivery[@name]" value="Delivery"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Delivery date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='mode']/label" value="Delivery mode"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='mode']/item[@id='1']/label" value="Normal"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='mode']/item[@id='2']/label" value="C-Section"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='mode']/item[@id='3']/label" value="Vacuum"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='mode']/item[@id='4']/label" value="Forceps"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='outcome']/label" value="Delivery outcome"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='outcome']/item[@id='1']/label" value="Singleton"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='outcome']/item[@id='2']/label" value="Twins"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='outcome']/item[@id='3']/label" value="Triplets"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/label" value="Male involvement"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/label" value="Location"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/item[@id='1']/label" value="Gov't HC/HP"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/item[@id='2']/label" value="Teaching hospital"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/item[@id='3']/label" value="Gov't hospital"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/item[@id='4']/label" value="Private hospital"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/item[@id='5']/label" value="CHAG"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/item[@id='6']/label" value="Quasi-gov't institute"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/item[@id='7']/label" value="Mines"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveryLocation']/item[@id='8']/label" value="Home"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/label" value="Delivered by"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/item[@id='1']/label" value="Doctor"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/item[@id='2']/label" value="Medical assistant"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/item[@id='3']/label" value="Midwife - private"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/item[@id='4']/label" value="Midwife - gov't"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/item[@id='5']/label" value="CHO or CHN"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/item[@id='6']/label" value="Trained TBA"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/item[@id='7']/label" value="Untrained TBA"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='deliveredBy']/item[@id='8']/label" value="Friend or relative"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/label" value="Complications"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='1']/label" value="Eclampsia"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='2']/label" value="Puerperal inf/sepsis"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='3']/label" value="PPH"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='4']/label" value="Ruptured uterus"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='5']/label" value="Cardiac arrest"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='6']/label" value="VVF"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='7']/label" value="Drop foot"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='8']/label" value="Puerperal psychosis"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select[@bind='complications']/item[@id='9']/label" value="Other"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vvf']/label" value="VVF"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vvf']/item[@id='1']/label" value="Repaired"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vvf']/item[@id='2']/label" value="Referred"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maternalDeath']/label" value="Maternal death"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maternalDeath']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maternalDeath']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='comments']/label" value="Comments"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1Outcome']/label" value="Child 1 outcome"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1Outcome']/item[@id='A']/label" value="Alive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1Outcome']/item[@id='FSB']/label" value="Fresh Still Birth"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1Outcome']/item[@id='MSB']/label" value="Macerated Still Birth"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1RegistrationType']/label" value="Child 1 reg. mode"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1RegistrationType']/item[@id='USE_PREPRINTED_ID']/label" value="Pre-printed ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1RegistrationType']/item[@id='AUTO_GENERATE_ID']/label" value="Auto-generated ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child1MotechId']/label" value="Child 1 MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1Sex']/label" value="Child 1 sex"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1Sex']/item[@id='M']/label" value="Male"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child1Sex']/item[@id='F']/label" value="Female"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child1FirstName']/label" value="Child 1 name"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child1Weight']/label" value="Child 1 weight (kg)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2Outcome']/label" value="Child 2 outcome"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2Outcome']/item[@id='A']/label" value="Alive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2Outcome']/item[@id='FSB']/label" value="Fresh Still Birth"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2Outcome']/item[@id='MSB']/label" value="Macerated Still Birth"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2RegistrationType']/label" value="Child 2 reg. mode"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2RegistrationType']/item[@id='USE_PREPRINTED_ID']/label" value="Pre-printed ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2RegistrationType']/item[@id='AUTO_GENERATE_ID']/label" value="Auto-generated ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child2MotechId']/label" value="Child 2 MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2Sex']/label" value="Child 2 sex"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2Sex']/item[@id='M']/label" value="Male"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child2Sex']/item[@id='F']/label" value="Female"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child2FirstName']/label" value="Child 2 name"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child2Weight']/label" value="Child 2 weight (kg)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3Outcome']/label" value="Child 3 outcome"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3Outcome']/item[@id='A']/label" value="Alive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3Outcome']/item[@id='FSB']/label" value="Fresh Still Birth"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3Outcome']/item[@id='MSB']/label" value="Macerated Still Birth"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3RegistrationType']/label" value="Child 3 reg. mode"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3RegistrationType']/item[@id='USE_PREPRINTED_ID']/label" value="Pre-printed ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3RegistrationType']/item[@id='AUTO_GENERATE_ID']/label" value="Auto-generated ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child3MotechId']/label" value="Child 3 MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3Sex']/label" value="Child 3 sex"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3Sex']/item[@id='M']/label" value="Male"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='child3Sex']/item[@id='F']/label" value="Female"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child3FirstName']/label" value="Child 3 name"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='child3Weight']/label" value="Child 3 weight (kg)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='sender']/label" value="Response phone number"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='staffId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='child1MotechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='child2MotechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='child3MotechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='sender'][@message]" value="Invalid phone number:  number too large"/&gt;
-  &lt;/xform&gt;</xform>
-<layout>&lt;Form id="3"&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
-  &lt;/Form&gt;</layout>
-</versionText>
-</version>
-</form>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="3">
+  <xf:model>
+    <xf:instance id="delivery">
+      <delivery id="3" name="Delivery">
+        <staffId/>
+        <facilityId/>
+        <motechId/>
+        <date/>
+        <mode/>
+        <outcome/>
+        <maleInvolved/>
+        <deliveryLocation/>
+        <deliveredBy/>
+        <complications/>
+        <vvf/>
+        <maternalDeath/>
+        <comments/>
+        <child1Outcome/>
+        <child1RegistrationType/>
+        <child1MotechId/>
+        <child1Sex/>
+        <child1FirstName/>
+        <child1Weight/>
+        <child2Outcome/>
+        <child2RegistrationType/>
+        <child2MotechId/>
+        <child2Sex/>
+        <child2FirstName/>
+        <child2Weight/>
+        <child3Outcome/>
+        <child3RegistrationType/>
+        <child3MotechId/>
+        <child3Sex/>
+        <child3FirstName/>
+        <child3Weight/>
+        <sender/>
+        <formtype>data_entry</formtype>
+        <formname>delivery-jf</formname>
+      </delivery>
+    </xf:instance>
+    <xf:bind id="staffId" nodeset="/delivery/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/delivery/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="motechId" nodeset="/delivery/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/delivery/date" required="true()" type="xsd:dateTime"/>
+    <xf:bind id="mode" nodeset="/delivery/mode" required="true()" type="xsd:string"/>
+    <xf:bind id="outcome" nodeset="/delivery/outcome" required="true()" type="xsd:string"/>
+    <xf:bind id="maleInvolved" nodeset="/delivery/maleInvolved" required="true()" type="xsd:string"/>
+    <xf:bind id="deliveryLocation" nodeset="/delivery/deliveryLocation" required="true()" type="xsd:string"/>
+    <xf:bind id="deliveredBy" nodeset="/delivery/deliveredBy" required="true()" type="xsd:string"/>
+    <xf:bind id="complications" nodeset="/delivery/complications" type="xsd:string"/>
+    <xf:bind action="show" id="vvf" nodeset="/delivery/vvf" relevant="/delivery/complications = '6'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="maternalDeath" nodeset="/delivery/maternalDeath" required="true()" type="xsd:string"/>
+    <xf:bind id="comments" nodeset="/delivery/comments" type="xsd:string"/>
+    <xf:bind id="child1Outcome" nodeset="/delivery/child1Outcome" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="child1RegistrationType" nodeset="/delivery/child1RegistrationType" relevant="/delivery/child1Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="child1MotechId" nodeset="/delivery/child1MotechId" relevant="/delivery/child1RegistrationType = 'USE_PREPRINTED_ID'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind action="show" id="child1Sex" nodeset="/delivery/child1Sex" relevant="/delivery/child1Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="child1FirstName" nodeset="/delivery/child1FirstName" relevant="/delivery/child1Outcome = 'A'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="child1Weight" nodeset="/delivery/child1Weight" relevant="/delivery/child1Outcome = 'A'" required="true()" type="xsd:decimal" visible="false()" constraint=". >= 0.2 and . <= 11" message="Value out of range: must be between 0.2 and 11"/>
+    <xf:bind action="show" id="child2Outcome" nodeset="/delivery/child2Outcome" relevant="/delivery/outcome = '2' or /delivery/outcome = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="child2RegistrationType" nodeset="/delivery/child2RegistrationType" relevant="/delivery/child2Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="child2MotechId" nodeset="/delivery/child2MotechId" relevant="/delivery/child2RegistrationType = 'USE_PREPRINTED_ID'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind action="show" id="child2Sex" nodeset="/delivery/child2Sex" relevant="/delivery/child2Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="child2FirstName" nodeset="/delivery/child2FirstName" relevant="/delivery/child2Outcome = 'A'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="child2Weight" nodeset="/delivery/child2Weight" relevant="/delivery/child2Outcome = 'A'" required="true()" type="xsd:decimal" visible="false()" constraint=". >= 0.2 and . <= 11" message="Value out of range: must be between 0.2 and 11"/>
+    <xf:bind action="show" id="child3Outcome" nodeset="/delivery/child3Outcome" relevant="/delivery/outcome = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="child3RegistrationType" nodeset="/delivery/child3RegistrationType" relevant="/delivery/child3Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="child3MotechId" nodeset="/delivery/child3MotechId" relevant="/delivery/child3RegistrationType = 'USE_PREPRINTED_ID'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind action="show" id="child3Sex" nodeset="/delivery/child3Sex" relevant="/delivery/child3Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="child3FirstName" nodeset="/delivery/child3FirstName" relevant="/delivery/child3Outcome = 'A'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="child3Weight" nodeset="/delivery/child3Weight" relevant="/delivery/child3Outcome = 'A'" required="true()" type="xsd:decimal" visible="false()" constraint=". >= 0.2 and . <= 11" message="Value out of range: must be between 0.2 and 11"/>
+    <xf:bind action="show" constraint=". &amp;lt; 2147483647" id="sender" message="Invalid phone number:  number too large" nodeset="/delivery/sender" relevant="/delivery/child1RegistrationType = 'AUTO_GENERATE_ID' or /delivery/child2RegistrationType = 'AUTO_GENERATE_ID' or /delivery/child3RegistrationType = 'AUTO_GENERATE_ID'" required="true()" type="xsd:int" visible="false()"/>
+    <xf:bind id="formtype" nodeset="/delivery/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/delivery/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page1</xf:label>
+    <xf:input bind="staffId">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityId">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="motechId">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Delivery date</xf:label>
+    </xf:input>
+    <xf:select1 bind="mode">
+      <xf:label>Delivery mode</xf:label>
+      <xf:item id="1">
+        <xf:label>Normal</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>C-Section</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Vacuum</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>Forceps</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="outcome">
+      <xf:label>Delivery outcome</xf:label>
+      <xf:item id="1">
+        <xf:label>Singleton</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Twins</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Triplets</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="maleInvolved">
+      <xf:label>Male involvement</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="deliveryLocation">
+      <xf:label>Location</xf:label>
+      <xf:item id="1">
+        <xf:label>Gov't HC/HP</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Teaching hospital</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Gov't hospital</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>Private hospital</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+      <xf:item id="5">
+        <xf:label>CHAG</xf:label>
+        <xf:value>5</xf:value>
+      </xf:item>
+      <xf:item id="6">
+        <xf:label>Quasi-gov't institute</xf:label>
+        <xf:value>6</xf:value>
+      </xf:item>
+      <xf:item id="7">
+        <xf:label>Mines</xf:label>
+        <xf:value>7</xf:value>
+      </xf:item>
+      <xf:item id="8">
+        <xf:label>Home</xf:label>
+        <xf:value>8</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="deliveredBy">
+      <xf:label>Delivered by</xf:label>
+      <xf:item id="1">
+        <xf:label>Doctor</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Medical assistant</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Midwife - private</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>Midwife - gov't</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+      <xf:item id="5">
+        <xf:label>CHO or CHN</xf:label>
+        <xf:value>5</xf:value>
+      </xf:item>
+      <xf:item id="6">
+        <xf:label>Trained TBA</xf:label>
+        <xf:value>6</xf:value>
+      </xf:item>
+      <xf:item id="7">
+        <xf:label>Untrained TBA</xf:label>
+        <xf:value>7</xf:value>
+      </xf:item>
+      <xf:item id="8">
+        <xf:label>Friend or relative</xf:label>
+        <xf:value>8</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select bind="complications">
+      <xf:label>Complications</xf:label>
+      <xf:item id="1">
+        <xf:label>Eclampsia</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Puerperal inf/sepsis</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>PPH</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>Ruptured uterus</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+      <xf:item id="5">
+        <xf:label>Cardiac arrest</xf:label>
+        <xf:value>5</xf:value>
+      </xf:item>
+      <xf:item id="6">
+        <xf:label>VVF</xf:label>
+        <xf:value>6</xf:value>
+      </xf:item>
+      <xf:item id="7">
+        <xf:label>Drop foot</xf:label>
+        <xf:value>7</xf:value>
+      </xf:item>
+      <xf:item id="8">
+        <xf:label>Puerperal psychosis</xf:label>
+        <xf:value>8</xf:value>
+      </xf:item>
+      <xf:item id="9">
+        <xf:label>Other</xf:label>
+        <xf:value>9</xf:value>
+      </xf:item>
+    </xf:select>
+    <xf:select1 bind="vvf">
+      <xf:label>VVF</xf:label>
+      <xf:item id="1">
+        <xf:label>Repaired</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Referred</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="maternalDeath">
+      <xf:label>Maternal death</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="comments">
+      <xf:label>Comments</xf:label>
+    </xf:input>
+    <xf:select1 bind="child1Outcome">
+      <xf:label>Child 1 outcome</xf:label>
+      <xf:item id="A">
+        <xf:label>Alive</xf:label>
+        <xf:value>A</xf:value>
+      </xf:item>
+      <xf:item id="FSB">
+        <xf:label>Fresh Still Birth</xf:label>
+        <xf:value>FSB</xf:value>
+      </xf:item>
+      <xf:item id="MSB">
+        <xf:label>Macerated Still Birth</xf:label>
+        <xf:value>MSB</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="child1RegistrationType">
+      <xf:label>Child 1 reg. mode</xf:label>
+      <xf:item id="USE_PREPRINTED_ID">
+        <xf:label>Pre-printed ID</xf:label>
+        <xf:value>USE_PREPRINTED_ID</xf:value>
+      </xf:item>
+      <xf:item id="AUTO_GENERATE_ID">
+        <xf:label>Auto-generated ID</xf:label>
+        <xf:value>AUTO_GENERATE_ID</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="child1MotechId">
+      <xf:label>Child 1 MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="child1Sex">
+      <xf:label>Child 1 sex</xf:label>
+      <xf:item id="M">
+        <xf:label>Male</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="F">
+        <xf:label>Female</xf:label>
+        <xf:value>F</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="child1FirstName">
+      <xf:label>Child 1 name</xf:label>
+    </xf:input>
+    <xf:input bind="child1Weight">
+      <xf:label>Child 1 weight (kg)</xf:label>
+    </xf:input>
+    <xf:select1 bind="child2Outcome">
+      <xf:label>Child 2 outcome</xf:label>
+      <xf:item id="A">
+        <xf:label>Alive</xf:label>
+        <xf:value>A</xf:value>
+      </xf:item>
+      <xf:item id="FSB">
+        <xf:label>Fresh Still Birth</xf:label>
+        <xf:value>FSB</xf:value>
+      </xf:item>
+      <xf:item id="MSB">
+        <xf:label>Macerated Still Birth</xf:label>
+        <xf:value>MSB</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="child2RegistrationType">
+      <xf:label>Child 2 reg. mode</xf:label>
+      <xf:item id="USE_PREPRINTED_ID">
+        <xf:label>Pre-printed ID</xf:label>
+        <xf:value>USE_PREPRINTED_ID</xf:value>
+      </xf:item>
+      <xf:item id="AUTO_GENERATE_ID">
+        <xf:label>Auto-generated ID</xf:label>
+        <xf:value>AUTO_GENERATE_ID</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="child2MotechId">
+      <xf:label>Child 2 MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="child2Sex">
+      <xf:label>Child 2 sex</xf:label>
+      <xf:item id="M">
+        <xf:label>Male</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="F">
+        <xf:label>Female</xf:label>
+        <xf:value>F</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="child2FirstName">
+      <xf:label>Child 2 name</xf:label>
+    </xf:input>
+    <xf:input bind="child2Weight">
+      <xf:label>Child 2 weight (kg)</xf:label>
+    </xf:input>
+    <xf:select1 bind="child3Outcome">
+      <xf:label>Child 3 outcome</xf:label>
+      <xf:item id="A">
+        <xf:label>Alive</xf:label>
+        <xf:value>A</xf:value>
+      </xf:item>
+      <xf:item id="FSB">
+        <xf:label>Fresh Still Birth</xf:label>
+        <xf:value>FSB</xf:value>
+      </xf:item>
+      <xf:item id="MSB">
+        <xf:label>Macerated Still Birth</xf:label>
+        <xf:value>MSB</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="child3RegistrationType">
+      <xf:label>Child 3 reg. mode</xf:label>
+      <xf:item id="USE_PREPRINTED_ID">
+        <xf:label>Pre-printed ID</xf:label>
+        <xf:value>USE_PREPRINTED_ID</xf:value>
+      </xf:item>
+      <xf:item id="AUTO_GENERATE_ID">
+        <xf:label>Auto-generated ID</xf:label>
+        <xf:value>AUTO_GENERATE_ID</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="child3MotechId">
+      <xf:label>Child 3 MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="child3Sex">
+      <xf:label>Child 3 sex</xf:label>
+      <xf:item id="M">
+        <xf:label>Male</xf:label>
+        <xf:value>M</xf:value>
+      </xf:item>
+      <xf:item id="F">
+        <xf:label>Female</xf:label>
+        <xf:value>F</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="child3FirstName">
+      <xf:label>Child 3 name</xf:label>
+    </xf:input>
+    <xf:input bind="child3Weight">
+      <xf:label>Child 3 weight (kg)</xf:label>
+    </xf:input>
+    <xf:input bind="sender">
+      <xf:label>Response phone number</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

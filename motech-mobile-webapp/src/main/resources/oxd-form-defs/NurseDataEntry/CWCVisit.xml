@@ -1,378 +1,264 @@
-<form description="" name="CWC Visit">
-<version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;xf:model&gt;
-    &lt;xf:instance id="child"&gt;
-      &lt;child id="2" name="CWC Visit"&gt;
-        &lt;staffId/&gt;
-        &lt;facilityId/&gt;
-        &lt;date/&gt;
-        &lt;motechId/&gt;
-        &lt;immunization/&gt;
-        &lt;bcg/&gt;
-        &lt;opvdose/&gt;
-        &lt;pentadose/&gt;
-        &lt;yellowfever/&gt;
-        &lt;csm/&gt;
-        &lt;measles/&gt;
-        &lt;iptidose/&gt;
-        &lt;vitaminA/&gt;
-        &lt;dewormer/&gt;
-        &lt;weight/&gt;
-        &lt;muac/&gt;
-        &lt;height/&gt;
-        &lt;maleInvolved/&gt;
-        &lt;cwcLocation/&gt;
-        &lt;house/&gt;
-        &lt;community/&gt;
-        &lt;comments/&gt;
-        &lt;formtype&gt;data_entry&lt;/formtype&gt;
-        &lt;formname&gt;childcwc-jf&lt;/formname&gt;
-      &lt;/child&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:bind id="staffId" nodeset="/child/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="facilityId" nodeset="/child/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/child/date" required="true()" type="xsd:date"/&gt;
-    &lt;xf:bind id="motechId" nodeset="/child/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind id="immunization" nodeset="/child/immunization" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="bcg" nodeset="/child/bcg" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="opvdose" nodeset="/child/opvdose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="pentadose" nodeset="/child/pentadose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="yellowfever" nodeset="/child/yellowfever" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="csm" nodeset="/child/csm" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="measles" nodeset="/child/measles" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="iptidose" nodeset="/child/iptidose" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="vitaminA" nodeset="/child/vitaminA" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="dewormer" nodeset="/child/dewormer" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 1 and . &amp;lt;= 80" id="weight" message="Value out of range: must be between 1 and 80" nodeset="/child/weight" type="xsd:decimal"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 5 and . &amp;lt;= 25" id="muac" message="Value out of range: must be between 5 and 25" nodeset="/child/muac" type="xsd:decimal"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 26 and . &amp;lt;= 160" id="height" message="Value out of range: must be between 26 and 160" nodeset="/child/height" type="xsd:decimal"/&gt;
-    &lt;xf:bind id="maleInvolved" nodeset="/child/maleInvolved" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="cwcLocation" nodeset="/child/cwcLocation" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="house" nodeset="/child/house" relevant="/child/cwcLocation = '2'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="community" nodeset="/child/community" relevant="/child/cwcLocation = '2'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="comments" nodeset="/child/comments" type="xsd:string"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/child/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/child/formname" required="true()" type="xsd:string" visible="false()"/&gt;
-  &lt;/xf:model&gt;
-  &lt;xf:group id="1"&gt;
-    &lt;xf:label&gt;Page4&lt;/xf:label&gt;
-    &lt;xf:input bind="staffId"&gt;
-      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="facilityId"&gt;
-      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="date"&gt;
-      &lt;xf:label&gt;Visit date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="motechId"&gt;
-      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="immunization"&gt;
-      &lt;xf:label&gt;Immunization&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="bcg"&gt;
-      &lt;xf:label&gt;BCG&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="opvdose"&gt;
-      &lt;xf:label&gt;OPV&lt;/xf:label&gt;
-      &lt;xf:item id="NA"&gt;
-        &lt;xf:label&gt;None given&lt;/xf:label&gt;
-        &lt;xf:value&gt;NA&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-     &lt;xf:item id="0"&gt;
-        &lt;xf:label&gt;OPV 0&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;OPV 1&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;OPV 2&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;OPV 3&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="pentadose"&gt;
-      &lt;xf:label&gt;Penta&lt;/xf:label&gt;
-      &lt;xf:item id="NA"&gt;
-        &lt;xf:label&gt;None given&lt;/xf:label&gt;
-        &lt;xf:value&gt;NA&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Penta 1&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Penta 2&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;Penta 3&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="yellowfever"&gt;
-      &lt;xf:label&gt;Yellow Fever&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="csm"&gt;
-      &lt;xf:label&gt;CSM&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="measles"&gt;
-      &lt;xf:label&gt;Measles&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="iptidose"&gt;
-      &lt;xf:label&gt;IPTi&lt;/xf:label&gt;
-      &lt;xf:item id="NA"&gt;
-        &lt;xf:label&gt;None given&lt;/xf:label&gt;
-        &lt;xf:value&gt;NA&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;IPTi 1&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;IPTi 2&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;IPTi 3&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="vitaminA"&gt;
-      &lt;xf:label&gt;Vitamin A&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="dewormer"&gt;
-      &lt;xf:label&gt;Dewormer&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="weight"&gt;
-      &lt;xf:label&gt;Weight (kg)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="muac"&gt;
-      &lt;xf:label&gt;MUAC (cm)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="height"&gt;
-      &lt;xf:label&gt;Height (cm)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="maleInvolved"&gt;
-      &lt;xf:label&gt;Male involvement&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="cwcLocation"&gt;
-      &lt;xf:label&gt;Location&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Facility or clinic&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Home&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;Outreach&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="4"&gt;
-        &lt;xf:label&gt;School&lt;/xf:label&gt;
-        &lt;xf:value&gt;4&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="house"&gt;
-      &lt;xf:label&gt;House&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="community"&gt;
-      &lt;xf:label&gt;Community&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="comments"&gt;
-      &lt;xf:label&gt;Comments&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formtype"&gt;
-      &lt;xf:label&gt;formType&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formname"&gt;
-      &lt;xf:label&gt;formName&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-  &lt;/xf:group&gt;
-&lt;/xf:xforms&gt;
-</xform>
-<layout>&lt;Form id="2"&gt;
-  &lt;Page Text="Page4" Binding="Page4" Width="100%" Height="790px" backgroundColor=""&gt;
-    &lt;Item WidgetType="Label" Text="Enter your CHPS ID" HelpText="Staff ID" Binding="staffId" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffId" Left="200px" Top="20px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Enter child's MoTeCH ID" HelpText="MoTeCH ID" Binding="motechId" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechId" Left="250px" Top="60px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Encounter/visit date with child" HelpText="Visit date" Binding="date" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Visit date" Binding="date" Left="330px" Top="100px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child had a BCG vaccination" HelpText="BCG" Binding="bcg" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="BCG" Binding="bcg" Left="290px" Top="140px" Width="200px" Height="25px" TabIndex="4" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child had an OPV" HelpText="OPV" Binding="opvdose" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="OPV" Binding="opvdose" Left="180px" Top="180px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child had a Penta vaccination" HelpText="Penta" Binding="pentadose" Left="20px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Penta" Binding="pentadose" Left="310px" Top="220px" Width="200px" Height="25px" TabIndex="6" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child had a Yellow Fever vaccination" HelpText="Yellow Fever" Binding="yellowfever" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Yellow Fever" Binding="yellowfever" Left="380px" Top="260px" Width="200px" Height="25px" TabIndex="7" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child had a CSM vaccination" HelpText="CSM" Binding="csm" Left="20px" Top="300px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="CSM" Binding="csm" Left="290px" Top="300px" Width="200px" Height="25px" TabIndex="8" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child had a Measles vaccination" HelpText="Measles" Binding="measles" Left="20px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Measles" Binding="measles" Left="330px" Top="340px" Width="200px" Height="25px" TabIndex="9" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child was given IPTi (SP)" HelpText="IPTi" Binding="iptidose" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="IPTi" Binding="iptidose" Left="270px" Top="380px" Width="200px" Height="25px" TabIndex="10" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Child was given Vitamin A" HelpText="Vitamin A" Binding="vitaminA" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Vitamin A" Binding="vitaminA" Left="270px" Top="420px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="20px" Top="460px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="100px" Top="460px" Width="200px" Height="25px" TabIndex="12" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="20px" Top="510px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="220px" Top="510px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Immunization" HelpText="Immunization" Binding="immunization" Left="20px" Top="560px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Immunization" Binding="immunization" Left="111px" Top="560px" Width="200px" Height="25px" TabIndex="27" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="MUAC (cm)" HelpText="MUAC (cm)" Binding="muac" Left="32px" Top="600px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="MUAC (cm)" Binding="muac" Left="111px" Top="600px" Width="200px" Height="25px" TabIndex="28" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Location" HelpText="Location" Binding="cwcLocation" Left="50px" Top="640px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Location" Binding="cwcLocation" Left="111px" Top="640px" Width="200px" Height="25px" TabIndex="29" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-  &lt;/Page&gt;
-&lt;/Form&gt;</layout>
-<versionText locale="en">
-<xform>&lt;xform id="2"&gt;
-    &lt;text xpath="xforms/model/instance/child[@name]" value="CWC Visit"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/label" value="Page4"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffId']/label" value="Staff ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Visit date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechId']/label" value="MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='immunization']/label" value="Immunization"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='immunization']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='immunization']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='bcg']/label" value="BCG"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='bcg']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='bcg']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='opvdose']/label" value="OPV"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='opvdose']/item[@id='NA']/label" value="None given"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='opvdose']/item[@id='0']/label" value="OPV 0"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='opvdose']/item[@id='1']/label" value="OPV 1"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='opvdose']/item[@id='2']/label" value="OPV 2"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='opvdose']/item[@id='3']/label" value="OPV 3"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pentadose']/label" value="Penta"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pentadose']/item[@id='NA']/label" value="None given"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pentadose']/item[@id='1']/label" value="Penta 1"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pentadose']/item[@id='2']/label" value="Penta 2"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pentadose']/item[@id='3']/label" value="Penta 3"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='yellowfever']/label" value="Yellow Fever"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='yellowfever']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='yellowfever']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='csm']/label" value="CSM"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='csm']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='csm']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='measles']/label" value="Measles"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='measles']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='measles']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptidose']/label" value="IPTi"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptidose']/item[@id='NA']/label" value="None given"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptidose']/item[@id='1']/label" value="IPTi 1"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptidose']/item[@id='2']/label" value="IPTi 2"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptidose']/item[@id='3']/label" value="IPTi 3"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vitaminA']/label" value="Vitamin A"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vitaminA']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vitaminA']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dewormer']/label" value="Dewormer"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dewormer']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dewormer']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='weight']/label" value="Weight (kg)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='muac']/label" value="MUAC (cm)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='height']/label" value="Height (cm)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/label" value="Male involvement"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='cwcLocation']/label" value="Location"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='cwcLocation']/item[@id='1']/label" value="Facility or clinic"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='cwcLocation']/item[@id='2']/label" value="Home"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='cwcLocation']/item[@id='3']/label" value="Outreach"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='cwcLocation']/item[@id='4']/label" value="School"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='house']/label" value="House"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='community']/label" value="Community"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='comments']/label" value="Comments"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='staffId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='weight'][@message]" value="Value out of range: must be between 1 and 80"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='muac'][@message]" value="Value out of range: must be between 5 and 25"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='height'][@message]" value="Value out of range: must be between 26 and 160"/&gt;
-  &lt;/xform&gt;</xform>
-<layout>&lt;Form id="2"&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
-  &lt;/Form&gt;</layout>
-</versionText>
-</version>
-</form>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="2">
+  <xf:model>
+    <xf:instance id="child">
+      <child id="2" name="CWC Visit">
+        <staffId/>
+        <facilityId/>
+        <date/>
+        <motechId/>
+        <immunization/>
+        <bcg/>
+        <opvdose/>
+        <pentadose/>
+        <yellowfever/>
+        <csm/>
+        <measles/>
+        <iptidose/>
+        <vitaminA/>
+        <dewormer/>
+        <weight/>
+        <muac/>
+        <height/>
+        <maleInvolved/>
+        <cwcLocation/>
+        <house/>
+        <community/>
+        <comments/>
+        <formtype>data_entry</formtype>
+        <formname>childcwc-jf</formname>
+      </child>
+    </xf:instance>
+    <xf:bind id="staffId" nodeset="/child/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/child/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/child/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/child/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="immunization" nodeset="/child/immunization" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="bcg" nodeset="/child/bcg" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="opvdose" nodeset="/child/opvdose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="pentadose" nodeset="/child/pentadose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="yellowfever" nodeset="/child/yellowfever" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="csm" nodeset="/child/csm" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="measles" nodeset="/child/measles" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="iptidose" nodeset="/child/iptidose" required="true()" type="xsd:string"/>
+    <xf:bind id="vitaminA" nodeset="/child/vitaminA" required="true()" type="xsd:string"/>
+    <xf:bind id="dewormer" nodeset="/child/dewormer" required="true()" type="xsd:string"/>
+    <xf:bind constraint=". &amp;gt;= 1 and . &amp;lt;= 80" id="weight" message="Value out of range: must be between 1 and 80" nodeset="/child/weight" type="xsd:decimal"/>
+    <xf:bind constraint=". &amp;gt;= 5 and . &amp;lt;= 25" id="muac" message="Value out of range: must be between 5 and 25" nodeset="/child/muac" type="xsd:decimal"/>
+    <xf:bind constraint=". &amp;gt;= 26 and . &amp;lt;= 160" id="height" message="Value out of range: must be between 26 and 160" nodeset="/child/height" type="xsd:decimal"/>
+    <xf:bind id="maleInvolved" nodeset="/child/maleInvolved" required="true()" type="xsd:string"/>
+    <xf:bind id="cwcLocation" nodeset="/child/cwcLocation" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="house" nodeset="/child/house" relevant="/child/cwcLocation = '2'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="community" nodeset="/child/community" relevant="/child/cwcLocation = '2'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="comments" nodeset="/child/comments" type="xsd:string"/>
+    <xf:bind id="formtype" nodeset="/child/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/child/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page4</xf:label>
+    <xf:input bind="staffId">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityId">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Visit date</xf:label>
+    </xf:input>
+    <xf:input bind="motechId">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="immunization">
+      <xf:label>Immunization</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="bcg">
+      <xf:label>BCG</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="opvdose">
+      <xf:label>OPV</xf:label>
+      <xf:item id="NA">
+        <xf:label>None given</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+     <xf:item id="0">
+        <xf:label>OPV 0</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>OPV 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>OPV 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>OPV 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="pentadose">
+      <xf:label>Penta</xf:label>
+      <xf:item id="NA">
+        <xf:label>None given</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>Penta 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Penta 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Penta 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="yellowfever">
+      <xf:label>Yellow Fever</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="csm">
+      <xf:label>CSM</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="measles">
+      <xf:label>Measles</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="iptidose">
+      <xf:label>IPTi</xf:label>
+      <xf:item id="NA">
+        <xf:label>None given</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>IPTi 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>IPTi 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>IPTi 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="vitaminA">
+      <xf:label>Vitamin A</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="dewormer">
+      <xf:label>Dewormer</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="weight">
+      <xf:label>Weight (kg)</xf:label>
+    </xf:input>
+    <xf:input bind="muac">
+      <xf:label>MUAC (cm)</xf:label>
+    </xf:input>
+    <xf:input bind="height">
+      <xf:label>Height (cm)</xf:label>
+    </xf:input>
+    <xf:select1 bind="maleInvolved">
+      <xf:label>Male involvement</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="cwcLocation">
+      <xf:label>Location</xf:label>
+      <xf:item id="1">
+        <xf:label>Facility or clinic</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Home</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Outreach</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>School</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="house">
+      <xf:label>House</xf:label>
+    </xf:input>
+    <xf:input bind="community">
+      <xf:label>Community</xf:label>
+    </xf:input>
+    <xf:input bind="comments">
+      <xf:label>Comments</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

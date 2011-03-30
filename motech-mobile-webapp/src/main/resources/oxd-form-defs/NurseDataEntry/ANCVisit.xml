@@ -1,899 +1,424 @@
-<form description="" name="ANC Visit">
-<version description="" name="v1">
-<xform>&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;xf:model&gt;
-    &lt;xf:instance id="anc"&gt;
-      &lt;anc id="1" name="ANC Visit"&gt;
-        &lt;staffid/&gt;
-        &lt;facilityId/&gt;
-        &lt;date/&gt;
-        &lt;motechid/&gt;
-        &lt;visitNumber/&gt;
-        &lt;estDeliveryDate/&gt;
-        &lt;bpSystolic/&gt;
-        &lt;bpDiastolic/&gt;
-        &lt;weight/&gt;
-        &lt;ttdose/&gt;
-        &lt;iptdose/&gt;
-        &lt;iptReactive/&gt;
-        &lt;itnUse/&gt;
-        &lt;fht/&gt;
-        &lt;fhr/&gt;
-        &lt;urineTestProteinPositive/&gt;
-        &lt;urineTestGlucosePositive/&gt;
-        &lt;hemoglobin/&gt;
-        &lt;vdrlReactive/&gt;
-        &lt;vdrlTreatment/&gt;
-        &lt;dewormer/&gt;
-        &lt;pmtct/&gt;
-        &lt;preTestCounseled/&gt;
-        &lt;hivTestResult/&gt;
-        &lt;postTestCounseled/&gt;
-        &lt;pmtctTreament/&gt;
-        &lt;location/&gt;
-        &lt;house/&gt;
-        &lt;community/&gt;
-        &lt;referred/&gt;
-        &lt;maleInvolved/&gt;
-        &lt;nextANCDate/&gt;
-        &lt;comments/&gt;
-        &lt;formtype&gt;data_entry&lt;/formtype&gt;
-        &lt;formname&gt;anc-jf&lt;/formname&gt;
-      &lt;/anc&gt;
-    &lt;/xf:instance&gt;
-    &lt;xf:bind id="staffid" nodeset="/anc/staffid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="facilityId" nodeset="/anc/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/anc/date" required="true()" type="xsd:date"/&gt;
-    &lt;xf:bind id="motechid" nodeset="/anc/motechid" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind id="visitNumber" nodeset="/anc/visitNumber" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="estDeliveryDate" nodeset="/anc/estDeliveryDate" type="xsd:date"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 60 and . &amp;lt;= 300" id="bpSystolic" message="Value out of range: must be between 60 and 300" nodeset="/anc/bpSystolic" type="xsd:int"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 30 and . &amp;lt;= 140" id="bpDiastolic" message="Value out of range: Must be between 30 and 140" nodeset="/anc/bpDiastolic" type="xsd:int"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 10 and . &amp;lt;= 500" id="weight" message="Value out of range: must be between 10 and 500" nodeset="/anc/weight" type="xsd:decimal"/&gt;
-    &lt;xf:bind id="ttdose" nodeset="/anc/ttdose" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="iptdose" nodeset="/anc/iptdose" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="iptReactive" nodeset="/anc/iptReactive" relevant="/anc/iptdose = '1' or /anc/iptdose = '2' or /anc/iptdose = '3'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="itnUse" nodeset="/anc/itnUse" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 12 and . &amp;lt;= 40" id="fht" message="Value out of range: must be between 12 and 40" nodeset="/anc/fht" type="xsd:decimal"/&gt;
-    &lt;xf:bind constraint=". &amp;gt;= 80 and . &amp;lt;= 200" id="fhr" message="Value out of range: must be between 80 and 200" nodeset="/anc/fhr" type="xsd:int"/&gt;
-    &lt;xf:bind id="urineTestProteinPositive" nodeset="/anc/urineTestProteinPositive" type="xsd:string"/&gt;
-    &lt;xf:bind id="urineTestGlucosePositive" nodeset="/anc/urineTestGlucosePositive" type="xsd:string"/&gt;
-    &lt;xf:bind id="hemoglobin" nodeset="/anc/hemoglobin" type="xsd:decimal"/&gt;
-    &lt;xf:bind id="vdrlReactive" nodeset="/anc/vdrlReactive" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="vdrlTreatment" nodeset="/anc/vdrlTreatment" relevant="/anc/vdrlReactive = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="dewormer" nodeset="/anc/dewormer" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="pmtct" nodeset="/anc/pmtct" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="preTestCounseled" nodeset="/anc/preTestCounseled" relevant="/anc/pmtct = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="hivTestResult" nodeset="/anc/hivTestResult" relevant="/anc/pmtct = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="postTestCounseled" nodeset="/anc/postTestCounseled" relevant="/anc/hivTestResult = 'POSITIVE' or /anc/hivTestResult = 'NEGATIVE'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="pmtctTreament" nodeset="/anc/pmtctTreament" relevant="/anc/hivTestResult = 'POSITIVE'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="location" nodeset="/anc/location" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind action="show" id="house" nodeset="/anc/house" relevant="/anc/location = '2'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="community" nodeset="/anc/community" relevant="/anc/location = '2'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="referred" nodeset="/anc/referred" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="maleInvolved" nodeset="/anc/maleInvolved" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind constraint=". &amp;gt; 'today()'" id="nextANCDate" message="Invalid date: date must be in the future" nodeset="/anc/nextANCDate" required="true()" type="xsd:date"/&gt;
-    &lt;xf:bind id="comments" nodeset="/anc/comments" type="xsd:string"/&gt;
-    &lt;xf:bind id="formtype" nodeset="/anc/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="formname" nodeset="/anc/formname" required="true()" type="xsd:string" visible="false()"/&gt;
-  &lt;/xf:model&gt;
-  &lt;xf:group id="1"&gt;
-    &lt;xf:label&gt;Page1&lt;/xf:label&gt;
-    &lt;xf:input bind="staffid"&gt;
-      &lt;xf:label&gt;Staff ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="facilityId"&gt;
-      &lt;xf:label&gt;Facility ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="date"&gt;
-      &lt;xf:label&gt;Visit date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="motechid"&gt;
-      &lt;xf:label&gt;MoTeCH ID&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="visitNumber"&gt;
-      &lt;xf:label&gt;Visit number&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;ANC 1&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;ANC 2&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;ANC 3&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="4"&gt;
-        &lt;xf:label&gt;ANC 4&lt;/xf:label&gt;
-        &lt;xf:value&gt;4&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="5"&gt;
-        &lt;xf:label&gt;ANC 5&lt;/xf:label&gt;
-        &lt;xf:value&gt;5&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="6"&gt;
-        &lt;xf:label&gt;ANC 6&lt;/xf:label&gt;
-        &lt;xf:value&gt;6&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="7"&gt;
-        &lt;xf:label&gt;ANC 7&lt;/xf:label&gt;
-        &lt;xf:value&gt;7&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="8"&gt;
-        &lt;xf:label&gt;ANC 8&lt;/xf:label&gt;
-        &lt;xf:value&gt;8&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="9"&gt;
-        &lt;xf:label&gt;ANC 9&lt;/xf:label&gt;
-        &lt;xf:value&gt;9&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="10"&gt;
-        &lt;xf:label&gt;ANC 10&lt;/xf:label&gt;
-        &lt;xf:value&gt;10&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="11"&gt;
-        &lt;xf:label&gt;ANC 11&lt;/xf:label&gt;
-        &lt;xf:value&gt;11&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="12"&gt;
-        &lt;xf:label&gt;ANC 12&lt;/xf:label&gt;
-        &lt;xf:value&gt;12&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="13"&gt;
-        &lt;xf:label&gt;ANC 13&lt;/xf:label&gt;
-        &lt;xf:value&gt;13&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="14"&gt;
-        &lt;xf:label&gt;ANC 14&lt;/xf:label&gt;
-        &lt;xf:value&gt;14&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="15"&gt;
-        &lt;xf:label&gt;ANC 15&lt;/xf:label&gt;
-        &lt;xf:value&gt;15&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="16"&gt;
-        &lt;xf:label&gt;ANC 16&lt;/xf:label&gt;
-        &lt;xf:value&gt;16&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="estDeliveryDate"&gt;
-      &lt;xf:label&gt;Updated EDD&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="bpSystolic"&gt;
-      &lt;xf:label&gt;BP - Systolic&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="bpDiastolic"&gt;
-      &lt;xf:label&gt;BP - Diastolic&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="weight"&gt;
-      &lt;xf:label&gt;Weight (Kg)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="ttdose"&gt;
-      &lt;xf:label&gt;TT&lt;/xf:label&gt;
-      &lt;xf:item id="NA"&gt;
-        &lt;xf:label&gt;No TT on this visit&lt;/xf:label&gt;
-        &lt;xf:value&gt;NA&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;TT 1&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;TT 2&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;TT 3&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="4"&gt;
-        &lt;xf:label&gt;TT 4&lt;/xf:label&gt;
-        &lt;xf:value&gt;4&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="5"&gt;
-        &lt;xf:label&gt;TT 5&lt;/xf:label&gt;
-        &lt;xf:value&gt;5&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="iptdose"&gt;
-      &lt;xf:label&gt;IPT&lt;/xf:label&gt;
-      &lt;xf:item id="NA"&gt;
-        &lt;xf:label&gt;No SP on this visit&lt;/xf:label&gt;
-        &lt;xf:value&gt;NA&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;SP 1&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;SP 2&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;SP 3&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="iptReactive"&gt;
-      &lt;xf:label&gt;IPT reaction&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Reactive&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;Non-reactive&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="itnUse"&gt;
-      &lt;xf:label&gt;ITN&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="fht"&gt;
-      &lt;xf:label&gt;FHt (cm)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="fhr"&gt;
-      &lt;xf:label&gt;FHr (bpm)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="urineTestProteinPositive"&gt;
-      &lt;xf:label&gt;Urine test-protein&lt;/xf:label&gt;
-      &lt;xf:item id="0"&gt;
-        &lt;xf:label&gt;Negative&lt;/xf:label&gt;
-        &lt;xf:value&gt;0&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Positive&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="urineTestGlucosePositive"&gt;
-      &lt;xf:label&gt;Urine test-glucose&lt;/xf:label&gt;
-      &lt;xf:item id="0"&gt;
-        &lt;xf:label&gt;Negative&lt;/xf:label&gt;
-        &lt;xf:value&gt;0&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Positive&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Trace&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="hemoglobin"&gt;
-      &lt;xf:label&gt;Hemoglobin (gm/dl)&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="vdrlReactive"&gt;
-      &lt;xf:label&gt;VDRL&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Reactive&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;Non-reactive&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="vdrlTreatment"&gt;
-      &lt;xf:label&gt;VDRL Treatment&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="dewormer"&gt;
-      &lt;xf:label&gt;Dewormer&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="pmtct"&gt;
-      &lt;xf:label&gt;PMTCT this visit?&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="preTestCounseled"&gt;
-      &lt;xf:label&gt;Pre-test counseled&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="hivTestResult"&gt;
-      &lt;xf:label&gt;HIV Test&lt;/xf:label&gt;
-      &lt;xf:item id="NO_TEST"&gt;
-        &lt;xf:label&gt;None on this visit&lt;/xf:label&gt;
-        &lt;xf:value&gt;NO_TEST&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="POSITIVE"&gt;
-        &lt;xf:label&gt;Positive result&lt;/xf:label&gt;
-        &lt;xf:value&gt;POSITIVE&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="NEGATIVE"&gt;
-        &lt;xf:label&gt;Negative result&lt;/xf:label&gt;
-        &lt;xf:value&gt;NEGATIVE&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="postTestCounseled"&gt;
-      &lt;xf:label&gt;Post-test counseled&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="pmtctTreament"&gt;
-      &lt;xf:label&gt;PMTCT treatment&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="location"&gt;
-      &lt;xf:label&gt;Location&lt;/xf:label&gt;
-      &lt;xf:item id="1"&gt;
-        &lt;xf:label&gt;Facility or clinic&lt;/xf:label&gt;
-        &lt;xf:value&gt;1&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="2"&gt;
-        &lt;xf:label&gt;Home&lt;/xf:label&gt;
-        &lt;xf:value&gt;2&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="3"&gt;
-        &lt;xf:label&gt;Outreach&lt;/xf:label&gt;
-        &lt;xf:value&gt;3&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="house"&gt;
-      &lt;xf:label&gt;House&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="community"&gt;
-      &lt;xf:label&gt;Community&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:select1 bind="referred"&gt;
-      &lt;xf:label&gt;Referred&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:select1 bind="maleInvolved"&gt;
-      &lt;xf:label&gt;Male involvement&lt;/xf:label&gt;
-      &lt;xf:item id="Y"&gt;
-        &lt;xf:label&gt;Yes&lt;/xf:label&gt;
-        &lt;xf:value&gt;Y&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="N"&gt;
-        &lt;xf:label&gt;No&lt;/xf:label&gt;
-        &lt;xf:value&gt;N&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-    &lt;/xf:select1&gt;
-    &lt;xf:input bind="nextANCDate"&gt;
-      &lt;xf:label&gt;Next ANC Date&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="comments"&gt;
-      &lt;xf:label&gt;Comments&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formtype"&gt;
-      &lt;xf:label&gt;formType&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-    &lt;xf:input bind="formname"&gt;
-      &lt;xf:label&gt;formName&lt;/xf:label&gt;
-    &lt;/xf:input&gt;
-  &lt;/xf:group&gt;
-&lt;/xf:xforms&gt;
-</xform>
-<layout>&lt;Form id="1"&gt;
-  &lt;Page Text="Page1" Binding="Page1" Width="100%" Height="1633px" backgroundColor=""&gt;
-    &lt;Item WidgetType="Label" Text="Staff ID" HelpText="Staff ID" Binding="staffid" Left="20px" Top="20px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Facility ID" HelpText="Facility ID" Binding="facilityId" Left="20px" Top="60px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Visit date" HelpText="Visit date" Binding="date" Left="20px" Top="100px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="MoTeCH ID" HelpText="MoTeCH ID" Binding="motechid" Left="20px" Top="140px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Visit number" HelpText="Visit number" Binding="visitNumber" Left="20px" Top="180px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="TT" HelpText="TT" Binding="ttdose" Left="20px" Top="220px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="IPT" HelpText="IPT" Binding="iptdose" Left="20px" Top="260px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="ITN" HelpText="ITN" Binding="itnUse" Left="20px" Top="300px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="HIV Test" HelpText="HIV Test" Binding="hivTestResult" Left="20px" Top="340px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Next ANC Date" HelpText="Next ANC Date" Binding="nextANCDate" Left="20px" Top="380px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formName" HelpText="formName" Binding="formname" Left="20px" Top="420px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="formType" HelpText="formType" Binding="formtype" Left="20px" Top="460px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Location" HelpText="Location" Binding="location" Left="99px" Top="560px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Location" Binding="location" Left="160px" Top="560px" Width="200px" Height="25px" TabIndex="27" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="House" HelpText="House" Binding="house" Left="115px" Top="600px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="House" Binding="house" Left="160px" Top="600px" Width="200px" Height="25px" TabIndex="28" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Updated EDD" HelpText="Updated EDD" Binding="estDeliveryDate" Left="69px" Top="640px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Updated EDD" Binding="estDeliveryDate" Left="160px" Top="640px" Width="200px" Height="25px" TabIndex="29" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="BP - Systolic" HelpText="BP - Systolic" Binding="bpSystolic" Left="70px" Top="680px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="BP - Systolic" Binding="bpSystolic" Left="160px" Top="680px" Width="200px" Height="25px" TabIndex="30" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="BP - Diastolic" HelpText="BP - Diastolic" Binding="bpDiastolic" Left="67px" Top="720px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="BP - Diastolic" Binding="bpDiastolic" Left="160px" Top="720px" Width="200px" Height="25px" TabIndex="31" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Weight (Kg)" HelpText="Weight (Kg)" Binding="weight" Left="76px" Top="760px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Weight (Kg)" Binding="weight" Left="160px" Top="760px" Width="200px" Height="25px" TabIndex="32" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="IPT reaction" HelpText="IPT reaction" Binding="iptReactive" Left="74px" Top="800px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="IPT reaction" Binding="iptReactive" Left="160px" Top="800px" Width="200px" Height="25px" TabIndex="33" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="FHt (cm)" HelpText="FHt (cm)" Binding="fht" Left="96px" Top="840px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="FHt (cm)" Binding="fht" Left="160px" Top="840px" Width="200px" Height="25px" TabIndex="34" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="FHr (bpm)" HelpText="FHr (bpm)" Binding="fhr" Left="89px" Top="880px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="FHr (bpm)" Binding="fhr" Left="160px" Top="880px" Width="200px" Height="25px" TabIndex="35" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Urine test -protein" HelpText="Urine test-protein" Binding="urineTestProteinPositive" Left="32px" Top="920px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Urine test-protein" Binding="urineTestProteinPositive" Left="160px" Top="920px" Width="200px" Height="25px" TabIndex="36" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Urine test -glucose" HelpText="Urine test-glucose" Binding="urineTestGlucosePositive" Left="28px" Top="960px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Urine test-glucose" Binding="urineTestGlucosePositive" Left="160px" Top="960px" Width="200px" Height="25px" TabIndex="37" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Hemoglobin (gm/dl)" HelpText="Hemoglobin (gm/dl)" Binding="hemoglobin" Left="28px" Top="1000px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Hemoglobin (gm/dl)" Binding="hemoglobin" Left="160px" Top="1000px" Width="200px" Height="25px" TabIndex="38" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="VDRL" HelpText="VDRL" Binding="vdrlReactive" Left="122px" Top="1040px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="VDRL" Binding="vdrlReactive" Left="160px" Top="1040px" Width="200px" Height="25px" TabIndex="39" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="VDRL Treatment" HelpText="VDRL Treatment" Binding="vdrlTreatment" Left="48px" Top="1080px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="VDRL Treatment" Binding="vdrlTreatment" Left="160px" Top="1080px" Width="200px" Height="25px" TabIndex="40" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Dewormer" HelpText="Dewormer" Binding="dewormer" Left="90px" Top="1120px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Dewormer" Binding="dewormer" Left="160px" Top="1120px" Width="200px" Height="25px" TabIndex="41" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Male involvement" HelpText="Male involvement" Binding="maleInvolved" Left="41px" Top="1160px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Male involvement" Binding="maleInvolved" Left="160px" Top="1160px" Width="200px" Height="25px" TabIndex="42" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="PMTCT on this visit?" HelpText="PMTCT this visit?" Binding="pmtct" Left="20px" Top="1200px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="PMTCT this visit?" Binding="pmtct" Left="160px" Top="1200px" Width="200px" Height="25px" TabIndex="43" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Pre-test counseled" HelpText="Pre-test counseled" Binding="preTestCounseled" Left="29px" Top="1240px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Pre-test counseled" Binding="preTestCounseled" Left="160px" Top="1240px" Width="200px" Height="25px" TabIndex="44" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Post-test counseled" HelpText="Post-test counseled" Binding="postTestCounseled" Left="21px" Top="1280px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Post-test counseled" Binding="postTestCounseled" Left="160px" Top="1280px" Width="200px" Height="25px" TabIndex="45" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="PMTCT treatment" HelpText="PMTCT treatment" Binding="pmtctTreament" Left="38px" Top="1320px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="PMTCT treatment" Binding="pmtctTreament" Left="160px" Top="1320px" Width="200px" Height="25px" TabIndex="46" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Referred" HelpText="Referred" Binding="referred" Left="100px" Top="1360px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Referred" Binding="referred" Left="160px" Top="1360px" Width="200px" Height="25px" TabIndex="47" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Label" Text="Comments" HelpText="Comments" Binding="comments" Left="87px" Top="1400px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Comments" Binding="comments" Left="160px" Top="1400px" Width="200px" Height="25px" TabIndex="48" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Submit" HelpText="submit" Binding="submit" Left="121px" Top="1475px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="Button" Text="Cancel" HelpText="cancel" Binding="cancel" Left="322px" Top="1474px" Width="70px" Height="30px" TabIndex="0" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Next ANC Date" Binding="nextANCDate" Left="158px" Top="382px" Width="200px" Height="24px" TabIndex="10" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formName" Binding="formname" Left="158px" Top="422px" Width="200px" Height="25px" TabIndex="11" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="formType" Binding="formtype" Left="158px" Top="462px" Width="200px" Height="25px" TabIndex="12" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="HIV Test" Binding="hivTestResult" Left="156px" Top="342px" Width="200px" Height="25px" TabIndex="9" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="ITN" Binding="itnUse" Left="153px" Top="296px" Width="200px" Height="25px" TabIndex="8" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="IPT" Binding="iptdose" Left="151px" Top="260px" Width="200px" Height="25px" TabIndex="7" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="TT" Binding="ttdose" Left="150px" Top="218px" Width="200px" Height="25px" TabIndex="6" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="ListBox" HelpText="Visit number" Binding="visitNumber" Left="149px" Top="180px" Width="200px" Height="25px" TabIndex="5" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="MoTeCH ID" Binding="motechid" Left="149px" Top="142px" Width="200px" Height="25px" TabIndex="4" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="DatePicker" HelpText="Visit date" Binding="date" Left="149px" Top="102px" Width="200px" Height="25px" TabIndex="3" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Facility ID" Binding="facilityId" Left="149px" Top="62px" Width="200px" Height="25px" TabIndex="2" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-    &lt;Item WidgetType="TextBox" HelpText="Staff ID" Binding="staffid" Left="149px" Top="22px" Width="200px" Height="25px" TabIndex="1" fontFamily="Verdana,'Lucida Grande','Trebuchet MS',Arial,Sans-Serif"/&gt;
-  &lt;/Page&gt;
-&lt;/Form&gt;
-</layout>
-<versionText locale="en">
-<xform>&lt;xform id="1"&gt;
-    &lt;text xpath="xforms/model/instance/anc[@name]" value="ANC Visit"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/label" value="Page1"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='staffid']/label" value="Staff ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='facilityId']/label" value="Facility ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='date']/label" value="Visit date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='motechid']/label" value="MoTeCH ID"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/label" value="Visit number"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='1']/label" value="ANC 1"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='2']/label" value="ANC 2"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='3']/label" value="ANC 3"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='4']/label" value="ANC 4"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='5']/label" value="ANC 5"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='6']/label" value="ANC 6"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='7']/label" value="ANC 7"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='8']/label" value="ANC 8"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='9']/label" value="ANC 9"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='10']/label" value="ANC 10"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='11']/label" value="ANC 11"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='12']/label" value="ANC 12"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='13']/label" value="ANC 13"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='14']/label" value="ANC 14"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='15']/label" value="ANC 15"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='visitNumber']/item[@id='16']/label" value="ANC 16"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='estDeliveryDate']/label" value="Updated EDD"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='bpSystolic']/label" value="BP - Systolic"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='bpDiastolic']/label" value="BP - Diastolic"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='weight']/label" value="Weight (Kg)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ttdose']/label" value="TT"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ttdose']/item[@id='NA']/label" value="No TT on this visit"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ttdose']/item[@id='1']/label" value="TT 1"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ttdose']/item[@id='2']/label" value="TT 2"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ttdose']/item[@id='3']/label" value="TT 3"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ttdose']/item[@id='4']/label" value="TT 4"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='ttdose']/item[@id='5']/label" value="TT 5"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptdose']/label" value="IPT"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptdose']/item[@id='NA']/label" value="No SP on this visit"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptdose']/item[@id='1']/label" value="SP 1"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptdose']/item[@id='2']/label" value="SP 2"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptdose']/item[@id='3']/label" value="SP 3"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptReactive']/label" value="IPT reaction"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptReactive']/item[@id='Y']/label" value="Reactive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='iptReactive']/item[@id='N']/label" value="Non-reactive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='itnUse']/label" value="ITN"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='itnUse']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='itnUse']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='fht']/label" value="FHt (cm)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='fhr']/label" value="FHr (bpm)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestProteinPositive']/label" value="Urine test-protein"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestProteinPositive']/item[@id='0']/label" value="Negative"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestProteinPositive']/item[@id='1']/label" value="Positive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/label" value="Urine test-glucose"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='0']/label" value="Negative"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='1']/label" value="Positive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='urineTestGlucosePositive']/item[@id='2']/label" value="Trace"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='hemoglobin']/label" value="Hemoglobin (gm/dl)"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vdrlReactive']/label" value="VDRL"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vdrlReactive']/item[@id='Y']/label" value="Reactive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vdrlReactive']/item[@id='N']/label" value="Non-reactive"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vdrlTreatment']/label" value="VDRL Treatment"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vdrlTreatment']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='vdrlTreatment']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dewormer']/label" value="Dewormer"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dewormer']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='dewormer']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pmtct']/label" value="PMTCT this visit?"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pmtct']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pmtct']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='preTestCounseled']/label" value="Pre-test counseled"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='preTestCounseled']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='preTestCounseled']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='hivTestResult']/label" value="HIV Test"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='hivTestResult']/item[@id='NO_TEST']/label" value="None on this visit"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='hivTestResult']/item[@id='POSITIVE']/label" value="Positive result"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='hivTestResult']/item[@id='NEGATIVE']/label" value="Negative result"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='postTestCounseled']/label" value="Post-test counseled"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='postTestCounseled']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='postTestCounseled']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pmtctTreament']/label" value="PMTCT treatment"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pmtctTreament']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='pmtctTreament']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='location']/label" value="Location"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='location']/item[@id='1']/label" value="Facility or clinic"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='location']/item[@id='2']/label" value="Home"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='location']/item[@id='3']/label" value="Outreach"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='house']/label" value="House"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='community']/label" value="Community"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='referred']/label" value="Referred"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='referred']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='referred']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/label" value="Male involvement"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/item[@id='Y']/label" value="Yes"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/select1[@bind='maleInvolved']/item[@id='N']/label" value="No"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='nextANCDate']/label" value="Next ANC Date"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='comments']/label" value="Comments"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
-    &lt;text xpath="xforms/group[@id='1']/input[@bind='formname']/label" value="formName"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='staffid'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='motechid'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='bpSystolic'][@message]" value="Value out of range: must be between 60 and 300"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='bpDiastolic'][@message]" value="Value out of range: Must be between 30 and 140"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='weight'][@message]" value="Value out of range: must be between 10 and 500"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='fht'][@message]" value="Value out of range: must be between 12 and 40"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='fhr'][@message]" value="Value out of range: must be between 80 and 200"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='nextANCDate'][@message]" value="Invalid date: date must be in the future"/&gt;
-  &lt;/xform&gt;</xform>
-<layout>&lt;Form id="1"&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffid' and @WidgetType='Label'][@Text]" value="Staff ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffid' and @WidgetType='Label'][@HelpText]" value="Staff ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffid' and @WidgetType='Label'][@Top]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffid' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityId' and @WidgetType='Label'][@Text]" value="Facility ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityId' and @WidgetType='Label'][@HelpText]" value="Facility ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityId' and @WidgetType='Label'][@Top]" value="60px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityId' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='date' and @WidgetType='Label'][@Text]" value="Visit date"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='date' and @WidgetType='Label'][@HelpText]" value="Visit date"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='date' and @WidgetType='Label'][@Top]" value="100px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='date' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='motechid' and @WidgetType='Label'][@Text]" value="MoTeCH ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='motechid' and @WidgetType='Label'][@HelpText]" value="MoTeCH ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='motechid' and @WidgetType='Label'][@Top]" value="140px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='motechid' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='visitNumber' and @WidgetType='Label'][@Text]" value="Visit number"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='visitNumber' and @WidgetType='Label'][@HelpText]" value="Visit number"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='visitNumber' and @WidgetType='Label'][@Top]" value="180px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='visitNumber' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='ttdose' and @WidgetType='Label'][@Text]" value="TT"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='ttdose' and @WidgetType='Label'][@HelpText]" value="TT"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='ttdose' and @WidgetType='Label'][@Top]" value="220px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='ttdose' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptdose' and @WidgetType='Label'][@Text]" value="IPT"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptdose' and @WidgetType='Label'][@HelpText]" value="IPT"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptdose' and @WidgetType='Label'][@Top]" value="260px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptdose' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='itnUse' and @WidgetType='Label'][@Text]" value="ITN"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='itnUse' and @WidgetType='Label'][@HelpText]" value="ITN"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='itnUse' and @WidgetType='Label'][@Top]" value="300px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='itnUse' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hivTestResult' and @WidgetType='Label'][@Text]" value="HIV Test"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hivTestResult' and @WidgetType='Label'][@HelpText]" value="HIV Test"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hivTestResult' and @WidgetType='Label'][@Top]" value="340px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hivTestResult' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='nextANCDate' and @WidgetType='Label'][@Text]" value="Next ANC Date"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='nextANCDate' and @WidgetType='Label'][@HelpText]" value="Next ANC Date"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='nextANCDate' and @WidgetType='Label'][@Top]" value="380px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='nextANCDate' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='Label'][@Text]" value="formName"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='Label'][@HelpText]" value="formName"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='Label'][@Top]" value="420px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='Label'][@Text]" value="formType"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='Label'][@HelpText]" value="formType"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='Label'][@Top]" value="460px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='location' and @WidgetType='Label'][@Text]" value="Location"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='location' and @WidgetType='Label'][@HelpText]" value="Location"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='location' and @WidgetType='Label'][@Top]" value="560px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='location' and @WidgetType='Label'][@Left]" value="99px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='location' and @WidgetType='ListBox'][@HelpText]" value="Location"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='location' and @WidgetType='ListBox'][@Top]" value="560px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='location' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='location' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='house' and @WidgetType='Label'][@Text]" value="House"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='house' and @WidgetType='Label'][@HelpText]" value="House"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='house' and @WidgetType='Label'][@Top]" value="600px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='house' and @WidgetType='Label'][@Left]" value="115px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='house' and @WidgetType='TextBox'][@HelpText]" value="House"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='house' and @WidgetType='TextBox'][@Top]" value="600px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='house' and @WidgetType='TextBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='house' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='estDeliveryDate' and @WidgetType='Label'][@Text]" value="Updated EDD"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='estDeliveryDate' and @WidgetType='Label'][@HelpText]" value="Updated EDD"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='estDeliveryDate' and @WidgetType='Label'][@Top]" value="640px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='estDeliveryDate' and @WidgetType='Label'][@Left]" value="69px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='estDeliveryDate' and @WidgetType='DatePicker'][@HelpText]" value="Updated EDD"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='estDeliveryDate' and @WidgetType='DatePicker'][@Top]" value="640px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='estDeliveryDate' and @WidgetType='DatePicker'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='estDeliveryDate' and @WidgetType='DatePicker'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpSystolic' and @WidgetType='Label'][@Text]" value="BP - Systolic"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpSystolic' and @WidgetType='Label'][@HelpText]" value="BP - Systolic"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpSystolic' and @WidgetType='Label'][@Top]" value="680px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpSystolic' and @WidgetType='Label'][@Left]" value="70px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpSystolic' and @WidgetType='TextBox'][@HelpText]" value="BP - Systolic"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpSystolic' and @WidgetType='TextBox'][@Top]" value="680px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpSystolic' and @WidgetType='TextBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpSystolic' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpDiastolic' and @WidgetType='Label'][@Text]" value="BP - Diastolic"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpDiastolic' and @WidgetType='Label'][@HelpText]" value="BP - Diastolic"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpDiastolic' and @WidgetType='Label'][@Top]" value="720px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpDiastolic' and @WidgetType='Label'][@Left]" value="67px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpDiastolic' and @WidgetType='TextBox'][@HelpText]" value="BP - Diastolic"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpDiastolic' and @WidgetType='TextBox'][@Top]" value="720px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpDiastolic' and @WidgetType='TextBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='bpDiastolic' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='weight' and @WidgetType='Label'][@Text]" value="Weight (Kg)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='weight' and @WidgetType='Label'][@HelpText]" value="Weight (Kg)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='weight' and @WidgetType='Label'][@Top]" value="760px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='weight' and @WidgetType='Label'][@Left]" value="76px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='weight' and @WidgetType='TextBox'][@HelpText]" value="Weight (Kg)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='weight' and @WidgetType='TextBox'][@Top]" value="760px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='weight' and @WidgetType='TextBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='weight' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptReactive' and @WidgetType='Label'][@Text]" value="IPT reaction"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptReactive' and @WidgetType='Label'][@HelpText]" value="IPT reaction"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptReactive' and @WidgetType='Label'][@Top]" value="800px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptReactive' and @WidgetType='Label'][@Left]" value="74px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptReactive' and @WidgetType='ListBox'][@HelpText]" value="IPT reaction"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptReactive' and @WidgetType='ListBox'][@Top]" value="800px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptReactive' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptReactive' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fht' and @WidgetType='Label'][@Text]" value="FHt (cm)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fht' and @WidgetType='Label'][@HelpText]" value="FHt (cm)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fht' and @WidgetType='Label'][@Top]" value="840px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fht' and @WidgetType='Label'][@Left]" value="96px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fht' and @WidgetType='TextBox'][@HelpText]" value="FHt (cm)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fht' and @WidgetType='TextBox'][@Top]" value="840px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fht' and @WidgetType='TextBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fht' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fhr' and @WidgetType='Label'][@Text]" value="FHr (bpm)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fhr' and @WidgetType='Label'][@HelpText]" value="FHr (bpm)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fhr' and @WidgetType='Label'][@Top]" value="880px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fhr' and @WidgetType='Label'][@Left]" value="89px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fhr' and @WidgetType='TextBox'][@HelpText]" value="FHr (bpm)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fhr' and @WidgetType='TextBox'][@Top]" value="880px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fhr' and @WidgetType='TextBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='fhr' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestProteinPositive' and @WidgetType='Label'][@Text]" value="Urine test -protein"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestProteinPositive' and @WidgetType='Label'][@HelpText]" value="Urine test-protein"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestProteinPositive' and @WidgetType='Label'][@Top]" value="920px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestProteinPositive' and @WidgetType='Label'][@Left]" value="32px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestProteinPositive' and @WidgetType='ListBox'][@HelpText]" value="Urine test-protein"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestProteinPositive' and @WidgetType='ListBox'][@Top]" value="920px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestProteinPositive' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestProteinPositive' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestGlucosePositive' and @WidgetType='Label'][@Text]" value="Urine test -glucose"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestGlucosePositive' and @WidgetType='Label'][@HelpText]" value="Urine test-glucose"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestGlucosePositive' and @WidgetType='Label'][@Top]" value="960px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestGlucosePositive' and @WidgetType='Label'][@Left]" value="28px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestGlucosePositive' and @WidgetType='ListBox'][@HelpText]" value="Urine test-glucose"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestGlucosePositive' and @WidgetType='ListBox'][@Top]" value="960px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestGlucosePositive' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='urineTestGlucosePositive' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hemoglobin' and @WidgetType='Label'][@Text]" value="Hemoglobin (gm/dl)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hemoglobin' and @WidgetType='Label'][@HelpText]" value="Hemoglobin (gm/dl)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hemoglobin' and @WidgetType='Label'][@Top]" value="1000px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hemoglobin' and @WidgetType='Label'][@Left]" value="28px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hemoglobin' and @WidgetType='TextBox'][@HelpText]" value="Hemoglobin (gm/dl)"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hemoglobin' and @WidgetType='TextBox'][@Top]" value="1000px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hemoglobin' and @WidgetType='TextBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hemoglobin' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlReactive' and @WidgetType='Label'][@Text]" value="VDRL"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlReactive' and @WidgetType='Label'][@HelpText]" value="VDRL"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlReactive' and @WidgetType='Label'][@Top]" value="1040px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlReactive' and @WidgetType='Label'][@Left]" value="122px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlReactive' and @WidgetType='ListBox'][@HelpText]" value="VDRL"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlReactive' and @WidgetType='ListBox'][@Top]" value="1040px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlReactive' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlReactive' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlTreatment' and @WidgetType='Label'][@Text]" value="VDRL Treatment"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlTreatment' and @WidgetType='Label'][@HelpText]" value="VDRL Treatment"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlTreatment' and @WidgetType='Label'][@Top]" value="1080px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlTreatment' and @WidgetType='Label'][@Left]" value="48px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlTreatment' and @WidgetType='ListBox'][@HelpText]" value="VDRL Treatment"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlTreatment' and @WidgetType='ListBox'][@Top]" value="1080px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlTreatment' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='vdrlTreatment' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='dewormer' and @WidgetType='Label'][@Text]" value="Dewormer"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='dewormer' and @WidgetType='Label'][@HelpText]" value="Dewormer"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='dewormer' and @WidgetType='Label'][@Top]" value="1120px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='dewormer' and @WidgetType='Label'][@Left]" value="90px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='dewormer' and @WidgetType='ListBox'][@HelpText]" value="Dewormer"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='dewormer' and @WidgetType='ListBox'][@Top]" value="1120px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='dewormer' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='dewormer' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='maleInvolved' and @WidgetType='Label'][@Text]" value="Male involvement"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='maleInvolved' and @WidgetType='Label'][@HelpText]" value="Male involvement"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='maleInvolved' and @WidgetType='Label'][@Top]" value="1160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='maleInvolved' and @WidgetType='Label'][@Left]" value="41px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='maleInvolved' and @WidgetType='ListBox'][@HelpText]" value="Male involvement"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='maleInvolved' and @WidgetType='ListBox'][@Top]" value="1160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='maleInvolved' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='maleInvolved' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtct' and @WidgetType='Label'][@Text]" value="PMTCT on this visit?"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtct' and @WidgetType='Label'][@HelpText]" value="PMTCT this visit?"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtct' and @WidgetType='Label'][@Top]" value="1200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtct' and @WidgetType='Label'][@Left]" value="20px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtct' and @WidgetType='ListBox'][@HelpText]" value="PMTCT this visit?"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtct' and @WidgetType='ListBox'][@Top]" value="1200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtct' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtct' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='preTestCounseled' and @WidgetType='Label'][@Text]" value="Pre-test counseled"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='preTestCounseled' and @WidgetType='Label'][@HelpText]" value="Pre-test counseled"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='preTestCounseled' and @WidgetType='Label'][@Top]" value="1240px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='preTestCounseled' and @WidgetType='Label'][@Left]" value="29px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='preTestCounseled' and @WidgetType='ListBox'][@HelpText]" value="Pre-test counseled"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='preTestCounseled' and @WidgetType='ListBox'][@Top]" value="1240px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='preTestCounseled' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='preTestCounseled' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='postTestCounseled' and @WidgetType='Label'][@Text]" value="Post-test counseled"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='postTestCounseled' and @WidgetType='Label'][@HelpText]" value="Post-test counseled"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='postTestCounseled' and @WidgetType='Label'][@Top]" value="1280px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='postTestCounseled' and @WidgetType='Label'][@Left]" value="21px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='postTestCounseled' and @WidgetType='ListBox'][@HelpText]" value="Post-test counseled"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='postTestCounseled' and @WidgetType='ListBox'][@Top]" value="1280px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='postTestCounseled' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='postTestCounseled' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtctTreament' and @WidgetType='Label'][@Text]" value="PMTCT treatment"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtctTreament' and @WidgetType='Label'][@HelpText]" value="PMTCT treatment"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtctTreament' and @WidgetType='Label'][@Top]" value="1320px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtctTreament' and @WidgetType='Label'][@Left]" value="38px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtctTreament' and @WidgetType='ListBox'][@HelpText]" value="PMTCT treatment"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtctTreament' and @WidgetType='ListBox'][@Top]" value="1320px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtctTreament' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='pmtctTreament' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='referred' and @WidgetType='Label'][@Text]" value="Referred"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='referred' and @WidgetType='Label'][@HelpText]" value="Referred"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='referred' and @WidgetType='Label'][@Top]" value="1360px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='referred' and @WidgetType='Label'][@Left]" value="100px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='referred' and @WidgetType='ListBox'][@HelpText]" value="Referred"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='referred' and @WidgetType='ListBox'][@Top]" value="1360px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='referred' and @WidgetType='ListBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='referred' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='comments' and @WidgetType='Label'][@Text]" value="Comments"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='comments' and @WidgetType='Label'][@HelpText]" value="Comments"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='comments' and @WidgetType='Label'][@Top]" value="1400px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='comments' and @WidgetType='Label'][@Left]" value="87px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='comments' and @WidgetType='TextBox'][@HelpText]" value="Comments"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='comments' and @WidgetType='TextBox'][@Top]" value="1400px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='comments' and @WidgetType='TextBox'][@Left]" value="160px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='comments' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@Text]" value="Submit"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@HelpText]" value="submit"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@Top]" value="1475px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@Left]" value="121px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='submit' and @WidgetType='Button'][@Width]" value="70px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Text]" value="Cancel"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@HelpText]" value="cancel"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Top]" value="1474px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Left]" value="322px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='cancel' and @WidgetType='Button'][@Width]" value="70px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='nextANCDate' and @WidgetType='DatePicker'][@HelpText]" value="Next ANC Date"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='nextANCDate' and @WidgetType='DatePicker'][@Top]" value="382px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='nextANCDate' and @WidgetType='DatePicker'][@Left]" value="158px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='nextANCDate' and @WidgetType='DatePicker'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='TextBox'][@HelpText]" value="formName"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='TextBox'][@Top]" value="422px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='TextBox'][@Left]" value="158px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formname' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='TextBox'][@HelpText]" value="formType"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Top]" value="462px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Left]" value="158px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='formtype' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hivTestResult' and @WidgetType='ListBox'][@HelpText]" value="HIV Test"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hivTestResult' and @WidgetType='ListBox'][@Top]" value="342px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hivTestResult' and @WidgetType='ListBox'][@Left]" value="156px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='hivTestResult' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='itnUse' and @WidgetType='ListBox'][@HelpText]" value="ITN"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='itnUse' and @WidgetType='ListBox'][@Top]" value="296px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='itnUse' and @WidgetType='ListBox'][@Left]" value="153px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='itnUse' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptdose' and @WidgetType='ListBox'][@HelpText]" value="IPT"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptdose' and @WidgetType='ListBox'][@Top]" value="260px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptdose' and @WidgetType='ListBox'][@Left]" value="151px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='iptdose' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='ttdose' and @WidgetType='ListBox'][@HelpText]" value="TT"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='ttdose' and @WidgetType='ListBox'][@Top]" value="218px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='ttdose' and @WidgetType='ListBox'][@Left]" value="150px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='ttdose' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='visitNumber' and @WidgetType='ListBox'][@HelpText]" value="Visit number"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='visitNumber' and @WidgetType='ListBox'][@Top]" value="180px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='visitNumber' and @WidgetType='ListBox'][@Left]" value="149px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='visitNumber' and @WidgetType='ListBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='motechid' and @WidgetType='TextBox'][@HelpText]" value="MoTeCH ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='motechid' and @WidgetType='TextBox'][@Top]" value="142px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='motechid' and @WidgetType='TextBox'][@Left]" value="149px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='motechid' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='date' and @WidgetType='DatePicker'][@HelpText]" value="Visit date"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='date' and @WidgetType='DatePicker'][@Top]" value="102px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='date' and @WidgetType='DatePicker'][@Left]" value="149px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='date' and @WidgetType='DatePicker'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityId' and @WidgetType='TextBox'][@HelpText]" value="Facility ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityId' and @WidgetType='TextBox'][@Top]" value="62px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityId' and @WidgetType='TextBox'][@Left]" value="149px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='facilityId' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffid' and @WidgetType='TextBox'][@HelpText]" value="Staff ID"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffid' and @WidgetType='TextBox'][@Top]" value="22px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffid' and @WidgetType='TextBox'][@Left]" value="149px"/&gt;
-    &lt;text xpath="Form/Page[@Binding='Page1']/Item[@Binding='staffid' and @WidgetType='TextBox'][@Width]" value="200px"/&gt;
-  &lt;/Form&gt;</layout>
-</versionText>
-</version>
-</form>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="1">
+  <xf:model>
+    <xf:instance id="anc">
+      <anc id="1" name="ANC Visit">
+        <staffid/>
+        <facilityId/>
+        <date/>
+        <motechid/>
+        <visitNumber/>
+        <estDeliveryDate/>
+        <bpSystolic/>
+        <bpDiastolic/>
+        <weight/>
+        <ttdose/>
+        <iptdose/>
+        <iptReactive/>
+        <itnUse/>
+        <fht/>
+        <fhr/>
+        <urineTestProteinPositive/>
+        <urineTestGlucosePositive/>
+        <hemoglobin/>
+        <vdrlReactive/>
+        <vdrlTreatment/>
+        <dewormer/>
+        <pmtct/>
+        <preTestCounseled/>
+        <hivTestResult/>
+        <postTestCounseled/>
+        <pmtctTreament/>
+        <location/>
+        <house/>
+        <community/>
+        <referred/>
+        <maleInvolved/>
+        <nextANCDate/>
+        <comments/>
+        <formtype>data_entry</formtype>
+        <formname>anc-jf</formname>
+      </anc>
+    </xf:instance>
+    <xf:bind id="staffid" nodeset="/anc/staffid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/anc/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/anc/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechid" nodeset="/anc/motechid" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="visitNumber" nodeset="/anc/visitNumber" required="true()" type="xsd:string"/>
+    <xf:bind id="estDeliveryDate" nodeset="/anc/estDeliveryDate" type="xsd:date"/>
+    <xf:bind constraint=". &amp;gt;= 60 and . &amp;lt;= 300" id="bpSystolic" message="Value out of range: must be between 60 and 300" nodeset="/anc/bpSystolic" type="xsd:int"/>
+    <xf:bind constraint=". &amp;gt;= 30 and . &amp;lt;= 140" id="bpDiastolic" message="Value out of range: Must be between 30 and 140" nodeset="/anc/bpDiastolic" type="xsd:int"/>
+    <xf:bind constraint=". &amp;gt;= 10 and . &amp;lt;= 500" id="weight" message="Value out of range: must be between 10 and 500" nodeset="/anc/weight" type="xsd:decimal"/>
+    <xf:bind id="ttdose" nodeset="/anc/ttdose" required="true()" type="xsd:string"/>
+    <xf:bind id="iptdose" nodeset="/anc/iptdose" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="iptReactive" nodeset="/anc/iptReactive" relevant="/anc/iptdose = '1' or /anc/iptdose = '2' or /anc/iptdose = '3'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="itnUse" nodeset="/anc/itnUse" required="true()" type="xsd:string"/>
+    <xf:bind constraint=". &amp;gt;= 12 and . &amp;lt;= 40" id="fht" message="Value out of range: must be between 12 and 40" nodeset="/anc/fht" type="xsd:decimal"/>
+    <xf:bind constraint=". &amp;gt;= 80 and . &amp;lt;= 200" id="fhr" message="Value out of range: must be between 80 and 200" nodeset="/anc/fhr" type="xsd:int"/>
+    <xf:bind id="urineTestProteinPositive" nodeset="/anc/urineTestProteinPositive" type="xsd:string"/>
+    <xf:bind id="urineTestGlucosePositive" nodeset="/anc/urineTestGlucosePositive" type="xsd:string"/>
+    <xf:bind id="hemoglobin" nodeset="/anc/hemoglobin" type="xsd:decimal"/>
+    <xf:bind id="vdrlReactive" nodeset="/anc/vdrlReactive" type="xsd:string"/>
+    <xf:bind action="show" id="vdrlTreatment" nodeset="/anc/vdrlTreatment" relevant="/anc/vdrlReactive = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="dewormer" nodeset="/anc/dewormer" required="true()" type="xsd:string"/>
+    <xf:bind id="pmtct" nodeset="/anc/pmtct" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="preTestCounseled" nodeset="/anc/preTestCounseled" relevant="/anc/pmtct = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="hivTestResult" nodeset="/anc/hivTestResult" relevant="/anc/pmtct = 'Y'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="postTestCounseled" nodeset="/anc/postTestCounseled" relevant="/anc/hivTestResult = 'POSITIVE' or /anc/hivTestResult = 'NEGATIVE'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="pmtctTreament" nodeset="/anc/pmtctTreament" relevant="/anc/hivTestResult = 'POSITIVE'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="location" nodeset="/anc/location" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="house" nodeset="/anc/house" relevant="/anc/location = '2'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="community" nodeset="/anc/community" relevant="/anc/location = '2'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="referred" nodeset="/anc/referred" required="true()" type="xsd:string"/>
+    <xf:bind id="maleInvolved" nodeset="/anc/maleInvolved" required="true()" type="xsd:string"/>
+    <xf:bind constraint=". &amp;gt; 'today()'" id="nextANCDate" message="Invalid date: date must be in the future" nodeset="/anc/nextANCDate" required="true()" type="xsd:date"/>
+    <xf:bind id="comments" nodeset="/anc/comments" type="xsd:string"/>
+    <xf:bind id="formtype" nodeset="/anc/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/anc/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page1</xf:label>
+    <xf:input bind="staffid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityId">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Visit date</xf:label>
+    </xf:input>
+    <xf:input bind="motechid">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="visitNumber">
+      <xf:label>Visit number</xf:label>
+      <xf:item id="1">
+        <xf:label>ANC 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>ANC 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>ANC 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>ANC 4</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+      <xf:item id="5">
+        <xf:label>ANC 5</xf:label>
+        <xf:value>5</xf:value>
+      </xf:item>
+      <xf:item id="6">
+        <xf:label>ANC 6</xf:label>
+        <xf:value>6</xf:value>
+      </xf:item>
+      <xf:item id="7">
+        <xf:label>ANC 7</xf:label>
+        <xf:value>7</xf:value>
+      </xf:item>
+      <xf:item id="8">
+        <xf:label>ANC 8</xf:label>
+        <xf:value>8</xf:value>
+      </xf:item>
+      <xf:item id="9">
+        <xf:label>ANC 9</xf:label>
+        <xf:value>9</xf:value>
+      </xf:item>
+      <xf:item id="10">
+        <xf:label>ANC 10</xf:label>
+        <xf:value>10</xf:value>
+      </xf:item>
+      <xf:item id="11">
+        <xf:label>ANC 11</xf:label>
+        <xf:value>11</xf:value>
+      </xf:item>
+      <xf:item id="12">
+        <xf:label>ANC 12</xf:label>
+        <xf:value>12</xf:value>
+      </xf:item>
+      <xf:item id="13">
+        <xf:label>ANC 13</xf:label>
+        <xf:value>13</xf:value>
+      </xf:item>
+      <xf:item id="14">
+        <xf:label>ANC 14</xf:label>
+        <xf:value>14</xf:value>
+      </xf:item>
+      <xf:item id="15">
+        <xf:label>ANC 15</xf:label>
+        <xf:value>15</xf:value>
+      </xf:item>
+      <xf:item id="16">
+        <xf:label>ANC 16</xf:label>
+        <xf:value>16</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="estDeliveryDate">
+      <xf:label>Updated EDD</xf:label>
+    </xf:input>
+    <xf:input bind="bpSystolic">
+      <xf:label>BP - Systolic</xf:label>
+    </xf:input>
+    <xf:input bind="bpDiastolic">
+      <xf:label>BP - Diastolic</xf:label>
+    </xf:input>
+    <xf:input bind="weight">
+      <xf:label>Weight (Kg)</xf:label>
+    </xf:input>
+    <xf:select1 bind="ttdose">
+      <xf:label>TT</xf:label>
+      <xf:item id="NA">
+        <xf:label>No TT on this visit</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>TT 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>TT 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>TT 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>TT 4</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+      <xf:item id="5">
+        <xf:label>TT 5</xf:label>
+        <xf:value>5</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="iptdose">
+      <xf:label>IPT</xf:label>
+      <xf:item id="NA">
+        <xf:label>No SP on this visit</xf:label>
+        <xf:value>NA</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>SP 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>SP 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>SP 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="iptReactive">
+      <xf:label>IPT reaction</xf:label>
+      <xf:item id="Y">
+        <xf:label>Reactive</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>Non-reactive</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="itnUse">
+      <xf:label>ITN</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="fht">
+      <xf:label>FHt (cm)</xf:label>
+    </xf:input>
+    <xf:input bind="fhr">
+      <xf:label>FHr (bpm)</xf:label>
+    </xf:input>
+    <xf:select1 bind="urineTestProteinPositive">
+      <xf:label>Urine test-protein</xf:label>
+      <xf:item id="0">
+        <xf:label>Negative</xf:label>
+        <xf:value>0</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>Positive</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="urineTestGlucosePositive">
+      <xf:label>Urine test-glucose</xf:label>
+      <xf:item id="0">
+        <xf:label>Negative</xf:label>
+        <xf:value>0</xf:value>
+      </xf:item>
+      <xf:item id="1">
+        <xf:label>Positive</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Trace</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="hemoglobin">
+      <xf:label>Hemoglobin (gm/dl)</xf:label>
+    </xf:input>
+    <xf:select1 bind="vdrlReactive">
+      <xf:label>VDRL</xf:label>
+      <xf:item id="Y">
+        <xf:label>Reactive</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>Non-reactive</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="vdrlTreatment">
+      <xf:label>VDRL Treatment</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="dewormer">
+      <xf:label>Dewormer</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="pmtct">
+      <xf:label>PMTCT this visit?</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="preTestCounseled">
+      <xf:label>Pre-test counseled</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="hivTestResult">
+      <xf:label>HIV Test</xf:label>
+      <xf:item id="NO_TEST">
+        <xf:label>None on this visit</xf:label>
+        <xf:value>NO_TEST</xf:value>
+      </xf:item>
+      <xf:item id="POSITIVE">
+        <xf:label>Positive result</xf:label>
+        <xf:value>POSITIVE</xf:value>
+      </xf:item>
+      <xf:item id="NEGATIVE">
+        <xf:label>Negative result</xf:label>
+        <xf:value>NEGATIVE</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="postTestCounseled">
+      <xf:label>Post-test counseled</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="pmtctTreament">
+      <xf:label>PMTCT treatment</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="location">
+      <xf:label>Location</xf:label>
+      <xf:item id="1">
+        <xf:label>Facility or clinic</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Home</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Outreach</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="house">
+      <xf:label>House</xf:label>
+    </xf:input>
+    <xf:input bind="community">
+      <xf:label>Community</xf:label>
+    </xf:input>
+    <xf:select1 bind="referred">
+      <xf:label>Referred</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="maleInvolved">
+      <xf:label>Male involvement</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="nextANCDate">
+      <xf:label>Next ANC Date</xf:label>
+    </xf:input>
+    <xf:input bind="comments">
+      <xf:label>Comments</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>
 

@@ -33,24 +33,12 @@
 
 package org.motechproject.mobile.imp.util;
 
-import org.motechproject.mobile.core.model.IncMessageFormDefinitionType;
-import org.motechproject.mobile.core.model.IncomingMessageSession;
-import org.motechproject.mobile.core.model.IncomingMessageSessionImpl;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDefinitionDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO;
-import org.motechproject.mobile.core.model.IncMessageFormParameterStatus;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
-import org.motechproject.mobile.core.model.IncomingMessage;
-import org.motechproject.mobile.core.model.IncomingMessageForm;
-import org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl;
-import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
-import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
-import org.motechproject.mobile.core.model.IncomingMessageFormParameterImpl;
-import org.motechproject.mobile.core.model.IncomingMessageImpl;
-import org.motechproject.mobile.core.model.IncomingMessageResponse;
-import org.motechproject.mobile.core.model.IncomingMessageResponseImpl;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageResponseDAO;
 import java.util.HashMap;
 import org.hibernate.Transaction;

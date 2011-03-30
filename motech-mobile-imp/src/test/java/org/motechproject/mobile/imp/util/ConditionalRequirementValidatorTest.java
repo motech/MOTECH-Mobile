@@ -38,19 +38,17 @@
 
 package org.motechproject.mobile.imp.util;
 
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
 import java.util.ArrayList;
 import java.util.Date;
-import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.IncomingMessageForm;
-import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
-import org.motechproject.mobile.core.model.IncomingMessageFormParameterImpl;
+
 import static org.easymock.EasyMock.*;
 
 /**

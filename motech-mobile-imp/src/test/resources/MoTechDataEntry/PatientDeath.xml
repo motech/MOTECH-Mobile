@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="81">
+  <xf:model>
+    <xf:instance id="death">
+      <death id="81" name="Patient Death-v1">
+        <chpsid/>
+        <facilityid/>
+        <date/>
+        <motechid/>
+        <cause/>
+        <formtype>data_entry</formtype>
+        <formname>death</formname>
+      </death>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/death/chpsid" required="true()" type="xsd:int"/>
+    <xf:bind id="facilityid" nodeset="/death/facilityid" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/death/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechid" nodeset="/death/motechid" required="true()" type="xsd:int"/>
+    <xf:bind id="cause" nodeset="/death/cause" required="true()" type="xsd:string"/>
+    <xf:bind id="formtype" nodeset="/death/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/death/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page3</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Date of death</xf:label>
+    </xf:input>
+    <xf:input bind="motechid">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="cause">
+      <xf:label>Cause of death</xf:label>
+      <xf:item id="1">
+        <xf:label>Unknown 1</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Unknown 2</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Unknown 3</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

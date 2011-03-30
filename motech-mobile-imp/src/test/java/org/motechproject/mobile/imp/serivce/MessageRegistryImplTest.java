@@ -33,34 +33,22 @@
 
 package org.motechproject.mobile.imp.serivce;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.easymock.EasyMock.reset;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.Calendar;
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.Duplicatable;
-import org.motechproject.mobile.core.model.IncMessageFormStatus;
-import org.motechproject.mobile.core.model.IncMessageStatus;
-import org.motechproject.mobile.core.model.IncomingMessage;
-import org.motechproject.mobile.core.model.IncomingMessageForm;
-import org.motechproject.mobile.core.model.IncomingMessageFormDefinition;
-import org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl;
-import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
-import org.motechproject.mobile.core.model.IncomingMessageImpl;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.imp.util.IncomingMessageParser;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/imp-test-config.xml" })

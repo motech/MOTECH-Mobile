@@ -33,32 +33,20 @@
 
 package org.motechproject.mobile.model.dao.hibernate.imp;
 
-import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
+import org.junit.*;
+import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.IncMessageFormStatus;
-import org.motechproject.mobile.core.model.IncMessageResponseStatus;
-import org.motechproject.mobile.core.model.IncMessageSessionStatus;
-import org.motechproject.mobile.core.model.IncMessageStatus;
-import org.motechproject.mobile.core.model.IncomingMessage;
-import org.motechproject.mobile.core.model.IncomingMessageForm;
-import org.motechproject.mobile.core.model.IncomingMessageImpl;
-import org.motechproject.mobile.core.model.IncomingMessageResponse;
-import org.motechproject.mobile.core.model.IncomingMessageSession;
+import org.motechproject.mobile.core.model.*;
+import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageFormDAO;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageSessionDAO;
-import java.util.Date;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  *

@@ -85,7 +85,22 @@ public class IntellIVRControllerTest {
 
         GetIVRConfigRequest request = new GetIVRConfigRequest();
         request.setUserid("123456789");
+        ResponseType expectedResponse = getExpectedResponse();
+        expect(mockIVRConfigHandler.handleRequest(request)).andReturn(expectedResponse);
+        replay(mockIVRConfigHandler);
 
+        intellivrController.setIvrConfigHandler(mockIVRConfigHandler);
+        mockRequest.setContent(getIvrConfigXML().getBytes());
+        intellivrController.handleRequestInternal(mockRequest, mockResponse);
+
+        verify(mockIVRConfigHandler);
+        Object o = unmarshaller.unmarshal(new ByteArrayInputStream(mockResponse.getContentAsByteArray()));
+        assertTrue(o instanceof AutoCreate);
+        assertEquals(expectedResponse, ((AutoCreate) o).getResponse());
+
+    }
+
+    private ResponseType getExpectedResponse() {
         ResponseType expectedResponse = new ResponseType();
         expectedResponse.setStatus(StatusType.OK);
         expectedResponse.setLanguage("ENGLISH");
@@ -98,25 +113,12 @@ public class IntellIVRControllerTest {
         audio.setSrc("test1.wav");
         vxml.getPrompt().getAudioOrBreak().add(audio);
         expectedResponse.setVxml(vxml);
-
-        expect(mockIVRConfigHandler.handleRequest(request)).andReturn(expectedResponse);
-
-        replay(mockIVRConfigHandler);
-
-        intellivrController.setIvrConfigHandler(mockIVRConfigHandler);
-        mockRequest.setContent(getIvrConfigXML.getBytes());
-        intellivrController.handleRequestInternal(mockRequest, mockResponse);
-
-        verify(mockIVRConfigHandler);
-
-        Object o = unmarshaller.unmarshal(new ByteArrayInputStream(mockResponse.getContentAsByteArray()));
-
-        assertTrue(o instanceof AutoCreate);
-        assertEquals(expectedResponse, ((AutoCreate) o).getResponse());
-
+        return expectedResponse;
     }
 
-    String getIvrConfigXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><getIVRConfigRequest><userid>123456789</userid></getIVRConfigRequest>";
+    private String getIvrConfigXML() {
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><getIVRConfigRequest><userid>123456789</userid></getIVRConfigRequest>";
+    }
 
     /*
       * test if a valid call report is posted to the servlet
@@ -124,7 +126,7 @@ public class IntellIVRControllerTest {
     @Test
     public void testReport() throws Exception {
 
-        ReportType report = ((AutoCreate) unmarshaller.unmarshal(new ByteArrayInputStream(reportXML.getBytes()))).getReport();
+        ReportType report = ((AutoCreate) unmarshaller.unmarshal(new ByteArrayInputStream(getReportXML().getBytes()))).getReport();
 
         ResponseType expectedResponse = new ResponseType();
         expectedResponse.setStatus(StatusType.OK);
@@ -134,7 +136,7 @@ public class IntellIVRControllerTest {
         replay(mockReportHandler);
 
         intellivrController.setReportHandler(mockReportHandler);
-        mockRequest.setContent(reportXML.getBytes());
+        mockRequest.setContent(getReportXML().getBytes());
         intellivrController.handleRequestInternal(mockRequest, mockResponse);
 
         verify(mockReportHandler);
@@ -146,23 +148,25 @@ public class IntellIVRControllerTest {
 
     }
 
-    String reportXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "			<AutoCreate>" +
-            "			<Report>" +
-            "				<Status>COMPLETED</Status>" +
-            "				<Callee>2334921920193</Callee>" +
-            "				<Duration>43</Duration>" +
-            "				<ConnectTime>2010-10-01T00:00:00.000Z</ConnectTime>" +
-            "				<DisconnectTime>2010-10-01T00:00:43.000Z</DisconnectTime>" +
-            "				<INTELLIVREntryCount>4</INTELLIVREntryCount>" +
-            "				<Private>IDENTIFIER</Private>" +
-            "				<INTELLIVREntry menu=\"message1.wav\" entrytime=\"2010-10-01T00:00:01.000Z\" duration=\"7\" keypress=\"\" file=\"\"/>" +
-            "				<INTELLIVREntry menu=\"message2.wav\" entrytime=\"2010-10-01T00:00:08.000Z\" duration=\"8\" keypress=\"\" file=\"\"/>" +
-            "				<INTELLIVREntry menu=\"main_menu\" entrytime=\"2010-10-01T00:00:16.000Z\" duration=\"8\" keypress=\"2\" file=\"\"/>" +
-            "				<INTELLIVREntry menu=\"pregnancy_info\" entrytime=\"2010-10-01T00:00:24.000Z\" duration=\"10\" keypress=\"1\" file=\"\"/>" +
-            "				<INTELLIVREntry menu=\"feedback_section\" entrytime=\"2010-10-01T00:00:34.000Z\" duration=\"10\" keypress=\"\" file=\"http://ivr/file.wav\"/> " +
-            "		</Report>" +
-            "		</AutoCreate>";
+    private String getReportXML() {
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "			<AutoCreate>" +
+                "			<Report>" +
+                "				<Status>COMPLETED</Status>" +
+                "				<Callee>2334921920193</Callee>" +
+                "				<Duration>43</Duration>" +
+                "				<ConnectTime>2010-10-01T00:00:00.000Z</ConnectTime>" +
+                "				<DisconnectTime>2010-10-01T00:00:43.000Z</DisconnectTime>" +
+                "				<INTELLIVREntryCount>4</INTELLIVREntryCount>" +
+                "				<Private>IDENTIFIER</Private>" +
+                "				<INTELLIVREntry menu=\"message1.wav\" entrytime=\"2010-10-01T00:00:01.000Z\" duration=\"7\" keypress=\"\" file=\"\"/>" +
+                "				<INTELLIVREntry menu=\"message2.wav\" entrytime=\"2010-10-01T00:00:08.000Z\" duration=\"8\" keypress=\"\" file=\"\"/>" +
+                "				<INTELLIVREntry menu=\"main_menu\" entrytime=\"2010-10-01T00:00:16.000Z\" duration=\"8\" keypress=\"2\" file=\"\"/>" +
+                "				<INTELLIVREntry menu=\"pregnancy_info\" entrytime=\"2010-10-01T00:00:24.000Z\" duration=\"10\" keypress=\"1\" file=\"\"/>" +
+                "				<INTELLIVREntry menu=\"feedback_section\" entrytime=\"2010-10-01T00:00:34.000Z\" duration=\"10\" keypress=\"\" file=\"http://ivr/file.wav\"/> " +
+                "		</Report>" +
+                "		</AutoCreate>";
+    }
 
     /*
       * test if in valid non-xml content is posted to the servlet
@@ -170,24 +174,19 @@ public class IntellIVRControllerTest {
       * result of this
       */
     @Test
-    public void testGarbage() throws Exception {
-
-        String garbage = "blahblahblah";
-
+    public void shouldLogSaxParseExceptionWhenInvalidXMLContentIsPostedToServlet() throws Exception {
+        String invalidXMLContent = "blahblahblah";
         ResponseType expectedResponse = new ResponseType();
         expectedResponse.setStatus(StatusType.ERROR);
         expectedResponse.setErrorCode(ErrorCodeType.MOTECH_MALFORMED_XML);
 
-        mockRequest.setContent(garbage.getBytes());
-
+        mockRequest.setContent(invalidXMLContent.getBytes());
         intellivrController.handleRequestInternal(mockRequest, mockResponse);
 
         Object o = unmarshaller.unmarshal(new ByteArrayInputStream(mockResponse.getContentAsByteArray()));
-
         assertTrue(o instanceof AutoCreate);
 
         ResponseType response = ((AutoCreate) o).getResponse();
-
         assertEquals(response.getStatus(), StatusType.ERROR);
         assertEquals(response.getErrorCode(), ErrorCodeType.MOTECH_MALFORMED_XML);
 

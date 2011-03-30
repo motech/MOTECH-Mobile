@@ -38,38 +38,25 @@
 
 package org.motechproject.mobile.imp.serivce;
 
-import static org.easymock.EasyMock.anyObject;
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.reset;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.Duplicatable;
-import org.motechproject.mobile.core.model.IncMessageFormStatus;
-import org.motechproject.mobile.core.model.IncMessageStatus;
-import org.motechproject.mobile.core.model.IncomingMessage;
-import org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl;
-import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
-import org.motechproject.mobile.core.model.IncomingMessageImpl;
-import org.motechproject.mobile.core.model.IncomingMessageResponse;
-import org.motechproject.mobile.core.model.IncomingMessageResponseImpl;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.imp.manager.IMPManager;
 import org.motechproject.mobile.imp.util.CommandAction;
 import org.motechproject.mobile.imp.util.IncomingMessageParser;
 import org.motechproject.mobile.model.dao.imp.IncomingMessageDAO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test for IMPServiceImpl class

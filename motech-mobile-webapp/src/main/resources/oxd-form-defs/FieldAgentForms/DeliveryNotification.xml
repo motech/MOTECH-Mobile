@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="4">
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="15">
   <xf:model>
     <xf:instance id="deliverynotify">
-      <deliverynotify id="4" name="Delivery Notification">
+      <deliverynotify id="15" name="Delivery Notification">
         <staffId/>
         <facilityId/>
         <motechId/>

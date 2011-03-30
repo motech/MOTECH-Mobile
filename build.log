@@ -1,0 +1,1278 @@
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   MoTeCH Mobile
+[INFO]   MoTeCH Mobile Core
+[INFO]   MoTeCH Mobile OMP
+[INFO]   MoTeCH Mobile OMI
+[INFO]   MoTeCH Mobile IMP
+[INFO]   MoTeCH Mobile Modem Gateway
+[INFO]   MoTeCH Mobile WebApp
+[INFO] ------------------------------------------------------------------------
+[INFO] Building MoTeCH Mobile
+[INFO]    task-segment: [clean, test]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] No goals needed for project - skipping
+[INFO] ------------------------------------------------------------------------
+[INFO] Building MoTeCH Mobile Core
+[INFO]    task-segment: [clean, test]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] Deleting directory C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-core\target
+[INFO] [resources:resources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Compiling 78 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-core\target\classes
+[INFO] [resources:testResources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Compiling 15 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-core\target\test-classes
+[INFO] [surefire:test]
+[INFO] Surefire report directory: C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-core\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.motechproject.mobile.core.dao.hibernate.LanguageDAOImplTest
+Jan 4, 2011 3:34:23 PM liquibase.database.template.JdbcTemplate comment
+INFO: Create Database Lock Table
+Jan 4, 2011 3:34:23 PM liquibase.database.template.JdbcTemplate comment
+INFO: Lock Database
+Jan 4, 2011 3:34:24 PM liquibase.lock.LockHandler acquireLock
+INFO: Successfully acquired change log lock
+Jan 4, 2011 3:34:24 PM liquibase.database.template.JdbcTemplate comment
+INFO: Create Database Change Log Table
+Jan 4, 2011 3:34:24 PM liquibase.database.AbstractDatabase checkDatabaseChangeLogTable
+INFO: Creating database history table with name: DATABASECHANGELOG
+Jan 4, 2011 3:34:24 PM liquibase.database.AbstractDatabase getRanChangeSetList
+INFO: Reading from DATABASECHANGELOG
+Jan 4, 2011 3:34:24 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-1::joseph (generated)::(MD5Sum: a963965bb43d103f8877190a06a7833)
+Jan 4, 2011 3:34:25 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-2::joseph (generated)::(MD5Sum: 9c63313e4954c4b866aa91cb47609d)
+Jan 4, 2011 3:34:25 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-3::joseph (generated)::(MD5Sum: d94e46e8597dbbb4a42b7ce61a2b560)
+Jan 4, 2011 3:34:25 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-4::joseph (generated)::(MD5Sum: 2ed3c6929c57a80296efabd6352240)
+Jan 4, 2011 3:34:26 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-5::joseph (generated)::(MD5Sum: c8b153b8b11dfc5342d1dffc4394e2ef)
+Jan 4, 2011 3:34:26 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-6::joseph (generated)::(MD5Sum: 3c8cff7bde887bbf6d7ad3e79671a5)
+Jan 4, 2011 3:34:27 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-7::joseph (generated)::(MD5Sum: 76dce67625d484313ab840cbaeb090)
+Jan 4, 2011 3:34:27 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-8::joseph (generated)::(MD5Sum: 17c4b2794248d67342841f3edbdbcbab)
+Jan 4, 2011 3:34:27 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-9::joseph (generated)::(MD5Sum: d4b2b49b995a3cd43c276e62c21c85b)
+Jan 4, 2011 3:34:28 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-10::joseph (generated)::(MD5Sum: 4963f394cb0ccde111462e626fbe791)
+Jan 4, 2011 3:34:28 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-11a::joseph (generated)::(MD5Sum: b6d55712df60f36291de792cc0506874)
+Jan 4, 2011 3:34:29 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-12::joseph (generated)::(MD5Sum: c0953575f7d27380818a7ad9cf5ab6f)
+Jan 4, 2011 3:34:29 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-13::joseph (generated)::(MD5Sum: 7afb72397f7df6ab73a53798869bd566)
+Jan 4, 2011 3:34:30 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-14::joseph (generated)::(MD5Sum: e9762a6e51e7f165a0c7ebc4e851684)
+Jan 4, 2011 3:34:30 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-15::joseph (generated)::(MD5Sum: e8df6e928799d824eec882fe5184c6f)
+Jan 4, 2011 3:34:30 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-16::joseph (generated)::(MD5Sum: d35694fec35fd8492a924cf825105d27)
+Jan 4, 2011 3:34:31 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-17::joseph (generated)::(MD5Sum: 4b6377c7a1d1fadd7af19bad74e2c8)
+Jan 4, 2011 3:34:31 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-18::joseph (generated)::(MD5Sum: fe7934674a667ccc793cd93317723355)
+Jan 4, 2011 3:34:31 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-19::joseph (generated)::(MD5Sum: 7696361585d41cc8c84563f327216e)
+Jan 4, 2011 3:34:32 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-20::joseph (generated)::(MD5Sum: 9d04985d53dd8641a891b8effb1b635)
+Jan 4, 2011 3:34:32 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-21::joseph (generated)::(MD5Sum: b21836f4bdedb08d4a282115791e2)
+Jan 4, 2011 3:34:33 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-22::joseph (generated)::(MD5Sum: 301d374dcb4cdda239b6132096a74a81)
+Jan 4, 2011 3:34:33 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-23::joseph (generated)::(MD5Sum: fe8a67b537aa7bc6e7d4647dbc049)
+Jan 4, 2011 3:34:33 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-24::joseph (generated)::(MD5Sum: 2add39831688d4b1ac28b6c72d66d6b)
+Jan 4, 2011 3:34:34 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-25::joseph (generated)::(MD5Sum: eb383d525454bdeeaa01d872663fff)
+Jan 4, 2011 3:34:34 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-26::joseph (generated)::(MD5Sum: aada425c4af71adf6773e0d58d1eebe)
+Jan 4, 2011 3:34:35 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-27::joseph (generated)::(MD5Sum: 9953afcddcaa64694e67e2e6a299b84)
+Jan 4, 2011 3:34:35 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-28::joseph (generated)::(MD5Sum: cd6a45ec62dec3ba77ee4861ad16c82d)
+Jan 4, 2011 3:34:35 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-29a::joseph (generated)::(MD5Sum: 24bf7c2173c31f71befd86fb4e674580)
+Jan 4, 2011 3:34:36 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-30::joseph (generated)::(MD5Sum: 30c5c5f3b7b82e4f9589ab9d2afbca0)
+Jan 4, 2011 3:34:36 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-31::joseph (generated)::(MD5Sum: 5fb9e2675bd25e4541fea57d01a4494)
+Jan 4, 2011 3:34:37 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-32::joseph (generated)::(MD5Sum: 9bbf506bd872618e5c2180bbed897f73)
+Jan 4, 2011 3:34:37 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-33::joseph (generated)::(MD5Sum: 5b87566f6e6ea6d373d79e4d528238c3)
+Jan 4, 2011 3:34:38 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-34::joseph (generated)::(MD5Sum: 392d63b56d7d47bfaad9136183ef372f)
+Jan 4, 2011 3:34:38 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-35::joseph (generated)::(MD5Sum: 67d79394aef087a5218937a4d7c038e4)
+Jan 4, 2011 3:34:38 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-46::joseph::(MD5Sum: edb5194d0e4a0f145999aea9f2eb8b)
+Jan 4, 2011 3:34:39 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-47::joseph::(MD5Sum: 353a9023733b7f3f6c2eb22ce4a622a4)
+Jan 4, 2011 3:34:39 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-48::joseph::(MD5Sum: 8862bc5698ebe711696af4cbefbfaac3)
+Jan 4, 2011 3:34:40 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-49::joseph::(MD5Sum: cca665da1f48a7324da34d1dbc714d55)
+Jan 4, 2011 3:34:40 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-50::joseph::(MD5Sum: 2048d0fa3660446f995f692490c3ea)
+Jan 4, 2011 3:34:40 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-51::joseph::(MD5Sum: c017a52692926151e5d07316dd2943)
+Jan 4, 2011 3:34:41 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-52::joseph::(MD5Sum: 2be8819c9a07b22dbaaae6bf987bfd)
+Jan 4, 2011 3:34:41 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-53::joseph::(MD5Sum: cf690c129e2901833b372fe908619a1)
+Jan 4, 2011 3:34:42 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-54::joseph::(MD5Sum: effe171b7726716259f2867c9b9a)
+Jan 4, 2011 3:34:42 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-log.xml::1282409084036-55::joseph::(MD5Sum: ccf41ca15dd7561b55c0bd211d4c31dc)
+Jan 4, 2011 3:34:42 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-1a::joseph (generated)::(MD5Sum: dfb246d38a7f3f5c2725ce9eaddd24b1)
+Jan 4, 2011 3:34:43 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-2::joseph (generated)::(MD5Sum: 9d6496eba0f8862f65c96452c8d93f8)
+Jan 4, 2011 3:34:43 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-3::joseph (generated)::(MD5Sum: 8e0414cdbd0ce3ede49dd4c1f70e2fb)
+Jan 4, 2011 3:34:44 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-4::joseph (generated)::(MD5Sum: 6715cc5fd55a244788b68bc7d0cc7e8b)
+Jan 4, 2011 3:34:44 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-5::joseph (generated)::(MD5Sum: 44c8dc35ad6a4c1c2c47fbe7c2e7655)
+Jan 4, 2011 3:34:45 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-6::joseph (generated)::(MD5Sum: c3ed73ffd2118a5bf5e01fa81710702)
+Jan 4, 2011 3:34:45 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-7::joseph (generated)::(MD5Sum: a5237e48bd169847e87c98e19b899bf2)
+Jan 4, 2011 3:34:45 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-8::joseph (generated)::(MD5Sum: 754cecc61f25f7751f22b5919b5eaa2)
+Jan 4, 2011 3:34:46 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-9::joseph (generated)::(MD5Sum: 296bdef4d79915efb86a32afd32db217)
+Jan 4, 2011 3:34:47 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-10::joseph (generated)::(MD5Sum: 5e6de2bd7fe519968e79f821f4fa55a)
+Jan 4, 2011 3:34:48 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-11::joseph (generated)::(MD5Sum: ed38329564a16bd5e4acd204f84ca31)
+Jan 4, 2011 3:34:48 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-12::joseph (generated)::(MD5Sum: 6a74fa50e31e2bbde87ce6c8ade2ac27)
+Jan 4, 2011 3:34:50 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-13::joseph (generated)::(MD5Sum: c7a9b8a9f184d34fd3c7e99d552adb9e)
+Jan 4, 2011 3:34:50 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-14::joseph (generated)::(MD5Sum: 55f8daeb476df97bb5321ee3ac6b152)
+Jan 4, 2011 3:34:51 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset motech-schema-insert-log.xml::2282410859067-15::joseph (generated)::(MD5Sum: d8a869373e197734ed3fb495a19d15)
+Jan 4, 2011 3:34:51 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-1::joseph::(MD5Sum: 658feea4c88df1b73181f5d3cbe452)
+Jan 4, 2011 3:34:51 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce mandatory BP Diastolic on ANC java form.issue #444 in redmine
+Jan 4, 2011 3:34:52 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-2::joseph::(MD5Sum: eca9602b47d191e7b084266bc1b1454)
+Jan 4, 2011 3:34:52 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to add new field in incoming_message_form_parameter_definition for lochia odour for PNC (mother).
+--             documented as issue #606 in redmine
+Jan 4, 2011 3:34:52 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-3::joseph::(MD5Sum: 2d49605125bfad1ce4be03c186d1bcb)
+Jan 4, 2011 3:34:52 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motherMotechId in RegisterChild sms form
+Jan 4, 2011 3:34:53 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-4::joseph::(MD5Sum: 9f137f2fd9ea9d9f432db8f4c5c3968c)
+Jan 4, 2011 3:34:53 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for childMotechId in RegisterChild sms form
+Jan 4, 2011 3:34:53 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-5::joseph::(MD5Sum: ca248aa6bff04d6221735cfbfbcde91)
+Jan 4, 2011 3:34:53 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in DeliveryNotify-jf form
+Jan 4, 2011 3:34:54 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-6::joseph::(MD5Sum: c8e5c83108b52854493d380bfcc18f3)
+Jan 4, 2011 3:34:54 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in MotherPNC-jf form
+Jan 4, 2011 3:34:55 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-7::joseph::(MD5Sum: 5b0e88c8ec5ec38ff978a77566d7c5)
+Jan 4, 2011 3:34:55 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in ChildPNC-jf form
+Jan 4, 2011 3:34:55 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-8::joseph::(MD5Sum: fa1ed48544028d5c9e5fb479f46884)
+Jan 4, 2011 3:34:55 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in ChildCWC-jf form
+Jan 4, 2011 3:34:56 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-9::joseph::(MD5Sum: 3362d1ab1684b12f06c6419b722ce3)
+Jan 4, 2011 3:34:56 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in Abortion-jf form
+Jan 4, 2011 3:34:56 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-10::joseph::(MD5Sum: f9c45ebaeec9d3a8a27cf89097ce830)
+Jan 4, 2011 3:34:56 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in ChildOPD-jf form
+Jan 4, 2011 3:34:57 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-11::joseph::(MD5Sum: 45ff5d5a16eeaa789454fc1d5873a02e)
+Jan 4, 2011 3:34:57 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in MotherOPD-jf form
+Jan 4, 2011 3:34:57 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-12::joseph::(MD5Sum: 768cc9ca30248c30c57facde33fbdc4a)
+Jan 4, 2011 3:34:57 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in ANC sms form
+Jan 4, 2011 3:34:58 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-13::joseph::(MD5Sum: 9a5f5b47196a99e9a72e6da66ccb8fe)
+Jan 4, 2011 3:34:58 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in ANC sms form
+Jan 4, 2011 3:34:58 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-14::joseph::(MD5Sum: 3721444627413ad1c8c1b5483528eff)
+Jan 4, 2011 3:34:58 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in Abortion sms form
+Jan 4, 2011 3:34:59 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-15::joseph::(MD5Sum: bf744579983f6a9e8f0bce0a997f51)
+Jan 4, 2011 3:34:59 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId,C1MotechId,C2MotechId,C3MotechId in Delivery sms form
+Jan 4, 2011 3:35:00 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-17::joseph::(MD5Sum: 11f64501c6960c697622b9b4e4b8f)
+Jan 4, 2011 3:35:00 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId, child1MotechId,child2MotechId,child3MotechId in Delivery-jf form
+Jan 4, 2011 3:35:00 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-18::joseph::(MD5Sum: d58334faec996a8cfbf31e45e75358b5)
+Jan 4, 2011 3:35:00 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId  in PPC sms form
+Jan 4, 2011 3:35:01 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-19::joseph::(MD5Sum: c2ccafb9c1bad9e551d03fab8d7f48fc)
+Jan 4, 2011 3:35:01 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in Death sms form
+Jan 4, 2011 3:35:01 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-20::joseph::(MD5Sum: d8e17b76a79ce7c239f6a1df2b463dd)
+Jan 4, 2011 3:35:01 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in Death-jf form
+Jan 4, 2011 3:35:02 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-21::joseph::(MD5Sum: cfa1eee74ae4094d8f41731708dc96)
+Jan 4, 2011 3:35:02 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in TT-jf form
+Jan 4, 2011 3:35:02 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-22::joseph::(MD5Sum: 8d1dc03143b3a69fa6fa789b49f517e4)
+Jan 4, 2011 3:35:02 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in Child form
+Jan 4, 2011 3:35:03 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-23::joseph::(MD5Sum: e8ba8b4c7b9ade79c7fdd42251282b34)
+Jan 4, 2011 3:35:03 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in ChildOPD form
+Jan 4, 2011 3:35:03 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-24::joseph::(MD5Sum: 459d27d34fc7e2a826d7b33c6c1bac8)
+Jan 4, 2011 3:35:03 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in MotherOPD form
+Jan 4, 2011 3:35:04 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-25::joseph::(MD5Sum: e855021a628e839f0b6e51e28225c3)
+Jan 4, 2011 3:35:04 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in RegisterPatient-jf form
+Jan 4, 2011 3:35:05 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-26::joseph::(MD5Sum: 7d5130e6d6e4dcb1bf94c45cd65be12)
+Jan 4, 2011 3:35:05 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motherMotechId in RegisterPatient-jf form
+Jan 4, 2011 3:35:05 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-27::joseph::(MD5Sum: 56972ba9135d146a84e32daaf1e6e32c)
+Jan 4, 2011 3:35:05 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in RegisterPregnancy-jf form
+Jan 4, 2011 3:35:05 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-28::joseph::(MD5Sum: 781d1df4634b1fc23c23f82ee559695)
+Jan 4, 2011 3:35:05 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in RegisterCWCChild-jf form
+Jan 4, 2011 3:35:06 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-29::joseph::(MD5Sum: 2474d267aa8dd26dd2a1aa6f99b6712)
+Jan 4, 2011 3:35:06 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in EditPatient-jf form
+Jan 4, 2011 3:35:07 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-30::joseph::(MD5Sum: 1e681f5919a24f333ac21a7b964ad)
+Jan 4, 2011 3:35:07 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in UpcomingCare sms form
+Jan 4, 2011 3:35:07 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-31::joseph::(MD5Sum: e0bd058a75af00d7d036ce6c42e3a8)
+Jan 4, 2011 3:35:07 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in UpcomingCare-jf form
+Jan 4, 2011 3:35:08 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-32::joseph::(MD5Sum: eb62d5f82fea8ff11663c15f24ef7d64)
+Jan 4, 2011 3:35:08 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in ViewPatient sms form
+Jan 4, 2011 3:35:08 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-33::joseph::(MD5Sum: 76982837568e143dc283a46c8ccaffc2)
+Jan 4, 2011 3:35:08 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to enforce id rules.issue #732 in redmine.
+--             changing id length for motechId in ViewPatient-jf form
+Jan 4, 2011 3:35:09 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-34::joseph::(MD5Sum: 7edf3b4aedfdfbae56bad431476edaa6)
+Jan 4, 2011 3:35:09 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to make motechid required for Out Patient Visit.issue #739 in redmine.
+--             updating motechid required field for ChildOPD-jf and MotherOPD-jf form
+Jan 4, 2011 3:35:10 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-35::yoofi::(MD5Sum: 755a68387d874513bade9355891d11f)
+Jan 4, 2011 3:35:10 PM liquibase.database.template.JdbcTemplate comment
+INFO: change to set type field of form parameters to DELIVERYDATE. Partial fix for issue #586 in redmine.
+--             updating estDeliveryDate and expDeliveryDate fields for ANC-jf, RegisterPatient-jf and RegisterPregnancy-jf forms
+Jan 4, 2011 3:35:10 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-36::henry::(MD5Sum: a15cccea9989ffaa8a2b26576b26e020)
+Jan 4, 2011 3:35:10 PM liquibase.database.template.JdbcTemplate comment
+INFO: Adding form [careHistory-jf]
+Jan 4, 2011 3:35:11 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-37::henry::(MD5Sum: c6a2f0393c6cec2c4d87c2a8b6388b)
+Jan 4, 2011 3:35:11 PM liquibase.database.template.JdbcTemplate comment
+INFO: Change urineGlucosePositive type from BOOLEAN to NUMERIC and adding length 2
+Jan 4, 2011 3:35:11 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-38::joseph::(MD5Sum: a4dd9c8a1919b5c302a22e8861dc0)
+Jan 4, 2011 3:35:12 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-39a::joseph::(MD5Sum: bbc29f889dc0c8653a3d183c6d7de9e9)
+Jan 4, 2011 3:35:12 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-40::henry::(MD5Sum: 74f9286b542a4a314477e9679ba72dd1)
+Jan 4, 2011 3:35:12 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changing locOdour to lochiaOdourFoul. Resolves #606
+Jan 4, 2011 3:35:13 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-41::mattblanchette::(MD5Sum: 536d9f4bf3de7535b1433c4a9f96e5d7)
+Jan 4, 2011 3:35:13 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changing IPTi from BOOLEAN to NUMERIC. Resolves #797
+Jan 4, 2011 3:35:13 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-42::mattblanchette::(MD5Sum: 6c524aad75a96949d3e8ccefd9b64)
+Jan 4, 2011 3:35:13 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changing IPTi parameter name to iptiDose. Resolves #797
+Jan 4, 2011 3:35:14 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-43::ThoughtWorks::(MD5Sum: e19a428f50bf894aa636cfe387ddc1)
+Jan 4, 2011 3:35:14 PM liquibase.database.template.JdbcTemplate comment
+INFO: Adding a new Field Client Status in Outpatients Visit form #868
+Jan 4, 2011 3:35:14 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-44::mattblanchette::(MD5Sum: 255c111d2b0b53cc3766fc2d6643814)
+Jan 4, 2011 3:35:14 PM liquibase.database.template.JdbcTemplate comment
+INFO: Change urineTestProteinPositive type from BOOLEAN to NUMERIC and adding length 2
+Jan 4, 2011 3:35:15 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+Jan 4, 2011 3:35:15 PM liquibase.database.template.JdbcTemplate comment
+INFO: Adding support for editing Patient names
+Jan 4, 2011 3:35:15 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset change-log-target-0.8.0.xml::1000000000000-46::ThoughtWorks::(MD5Sum: dd93625c97474ac875ab40be803e847c)
+Jan 4, 2011 3:35:15 PM liquibase.database.template.JdbcTemplate comment
+INFO: Adding the field for Expected Delivery Date to Edit Patients Form
+Jan 4, 2011 3:35:16 PM liquibase.database.template.JdbcTemplate comment
+INFO: Changeset ivr-change-log.xml::ivr-1::fcbrooks::(MD5Sum: 3188b79a994369e6d8b9436582bf7e6)
+Jan 4, 2011 3:35:17 PM liquibase.database.template.JdbcTemplate comment
+INFO: Release Database Lock
+Jan 4, 2011 3:35:17 PM liquibase.lock.LockHandler releaseLock
+INFO: Successfully released change log lock
+test Language Deletetest Language UpdateTest save Language object
+key=Id--------------------value=70000000001
+key=code------------------value=aul887
+key=recipientsNumber value=day notifier
+key=description value=some description
+key=messageRequests length=0
+
+test getIdByCodetest Language getAlltest Language getByCode with unexistant codetest Language getByTemplate@SLTests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 60.335 sec
+Running org.motechproject.mobile.core.dao.hibernate.MessageTemplateDAOImplTest
+test MessageTemplate delete
+test MessageTemplateDAO update
+test MessageTemplate getById
+test save MessageTemplate ObjectgetTemplateByLangNotifMType
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.452 sec
+Running org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageSessionDAOImplTest
+save IncominMessageSession
+the formcode: fc_ims1
+key=Id value=12000000019
+key=requestedPhone value=233243667788
+key=formCode value=fc_ims1
+key=incomingMessages length=0
+key=dateStarted value=Tue Jan 04 15:35:24 IST 2011
+dateEnded is null 
+key=lastActivity value=Tue Jan 04 15:35:24 IST 2011
+messageSessionStatus is null 
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.711 sec
+Running org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormDAOImplTest
+IncomingMessageFormDAO findByExample
+IncomingMessageFormDAOImpl save
+the form date created: Tue Jan 04 15:35:25 IST 2011
+key=Id value=12000000001
+key=IncomingMessageFormDefinition.Id value=12000000006
+key=IncomingMessageFormParameters length=0
+key=dateCreated value=Tue Jan 04 15:35:25 IST 2011
+lastModified is null 
+key=messageFormStatus value=NEW
+
+IncomingMessageFormDAO save with param
+the form date created: Tue Jan 04 15:35:26 IST 2011
+key=Id value=12000000002
+key=IncomingMessageFormDefinition.Id value=12000000007
+IncomingMessageFormParameters is empty 
+key=param2 value=12000000012
+key=dateCreated value=Tue Jan 04 15:35:26 IST 2011
+lastModified is null 
+key=messageFormStatus value=NEW
+
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.873 sec
+Running org.motechproject.mobile.core.dao.hibernate.MessageRequestDAOImplTest
+test MessageRequest delete
+test save MessageRequest Object
+getMsgRequestByStatusAndSchedule
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.604 sec
+Running org.motechproject.mobile.core.dao.hibernate.NotificationTypeDAOImplTest
+test NotificationType deletetest NotificationType updatetest NotificationType getByIdtest NotificationType findByExample
+test save NotificationType
+test NotificationType delete@SLTests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.781 sec
+Running org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormParameterDefinitionDAOImplTest
+save IncomingMessageFromParameterDefinition
+the form content: 12000000017
+key=Id value=12000000017
+key=name value=paramdefinition name
+key=required value=true
+paramType is null 
+gatewayRequestDetails.Id is null 
+key=length value=34
+key=dateCreate value=Tue Jan 04 15:35:31 IST 2011
+lastModified is null 
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.494 sec
+Running org.motechproject.mobile.core.dao.hibernate.GatewayRequestDAOImplTest
+Delete
+Update
+saving with response object
+saving with with request details
+saving with with request details
+testing FindById
+the date lastModified: null
+key=Id value=1000000001
+key=message value=First
+key=recipientsNumber value=123445
+requestId is null 
+gatewayRequestDetails.Id is null 
+messageRequest.Id is null 
+key=tryNumber.Id value=0
+key=responseDetails length=0
+dateSent is null 
+dateTo is null 
+key=dateFrom value=Tue Jan 04 15:35:34 IST 2011
+lastModified is null 
+messageStatus is null 
+
+testing findByExample
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 3.565 sec
+Running org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageResponseDAOImplTest
+save IncomingMessageResponse
+the form content: content for imr1
+key=Id value=12000000018
+key=name value=content for imr1
+incomingMessage.Id is null 
+dateCreated is null 
+lastModified is null 
+key=messageResponseStatus value=SAVED
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.474 sec
+Running org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormDefinitionDAOImplTest
+getByCode
+key=Id value=694266636898220
+key=formCode value=TESTFORM
+dateCreated is null 
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.7 sec
+Running org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageFormParameterDAOImplTest
+IncomingMessageFormParameterDAOImpl save
+the form parameter error text: error text right?
+key=Id value=12000000016
+message is null  
+value is null 
+key=errCode value=23
+key=errText value=error text right?
+IncomingMessageForm.Id is null 
+incomingMessageFormDefinition.Id is null 
+key=dateCreated value=Tue Jan 04 15:35:36 IST 2011
+lastModified is null 
+messageFormParamStatus is null 
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.496 sec
+Running org.motechproject.mobile.core.util.MotechIDGeneratorTest
+ID: 827701992784744
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec
+Running org.motechproject.mobile.core.dao.hibernate.GatewayRequestDetailsDAOImplTest
+test GatewayRequestDetails Updatetest save GatewayRequestDetails object
+key=Id               value=50000000005
+key=message          value=message to send
+key=numberOfPages          value=2
+key=gatewayRequests          length=0
+messageType is null 
+
+test save GatewayRequestDetails object
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.621 sec
+Running org.motechproject.mobile.model.dao.hibernate.imp.IncomingMessageDAOImplTest
+IncomingMessageDAOImpl delete
+IncomingMessageDAOImpl update
+key=Id value=11000000004
+key=content value=updated content
+key=IncomingMessageForm.Id value=11000000010
+key=IncomingMessageResponse.Id value=11000000006
+key=IncomingMsgSession.Id value=11000000008
+key=dateCreated value=Tue Jan 04 15:35:39 IST 2011
+lastModified is null 
+key=messageStatus value=PROCESSED
+
+IncomingMessageDAOImpl save
+the form content:
+ content im1
+key=Id value=11000000001
+key=content value=content im1
+incomingMessageForm.Id is null 
+incomingMessageResponse.Id is null 
+incomingMsgSession.Id is null 
+dateCreated is null 
+key=lastModified value=Tue Jan 04 15:35:39 IST 2011
+key=messageStatus value=PROCESSING
+
+IncomingMessageDAOImpl save with IncomingMessageForm
+key=Id value=11000000002
+key=content value=content im2
+key=IncomingMessageForm.Id value=11000000009
+incomingMessageResponse.Id is null 
+incomingMsgSession.Id is null 
+dateCreated is null 
+key=lastModified value=Tue Jan 04 15:35:40 IST 2011
+key=messageStatus value=PROCESSING
+
+IncomingMessageDAOImpl save with Session
+the form content:
+ content im1
+key=Id value=11000000001
+key=content value=content im1
+incomingMessageForm.Id is null 
+incomingMessageResponse.Id is null 
+key=IncomingMsgSession.Id value=11000000007
+dateCreated is null 
+key=lastModified value=Tue Jan 04 15:35:40 IST 2011
+key=messageStatus value=PROCESSING
+
+IncomingMessageDAOImpl save with IncomingMessageResponse
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.914 sec
+Running org.motechproject.mobile.core.dao.hibernate.GatewayResponseDAOImplTest
+Delete Response
+Update Response
+Find by ResponseDetails id 
+last modified field: null
+Save Response
+key=Id value=60000000001
+gatewayRequest.Id is null 
+key=requestId value=dfpoi234ufkdl
+gatewayMessageId is null  
+key=recipientNumber value=123445
+responseText is null 
+key=dateSent value=Sat Aug 01 00:00:00 IST 2009
+lastModified is null 
+key=messageStatus value=PENDING
+
+getMostRecentResponseByRequestId
+60000000006
+====================================================================================================
+key=Id value=60000000006
+key=gatewayRequest.Id value=30000000001
+key=requestId value=88787
+gatewayMessageId is null  
+key=recipientNumber value=23459
+responseText is null 
+key=dateSent value=Tue Sep 01 00:00:00 IST 2009
+lastModified is null 
+key=messageStatus value=FAILED
+
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 3.028 sec
+
+Results :
+
+Tests run: 53, Failures: 0, Errors: 0, Skipped: 2
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building MoTeCH Mobile OMP
+[INFO]    task-segment: [clean, test]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] Deleting directory C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\target
+[INFO] [jaxws:wsimport {execution: wsimport-generate-smsmessenger.asmx}]
+[INFO] Processing: C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\src\wsdl\www.outreachcity.com\orserve\messaging\smsmessenger.asmx.wsdl
+[INFO] jaxws:wsimport args: [-s, C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\target\generated-sources\jaxws-wsimport, -d, C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\target\classes, -verbose, -catalog, C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\src\jax-ws-catalog.xml, -extension, -Xnocompile, C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\src\wsdl\www.outreachcity.com\orserve\messaging\smsmessenger.asmx.wsdl]
+parsing WSDL...
+
+
+[WARNING] src-resolve: Cannot resolve the name 's1:guid' to a(n) 'type definition' component.
+  line 128 of file:/C:/Users/rupeshd/MOTECH-Mobile/motech-mobile-omp/src/wsdl/www.outreachcity.com/orserve/messaging/smsmessenger.asmx.wsdl#types?schema1
+
+[WARNING] SOAP port "SMSMessengerSoap12": uses a non-standard SOAP 1.2 binding.
+  line 430 of file:/C:/Users/rupeshd/MOTECH-Mobile/motech-mobile-omp/src/wsdl/www.outreachcity.com/orserve/messaging/smsmessenger.asmx.wsdl
+
+generating code...
+
+com\outreachcity\orserve\messaging\CheckCachedMessage.java
+com\outreachcity\orserve\messaging\CheckCachedMessageResponse.java
+com\outreachcity\orserve\messaging\GetMessageStatus.java
+com\outreachcity\orserve\messaging\GetMessageStatusByGateway.java
+com\outreachcity\orserve\messaging\GetMessageStatusByGatewayResponse.java
+com\outreachcity\orserve\messaging\GetMessageStatusResponse.java
+com\outreachcity\orserve\messaging\ObjectFactory.java
+com\outreachcity\orserve\messaging\SMSMessenger.java
+com\outreachcity\orserve\messaging\SMSMessengerSoap.java
+com\outreachcity\orserve\messaging\SendCachedMessage.java
+com\outreachcity\orserve\messaging\SendCachedMessageResponse.java
+com\outreachcity\orserve\messaging\SendMessage.java
+com\outreachcity\orserve\messaging\SendMessageResponse.java
+com\outreachcity\orserve\messaging\SendScheduledMessage.java
+com\outreachcity\orserve\messaging\SendScheduledMessageConcat.java
+com\outreachcity\orserve\messaging\SendScheduledMessageConcatResponse.java
+com\outreachcity\orserve\messaging\SendScheduledMessageResponse.java
+com\outreachcity\orserve\messaging\ValidateDestination.java
+com\outreachcity\orserve\messaging\ValidateDestinationResponse.java
+com\outreachcity\orserve\messaging\VerifyRequestString.java
+com\outreachcity\orserve\messaging\VerifyRequestStringResponse.java
+com\outreachcity\orserve\messaging\package-info.java
+[INFO] [jaxb2:generate {execution: default}]
+[INFO] [resources:resources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Compiling 81 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\target\classes
+[INFO] [resources:testResources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Compiling 19 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\target\test-classes
+[INFO] [surefire:test]
+[INFO] Surefire report directory: C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omp\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.motechproject.mobile.omp.manager.orserve.ORServeGatewayMessageHandlerImplTest
+2011-01-04 15:35:54,221 ERROR [org.motechproject.mobile.omp.manager.intellivr.IntellIVRBean] - IOException creating IVR to Notification Map - default tree and message will be used
+parseMessageResponse
+parseMessageStatus
+lookupStatus
+lookupResponse
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.685 sec
+Running org.motechproject.mobile.omp.manager.DummyGatewayManagerImplTest
+sendMessage
+getMessageStatus
+mapMessageStatus
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec
+Running org.motechproject.mobile.omp.service.SMSCacheServiceImplTest
+saveMessage
+saveResponse
+getMessages
+getResponses
+getMessagesByStatus
+getMessagesByStatusAndSchedule
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec
+Running org.motechproject.mobile.omp.manager.DummyGatewayMessageHandlerImplTest
+parseMessageResponse
+parseMessageStatus
+lookupStatus
+lookupResponse
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec
+Running org.motechproject.mobile.omp.manager.intellivr.IVRNotificationMappingTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running org.motechproject.mobile.omp.manager.intellivr.IVRCallStatsProviderTest
+Tests run: 23, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.742 sec
+Running org.motechproject.mobile.omp.manager.intellivr.IVRDAOTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.27 sec
+Running org.motechproject.mobile.omp.manager.utils.InMemoryMessageStatusStoreTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.763 sec
+Running org.motechproject.mobile.omp.manager.clickatell.ClickatellGatewayMessageHandlerImplTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.011 sec
+Running org.motechproject.mobile.omp.manager.OMPManagerImplTest
+createGatewayMessageHandler
+createGatewayManager
+createCacheService
+createMessagingService
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 sec
+Running org.motechproject.mobile.omp.manager.intellivr.IVRSessionTest
+[IVRCallSession id=0 version=0 userId=1 phone=null language=null direction=IN attempt=0 days=0 created=Tue Jan 04 15:35:57 IST 2011 nextAttempt=null state=REPORT_WAIT]
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec
+Running org.motechproject.mobile.omp.manager.orserve.ORServeGatewayManagerImplTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.009 sec
+Running org.motechproject.mobile.omp.service.SMSMessagingServiceImplTest
+sendMessage
+getMessageStatus
+scheduleMessage
+sendScheduledMessages
+updateMessageStatuses
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 sec
+Running org.motechproject.mobile.omp.manager.intellivr.IntellIVRGatewayMessageHandlerTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 sec
+Running org.motechproject.mobile.omp.manager.utils.PostDataTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+Running org.motechproject.mobile.omp.manager.intellivr.IntellIVRBeanTest
+2011-01-04 15:35:57,433 ERROR [org.motechproject.mobile.omp.manager.intellivr.IntellIVRBean] - Invalid user id: no such id '1234567' on server
+2011-01-04 15:35:57,436 ERROR [org.motechproject.mobile.omp.manager.intellivr.IntellIVRBean] - Invalid user id: id must be numeric
+Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.212 sec
+Running org.motechproject.mobile.omp.manager.clickatell.ClickatellGatewayManagerImplTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.002 sec
+Running org.motechproject.mobile.omp.manager.CompositeGatewayManagerTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec
+Running org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandlerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+
+Results :
+
+Tests run: 115, Failures: 0, Errors: 0, Skipped: 5
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building MoTeCH Mobile OMI
+[INFO]    task-segment: [clean, test]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] Deleting directory C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omi\target
+[INFO] [resources:resources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Compiling 17 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omi\target\classes
+[INFO] [resources:testResources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Compiling 10 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omi\target\test-classes
+[INFO] [surefire:test]
+[INFO] Surefire report directory: C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-omi\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.motechproject.mobile.omi.ws.MessageServiceImplTest
+sendPatientMessage
+sendCHPSMessage
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 sec
+Running org.motechproject.mobile.omi.manager.MessageStoreManagerImplTest
+consrtuctMessage
+111111org.motechproject.mobile.omi.manager.MessageStoreManagerImpl@8b819f
+parseTemplate
+parseTemplate
+parseTemplate
+fetchTemplate
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 sec
+Running org.motechproject.mobile.omi.ws.TestAddPatients
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.003 sec
+Running org.motechproject.mobile.omi.manager.StatusHandlerImplTest
+handleStatus
+registerStatusAction
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec
+Running org.motechproject.mobile.omi.manager.SMSMessageFormatterImplTest
+formatDefaulterMessage
+formatDefaulterMessage
+formatDeliveriesMessage
+formatUpcomingCaresMessage
+formatBulkCaresMessage
+formatMatchingPatientsMessage
+formatPatientDetailsMessage
+formatBabyRegistrationMessage
+formatPatientRegistrationMessage
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 sec
+Running org.motechproject.mobile.omi.manager.RetryStatusActionImplTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+Running org.motechproject.mobile.omi.manager.LogStatusActionImplTest
+doAction
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec
+Running org.motechproject.mobile.omi.manager.ReportStatusActionImplTest
+doAction
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running org.motechproject.mobile.omi.manager.OMIManagerImplTest
+createOMIService
+createMessageStoreManager
+createMessageFormatter
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.366 sec
+Running org.motechproject.mobile.omi.service.OMIServiceImplTest
+savePatientMessageRequest
+sendCHPSMessage
+saveCHPSMessage
+sendMessage
+processMessageRequests
+processMessageRetries
+processMessageResponses
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 sec
+
+Results :
+
+Tests run: 32, Failures: 0, Errors: 0, Skipped: 1
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building MoTeCH Mobile IMP
+[INFO]    task-segment: [clean, test]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] Deleting directory C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-imp\target
+[INFO] [resources:resources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Compiling 42 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-imp\target\classes
+[INFO] [resources:testResources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Compiling 18 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-imp\target\test-classes
+[INFO] [surefire:test]
+[INFO] Surefire report directory: C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-imp\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.motechproject.mobile.imp.util.XMLUtilTest
+getElement
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.067 sec
+Running org.motechproject.mobile.imp.util.ParamValueValidatorTest
+validate
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec
+Running org.motechproject.mobile.imp.serivce.IMPServiceImplTest
+processRequest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.572 sec
+Running org.motechproject.mobile.imp.serivce.oxd.PasswordEncoderImplTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec
+Running org.motechproject.mobile.imp.util.ParamSizeValidatorTest
+validate
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running org.motechproject.mobile.imp.util.IncomingMessageFormParameterValidatorImplTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.003 sec
+Running org.motechproject.mobile.imp.util.IncomingMessageParserImplTest
+parseRequest
+getComand
+getFormCode
+getParams
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec
+Running org.motechproject.mobile.imp.util.IncomingMessageXMLParserImplTest
+toSMSMessage
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec
+Running org.motechproject.mobile.imp.util.ParamRangeValidatorTest
+validate
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running org.motechproject.mobile.imp.util.IncomingMessageFormValidatorImplTest
+validate
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec
+Running org.motechproject.mobile.imp.serivce.FormRequestTest
+result: date=2010-12-12 04
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+Running org.motechproject.mobile.imp.util.ConditionalRequirementValidatorTest
+validate
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running org.motechproject.mobile.imp.util.FormCommandActionTest
+execute
+initializeSession
+initializeForm
+prepareResponse
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.026 sec
+Running org.motechproject.mobile.imp.serivce.MessageRegistryImplTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec
+Running org.motechproject.mobile.imp.util.FormProcessorImplTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec
+Running org.motechproject.mobile.imp.manager.IMPManagerImplTest
+createIMPService
+createIncomingMessageParser
+createIncomingMessageFormValidator
+createCommandAction
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.02 sec
+Running org.motechproject.mobile.imp.serivce.oxd.FormDefinitionServiceImplTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.02 sec
+Running org.motechproject.mobile.imp.util.ParamExpressionValidatorTest
+validate
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec
+
+Results :
+
+Tests run: 34, Failures: 0, Errors: 0, Skipped: 1
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building MoTeCH Mobile Modem Gateway
+[INFO]    task-segment: [clean, test]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] Deleting directory C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-modemgw\target
+[INFO] [resources:resources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Compiling 2 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-modemgw\target\classes
+[INFO] [resources:testResources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] No sources to compile
+[INFO] [surefire:test]
+[INFO] No tests to run.
+[INFO] ------------------------------------------------------------------------
+[INFO] Building MoTeCH Mobile WebApp
+[INFO]    task-segment: [clean, test]
+[INFO] ------------------------------------------------------------------------
+[INFO] [clean:clean]
+[INFO] Deleting directory C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-webapp\target
+[INFO] [resources:resources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Compiling 11 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-webapp\target\classes
+[INFO] [resources:testResources]
+[INFO] Using encoding: 'UTF-8' to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Compiling 2 source files to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-webapp\target\test-classes
+[INFO] [surefire:test]
+[INFO] Surefire report directory: C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-webapp\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.motechproject.mobile.web.ivr.intellivr.IntellIVRControllerTest
+Jan 4, 2011 3:36:15 PM liquibase.database.template.JdbcTemplate comment
+INFO: Lock Database
+Jan 4, 2011 3:36:15 PM liquibase.lock.LockHandler acquireLock
+INFO: Successfully acquired change log lock
+Jan 4, 2011 3:36:16 PM liquibase.database.AbstractDatabase getRanChangeSetList
+INFO: Reading from `DATABASECHANGELOG`
+Jan 4, 2011 3:36:16 PM liquibase.database.template.JdbcTemplate comment
+INFO: Release Database Lock
+Jan 4, 2011 3:36:16 PM liquibase.lock.LockHandler releaseLock
+INFO: Successfully released change log lock
+2011-01-04 15:36:16,426 ERROR [org.springframework.test.context.TestContextManager] - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1b3278a] to prepare test instance [org.motechproject.mobile.web.ivr.intellivr.IntellIVRControllerTest@e8f8c5]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:201)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:255)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:111)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.invokeTestMethod(SpringJUnit4ClassRunner.java:148)
+	at org.junit.internal.runners.JUnit4ClassRunner.runMethods(JUnit4ClassRunner.java:51)
+	at org.junit.internal.runners.JUnit4ClassRunner$1.run(JUnit4ClassRunner.java:44)
+	at org.junit.internal.runners.ClassRoadie.runUnprotected(ClassRoadie.java:27)
+	at org.junit.internal.runners.ClassRoadie.runProtected(ClassRoadie.java:37)
+	at org.junit.internal.runners.JUnit4ClassRunner.run(JUnit4ClassRunner.java:42)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:97)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.interceptor.TransactionInterceptor#0': Cannot resolve reference to bean 'transactionManager' while setting bean property 'transactionManager'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'transactionManager' defined in class path resource [META-INF/core-config.xml]: Cannot resolve reference to bean 'sessionFactory' while setting bean property 'sessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:275)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:104)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1010)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:472)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:429)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:728)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:380)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:84)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:42)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:173)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:197)
+	... 21 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'transactionManager' defined in class path resource [META-INF/core-config.xml]: Cannot resolve reference to bean 'sessionFactory' while setting bean property 'sessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:275)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:104)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1010)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:472)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:269)
+	... 40 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1338)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:473)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:254)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:269)
+	... 53 more
+Caused by: liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at liquibase.DatabaseChangeLog.validate(DatabaseChangeLog.java:119)
+	at liquibase.Liquibase.update(Liquibase.java:106)
+	at liquibase.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1369)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1335)
+	... 66 more
+Jan 4, 2011 3:36:16 PM liquibase.database.template.JdbcTemplate comment
+INFO: Lock Database
+Jan 4, 2011 3:36:16 PM liquibase.lock.LockHandler acquireLock
+INFO: Successfully acquired change log lock
+Jan 4, 2011 3:36:16 PM liquibase.database.AbstractDatabase getRanChangeSetList
+INFO: Reading from `DATABASECHANGELOG`
+Jan 4, 2011 3:36:17 PM liquibase.database.template.JdbcTemplate comment
+INFO: Release Database Lock
+Jan 4, 2011 3:36:17 PM liquibase.lock.LockHandler releaseLock
+INFO: Successfully released change log lock
+2011-01-04 15:36:17,234 ERROR [org.springframework.test.context.TestContextManager] - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1b3278a] to prepare test instance [org.motechproject.mobile.web.ivr.intellivr.IntellIVRControllerTest@1be0369]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:201)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:255)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:111)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.invokeTestMethod(SpringJUnit4ClassRunner.java:148)
+	at org.junit.internal.runners.JUnit4ClassRunner.runMethods(JUnit4ClassRunner.java:51)
+	at org.junit.internal.runners.JUnit4ClassRunner$1.run(JUnit4ClassRunner.java:44)
+	at org.junit.internal.runners.ClassRoadie.runUnprotected(ClassRoadie.java:27)
+	at org.junit.internal.runners.ClassRoadie.runProtected(ClassRoadie.java:37)
+	at org.junit.internal.runners.JUnit4ClassRunner.run(JUnit4ClassRunner.java:42)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:97)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.interceptor.TransactionInterceptor#0': Cannot resolve reference to bean 'transactionManager' while setting bean property 'transactionManager'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'transactionManager' defined in class path resource [META-INF/core-config.xml]: Cannot resolve reference to bean 'sessionFactory' while setting bean property 'sessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:275)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:104)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1010)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:472)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:429)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:728)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:380)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:84)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:42)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:173)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:197)
+	... 21 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'transactionManager' defined in class path resource [META-INF/core-config.xml]: Cannot resolve reference to bean 'sessionFactory' while setting bean property 'sessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:275)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:104)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1010)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:472)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:269)
+	... 40 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1338)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:473)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:254)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:269)
+	... 53 more
+Caused by: liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at liquibase.DatabaseChangeLog.validate(DatabaseChangeLog.java:119)
+	at liquibase.Liquibase.update(Liquibase.java:106)
+	at liquibase.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1369)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1335)
+	... 66 more
+Jan 4, 2011 3:36:18 PM liquibase.database.template.JdbcTemplate comment
+INFO: Lock Database
+Jan 4, 2011 3:36:18 PM liquibase.lock.LockHandler acquireLock
+INFO: Successfully acquired change log lock
+Jan 4, 2011 3:36:18 PM liquibase.database.AbstractDatabase getRanChangeSetList
+INFO: Reading from `DATABASECHANGELOG`
+Jan 4, 2011 3:36:18 PM liquibase.database.template.JdbcTemplate comment
+INFO: Release Database Lock
+Jan 4, 2011 3:36:18 PM liquibase.lock.LockHandler releaseLock
+INFO: Successfully released change log lock
+2011-01-04 15:36:18,761 ERROR [org.springframework.test.context.TestContextManager] - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1b3278a] to prepare test instance [org.motechproject.mobile.web.ivr.intellivr.IntellIVRControllerTest@7bd46a]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:201)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:255)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:111)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.invokeTestMethod(SpringJUnit4ClassRunner.java:148)
+	at org.junit.internal.runners.JUnit4ClassRunner.runMethods(JUnit4ClassRunner.java:51)
+	at org.junit.internal.runners.JUnit4ClassRunner$1.run(JUnit4ClassRunner.java:44)
+	at org.junit.internal.runners.ClassRoadie.runUnprotected(ClassRoadie.java:27)
+	at org.junit.internal.runners.ClassRoadie.runProtected(ClassRoadie.java:37)
+	at org.junit.internal.runners.JUnit4ClassRunner.run(JUnit4ClassRunner.java:42)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:97)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:62)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.executeTestSet(AbstractDirectoryTestSuite.java:140)
+	at org.apache.maven.surefire.suite.AbstractDirectoryTestSuite.execute(AbstractDirectoryTestSuite.java:127)
+	at org.apache.maven.surefire.Surefire.run(Surefire.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.SurefireBooter.runSuitesInProcess(SurefireBooter.java:345)
+	at org.apache.maven.surefire.booter.SurefireBooter.main(SurefireBooter.java:1009)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.interceptor.TransactionInterceptor#0': Cannot resolve reference to bean 'transactionManager' while setting bean property 'transactionManager'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'transactionManager' defined in class path resource [META-INF/core-config.xml]: Cannot resolve reference to bean 'sessionFactory' while setting bean property 'sessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:275)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:104)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1010)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:472)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:429)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:728)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:380)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:84)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:42)
+	at org.springframework.test.context.TestContext.loadApplicationContext(TestContext.java:173)
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:197)
+	... 21 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'transactionManager' defined in class path resource [META-INF/core-config.xml]: Cannot resolve reference to bean 'sessionFactory' while setting bean property 'sessionFactory'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:275)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:104)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1245)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1010)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:472)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:269)
+	... 40 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [META-INF/core-config.xml]: Invocation of init method failed; nested exception is liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1338)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:473)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory$1.run(AbstractAutowireCapableBeanFactory.java:409)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:380)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:264)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:261)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:254)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:185)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:164)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:269)
+	... 53 more
+Caused by: liquibase.exception.ValidationFailedException: Validation Failed:
+     1 change sets check sum
+          change-log-target-0.8.0.xml::1000000000000-45::ThoughtWorks::(MD5Sum: 23e384ac4a6431a1c6ce7554c2a244f)
+
+	at liquibase.DatabaseChangeLog.validate(DatabaseChangeLog.java:119)
+	at liquibase.Liquibase.update(Liquibase.java:106)
+	at liquibase.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1369)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1335)
+	... 66 more
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 5.411 sec <<< FAILURE!
+
+Results :
+
+Tests in error: 
+  testGetIvrConfig(org.motechproject.mobile.web.ivr.intellivr.IntellIVRControllerTest)
+  testReport(org.motechproject.mobile.web.ivr.intellivr.IntellIVRControllerTest)
+  testGarbage(org.motechproject.mobile.web.ivr.intellivr.IntellIVRControllerTest)
+
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] There are test failures.
+
+Please refer to C:\Users\rupeshd\MOTECH-Mobile\motech-mobile-webapp\target\surefire-reports for the individual test results.
+[INFO] ------------------------------------------------------------------------
+[INFO] For more information, run Maven with the -e switch
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2 minutes 3 seconds
+[INFO] Finished at: Tue Jan 04 15:36:18 IST 2011
+[INFO] Final Memory: 36M/63M
+[INFO] ------------------------------------------------------------------------

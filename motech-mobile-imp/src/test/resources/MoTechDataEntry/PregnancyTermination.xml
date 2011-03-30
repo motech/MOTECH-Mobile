@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="83">
+  <xf:model>
+    <xf:instance id="abortion">
+      <abortion id="83" name="Pregnancy Termination-v1">
+        <chpsid/>
+        <facilityid/>
+        <date/>
+        <motechid/>
+        <abortiontype/>
+        <complications/>
+        <formtype>data_entry</formtype>
+        <formname>abortion</formname>
+      </abortion>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/abortion/chpsid" required="true()" type="xsd:int"/>
+    <xf:bind id="facilityid" nodeset="/abortion/facilityid" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/abortion/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechid" nodeset="/abortion/motechid" required="true()" type="xsd:int"/>
+    <xf:bind id="abortiontype" nodeset="/abortion/abortiontype" required="true()" type="xsd:string"/>
+    <xf:bind id="complications" nodeset="/abortion/complications" required="true()" type="xsd:string"/>
+    <xf:bind id="formtype" nodeset="/abortion/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/abortion/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page2</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Visit date</xf:label>
+    </xf:input>
+    <xf:input bind="motechid">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="abortiontype">
+      <xf:label>Termination type</xf:label>
+      <xf:item id="1">
+        <xf:label>Elective</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Spontaneous</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Induced</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:select1 bind="complications">
+      <xf:label>Complications</xf:label>
+      <xf:item id="1">
+        <xf:label>None</xf:label>
+        <xf:value>1</xf:value>
+      </xf:item>
+      <xf:item id="2">
+        <xf:label>Bleeding/Haemorrhage</xf:label>
+        <xf:value>2</xf:value>
+      </xf:item>
+      <xf:item id="3">
+        <xf:label>Sepsis/Infection</xf:label>
+        <xf:value>3</xf:value>
+      </xf:item>
+      <xf:item id="4">
+        <xf:label>Perforations</xf:label>
+        <xf:value>4</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

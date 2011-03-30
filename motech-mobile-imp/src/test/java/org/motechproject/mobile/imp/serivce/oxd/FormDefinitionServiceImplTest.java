@@ -38,10 +38,11 @@
 
 package org.motechproject.mobile.imp.serivce.oxd;
 
-import java.util.HashSet;
-import java.util.Set;
 import junit.framework.Assert;
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -54,7 +55,7 @@ public class FormDefinitionServiceImplTest {
 
     @Test
     public void testInit() throws Exception {
-        String resource = "/MoTeCHDataEntry.xml";
+        String resource = "MoTechDataEntry";
         FormDefinitionServiceImpl fds = new FormDefinitionServiceImpl();
         Set resources = new HashSet();
         resources.add(resource);
@@ -63,37 +64,4 @@ public class FormDefinitionServiceImplTest {
         Assert.assertEquals(1, fds.getStudies().size());
         Assert.assertEquals(9, fds.getStudyForms(0).size());
     }
-
-//    @Test
-//    public void testGetXForms() throws Exception {
-//    }
-//
-//    @Test
-//    public void testGetOxdFormDefResources() {
-//    }
-//
-//    @Test
-//    public void testSetOxdFormDefResources() {
-//    }
-//
-//    @Test
-//    public void testAddOxdFormDefResources() {
-//    }
-//
-//    @Test
-//    public void testGetStudies() {
-//    }
-//
-//    @Test
-//    public void testGetUsers() {
-//    }
-//
-//    @Test
-//    public void testGetStudyName() {
-//    }
-//
-//    @Test
-//    public void testGetStudyForms() {
-//    }
-
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="20">
+  <xf:model>
+    <xf:instance id="gen-query">
+      <gen-query id="20" name="General Query">
+        <chpsid/>
+        <facilityid/>
+        <formname/>
+        <sender/>
+        <formtype>query</formtype>
+      </gen-query>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/gen-query/chpsid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityid" nodeset="/gen-query/facilityid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="formname" nodeset="/gen-query/formname" required="true()" type="xsd:string"/>
+    <xf:bind id="sender" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" nodeset="/gen-query/sender" required="true()" type="xsd:int"/>
+    <xf:bind id="formtype" nodeset="/gen-query/formtype" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page1</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="formname">
+      <xf:label>Query type</xf:label>
+      <xf:item id="ancdefault-jf">
+        <xf:label>ANC  defaulters</xf:label>
+        <xf:value>ancdefault-jf</xf:value>
+      </xf:item>
+      <xf:item id="ttdefault-jf">
+        <xf:label>TT defaulters</xf:label>
+        <xf:value>ttdefault-jf</xf:value>
+      </xf:item>
+      <xf:item id="ppcdefault-jf">
+        <xf:label>PNC (Mo) defaulters</xf:label>
+        <xf:value>ppcdefault-jf</xf:value>
+      </xf:item>
+      <xf:item id="pncdefault-jf">
+        <xf:label>PNC (Ch) defaulters</xf:label>
+        <xf:value>pncdefault-jf</xf:value>
+      </xf:item>
+      <xf:item id="cwcdefault-jf">
+        <xf:label>CWC  defaulters</xf:label>
+        <xf:value>cwcdefault-jf</xf:value>
+      </xf:item>
+      <xf:item id="upcomingdeliveries-jf">
+        <xf:label>Upcoming deliveries</xf:label>
+        <xf:value>upcomingdeliveries-jf</xf:value>
+      </xf:item>
+      <xf:item id="recentdeliveries-jf">
+        <xf:label>Recent deliveries</xf:label>
+        <xf:value>recentdeliveries-jf</xf:value>
+      </xf:item>
+      <xf:item id="overduedeliveries-jf">
+        <xf:label>Past EDD/no delivery</xf:label>
+        <xf:value>overduedeliveries-jf</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="sender">
+      <xf:label>Response phone number</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>
