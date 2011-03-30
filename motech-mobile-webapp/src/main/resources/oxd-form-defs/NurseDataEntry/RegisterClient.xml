@@ -1731,7 +1731,7 @@
             relevant="/patientRegistration/district = 'knd' or /patientRegistration/district = 'kassena_nakana_west' or /patientRegistration/district = 'awutu_senya'"
             visible="false()" required="true()" />
             <xf:bind id="community" nodeset="/patientRegistration/community" required="true()"
-            type="xsd:string" action="show" relevant="/patientRegistration/region = 'ue'" visible="false()" />
+            type="xsd:string" action="show" relevant="/patientRegistration/region = 'ue' and /patientRegistration/district != 'Other'" visible="false()" />
             <xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/>
             <xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int"
             constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
