@@ -279,7 +279,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
         <tomcat.home>${env.CATALINA_HOME}</tomcat.home>
-        <web.context>${project.parent.artifactId}</web.context>
+        <web.context>motech-mobile-webapp</web.context>
         <env>prod</env>
     </properties>
 </project>
