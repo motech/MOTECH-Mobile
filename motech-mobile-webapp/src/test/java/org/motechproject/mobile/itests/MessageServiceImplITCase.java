@@ -37,29 +37,26 @@
  */
 package org.motechproject.mobile.itests;
 
-import org.motechproject.mobile.imp.serivce.IMPService;
-import org.motechproject.mobile.omi.service.OMIService;
-import org.motechproject.mobile.omp.service.MessagingService;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
-import javax.annotation.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.model.IncomingMessageResponse;
-import org.motechproject.ws.ContactNumberType;
-import org.motechproject.ws.MediaType;
-import org.motechproject.ws.MessageStatus;
-import org.motechproject.ws.NameValuePair;
-import org.motechproject.ws.Patient;
-import org.motechproject.ws.PatientMessage;
+import org.motechproject.mobile.imp.serivce.IMPService;
+import org.motechproject.mobile.omi.service.OMIService;
+import org.motechproject.mobile.omp.service.MessagingService;
+import org.motechproject.ws.*;
 import org.motechproject.ws.mobile.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.junit.Assert.*;
+
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Integration tests for the MessageServiceImpl class
@@ -68,7 +65,7 @@ import static org.junit.Assert.*;
  * Date Created Aug 10, 2009
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:WEB-INF/webapp-config.xml", "classpath:META-INF/client-config.xml"})
+@ContextConfiguration(locations = {"classpath:META-INF/test-web-context.xml", "classpath:META-INF/client-config.xml"})
 public class MessageServiceImplITCase {
 
     Properties testProps;
