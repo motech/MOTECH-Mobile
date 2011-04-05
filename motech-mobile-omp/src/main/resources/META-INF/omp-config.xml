@@ -298,12 +298,12 @@
     </bean>
 
     <bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
-        <property name="textHandler" ref="rancardHandler"/>
+        <property name="textHandler" ref="dummyHandler"/>
         <property name="voiceHandler" ref="intellIVRMessageHandler"/>
     </bean>
 
     <bean id="compositeGatewayManager" class="org.motechproject.mobile.omp.manager.CompositeGatewayManager">
-        <property name="textGatewayManager" ref="rancardGateway"/>
+        <property name="textGatewayManager" ref="dummyManager"/>
         <property name="voiceGatewayManager" ref="intellivrBean"/>
         <property name="compositeMessageHandler" ref="compositeHandler"/>
     </bean>
