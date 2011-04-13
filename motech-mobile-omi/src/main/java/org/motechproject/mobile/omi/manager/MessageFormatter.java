@@ -34,6 +34,7 @@
 package org.motechproject.mobile.omi.manager;
 
 import org.motechproject.ws.Care;
+import org.motechproject.ws.CareMessageGroupingStrategy;
 import org.motechproject.ws.Patient;
 import org.motechproject.ws.rct.RCTRegistrationConfirmation;
 
@@ -49,7 +50,7 @@ public interface MessageFormatter {
      * @param care object containing patient information
      * @return the formatted message
      */
-    String formatDefaulterMessage(Care care);
+    String formatDefaulterMessage(Care care, CareMessageGroupingStrategy groupingStrategy);
 
     /**
      * Constructs a formatted patient care defaulter message
@@ -57,7 +58,7 @@ public interface MessageFormatter {
      * @param care object containing patient information
      * @return the formatted message
      */
-    String formatDefaulterMessage(Care[] cares);
+    String formatDefaulterMessage(Care[] cares, CareMessageGroupingStrategy groupingStrategy);
 
     /**
      * Constructs a formatted patient delivery schedule message
@@ -125,7 +126,7 @@ public interface MessageFormatter {
      * @param patient object containing list of upcoming care
      * @return the formatted message
      */
-    String formatBulkCaresMessage(Care[] cares);
+    String formatBulkCaresMessage(Care[] cares, CareMessageGroupingStrategy groupingStrategy);
 
     /**
      * Constructs a formatted patient registration response message

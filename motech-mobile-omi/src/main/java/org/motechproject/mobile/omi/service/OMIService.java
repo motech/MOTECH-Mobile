@@ -36,12 +36,8 @@ package org.motechproject.mobile.omi.service;
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.omi.manager.OMIManager;
 import java.util.Date;
-import org.motechproject.ws.Care;
-import org.motechproject.ws.ContactNumberType;
-import org.motechproject.ws.MediaType;
-import org.motechproject.ws.MessageStatus;
-import org.motechproject.ws.NameValuePair;
-import org.motechproject.ws.Patient;
+
+import org.motechproject.ws.*;
 
 /**
  * Handles all operations on outgoing messages
@@ -121,7 +117,9 @@ public interface OMIService {
      * @param endDate Date to stop message sending attempts
      * @return The status of the message
      */
-    MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate);
+    MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares,
+                                       CareMessageGroupingStrategy groupingStrategy,
+                                       MediaType messageType, Date startDate, Date endDate);
 
     /**
      * Sends a list of patients within a delivery schedule to a CHPS worker
@@ -189,7 +187,9 @@ public interface OMIService {
      * @param endDate Date to stop message sending attempts
      * @return The status of the message
      */
-    MessageStatus sendBulkCaresMessage(String messageId, String workerNumber, Care[] cares, MediaType mediaType, Date startDate, Date endDate);
+    MessageStatus sendBulkCaresMessage(String messageId, String workerNumber, Care[] cares,
+                                       CareMessageGroupingStrategy groupingStrategy,
+                                       MediaType mediaType, Date startDate, Date endDate);
 
     /**
      * Processes stored MessageRequests into GatewayRequests and schedules them for delivery on the OMP

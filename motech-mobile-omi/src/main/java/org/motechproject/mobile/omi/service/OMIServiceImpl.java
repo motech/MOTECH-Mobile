@@ -57,12 +57,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.log4j.Logger;
-import org.motechproject.ws.Care;
-import org.motechproject.ws.ContactNumberType;
-import org.motechproject.ws.MediaType;
-import org.motechproject.ws.Patient;
-import org.motechproject.ws.MessageStatus;
-import org.motechproject.ws.NameValuePair;
+import org.motechproject.ws.*;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -393,7 +388,9 @@ public class OMIServiceImpl implements OMIService {
         return MessageStatus.valueOf(message.getStatus().toString());
     }
 
-    public MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
+    public MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares,
+                                              CareMessageGroupingStrategy groupingStrategy,
+                                              MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
         }
@@ -403,7 +400,7 @@ public class OMIServiceImpl implements OMIService {
         MessageFormatter formatter = omiManager.createMessageFormatter();
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
-        String content = formatter.formatDefaulterMessage(cares);
+        String content = formatter.formatDefaulterMessage(cares, groupingStrategy);
 
         messageRequest.setTryNumber(1);
         messageRequest.setRequestId(messageId);
@@ -479,7 +476,9 @@ public class OMIServiceImpl implements OMIService {
         return status;
     }
 
-    public MessageStatus sendBulkCaresMessage(String messageId, String workerNumber, Care[] cares, MediaType messageType, Date startDate, Date endDate) {
+    public MessageStatus sendBulkCaresMessage(String messageId, String workerNumber, Care[] cares,
+                                              CareMessageGroupingStrategy groupingStrategy,
+                                              MediaType messageType, Date startDate, Date endDate) {
         if (workerNumber == null || workerNumber.isEmpty()) {
             return MessageStatus.REJECTED;
         }
@@ -490,7 +489,7 @@ public class OMIServiceImpl implements OMIService {
         MessageFormatter formatter = omiManager.createMessageFormatter();
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
-        String content = formatter.formatBulkCaresMessage(cares);
+        String content = formatter.formatBulkCaresMessage(cares, groupingStrategy);
 
         messageRequest.setTryNumber(1);
         messageRequest.setRequestId(messageId);

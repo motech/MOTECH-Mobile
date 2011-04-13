@@ -55,7 +55,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
     private OMIManager omiManager;
     private String dateFormat;
 
-    public String formatDefaulterMessage(Care care) {
+    public String formatDefaulterMessage(Care care, CareMessageGroupingStrategy groupingStrategy) {
         int num = 0;
         String message = "";
 
@@ -86,11 +86,11 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return message;
     }
 
-    public String formatDefaulterMessage(Care[] cares) {
+    public String formatDefaulterMessage(Care[] cares, CareMessageGroupingStrategy groupingStrategy) {
         String result = "";
 
         for (Care c : cares) {
-            result += formatDefaulterMessage(c) + "\n\n";
+            result += formatDefaulterMessage(c, groupingStrategy) + "\n\n";
         }
         return result.trim();
     }
@@ -181,7 +181,7 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         return message;
     }
 
-    public String formatBulkCaresMessage(Care[] cares) {
+    public String formatBulkCaresMessage(Care[] cares, CareMessageGroupingStrategy groupingStrategy) {
         if (cares == null) {
             return "No upcoming care.";
         }

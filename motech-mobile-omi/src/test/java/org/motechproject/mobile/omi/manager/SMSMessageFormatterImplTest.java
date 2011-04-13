@@ -45,6 +45,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.motechproject.ws.Care;
+import org.motechproject.ws.CareMessageGroupingStrategy;
 import org.motechproject.ws.Gender;
 import org.motechproject.ws.Patient;
 import static org.easymock.EasyMock.*;
@@ -131,7 +132,7 @@ public class SMSMessageFormatterImplTest {
         System.out.println("formatDefaulterMessage");
 
         String expResult = "No Care defaulters found for this clinic";
-        String result = instance.formatDefaulterMessage(c);
+        String result = instance.formatDefaulterMessage(c, CareMessageGroupingStrategy.NONE);
         assertEquals(expResult, result);
 
         c.setPatients(new Patient[]{p, p1});
@@ -142,7 +143,7 @@ public class SMSMessageFormatterImplTest {
                 ).andReturn(storeManager);
 
         replay(mockOMI);
-        result = instance.formatDefaulterMessage(c);
+        result = instance.formatDefaulterMessage(c, CareMessageGroupingStrategy.NONE);
         verify(mockOMI);
         
         assertEquals(expResult, result);
@@ -167,7 +168,7 @@ public class SMSMessageFormatterImplTest {
                 ).andReturn(storeManager).times(cares.length);
 
         replay(mockOMI);
-        String result = instance.formatDefaulterMessage(cares);
+        String result = instance.formatDefaulterMessage(cares, CareMessageGroupingStrategy.NONE);
         verify(mockOMI);
 
         assertEquals(expResult, result);
@@ -235,7 +236,7 @@ public class SMSMessageFormatterImplTest {
                 ).andReturn(storeManager);
 
         replay(mockOMI);
-        String result = instance.formatBulkCaresMessage(cares);
+        String result = instance.formatBulkCaresMessage(cares, CareMessageGroupingStrategy.NONE);
         verify(mockOMI);
         
         assertEquals(expResult, result);
