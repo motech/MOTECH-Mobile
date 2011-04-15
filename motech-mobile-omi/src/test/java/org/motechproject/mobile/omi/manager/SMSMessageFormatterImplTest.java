@@ -38,17 +38,19 @@
 
 package org.motechproject.mobile.omi.manager;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.motechproject.ws.Care;
 import org.motechproject.ws.CareMessageGroupingStrategy;
 import org.motechproject.ws.Gender;
 import org.motechproject.ws.Patient;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -128,9 +130,7 @@ public class SMSMessageFormatterImplTest {
      * Test of formatDefaulterMessage method, of class SMSMessageFormatterImpl.
      */
     @Test
-    public void testFormatDefaulterMessage_CareArr() {
-        System.out.println("formatDefaulterMessage");
-
+    public void testFormatDefaulterMessage_CareArray() {
         c.setPatients(new Patient[]{p, p1});
         c1.setPatients(new Patient[]{p1, p2});
         c2.setPatients(new Patient[]{p2});
@@ -139,10 +139,62 @@ public class SMSMessageFormatterImplTest {
 
         String expResult = "Defaulter Alerts\nBaby Boy Patient, 1234561 (Care,Care1)\nLittle Patient, 1234562 (Care1,Care2)\nTest Patient, 1234567 (Care)";
 
-        expect(mockOMI.createMessageStoreManager()).andReturn(storeManager).times(1);
-
         replay(mockOMI);
         String result = instance.formatDefaulterMessage(cares, CareMessageGroupingStrategy.NONE);
+        verify(mockOMI);
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testFormatDefaulterMessage_CareArrayNull() {
+        String expResult = "Defaulter Alerts\nNo defaulters found for this clinic";
+
+        replay(mockOMI);
+        String result = instance.formatDefaulterMessage(null, CareMessageGroupingStrategy.NONE);
+        verify(mockOMI);
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testFormatDefaulterMessage_CareArrayEmpty() {
+        Care[] cares = new Care[]{};
+
+        String expResult = "Defaulter Alerts\nNo defaulters found for this clinic";
+
+        replay(mockOMI);
+        String result = instance.formatDefaulterMessage(null, CareMessageGroupingStrategy.NONE);
+        verify(mockOMI);
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testFormatDefaulterMessage_CareArrayNullPatients() {
+        c.setPatients(null);
+
+        Care[] cares = new Care[]{c};
+
+        String expResult = "Defaulter Alerts\nNo defaulters found for this clinic";
+
+        replay(mockOMI);
+        String result = instance.formatDefaulterMessage(null, CareMessageGroupingStrategy.NONE);
+        verify(mockOMI);
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testFormatDefaulterMessage_CareArrayEmptyPatients() {
+        c.setPatients(new Patient[]{});
+
+        Care[] cares = new Care[]{c};
+
+        String expResult = "Defaulter Alerts\nNo defaulters found for this clinic";
+
+        replay(mockOMI);
+        String result = instance.formatDefaulterMessage(null, CareMessageGroupingStrategy.NONE);
         verify(mockOMI);
 
         assertEquals(expResult, result);
@@ -161,12 +213,10 @@ public class SMSMessageFormatterImplTest {
 
         Care[] cares = new Care[]{c, c1, c2};
 
-        String expResult = "Defaulter Alerts\nCommunity\nTest Patient, 1234567 (Care)\nBaby Boy Patient, 1234561 (Care,Care1)\n\nCommunity1\nLittle Patient, 1234562 (Care1,Care2)";
-
-        expect(mockOMI.createMessageStoreManager()).andReturn(storeManager).times(1);
+        String expResult = "Defaulter Alerts\nCommunity\nBaby Boy Patient, 1234561 (Care,Care1)\nTest Patient, 1234567 (Care)\nCommunity1\nLittle Patient, 1234562 (Care1,Care2)";
 
         replay(mockOMI);
-        String result = instance.formatDefaulterMessage(cares, CareMessageGroupingStrategy.NONE);
+        String result = instance.formatDefaulterMessage(cares, CareMessageGroupingStrategy.COMMUNITY);
         verify(mockOMI);
 
         assertEquals(expResult, result);
