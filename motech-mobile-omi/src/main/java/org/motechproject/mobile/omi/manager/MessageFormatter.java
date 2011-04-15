@@ -44,13 +44,6 @@ import org.motechproject.ws.rct.RCTRegistrationConfirmation;
  */
 public interface MessageFormatter {
 
-    /**
-     * Constructs a formatted patient care defaulter message
-     *
-     * @param care object containing patient information
-     * @return the formatted message
-     */
-    String formatDefaulterMessage(Care care, CareMessageGroupingStrategy groupingStrategy);
 
     /**
      * Constructs a formatted patient care defaulter message

@@ -33,14 +33,13 @@
 
 package org.motechproject.mobile.omi.manager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.*;
 import org.motechproject.ws.rct.RCTRegistrationConfirmation;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Formats objects into structured messages for sending
@@ -55,30 +54,53 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
     private OMIManager omiManager;
     private String dateFormat;
 
-    public String formatDefaulterMessage(Care care, CareMessageGroupingStrategy groupingStrategy) {
-        int num = 0;
-        String message = "";
+    public String formatCommunityDefaulterMessage(TreeMap<String, TreeMap<String, List<String>>> defaulters, CareMessageGroupingStrategy groupingStrategy) {
 
-        if (care == null) {
+        if (defaulters == null || defaulters.isEmpty()) {
             return "No defaulters found for this clinic";
-        } else if (care.getPatients() == null || care.getPatients().length < 0) {
-            return "No " + care.getName() + " defaulters found for this clinic";
         }
 
-        String template = care.getName() + " Defaulters:";
+        String message = "Defaulter Alerts";
 
         Set<NameValuePair> data = new HashSet<NameValuePair>();
 
-        for (Patient p : care.getPatients()) {
-            String lastName = (p.getLastName() == null) ? "" : p.getLastName();
-            String preferredName = checkPreferredName(p);
+        TreeSet<String> communities = new TreeSet<String>(defaulters.keySet());
+        for (String c : communities) {
+            TreeMap<String, List<String>> patientDefaulters = defaulters.get(c);
+            message += "\n" + c;
 
-            data.add(new NameValuePair("PreferredName" + num, preferredName));
-            data.add(new NameValuePair("LastName" + num, lastName));
-            data.add(new NameValuePair("MoTeCHID" + num, p.getMotechId()));
-            data.add(new NameValuePair("Community" + num, p.getCommunity()));
+            message += formatDefaulterMessage(patientDefaulters, groupingStrategy);
+        }
 
-            template += "\n<PreferredName" + num + "> <LastName" + num + ">-<MoTeCHID" + num + "> (<Community" + num + ">)";
+        return message;
+    }
+
+    public String formatDefaulterMessage(TreeMap<String, List<String>> defaulters, CareMessageGroupingStrategy groupingStrategy) {
+        int num = 0;
+        String message = "";
+
+        if (defaulters == null || defaulters.isEmpty()) {
+            return "No defaulters found for this clinic";
+        }
+
+        String template = "Defaulter Alerts";
+
+        Set<NameValuePair> data = new HashSet<NameValuePair>();
+
+        TreeSet<String> keys = new TreeSet<String>(defaulters.keySet());
+        for (String p : keys) {
+            List<String> defaultedCareList = defaulters.get(p);
+
+            if (defaultedCareList == null || defaultedCareList.isEmpty()) {
+                continue;
+            }
+
+            String defaultedCare = StringUtils.join(defaultedCareList.toArray(), ",");
+
+            data.add(new NameValuePair("Patient" + num, p));
+            data.add(new NameValuePair("Care" + num, defaultedCare));
+
+            template += "\n<Patient" + num + "> (<Care" + num + ">)";
 
             num++;
         }
@@ -89,9 +111,36 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
     public String formatDefaulterMessage(Care[] cares, CareMessageGroupingStrategy groupingStrategy) {
         String result = "";
 
+        // Map of patient to the care the defaulted for
+        TreeMap<String, List<String>> patientDefaulters = new TreeMap<String, List<String>>();
+
+        // Map of community to the defaulted patients in that community
+        TreeMap<String, TreeMap<String, List<String>>> communityDefaulters = new TreeMap<String, TreeMap<String, List<String>>>();
+
         for (Care c : cares) {
-            result += formatDefaulterMessage(c, groupingStrategy) + "\n\n";
+            for (Patient p : c.getPatients()) {
+                String lastName = (p.getLastName() == null) ? "" : p.getLastName();
+                String preferredName = checkPreferredName(p);
+
+                String patient = String.format("%s %s, %s", preferredName, lastName, p.getMotechId());
+
+                if (!patientDefaulters.containsKey(patient)) {
+                    patientDefaulters.put(patient, new ArrayList<String>());
+                }
+
+                List<String> defaultedFor = patientDefaulters.get(patient);
+                defaultedFor.add(c.getName());
+
+                communityDefaulters.put(p.getCommunity(), patientDefaulters);
+            }
         }
+
+        if (groupingStrategy == CareMessageGroupingStrategy.NONE) {
+            result = formatDefaulterMessage(patientDefaulters, groupingStrategy);
+        } else {
+            result = formatCommunityDefaulterMessage(communityDefaulters, groupingStrategy);
+        }
+
         return result.trim();
     }
 

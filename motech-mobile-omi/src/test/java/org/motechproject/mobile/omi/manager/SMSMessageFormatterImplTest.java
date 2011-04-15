@@ -107,7 +107,7 @@ public class SMSMessageFormatterImplTest {
         p2 = new Patient();
         p2.setPreferredName("Little");
         p2.setLastName("Patient");
-        p2.setCommunity("Community");
+        p2.setCommunity("Community1");
         p2.setMotechId("1234562");
         p2.setSex(Gender.FEMALE);
         p2.setBirthDate(new Date());
@@ -115,7 +115,7 @@ public class SMSMessageFormatterImplTest {
         p3 = new Patient();
         p3.setPreferredName("Man");
         p3.setLastName("Patient");
-        p3.setCommunity("Community");
+        p3.setCommunity("Community1");
         p3.setMotechId("1234563");
         p3.setSex(Gender.MALE);
     }
@@ -128,24 +128,23 @@ public class SMSMessageFormatterImplTest {
      * Test of formatDefaulterMessage method, of class SMSMessageFormatterImpl.
      */
     @Test
-    public void testFormatDefaulterMessage_Care() {
+    public void testFormatDefaulterMessage_CareArr() {
         System.out.println("formatDefaulterMessage");
 
-        String expResult = "No Care defaulters found for this clinic";
-        String result = instance.formatDefaulterMessage(c, CareMessageGroupingStrategy.NONE);
-        assertEquals(expResult, result);
-
         c.setPatients(new Patient[]{p, p1});
-        expResult = "Care Defaulters:\nTest Patient-1234567 (Community)\nBaby Boy Patient-1234561 (Community)";
+        c1.setPatients(new Patient[]{p1, p2});
+        c2.setPatients(new Patient[]{p2});
 
-        expect(
-                mockOMI.createMessageStoreManager()
-                ).andReturn(storeManager);
+        Care[] cares = new Care[]{c, c1, c2};
+
+        String expResult = "Defaulter Alerts\nBaby Boy Patient, 1234561 (Care,Care1)\nLittle Patient, 1234562 (Care1,Care2)\nTest Patient, 1234567 (Care)";
+
+        expect(mockOMI.createMessageStoreManager()).andReturn(storeManager).times(1);
 
         replay(mockOMI);
-        result = instance.formatDefaulterMessage(c, CareMessageGroupingStrategy.NONE);
+        String result = instance.formatDefaulterMessage(cares, CareMessageGroupingStrategy.NONE);
         verify(mockOMI);
-        
+
         assertEquals(expResult, result);
     }
 
@@ -153,19 +152,18 @@ public class SMSMessageFormatterImplTest {
      * Test of formatDefaulterMessage method, of class SMSMessageFormatterImpl.
      */
     @Test
-    public void testFormatDefaulterMessage_CareArr() {
+    public void testFormatDefaulterMessage_CaresGrouped() {
         System.out.println("formatDefaulterMessage");
 
         c.setPatients(new Patient[]{p, p1});
-        c1.setPatients(new Patient[]{p2});
+        c1.setPatients(new Patient[]{p1, p2});
+        c2.setPatients(new Patient[]{p2});
 
-        Care[] cares = new Care[]{c, c1};
+        Care[] cares = new Care[]{c, c1, c2};
 
-        String expResult = "Care Defaulters:\nTest Patient-1234567 (Community)\nBaby Boy Patient-1234561 (Community)\n\nCare1 Defaulters:\nLittle Patient-1234562 (Community)";
+        String expResult = "Defaulter Alerts\nCommunity\nTest Patient, 1234567 (Care)\nBaby Boy Patient, 1234561 (Care,Care1)\n\nCommunity1\nLittle Patient, 1234562 (Care1,Care2)";
 
-        expect(
-                mockOMI.createMessageStoreManager()
-                ).andReturn(storeManager).times(cares.length);
+        expect(mockOMI.createMessageStoreManager()).andReturn(storeManager).times(1);
 
         replay(mockOMI);
         String result = instance.formatDefaulterMessage(cares, CareMessageGroupingStrategy.NONE);
@@ -229,7 +227,7 @@ public class SMSMessageFormatterImplTest {
 
         Care[] cares = new Care[]{c, c1};
 
-        String expResult = "Upcoming care:\nCare - "+df.format(new Date())+":\nBaby Boy Patient-1234561 (Community)\nMan Patient-1234563 (Community)\n\nCare1 - "+df.format(new Date())+":\nTest Patient-1234567 (Community)\nLittle Patient-1234562 (Community)";
+        String expResult = "Upcoming care:\nCare - "+df.format(new Date())+":\nBaby Boy Patient-1234561 (Community)\nMan Patient-1234563 (Community1)\n\nCare1 - "+df.format(new Date())+":\nTest Patient-1234567 (Community)\nLittle Patient-1234562 (Community1)";
 
         expect(
                 mockOMI.createMessageStoreManager()
@@ -250,7 +248,7 @@ public class SMSMessageFormatterImplTest {
         System.out.println("formatMatchingPatientsMessage");
         Patient[] patients = new Patient[]{p,p3};
 
-        String expResult = "Matching Patients:\nTest Patient <DoB0> FEMALE Community MoTeCH ID:1234567\nMan Patient <DoB1> MALE Community MoTeCH ID:1234563";
+        String expResult = "Matching Patients:\nTest Patient <DoB0> FEMALE Community MoTeCH ID:1234567\nMan Patient <DoB1> MALE Community1 MoTeCH ID:1234563";
 
         expect(
                 mockOMI.createMessageStoreManager()
