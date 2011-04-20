@@ -1736,7 +1736,7 @@
             <xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int"
             constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
             <xf:bind action="show" id="cwcRegNumber" nodeset="/patientRegistration/cwcRegNumber"
-            relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" required="true()"
+            relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" 
             type="xsd:string" visible="false()"/>
             <xf:bind action="show" id="cwcRegDateToday" nodeset="/patientRegistration/cwcRegDateToday"
             relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" required="true()"
@@ -1747,7 +1747,7 @@
             relevant="/patientRegistration/cwcRegDateToday = 'N'" visible="false()" required="true()"
             type="xsd:date"/>
             <xf:bind action="show" id="ancRegNumber" nodeset="/patientRegistration/ancRegNumber"
-            relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
+            relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'"
             type="xsd:string" visible="false()"/>
             <xf:bind action="show" id="ancRegDateToday" nodeset="/patientRegistration/ancRegDateToday"
             relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
