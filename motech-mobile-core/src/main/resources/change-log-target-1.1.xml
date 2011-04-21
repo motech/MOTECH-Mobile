@@ -33,4 +33,12 @@
             <where>id=879874663983213</where>
         </update>
     </changeSet>
+    
+     <changeSet context="setup" author="ThoughtWorks" id="1000000000000-54">
+        <loadData encoding="UTF-8" file="data/notification_type_child_week_5_to_52.csv" tableName="notification_type">
+            <column header="id" type="NUMERIC"/>
+            <column header="name" type="STRING"/>
+            <column header="description" type="STRING"/>
+        </loadData>
+    </changeSet>
 </databaseChangeLog>
