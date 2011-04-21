@@ -43,18 +43,19 @@
 -->
 
 <databaseChangeLog
-  xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-<!--  Note for 0.8.0 upgrade deployment : please comment out both motech-schema-log ang motech-schema-insert-log tags
-                           and uncomment change-log-target-0.8.0 tag
-                           
-      Note for fresh motech-mobile setupt: please keep this changelog file unchanged.
-                           -->
-    <include file="motech-schema-log.xml" />
-    <include file="motech-schema-insert-log.xml" />
-     <include file="change-log-target-0.8.0.xml" />
-     <include file="ivr-change-log.xml" />
+    <!--  Note for 0.8.0 upgrade deployment : please comment out both motech-schema-log ang motech-schema-insert-log tags
+    and uncomment change-log-target-0.8.0 tag
+
+Note for fresh motech-mobile setupt: please keep this changelog file unchanged.
+    -->
+    <include file="motech-schema-log.xml"/>
+    <include file="motech-schema-insert-log.xml"/>
+    <include file="change-log-target-0.8.0.xml"/>
+    <include file="ivr-change-log.xml"/>
+    <include file="change-log-target-1.1.xml"/>
 </databaseChangeLog>
 

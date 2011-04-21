@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet context="update" id="1000000000000-53" author="ThoughtWorks">
+        <comment>
+            Serial Number field to become optional in opv form
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="required" valueBoolean="false"/>
+            <where>id=10000000001504</where>
+        </update>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="required" valueBoolean="false"/>
+            <where>id=10000000001604</where>
+        </update>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="required" valueBoolean="false"/>
+            <where>id=10000000001704</where>
+        </update>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="required" valueBoolean="false"/>
+            <where>id=447236646138029</where>
+        </update>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="required" valueBoolean="false"/>
+            <where>id=695474663923333</where>
+        </update>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="required" valueBoolean="false"/>
+            <where>id=879874663983213</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>
