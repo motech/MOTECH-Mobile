@@ -42,6 +42,7 @@
         </loadData>
     </changeSet>
 
+
     <changeSet context="update" id="1000000000000-55" author="ThoughtWorks">
         <comment>
             Making community field optional in client-registration
@@ -52,4 +53,15 @@
         </update>
     </changeSet>
 
+     <changeSet context="setup" author="ThoughtWorks" id="1000000000000-56">
+        <loadData encoding="UTF-8" file="data/message_template_first_year_content.csv" tableName="message_template">
+            <column header="id" type="NUMERIC"/>
+            <column header="obj_vesion" type="NUMERIC"/>
+            <column header="date_created" type="DATE"/>
+            <column header="message_type" type="STRING"/>
+            <column header="template" type="STRING"/>
+            <column header="notification_type" type="NUMERIC"/>
+            <column header="language" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
 </databaseChangeLog>
