@@ -57,7 +57,7 @@ import java.util.Set;
  */
 public class RancardGatewayManagerImpl implements GatewayManager {
 
-    private String serviceURL = "http://app.rancardmobility.com/rmcs/sendMessage.jsp?";
+    private String serviceURL;
     private String user;
     private String password;
     private String sender;
