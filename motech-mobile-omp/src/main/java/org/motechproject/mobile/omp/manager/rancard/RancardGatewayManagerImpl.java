@@ -69,41 +69,43 @@ public class RancardGatewayManagerImpl implements GatewayManager {
     }
 
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
-        PostData postData = new PostData();
+        PostData postData = getPostData(messageDetails);
+        URLConnection urlConnection = openURLConnection();
+        String gatewayResponse = sendMessageAndCaptureGatewayResponse(messageDetails, postData, urlConnection);
+        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
+    }
+
+    private String sendMessageAndCaptureGatewayResponse(GatewayRequest messageDetails, PostData postData, URLConnection urlConnection) {
+        BufferedReader inBufferedReader;
+        String data;
+        String gatewayResponse = "";
         try {
-            String msg = (messageDetails.getMessage().length() <= 459) ? messageDetails.getMessage() : messageDetails.getMessage().substring(0, 455) + "...";
-
-            postData.add("username",user);
-            postData.add("password",password);
-            postData.add("text",URLEncoder.encode(msg, "UTF-8"));
-            postData.add("from",sender);
-            postData.add("concat",String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
-
-            String recipients = "";
-            String numbers = messageDetails.getRecipientsNumber();
-            String[] nums = numbers.split(",");
-            for (String num : nums) {
-                if (num.startsWith("23320")) {
-                    num += "+";
-                }
-                if (!recipients.isEmpty()) {
-                    recipients += ":";
-                }
-                recipients += num;
+            urlConnection.setDoOutput(true);
+            OutputStreamWriter connectionOutputStream = new OutputStreamWriter(urlConnection.getOutputStream());
+            connectionOutputStream.write(postData.toString());
+            connectionOutputStream.flush();
+            inBufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            while ((data = inBufferedReader.readLine()) != null) {
+                gatewayResponse += data + "\n";
             }
-            postData.add("to",recipients);
-            logger.debug("Post Data:\n"+postData.without("username","password"));
-        } catch (UnsupportedEncodingException ex) {
-            logger.fatal("Error building request params: invalid encoding", ex);
+            //Close the connections to the url reader and writer
+            connectionOutputStream.close();
+            inBufferedReader.close();
+        } catch (IOException ex) {
+            logger.error("Error processing gateway request", ex);
+            gatewayResponse = "";
         }
+        messageDetails.setDateSent(new Date());
+        return gatewayResponse;
+    }
 
-        //Create a url and open a connection to it
+    private URLConnection openURLConnection() {
         URL url;
-        URLConnection conn;
+        URLConnection urlConnection;
         try {
             url = new URL(serviceURL);
-            conn = url.openConnection();
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            urlConnection = url.openConnection();
+            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         } catch (MalformedURLException ex) {
             logger.fatal("Error initializing Rancard Gateway: invalid url", ex);
             throw new RuntimeException("Invalid gateway URL");
@@ -111,31 +113,38 @@ public class RancardGatewayManagerImpl implements GatewayManager {
             logger.fatal("Error iitializing Rancard Gateway: unable to open URL connection", ex);
             throw new RuntimeException("Could not connect to gateway");
         }
-        //Read in the gateway response
-        BufferedReader in;
-        String data = "";
-        String gatewayResponse = "";
-        //Flush the post data to the url
-        try {
-            conn.setDoOutput(true);
-            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-            out.write(postData.toString());
-            out.flush();
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            while ((data = in.readLine()) != null) {
-                gatewayResponse += data + "\n";
-            }
-            //Close the connections to the url reader and writer
-            out.close();
-            in.close();
-        } catch (IOException ex) {
-            logger.error("Error processing gateway request", ex);
-            gatewayResponse = "";
-        }
-        messageDetails.setDateSent(new Date());
-        //Convert the response to a standard format
-        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
+        return urlConnection;
+    }
 
+    private PostData getPostData(GatewayRequest messageDetails) {
+        PostData postData = new PostData();
+        try {
+            String msg = (messageDetails.getMessage().length() <= 459) ? messageDetails.getMessage() : messageDetails.getMessage().substring(0, 455) + "...";
+
+            postData.add("username",user);
+            postData.add("password",password);
+            postData.add("text", URLEncoder.encode(msg, "UTF-8"));
+            postData.add("from",sender);
+            postData.add("concat",String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
+
+            String recipients = "";
+            String numbers = messageDetails.getRecipientsNumber();
+            String[] phoneNumbers = numbers.split(",");
+            for (String number : phoneNumbers) {
+                if (number.startsWith("23320")) {
+                    number += "+";
+                }
+                if (!recipients.isEmpty()) {
+                    recipients += ":";
+                }
+                recipients += number;
+            }
+            postData.add("to",recipients);
+            logger.debug("Post Data:\n"+postData.without("username","password"));
+        } catch (UnsupportedEncodingException ex) {
+            logger.fatal("Error building request params: invalid encoding", ex);
+        }
+        return postData;
     }
 
     public String getMessageStatus(GatewayResponse response) {
@@ -179,7 +188,7 @@ public class RancardGatewayManagerImpl implements GatewayManager {
     }
 
     /**
-     * @param serviceURL the serviceURL to set
+     * @param baseUrl the serviceURL to set
      */
     public void setBaseUrl(String baseUrl) {
         this.setServiceURL(baseUrl);

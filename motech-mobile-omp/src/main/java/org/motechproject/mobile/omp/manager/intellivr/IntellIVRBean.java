@@ -33,35 +33,11 @@
 
 package org.motechproject.mobile.omp.manager.intellivr;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.model.NotificationType;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
@@ -69,6 +45,15 @@ import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationException;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Central class for handling the interaction with the Intell IVR system.  Provides several functions.
@@ -1153,7 +1138,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	/**
 	 * Delay to bundle additional messages for a user before sending
-	 * See {@link #sendMessage(GatewayRequest, MotechContext)} for more details. 
+	 * See  for more details. 
 	 * @return
 	 */
 	public long getBundlingDelay() {
@@ -1162,7 +1147,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
 	/**
 	 * Set delay in milliseconds to bundle additional messages for a user before sending
-	 * See {@link #sendMessage(GatewayRequest, MotechContext)} for more details. 
+	 * See  for more details.
 	 * @param bundlingDelay
 	 */
 	public void setBundlingDelay(long bundlingDelay) {

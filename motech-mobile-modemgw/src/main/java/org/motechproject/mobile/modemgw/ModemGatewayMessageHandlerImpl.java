@@ -33,16 +33,16 @@
 
 package org.motechproject.mobile.modemgw;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class ModemGatewayMessageHandlerImpl implements GatewayMessageHandler {
 
