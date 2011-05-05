@@ -30,10 +30,10 @@ public class RancardGatewayMessageHandlerImplTest {
 
     @Autowired
     private GatewayRequestImpl gatewayRequest;
+    private final String recipientNumber = "0549959580";
 
     @Test
     public void shouldSetMessageStatusToSentWhenResponseMessageHasOk() {
-        String recipientNumber = "0549959580";
         Set<GatewayResponse> responses = messageHandler.parseMessageResponse(gatewayRequest, "Status: Sent\nOK: " + recipientNumber);
         assertNotNull(responses);
         assertEquals(1, responses.size());
@@ -46,16 +46,40 @@ public class RancardGatewayMessageHandlerImplTest {
     }
 
     @Test
-    public void shouldSetMessageStatusToErrorWhenResponseMessageHasError() {
-        String recipientNumber = "0549959580";
-        Set<GatewayResponse> responses = messageHandler.parseMessageResponse(gatewayRequest, "Status: Retry Sending\nERROR: " + recipientNumber);
+    public void shouldSetMessageStatusToFailedWhenResponseMessageHasErrorWithCode() {
+        Set<GatewayResponse> responses = messageHandler.parseMessageResponse(gatewayRequest, "Status: Retry Sending\nERROR: 111");
         assertNotNull(responses);
         assertEquals(1, responses.size());
         Iterator<GatewayResponse> iterator = responses.iterator();
         GatewayResponse errorResponse = iterator.next();
-        assertEquals(MStatus.RETRY, errorResponse.getMessageStatus());
+        assertEquals(MStatus.FAILED, errorResponse.getMessageStatus());
         assertEquals(recipientNumber, errorResponse.getRecipientNumber());
 
     }
+
+    @Test
+      public void shouldSetMessageStatusToRetryWhenResponseMessageHasErrorWithUnknownCode() {
+          Set<GatewayResponse> responses = messageHandler.parseMessageResponse(gatewayRequest, "Status: Retry Sending\nERROR: Unknown");
+          assertNotNull(responses);
+          assertEquals(1, responses.size());
+          Iterator<GatewayResponse> iterator = responses.iterator();
+          GatewayResponse errorResponse = iterator.next();
+          assertEquals(MStatus.RETRY, errorResponse.getMessageStatus());
+          assertEquals(recipientNumber, errorResponse.getRecipientNumber());
+
+      }
+
+     @Test
+      public void shouldSetMessageStatusToCannotConnectWhenResponseMessageHasErrorWithCode901() {
+          Set<GatewayResponse> responses = messageHandler.parseMessageResponse(gatewayRequest, "Status: Retry Sending\nERROR: 901");
+          assertNotNull(responses);
+          assertEquals(1, responses.size());
+          Iterator<GatewayResponse> iterator = responses.iterator();
+          GatewayResponse errorResponse = iterator.next();
+          assertEquals(MStatus.CANNOT_CONNECT, errorResponse.getMessageStatus());
+          assertEquals(recipientNumber, errorResponse.getRecipientNumber());
+
+      }
+
 
 }

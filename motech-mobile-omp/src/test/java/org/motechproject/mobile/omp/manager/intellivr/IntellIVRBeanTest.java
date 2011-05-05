@@ -34,23 +34,6 @@
 package org.motechproject.mobile.omp.manager.intellivr;
 
 
-import static org.junit.Assert.*;
-import static org.easymock.EasyMock.*;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
@@ -58,23 +41,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayRequestImpl;
-import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.LanguageImpl;
-import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.model.MessageRequestImpl;
-import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.model.NotificationType;
-import org.motechproject.mobile.core.model.NotificationTypeImpl;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.omp.manager.intellivr.RequestType.Vxml;
 import org.motechproject.mobile.omp.manager.utils.MessageStatusStore;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.annotation.Resource;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.*;
+
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration( locations = {"classpath:META-INF/test-omp-config.xml"})
@@ -205,7 +187,7 @@ public class IntellIVRBeanTest {
 	@Test
 	public void testSendMessage() {
 		
-		GatewayRequest gr = getGatewayRequestTemplate();
+		GatewayRequest gatewayRequest = getGatewayRequestTemplate();
 		
 		List<IVRCallSession> daoResponse = new ArrayList<IVRCallSession>();
 		
@@ -213,17 +195,17 @@ public class IntellIVRBeanTest {
 		intellivrBean.setIvrDao(mockIvrDao);
 		
 		Integer[] expectedStates = {IVRCallSession.OPEN};
-		expect(mockIvrDao.loadIVRCallSessions(EasyMock.eq(gr.getMessageRequest().getRecipientId()), EasyMock.eq(gr.getMessageRequest().getRecipientNumber()), EasyMock.eq(gr.getMessageRequest().getLanguage().getName()), EasyMock.aryEq(expectedStates), EasyMock.eq(0), EasyMock.eq(0), EasyMock.eq(IVRCallSession.OUTBOUND)))
+		expect(mockIvrDao.loadIVRCallSessions(EasyMock.eq(gatewayRequest.getMessageRequest().getRecipientId()), EasyMock.eq(gatewayRequest.getMessageRequest().getRecipientNumber()), EasyMock.eq(gatewayRequest.getMessageRequest().getLanguage().getName()), EasyMock.aryEq(expectedStates), EasyMock.eq(0), EasyMock.eq(0), EasyMock.eq(IVRCallSession.OUTBOUND)))
 			.andReturn(daoResponse);
 		expect(mockIvrDao.saveIVRCallSession((IVRCallSession)EasyMock.anyObject()))
 			.andReturn(1L);
 		replay(mockIvrDao);
 		
-		Set<GatewayResponse> actualGrsSet = intellivrBean.sendMessage(gr);
-		assertEquals(1, actualGrsSet.size());
+		Set<GatewayResponse> actualGatewayResponseSet = intellivrBean.sendMessage(gatewayRequest);
+		assertEquals(1, actualGatewayResponseSet.size());
 		
-		for ( GatewayResponse r : actualGrsSet )
-			assertEquals(StatusType.OK.value(), r.getResponseText());
+		for ( GatewayResponse response : actualGatewayResponseSet )
+			assertEquals(StatusType.OK.value(), response.getResponseText());
 		
 		verify(mockIvrDao);	
 

@@ -38,17 +38,18 @@
 
 package org.motechproject.mobile.omp.manager.rancard;
 
+import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -100,31 +101,13 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
             response.setGatewayRequest(message);
             response.setDateCreated(new Date());
                 
-            if(responseParts[0].equalsIgnoreCase("OK:")){                
-                response.setMessageStatus(okMessageStatus);
+            if(responseParts[0].equalsIgnoreCase("OK:")){
+                handleResponseOk(message, responseParts, response);
 
-                if(responseParts.length == 2)
-                    response.setRecipientNumber(responseParts[1]);
-                else
-                    response.setRecipientNumber(message.getRecipientsNumber());
-
-                responses.add(response);
             }
             else if(responseParts[0].equalsIgnoreCase("ERROR:")){
                 logger.error("Gateway returned error: " + gatewayResponse);
-                
-                String errorCode = "";
-                
-                if(responseParts.length == 2){
-                    errorCode = responseParts[1];
-                    response.setRecipientNumber(message.getRecipientsNumber());
-                }else if(responseParts.length == 4){
-                    errorCode = responseParts[1];
-                    response.setRecipientNumber(responseParts[3]);
-                }
-                
-                MStatus status = lookupResponse(errorCode.replaceAll(",", "").trim());
-                response.setMessageStatus(status);                
+                handleResponseError(message, responseParts, response);                
             }
             else{
                 response.setResponseText(line.trim());
@@ -134,6 +117,30 @@ public class RancardGatewayMessageHandlerImpl implements GatewayMessageHandler{
         }
         logger.debug(responses);
         return responses;
+    }
+
+    private void handleResponseError(GatewayRequest message, String[] responseParts, GatewayResponse response) {
+        String errorCode = "";
+
+        if(responseParts.length == 2){
+            errorCode = responseParts[1];
+            response.setRecipientNumber(message.getRecipientsNumber());
+        }
+        else if(responseParts.length == 4){
+            errorCode = responseParts[1];
+            response.setRecipientNumber(responseParts[3]);
+        }
+        MStatus status = lookupResponse(errorCode.replaceAll(",", "").trim());
+        response.setMessageStatus(status);
+    }
+
+    private void handleResponseOk(GatewayRequest message, String[] responseParts, GatewayResponse response) {
+        response.setMessageStatus(okMessageStatus);
+
+        if(responseParts.length == 2)
+            response.setRecipientNumber(responseParts[1]);
+        else
+            response.setRecipientNumber(message.getRecipientsNumber());
     }
 
     /**

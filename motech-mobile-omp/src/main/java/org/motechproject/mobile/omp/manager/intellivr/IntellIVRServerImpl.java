@@ -33,124 +33,137 @@
 
 package org.motechproject.mobile.omp.manager.intellivr;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Implementation of the {@link IntellIVRServer} interface for requesting calls
  * be initiated to the user
- * @author fcbrooks
  *
+ * @author fcbrooks
  */
 public class IntellIVRServerImpl implements IntellIVRServer {
 
-	private String serverURL;
-	private JAXBContext jaxbc;
-	
-	private Log log = LogFactory.getLog(IntellIVRServerImpl.class);
-	
-	public void init() {
-		try {
-			jaxbc = JAXBContext.newInstance("org.motechproject.mobile.omp.manager.intellivr");
-		} catch (JAXBException e) {
-			log.error(e.getMessage());
-		}
-	}
-	
-	public ResponseType requestCall(RequestType request) {
-		
-		AutoCreate ac = new AutoCreate();
-		ac.setRequest(request);
-		
-		ResponseType response = null;
-		
-		try {
-			
-			Marshaller marshaller = jaxbc.createMarshaller();
-			Unmarshaller unmarshaller = jaxbc.createUnmarshaller();
-			
-			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-			marshaller.marshal(ac, byteStream);
+    private String serverURL;
+    private JAXBContext jaxbc;
 
-			String xml = byteStream.toString();
+    private Log log = LogFactory.getLog(IntellIVRServerImpl.class);
 
-			URL url = new URL(this.serverURL);
-			URLConnection con = url.openConnection();
+    public void init() {
+        try {
+            jaxbc = JAXBContext.newInstance("org.motechproject.mobile.omp.manager.intellivr");
+        } catch (JAXBException e) {
+            log.error(e.getMessage());
+        }
+    }
 
-			con.setDoInput(true);
-			con.setDoOutput(true);
+    public ResponseType requestCall(RequestType request) {
 
-			con.setRequestProperty("Content-Type", "text/xml");
-			con.setRequestProperty("Content-transfer-encoding", "text");
+        AutoCreate autoCreate = new AutoCreate();
+        autoCreate.setRequest(request);
+        ResponseType response = null;
 
-			OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
+        try {
+            URLConnection connection = getConnection();
+            sendRequest(autoCreate, connection);
+            response = getResponse(connection);
+        }
+        catch (MalformedURLException e) {
+            log.error("", e);
+        }
+        catch (IOException e) {
+            log.error("", e);
+        }
+        catch (JAXBException e) {
+            log.error("", e);
+        }
+        finally {
+            if (response == null) {
+                response = createErrorResponse();
+            }
+        }
+        return response;
+    }
 
-			log.info("Sending request: " + xml);
 
-			out.write(xml);
-			out.flush();
-			out.close();
-			
-			InputStream in = con.getInputStream();
-			
-			int len = 4096;
-			byte[] buffer = new byte[len];
-			int off = 0;
-			int read = 0;
-			while ( (read = in.read(buffer, off, len)) != -1) {
-				off += read;
-				len -= off;
-			}
-			
-			String responseText = new String(buffer, 0, off);
-			
-			log.debug("Received response: " + responseText);
-			
-			Object o = unmarshaller.unmarshal(new ByteArrayInputStream(responseText.getBytes()));
-			
-			if ( o instanceof AutoCreate ) {
-				AutoCreate acr = (AutoCreate)o;
-				response = acr.getResponse();
-			}
-			
-		} catch (MalformedURLException e) {
-			log.error("",e);
-		} catch (IOException e) {
-			log.error("",e);
-		} catch (JAXBException e) {
-			log.error("",e);
-		} finally {
-			if ( response == null ){
-				response = new ResponseType();
-				response.setStatus(StatusType.ERROR);
-				response.setErrorCode(ErrorCodeType.MOTECH_UNKNOWN_ERROR);
-				response.setErrorString("Unknown error occurred sending request to IVR server");
-			}
-				
-		}
-		return response;
-	}
+    public String getServerURL() {
+        return serverURL;
+    }
 
-	public String getServerURL() {
-		return serverURL;
-	}
+    public void setServerURL(String serverURL) {
+        this.serverURL = serverURL;
+    }
 
-	public void setServerURL(String serverURL) {
-		this.serverURL = serverURL;
-	}
+    private ResponseType createErrorResponse() {
+        ResponseType response = new ResponseType();
+        response.setStatus(StatusType.ERROR);
+        response.setErrorCode(ErrorCodeType.MOTECH_UNKNOWN_ERROR);
+        response.setErrorString("Unknown error occurred sending request to IVR server");
+        return response;
+    }
+
+    private ResponseType getResponse(URLConnection connection) throws JAXBException, IOException {
+        String responseText = getResponseString(connection);
+        Unmarshaller unmarshaller = jaxbc.createUnmarshaller();
+        Object object = unmarshaller.unmarshal(new ByteArrayInputStream(responseText.getBytes()));
+
+        ResponseType response = null;
+        if (object instanceof AutoCreate) {
+            AutoCreate acr = (AutoCreate) object;
+            response = acr.getResponse();
+        }
+        return response;
+    }
+
+    private void sendRequest(AutoCreate autoCreate, URLConnection connection) throws JAXBException, IOException {
+        Marshaller marshaller = jaxbc.createMarshaller();
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        marshaller.marshal(autoCreate, byteStream);
+
+        String xml = byteStream.toString();
+        log.info("Sending request: " + xml);
+
+        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+        out.write(xml);
+        out.flush();
+        out.close();
+    }
+
+    private String getResponseString(URLConnection connection) throws IOException {
+        InputStream in = connection.getInputStream();
+
+        int len = 4096;
+        byte[] buffer = new byte[len];
+        int off = 0;
+        int read = 0;
+        while ((read = in.read(buffer, off, len)) != -1) {
+            off += read;
+            len -= off;
+        }
+
+        String responseText = new String(buffer, 0, off);
+        log.debug("Received response: " + responseText);
+        return responseText;
+    }
+
+    private URLConnection getConnection() throws IOException {
+        URL url = new URL(this.serverURL);
+        URLConnection connection = url.openConnection();
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Content-Type", "text/xml");
+        connection.setRequestProperty("Content-transfer-encoding", "text");
+        return connection;
+    }
+
 
 }
