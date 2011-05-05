@@ -1643,6 +1643,14 @@
             <label>Nankam</label>
             <value>nan</value>
             </item>
+            <item id="fan" parent="PERS_VOICE">
+            <label>Fanti</label>
+            <value>fan</value>
+            </item>
+            <item id="sen" parent="PERS_VOICE">
+            <label>Senya</label>
+            <value>sen</value>
+            </item>
             <item id="en" parent="PERS_TEXT">
             <label>English</label>
             <value>en</value>
@@ -1659,6 +1667,14 @@
             <label>Nankam</label>
             <value>nan</value>
             </item>
+            <item id="fan" parent="HSE_VOICE">
+            <label>Fanti</label>
+            <value>fan</value>
+            </item>
+            <item id="sen" parent="HSE_VOICE">
+            <label>Senya</label>
+            <value>sen</value>
+            </item>
             <item id="en" parent="HSE_TEXT">
             <label>English</label>
             <value>en</value>
@@ -1674,6 +1690,14 @@
             <item id="nan" parent="PUB_VOICE">
             <label>Nankam</label>
             <value>nan</value>
+            </item>
+            <item id="fan" parent="PUB_VOICE">
+            <label>Fanti</label>
+            <value>fan</value>
+            </item>
+            <item id="sen" parent="PUB_VOICE">
+            <label>Senya</label>
+            <value>sen</value>
             </item>
             </dynamiclist>
             </xf:instance>
