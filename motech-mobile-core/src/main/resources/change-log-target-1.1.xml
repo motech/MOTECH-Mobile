@@ -94,4 +94,22 @@
             <where>id=879874663983213</where>
         </update>
     </changeSet>
+
+    <changeSet context="update" id="1000000000000-58" author="ThoughtWorks">
+        <comment>
+            #93 Adding new languages
+        </comment>
+        <insert tableName="languages">
+            <column name="id" valueNumeric="4"/>
+            <column name="code" value="fan"/>
+            <column name="name" value="Fanti"/>
+            <column name="description" value="Fanti is a language in Ghana"/>
+        </insert>
+        <insert tableName="languages">
+            <column name="id" valueNumeric="5"/>
+            <column name="code" value="sen"/>
+            <column name="name" value="Senya"/>
+            <column name="description" value="Senya is a language in Ghana"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
