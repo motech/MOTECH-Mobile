@@ -5053,7 +5053,7 @@
         &lt;consent/&gt;
         &lt;ownership/&gt;
         &lt;regPhone/&gt;
-        &lt;format/&gt;
+        &lt;format readonly="true"/&gt;
         &lt;language/&gt;
         &lt;dayOfWeek/&gt;
         &lt;timeOfDay/&gt;
