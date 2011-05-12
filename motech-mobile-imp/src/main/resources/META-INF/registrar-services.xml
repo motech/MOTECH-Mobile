@@ -438,7 +438,7 @@
                 <entry key="cwcRegDateToday" value="java.lang.Boolean"/>
                 <entry key="cwcRegDate" value="java.util.Date"/>
                 <entry key="ancRegNumber" value="java.lang.String"/>
-                <entry key="ancRegDateToday" value="java.lang.Boolean"/>
+                <entry key="ancRegDateToday" value="java.lang.String"/>
                 <entry key="ancRegDate" value="java.util.Date"/>
                 <entry key="height" value="java.lang.Double" />
                 <entry key="gravida" value="java.lang.Integer" />

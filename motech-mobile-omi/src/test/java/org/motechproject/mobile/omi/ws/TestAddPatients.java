@@ -83,7 +83,7 @@ public class TestAddPatients {
             String firstName = ("New2MotherFirst" + i), middleName = ("New2MotherMiddle" + i), lastName = ("New2MotherLast" + i), prefName = ("New2MotherPref" + i);
             String nhis = ("New2MotherNHIS" + i), address = ("New2MotherAddress" + i), language = "en", cwcRegNumber = null, ancRegNumber = null;
             Boolean cwcRegDateToday = true;
-            Boolean ancRegDateToday = true;
+            String ancRegDateToday = "0";
             Integer community = 11211;
             Gender gender = Gender.FEMALE;
             Boolean estBirthDate = false, insured = true, delivDateConf = true, enroll = true, consent = true;

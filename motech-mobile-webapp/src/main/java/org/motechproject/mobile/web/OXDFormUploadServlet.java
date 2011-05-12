@@ -205,9 +205,9 @@ public class OXDFormUploadServlet implements ApplicationContextAware {
 				formprocessing: for (int i = 0; i < studyForms.length; i++) {
 					for (int j = 0; j < studyForms[i].length; j++, processedForms++) {
 
-						if (maxProcessingTime > 0
-								&& System.currentTimeMillis() - startTime > maxProcessingTime)
-							break formprocessing;
+//						if (maxProcessingTime > 0
+//								&& System.currentTimeMillis() - startTime > maxProcessingTime)
+//							break formprocessing;
 
 						try {
 							studyForms[i][j] = impService
