@@ -5024,7 +5024,7 @@
         &lt;dateOfBirth/&gt;
         &lt;estimatedBirthDate/&gt;
         &lt;sex&gt;F&lt;/sex&gt;
-        &lt;insured/&gt;
+        &lt;insured&gt;N&lt;/insured&gt;
         &lt;nhis/&gt;
         &lt;nhisExpires/&gt;
         &lt;motherMotechId/&gt;
@@ -6602,7 +6602,7 @@
     &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="dateOfBirth" message="Invalid date: date entered is in the future" nodeset="/patientRegistration/dateOfBirth" required="true()" type="xsd:date"/&gt;
     &lt;xf:bind id="estimatedBirthDate" nodeset="/patientRegistration/estimatedBirthDate" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="sex" nodeset="/patientRegistration/sex" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' or /patientRegistration/registrantType = 'OTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="insured" nodeset="/patientRegistration/insured" required="true()" readonly="true()" type="xsd:string"/&gt;
+    &lt;xf:bind id="insured" nodeset="/patientRegistration/insured" visible="false()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="nhis" nodeset="/patientRegistration/nhis" relevant="/patientRegistration/insured = 'Y'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="nhisExpires" nodeset="/patientRegistration/nhisExpires" relevant="/patientRegistration/insured = 'Y'" type="xsd:date" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="motherMotechId" nodeset="/patientRegistration/motherMotechId" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long" required="false()"/&gt;
@@ -6625,7 +6625,7 @@
     &lt;xf:bind action="show" id="deliveryDateConfirmed" nodeset="/patientRegistration/deliveryDateConfirmed" relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="enroll" nodeset="/patientRegistration/enroll" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="consent" nodeset="/patientRegistration/consent" relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="ownership" nodeset="/patientRegistration/ownership" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="ownership" nodeset="/patientRegistration/ownership" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()" constraint=" . != 'PUBLIC'" message="Public phones not supported" /&gt;
     &lt;xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone" relevant="/patientRegistration/ownership = 'PERSONAL' or /patientRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind action="show" id="format" nodeset="/patientRegistration/format" relevant="/patientRegistration/consent = 'Y'" constraint=". = 'PERS_TEXT' or . = 'HSE_TEXT'" message="Only Text messages supported" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="language" nodeset="/patientRegistration/language" relevant="/patientRegistration/consent = 'Y'" constraint=" . = 'en' " message="Only English supported" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -6920,6 +6920,10 @@
         &lt;xf:label&gt;Household phone&lt;/xf:label&gt;
         &lt;xf:value&gt;HOUSEHOLD&lt;/xf:value&gt;
       &lt;/xf:item&gt;
+      &lt;xf:item id="PUBLIC"&gt;
+        &lt;xf:label&gt;Public phone&lt;/xf:label&gt;
+        &lt;xf:value&gt;PUBLIC&lt;/xf:value&gt;
+      &lt;/xf:item&gt;
     &lt;/xf:select1&gt;
     &lt;xf:input bind="regPhone"&gt;
       &lt;xf:label&gt;Phone number&lt;/xf:label&gt;
@@ -7006,12 +7010,8 @@
     &lt;xf:select1 bind="howLearned"&gt;
       &lt;xf:label&gt;How learned of Mobile Midwife&lt;/xf:label&gt;
       &lt;xf:item id="GHS_NURSE"&gt;
-        &lt;xf:label&gt;GHS Nurse&lt;/xf:label&gt;
+        &lt;xf:label&gt;Nurse&lt;/xf:label&gt;
         &lt;xf:value&gt;GHS_NURSE&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="MOTECH_FIELD_AGENT"&gt;
-        &lt;xf:label&gt;MoTeCH field agent&lt;/xf:label&gt;
-        &lt;xf:value&gt;MOTECH_FIELD_AGENT&lt;/xf:value&gt;
       &lt;/xf:item&gt;
       &lt;xf:item id="FRIEND"&gt;
         &lt;xf:label&gt;Friend&lt;/xf:label&gt;
