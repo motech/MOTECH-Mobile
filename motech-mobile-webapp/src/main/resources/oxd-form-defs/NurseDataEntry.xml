@@ -6602,7 +6602,7 @@
     &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="dateOfBirth" message="Invalid date: date entered is in the future" nodeset="/patientRegistration/dateOfBirth" required="true()" type="xsd:date"/&gt;
     &lt;xf:bind id="estimatedBirthDate" nodeset="/patientRegistration/estimatedBirthDate" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="sex" nodeset="/patientRegistration/sex" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' or /patientRegistration/registrantType = 'OTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind id="insured" nodeset="/patientRegistration/insured" required="true()" type="xsd:string"/&gt;
+    &lt;xf:bind id="insured" nodeset="/patientRegistration/insured" required="true()" readonly="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="nhis" nodeset="/patientRegistration/nhis" relevant="/patientRegistration/insured = 'Y'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="nhisExpires" nodeset="/patientRegistration/nhisExpires" relevant="/patientRegistration/insured = 'Y'" type="xsd:date" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="motherMotechId" nodeset="/patientRegistration/motherMotechId" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long" required="false()"/&gt;
@@ -6628,7 +6628,7 @@
     &lt;xf:bind action="show" id="ownership" nodeset="/patientRegistration/ownership" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone" relevant="/patientRegistration/ownership = 'PERSONAL' or /patientRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind action="show" id="format" nodeset="/patientRegistration/format" relevant="/patientRegistration/consent = 'Y'" constraint=". = 'PERS_TEXT' or . = 'HSE_TEXT'" message="Only Text messages supported" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="language" nodeset="/patientRegistration/language" relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
+    &lt;xf:bind action="show" id="language" nodeset="/patientRegistration/language" relevant="/patientRegistration/consent = 'Y'" constraint=" . = 'en' " message="Only English supported" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/patientRegistration/dayOfWeek" relevant="/patientRegistration/format = 'PERS_VOICE' or /patientRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="timeOfDay" nodeset="/patientRegistration/timeOfDay" relevant="/patientRegistration/format = 'PERS_VOICE' or /patientRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:time" visible="false()"/&gt;
     &lt;xf:bind action="show" id="reason" nodeset="/patientRegistration/reason" relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y' and /patientRegistration/registrantType = 'OTHER'" required="true()" type="xsd:string" visible="false()"/&gt;
