@@ -2670,9 +2670,9 @@
     &lt;xf:bind id="lastName" nodeset="/editpatient/lastName" required="false()" type="xsd:string"/&gt;
     &lt;xf:bind id="preferredName" nodeset="/editpatient/preferredName" required="false()" type="xsd:string"/&gt;
     &lt;xf:bind id="phoneNumber" nodeset="/editpatient/phoneNumber" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
-    &lt;xf:bind id="phoneOwnership" nodeset="/editpatient/phoneOwnership" type="xsd:string"/&gt;
-    &lt;xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string"/&gt;
-    &lt;xf:bind id="nhisExpires" nodeset="/editpatient/nhisExpires" type="xsd:date"/&gt;
+    &lt;xf:bind id="phoneOwnership" nodeset="/editpatient/phoneOwnership" type="xsd:string" constraint=" . != 'PUBLIC' " message="Public phones not supported"/&gt;
+    &lt;xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string" visible="false()" /&gt;
+    &lt;xf:bind id="nhisExpires" nodeset="/editpatient/nhisExpires" visible="false()" type="xsd:date"/&gt;
     &lt;xf:bind id="mothersMotechId" nodeset="/editpatient/mothersMotechId" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
     &lt;xf:bind id="edd" nodeset="/editpatient/edd" required="false()" type="xsd:date"/&gt;
     &lt;xf:bind id="stopEnrollment" nodeset="/editpatient/stopEnrollment" type="xsd:string"/&gt;
