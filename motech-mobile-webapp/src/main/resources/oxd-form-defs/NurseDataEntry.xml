@@ -2102,10 +2102,6 @@
         &lt;xf:label&gt;Private hospital&lt;/xf:label&gt;
         &lt;xf:value&gt;4&lt;/xf:value&gt;
       &lt;/xf:item&gt;
-      &lt;xf:item id="5"&gt;
-        &lt;xf:label&gt;CHAG&lt;/xf:label&gt;
-        &lt;xf:value&gt;5&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
       &lt;xf:item id="6"&gt;
         &lt;xf:label&gt;Quasi-gov't institute&lt;/xf:label&gt;
         &lt;xf:value&gt;6&lt;/xf:value&gt;
@@ -2137,11 +2133,7 @@
         &lt;xf:label&gt;Midwife - gov't&lt;/xf:label&gt;
         &lt;xf:value&gt;4&lt;/xf:value&gt;
       &lt;/xf:item&gt;
-      &lt;xf:item id="5"&gt;
-        &lt;xf:label&gt;CHO or CHN&lt;/xf:label&gt;
-        &lt;xf:value&gt;5&lt;/xf:value&gt;
-      &lt;/xf:item&gt;
-      &lt;xf:item id="6"&gt;
+     &lt;xf:item id="6"&gt;
         &lt;xf:label&gt;Trained TBA&lt;/xf:label&gt;
         &lt;xf:value&gt;6&lt;/xf:value&gt;
       &lt;/xf:item&gt;
@@ -2848,7 +2840,7 @@
         &lt;motechId/&gt;
         &lt;sex/&gt;
         &lt;dateOfBirth/&gt;
-        &lt;insured/&gt;
+        &lt;insured&gt;N&lt;/insured/&gt;
         &lt;newCase/&gt;
         &lt;newPatient/&gt;
         &lt;diagnosis/&gt;
@@ -2871,7 +2863,7 @@
     &lt;xf:bind action="show" id="motechId" nodeset="/generalopd/motechId" relevant="/generalopd/formname = 'motheropd-jf' or /generalopd/formname = 'childopd-jf'" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long" required="true()"/&gt;
     &lt;xf:bind action="show" id="sex" nodeset="/generalopd/sex" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dateOfBirth" message="Invalid date: date specified is in the future" nodeset="/generalopd/dateOfBirth" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:date" visible="false()"/&gt;
-    &lt;xf:bind id="insured" nodeset="/generalopd/insured" required="true()" type="xsd:string"/&gt;
+    &lt;xf:bind id="insured" nodeset="/generalopd/insured" visible="false()" type="xsd:string"/&gt;
     &lt;xf:bind id="newCase" nodeset="/generalopd/newCase" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="newPatient" nodeset="/generalopd/newPatient" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="diagnosis" nodeset="/generalopd/diagnosis" required="true()" type="xsd:string"/&gt;
