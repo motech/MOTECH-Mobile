@@ -93,11 +93,6 @@
         <url-pattern>/MessageServiceImplService</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>messagingService</servlet-name>
-        <url-pattern>/messagingService</url-pattern>
-    </servlet-mapping>
-
     <listener>
         <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
     </listener>
