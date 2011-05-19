@@ -36,7 +36,6 @@ package org.motechproject.mobile.omi.manager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.*;
-import org.motechproject.ws.rct.RCTRegistrationConfirmation;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -48,7 +47,7 @@ import java.util.*;
  * Date Created: Feb 19, 2010
  *
  */
-public class SMSMessageFormatterImpl implements MessageFormatter {
+public class SMSMessageFormatter {
 
     private static Logger logger = Logger.getLogger(MessageStoreManagerImpl.class);
     private OMIManager omiManager;
@@ -177,18 +176,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
         }
         message = omiManager.createMessageStoreManager().parseTemplate(template, data);
         return message;
-    }
-
-    public String formatUpcomingDeliveriesMessage(Patient[] patients) {
-        return formatDeliveriesMessage("Upcoming", patients);
-    }
-
-    public String formatRecentDeliveriesMessage(Patient[] patients) {
-        return formatDeliveriesMessage("Recent", patients);
-    }
-
-    public String formatOverdueDeliveriesMessage(Patient[] patients) {
-        return formatDeliveriesMessage("Overdue", patients);
     }
 
     public String formatUpcomingCaresMessage(Patient patient) {
@@ -437,10 +424,6 @@ public class SMSMessageFormatterImpl implements MessageFormatter {
      */
     public void setOmiManager(OMIManager omiManager) {
         this.omiManager = omiManager;
-    }
-
-    public String formatRCTEnrollmentMessage(RCTRegistrationConfirmation confirmation) {
-        return confirmation.toString();
     }
 
     /**
