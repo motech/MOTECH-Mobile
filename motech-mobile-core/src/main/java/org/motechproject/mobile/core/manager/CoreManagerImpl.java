@@ -51,7 +51,7 @@ import org.springframework.context.ApplicationContextAware;
 public class CoreManagerImpl implements CoreManager, ApplicationContextAware {
 
     private static Logger logger = Logger.getLogger(CoreManagerImpl.class);
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
     /**
      * @see {@link org.motechproject.mobile.core.manager.CoreManager#createLanguage() }

@@ -64,49 +64,49 @@ public class SMSCacheServiceImpl implements CacheService {
      *
      * @see CacheService.saveMessage
      */
-    public void saveMessage(GatewayRequest messageDetails) {
+    public void saveMessage(GatewayRequest gatewayRequest) {
         logger.debug("Initializing DAO");
-        GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO();
+        GatewayRequestDAO gatewayRequestDAO = coreManager.createGatewayRequestDAO();
 
         logger.debug("Caching message");
-        logger.debug(messageDetails);
+        logger.debug(gatewayRequest);
 
-        messageDAO.save(messageDetails);
+        gatewayRequestDAO.save(gatewayRequest);
     }
 
-    public void mergeMessage(GatewayRequest messageDetails) {
+    public void mergeMessage(GatewayRequest gatewayRequest) {
         logger.debug("Initializing Gsteway Request DAO");
-        GatewayRequestDAO messageDAO = coreManager.createGatewayRequestDAO();
+        GatewayRequestDAO gatewayRequestDAO = coreManager.createGatewayRequestDAO();
 
         logger.debug("Caching message");
-        logger.debug(messageDetails);
+        logger.debug(gatewayRequest);
 
-        messageDAO.merge(messageDetails);
+        gatewayRequestDAO.merge(gatewayRequest);
     }
 
     //TODO refactor to conform with non-intrusive OMP pattern
-    public void mergeMessage(MessageRequest messageDetails) {
+    public void mergeMessage(MessageRequest messageRequest) {
         logger.debug("Initializing Message Request DAO");
-        MessageRequestDAO messageDAO = coreManager.createMessageRequestDAO();
+        MessageRequestDAO messageRequestDAO = coreManager.createMessageRequestDAO();
 
         logger.debug("Caching message request");
-        logger.debug(messageDetails);
+        logger.debug(messageRequest);
 
-        messageDAO.merge(messageDetails);
+        messageRequestDAO.merge(messageRequest);
     }
 
     /**
      *
      * @see CacheService.saveMessage
      */
-    public void saveMessage(GatewayRequestDetails messageDetails) {
+    public void saveMessage(GatewayRequestDetails gatewayRequestDetails) {
         logger.debug("Initializing DAO");
-        GatewayRequestDetailsDAO messageDAO = coreManager.createGatewayRequestDetailsDAO();
+        GatewayRequestDetailsDAO gatewayRequestDetailsDAO = coreManager.createGatewayRequestDetailsDAO();
 
         logger.debug("Caching message");
-        logger.debug(messageDetails);
+        logger.debug(gatewayRequestDetails);
 
-        messageDAO.save(messageDetails);
+        gatewayRequestDetailsDAO.save(gatewayRequestDetails);
 
     }
 
@@ -114,14 +114,14 @@ public class SMSCacheServiceImpl implements CacheService {
      *
      * @see CacheService.saveResponse
      */
-    public void saveResponse(GatewayResponse responseDetails) {
+    public void saveResponse(GatewayResponse gatewayResponse) {
         logger.debug("Initializing DAO");
-        GatewayResponseDAO responseDAO = coreManager.createGatewayResponseDAO();
+        GatewayResponseDAO gatewayResponseDAO = coreManager.createGatewayResponseDAO();
 
         logger.debug("Caching response");
-        logger.debug(responseDetails);
+        logger.debug(gatewayResponse);
 
-        responseDAO.merge(responseDetails);
+        gatewayResponseDAO.merge(gatewayResponse);
 
     }
 
@@ -129,36 +129,36 @@ public class SMSCacheServiceImpl implements CacheService {
      * 
      * see CacheService.getMessages
      */
-    public List<GatewayRequest> getMessages(GatewayRequest criteria) {
-        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO();
-        return messageDao.findByExample(criteria);
+    public List<GatewayRequest> getMessages(GatewayRequest gatewayRequest) {
+        GatewayRequestDAO gatewayRequestDAO = coreManager.createGatewayRequestDAO();
+        return gatewayRequestDAO.findByExample(gatewayRequest);
     }
 
     /**
      * 
      * see CacheService.getMessagesByStatus
      */
-    public List<GatewayRequest> getMessagesByStatus(MStatus criteria) {
-        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO();
-        return messageDao.getByStatus(criteria);
+    public List<GatewayRequest> getMessagesByStatus(MStatus mStatus) {
+        GatewayRequestDAO gatewayRequestDAO = coreManager.createGatewayRequestDAO();
+        return gatewayRequestDAO.getByStatus(mStatus);
     }
 
     /**
      *
      * see CacheService.getMessagesByStatus
      */
-    public List<GatewayRequest> getMessagesByStatusAndSchedule(MStatus criteria, Date schedule) {
-        GatewayRequestDAO messageDao = coreManager.createGatewayRequestDAO();
-        return messageDao.getByStatusAndSchedule(criteria, schedule);
+    public List<GatewayRequest> getMessagesByStatusAndSchedule(MStatus mStatus, Date date) {
+        GatewayRequestDAO gatewayRequestDAO = coreManager.createGatewayRequestDAO();
+        return gatewayRequestDAO.getByStatusAndSchedule(mStatus, date);
     }
 
     /**
      * 
      * see CacheService.getMessages
      */
-    public List<GatewayResponse> getResponses(GatewayResponse criteria) {
+    public List<GatewayResponse> getResponses(GatewayResponse gatewayResponse) {
         GatewayResponseDAO responseDao = coreManager.createGatewayResponseDAO();
-        return responseDao.findByExample(criteria);
+        return responseDao.findByExample(gatewayResponse);
     }
 
     /**

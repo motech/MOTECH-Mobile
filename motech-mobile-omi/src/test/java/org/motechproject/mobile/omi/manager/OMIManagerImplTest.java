@@ -33,13 +33,14 @@
 
 package org.motechproject.mobile.omi.manager;
 
-import org.motechproject.mobile.omi.service.OMIService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.motechproject.mobile.omi.service.OMIService;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.junit.Assert.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit test for the OMIManagerImpl class
@@ -83,7 +84,7 @@ public class OMIManagerImplTest {
     @Test
     public void testCreateMessageFormatter() {
         System.out.println("createMessageFormatter");
-        MessageFormatter result = omiManager.createMessageFormatter();
+        SMSMessageFormatter result = omiManager.createMessageFormatter();
         assertNotNull(result);
     }
 

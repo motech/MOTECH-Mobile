@@ -75,7 +75,7 @@
         <property name="defaultCountryCode" value="${omi.settings.defaultCountryCode}" />
     </bean>
 
-    <bean name="messageFormatter" class="org.motechproject.mobile.omi.manager.SMSMessageFormatterImpl">
+    <bean name="messageFormatter" class="org.motechproject.mobile.omi.manager.SMSMessageFormatter">
         <property name="omiManager" ref="omiManager" />
         <property name="dateFormat" value="${omi.settings.dateFormat}" />
     </bean>

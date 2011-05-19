@@ -33,17 +33,11 @@
 
 package org.motechproject.mobile.omi.service;
 
-import java.util.Date;
 import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.dao.GatewayRequestDetailsDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayRequestDetails;
-import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.MessageRequest;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.omi.manager.MessageStoreManager;
 import org.motechproject.mobile.omi.manager.StatusHandler;
 import org.motechproject.mobile.omp.manager.OMPManager;
@@ -53,6 +47,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * @see org.motechproject.mobile.omi.service.OMIServiceWorker
@@ -75,29 +71,29 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContex
     /**
      * Sends a MessageRequest
      *
-     * @param message
+     * @param messageRequest
      * @param defaultLanguage
      *
      * @see org.motechproject.mobile.omi.service.OMIServiceWorker#processMessageRequest
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void processMessageRequest(MessageRequest message, Language defaultLanguage) {
-        if (message != null) {
-            MessageRequestDAO msgReqDao = getCoreManager().createMessageRequestDAO();
-            GatewayRequest gwReq = getStoreManager().constructMessage(message, defaultLanguage);
-            message.setGatewayRequestDetails(gwReq.getGatewayRequestDetails());
+    public void processMessageRequest(MessageRequest messageRequest, Language defaultLanguage) {
+        if (messageRequest != null) {
+            MessageRequestDAO messageRequestDAO = getCoreManager().createMessageRequestDAO();
+            GatewayRequest gatewayRequest = getStoreManager().constructMessage(messageRequest, defaultLanguage);
+            messageRequest.setGatewayRequestDetails(gatewayRequest.getGatewayRequestDetails());
             
-            if (message.getLanguage() == null) {
-                message.setLanguage(defaultLanguage);
+            if (messageRequest.getLanguage() == null) {
+                messageRequest.setLanguage(defaultLanguage);
             }
 
             MessagingService msgSvc = getOmpManager().createMessagingService();
-            msgSvc.scheduleTransactionalMessage(gwReq);
+            msgSvc.scheduleTransactionalMessage(gatewayRequest);
 
-            message.setDateProcessed(new Date());
-            message.setStatus(MStatus.PENDING);
-            logger.debug(message);
-            msgReqDao.merge(message);
+            messageRequest.setDateProcessed(new Date());
+            messageRequest.setStatus(MStatus.PENDING);
+            logger.debug(messageRequest);
+            messageRequestDAO.merge(messageRequest);
 
         }
     }

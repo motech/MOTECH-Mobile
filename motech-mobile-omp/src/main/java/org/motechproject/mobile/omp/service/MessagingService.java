@@ -77,26 +77,11 @@ public interface MessagingService {
     public Map<Boolean, Set<GatewayResponse>> sendTransactionalMessage(GatewayRequest messageDetails);
 
     /**
-     * Sends a message with the provided details
-     *
-     * @param messageDetails The {@link org.motechproject.mobile.core.model.GatewayRequestDetails} object containing information about the message to be sent
-     * @return The id of the message sent
-     */
-    public Long sendMessage(GatewayRequestDetails messageDetails);
-            
-    /**
      * Queries a message gateway and updates the delivery status of all pending messages
      */
     public void updateMessageStatuses();
-    
-    /**
-     * Queries a message gateway and updates the status of a transmitted message
-     *
-     * @param response The {@link org.motechproject.mobile.core.model.GatewayResponse} object to be updated
-     * @return The current status of the message
-     */
-    public String getMessageStatus(GatewayResponse response);
-    
+
+
     /**
      * @return the cache
      */
@@ -116,18 +101,6 @@ public interface MessagingService {
      * @param gatewayManager the gatewayManager to set
      */
     public void setGatewayManager(GatewayManager gatewayManager);
-
-    /**
-     * Queries a message gateway and updates the delivery status of a message
-     *
-     * @param response The {@link org.motechproject.mobile.core.model.GatewayResponse} to be updated
-     */
-    void updateMessageStatus(GatewayResponse response);
-
-    /**
-     *
-     * @see MessagingService.sendMessage(MessageDetails messageDetails)
-     */
     Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails);
 
     void scheduleTransactionalMessage(GatewayRequest message);

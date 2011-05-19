@@ -82,12 +82,12 @@ public class OMIManagerImpl implements OMIManager, ApplicationContextAware{
         }
     }
 
-    public MessageFormatter createMessageFormatter() {
+    public SMSMessageFormatter createMessageFormatter() {
         try{
-            return (MessageFormatter)context.getBean("messageFormatter");
+            return (SMSMessageFormatter)context.getBean("messageFormatter");
         }
         catch(Exception ex){
-            logger.error("MessageFormatter creation failed", ex);
+            logger.error("SMSMessageFormatter creation failed", ex);
             return null;
         }
     }

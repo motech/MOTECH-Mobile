@@ -37,9 +37,6 @@
  */
 package org.motechproject.mobile.omp.service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
@@ -50,6 +47,10 @@ import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 import org.motechproject.ws.ContactNumberType;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -62,31 +63,31 @@ public class SMSMessagingServiceWorkerImpl implements SMSMessagingServiceWorker 
     private static Logger logger = Logger.getLogger(SMSMessagingServiceWorkerImpl.class);
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails) {
+    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest gatewayRequest) {
         logger.debug("Sending message to gateway");
         Set<GatewayResponse> responseList = null;
         Map<Boolean, Set<GatewayResponse>> result = new HashMap<Boolean, Set<GatewayResponse>>();
         try {
-            if ((messageDetails.getRecipientsNumber() == null || messageDetails.getRecipientsNumber().isEmpty())
-                    && !ContactNumberType.PUBLIC.toString().equals(messageDetails.getMessageRequest().getPhoneNumberType())) {
-                messageDetails.setMessageStatus(MStatus.INVALIDNUM);
+            if ((gatewayRequest.getRecipientsNumber() == null || gatewayRequest.getRecipientsNumber().isEmpty())
+                    && !ContactNumberType.PUBLIC.toString().equals(gatewayRequest.getMessageRequest().getPhoneNumberType())) {
+                gatewayRequest.setMessageStatus(MStatus.INVALIDNUM);
             } else {
-                responseList = this.getGatewayManager().sendMessage(messageDetails);
+                responseList = this.getGatewayManager().sendMessage(gatewayRequest);
                 result.put(true, responseList);
                 logger.debug(responseList);
                 logger.debug("Updating message status");
-                messageDetails.setResponseDetails(responseList);
-                messageDetails.setMessageStatus(MStatus.SENT);
+                gatewayRequest.setResponseDetails(responseList);
+                gatewayRequest.setMessageStatus(MStatus.SENT);
             }
         } catch (MotechException me) {
             logger.error("Error sending message", me);
-            messageDetails.setMessageStatus(MStatus.SCHEDULED);
+            gatewayRequest.setMessageStatus(MStatus.SCHEDULED);
 
             GatewayMessageHandler orHandler = getGatewayManager().getMessageHandler();
-            responseList = orHandler.parseMessageResponse(messageDetails, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage());
+            responseList = orHandler.parseMessageResponse(gatewayRequest, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage());
             result.put(false, responseList);
         }
-        this.getCache().mergeMessage(messageDetails);
+        this.getCache().mergeMessage(gatewayRequest);
 
         return result;
     }

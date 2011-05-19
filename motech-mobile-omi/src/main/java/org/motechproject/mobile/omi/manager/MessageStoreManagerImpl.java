@@ -33,23 +33,17 @@
 
 package org.motechproject.mobile.omi.manager;
 
-import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayRequestDetails;
-import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.model.MessageTemplate;
-import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.util.MotechException;
-import java.util.Set;
-import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
+import org.motechproject.mobile.core.manager.CoreManager;
+import org.motechproject.mobile.core.model.*;
+import org.motechproject.mobile.core.util.MotechException;
 import org.motechproject.ws.NameValuePair;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+
+import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * An implementation of the MessageStore interface
@@ -69,28 +63,21 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
     private String defaultCountryCode = "";
     private ApplicationContext applicationContext;
 
-    public GatewayRequest constructMessage(MessageRequest messageData, Language defaultLang) {
+    public GatewayRequest constructMessage(MessageRequest messageRequest, Language defaultLang) {
 
-        GatewayRequest gwReq = (GatewayRequest) applicationContext.getBean("gatewayRequest", GatewayRequest.class);
-        gwReq.setDateFrom(messageData.getDateFrom());
-        gwReq.setDateTo(messageData.getDateTo());
-        gwReq.setRecipientsNumber(formatPhoneNumber(messageData.getRecipientNumber(), messageData.getMessageType()));
-        gwReq.setRequestId(messageData.getRequestId());
-        gwReq.setTryNumber(messageData.getTryNumber());
-        gwReq.setMessageRequest(messageData);
-        
+        GatewayRequest gatewayRequest = buildGatewayRequest(messageRequest);
         GatewayRequestDetails gatewayDetails = (GatewayRequestDetails) applicationContext.getBean("gatewayRequestDetails", GatewayRequestDetails.class);
-        gatewayDetails.setMessageType(messageData.getMessageType());
+        gatewayDetails.setMessageType(messageRequest.getMessageType());
                 
         try{
         	
-        	if ( messageData.getMessageType() == MessageType.TEXT ) {
+        	if ( messageRequest.getMessageType() == MessageType.TEXT ) {
 
-        		String template = fetchTemplate(messageData, defaultLang);
+        		String template = fetchTemplate(messageRequest, defaultLang);
         		logger.debug("message template fetched");
         		logger.debug(template);
 
-        		String message = parseTemplate(template, messageData.getPersInfos());
+        		String message = parseTemplate(template, messageRequest.getPersInfos());
         		logger.debug("message contructed");
         		logger.debug(message);
 
@@ -100,33 +87,44 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
         		int numPages = (int)Math.ceil(message.length() % (charsPerSMS - concatAllowance));
         		gatewayDetails.setNumberOfPages(numPages);
 
-        		gwReq.setMessage(message);
+        		gatewayRequest.setMessage(message);
                         gatewayDetails.setMessage(message);
                 
         	}
 
-            gwReq.setMessageStatus(MStatus.SCHEDULED);
-            gwReq.setGatewayRequestDetails(gatewayDetails);
+            gatewayRequest.setMessageStatus(MStatus.SCHEDULED);
+            gatewayRequest.setGatewayRequestDetails(gatewayDetails);
 
         }
         catch(MotechException ex){
         	logger.error("MotechException: " + ex.getMessage());
-            gwReq.setMessageStatus(MStatus.FAILED);
-            gwReq.setMessage(null);
+            gatewayRequest.setMessageStatus(MStatus.FAILED);
+            gatewayRequest.setMessage(null);
             
             GatewayResponse gwResp = coreManager.createGatewayResponse();
-            gwResp.setGatewayRequest(gwReq);
+            gwResp.setGatewayRequest(gatewayRequest);
             gwResp.setMessageStatus(MStatus.FAILED);
             gwResp.setResponseText(ex.getMessage());
             
-            gwReq.getResponseDetails().add(gwResp);
+            gatewayRequest.getResponseDetails().add(gwResp);
         }       
         
-        gatewayDetails.getGatewayRequests().add(gwReq);
+        gatewayDetails.getGatewayRequests().add(gatewayRequest);
         logger.debug("GatewayRequest object successfully constructed");
         logger.debug(gatewayDetails);
 
-        return gwReq;
+        return gatewayRequest;
+    }
+
+    private GatewayRequest buildGatewayRequest(MessageRequest messageRequest) {
+        GatewayRequest gatewayRequest = (GatewayRequest) applicationContext.getBean("gatewayRequest", GatewayRequest.class);
+        gatewayRequest.setDateFrom(messageRequest.getDateFrom());
+        gatewayRequest.setDateTo(messageRequest.getDateTo());
+        gatewayRequest.setRecipientsNumber(formatPhoneNumber(messageRequest.getRecipientNumber(), messageRequest.getMessageType()));
+        gatewayRequest.setRequestId(messageRequest.getRequestId());
+        gatewayRequest.setTryNumber(messageRequest.getTryNumber());
+        gatewayRequest.setMessageRequest(messageRequest);
+        return gatewayRequest;
     }
 
     public String parseTemplate(String template, Set<NameValuePair> templateParams) {
@@ -147,10 +145,10 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
         return template.trim();
     }
 
-    public String fetchTemplate(MessageRequest messageData, Language defaultLang) {        
+    String fetchTemplate(MessageRequest messageData, Language defaultLang) {
         if(messageData.getNotificationType() == null)
             return "";
-        
+
         MessageTemplate template = coreManager.createMessageTemplateDAO().getTemplateByLangNotifMType(messageData.getLanguage(), messageData.getNotificationType(), messageData.getMessageType(), defaultLang);
         
         if(template == null)

@@ -49,14 +49,6 @@ import java.util.List;
 public interface MessageRequestDAO<T extends MessageRequest> extends GenericDAO<T> {
 
     /**
-     * Selects a list of MessageRequest objects based on status and schedule time
-     * @param status the Status of the message
-     * @param schedule the Date schedule
-     * @return a list of MessageRequest objects
-     */
-    public List getMsgRequestByStatusAndSchedule(MStatus status, Date schedule);
-
-    /**
      * Selects a list of MessageRequest objects based on status and tryNumber
      * @param status the Status of the message
      * @param tryNumber number of retries for the message
@@ -70,23 +62,7 @@ public interface MessageRequestDAO<T extends MessageRequest> extends GenericDAO<
      * @return list of MessageRequest objects
      */
     public List<MessageRequest> getMsgByStatus(MStatus status);
-    
-    /**
-     * Selects a list of MessageRequest objects based on recipient ID and status
-     * @param recipientID id of the recipient
-     * @param status status of the message request
-     * @return list of MessageRequest objects
-     */
-    public List<MessageRequest> getMsgRequestByRecipientAndStatus(String recipientID, MStatus status);
-    
-    /**
-     * Selects a list of MessageRequesst object based on recipient ID and status
-     * @param recipientID id of the recipient
-     * @param schedule the Date schedule
-     * @return list of MessageRequest objects
-     */
-    public List<MessageRequest> getMsgRequestByRecipientAndSchedule(String recipientID, Date schedule);
-    
+
     /**
      * Selects a list of MessageRequest objects based on recipientId, startdate and enddate
      * @param recipientID the id for the recipient to search for

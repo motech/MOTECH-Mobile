@@ -45,7 +45,7 @@ import org.motechproject.mobile.core.model.Language;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageType;
 import org.motechproject.mobile.core.model.NotificationType;
-import org.motechproject.mobile.omi.manager.MessageFormatter;
+import org.motechproject.mobile.omi.manager.SMSMessageFormatter;
 import org.motechproject.mobile.omi.manager.MessageStoreManager;
 import org.motechproject.mobile.omi.manager.OMIManager;
 import org.motechproject.mobile.omi.manager.StatusHandler;
@@ -397,7 +397,7 @@ public class OMIServiceImpl implements OMIService {
 
         logger.info("Constructing MessageDetails object...");
 
-        MessageFormatter formatter = omiManager.createMessageFormatter();
+        SMSMessageFormatter formatter = omiManager.createMessageFormatter();
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
         String content = formatter.formatDefaulterMessage(cares, groupingStrategy);
@@ -426,7 +426,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Constructing MessageDetails object...");
 
 
-        MessageFormatter formatter = omiManager.createMessageFormatter();
+        SMSMessageFormatter formatter = omiManager.createMessageFormatter();
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
         String content = formatter.formatDeliveriesMessage(deliveryStatus, patients);
@@ -455,7 +455,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Constructing MessageDetails object...");
 
 
-        MessageFormatter formatter = omiManager.createMessageFormatter();
+        SMSMessageFormatter formatter = omiManager.createMessageFormatter();
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
         String content = formatter.formatUpcomingCaresMessage(patient);
@@ -486,7 +486,7 @@ public class OMIServiceImpl implements OMIService {
         logger.info("Constructing MessageDetails object...");
 
 
-        MessageFormatter formatter = omiManager.createMessageFormatter();
+        SMSMessageFormatter formatter = omiManager.createMessageFormatter();
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
         String content = formatter.formatBulkCaresMessage(cares, groupingStrategy);

@@ -58,9 +58,9 @@ public interface OMIManager {
     MessageStoreManager createMessageStoreManager();
 
     /**
-     * Returns the spring managed instance of MessageFormatter
+     * Returns the spring managed instance of SMSMessageFormatter
      * 
-     * @return the created MessageFormatter object
+     * @return the created SMSMessageFormatter object
      */
-    MessageFormatter createMessageFormatter();
+    SMSMessageFormatter createMessageFormatter();
 }

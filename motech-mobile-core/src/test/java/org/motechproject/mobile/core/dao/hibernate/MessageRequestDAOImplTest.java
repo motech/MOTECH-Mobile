@@ -33,32 +33,28 @@
 
 package org.motechproject.mobile.core.dao.hibernate;
 
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.dao.LanguageDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.dao.NotificationTypeDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.model.MessageRequestImpl;
-import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.model.NotificationType;
+import org.motechproject.mobile.core.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *  Date : Sep 25, 2009
@@ -225,20 +221,6 @@ public class MessageRequestDAOImplTest {
     }
 
     /**
-     * Test of getMsgRequestByStatusAndSchedule method, of class MessageRequestDAOImpl.
-     */
-    @Test
-    public void testGetMsgRequestByStatusAndSchedule() {
-        System.out.println("getMsgRequestByStatusAndSchedule");
-
-        List result = mrDAO.getMsgRequestByStatusAndSchedule(sta, schedule);
-        Assert.assertFalse(result.isEmpty());
-        Assert.assertEquals(expResult.size(), result.size());
-        Assert.assertTrue(result.contains(mr2));
-        Assert.assertTrue(result.contains(mr3));
-    }
-//
-    /**
      * Test of delete method, of class MessageRequestDAOImpl.
      */
     @Test
@@ -250,79 +232,4 @@ public class MessageRequestDAOImplTest {
         MessageRequest fromdb = (MessageRequestImpl) mrDAO.getSessionFactory().getCurrentSession().get(MessageRequestImpl.class, mr4.getId());
         Assert.assertNull(fromdb);
     }
-
-    /**
-     * Test of getMsgRequestByStatusAndTryNumber method, of class MessageRequestDAOImpl.
-     */
-//    @Test
-//    public void testGetMsgRequestByStatusAndTryNumber() {
-//        System.out.println("test MessageRequest getMsgRequestByStatusAndTryNumber");
-//        List expResult = new ArrayList();
-//        expResult.add(mr4);
-//        expResult.add(mr5);
-//        List result = mrDAO.getMsgRequestByStatusAndTryNumber(mr4.getStatus(), mr4.getTryNumber());
-//        Assert.assertNotNull(result);
-//        Assert.assertEquals(expResult.size(), result.size());
-//        Assert.assertEquals(expResult, result);
-//        Assert.assertTrue(result.contains(mr4));
-//        Assert.assertTrue(result.contains(mr5));
-//
-//    }
-
-    /**
-     * Test of getById method, of class MessageRequestDAOImpl.
-     */
-//    @Test
-//    public void testGetById() {
-//        System.out.println("test MessageRequest getById");
-//        MessageRequest fromdb = (MessageRequestImpl) mrDAO.getById(mr3.getId());
-//        Assert.assertNotNull(fromdb);
-//        System.out.print("test MessageRequest last modified field : " + fromdb.getLastModified().toString());
-//        Assert.assertEquals(mr3, fromdb);
-//    }
-
-    /**
-     * Test of getMsgByStatus method, of class MessageRequestDAOImpl.
-     */
-//    @Test
-//    public void testGetMsgByStatus() {
-//        System.out.println("getMsgByStatus");
-//        MStatus status = MStatus.INVALIDNET;
-//        List<MessageRequest> expResult = new ArrayList<MessageRequest>();
-//        expResult.add(mr4);
-//        expResult.add(mr5);
-//        List<MessageRequest> result = mrDAO.getMsgByStatus(status);
-//        Assert.assertFalse(result.isEmpty());
-//        Assert.assertEquals(expResult.size(), result.size());
-//        Assert.assertEquals(true, result.contains(mr4));
-//        Assert.assertEquals(true, result.contains(mr5));
-//
-//    }
-
-//    @Test
-//    public void testGetMsgByRecipientAndStatus() {
-//    	MStatus status = MStatus.PENDING;
-//    	String recipientID = "r2";
-//    	List<MessageRequest> expectedList = new ArrayList<MessageRequest>();
-//    	expectedList.add(mr2);
-//    	List<MessageRequest> actualList = mrDAO.getMsgRequestByRecipientAndStatus(recipientID, status);
-//    	Assert.assertEquals(expectedList, actualList);
-//    }
-//
-//    @Test
-//    public void testGetMsgByRecipientAndSchedule() {
-//    	String recipientID = "r2";
-//    	List<MessageRequest> expectedList = new ArrayList<MessageRequest>();
-//    	expectedList.add(mr2);
-//    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//    	Date sched = null;
-//    	try {
-//    		sched = df.parse("2009-09-01");
-//    	} catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//    	List<MessageRequest> actualList = mrDAO.getMsgRequestByRecipientAndSchedule(recipientID, sched);
-//    	Assert.assertEquals(expectedList, actualList);
-//    }
-
 }

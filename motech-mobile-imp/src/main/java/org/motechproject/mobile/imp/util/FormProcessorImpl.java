@@ -35,10 +35,10 @@ package org.motechproject.mobile.imp.util;
 
 import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.core.model.IncMessageFormStatus;
-import org.motechproject.mobile.omi.manager.MessageFormatter;
+import org.motechproject.mobile.core.model.IncomingMessageForm;
 import org.motechproject.mobile.omi.manager.OMIManager;
+import org.motechproject.mobile.omi.manager.SMSMessageFormatter;
 import org.motechproject.ws.server.RegistrarService;
 import org.motechproject.ws.server.ValidationException;
 
@@ -191,7 +191,7 @@ public class FormProcessorImpl implements FormProcessor {
         if(param == null)
             return formattedResponse;
 
-        MessageFormatter formatter = omiManager.createMessageFormatter();
+        SMSMessageFormatter formatter = omiManager.createMessageFormatter();
         
         try {
             int idx = 0;

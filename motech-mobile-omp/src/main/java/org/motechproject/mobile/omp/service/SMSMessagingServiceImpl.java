@@ -115,75 +115,39 @@ public class SMSMessagingServiceImpl implements MessagingService {
 
     }
 
-    /**
-     *
-     * @see MessagingService.sendMessage(MessageDetails messageDetails)
-     */
-    public Map<Boolean, Set<GatewayResponse>> sendTransactionalMessage(GatewayRequest messageDetails) {
-        return getWorker().sendMessage(messageDetails);
+    public Map<Boolean, Set<GatewayResponse>> sendTransactionalMessage(GatewayRequest gatewayRequest) {
+        return getWorker().sendMessage(gatewayRequest);
     }
 
-    /**
-     *
-     * @see MessagingService.sendMessage(MessageDetails messageDetails)
-     */
+
     @Transactional
-    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest messageDetails) {
+    public Map<Boolean, Set<GatewayResponse>> sendMessage(GatewayRequest gatewayRequest) {
         logger.debug("Sending message to gateway");
         Set<GatewayResponse> responseList = null;
         Map<Boolean, Set<GatewayResponse>> result = new HashMap<Boolean, Set<GatewayResponse>>();
         try {
-            if ((messageDetails.getRecipientsNumber() == null || messageDetails.getRecipientsNumber().isEmpty())
-                    && !ContactNumberType.PUBLIC.toString().equals(messageDetails.getMessageRequest().getPhoneNumberType())) {
-                messageDetails.setMessageStatus(MStatus.INVALIDNUM);
+            if ((gatewayRequest.getRecipientsNumber() == null || gatewayRequest.getRecipientsNumber().isEmpty())
+                    && !ContactNumberType.PUBLIC.toString().equals(gatewayRequest.getMessageRequest().getPhoneNumberType())) {
+                gatewayRequest.setMessageStatus(MStatus.INVALIDNUM);
             } else {
-                responseList = this.getGatewayManager().sendMessage(messageDetails);
+                responseList = this.getGatewayManager().sendMessage(gatewayRequest);
                 result.put(true, responseList);
                 logger.debug(responseList);
                 logger.debug("Updating message status");
-                messageDetails.setResponseDetails(responseList);
-                messageDetails.setMessageStatus(MStatus.SENT);
+                gatewayRequest.setResponseDetails(responseList);
+                gatewayRequest.setMessageStatus(MStatus.SENT);
             }
         } catch (MotechException me) {
             logger.error("Error sending message", me);
-            messageDetails.setMessageStatus(MStatus.SCHEDULED);
+            gatewayRequest.setMessageStatus(MStatus.SCHEDULED);
 
             GatewayMessageHandler orHandler = getGatewayManager().getMessageHandler();
-            responseList = orHandler.parseMessageResponse(messageDetails, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage());
+            responseList = orHandler.parseMessageResponse(gatewayRequest, "error: 901 - Cannot Connect to gateway | Details: " + me.getMessage());
             result.put(false, responseList);
         }
-        this.getCache().saveMessage(messageDetails);
+        this.getCache().saveMessage(gatewayRequest);
 
         return result;
-    }
-
-    /**
-     *
-     * @see MessagingService.sendMessage(MessageDetails messageDetails)
-     */
-    @Transactional
-    public Long sendMessage(GatewayRequestDetails messageDetails) {
-        logger.info("Sending message to gateway");
-        GatewayRequest message = (GatewayRequest) messageDetails.getGatewayRequests().toArray()[0];
-
-        if ((message.getRecipientsNumber() != null || message.getRecipientsNumber().isEmpty()) 
-        		&& !ContactNumberType.PUBLIC.toString().equals(message.getMessageRequest().getPhoneNumberType())) {
-            message.setMessageStatus(MStatus.INVALIDNUM);
-        } else {
-            try {
-                Set<GatewayResponse> responseList = this.gatewayManager.sendMessage(message);
-                logger.debug(responseList);
-                logger.info("Updating message status");
-                message.setResponseDetails(responseList);
-                message.setMessageStatus(MStatus.SENT);
-            } catch (MotechException me) {
-                logger.error("Error sending message", me);
-                message.setMessageStatus(MStatus.SCHEDULED);
-            }
-        }
-        this.cache.saveMessage(messageDetails);
-
-        return message.getId();
     }
 
     /**
@@ -208,15 +172,11 @@ public class SMSMessagingServiceImpl implements MessagingService {
 
     }
 
-    public void updateMessageStatus(GatewayResponse response){
+    private void updateMessageStatus(GatewayResponse response){
         getWorker().updateMessageStatus(response);
     }
 
-    /**
-     * 
-     * @see MessageService.getMessageStatus
-     */
-    public String getMessageStatus(GatewayResponse response) {
+    String getMessageStatus(GatewayResponse response) {
         logger.info("Calling GatewayManager.getMessageStatus");
         return gatewayManager.getMessageStatus(response);
     }

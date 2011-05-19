@@ -59,7 +59,7 @@ import static org.junit.Assert.assertEquals;
 public class SMSMessageFormatterImplTest {
     MessageStoreManagerImpl storeManager;
     OMIManager mockOMI;
-    SMSMessageFormatterImpl instance;
+    SMSMessageFormatter instance;
     Care c, c1, c2;
     Patient p, p1, p2, p3;
     SimpleDateFormat df;
@@ -72,7 +72,7 @@ public class SMSMessageFormatterImplTest {
         storeManager = new MessageStoreManagerImpl();
         mockOMI = createMock(OMIManager.class);
 
-        instance = new SMSMessageFormatterImpl();
+        instance = new SMSMessageFormatter();
         instance.setOmiManager(mockOMI);
         instance.setDateFormat("dd/MM/yyyy");
 
@@ -127,7 +127,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatDefaulterMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatDefaulterMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatDefaulterMessage_CareArray() {
@@ -201,7 +201,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatDefaulterMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatDefaulterMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatDefaulterMessage_CaresGrouped() {
@@ -223,7 +223,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatDeliveriesMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatDeliveriesMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatDeliveriesMessage() {
@@ -244,7 +244,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatUpcomingCaresMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatUpcomingCaresMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatUpcomingCaresMessage() {
@@ -266,7 +266,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatBulkCaresMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatBulkCaresMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatBulkCaresMessage() {
@@ -291,7 +291,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatMatchingPatientsMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatMatchingPatientsMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatMatchingPatientsMessage() {
@@ -312,7 +312,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatPatientDetailsMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatPatientDetailsMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatPatientDetailsMessage() {
@@ -332,7 +332,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatBabyRegistrationMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatBabyRegistrationMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatBabyRegistrationMessage() {
@@ -354,7 +354,7 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
-     * Test of formatPatientRegistrationMessage method, of class SMSMessageFormatterImpl.
+     * Test of formatPatientRegistrationMessage method, of class SMSMessageFormatter.
      */
     @Test
     public void testFormatPatientRegistrationMessage() {
