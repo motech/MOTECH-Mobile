@@ -1781,7 +1781,7 @@
         <xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="ancRegDate"
                  message="Invalid date: date entered is in the future"
                  nodeset="/patientRegistration/ancRegDate"
-                 relevant="/patientRegistration/ancRegDateToday != '0'" visible="false()" required="true()"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/ancRegDateToday != '0'" visible="false()" required="true()"
                  type="xsd:date"/>
         <xf:bind action="show" constraint=". &amp;gt;= 60 and . &amp;lt;= 200" id="height"
                  message="Value out of range: must be between 60 and 200"
