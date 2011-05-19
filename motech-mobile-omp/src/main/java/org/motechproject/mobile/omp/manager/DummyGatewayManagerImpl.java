@@ -33,13 +33,14 @@
 
 package org.motechproject.mobile.omp.manager;
 
-import java.util.ArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.util.MotechIDGenerator;
+
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -79,7 +80,7 @@ public class DummyGatewayManagerImpl implements GatewayManager {
             log.error("Throwing Exception to mimic possible fault behaviour");
             throw new RuntimeException("Arbitrary exception thrown to mimic fault behaviour");
         }
-
+        log.debug( messageDetails.getRecipientsNumber() + " : " +messageDetails.getMessage());
         return messageHandler.parseMessageResponse(messageDetails, msgResponse);
     }
 
