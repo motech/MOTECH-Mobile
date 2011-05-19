@@ -34,7 +34,7 @@
 package org.motechproject.mobile.omp.manager;
 
 import org.motechproject.mobile.omp.service.CacheService;
-import org.motechproject.mobile.omp.service.MessagingService;
+import org.motechproject.mobile.omp.service.MobileMessagingService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -89,12 +89,12 @@ public class OMPManagerImpl implements OMPManager, ApplicationContextAware {
         }
     }
 
-    public MessagingService createMessagingService() {
+    public MobileMessagingService createMessagingService() {
         try{
-            return (MessagingService)context.getBean("smsService");
+            return (MobileMessagingService)context.getBean("smsService");
         }
         catch(Exception ex){
-            logger.fatal("MessagingService creation failed", ex);
+            logger.fatal("MobileMessagingService creation failed", ex);
             throw new RuntimeException("Unable to initialize messaging service");
         }
     }

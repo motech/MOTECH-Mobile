@@ -33,39 +33,28 @@
 
 package org.motechproject.mobile.omi.service;
 
-import java.util.Arrays;
+import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.dao.GatewayResponseDAO;
 import org.motechproject.mobile.core.dao.MessageRequestDAO;
 import org.motechproject.mobile.core.dao.NotificationTypeDAO;
-import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.model.NotificationType;
-import org.motechproject.mobile.omi.manager.SMSMessageFormatter;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.omi.manager.MessageStoreManager;
 import org.motechproject.mobile.omi.manager.OMIManager;
+import org.motechproject.mobile.omi.manager.SMSMessageFormatter;
 import org.motechproject.mobile.omi.manager.StatusHandler;
 import org.motechproject.mobile.omp.manager.OMPManager;
-import org.motechproject.mobile.omp.service.MessagingService;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import org.apache.log4j.Logger;
+import org.motechproject.mobile.omp.service.MobileMessagingService;
 import org.motechproject.ws.*;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * An implementation of the OMIService
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
- * Date Created: Jul 31, 2009
- *
+ *         Date Created: Jul 31, 2009
  */
 @Transactional
 public class OMIServiceImpl implements OMIService {
@@ -84,33 +73,33 @@ public class OMIServiceImpl implements OMIService {
     }
 
     public MessageStatus savePatientMessageRequest(String messageId,
-            NameValuePair[] personalInfo,
-            String patientNumber,
-            ContactNumberType patientNumberType,
-            String langCode,
-            MediaType messageType,
-            Long notificationType,
-            Date startDate,
-            Date endDate,
-            String recipientId) {
+                                                   NameValuePair[] personalInfo,
+                                                   String patientNumber,
+                                                   ContactNumberType patientNumberType,
+                                                   String langCode,
+                                                   MediaType mediaType,
+                                                   Long notificationType,
+                                                   Date startDate,
+                                                   Date endDate,
+                                                   String recipientId) {
         logger.debug("Constructing MessageRequest object...");
 
-        if (patientNumberType == ContactNumberType.PUBLIC && messageType == MediaType.TEXT) {
+
+
+        boolean textMessageToAPublicNumber = (patientNumberType == ContactNumberType.PUBLIC && mediaType == MediaType.TEXT);
+        if (textMessageToAPublicNumber) {
             return MessageStatus.REJECTED;
         }
 
-        if ((patientNumber == null || patientNumber.isEmpty())
-                && patientNumberType != ContactNumberType.PUBLIC) {
+        boolean patientPhoneNumberAndPublicPhoneNumberNotAvailable = ((patientNumber == null || patientNumber.isEmpty()) && patientNumberType != ContactNumberType.PUBLIC);
+        if (patientPhoneNumberAndPublicPhoneNumberNotAvailable) {
             return MessageStatus.REJECTED;
         }
 
-        MessageRequest messageRequest = coreManager.createMessageRequest();
-
-        NotificationTypeDAO noteTypeDao = coreManager.createNotificationTypeDAO();
-        NotificationType noteType = (NotificationType) noteTypeDao.getById(notificationType);
-
+        NotificationType noteType = getNotificationType(notificationType);
         Language langObject = coreManager.createLanguageDAO().getByCode(langCode);
 
+        MessageRequest messageRequest = coreManager.createMessageRequest();
         if (personalInfo != null) {
             HashSet<NameValuePair> details = new HashSet<NameValuePair>();
             details.addAll(Arrays.asList(personalInfo));
@@ -120,13 +109,13 @@ public class OMIServiceImpl implements OMIService {
         messageRequest.setTryNumber(1);
         messageRequest.setRequestId(messageId);
         //VOICE messages need to have a start date to accommodate replaying DELIVERED messages
-        messageRequest.setDateFrom(startDate == null && messageType == MediaType.VOICE ? new Date() : startDate);
+        messageRequest.setDateFrom(startDate == null && mediaType == MediaType.VOICE ? new Date() : startDate);
         messageRequest.setDateTo(endDate);
         messageRequest.setRecipientNumber(patientNumber);
         messageRequest.setPhoneNumberType(patientNumberType.toString());
         messageRequest.setRecipientId(recipientId);
         messageRequest.setNotificationType(noteType);
-        messageRequest.setMessageType(MessageType.valueOf(messageType.toString()));
+        messageRequest.setMessageType(MessageType.valueOf(mediaType.toString()));
         messageRequest.setLanguage(langObject);
         messageRequest.setStatus(MStatus.QUEUED);
         messageRequest.setDateCreated(new Date());
@@ -139,10 +128,16 @@ public class OMIServiceImpl implements OMIService {
         }
 
         logger.info("Saving MessageRequest...");
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
+        MessageRequestDAO messageRequestDAO = coreManager.createMessageRequestDAO();
 
-        msgReqDao.save(messageRequest);
+        messageRequestDAO.save(messageRequest);
         return MessageStatus.valueOf(messageRequest.getStatus().toString());
+    }
+
+    private NotificationType getNotificationType(Long notificationTypeNumber) {
+        NotificationTypeDAO notificationTypeDAO = coreManager.createNotificationTypeDAO();
+        NotificationType notificationType = (NotificationType) notificationTypeDAO.getById(notificationTypeNumber);
+        return notificationType;
     }
 
     public MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate) {
@@ -154,8 +149,7 @@ public class OMIServiceImpl implements OMIService {
 
         MessageRequest messageRequest = coreManager.createMessageRequest();
 
-        NotificationTypeDAO noteTypeDao = coreManager.createNotificationTypeDAO();
-        NotificationType noteType = (NotificationType) noteTypeDao.getById(notificationType);
+        NotificationType noteType = getNotificationType(notificationType);
 
         Language langObject = coreManager.createLanguageDAO().getByCode(langCode);
 
@@ -225,17 +219,17 @@ public class OMIServiceImpl implements OMIService {
             message.setLanguage(defaultLanguage);
         }
 
-        MessageRequestDAO msgReqDao = coreManager.createMessageRequestDAO();
+        MessageRequestDAO messageRequestDAO = coreManager.createMessageRequestDAO();
 
         message.setStatus(MStatus.QUEUED);
-        msgReqDao.save(message);
+        messageRequestDAO.save(message);
 
         logger.debug("Constructing GatewayRequest...");
         GatewayRequest gwReq = storeManager.constructMessage(message, defaultLanguage);
         message.setGatewayRequestDetails(null);
 
-        logger.debug("Initializing OMP MessagingService...");
-        MessagingService msgSvc = ompManager.createMessagingService();
+        logger.debug("Initializing OMP MobileMessagingService...");
+        MobileMessagingService msgSvc = ompManager.createMessagingService();
 
         logger.info("Sending GatewayRequest...");
 
@@ -256,7 +250,7 @@ public class OMIServiceImpl implements OMIService {
         message.setStatus(MStatus.PENDING);
         logger.debug(message);
 
-        msgReqDao.save(message);
+        messageRequestDAO.save(message);
 
         logger.info("Messages sent successfully");
         return MessageStatus.valueOf(message.getStatus().toString());
@@ -276,15 +270,15 @@ public class OMIServiceImpl implements OMIService {
 
         //TODO Check length of message and break if necessary
         logger.info("Constructing GatewayRequest...");
-        GatewayRequest gwReq = storeManager.constructMessage(message, null);
-        gwReq.setMessage(content);
-        gwReq.getGatewayRequestDetails().setMessage(content);
+        GatewayRequest gatewayRequest = storeManager.constructMessage(message, null);
+        gatewayRequest.setMessage(content);
+        gatewayRequest.getGatewayRequestDetails().setMessage(content);
 
-        logger.info("Initializing OMP MessagingService...");
-        MessagingService msgSvc = ompManager.createMessagingService();
+        logger.info("Initializing OMP MobileMessagingService...");
+        MobileMessagingService mobileMessagingService = ompManager.createMessagingService();
 
         logger.info("Sending GatewayRequest...");
-        Map<Boolean, Set<GatewayResponse>> responses = msgSvc.sendMessage(gwReq);
+        Map<Boolean, Set<GatewayResponse>> responses = mobileMessagingService.sendMessage(gatewayRequest);
 
         Boolean falseBool = false;
         if (responses.containsKey(falseBool)) {
@@ -370,8 +364,8 @@ public class OMIServiceImpl implements OMIService {
         gwReq.setMessage(content);
         gwReq.getGatewayRequestDetails().setMessage(content);
 
-        logger.info("Initializing OMP MessagingService...");
-        MessagingService msgSvc = ompManager.createMessagingService();
+        logger.info("Initializing OMP MobileMessagingService...");
+        MobileMessagingService msgSvc = ompManager.createMessagingService();
 
         logger.info("Scheduling GatewayRequest...");
 
@@ -629,7 +623,7 @@ public class OMIServiceImpl implements OMIService {
     }
 
     /**
-     * @param ompManager the ompManager to set
+     * @param coreManager the ompManager to set
      */
     public void setCoreManager(CoreManager coreManager) {
         logger.debug("Setting OMIServiceImpl.coreManager");

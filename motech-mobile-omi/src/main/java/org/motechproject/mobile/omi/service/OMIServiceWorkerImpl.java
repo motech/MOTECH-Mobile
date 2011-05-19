@@ -41,7 +41,7 @@ import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.omi.manager.MessageStoreManager;
 import org.motechproject.mobile.omi.manager.StatusHandler;
 import org.motechproject.mobile.omp.manager.OMPManager;
-import org.motechproject.mobile.omp.service.MessagingService;
+import org.motechproject.mobile.omp.service.MobileMessagingService;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -87,7 +87,7 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContex
                 messageRequest.setLanguage(defaultLanguage);
             }
 
-            MessagingService msgSvc = getOmpManager().createMessagingService();
+            MobileMessagingService msgSvc = getOmpManager().createMessagingService();
             msgSvc.scheduleTransactionalMessage(gatewayRequest);
 
             messageRequest.setDateProcessed(new Date());
@@ -111,7 +111,7 @@ public class OMIServiceWorkerImpl implements OMIServiceWorker, ApplicationContex
         if (message != null) {
             MessageRequestDAO msgReqDao = getCoreManager().createMessageRequestDAO();
             GatewayRequestDetailsDAO gwReqDao = getCoreManager().createGatewayRequestDetailsDAO();
-            MessagingService msgSvc = getOmpManager().createMessagingService();
+            MobileMessagingService msgSvc = getOmpManager().createMessagingService();
 
 
             if (message.getTryNumber() >= getMaxTries()) {

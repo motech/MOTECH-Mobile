@@ -35,9 +35,9 @@ package org.motechproject.mobile.omi.service;
 
 import org.motechproject.mobile.core.model.MessageRequest;
 import org.motechproject.mobile.omi.manager.OMIManager;
-import java.util.Date;
-
 import org.motechproject.ws.*;
+
+import java.util.Date;
 
 /**
  * Handles all operations on outgoing messages
@@ -67,7 +67,7 @@ public interface OMIService {
                                                    String patientNumber,
                                                    ContactNumberType patientNumberType,
                                                    String langCode,
-                                                   MediaType messageType,
+                                                   MediaType mediaType,
                                                    Long notificationType,
                                                    Date startDate,
                                                    Date endDate,
@@ -79,7 +79,7 @@ public interface OMIService {
      * @param messageId Id of the message to send
      * @param personalInfo List of name value pairs containing patient information
      * @param workerNumber CHPS worker's mobile contact number
-     * @param patients A List of patients requiring service from CHPS worker
+     * @param patientList A List of patients requiring service from CHPS worker
      * @param langCode  Code representing preferred communication language
      * @param mediaType Patient's preferred communication medium
      * @param notificationType Type of message to send to patient
@@ -87,7 +87,7 @@ public interface OMIService {
      * @param endDate Date to stop message sending attempts
      * @return The status of the message
      */
-    MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType messageType, Long notificationType, Date startDate, Date endDate);
+    MessageStatus saveCHPSMessageRequest(String messageId, NameValuePair[] personalInfo, String workerNumber, Patient[] patientList, String langCode, MediaType mediaType, Long notificationType, Date startDate, Date endDate);
 
     /**
      * Sends a templated outgoing message request
@@ -119,7 +119,7 @@ public interface OMIService {
      */
     MessageStatus sendDefaulterMessage(String messageId, String workerNumber, Care[] cares,
                                        CareMessageGroupingStrategy groupingStrategy,
-                                       MediaType messageType, Date startDate, Date endDate);
+                                       MediaType mediaType, Date startDate, Date endDate);
 
     /**
      * Sends a list of patients within a delivery schedule to a CHPS worker
@@ -133,7 +133,7 @@ public interface OMIService {
      * @param endDate Date to stop message sending attempts
      * @return The status of the message
      */
-    MessageStatus sendDeliveriesMessage(String messageId, String workerNumber, Patient[] patients, String deliveryStatus, MediaType messageType, Date startDate, Date endDate);
+    MessageStatus sendDeliveriesMessage(String messageId, String workerNumber, Patient[] patients, String deliveryStatus, MediaType mediaType, Date startDate, Date endDate);
 
     /**
      * Sends a list of upcoming care for a particular patient to a CHPS worker
@@ -146,7 +146,7 @@ public interface OMIService {
      * @param endDate Date to stop message sending attempts
      * @return The status of the message
      */
-    MessageStatus sendUpcomingCaresMessage(String messageId, String workerNumber, Patient patient, MediaType messageType, Date startDate, Date endDate);
+    MessageStatus sendUpcomingCaresMessage(String messageId, String workerNumber, Patient patient, MediaType mediaType, Date startDate, Date endDate);
 
     /**
      * Sends an SMS message
@@ -171,7 +171,6 @@ public interface OMIService {
      *
      * @param message object containing information about message to send
      * @param content message to send
-     * @param context current application context
      * @return
      */
     MessageStatus scheduleMessage(MessageRequest message, String content);

@@ -33,14 +33,14 @@
 
 package org.motechproject.mobile.omp.manager;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.model.MessageType;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class CompositeGatewayManager implements GatewayManager {
 	
@@ -88,21 +88,21 @@ public class CompositeGatewayManager implements GatewayManager {
 		return null;
 	}
 
-        @Transactional
+    @Transactional
 	@SuppressWarnings("unchecked")
-	public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails)
+	public Set<GatewayResponse> sendMessage(GatewayRequest gatewayRequest)
         {
 		
-		if ( messageDetails
+		if ( gatewayRequest
 				.getMessageRequest()
 				.getMessageType() == MessageType.VOICE ) {
-			return voiceGatewayManager.sendMessage(messageDetails);
+			return voiceGatewayManager.sendMessage(gatewayRequest);
 		}
 		
-		if ( messageDetails
+		if ( gatewayRequest
 				.getMessageRequest()
 				.getMessageType() == MessageType.TEXT ) {
-			return textGatewayManager.sendMessage(messageDetails);
+			return textGatewayManager.sendMessage(gatewayRequest);
 		}
 		
 		return new HashSet<GatewayResponse>();

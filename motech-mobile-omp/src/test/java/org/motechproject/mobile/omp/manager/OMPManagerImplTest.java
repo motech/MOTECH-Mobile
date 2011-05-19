@@ -34,7 +34,7 @@
 package org.motechproject.mobile.omp.manager;
 
 import org.motechproject.mobile.omp.service.CacheService;
-import org.motechproject.mobile.omp.service.MessagingService;
+import org.motechproject.mobile.omp.service.MobileMessagingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +94,7 @@ public class OMPManagerImplTest {
     @Test
     public void testCreateMessagingService() {
         System.out.println("createMessagingService");
-        MessagingService result = ompManager.createMessagingService();
+        MobileMessagingService result = ompManager.createMessagingService();
         assertNotNull(result);
     }
 

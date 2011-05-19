@@ -33,49 +33,24 @@
 
 package org.motechproject.mobile.omi.service;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.motechproject.mobile.core.dao.GatewayRequestDAO;
-import org.motechproject.mobile.core.dao.GatewayRequestDetailsDAO;
-import org.motechproject.mobile.core.dao.GatewayResponseDAO;
-import org.motechproject.mobile.core.dao.LanguageDAO;
-import org.motechproject.mobile.core.dao.MessageRequestDAO;
-import org.motechproject.mobile.core.dao.NotificationTypeDAO;
-import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayRequestDetails;
-import org.motechproject.mobile.core.model.GatewayRequestDetailsImpl;
-import org.motechproject.mobile.core.model.GatewayRequestImpl;
-import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.model.GatewayResponseImpl;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.LanguageImpl;
-import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.model.MessageRequestImpl;
-import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.model.NotificationTypeImpl;
-import org.motechproject.mobile.omi.manager.MessageStoreManager;
-import org.motechproject.mobile.omi.manager.StatusHandler;
-import org.motechproject.mobile.omp.manager.OMPManager;
-import org.motechproject.mobile.omp.service.MessagingService;
-import java.util.ArrayList;
-import static org.easymock.EasyMock.*;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.ws.ContactNumberType;
-import org.motechproject.ws.MediaType;
-import org.motechproject.ws.MessageStatus;
-import org.motechproject.ws.NameValuePair;
-import org.motechproject.ws.Patient;
+import org.motechproject.mobile.core.dao.*;
+import org.motechproject.mobile.core.manager.CoreManager;
+import org.motechproject.mobile.core.model.*;
+import org.motechproject.mobile.omi.manager.MessageStoreManager;
+import org.motechproject.mobile.omi.manager.StatusHandler;
+import org.motechproject.mobile.omp.manager.OMPManager;
+import org.motechproject.mobile.omp.service.MobileMessagingService;
+import org.motechproject.ws.*;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import static org.junit.Assert.*;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+
+import static org.easymock.EasyMock.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit test for the OMIServiceImpl class
@@ -95,7 +70,7 @@ public class OMIServiceImplTest {
     MessageRequestDAO mockRequestDao;
     LanguageDAO mockLangDao;
     NotificationTypeDAO mockNoteDao;
-    MessagingService mockMessagingService;
+    MobileMessagingService mockMobileMessagingService;
     GatewayRequestDAO mockGatewayDao;
     GatewayResponseDAO mockResponseDao;
     GatewayRequestDetailsDAO mockGwDetDao;
@@ -109,7 +84,7 @@ public class OMIServiceImplTest {
     public void setUp(){
         mockCore = createMock(CoreManager.class);
         mockOMP = createMock(OMPManager.class);
-        mockMessagingService = createMock(MessagingService.class);
+        mockMobileMessagingService = createMock(MobileMessagingService.class);
         mockStore = createMock(MessageStoreManager.class);
         mockGatewayDao = createMock(GatewayRequestDAO.class);
         mockRequestDao = createMock(MessageRequestDAO.class);
@@ -281,9 +256,9 @@ public class OMIServiceImplTest {
                 ).andReturn(gwReq);
         expect(
                 mockOMP.createMessagingService()
-                ).andReturn(mockMessagingService);
+                ).andReturn(mockMobileMessagingService);
         expect(
-                mockMessagingService.sendMessage((GatewayRequest) anyObject() )
+                mockMobileMessagingService.sendMessage((GatewayRequest) anyObject() )
                 ).andReturn(respMap);
 
         expectLastCall();
@@ -295,9 +270,9 @@ public class OMIServiceImplTest {
 
         expectLastCall();
         
-        replay(mockStore, mockOMP, mockMessagingService, mockCore, mockRequestDao);
+        replay(mockStore, mockOMP, mockMobileMessagingService, mockCore, mockRequestDao);
         instance.sendMessage(msgReq1);
-        verify(mockStore, mockOMP, mockMessagingService, mockCore, mockRequestDao);
+        verify(mockStore, mockOMP, mockMobileMessagingService, mockCore, mockRequestDao);
     }
 
     /**

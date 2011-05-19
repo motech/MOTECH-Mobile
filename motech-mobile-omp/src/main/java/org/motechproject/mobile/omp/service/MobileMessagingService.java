@@ -46,7 +46,7 @@ import java.util.Set;
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
-public interface MessagingService {
+public interface MobileMessagingService {
 
     /**
      * Queues a message for delivery

@@ -33,6 +33,7 @@
 
 package org.motechproject.mobile.omp.service;
 
+import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
 import org.motechproject.mobile.core.model.GatewayRequestDetails;
@@ -40,24 +41,19 @@ import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.core.util.MotechException;
 import org.motechproject.mobile.omp.manager.GatewayManager;
-import org.motechproject.ws.ContactNumberType;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import org.apache.log4j.Logger;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
+import org.motechproject.ws.ContactNumberType;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.*;
+
 /**
- * An SMS specific implementation of the MessagingService interface
+ * An SMS specific implementation of the MobileMessagingService interface
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
  * Date Created: Jul 15, 2009
  */
-public class SMSMessagingServiceImpl implements MessagingService {
+public class SMSMessagingServiceImpl implements MobileMessagingService {
 
     private CacheService cache;
     private GatewayManager gatewayManager;
@@ -65,33 +61,23 @@ public class SMSMessagingServiceImpl implements MessagingService {
     private SMSMessagingServiceWorker worker;
     private static Logger logger = Logger.getLogger(SMSMessagingServiceImpl.class);
 
-    /**
-     * 
-     * @see MessageService.scheduleMessage
-     */
-    @Transactional
-    public void scheduleMessage(GatewayRequest message) {
-        cache.saveMessage(message.getGatewayRequestDetails());
-    }
 
-    /**
-     * 
-     * @see MessageService.scheduleMessage
-     */
     @Transactional
-    public void scheduleMessage(GatewayRequestDetails message) {
-        cache.saveMessage(message);
+    public void scheduleMessage(GatewayRequest gatewayRequest) {
+        cache.saveMessage(gatewayRequest.getGatewayRequestDetails());
     }
 
     @Transactional
-    public void scheduleTransactionalMessage(GatewayRequest message) {
-        cache.mergeMessage(message);
+    public void scheduleMessage(GatewayRequestDetails gatewayRequestDetails) {
+        cache.saveMessage(gatewayRequestDetails);
     }
 
-    /**
-     *
-     * @see MessagingService.sendScheduledMessages
-     */
+    @Transactional
+    public void scheduleTransactionalMessage(GatewayRequest gatewayRequest) {
+        cache.mergeMessage(gatewayRequest);
+    }
+
+   
     @Transactional(readOnly = true)
     public void sendScheduledMessages() {
 
