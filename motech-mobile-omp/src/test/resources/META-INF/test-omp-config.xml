@@ -65,6 +65,7 @@
                 <value>classpath:clickatell.properties</value>
                 <value>classpath:orserve.properties</value>
                 <value>classpath:rancard.properties</value>
+                <value>classpath:smsgupshup.properties</value>
             </list>
         </property>
     </bean>

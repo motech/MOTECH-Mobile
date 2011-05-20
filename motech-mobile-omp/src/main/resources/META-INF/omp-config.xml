@@ -157,6 +157,24 @@
         <property name="messageHandler" ref="rancardHandler" />
     </bean>
 
+    <bean id="smsGupshupGateway" class="org.motechproject.mobile.omp.manager.gupshup.SMSGupshupGateway">
+        <property name="parameters">
+            <map>
+                <entry key="method" value="${gupshup.gateway.method}"/>
+                <entry key="msg_type" value="${gupshup.gateway.msg.type}"/>
+                <entry key="userid" value="${gupshup.gateway.userid}"/>
+                <entry key="password" value="${gupshup.gateway.password}"/>
+                <entry key="auth_scheme" value="${gupshup.gateway.auth.scheme}"/>
+            </map>
+        </property>
+        <property name="serviceURL" value="${gupshup.gateway.serviceURL}" />
+        <property name="messageHandler" ref="smsGupshupHandler" />
+    </bean>
+
+    <bean id="smsGupshupHandler" class="org.motechproject.mobile.omp.manager.gupshup.SMSGupshupGatewayMessageHandler">
+        <property name="coreManager" ref="coreManager" />
+    </bean>
+
     <bean id="intellIVRServer" class="org.motechproject.mobile.omp.manager.intellivr.IntellIVRServerImpl" init-method="init">
         <property name="serverURL" value="${intellivr.gateway.serverURL}"/>
     </bean>
@@ -298,12 +316,12 @@
     </bean>
 
     <bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
-        <property name="textHandler" ref="dummyHandler"/>
+        <property name="textHandler" ref="smsGupshupHandler"/>
         <property name="voiceHandler" ref="intellIVRMessageHandler"/>
     </bean>
 
     <bean id="compositeGatewayManager" class="org.motechproject.mobile.omp.manager.CompositeGatewayManager">
-        <property name="textGatewayManager" ref="dummyManager"/>
+        <property name="textGatewayManager" ref="smsGupshupGateway"/>
         <property name="voiceGatewayManager" ref="intellivrBean"/>
         <property name="compositeMessageHandler" ref="compositeHandler"/>
     </bean>

@@ -39,103 +39,71 @@ import org.motechproject.mobile.core.model.GatewayResponse;
 import org.motechproject.mobile.core.model.MStatus;
 import org.motechproject.mobile.omp.manager.GatewayManager;
 import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
-import org.motechproject.mobile.omp.manager.utils.PostData;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
-/**
- * Handles all interactions with the OutReach Server message gateway
- *
- * @author Kofi A. Asamoah (yoofi@dreamoval.com)
- * @date Sep 11, 2009
- */
+
 public class SMSGupshupGateway implements GatewayManager {
 
-    private String serviceURL = "http://app.rancardmobility.com/rmcs/sendMessage.jsp?";
-    private String user;
-    private String password;
-    private String sender;
+    private String serviceURL;
+
+
+
+    private Map<String, String> parameters = new HashMap<String, String>();
     private String sentMessageStatus;
     private GatewayMessageHandler messageHandler;
     private static Logger logger = Logger.getLogger(SMSGupshupGateway.class);
-
-    public SMSGupshupGateway() {
-    }
+    private static final String HTTP_GET = "GET";
 
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
-        PostData postData = new PostData();
-        try {
-            String msg = (messageDetails.getMessage().length() <= 459) ? messageDetails.getMessage() : messageDetails.getMessage().substring(0, 455) + "...";
 
-            postData.add("username",user);
-            postData.add("password",password);
-            postData.add("text",URLEncoder.encode(msg, "UTF-8"));
-            postData.add("from",sender);
-            postData.add("concat",String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
+        String message = (messageDetails.getMessage().length() <= 459) ? messageDetails.getMessage() : messageDetails.getMessage().substring(0, 455) + "...";
+        GatewayURL gatewayURL = createGatewayURL();
+        gatewayURL.append(new URLParameter("msg", message, true));
+        IndianMobileNumber recipient = new IndianMobileNumber(messageDetails.getRecipientsNumber());
+        gatewayURL.append(new URLParameter("send_to", recipient.toString()));
 
-            String recipients = "";
-            String numbers = messageDetails.getRecipientsNumber();
-            String[] nums = numbers.split(",");
-            for (String num : nums) {
-                if (num.startsWith("23320")) {
-                    num += "+";
-                }
-                if (!recipients.isEmpty()) {
-                    recipients += ":";
-                }
-                recipients += num;
-            }
-            postData.add("to",recipients);
-            logger.debug("Post Data:\n"+postData.without("username","password"));
-        } catch (UnsupportedEncodingException ex) {
-            logger.fatal("Error building request params: invalid encoding", ex);
-        }
+        logger.info("sms gupshup url : " + gatewayURL.toString());
 
-        //Create a url and open a connection to it
         URL url;
-        URLConnection conn;
+        HttpURLConnection conn ;
+        BufferedReader bufferedReader ;
         try {
-            url = new URL(serviceURL);
-            conn = url.openConnection();
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        } catch (MalformedURLException ex) {
-            logger.fatal("Error initializing Rancard Gateway: invalid url", ex);
-            throw new RuntimeException("Invalid gateway URL");
-        } catch (IOException ex) {
-            logger.fatal("Error iitializing Rancard Gateway: unable to open URL connection", ex);
-            throw new RuntimeException("Could not connect to gateway");
-        }
-        //Read in the gateway response
-        BufferedReader in;
-        String data = "";
-        String gatewayResponse = "";
-        //Flush the post data to the url
-        try {
+            url = new URL(gatewayURL.toString());
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(HTTP_GET);
             conn.setDoOutput(true);
-            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-            out.write(postData.toString());
-            out.flush();
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            while ((data = in.readLine()) != null) {
-                gatewayResponse += data + "\n";
+            conn.setUseCaches(false);
+            conn.connect();
+            bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            StringBuffer response = new StringBuffer();
+            while ((line = bufferedReader.readLine()) != null) {
+                response.append(line).append("\n");
             }
-            //Close the connections to the url reader and writer
-            out.close();
-            in.close();
-        } catch (IOException ex) {
-            logger.error("Error processing gateway request", ex);
-            gatewayResponse = "";
+            bufferedReader.close();
+            conn.disconnect();
+            messageDetails.setDateSent(new Date());
+            return messageHandler.parseMessageResponse(messageDetails, response.toString());
+        } catch (Exception ex) {
+            logger.error("Error During message sending to SMS Gupshup",ex);
+            throw new RuntimeException(ex);
         }
-        messageDetails.setDateSent(new Date());
-        //Convert the response to a standard format
-        return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
+    }
 
+    private GatewayURL createGatewayURL() {
+        GatewayURL gatewayURL = new GatewayURL(serviceURL);
+        for (String name : parameters.keySet()) {
+            gatewayURL.append(new URLParameter(name, parameters.get(name)));
+        }
+        return gatewayURL;
     }
 
     public String getMessageStatus(GatewayResponse response) {
@@ -154,48 +122,15 @@ public class SMSGupshupGateway implements GatewayManager {
         this.messageHandler = messageHandler;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    /**
-     * @param serviceURL the serviceURL to set
-     */
-    public void setBaseUrl(String baseUrl) {
-        this.setServiceURL(baseUrl);
-    }
-
-    /**
-     * @param sentMessageStatus the sentMessageStatus to set
-     */
     public void setSentMessageStatus(String sentMessageStatus) {
         this.sentMessageStatus = sentMessageStatus;
     }
 
-    /**
-     * @param serviceURL the serviceURL to set
-     */
     public void setServiceURL(String serviceURL) {
         this.serviceURL = serviceURL;
+    }
+
+    public void setParameters(Map<String, String> parameters) {
+        this.parameters = parameters;
     }
 }

@@ -33,23 +33,18 @@
 
 package org.motechproject.mobile.omi.manager;
 
-import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.GatewayRequest;
-import org.motechproject.mobile.core.model.GatewayRequestDetails;
-import org.motechproject.mobile.core.model.GatewayResponse;
-import org.motechproject.mobile.core.model.Language;
-import org.motechproject.mobile.core.model.MStatus;
-import org.motechproject.mobile.core.model.MessageRequest;
-import org.motechproject.mobile.core.model.MessageTemplate;
-import org.motechproject.mobile.core.model.MessageType;
-import org.motechproject.mobile.core.util.MotechException;
-import java.util.Set;
-import java.util.regex.Pattern;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
+import org.motechproject.mobile.core.manager.CoreManager;
+import org.motechproject.mobile.core.model.*;
+import org.motechproject.mobile.core.util.MotechException;
 import org.motechproject.ws.NameValuePair;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+
+import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * An implementation of the MessageStore interface
@@ -57,7 +52,6 @@ import org.springframework.context.ApplicationContextAware;
  * @author Kofi A. Asamoah
  * @email yoofi@dreamoval.com
  * @date 30-JULY-2009
- *
  */
 public class MessageStoreManagerImpl implements MessageStoreManager, ApplicationContextAware {
     private static Logger logger = Logger.getLogger(MessageStoreManagerImpl.class);
@@ -78,50 +72,50 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
         gwReq.setRequestId(messageData.getRequestId());
         gwReq.setTryNumber(messageData.getTryNumber());
         gwReq.setMessageRequest(messageData);
-        
+
         GatewayRequestDetails gatewayDetails = (GatewayRequestDetails) applicationContext.getBean("gatewayRequestDetails", GatewayRequestDetails.class);
         gatewayDetails.setMessageType(messageData.getMessageType());
-                
-        try{
-        	
-        	if ( messageData.getMessageType() == MessageType.TEXT ) {
 
-        		String template = fetchTemplate(messageData, defaultLang);
-        		logger.debug("message template fetched");
-        		logger.debug(template);
+        try {
 
-        		String message = parseTemplate(template, messageData.getPersInfos());
-        		logger.debug("message contructed");
-        		logger.debug(message);
+            if (messageData.getMessageType() == MessageType.TEXT) {
 
-        		int maxLength = (charsPerSMS - concatAllowance) * maxConcat - 1;
-        		message = message.length() <= maxLength ? message : message.substring(0, maxLength);
+                String template = fetchTemplate(messageData, defaultLang);
+                logger.debug("message template fetched");
+                logger.debug(template);
 
-        		int numPages = (int)Math.ceil(message.length() % (charsPerSMS - concatAllowance));
-        		gatewayDetails.setNumberOfPages(numPages);
+                String message = parseTemplate(template, messageData.getPersInfos());
+                logger.debug("message contructed");
+                logger.debug(message);
 
-        		gwReq.setMessage(message);
-                        gatewayDetails.setMessage(message);
-                
-        	}
+                int maxLength = (charsPerSMS - concatAllowance) * maxConcat - 1;
+                message = message.length() <= maxLength ? message : message.substring(0, maxLength);
+
+                int numPages = (int) Math.ceil(message.length() % (charsPerSMS - concatAllowance));
+                gatewayDetails.setNumberOfPages(numPages);
+
+                gwReq.setMessage(message);
+                gatewayDetails.setMessage(message);
+
+            }
 
             gwReq.setMessageStatus(MStatus.SCHEDULED);
             gwReq.setGatewayRequestDetails(gatewayDetails);
 
         }
-        catch(MotechException ex){
-        	logger.error("MotechException: " + ex.getMessage());
+        catch (MotechException ex) {
+            logger.error("MotechException: " + ex.getMessage());
             gwReq.setMessageStatus(MStatus.FAILED);
             gwReq.setMessage(null);
-            
+
             GatewayResponse gwResp = coreManager.createGatewayResponse();
             gwResp.setGatewayRequest(gwReq);
             gwResp.setMessageStatus(MStatus.FAILED);
             gwResp.setResponseText(ex.getMessage());
-            
+
             gwReq.getResponseDetails().add(gwResp);
-        }       
-        
+        }
+
         gatewayDetails.getGatewayRequests().add(gwReq);
         logger.debug("GatewayRequest object successfully constructed");
         logger.debug(gatewayDetails);
@@ -130,32 +124,32 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
     }
 
     public String parseTemplate(String template, Set<NameValuePair> templateParams) {
-        String tag, value;  
-        
-        if(templateParams == null){
+        String tag, value;
+
+        if (templateParams == null) {
             return template;
         }
-        
-        for(NameValuePair detail : templateParams){
-            tag = "<"+ detail.getName() + ">";
+
+        for (NameValuePair detail : templateParams) {
+            tag = "<" + detail.getName() + ">";
             value = detail.getValue();
 
-            if(value != null && !value.isEmpty())
+            if (value != null && !value.isEmpty())
                 template = template.replaceAll(tag, value);
         }
-        
+
         return template.trim();
     }
 
-    public String fetchTemplate(MessageRequest messageData, Language defaultLang) {        
-        if(messageData.getNotificationType() == null)
+    public String fetchTemplate(MessageRequest messageData, Language defaultLang) {
+        if (messageData.getNotificationType() == null)
             return "";
-        
+
         MessageTemplate template = coreManager.createMessageTemplateDAO().getTemplateByLangNotifMType(messageData.getLanguage(), messageData.getNotificationType(), messageData.getMessageType(), defaultLang);
-        
-        if(template == null)
+
+        if (template == null)
             throw new MotechException("No such NotificationType found");
-            
+
         return template.getTemplate();
     }
 
@@ -166,10 +160,11 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
 
         String formattedNumber = requesterPhone;
         if (Pattern.matches(localNumberExpression, requesterPhone)) {
-        	if ( type == MessageType.VOICE )
-        		formattedNumber = requesterPhone.substring(1);
-        	else
-        		formattedNumber = defaultCountryCode + requesterPhone.substring(1);
+            if (type == MessageType.VOICE){
+//                formattedNumber = requesterPhone.substring(1);
+                throw new NotImplementedException();
+            } else
+                formattedNumber = requesterPhone;
         }
 
         return formattedNumber;

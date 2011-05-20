@@ -38,6 +38,7 @@
 
 package org.motechproject.mobile.omp.manager.gupshup;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.GatewayRequest;
@@ -47,131 +48,71 @@ import org.motechproject.mobile.omp.manager.GatewayMessageHandler;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
-/**
- *
- * @author henry
- */
-public class SMSGupshupGatewayMessageHandler implements GatewayMessageHandler{
-    private MStatus okMessageStatus;
-    private CoreManager coreManager;
-    private static Logger logger = Logger.getLogger(SMSGupshupGatewayMessageHandler.class);
-    private Map<MStatus, String> codeStatusMap;
-    private Map<MStatus, String> codeResponseMap;
 
-    /**
-     *
-     * @see org.motechproject.mobile.omp.manager.GatewayMessageHandler.parseResponse
-     */
+public class SMSGupshupGatewayMessageHandler implements GatewayMessageHandler {
+    private CoreManager coreManager;
+
+    private static Logger logger = Logger.getLogger(SMSGupshupGatewayMessageHandler.class);
+
+
     public Set<GatewayResponse> parseMessageResponse(GatewayRequest message, String gatewayResponse) {
         logger.debug("Parsing message gateway response");
         logger.debug(gatewayResponse);
 
-        if(message == null)
+        if (message == null)
             return null;
 
-        if(gatewayResponse.isEmpty())
+        if (gatewayResponse.isEmpty())
             return null;
 
         Set<GatewayResponse> responses = new HashSet<GatewayResponse>();
-        String[] responseLines = gatewayResponse.trim().split("\n");
+        SMSGupshupResponse gupshupResponse = new SMSGupshupResponse(gatewayResponse);
 
-        for(String line : responseLines){
-            if(line.trim().isEmpty())
-                continue;
+        GatewayResponse response = getCoreManager().createGatewayResponse();
+        response.setRequestId(message.getRequestId());
+        response.setGatewayRequest(message);
+        response.setDateCreated(new Date());
 
-            String[] responseParts = line.split(" ");
-
-            if (responseParts[0].trim().equals("Status:"))
-                    continue;
-
-            GatewayResponse response = getCoreManager().createGatewayResponse();
-            response.setRequestId(message.getRequestId());
-            response.setGatewayRequest(message);
-            response.setDateCreated(new Date());
-
-            if(responseParts[0].equalsIgnoreCase("OK:")){
-                response.setMessageStatus(okMessageStatus);
-
-                if(responseParts.length == 2)
-                    response.setRecipientNumber(responseParts[1]);
-                else
-                    response.setRecipientNumber(message.getRecipientsNumber());
-
-                responses.add(response);
-            }
-            else if(responseParts[0].equalsIgnoreCase("ERROR:")){
-                logger.error("Gateway returned error: " + gatewayResponse);
-
-                String errorCode = "";
-
-                if(responseParts.length == 2){
-                    errorCode = responseParts[1];
-                    response.setRecipientNumber(message.getRecipientsNumber());
-                }else if(responseParts.length == 4){
-                    errorCode = responseParts[1];
-                    response.setRecipientNumber(responseParts[3]);
-                }
-
-                MStatus status = lookupResponse(errorCode.replaceAll(",", "").trim());
-                response.setMessageStatus(status);
-            }
-            else{
-                response.setResponseText(line.trim());
-                response.setMessageStatus(MStatus.RETRY);
-            }
-            responses.add(response);
+        if (gupshupResponse.isSuccess()) {
+            response.setMessageStatus(MStatus.DELIVERED);
+            response.setRecipientNumber(gupshupResponse.recipient());
+        } else if (gupshupResponse.isError()) {
+            logger.error("Gateway returned error: " + gupshupResponse);
+            response.setMessageStatus(MStatus.FAILED);
+            response.setRecipientNumber(gupshupResponse.recipient());
+        } else {
+            response.setMessageStatus(MStatus.RETRY);
         }
+
+        response.setResponseText(gupshupResponse.toString());
+        responses.add(response);
+
         logger.debug(responses);
         return responses;
     }
 
-    /**
-     *
-     * @see org.motechproject.mobile.omp.manager.GatewayMessageHandler.parseMessageStatus
-     */
+
     public MStatus parseMessageStatus(String gatewayResponse) {
-        return okMessageStatus;
-    }
+        SMSGupshupResponse response = new SMSGupshupResponse(gatewayResponse);
 
-    /**
-     * @see org.motechproject.mobile.omp.manager.GatewayMessageHandler.lookupStatus
-     */
-    public MStatus lookupStatus(String code){
-        if(code.isEmpty()){
-            return MStatus.RETRY;
-        }
+        if (response.isSuccess()) return MStatus.DELIVERED;
 
-        for(Entry<MStatus, String> entry: getCodeStatusMap().entrySet()){
-            if(entry.getValue().contains(code)){
-                return entry.getKey();
-            }
-        }
+        if (response.isError()) return MStatus.FAILED;
+
         return MStatus.RETRY;
     }
 
-    /**
-     * @see org.motechproject.mobile.omp.manager.GatewayMessageHandler.lookupResponse
-     */
-    public MStatus lookupResponse(String code){
-        if(code.isEmpty()){
-            return MStatus.RETRY;
-        }
-        
-        for(Entry<MStatus, String> entry: getCodeResponseMap().entrySet()){
-            if(entry.getValue().contains(code)){
-                return entry.getKey();
-            }
-        }
-        return MStatus.RETRY;
+    public MStatus lookupStatus(String code) {
+       throw new NotImplementedException();
     }
 
-    /**
-     * @return the coreManager
-     */
+    public MStatus lookupResponse(String code) {
+        throw new NotImplementedException();
+    }
+
+
     public CoreManager getCoreManager() {
         return coreManager;
     }
@@ -180,31 +121,8 @@ public class SMSGupshupGatewayMessageHandler implements GatewayMessageHandler{
      * @param coreManager the coreManager to set
      */
     public void setCoreManager(CoreManager coreManager) {
-        logger.debug("Setting ClickatellGatewayMessageHandlerImpl.coreManager");
-        logger.debug(coreManager);
         this.coreManager = coreManager;
     }
 
-    public Map<MStatus, String> getCodeStatusMap() {
-        return codeStatusMap;
-    }
 
-    public void setCodeStatusMap(Map<MStatus, String> codeStatusMap) {
-        this.codeStatusMap = codeStatusMap;
-    }
-
-    public Map<MStatus, String> getCodeResponseMap() {
-        return codeResponseMap;
-    }
-
-    public void setCodeResponseMap(Map<MStatus, String> codeResponseMap) {
-        this.codeResponseMap = codeResponseMap;
-    }
-
-    /**
-     * @param okMessageStatus the okMessageStatus to set
-     */
-    public void setOkMessageStatus(MStatus okMessageStatus) {
-        this.okMessageStatus = okMessageStatus;
-    }
 }

@@ -2021,7 +2021,7 @@
     &lt;xf:bind action="show" id="child3Sex" nodeset="/delivery/child3Sex" relevant="/delivery/child3Outcome = 'A'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="child3FirstName" nodeset="/delivery/child3FirstName" relevant="/delivery/child3Outcome = 'A'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="child3Weight" nodeset="/delivery/child3Weight" relevant="/delivery/child3Outcome = 'A'" required="true()" type="xsd:decimal" visible="false()" constraint=". &gt;= 0.2 and . &lt;= 11" message="Value out of range: must be between 0.2 and 11"/&gt;
-    &lt;xf:bind action="show" constraint=". &amp;lt; 2147483647" id="sender" message="Invalid phone number:  number too large" nodeset="/delivery/sender" relevant="/delivery/child1RegistrationType = 'AUTO_GENERATE_ID' or /delivery/child2RegistrationType = 'AUTO_GENERATE_ID' or /delivery/child3RegistrationType = 'AUTO_GENERATE_ID'" required="true()" type="xsd:int" visible="false()"/&gt;
+    &lt;xf:bind action="show" constraint=". &amp;lt; 10000000000" id="sender" message="Invalid phone number:  number too large" nodeset="/delivery/sender" relevant="/delivery/child1RegistrationType = 'AUTO_GENERATE_ID' or /delivery/child2RegistrationType = 'AUTO_GENERATE_ID' or /delivery/child3RegistrationType = 'AUTO_GENERATE_ID'" required="true()" type="xsd:int" visible="false()"/&gt;
     &lt;xf:bind id="formtype" nodeset="/delivery/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind id="formname" nodeset="/delivery/formname" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
@@ -2661,7 +2661,7 @@
     &lt;xf:bind id="middleName" nodeset="/editpatient/middleName" required="false()" type="xsd:string"/&gt;
     &lt;xf:bind id="lastName" nodeset="/editpatient/lastName" required="false()" type="xsd:string"/&gt;
     &lt;xf:bind id="preferredName" nodeset="/editpatient/preferredName" required="false()" type="xsd:string"/&gt;
-    &lt;xf:bind id="phoneNumber" nodeset="/editpatient/phoneNumber" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
+    &lt;xf:bind id="phoneNumber" nodeset="/editpatient/phoneNumber" type="xsd:int" constraint=". &amp;lt; 10000000000" message="Number too large."/&gt;
     &lt;xf:bind id="phoneOwnership" nodeset="/editpatient/phoneOwnership" type="xsd:string" constraint=" . != 'PUBLIC' " message="Public phones not supported"/&gt;
     &lt;xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string" visible="false()" /&gt;
     &lt;xf:bind id="nhisExpires" nodeset="/editpatient/nhisExpires" visible="false()" type="xsd:date"/&gt;
@@ -2817,7 +2817,7 @@
     &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
     &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;
     &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='phoneNumber'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='phoneNumber'][@message]" value="Number too large."/&gt;
   &lt;/xform&gt;</xform>
 <layout>&lt;Form id="5"&gt;
     &lt;text xpath="Form/Page[@Binding='Page1'][@Text]" value="Page1"/&gt;
@@ -4361,7 +4361,7 @@
     &lt;xf:bind id="enroll" nodeset="/ANCRegistration/enroll" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="consent" nodeset="/ANCRegistration/consent" relevant="/ANCRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="ownership" nodeset="/ANCRegistration/ownership" relevant="/ANCRegistration/consent = 'Y'" constraint=" . != 'PUBLIC' " message="Public phones not supported" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="phoneNumber" nodeset="/ANCRegistration/phoneNumber" relevant="/ANCRegistration/ownership = 'PERSONAL' or /ANCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
+    &lt;xf:bind action="show" id="phoneNumber" nodeset="/ANCRegistration/phoneNumber" relevant="/ANCRegistration/ownership = 'PERSONAL' or /ANCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 10000000000" message="Number too large."/&gt;
     &lt;xf:bind action="show" id="format" nodeset="/ANCRegistration/format" relevant="/ANCRegistration/consent = 'Y'" required="true()" constraint=". = 'PERS_TEXT' or . = 'HSE_TEXT'" message="Only Text messages supported" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="language" nodeset="/ANCRegistration/language" relevant="/ANCRegistration/consent = 'Y'" required="true()" constraint=" . = 'en'" message="Only English supported" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/ANCRegistration/dayOfWeek" relevant="/ANCRegistration/format = 'PERS_VOICE' or /ANCRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -4736,7 +4736,7 @@
     &lt;xf:bind id="enroll" nodeset="/CWCRegistration/enroll" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="consent" nodeset="/CWCRegistration/consent" relevant="/CWCRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="ownership" nodeset="/CWCRegistration/ownership" relevant="/CWCRegistration/consent = 'Y'" constraint=" . != 'PUBLIC' " message="Public phones not supported" required="true()" type="xsd:string" visible="false()"/&gt;
-    &lt;xf:bind action="show" id="phoneNumber" nodeset="/CWCRegistration/phoneNumber" relevant="/CWCRegistration/ownership = 'PERSONAL' or /CWCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
+    &lt;xf:bind action="show" id="phoneNumber" nodeset="/CWCRegistration/phoneNumber" relevant="/CWCRegistration/ownership = 'PERSONAL' or /CWCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 10000000000" message="Number too large."/&gt;
     &lt;xf:bind action="show" id="format" nodeset="/CWCRegistration/format" relevant="/CWCRegistration/consent = 'Y'" constraint=". = 'PERS_TEXT' or . = 'HSE_TEXT'" message="Only Text messages supported" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="language" nodeset="/CWCRegistration/language" relevant="/CWCRegistration/consent = 'Y'" constraint=" . = 'en'" message="Only English supported" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="dayOfWeek" nodeset="/CWCRegistration/dayOfWeek" relevant="/CWCRegistration/format = 'PERS_VOICE' or /CWCRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:string" visible="false()"/&gt;
@@ -6601,7 +6601,7 @@
     &lt;xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/patientRegistration/date" required="true()" type="xsd:date"/&gt;
     &lt;xf:bind id="registrationMode" nodeset="/patientRegistration/registrationMode" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind action="show" id="motechId" nodeset="/patientRegistration/motechId" relevant="/patientRegistration/registrationMode = 'USE_PREPRINTED_ID'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;xf:bind action="show" constraint=". &amp;lt; 2147483647" id="sender" message="Number too large. Keep under 2147483647" nodeset="/patientRegistration/sender" relevant="/patientRegistration/registrationMode = 'AUTO_GENERATE_ID'" required="true()" type="xsd:int" visible="false()"/&gt;
+    &lt;xf:bind action="show" constraint=". &amp;lt; 10000000000" id="sender" message="Number too large." nodeset="/patientRegistration/sender" relevant="/patientRegistration/registrationMode = 'AUTO_GENERATE_ID'" required="true()" type="xsd:int" visible="false()"/&gt;
     &lt;xf:bind id="registrantType" nodeset="/patientRegistration/registrantType" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="firstName" nodeset="/patientRegistration/firstName" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="middleName" nodeset="/patientRegistration/middleName" type="xsd:string"/&gt;
@@ -6619,7 +6619,7 @@
     &lt;xf:bind id="subDistrict" nodeset="/patientRegistration/subDistrict" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="community" nodeset="/patientRegistration/community" required="true()" type="xsd:string"/&gt;
     &lt;xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
+    &lt;xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int" constraint=". &amp;lt; 10000000000" message="Number too large."/&gt;
     &lt;xf:bind action="show" id="cwcRegNumber" nodeset="/patientRegistration/cwcRegNumber" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="cwcRegDateToday" nodeset="/patientRegistration/cwcRegDateToday" relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="cwcRegDate" message="Invalid date: date entered is in the future" nodeset="/patientRegistration/cwcRegDate" relevant="/patientRegistration/cwcRegDateToday = 'N'" visible="false()" required="true()" type="xsd:date"/&gt;
@@ -7475,10 +7475,10 @@
     &lt;text xpath="xforms/model/bind[@id='facilityId'][@message]" value="Number too large. Keep under 2147483647"/&gt;
     &lt;text xpath="xforms/model/bind[@id='date'][@message]" value="Invalid date: date specified is in the future"/&gt;
     &lt;text xpath="xforms/model/bind[@id='motechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='sender'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='sender'][@message]" value="Number too large"/&gt;
     &lt;text xpath="xforms/model/bind[@id='dateOfBirth'][@message]" value="Invalid date: date entered is in the future"/&gt;
     &lt;text xpath="xforms/model/bind[@id='motherMotechId'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='phoneNumber'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='phoneNumber'][@message]" value="Number too large."/&gt;
     &lt;text xpath="xforms/model/bind[@id='regPhone'][@message]" value="Number too large. Keep under 2147483647"/&gt;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='ce']/label" value="Central East"/&gt;
     &lt;text xpath="xforms/model/instance[@id='subDistrict']/dynamiclist/item[@id='cnv']/label" value="Central Navrongo"/&gt;
