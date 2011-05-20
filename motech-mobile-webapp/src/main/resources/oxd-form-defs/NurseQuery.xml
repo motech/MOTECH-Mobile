@@ -52,7 +52,7 @@
     &lt;xf:bind id="chpsid" nodeset="/gen-query/chpsid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind id="facilityid" nodeset="/gen-query/facilityid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
     &lt;xf:bind id="formname" nodeset="/gen-query/formname" required="true()" type="xsd:string"/&gt;
-    &lt;xf:bind id="sender" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" nodeset="/gen-query/sender" required="true()" type="xsd:int"/&gt;
+    &lt;xf:bind id="sender" constraint=". &amp;lt; 10000000000" message="Number too large" nodeset="/gen-query/sender" required="true()" type="xsd:int"/&gt;
     &lt;xf:bind id="formtype" nodeset="/gen-query/formtype" required="true()" type="xsd:string" visible="false()"/&gt;
   &lt;/xf:model&gt;
   &lt;xf:group id="1"&gt;
@@ -182,7 +182,7 @@
     &lt;xf:bind action="show" id="PreferredName" nodeset="/pat-query/PreferredName" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dob" message="Invalid date: date specified is in the future" nodeset="/pat-query/dob" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:date" visible="false()" required="false()"/&gt;
     &lt;xf:bind action="show" id="nhis" nodeset="/pat-query/nhis" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/&gt;
-    &lt;xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" required="false()"/&gt;
+    &lt;xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:int" visible="false()" constraint=". &amp;lt; 10000000000" message="Number too large." required="false()"/&gt;
     &lt;xf:bind id="sender" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" nodeset="/pat-query/sender" required="true()" type="xsd:int"/&gt;
     &lt;xf:bind action="show" id="ownership" nodeset="/pat-query/ownership" relevant="/pat-query/formname = 'registerforrct-jf'" required="true()" type="xsd:string" visible="false()"/&gt;
     &lt;xf:bind action="show" id="regPhone" nodeset="/pat-query/regPhone" relevant="/pat-query/ownership = 'PERSONAL' or /pat-query/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/&gt;
@@ -315,12 +315,12 @@
     &lt;text xpath="xforms/group[@id='1']/input[@bind='phonenumber']/label" value="Client phone number"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='sender']/label" value="Response phone number"/&gt;
     &lt;text xpath="xforms/group[@id='1']/input[@bind='formtype']/label" value="formType"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='chpsid'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='facilityid'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='chpsid'][@message]" value="Number too large."/&gt;
+    &lt;text xpath="xforms/model/bind[@id='facilityid'][@message]" value="Number too large."/&gt;
     &lt;text xpath="xforms/model/bind[@id='motechid'][@message]" value="MoTeCH ID must be 7 digits long"/&gt;
     &lt;text xpath="xforms/model/bind[@id='dob'][@message]" value="Invalid date: date specified is in the future"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='phonenumber'][@message]" value="Number too large. Keep under 2147483647"/&gt;
-    &lt;text xpath="xforms/model/bind[@id='sender'][@message]" value="Number too large. Keep under 2147483647"/&gt;
+    &lt;text xpath="xforms/model/bind[@id='phonenumber'][@message]" value="Number too large."/&gt;
+    &lt;text xpath="xforms/model/bind[@id='sender'][@message]" value="Number too large."/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/label" value="Phone ownership"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='PERSONAL']/label" value="Personal phone"/&gt;
     &lt;text xpath="xforms/group[@id='1']/select1[@bind='ownership']/item[@id='HOUSEHOLD']/label" value="Household phone"/&gt;
