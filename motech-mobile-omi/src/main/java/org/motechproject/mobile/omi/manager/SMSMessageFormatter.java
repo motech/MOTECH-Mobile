@@ -36,6 +36,7 @@ package org.motechproject.mobile.omi.manager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.motechproject.ws.*;
+import org.motechproject.ws.rct.RCTRegistrationConfirmation;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -44,8 +45,7 @@ import java.util.*;
  * Formats objects into structured messages for sending
  *
  * @author Kofi A. Asamoah (yoofi@dreamoval.com)
- * Date Created: Feb 19, 2010
- *
+ *         Date Created: Feb 19, 2010
  */
 public class SMSMessageFormatter {
 
@@ -433,6 +433,10 @@ public class SMSMessageFormatter {
      */
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
+    }
+
+    public String formatRCTEnrollmentMessage(RCTRegistrationConfirmation confirmation) {
+        return confirmation.toString();
     }
 
 
