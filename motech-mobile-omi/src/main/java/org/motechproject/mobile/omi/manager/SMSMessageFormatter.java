@@ -121,12 +121,14 @@ public class SMSMessageFormatter {
                     List<String> defaultedFor = patientDefaulters.get(patient);
                     defaultedFor.add(c.getName());
 
-                    if (!communityDefaulterMap.containsKey(p.getCommunity())) {
-                        communityDefaulterMap.put(p.getCommunity(), new TreeMap<String, List<String>>());
-                    }
+                    if (p.getCommunity() != null) {
+                        if (!communityDefaulterMap.containsKey(p.getCommunity())) {
+                            communityDefaulterMap.put(p.getCommunity(), new TreeMap<String, List<String>>());
+                        }
 
-                    TreeMap<String, List<String>> communityDefaulters = communityDefaulterMap.get(p.getCommunity());
-                    communityDefaulters.put(patient, defaultedFor);
+                        TreeMap<String, List<String>> communityDefaulters = communityDefaulterMap.get(p.getCommunity());
+                        communityDefaulters.put(patient, defaultedFor);
+                    }
                 }
             }
         }
