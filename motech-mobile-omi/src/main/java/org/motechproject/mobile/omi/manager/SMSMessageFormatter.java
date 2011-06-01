@@ -247,7 +247,10 @@ public class SMSMessageFormatter {
                     data.add(new NameValuePair("MoTeCHID" + careNum + patientNum, p.getMotechId()));
                     data.add(new NameValuePair("Community" + careNum + patientNum, p.getCommunity()));
 
-                    template += "\n<PreferredName" + careNum + patientNum + "> <LastName" + careNum + patientNum + ">-<MoTeCHID" + careNum + patientNum + "> (<Community" + careNum + patientNum + ">)";
+                    template += "\n<PreferredName" + careNum + patientNum + "> <LastName" + careNum + patientNum + ">-<MoTeCHID" + careNum + patientNum + ">";
+                    if (p.getCommunity() != null) {
+                        template += " (<Community" + careNum + patientNum + ">)";
+                    }
 
                     patientNum++;
                 }

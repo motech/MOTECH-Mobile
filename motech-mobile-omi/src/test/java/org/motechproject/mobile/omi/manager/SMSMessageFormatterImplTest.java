@@ -291,6 +291,31 @@ public class SMSMessageFormatterImplTest {
     }
 
     /**
+     * Test of formatBulkCaresMessage method, of class SMSMessageFormatter.
+     */
+    @Test
+    public void testFormatBulkCaresMessageForAPatientWhoDoesNotBelongToAnyCommunity() {
+        System.out.println("formatBulkCaresMessage");
+
+        p1.setCommunity(null);
+        c.setPatients(new Patient[]{p1});
+
+        Care[] cares = new Care[]{c};
+
+        String expResult = "Upcoming care:\nCare - "+df.format(new Date())+":\nBaby Boy Patient-1234561";
+
+        expect(
+                mockOMI.createMessageStoreManager()
+                ).andReturn(storeManager);
+
+        replay(mockOMI);
+        String result = instance.formatBulkCaresMessage(cares, CareMessageGroupingStrategy.NONE);
+        verify(mockOMI);
+
+        assertEquals(expResult, result);
+    }
+
+    /**
      * Test of formatMatchingPatientsMessage method, of class SMSMessageFormatter.
      */
     @Test
