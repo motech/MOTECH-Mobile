@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+	<changeSet context="update" id="1000000000000-60" author="ThoughtWorks">
+        <comment>
+            #148 Customizing the pregnancy.notification for patient who don't have the community specified
+        </comment>
+		<insert tableName="message_template">
+            <column name="id" valueNumeric="1188"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="message_type" value="TEXT"/>
+            <column name="template" value="Congratulations! Your patient, &lt;PreferredName&gt; &lt;LastName&gt; has just delivered. Please see her immediately to register the new baby and provide post-natal care"/>
+            <column name="notification_type" valueNumeric="416"/>
+            <column name="language" valueNumeric="1"/>
+        </insert>
+		<insert tableName="message_template">
+            <column name="id" valueNumeric="1189"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="message_type" value="TEXT"/>
+            <column name="template" value="Congratulations! Your patient, &lt;PreferredName&gt; &lt;LastName&gt; has just delivered. Please see her immediately to register the new baby and provide post-natal care@@"/>
+            <column name="notification_type" valueNumeric="416"/>
+            <column name="language" valueNumeric="2"/>
+        </insert>
+		<insert tableName="message_template">
+            <column name="id" valueNumeric="1190"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="message_type" value="TEXT"/>
+            <column name="template" value="Congratulations! Your patient, &lt;PreferredName&gt; &lt;LastName&gt; has just delivered. Please see her immediately to register the new baby and provide post-natal care##"/>
+            <column name="notification_type" valueNumeric="416"/>
+            <column name="language" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
