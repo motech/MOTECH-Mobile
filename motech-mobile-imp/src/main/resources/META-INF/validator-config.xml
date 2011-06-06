@@ -147,6 +147,19 @@
                         </property>
                     </bean>
                 </entry>
+                <entry key="ADDRESS">
+                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
+                        <property name="validators">
+                            <map>
+                                <entry key="EXPRESSION">
+                                    <bean scope="prototype" class="org.motechproject.mobile.imp.util.ParamExpressionValidator">
+                                        <property name="expression" value="${imp.validator.addressExpression}" />
+                                    </bean>
+                                </entry>
+                            </map>
+                        </property>
+                    </bean>
+                </entry>
                 <entry key="DATE">
                     <bean scope="prototype" class="org.motechproject.mobile.imp.util.ValidatorGroup">
                         <property name="validators">
