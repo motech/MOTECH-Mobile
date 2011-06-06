@@ -53,7 +53,7 @@
 
         <update tableName="incoming_message_form_parameter_definition">
             <column name="parameter_type" value="ADDRESS"/>
-            <where>name="address"</where>
+            <where>id=10000000001022</where>
         </update>
     </changeSet>
 
