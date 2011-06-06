@@ -2683,22 +2683,6 @@
                 <xf:label>Pregnancy-week 40</xf:label>
                 <xf:value>40</xf:value>
             </xf:item>
-            <xf:item id="41">
-                <xf:label>Pregnancy-week 41</xf:label>
-                <xf:value>41</xf:value>
-            </xf:item>
-            <xf:item id="42">
-                <xf:label>Pregnancy-week 42</xf:label>
-                <xf:value>42</xf:value>
-            </xf:item>
-            <xf:item id="43">
-                <xf:label>Pregnancy-week 43</xf:label>
-                <xf:value>43</xf:value>
-            </xf:item>
-            <xf:item id="44">
-                <xf:label>Pregnancy-week 44</xf:label>
-                <xf:value>44</xf:value>
-            </xf:item>
             <xf:item id="1">
                 <xf:label>Baby-week 1</xf:label>
                 <xf:value>41</xf:value>
