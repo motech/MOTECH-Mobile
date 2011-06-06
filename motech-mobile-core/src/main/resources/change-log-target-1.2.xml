@@ -35,4 +35,15 @@
         </insert>
     </changeSet>
 
+	<changeSet context="update" id="1000000000000-61" author="ThoughtWorks">
+        <comment>
+            #148 Inserting the required notification type required to customize the pregnancy.notification for patient who don't have the community specified
+        </comment>
+		<insert tableName="notification_type">
+            <column name="id" valueNumeric="416"/>
+            <column name="name" value="Care"/>
+            <column name="description" value="Delivery notification for patient with no community"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
