@@ -57,6 +57,5 @@ Note for fresh motech-mobile setupt: please keep this changelog file unchanged.
     <include file="change-log-target-0.8.0.xml"/>
     <include file="ivr-change-log.xml"/>
     <include file="change-log-target-1.1.xml"/>
-    <include file="change-log-target-1.2.xml"/>
 </databaseChangeLog>
 
