@@ -1703,7 +1703,7 @@
                  type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000"
                  message="MoTeCH ID must be 7 digits long"/>
         <xf:bind action="show" constraint=". &amp;lt; 2147483647" id="sender"
-                 message="Number too large. Keep under 2147483647" nodeset="/patientRegistration/sender"
+                 message="Number too large. It should be 10 digits long" nodeset="/patientRegistration/sender"
                  relevant="/patientRegistration/registrationMode = 'AUTO_GENERATE_ID'" required="true()"
                  type="xsd:int" visible="false()"/>
         <xf:bind id="registrantType" nodeset="/patientRegistration/registrantType" required="true()"
@@ -1748,7 +1748,7 @@
                  visible="false()"/>
         <xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/>
         <xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int"
-                 constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+                 constraint=". &amp;lt; 2147483647" message="Number too large. It should be 10 digits long"/>
         <xf:bind action="show" id="cwcRegNumber" nodeset="/patientRegistration/cwcRegNumber"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'"
                  type="xsd:string" visible="false()"/>
@@ -1893,7 +1893,7 @@
         <xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone"
                  relevant="/patientRegistration/ownership = 'PERSONAL' or /patientRegistration/ownership = 'HOUSEHOLD'"
                  required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647"
-                 message="Number too large. Keep under 2147483647"/>
+                 message="Number too large. It should be 10 digits long"/>
         <xf:bind action="show" id="format" nodeset="/patientRegistration/format"
                  relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string"
                  visible="false()"/>

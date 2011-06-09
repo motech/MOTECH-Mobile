@@ -30,7 +30,7 @@
     <xf:bind id="middleName" nodeset="/editpatient/middleName" required="false()" type="xsd:string"/>
     <xf:bind id="lastName" nodeset="/editpatient/lastName" required="false()" type="xsd:string"/>
     <xf:bind id="preferredName" nodeset="/editpatient/preferredName" required="false()" type="xsd:string"/>
-    <xf:bind id="phoneNumber" nodeset="/editpatient/phoneNumber" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="phoneNumber" nodeset="/editpatient/phoneNumber" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. It should be 10 digits long"/>
     <xf:bind id="phoneOwnership" nodeset="/editpatient/phoneOwnership" type="xsd:string"/>
     <xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string"/>
     <xf:bind id="nhisExpires" nodeset="/editpatient/nhisExpires" type="xsd:date"/>

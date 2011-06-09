@@ -109,7 +109,7 @@
     <xf:bind id="enroll" nodeset="/ANCRegistration/enroll" required="true()" type="xsd:string"/>
     <xf:bind action="show" id="consent" nodeset="/ANCRegistration/consent" relevant="/ANCRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="ownership" nodeset="/ANCRegistration/ownership" relevant="/ANCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind action="show" id="phoneNumber" nodeset="/ANCRegistration/phoneNumber" relevant="/ANCRegistration/ownership = 'PERSONAL' or /ANCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind action="show" id="phoneNumber" nodeset="/ANCRegistration/phoneNumber" relevant="/ANCRegistration/ownership = 'PERSONAL' or /ANCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. It should be 10 digits long"/>
     <xf:bind action="show" id="format" nodeset="/ANCRegistration/format" relevant="/ANCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="language" nodeset="/ANCRegistration/language" relevant="/ANCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="dayOfWeek" nodeset="/ANCRegistration/dayOfWeek" relevant="/ANCRegistration/format = 'PERS_VOICE' or /ANCRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:string" visible="false()"/>

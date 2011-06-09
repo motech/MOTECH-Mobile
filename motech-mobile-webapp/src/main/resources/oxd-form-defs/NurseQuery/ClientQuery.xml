@@ -28,10 +28,10 @@
     <xf:bind action="show" id="PreferredName" nodeset="/pat-query/PreferredName" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
     <xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="dob" message="Invalid date: date specified is in the future" nodeset="/pat-query/dob" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:date" visible="false()" required="false()"/>
     <xf:bind action="show" id="nhis" nodeset="/pat-query/nhis" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
-    <xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" required="false()"/>
-    <xf:bind id="sender" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647" nodeset="/pat-query/sender" required="true()" type="xsd:int"/>
+    <xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. It should be 10 digits long" required="false()"/>
+    <xf:bind id="sender" constraint=". &amp;lt; 2147483647" message="Number too large. It should be 10 digits long" nodeset="/pat-query/sender" required="true()" type="xsd:int"/>
     <xf:bind action="show" id="ownership" nodeset="/pat-query/ownership" relevant="/pat-query/formname = 'registerforrct-jf'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind action="show" id="regPhone" nodeset="/pat-query/regPhone" relevant="/pat-query/ownership = 'PERSONAL' or /pat-query/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind action="show" id="regPhone" nodeset="/pat-query/regPhone" relevant="/pat-query/ownership = 'PERSONAL' or /pat-query/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. It should be 10 digits long"/>
     <xf:bind id="formtype" nodeset="/pat-query/formtype" required="true()" type="xsd:string" visible="false()"/>
   </xf:model>
   <xf:group id="1">
