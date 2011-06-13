@@ -33,6 +33,7 @@
     </pluginRepositories>
 
     <build>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -508,6 +509,7 @@
         <spring.version>2.5.6.SEC01</spring.version>
         <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
         <cxf.version>2.2.2</cxf.version>
+        <config>default</config>
     </properties>
 
     <profiles>
@@ -523,6 +525,7 @@
                 <maven.test.skip>false</maven.test.skip>
             </properties>
         </profile>
+
         <profile>
             <id>development</id>
             <activation>
@@ -537,12 +540,27 @@
         </profile>
 
         <profile>
+            <id>config-override</id>
+            <activation>
+                <file>
+                    <exists>${basedir}/../configs/${user.name}.properties</exists>
+                </file>
+            </activation>
+            <properties>
+                <config>${user.name}</config>
+            </properties>
+        </profile>
+
+        <profile>
             <id>ci</id>
             <activation>
                 <file>
                     <exists>/var/lib/hudson/ci-server</exists>
                 </file>
             </activation>
+            <properties>
+                <config>prod</config>
+            </properties>
             <distributionManagement>
                 <repository>
                     <id>motech.nexus</id>
@@ -562,5 +580,4 @@
         <connection>scm:git:ssh://git@github.com/motech/MOTECH-Mobile.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/motech/MOTECH-Mobile.git</developerConnection>
     </scm>
-
 </project>

@@ -172,7 +172,7 @@
             </resource>
         </resources>
         <filters>
-            <filter>${env}.properties</filter>
+            <filter>${basedir}/../configs/${config}.properties</filter>
         </filters>
         <plugins>
             <plugin>
@@ -298,6 +298,5 @@
         <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
         <tomcat.home>${env.CATALINA_HOME}</tomcat.home>
         <web.context>${project.parent.artifactId}</web.context>
-        <env>prod</env>
     </properties>
 </project>
