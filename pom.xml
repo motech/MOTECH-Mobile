@@ -559,7 +559,7 @@
                 </file>
             </activation>
             <properties>
-                <config>prod</config>
+                <config>ci</config>
             </properties>
             <distributionManagement>
                 <repository>
