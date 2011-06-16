@@ -12,10 +12,10 @@
         <formname>tt-jf</formname>
       </tt>
     </xf:instance>
-    <xf:bind id="staffId" nodeset="/tt/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind id="facilityId" nodeset="/tt/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/tt/date" required="true()" type="xsd:date"/>
-    <xf:bind id="motechId" nodeset="/tt/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="staffId" nodeset="/tt/staffId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/tt/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/tt/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/tt/motechId" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
     <xf:bind id="ttDose" nodeset="/tt/ttDose" required="true()" type="xsd:string"/>
     <xf:bind id="formtype" nodeset="/tt/formtype" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind id="formname" nodeset="/tt/formname" required="true()" type="xsd:string" visible="false()"/>

@@ -40,21 +40,21 @@
         <formname>anc-jf</formname>
       </anc>
     </xf:instance>
-    <xf:bind id="staffid" nodeset="/anc/staffid" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind id="facilityId" nodeset="/anc/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/anc/date" required="true()" type="xsd:date"/>
-    <xf:bind id="motechid" nodeset="/anc/motechid" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="staffid" nodeset="/anc/staffid" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/anc/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/anc/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechid" nodeset="/anc/motechid" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
     <xf:bind id="visitNumber" nodeset="/anc/visitNumber" required="true()" type="xsd:string"/>
     <xf:bind id="estDeliveryDate" nodeset="/anc/estDeliveryDate" type="xsd:date"/>
-    <xf:bind constraint=". &amp;gt;= 60 and . &amp;lt;= 300" id="bpSystolic" message="Value out of range: must be between 60 and 300" nodeset="/anc/bpSystolic" type="xsd:int"/>
-    <xf:bind constraint=". &amp;gt;= 30 and . &amp;lt;= 140" id="bpDiastolic" message="Value out of range: Must be between 30 and 140" nodeset="/anc/bpDiastolic" type="xsd:int"/>
-    <xf:bind constraint=". &amp;gt;= 10 and . &amp;lt;= 500" id="weight" message="Value out of range: must be between 10 and 500" nodeset="/anc/weight" type="xsd:decimal"/>
+    <xf:bind constraint=". &gt;= 60 and . &lt;= 300" id="bpSystolic" message="Value out of range: must be between 60 and 300" nodeset="/anc/bpSystolic" type="xsd:int"/>
+    <xf:bind constraint=". &gt;= 30 and . &lt;= 140" id="bpDiastolic" message="Value out of range: Must be between 30 and 140" nodeset="/anc/bpDiastolic" type="xsd:int"/>
+    <xf:bind constraint=". &gt;= 10 and . &lt;= 500" id="weight" message="Value out of range: must be between 10 and 500" nodeset="/anc/weight" type="xsd:decimal"/>
     <xf:bind id="ttdose" nodeset="/anc/ttdose" required="true()" type="xsd:string"/>
     <xf:bind id="iptdose" nodeset="/anc/iptdose" required="true()" type="xsd:string"/>
     <xf:bind action="show" id="iptReactive" nodeset="/anc/iptReactive" relevant="/anc/iptdose = '1' or /anc/iptdose = '2' or /anc/iptdose = '3'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind id="itnUse" nodeset="/anc/itnUse" required="true()" type="xsd:string"/>
-    <xf:bind constraint=". &amp;gt;= 12 and . &amp;lt;= 40" id="fht" message="Value out of range: must be between 12 and 40" nodeset="/anc/fht" type="xsd:decimal"/>
-    <xf:bind constraint=". &amp;gt;= 80 and . &amp;lt;= 200" id="fhr" message="Value out of range: must be between 80 and 200" nodeset="/anc/fhr" type="xsd:int"/>
+    <xf:bind constraint=". &gt;= 12 and . &lt;= 40" id="fht" message="Value out of range: must be between 12 and 40" nodeset="/anc/fht" type="xsd:decimal"/>
+    <xf:bind constraint=". &gt;= 80 and . &lt;= 200" id="fhr" message="Value out of range: must be between 80 and 200" nodeset="/anc/fhr" type="xsd:int"/>
     <xf:bind id="urineTestProteinPositive" nodeset="/anc/urineTestProteinPositive" type="xsd:string"/>
     <xf:bind id="urineTestGlucosePositive" nodeset="/anc/urineTestGlucosePositive" type="xsd:string"/>
     <xf:bind id="hemoglobin" nodeset="/anc/hemoglobin" type="xsd:decimal"/>
@@ -71,7 +71,7 @@
     <xf:bind action="show" id="community" nodeset="/anc/community" relevant="/anc/location = '2'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind id="referred" nodeset="/anc/referred" required="true()" type="xsd:string"/>
     <xf:bind id="maleInvolved" nodeset="/anc/maleInvolved" required="true()" type="xsd:string"/>
-    <xf:bind constraint=". &amp;gt; 'today()'" id="nextANCDate" message="Invalid date: date must be in the future" nodeset="/anc/nextANCDate" required="true()" type="xsd:date"/>
+    <xf:bind constraint=". &gt; 'today()'" id="nextANCDate" message="Invalid date: date must be in the future" nodeset="/anc/nextANCDate" required="true()" type="xsd:date"/>
     <xf:bind id="comments" nodeset="/anc/comments" type="xsd:string"/>
     <xf:bind id="formtype" nodeset="/anc/formtype" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind id="formname" nodeset="/anc/formname" required="true()" type="xsd:string" visible="false()"/>

@@ -26,25 +26,25 @@
         <formname>carehistory-jf</formname>
       </careHistory>
     </xf:instance>
-    <xf:bind id="staffId" nodeset="/careHistory/staffId" type="xsd:int" required="true()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind id="facilityId" nodeset="/careHistory/facilityId" type="xsd:int" required="true()" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind id="date" nodeset="/careHistory/date" type="xsd:date" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/>
-    <xf:bind id="motechId" nodeset="/careHistory/motechId" type="xsd:int" required="true()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="staffId" nodeset="/careHistory/staffId" type="xsd:int" required="true()" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/careHistory/facilityId" type="xsd:int" required="true()" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="date" nodeset="/careHistory/date" type="xsd:date" required="true()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"/>
+    <xf:bind id="motechId" nodeset="/careHistory/motechId" type="xsd:int" required="true()" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
     <xf:bind id="addHistory" nodeset="/careHistory/addHistory" type="xsd:string" required="true()"/>
     <xf:bind id="lastIPT" nodeset="/careHistory/lastIPT" type="xsd:string" visible="false()" relevant="/careHistory/addHistory = '1'" action="show" required="true()"/>
-    <xf:bind id="lastIPTDate" nodeset="/careHistory/lastIPTDate" type="xsd:date" visible="false()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future" relevant="/careHistory/addHistory = '1'" action="show" required="true()"/>
+    <xf:bind id="lastIPTDate" nodeset="/careHistory/lastIPTDate" type="xsd:date" visible="false()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future" relevant="/careHistory/addHistory = '1'" action="show" required="true()"/>
     <xf:bind id="lastTT" nodeset="/careHistory/lastTT" type="xsd:string" visible="false()" relevant="/careHistory/addHistory = '2'" action="show" required="true()"/>
-    <xf:bind id="lastTTDate" nodeset="/careHistory/lastTTDate" type="xsd:date" visible="false()" action="show" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future" relevant="/careHistory/addHistory = '2'" required="true()"/>
-    <xf:bind id="bcgDate" nodeset="/careHistory/bcgDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '5'" action="show" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/>
+    <xf:bind id="lastTTDate" nodeset="/careHistory/lastTTDate" type="xsd:date" visible="false()" action="show" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future" relevant="/careHistory/addHistory = '2'" required="true()"/>
+    <xf:bind id="bcgDate" nodeset="/careHistory/bcgDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '5'" action="show" required="true()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"/>
     <xf:bind id="lastOPV" nodeset="/careHistory/lastOPV" type="xsd:string" visible="false()" relevant="/careHistory/addHistory = '6'" action="show" required="true()"/>
-    <xf:bind id="lastOPVDate" nodeset="/careHistory/lastOPVDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '6'" action="show" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/>
+    <xf:bind id="lastOPVDate" nodeset="/careHistory/lastOPVDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '6'" action="show" required="true()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"/>
     <xf:bind id="lastPenta" nodeset="/careHistory/lastPenta" type="xsd:string" visible="false()" relevant="/careHistory/addHistory = '7'" action="show" required="true()"/>
-    <xf:bind id="lastPentaDate" nodeset="/careHistory/lastPentaDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '7'" action="show" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/>
-    <xf:bind id="measlesDate" nodeset="/careHistory/measlesDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '8'" action="show" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/>
-    <xf:bind id="yellowFeverDate" nodeset="/careHistory/yellowFeverDate" type="xsd:date" visible="false()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future" relevant="/careHistory/addHistory = '9'" action="show" required="true()"/>
+    <xf:bind id="lastPentaDate" nodeset="/careHistory/lastPentaDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '7'" action="show" required="true()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"/>
+    <xf:bind id="measlesDate" nodeset="/careHistory/measlesDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '8'" action="show" required="true()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"/>
+    <xf:bind id="yellowFeverDate" nodeset="/careHistory/yellowFeverDate" type="xsd:date" visible="false()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future" relevant="/careHistory/addHistory = '9'" action="show" required="true()"/>
     <xf:bind id="lastIPTI" nodeset="/careHistory/lastIPTI" type="xsd:string" visible="false()" relevant="/careHistory/addHistory = '4'" action="show" required="true()"/>
-    <xf:bind id="lastIPTIDate" nodeset="/careHistory/lastIPTIDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '4'" action="show" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/>
-    <xf:bind id="lastVitaminADate" nodeset="/careHistory/lastVitaminADate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '3'" action="show" required="true()" constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"/>
+    <xf:bind id="lastIPTIDate" nodeset="/careHistory/lastIPTIDate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '4'" action="show" required="true()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"/>
+    <xf:bind id="lastVitaminADate" nodeset="/careHistory/lastVitaminADate" type="xsd:date" visible="false()" relevant="/careHistory/addHistory = '3'" action="show" required="true()" constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"/>
     <xf:bind id="formtype" nodeset="/careHistory/formtype" type="xsd:string" required="true()" visible="false()"/>
     <xf:bind id="formname" nodeset="/careHistory/formname" type="xsd:string" required="true()" visible="false()"/>
   </xf:model>

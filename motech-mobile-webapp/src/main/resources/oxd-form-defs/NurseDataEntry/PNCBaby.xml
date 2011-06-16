@@ -25,19 +25,19 @@
         <formname>childpnc-jf</formname>
       </pncbaby>
     </xf:instance>
-    <xf:bind id="staffId" nodeset="/pncbaby/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind id="facilityId" nodeset="/pncbaby/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/pncbaby/date" required="true()" type="xsd:dateTime"/>
-    <xf:bind id="motechId" nodeset="/pncbaby/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="staffId" nodeset="/pncbaby/staffId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/pncbaby/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/pncbaby/date" required="true()" type="xsd:dateTime"/>
+    <xf:bind id="motechId" nodeset="/pncbaby/motechId" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
     <xf:bind id="visitNumber" nodeset="/pncbaby/visitNumber" required="true()" type="xsd:string"/>
-    <xf:bind constraint=". &amp;gt;= 0.2 and . &amp;lt;= 11" id="weight" message="Value out of range: must be between 0.2 and 11" nodeset="/pncbaby/weight" type="xsd:decimal"/>
-    <xf:bind constraint=". &amp;gt;= 30 and . &amp;lt;= 48" id="temperature" message="Value out of range: must be between 30 and 48" nodeset="/pncbaby/temperature" type="xsd:decimal"/>
+    <xf:bind constraint=". &gt;= 0.2 and . &lt;= 11" id="weight" message="Value out of range: must be between 0.2 and 11" nodeset="/pncbaby/weight" type="xsd:decimal"/>
+    <xf:bind constraint=". &gt;= 30 and . &lt;= 48" id="temperature" message="Value out of range: must be between 30 and 48" nodeset="/pncbaby/temperature" type="xsd:decimal"/>
     <xf:bind id="location" nodeset="/pncbaby/location" required="true()" type="xsd:string"/>
     <xf:bind action="show" id="house" nodeset="/pncbaby/house" relevant="/pncbaby/location = '2'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="community" nodeset="/pncbaby/community" relevant="/pncbaby/location = '2'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind id="referred" nodeset="/pncbaby/referred" required="true()" type="xsd:string"/>
     <xf:bind id="maleInvolved" nodeset="/pncbaby/maleInvolved" required="true()" type="xsd:string"/>
-    <xf:bind constraint=". &amp;gt;= 10 and . &amp;lt;= 100" id="respiration" message="Value out of range: must be between 10 and 100" nodeset="/pncbaby/respiration" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &gt;= 10 and . &lt;= 100" id="respiration" message="Value out of range: must be between 10 and 100" nodeset="/pncbaby/respiration" required="true()" type="xsd:int"/>
     <xf:bind id="cordConditionNormal" nodeset="/pncbaby/cordConditionNormal" required="true()" type="xsd:string"/>
     <xf:bind id="babyConditionGood" nodeset="/pncbaby/babyConditionGood" required="true()" type="xsd:string"/>
     <xf:bind id="bcg" nodeset="/pncbaby/bcg" required="true()" type="xsd:string"/>

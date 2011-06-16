@@ -19,10 +19,10 @@
         <formname>abortion-jf</formname>
       </abortion>
     </xf:instance>
-    <xf:bind id="staffId" nodeset="/abortion/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind id="facilityId" nodeset="/abortion/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/abortion/date" required="true()" type="xsd:date"/>
-    <xf:bind id="motechId" nodeset="/abortion/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="staffId" nodeset="/abortion/staffId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/abortion/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/abortion/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/abortion/motechId" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
     <xf:bind id="terminationType" nodeset="/abortion/terminationType" required="true()" type="xsd:string"/>
     <xf:bind id="procedure" nodeset="/abortion/procedure" required="true()" type="xsd:string"/>
     <xf:bind id="complications" nodeset="/abortion/complications" type="xsd:string"/>

@@ -1690,19 +1690,19 @@
             </dynamiclist>
         </xf:instance>
         <xf:bind id="staffId" nodeset="/patientRegistration/staffId" required="true()" type="xsd:int"
-                 constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+                 constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
         <xf:bind id="facilityId" nodeset="/patientRegistration/facilityId" required="true()" type="xsd:int"
-                 constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-        <xf:bind constraint=". &amp;lt;= 'today()'" id="date"
+                 constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+        <xf:bind constraint=". &lt;= 'today()'" id="date"
                  message="Invalid date: date specified is in the future" nodeset="/patientRegistration/date"
                  required="true()" type="xsd:date"/>
         <xf:bind id="registrationMode" nodeset="/patientRegistration/registrationMode" required="true()"
                  type="xsd:string"/>
         <xf:bind action="show" id="motechId" nodeset="/patientRegistration/motechId"
                  relevant="/patientRegistration/registrationMode = 'USE_PREPRINTED_ID'" required="true()"
-                 type="xsd:int" visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000"
+                 type="xsd:int" visible="false()" constraint=". &gt; 999999 and . &lt; 10000000"
                  message="MoTeCH ID must be 7 digits long"/>
-        <xf:bind action="show" constraint=". &amp;lt; 2147483647" id="sender"
+        <xf:bind action="show" constraint=". &lt;= 999999999" id="sender"
                  message="Number too large. It should be 10 digits long" nodeset="/patientRegistration/sender"
                  relevant="/patientRegistration/registrationMode = 'AUTO_GENERATE_ID'" required="true()"
                  type="xsd:int" visible="false()"/>
@@ -1713,7 +1713,7 @@
         <xf:bind id="middleName" nodeset="/patientRegistration/middleName" type="xsd:string"/>
         <xf:bind id="lastName" nodeset="/patientRegistration/lastName" required="true()" type="xsd:string"/>
         <xf:bind id="prefferedName" nodeset="/patientRegistration/prefferedName" type="xsd:string"/>
-        <xf:bind constraint=". &amp;lt;= 'today()'" id="dateOfBirth"
+        <xf:bind constraint=". &lt;= 'today()'" id="dateOfBirth"
                  message="Invalid date: date entered is in the future"
                  nodeset="/patientRegistration/dateOfBirth"
                  required="true()" type="xsd:date"/>
@@ -1732,7 +1732,7 @@
                  required="false()"/>
         <xf:bind action="show" id="motherMotechId" nodeset="/patientRegistration/motherMotechId"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" type="xsd:int"
-                 visible="false()" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000"
+                 visible="false()" constraint=". &gt; 999999 and . &lt; 10000000"
                  message="MoTeCH ID must be 7 digits long" required="false()"/>
         <xf:bind id="region" nodeset="/patientRegistration/region" type="xsd:string" required="true()"
                  visible="true()"/>
@@ -1748,14 +1748,14 @@
                  visible="false()"/>
         <xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/>
         <xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int"
-                 constraint=". &amp;lt; 2147483647" message="Number too large. It should be 10 digits long"/>
+                 constraint=". &lt;= 999999999" message="Number too large. It should be 10 digits long"/>
         <xf:bind action="show" id="cwcRegNumber" nodeset="/patientRegistration/cwcRegNumber"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'"
                  type="xsd:string" visible="false()"/>
         <xf:bind action="show" id="cwcRegDateToday" nodeset="/patientRegistration/cwcRegDateToday"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" required="true()"
                  type="xsd:string" visible="false()"/>
-        <xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="cwcRegDate"
+        <xf:bind action="show" constraint=". &lt;= 'today()'" id="cwcRegDate"
                  message="Invalid date: date entered is in the future"
                  nodeset="/patientRegistration/cwcRegDate"
                  relevant="/patientRegistration/cwcRegDateToday = 'N'" visible="false()" required="true()"
@@ -1766,23 +1766,23 @@
         <xf:bind action="show" id="ancRegDateToday" nodeset="/patientRegistration/ancRegDateToday"
                  relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
                  type="xsd:string" visible="false()"/>
-        <xf:bind action="show" constraint=". &amp;lt;= 'today()'" id="ancRegDate"
+        <xf:bind action="show" constraint=". &lt;= 'today()'" id="ancRegDate"
                  message="Invalid date: date entered is in the future"
                  nodeset="/patientRegistration/ancRegDate"
                  relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/ancRegDateToday != '0'" visible="false()" required="true()"
                  type="xsd:date"/>
-        <xf:bind action="show" constraint=". &amp;gt;= 60 and . &amp;lt;= 200" id="height"
+        <xf:bind action="show" constraint=". &gt;= 60 and . &lt;= 200" id="height"
                  message="Value out of range: must be between 60 and 200"
                  nodeset="/patientRegistration/height"
                  relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
                  type="xsd:decimal" visible="false()"/>
-        <xf:bind action="show" constraint=". &amp;gt;= 1 and . &amp;lt;= 20" id="gravida"
+        <xf:bind action="show" constraint=". &gt;= 1 and . &lt;= 20" id="gravida"
                  message="Value out of range: must be between 1 and 20"
                  nodeset="/patientRegistration/gravida"
                  relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
                  type="xsd:int"
                  visible="false()"/>
-        <xf:bind action="show" constraint=". &amp;gt;= 0 and . &amp;lt;= 20" id="parity"
+        <xf:bind action="show" constraint=". &gt;= 0 and . &lt;= 20" id="parity"
                  message="Value out of range: must be between 0 and 20"
                  nodeset="/patientRegistration/parity"
                  relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
@@ -1805,7 +1805,7 @@
                  action="show" required="true()"/>
         <xf:bind id="lastIPTDate" nodeset="/patientRegistration/lastIPTDate" type="xsd:date"
                  visible="false()"
-                 constraint=". &amp;lt;= 'today()'" message="Invalid date: date specified is in the future"
+                 constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"
                  relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/addMotherHistory
             = '1' and /patientRegistration/addHistory = '1'"
                  action="show" required="true()"/>
@@ -1814,7 +1814,7 @@
             = '2' and /patientRegistration/addHistory = '1'"
                  action="show" required="true()"/>
         <xf:bind id="lastTTDate" nodeset="/patientRegistration/lastTTDate" type="xsd:date" visible="false()"
-                 action="show" constraint=". &amp;lt;= 'today()'"
+                 action="show" constraint=". &lt;= 'today()'"
                  message="Invalid date: date specified is in the future"
                  relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/addMotherHistory
             = '2' and /patientRegistration/addHistory = '1'"
@@ -1822,7 +1822,7 @@
         <xf:bind id="bcgDate" nodeset="/patientRegistration/bcgDate" type="xsd:date" visible="false()"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
             = '5' and /patientRegistration/addHistory = '1'"
-                 action="show" required="true()" constraint=". &amp;lt;= 'today()'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
                  message="Invalid date: date specified is in the future"/>
         <xf:bind id="lastOPV" nodeset="/patientRegistration/lastOPV" type="xsd:string" visible="false()"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
@@ -1832,7 +1832,7 @@
                  visible="false()"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
             = '6' and /patientRegistration/addHistory = '1'"
-                 action="show" required="true()" constraint=". &amp;lt;= 'today()'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
                  message="Invalid date: date specified is in the future"/>
         <xf:bind id="lastPenta" nodeset="/patientRegistration/lastPenta" type="xsd:string" visible="false()"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
@@ -1842,16 +1842,16 @@
                  visible="false()"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
             = '7' and /patientRegistration/addHistory = '1'"
-                 action="show" required="true()" constraint=". &amp;lt;= 'today()'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
                  message="Invalid date: date specified is in the future"/>
         <xf:bind id="measlesDate" nodeset="/patientRegistration/measlesDate" type="xsd:date"
                  visible="false()"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
             = '8' and /patientRegistration/addHistory = '1'"
-                 action="show" required="true()" constraint=". &amp;lt;= 'today()'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
                  message="Invalid date: date specified is in the future"/>
         <xf:bind id="yellowFeverDate" nodeset="/patientRegistration/yellowFeverDate" type="xsd:date"
-                 visible="false()" constraint=". &amp;lt;= 'today()'"
+                 visible="false()" constraint=". &lt;= 'today()'"
                  message="Invalid date: date specified is in the future"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
             = '9' and /patientRegistration/addHistory = '1'"
@@ -1864,13 +1864,13 @@
                  visible="false()"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
             = '4' and /patientRegistration/addHistory = '1'"
-                 action="show" required="true()" constraint=". &amp;lt;= 'today()'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
                  message="Invalid date: date specified is in the future"/>
         <xf:bind id="lastVitaminADate" nodeset="/patientRegistration/lastVitaminADate" type="xsd:date"
                  visible="false()"
                  relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
             = '3' and /patientRegistration/addHistory = '1'"
-                 action="show" required="true()" constraint=". &amp;lt;= 'today()'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
                  message="Invalid date: date specified is in the future"/>
         <xf:bind action="show" id="whyNoHistory" nodeset="/patientRegistration/whyNoHistory"
                  relevant="/patientRegistration/addHistory = '0' and /patientRegistration/registrantType = 'CHILD_UNDER_FIVE'
@@ -1892,7 +1892,7 @@
                  visible="false()"/>
         <xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone"
                  relevant="/patientRegistration/ownership = 'PERSONAL' or /patientRegistration/ownership = 'HOUSEHOLD'"
-                 required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647"
+                 required="true()" type="xsd:int" constraint=". &lt;= 999999999"
                  message="Number too large. It should be 10 digits long"/>
         <xf:bind action="show" id="format" nodeset="/patientRegistration/format"
                  relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string"

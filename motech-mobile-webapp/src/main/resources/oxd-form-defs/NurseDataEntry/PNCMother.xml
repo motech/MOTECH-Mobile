@@ -25,10 +25,10 @@
         <formname>motherpnc-jf</formname>
       </pncmother>
     </xf:instance>
-    <xf:bind id="staffId" nodeset="/pncmother/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind id="facilityId" nodeset="/pncmother/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/pncmother/date" required="true()" type="xsd:dateTime"/>
-    <xf:bind id="motechId" nodeset="/pncmother/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="staffId" nodeset="/pncmother/staffId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/pncmother/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/pncmother/date" required="true()" type="xsd:dateTime"/>
+    <xf:bind id="motechId" nodeset="/pncmother/motechId" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
     <xf:bind id="visitNumber" nodeset="/pncmother/visitNumber" required="true()" type="xsd:string"/>
     <xf:bind id="vitaminA" nodeset="/pncmother/vitaminA" required="true()" type="xsd:string"/>
     <xf:bind id="ttDose" nodeset="/pncmother/ttDose" required="true()" type="xsd:string"/>
@@ -40,8 +40,8 @@
     <xf:bind id="lochiaColour" nodeset="/pncmother/lochiaColour" required="true()" type="xsd:string"/>
     <xf:bind id="lochiaOdourFoul" nodeset="/pncmother/lochiaOdourFoul" type="xsd:string" required="true()"/>
     <xf:bind id="lochiaAmountExcess" nodeset="/pncmother/lochiaAmountExcess" required="true()" type="xsd:string"/>
-    <xf:bind constraint=". &amp;gt;= 30 and . &amp;lt;= 48" id="temperature" message="Value out of range: must be between 30 and 48" nodeset="/pncmother/temperature" type="xsd:decimal"/>
-    <xf:bind constraint=". &amp;gt;= 12 and . &amp;lt;= 40" id="fht" message="Value out of range: must be between 12 and 40" nodeset="/pncmother/fht" type="xsd:decimal"/>
+    <xf:bind constraint=". &gt;= 30 and . &lt;= 48" id="temperature" message="Value out of range: must be between 30 and 48" nodeset="/pncmother/temperature" type="xsd:decimal"/>
+    <xf:bind constraint=". &gt;= 12 and . &lt;= 40" id="fht" message="Value out of range: must be between 12 and 40" nodeset="/pncmother/fht" type="xsd:decimal"/>
     <xf:bind id="comments" nodeset="/pncmother/comments" type="xsd:string"/>
     <xf:bind id="formtype" nodeset="/pncmother/formtype" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind id="formname" nodeset="/pncmother/formname" required="true()" type="xsd:string" visible="false()"/>

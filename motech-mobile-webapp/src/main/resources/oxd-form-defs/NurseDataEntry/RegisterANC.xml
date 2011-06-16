@@ -97,19 +97,19 @@
         </item>
       </dynamiclist>
     </xf:instance>
-    <xf:bind id="staffId" nodeset="/ANCRegistration/staffId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind id="facilityId" nodeset="/ANCRegistration/facilityId" required="true()" type="xsd:int" constraint=". &amp;lt; 2147483647" message="Number too large. Keep under 2147483647"/>
-    <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date entered is in the future" nodeset="/ANCRegistration/date" required="true()" type="xsd:date"/>
-    <xf:bind id="motechId" nodeset="/ANCRegistration/motechId" required="true()" type="xsd:int" constraint=". &amp;gt; 999999 and . &amp;lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="staffId" nodeset="/ANCRegistration/staffId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/ANCRegistration/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date entered is in the future" nodeset="/ANCRegistration/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/ANCRegistration/motechId" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
     <xf:bind id="ancRegNumber" nodeset="/ANCRegistration/ancRegNumber" type="xsd:string"/>
     <xf:bind id="estDeliveryDate" nodeset="/ANCRegistration/estDeliveryDate" required="true()" type="xsd:date"/>
-    <xf:bind constraint=". &amp;gt;= 60 and . &amp;lt;= 200" id="height" message="Value out of range: must be between 60 and 200" nodeset="/ANCRegistration/height" required="true()" type="xsd:decimal"/>
-    <xf:bind constraint=". &amp;gt;= 1 and . &amp;lt;= 20" id="gravida" message="Value out of range: must be between 1 and 20" nodeset="/ANCRegistration/gravida" required="true()" type="xsd:int"/>
-    <xf:bind constraint=". &amp;gt;= 0 and . &amp;lt;= 20" id="parity" message="Value out of range: must be between 0 and 20" nodeset="/ANCRegistration/parity" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &gt;= 60 and . &lt;= 200" id="height" message="Value out of range: must be between 60 and 200" nodeset="/ANCRegistration/height" required="true()" type="xsd:decimal"/>
+    <xf:bind constraint=". &gt;= 1 and . &lt;= 20" id="gravida" message="Value out of range: must be between 1 and 20" nodeset="/ANCRegistration/gravida" required="true()" type="xsd:int"/>
+    <xf:bind constraint=". &gt;= 0 and . &lt;= 20" id="parity" message="Value out of range: must be between 0 and 20" nodeset="/ANCRegistration/parity" required="true()" type="xsd:int"/>
     <xf:bind id="enroll" nodeset="/ANCRegistration/enroll" required="true()" type="xsd:string"/>
     <xf:bind action="show" id="consent" nodeset="/ANCRegistration/consent" relevant="/ANCRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="ownership" nodeset="/ANCRegistration/ownership" relevant="/ANCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind action="show" id="phoneNumber" nodeset="/ANCRegistration/phoneNumber" relevant="/ANCRegistration/ownership = 'PERSONAL' or /ANCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &amp;lt; 2147483647" message="Number too large. It should be 10 digits long"/>
+    <xf:bind action="show" id="phoneNumber" nodeset="/ANCRegistration/phoneNumber" relevant="/ANCRegistration/ownership = 'PERSONAL' or /ANCRegistration/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" visible="false()" constraint=". &lt;= 999999999" message="Number too large. It should be 10 digits long"/>
     <xf:bind action="show" id="format" nodeset="/ANCRegistration/format" relevant="/ANCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="language" nodeset="/ANCRegistration/language" relevant="/ANCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="dayOfWeek" nodeset="/ANCRegistration/dayOfWeek" relevant="/ANCRegistration/format = 'PERS_VOICE' or /ANCRegistration/format = 'HSE_VOICE'" required="true()" type="xsd:string" visible="false()"/>
