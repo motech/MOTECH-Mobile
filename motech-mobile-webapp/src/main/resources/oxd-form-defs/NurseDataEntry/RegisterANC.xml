@@ -133,7 +133,7 @@
       <xf:label>MoTeCH ID</xf:label>
     </xf:input>
     <xf:input bind="ancRegNumber">
-      <xf:label>ANC Reg No</xf:label>
+      <xf:label>Serial Number</xf:label>
     </xf:input>
     <xf:input bind="estDeliveryDate">
       <xf:label>EDD</xf:label>

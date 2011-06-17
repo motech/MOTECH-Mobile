@@ -125,7 +125,7 @@
       <xf:label>MoTeCH ID</xf:label>
     </xf:input>
     <xf:input bind="cwcRegNumber">
-      <xf:label>CWC Reg No</xf:label>
+      <xf:label>Serial Number</xf:label>
     </xf:input>
     <xf:select1 bind="enroll">
       <xf:label>Join Mobile Midwife?</xf:label>
