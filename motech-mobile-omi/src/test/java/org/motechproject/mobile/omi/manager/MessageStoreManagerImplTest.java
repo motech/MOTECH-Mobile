@@ -34,25 +34,20 @@
 package org.motechproject.mobile.omi.manager;
 
 
-import org.junit.runner.RunWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.motechproject.mobile.core.dao.MessageTemplateDAO;
 import org.motechproject.mobile.core.manager.CoreManager;
 import org.motechproject.mobile.core.model.*;
-import org.motechproject.mobile.core.dao.MessageTemplateDAO;
+import org.motechproject.ws.NameValuePair;
+import org.springframework.context.ApplicationContext;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import static org.easymock.EasyMock.*;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.motechproject.ws.NameValuePair;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit test for the MessageStoreManagerImpl class
@@ -87,6 +82,8 @@ public class MessageStoreManagerImplTest {
         instance.setCharsPerSMS(160);
         instance.setConcatAllowance(7);
         instance.setMaxConcat(3);
+        instance.setDefaultCountryCode("233");
+        instance.setLocalNumberExpression("0[0-9]{9}");
                
         template = new MessageTemplateImpl();
         template.setTemplate("testing");
@@ -221,6 +218,22 @@ public class MessageStoreManagerImplTest {
     	String actualVoicePhone = ((MessageStoreManagerImpl)instance).formatPhoneNumber(phone, MessageType.VOICE);
     	assertEquals(expectedVoicePhone, actualVoicePhone);
     	
+    }
+
+    @Test
+    public void countryCodeShouldBeAppendedForTextMessageRecipients() {
+        String formattedNumber = instance.formatPhoneNumber("0123456789,0223423456", MessageType.TEXT);
+        assertEquals("233123456789,233223423456",formattedNumber);
+        assertEquals("233111111111",instance.formatPhoneNumber("0111111111",MessageType.TEXT));
+        assertEquals("111111111,222222222",instance.formatPhoneNumber("111111111,222222222",MessageType.TEXT));
+    }
+
+    @Test
+    public void leadingZeroShouldBeRemovedForVoiceMessageRecipients() {
+        String formattedNumber = instance.formatPhoneNumber("0123456789,0223423456", MessageType.VOICE);
+        assertEquals("123456789,223423456",formattedNumber);
+        assertEquals("111111111",instance.formatPhoneNumber("111111111",MessageType.VOICE));
+        assertEquals("111111111,222222222",instance.formatPhoneNumber("111111111,222222222",MessageType.VOICE));
     }
     
 }
