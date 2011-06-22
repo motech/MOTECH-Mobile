@@ -87,6 +87,7 @@
         <property name="messageExpression" value="(SUPPORT\s+\d+){1}"/>
     </bean>
 
+
     <bean id="mailTemplate" class="org.motechproject.mobile.domain.mail.MailTemplate">
         <constructor-arg index="0" type="java.lang.String" value="vm/mail_subject.vm"></constructor-arg>
         <constructor-arg index="1" type="java.lang.String" value="vm/mail_body.vm"></constructor-arg>
@@ -95,12 +96,12 @@
 
 
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="velocityProperties">
-            <value>
-                resource.loader=class
-                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-            </value>
-        </property>
-    </bean>
+      <property name="velocityProperties">
+         <value>
+            resource.loader=class
+            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+   </bean>
 
 </beans>

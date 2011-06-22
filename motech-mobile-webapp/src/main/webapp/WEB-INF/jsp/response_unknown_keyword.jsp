@@ -1,0 +1,1 @@
+Welcome to MOTECH. Your keyword is invalid. Please use the correct format to send your message
