@@ -104,14 +104,14 @@
     </servlet>
 
 
-    <servlet>
-        <servlet-name>IMPServlet</servlet-name>
-        <servlet-class>org.motechproject.mobile.web.IncomingMessageServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>IMPServlet</servlet-name>
-        <url-pattern>/incomingmessage</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>IMPServlet</servlet-name>-->
+        <!--<servlet-class>org.motechproject.mobile.web.IncomingMessageServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>IMPServlet</servlet-name>-->
+        <!--<url-pattern>/incomingmessage</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>intellivr</servlet-name>
@@ -139,6 +139,15 @@
         <servlet-name>oxduldl</servlet-name>
         <url-pattern>/formupload</url-pattern>
         <url-pattern>/formdownload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>incoming</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>incoming</servlet-name>
+        <url-pattern>/incomingmessage</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -51,7 +51,6 @@ import java.util.regex.Pattern;
  * @author Kofi A. Asamoah
  * @email yoofi@dreamoval.com
  * @date 30-JULY-2009
- *
  */
 public class MessageStoreManagerImpl implements MessageStoreManager, ApplicationContextAware {
     private static Logger logger = Logger.getLogger(MessageStoreManagerImpl.class);
@@ -62,53 +61,54 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
     private String localNumberExpression = "";
     private String defaultCountryCode = "";
     private ApplicationContext applicationContext;
+    private static final String DELIMITER = ",";
 
     public GatewayRequest constructMessage(MessageRequest messageRequest, Language defaultLang) {
 
         GatewayRequest gatewayRequest = buildGatewayRequest(messageRequest);
         GatewayRequestDetails gatewayDetails = (GatewayRequestDetails) applicationContext.getBean("gatewayRequestDetails", GatewayRequestDetails.class);
         gatewayDetails.setMessageType(messageRequest.getMessageType());
-                
-        try{
-        	
-        	if ( messageRequest.getMessageType() == MessageType.TEXT ) {
 
-        		String template = fetchTemplate(messageRequest, defaultLang);
-        		logger.debug("message template fetched");
-        		logger.debug(template);
+        try {
 
-        		String message = parseTemplate(template, messageRequest.getPersInfos());
-        		logger.debug("message contructed");
-        		logger.debug(message);
+            if (messageRequest.getMessageType() == MessageType.TEXT) {
 
-        		int maxLength = (charsPerSMS - concatAllowance) * maxConcat - 1;
-        		message = message.length() <= maxLength ? message : message.substring(0, maxLength);
+                String template = fetchTemplate(messageRequest, defaultLang);
+                logger.debug("message template fetched");
+                logger.debug(template);
 
-        		int numPages = (int)Math.ceil(message.length() % (charsPerSMS - concatAllowance));
-        		gatewayDetails.setNumberOfPages(numPages);
+                String message = parseTemplate(template, messageRequest.getPersInfos());
+                logger.debug("message contructed");
+                logger.debug(message);
 
-        		gatewayRequest.setMessage(message);
-                        gatewayDetails.setMessage(message);
-                
-        	}
+                int maxLength = (charsPerSMS - concatAllowance) * maxConcat - 1;
+                message = message.length() <= maxLength ? message : message.substring(0, maxLength);
+
+                int numPages = (int) Math.ceil(message.length() % (charsPerSMS - concatAllowance));
+                gatewayDetails.setNumberOfPages(numPages);
+
+                gatewayRequest.setMessage(message);
+                gatewayDetails.setMessage(message);
+
+            }
 
             gatewayRequest.setMessageStatus(MStatus.SCHEDULED);
             gatewayRequest.setGatewayRequestDetails(gatewayDetails);
 
         }
-        catch(MotechException ex){
-        	logger.error("MotechException: " + ex.getMessage());
+        catch (MotechException ex) {
+            logger.error("MotechException: " + ex.getMessage());
             gatewayRequest.setMessageStatus(MStatus.FAILED);
             gatewayRequest.setMessage(null);
-            
+
             GatewayResponse gwResp = coreManager.createGatewayResponse();
             gwResp.setGatewayRequest(gatewayRequest);
             gwResp.setMessageStatus(MStatus.FAILED);
             gwResp.setResponseText(ex.getMessage());
-            
+
             gatewayRequest.getResponseDetails().add(gwResp);
-        }       
-        
+        }
+
         gatewayDetails.getGatewayRequests().add(gatewayRequest);
         logger.debug("GatewayRequest object successfully constructed");
         logger.debug(gatewayDetails);
@@ -128,32 +128,32 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
     }
 
     public String parseTemplate(String template, Set<NameValuePair> templateParams) {
-        String tag, value;  
-        
-        if(templateParams == null){
+        String tag, value;
+
+        if (templateParams == null) {
             return template;
         }
-        
-        for(NameValuePair detail : templateParams){
-            tag = "<"+ detail.getName() + ">";
+
+        for (NameValuePair detail : templateParams) {
+            tag = "<" + detail.getName() + ">";
             value = detail.getValue();
 
-            if(value != null && !value.isEmpty())
+            if (value != null && !value.isEmpty())
                 template = template.replaceAll(tag, value);
         }
-        
+
         return template.trim();
     }
 
     String fetchTemplate(MessageRequest messageData, Language defaultLang) {
-        if(messageData.getNotificationType() == null)
+        if (messageData.getNotificationType() == null)
             return "";
 
         MessageTemplate template = coreManager.createMessageTemplateDAO().getTemplateByLangNotifMType(messageData.getLanguage(), messageData.getNotificationType(), messageData.getMessageType(), defaultLang);
-        
-        if(template == null)
+
+        if (template == null)
             throw new MotechException("No such NotificationType found");
-            
+
         return template.getTemplate();
     }
 
@@ -162,15 +162,24 @@ public class MessageStoreManagerImpl implements MessageStoreManager, Application
             return null;
         }
 
-        String formattedNumber = requesterPhone;
-        if (Pattern.matches(localNumberExpression, requesterPhone)) {
-        	if ( type == MessageType.VOICE )
-        		formattedNumber = requesterPhone.substring(1);
-        	else
-        		formattedNumber = defaultCountryCode + requesterPhone.substring(1);
+        String[] recipients = requesterPhone.split(DELIMITER);
+        StringBuilder builder = new StringBuilder();
+        for (String recipient : recipients) {
+            builder.append(format(recipient, type)).append(DELIMITER);
         }
 
+        String formattedNumber = builder.substring(0,builder.length()-1);
         return formattedNumber;
+    }
+
+    private String format(String requesterPhone, MessageType type) {
+        if (Pattern.matches(localNumberExpression, requesterPhone)) {
+            if (type == MessageType.VOICE)
+                requesterPhone = requesterPhone.substring(1);
+            else
+                requesterPhone = defaultCountryCode + requesterPhone.substring(1);
+        }
+        return requesterPhone;
     }
 
     public CoreManager getCoreManager() {
