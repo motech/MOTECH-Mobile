@@ -35,8 +35,8 @@
 -->
 
 <!--
-    Document   : motech-main-change-log.xml
-    Created on : August 18, 2010, 2:12 PM
+    Document   : change-log-target-0.8.0.xml
+    Created on : August 24, 2010, 12:50 PM
     Author     : joseph
     Description:
         Purpose of the document follows.
@@ -47,16 +47,21 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <!--  Note for 0.8.0 upgrade deployment : please comment out both motech-schema-log ang motech-schema-insert-log tags
-    and uncomment change-log-target-0.8.0 tag
 
-Note for fresh motech-mobile setupt: please keep this changelog file unchanged.
-    -->
-    <include file="motech-schema-log.xml"/>
-    <include file="motech-schema-insert-log.xml"/>
-    <include file="change-log-target-0.8.0.xml"/>
-    <include file="ivr-change-log.xml"/>
-    <include file="change-log-target-1.1.xml"/>
-    <include file="change-log-target-1.2.xml"/>
+    <changeSet context="update" id="1000000000000-63" author="ThoughtWorks">
+        <comment>
+            Changes to add serial number field to ANC visit form - story #164
+        </comment>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001857"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000000"/>
+            <column name="name" value="SerialNumber"/>
+            <column name="parameter_type" value="SERIALNUMBER"/>
+            <column name="length" valueNumeric="50"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-06-22 11:27:00"/>
+            <column name="last_modified" valueDate="2011-06-22 11:27:00"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
-

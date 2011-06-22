@@ -155,6 +155,7 @@
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
                 <entry key="motechId" value="java.lang.Integer" />
+                <entry key="serialNumber" value="java.lang.String"/>
                 <entry key="visitNumber" value="java.lang.Integer" />
                 <entry key="location" value="java.lang.Integer" />
                 <entry key="house" value="java.lang.String" />
