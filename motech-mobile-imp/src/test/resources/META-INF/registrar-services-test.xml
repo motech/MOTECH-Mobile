@@ -347,6 +347,7 @@
                 <entry key="facilityId" value="java.lang.Integer" />
                 <entry key="date" value="java.util.Date" />
                 <entry key="motechId" value="java.lang.Integer" />
+                <entry key="serialNumber" value="java.lang.String" />
                 <entry key="cwcLocation" value="java.lang.Integer" />
                 <entry key="house" value="java.lang.String" />
                 <entry key="community" value="java.lang.String" />
@@ -356,7 +357,7 @@
                 <entry key="measles" value="java.lang.Boolean" />
                 <entry key="yellowFever" value="java.lang.Boolean" />
                 <entry key="csm" value="java.lang.Boolean" />
-                <entry key="ipti" value="java.lang.Boolean" />
+                <entry key="iptiDose" value="java.lang.Integer" />
                 <entry key="vitaminA" value="java.lang.Boolean" />
                 <entry key="dewormer" value="java.lang.Boolean" />
                 <entry key="weight" value="java.lang.Double" />

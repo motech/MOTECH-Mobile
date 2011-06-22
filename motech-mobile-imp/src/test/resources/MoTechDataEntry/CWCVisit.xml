@@ -7,6 +7,7 @@
         <facilityid/>
         <date/>
         <motechid/>
+        <serialNumber/>
         <immunization/>
         <bcg/>
         <opvdose/>
@@ -24,6 +25,7 @@
     <xf:bind id="facilityid" nodeset="/child/facilityid" required="true()" type="xsd:int"/>
     <xf:bind constraint=". &amp;lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/child/date" required="true()" type="xsd:date"/>
     <xf:bind id="motechid" nodeset="/child/motechid" required="true()" type="xsd:int"/>
+    <xf:bind id="serialNumber" nodeset="/child/serialNumber"  type="xsd:string"/>
     <xf:bind id="immunization" nodeset="/child/immunization" required="true()" type="xsd:string"/>
     <xf:bind action="show" id="bcg" nodeset="/child/bcg" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="opvdose" nodeset="/child/opvdose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
@@ -49,6 +51,9 @@
     </xf:input>
     <xf:input bind="motechid">
       <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="serialNumber">
+      <xf:label>Serial Number</xf:label>
     </xf:input>
     <xf:select1 bind="immunization">
       <xf:label>Immunization</xf:label>

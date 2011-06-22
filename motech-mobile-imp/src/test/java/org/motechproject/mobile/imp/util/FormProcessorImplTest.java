@@ -41,10 +41,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.mobile.core.manager.CoreManager;
-import org.motechproject.mobile.core.model.IncMessageFormStatus;
-import org.motechproject.mobile.core.model.IncomingMessageFormDefinitionImpl;
-import org.motechproject.mobile.core.model.IncomingMessageFormImpl;
-import org.motechproject.mobile.core.model.IncomingMessageFormParameter;
+import org.motechproject.mobile.core.model.*;
 import org.motechproject.mobile.omi.manager.OMIManager;
 import org.motechproject.ws.*;
 import org.motechproject.ws.server.RegistrarService;
@@ -477,6 +474,22 @@ public class FormProcessorImplTest {
         form.getIncomingMsgFormDefinition().setFormCode("ABORTION-JF");
 
         mockWebService.recordPregnancyTermination((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Integer[]) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (String) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessChildCWCVisit() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("ChildCWC-jf");
+
+        mockWebService.recordChildCWCVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(),(String) anyObject(),(Integer) anyObject(), (String) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Double) anyObject(), (Double) anyObject(), (Double) anyObject(), (Boolean) anyObject(), (String) anyObject());
         expectLastCall();
 
         replay(mockWebService);

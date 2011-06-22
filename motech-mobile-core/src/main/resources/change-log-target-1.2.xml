@@ -64,4 +64,20 @@
             <column name="last_modified" valueDate="2011-06-22 11:27:00"/>
         </insert>
     </changeSet>
+    <changeSet context="update" id="1000000000000-64" author="ThoughtWorks">
+        <comment>
+            Changes to add serial number field to CWC visit form - story #164
+        </comment>
+        <insert tableName="incoming_message_form_parameter_definition">
+            <column name="id" valueNumeric="10000000001858"/>
+            <column name="obj_vesion" valueNumeric="0"/>
+            <column name="incoming_message_form_definition_id" valueNumeric="200000000000009"/>
+            <column name="name" value="SerialNumber"/>
+            <column name="parameter_type" value="SERIALNUMBER"/>
+            <column name="length" valueNumeric="50"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="date_created" valueDate="2011-06-22 11:27:00"/>
+            <column name="last_modified" valueDate="2011-06-22 11:27:00"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
