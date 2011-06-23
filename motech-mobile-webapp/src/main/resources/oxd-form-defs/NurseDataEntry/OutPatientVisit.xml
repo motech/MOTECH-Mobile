@@ -30,7 +30,7 @@
     <xf:bind id="facilityId" nodeset="/generalopd/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
     <xf:bind id="formname" nodeset="/generalopd/formname" required="true()" type="xsd:string"/>
     <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/generalopd/date" required="true()" type="xsd:date"/>
-    <xf:bind constraint=". &gt;= 0 and . &lt; 2147483647" id="serialNumber" message="Number too large or negative. Keep under 2147483647" nodeset="/generalopd/serialNumber" type="xsd:int" required="true()"/>
+    <xf:bind id="serialNumber" nodeset="/generalopd/serialNumber" type="xsd:string" required="true()"/>
     <xf:bind action="show" id="motechId" nodeset="/generalopd/motechId" relevant="/generalopd/formname = 'motheropd-jf' or /generalopd/formname = 'childopd-jf'" type="xsd:int" visible="false()" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long" required="true()"/>
     <xf:bind action="show" id="sex" nodeset="/generalopd/sex" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" constraint=". &lt;= 'today()'" id="dateOfBirth" message="Invalid date: date specified is in the future" nodeset="/generalopd/dateOfBirth" relevant="/generalopd/formname = 'generalopd-jf'" required="true()" type="xsd:date" visible="false()"/>

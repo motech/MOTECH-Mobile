@@ -80,4 +80,13 @@
             <column name="last_modified" valueDate="2011-06-22 11:27:00"/>
         </insert>
     </changeSet>
+    <changeSet context="update" id="1000000000000-65" author="ThoughtWorks">
+        <comment>
+            Changes to modify the type of the  serial number field - story #169
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="parameter_type" value="SERIALNUMBER"/>
+            <where>id in(10000000001504, 10000000001604, 10000000001704)</where>
+        </update>
+    </changeSet>
 </databaseChangeLog>
