@@ -2,6 +2,9 @@ package org.motechproject.mobile.domain.message;
 
 import org.motechproject.mobile.strategy.ContentExtractionStrategy;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.text.ParseException;
 import java.util.Date;
 
 public class SMSMessage {
@@ -10,9 +13,10 @@ public class SMSMessage {
     private String number;
     private String key;
     private String code;
-    private Date time;
+    private String time;
+    private static final String UTF_8 = "UTF-8";
 
-    
+
     public void setText(String text) {
         this.text = text;
     }
@@ -33,11 +37,11 @@ public class SMSMessage {
     }
 
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -45,8 +49,17 @@ public class SMSMessage {
         return expected.equalsIgnoreCase(key);
     }
 
-    public ParsedMessage parseWith(ContentExtractionStrategy strategy) {
-        SupportCase supportCase = strategy.extract(text);
-        return new ParsedMessage(number,key,code,time,supportCase);
+    public ParsedMessage parseWith(ContentExtractionStrategy strategy) throws UnsupportedEncodingException, ParseException {
+        SupportCase supportCase = strategy.extract(decode(text));
+        return new ParsedMessage(decode(number), key, code, decodeToDate(time), supportCase);
+    }
+
+    private Date decodeToDate(String time) throws UnsupportedEncodingException, ParseException {
+        String decodedTimeValue = decode(time);
+        return new MessageDateFormat().parse(decodedTimeValue);
+    }
+
+    private String decode(String value) throws UnsupportedEncodingException {
+        return URLDecoder.decode(value, UTF_8);
     }
 }

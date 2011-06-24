@@ -16,8 +16,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
@@ -30,7 +30,7 @@ public class IncomingMessageControllerTest  {
     private MailTemplate mailTemplate;
 
     @Test
-    public void shouldSendMail() {
+    public void shouldSendMail() throws UnsupportedEncodingException, ParseException {
         JavaMailSender messenger = createMock(JavaMailSender.class);
         RegistrarService registrarService = createMock(RegistrarService.class);
 
@@ -43,9 +43,9 @@ public class IncomingMessageControllerTest  {
         SMSMessage message = new SMSMessage();
         message.setText("SUPPORT 465 Network Failure");
         message.setCode("1982");
-        message.setNumber("0123456789");
+        message.setNumber("%2B233123456789");
         message.setKey("SUPPORT");
-        message.setTime(new Date());
+        message.setTime("2011-06-24+09:30:29");
 
         controller.setMailTemplate(mailTemplate);
 
@@ -71,7 +71,7 @@ public class IncomingMessageControllerTest  {
     }
 
     @Test
-    public void shouldReturnUnknownKeywordMessageIfKeywordNotRecognized() {
+    public void shouldReturnUnknownKeywordMessageIfKeywordNotRecognized() throws UnsupportedEncodingException, ParseException {
         IncomingMessageController controller = new IncomingMessageController();
         SMSMessage message = new SMSMessage();
         message.setText("Some 465 Issue");
@@ -83,7 +83,7 @@ public class IncomingMessageControllerTest  {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("abc@abc.com");
         mailMessage.setTo("xyz@xyz.com");
-        mailMessage.setSubject("Support: Case reported by Joe Jee on " + new SimpleDateFormat("dd-mm-yyyy").format(new Date()));
+        mailMessage.setSubject("Support: Case reported by Joe Jee on 2011-06-24 09:30:29");
         mailMessage.setText("Joe Jee with Staff id 123 reported the following issue: Network Failure");
         return mailMessage;
     }

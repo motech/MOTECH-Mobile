@@ -28,4 +28,8 @@ public class ParsedMessage {
     public String caseDescription() {
         return supportCase.description();
     }
+
+    public String senderPhoneNumber(){
+        return senderPhoneNumber;
+    }
 }

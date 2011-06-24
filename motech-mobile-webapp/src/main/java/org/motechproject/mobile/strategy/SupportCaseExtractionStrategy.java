@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class SupportCaseExtractionStrategy implements ContentExtractionStrategy {
 
-    private String messageExpression = "(SUPPORT\\s+\\d+){1}";
+    private String messageExpression ;
     private static final String SPACE = " ";
     private static final String WHITESPACE_CHARS = "\\s+";
 

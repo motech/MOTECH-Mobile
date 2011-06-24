@@ -1,7 +1,9 @@
 package org.motechproject.mobile.web;
 
+import org.apache.log4j.Logger;
 import org.motechproject.mobile.domain.mail.Mail;
 import org.motechproject.mobile.domain.mail.MailTemplate;
+import org.motechproject.mobile.domain.message.MessageDateFormat;
 import org.motechproject.mobile.domain.message.ParsedMessage;
 import org.motechproject.mobile.domain.message.SMSMessage;
 import org.motechproject.mobile.strategy.ContentExtractionStrategy;
@@ -17,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.text.SimpleDateFormat;
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,17 +47,20 @@ public class IncomingMessageController {
     @Autowired
     private MailTemplate mailTemplate;
 
+    private static Logger log = Logger.getLogger(IncomingMessageController.class);
+
 
     private static final String KEYWORD = "SUPPORT";
 
 
+
     @RequestMapping(value = "/incomingmessage", method = RequestMethod.GET)
-    public ModelAndView sendMail(@ModelAttribute SMSMessage smsMessage) {
+    public ModelAndView sendMail(@ModelAttribute SMSMessage smsMessage) throws UnsupportedEncodingException, ParseException {
         if (smsMessage.hasKeyword(KEYWORD)) {
             ParsedMessage parsedMessage = smsMessage.parseWith(contentExtractionStrategy);
-            SimpleMailMessage message = new SimpleMailMessage(templateMessage);
             Map data = dataFrom(parsedMessage);
             Mail mail = new Mail(mailTemplate).with(data);
+            SimpleMailMessage message = new SimpleMailMessage(templateMessage);
             message.setSubject(mail.subject());
             message.setText(mail.body());
             messenger.send(message);
@@ -67,7 +73,7 @@ public class IncomingMessageController {
         Map data = new HashMap();
         MotechStaff staff = registrarService.getStaffDetails(parsedMessage.caseRaisedBy());
         data.put("staff", staff);
-        data.put("date", new SimpleDateFormat("dd-mm-yyyy").format(parsedMessage.getTimeReported()));
+        data.put("date", new MessageDateFormat().format(parsedMessage.getTimeReported()));
         data.put("message", parsedMessage.caseDescription());
         return data;
     }
