@@ -105,4 +105,8 @@
         </property>
     </bean>
 
+    <bean id="incomingMessageController" class="org.motechproject.mobile.web.IncomingMessageController">
+        <property name="redirectionURL" value="http://localhost:8080/openmrs/module/motechmodule/incomingmessage.form"/>
+    </bean>
+
 </beans>
