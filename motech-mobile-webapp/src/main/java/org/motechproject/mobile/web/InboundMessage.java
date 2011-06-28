@@ -58,4 +58,8 @@ public class InboundMessage {
         return builder.toString();
     }
 
+    @Override
+    public String toString() {
+        return "Issue { " + text + " } sent from " + number;
+    }
 }

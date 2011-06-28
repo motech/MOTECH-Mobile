@@ -1,14 +1,9 @@
 package org.motechproject.mobile.web;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:META-INF/test-incoming-servlet.xml"})
 public class IncomingMessageControllerTest  {
 
     @Test

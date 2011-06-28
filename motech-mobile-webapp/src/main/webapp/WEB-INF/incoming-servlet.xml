@@ -66,47 +66,16 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.motechproject.mobile.web"/>
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
-    <bean id="messenger" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="localhost"/>
-        <property name="port" value="25"/>
-        <property name="username" value="motech.ghana.tw"/>
-        <property name="password" value="Openmr5tw"/>
-    </bean>
-
-    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-        <property name="from" value="no-reply@grameenfoundation.org"/>
-        <!--<property name="to" value="motechsupport@grameenfoundation.org"/>-->
-        <property name="to" value="sroy@thoughtworks.com"/>
-    </bean>
-
-    <bean id="contentExtractionStrategy" class="org.motechproject.mobile.strategy.SupportCaseExtractionStrategy">
-        <property name="messageExpression" value="(SUPPORT\s+\d+){1}"/>
-    </bean>
-
-    <bean id="mailTemplate" class="org.motechproject.mobile.domain.mail.MailTemplate">
-        <constructor-arg index="0" type="java.lang.String" value="vm/mail_subject.vm"></constructor-arg>
-        <constructor-arg index="1" type="java.lang.String" value="vm/mail_body.vm"></constructor-arg>
-        <property name="velocityEngine" ref="velocityEngine"/>
-    </bean>
-
-
-    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="velocityProperties">
-            <value>
-                resource.loader=class
-                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-            </value>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:motech-settings.properties</value>
+            </list>
         </property>
     </bean>
 
     <bean id="incomingMessageController" class="org.motechproject.mobile.web.IncomingMessageController">
-        <property name="redirectionURL" value="http://localhost:8080/openmrs/module/motechmodule/incomingmessage.form"/>
+        <property name="redirectionURL" value="${incoming.message.redirect.url}"/>
     </bean>
 
 </beans>

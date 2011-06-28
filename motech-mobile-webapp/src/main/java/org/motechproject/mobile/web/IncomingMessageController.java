@@ -16,6 +16,7 @@ public class IncomingMessageController {
 
     @RequestMapping(value = "/incomingmessage", method = RequestMethod.GET)
     public String sendMail(@ModelAttribute InboundMessage message)  {
+        log.info(message);
         return REDIRECT + redirectionURL + message.requestParameters();
     }
 
