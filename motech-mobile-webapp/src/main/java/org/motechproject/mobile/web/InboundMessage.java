@@ -1,5 +1,9 @@
 package org.motechproject.mobile.web;
 
+import org.motechproject.ws.RequestParameterBuilder;
+
+import java.io.UnsupportedEncodingException;
+
 public class InboundMessage {
     private String text;
     private String number;
@@ -48,13 +52,13 @@ public class InboundMessage {
         this.time = time;
     }
 
-    public String requestParameters() {
-        StringBuilder builder = new StringBuilder("?");
-        builder.append("text=").append(text).append(AMP);
-        builder.append("key=").append(key).append(AMP);
-        builder.append("code=").append(code).append(AMP);
-        builder.append("number=").append(number).append(AMP);
-        builder.append("time=").append(time);
+    public String requestParameters() throws UnsupportedEncodingException {
+        RequestParameterBuilder builder = new RequestParameterBuilder("?","UTF-8");
+        builder.append("text",text);
+        builder.append("number",number);
+        builder.append("key",key);
+        builder.append("time",time);
+        builder.append("code",code);
         return builder.toString();
     }
 

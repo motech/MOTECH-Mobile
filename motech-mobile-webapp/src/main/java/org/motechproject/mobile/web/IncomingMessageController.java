@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.UnsupportedEncodingException;
+
 @Controller
 public class IncomingMessageController {
 
@@ -15,7 +17,7 @@ public class IncomingMessageController {
     private static final String REDIRECT = "redirect:";
 
     @RequestMapping(value = "/incomingmessage", method = RequestMethod.GET)
-    public String sendMail(@ModelAttribute InboundMessage message)  {
+    public String sendMail(@ModelAttribute InboundMessage message) throws UnsupportedEncodingException {
         log.info(message);
         return REDIRECT + redirectionURL + message.requestParameters();
     }
