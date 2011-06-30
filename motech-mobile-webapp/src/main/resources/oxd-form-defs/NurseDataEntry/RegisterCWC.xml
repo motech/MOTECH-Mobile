@@ -97,7 +97,7 @@
     <xf:bind id="facilityId" nodeset="/CWCRegistration/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
     <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date entered is in the future" nodeset="/CWCRegistration/date" required="true()" type="xsd:date"/>
     <xf:bind id="motechId" nodeset="/CWCRegistration/motechId" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
-    <xf:bind id="cwcRegNumber" nodeset="/CWCRegistration/cwcRegNumber" type="xsd:string"/>
+    <xf:bind id="cwcRegNumber" nodeset="/CWCRegistration/cwcRegNumber" type="xsd:string" required="true()"/>
     <xf:bind id="enroll" nodeset="/CWCRegistration/enroll" required="true()" type="xsd:string"/>
     <xf:bind action="show" id="consent" nodeset="/CWCRegistration/consent" relevant="/CWCRegistration/enroll = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="ownership" nodeset="/CWCRegistration/ownership" relevant="/CWCRegistration/consent = 'Y'" required="true()" type="xsd:string" visible="false()"/>

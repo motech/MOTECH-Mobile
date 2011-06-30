@@ -98,4 +98,14 @@
             <where>id in(10000000001857, 10000000001858)</where>
         </update>
     </changeSet>
+    <changeSet context="update" id="1000000000000-67" author="ThoughtWorks">
+        <comment>
+            Changes to modify the type of the  serial number field - story #178
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="parameter_type" value="SERIALNUMBER"/>
+            <where>id in(10000000001305, 10000000001828, 10000000001205, 10000000001831)</where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>
