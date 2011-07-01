@@ -230,7 +230,7 @@
             <dependency>
                 <groupId>org.motechproject</groupId>
                 <artifactId>motech-wsapi</artifactId>
-                <version>1.1-SNAPSHOT</version>
+                <version>1.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
