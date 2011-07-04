@@ -322,6 +322,29 @@ public class FormProcessorImplTest {
     }
 
     @Test
+    public void shouldProcessReisterCWCChildLanguage() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("REGISTERCWCCHILD-JF");
+
+        IncomingMessageFormParameterImpl languageParam = new IncomingMessageFormParameterImpl();
+        String comment = "en";
+        languageParam.setValue(comment);
+        form.addIncomingMsgFormParam("language", languageParam);
+        Capture<String> languageCaputre = new Capture<String>();
+
+        mockWebService.registerCWCChild((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (String) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), capture(languageCaputre), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals("en",languageCaputre.getValue());
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
     public void shouldProcessRegisterANCMother() throws ValidationException {
         form.setMessageFormStatus(IncMessageFormStatus.VALID);
         form.getIncomingMsgFormDefinition().setFormCode("REGISTERANCMOTHER-JF");
@@ -332,6 +355,30 @@ public class FormProcessorImplTest {
         replay(mockWebService);
         instance.processForm(form);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldProcessRegisterANCMotherLanguage() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("REGISTERANCMOTHER-JF");
+
+        IncomingMessageFormParameterImpl languageParam = new IncomingMessageFormParameterImpl();
+        String comment = "en";
+        languageParam.setValue(comment);
+        form.addIncomingMsgFormParam("language", languageParam);
+
+        Capture<String> languageCaputre = new Capture<String>();
+
+        mockWebService.registerANCMother((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (Integer) anyObject(), (String) anyObject(), (Date) anyObject(), (Double) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (ContactNumberType) anyObject(), (String) anyObject(), (MediaType) anyObject(), capture(languageCaputre), (DayOfWeek) anyObject(), (Date) anyObject(), (HowLearned) anyObject());
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        assertEquals("en",languageCaputre.getValue());
         verify(mockWebService);
 
         reset(mockWebService);
