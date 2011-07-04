@@ -37,6 +37,7 @@
  */
 package org.motechproject.mobile.imp.util;
 
+import org.easymock.Capture;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -542,6 +543,31 @@ public class FormProcessorImplTest {
         replay(mockWebService);
         instance.processForm(form);
         assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        verify(mockWebService);
+
+        reset(mockWebService);
+    }
+
+    @Test
+    public void shouldRegisterGeneralOutpatientVisitsWithComments() throws ValidationException {
+        form.setMessageFormStatus(IncMessageFormStatus.VALID);
+        form.getIncomingMsgFormDefinition().setFormCode("GENERALOPD-JF");
+
+        IncomingMessageFormParameterImpl commentsParam = new IncomingMessageFormParameterImpl();
+        String comment = "testComments";
+        commentsParam.setValue(comment);
+        form.addIncomingMsgFormParam("comments", commentsParam);
+
+        Capture<String> commentCaputre = new Capture<String>();
+
+
+        mockWebService.recordGeneralVisit((Integer) anyObject(), (Integer) anyObject(), (Date) anyObject(), (String) anyObject(), (Gender) anyObject(), (Date) anyObject(), (Boolean) anyObject(), (Integer) anyObject(), (Integer) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), (Boolean) anyObject(), capture(commentCaputre));
+        expectLastCall();
+
+        replay(mockWebService);
+        instance.processForm(form);
+        assertEquals(form.getMessageFormStatus(), IncMessageFormStatus.SERVER_VALID);
+        assertEquals("testComments",commentCaputre.getValue());
         verify(mockWebService);
 
         reset(mockWebService);

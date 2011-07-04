@@ -45,7 +45,7 @@
     <xf:bind action="show" id="rdtPositive" nodeset="/generalopd/rdtPositive" relevant="/generalopd/rdtGiven = 'Y'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind action="show" id="actTreated" nodeset="/generalopd/actTreated" relevant="/generalopd/diagnosis = '63' or /generalopd/diagnosis = '64' or /generalopd/secondDiagnosis = '63' or /generalopd/secondDiagnosis = '64'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind id="referred" nodeset="/generalopd/referred" required="true()" type="xsd:string"/>
-    <xf:bind action="show" id="comments" nodeset="/generalopd/comments" relevant="/generalopd/formname = 'motheropd-jf' or /generalopd/formname = 'childopd-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind id="comments" nodeset="/generalopd/comments"  type="xsd:string" required="false()"/>
     <xf:bind id="formtype" nodeset="/generalopd/formtype" required="true()" type="xsd:string" visible="false()"/>
   </xf:model>
   <xf:group id="1">
