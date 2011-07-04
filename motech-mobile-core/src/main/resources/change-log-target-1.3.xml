@@ -35,8 +35,8 @@
 -->
 
 <!--
-    Document   : motech-main-change-log.xml
-    Created on : August 18, 2010, 2:12 PM
+    Document   : change-log-target-0.8.0.xml
+    Created on : August 24, 2010, 12:50 PM
     Author     : joseph
     Description:
         Purpose of the document follows.
@@ -47,17 +47,25 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <!--  Note for 0.8.0 upgrade deployment : please comment out both motech-schema-log ang motech-schema-insert-log tags
-    and uncomment change-log-target-0.8.0 tag
 
-Note for fresh motech-mobile setupt: please keep this changelog file unchanged.
-    -->
-    <include file="motech-schema-log.xml"/>
-    <include file="motech-schema-insert-log.xml"/>
-    <include file="change-log-target-0.8.0.xml"/>
-    <include file="ivr-change-log.xml"/>
-    <include file="change-log-target-1.1.xml"/>
-    <include file="change-log-target-1.2.xml"/>
-    <include file="change-log-target-1.3.xml"/>
+    <changeSet context="update" id="1000000000000-68" author="ThoughtWorks">
+        <comment>
+            Changes to modify the type of the Names fields - story #161
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="parameter_type" value="NAME"/>
+            <where>id in( 10000000000219,10000000000227,10000000000235,10000000001007,10000000001008,10000000001009,10000000001010,92366865767568,473346463981212,473346463981218,473346463981224,695474663923359,695474663923360,695474663923361,1233574663923359,1233674663923360,1233774663923361,10000000001822,10000000001823 , 10000000001824 , 10000000001825 )</where>
+        </update>
+    </changeSet>
+
+    <changeSet context="update" id="1000000000000-69" author="ThoughtWorks">
+        <comment>
+            renaming preferredName to prefferedName - story #161
+        </comment>
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="name" value="prefferedName"/>
+            <where>name = 'preferredName'</where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>
-
