@@ -351,15 +351,10 @@
                 <entry key="cwcLocation" value="java.lang.Integer" />
                 <entry key="house" value="java.lang.String" />
                 <entry key="community" value="java.lang.String" />
-                <entry key="bcg" value="java.lang.Boolean" />
+                <entry key="immunizations" value="java.lang.String" />
                 <entry key="opvDose" value="java.lang.Integer" />
                 <entry key="pentaDose" value="java.lang.Integer" />
-                <entry key="measles" value="java.lang.Boolean" />
-                <entry key="yellowFever" value="java.lang.Boolean" />
-                <entry key="csm" value="java.lang.Boolean" />
                 <entry key="iptiDose" value="java.lang.Integer" />
-                <entry key="vitaminA" value="java.lang.Boolean" />
-                <entry key="dewormer" value="java.lang.Boolean" />
                 <entry key="weight" value="java.lang.Double" />
                 <entry key="muac" value="java.lang.Double" />
                 <entry key="height" value="java.lang.Double" />

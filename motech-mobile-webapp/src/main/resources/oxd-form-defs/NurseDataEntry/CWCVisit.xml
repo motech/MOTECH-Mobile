@@ -8,16 +8,10 @@
         <date/>
         <motechId/>
         <serialNumber/>
-        <immunization/>
-        <bcg/>
+        <immunizations/>
         <opvdose/>
         <pentadose/>
-        <yellowfever/>
-        <csm/>
-        <measles/>
         <iptidose/>
-        <vitaminA/>
-        <dewormer/>
         <weight/>
         <muac/>
         <height/>
@@ -35,16 +29,10 @@
     <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/child/date" required="true()" type="xsd:date"/>
     <xf:bind id="motechId" nodeset="/child/motechId" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
       <xf:bind id="serialNumber" nodeset="/child/serialNumber"  type="xsd:string" required="true()"/>
-    <xf:bind id="immunization" nodeset="/child/immunization" required="true()" type="xsd:string"/>
-    <xf:bind action="show" id="bcg" nodeset="/child/bcg" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind action="show" id="opvdose" nodeset="/child/opvdose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind action="show" id="pentadose" nodeset="/child/pentadose" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind action="show" id="yellowfever" nodeset="/child/yellowfever" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind action="show" id="csm" nodeset="/child/csm" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind action="show" id="measles" nodeset="/child/measles" relevant="/child/immunization = 'Y'" required="true()" type="xsd:string" visible="false()"/>
-    <xf:bind id="iptidose" nodeset="/child/iptidose" required="true()" type="xsd:string"/>
-    <xf:bind id="vitaminA" nodeset="/child/vitaminA" required="true()" type="xsd:string"/>
-    <xf:bind id="dewormer" nodeset="/child/dewormer" required="true()" type="xsd:string"/>
+    <xf:bind id="immunizations" nodeset="/child/immunizations" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="opvdose" nodeset="/child/opvdose" relevant="/child/immunizations = 'opv'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="pentadose" nodeset="/child/pentadose" relevant="/child/immunizations = 'penta'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="iptidose" nodeset="/child/iptidose" relevant="/child/immunizations = 'ipti'" required="true()" type="xsd:string" visible="false()"/>
     <xf:bind constraint=". &gt;= 1 and . &lt;= 80" id="weight" message="Value out of range: must be between 1 and 80" nodeset="/child/weight" type="xsd:decimal"/>
     <xf:bind constraint=". &gt;= 5 and . &lt;= 25" id="muac" message="Value out of range: must be between 5 and 25" nodeset="/child/muac" type="xsd:decimal"/>
     <xf:bind constraint=". &gt;= 26 and . &lt;= 160" id="height" message="Value out of range: must be between 26 and 160" nodeset="/child/height" type="xsd:decimal"/>
@@ -73,35 +61,48 @@
     <xf:input bind="serialNumber">
       <xf:label>Serial Number</xf:label>
     </xf:input>
-    <xf:select1 bind="immunization">
-      <xf:label>Immunization</xf:label>
-      <xf:item id="Y">
-        <xf:label>Yes</xf:label>
-        <xf:value>Y</xf:value>
+    <xf:select bind="immunizations">
+      <xf:label>Immunizations</xf:label>
+      <xf:item id="1">
+        <xf:label>BCG</xf:label>
+        <xf:value>bcg</xf:value>
       </xf:item>
-      <xf:item id="N">
-        <xf:label>No</xf:label>
-        <xf:value>N</xf:value>
+      <xf:item id="2">
+        <xf:label>OPV</xf:label>
+        <xf:value>opv</xf:value>
       </xf:item>
-    </xf:select1>
-    <xf:select1 bind="bcg">
-      <xf:label>BCG</xf:label>
-      <xf:item id="Y">
-        <xf:label>Yes</xf:label>
-        <xf:value>Y</xf:value>
+      <xf:item id="3">
+        <xf:label>Penta</xf:label>
+        <xf:value>penta</xf:value>
       </xf:item>
-      <xf:item id="N">
-        <xf:label>No</xf:label>
-        <xf:value>N</xf:value>
+      <xf:item id="4">
+        <xf:label>Yellow Fever</xf:label>
+        <xf:value>yellowfever</xf:value>
       </xf:item>
-    </xf:select1>
+      <xf:item id="5">
+        <xf:label>CSM</xf:label>
+        <xf:value>csm</xf:value>
+      </xf:item>
+      <xf:item id="6">
+        <xf:label>Measles</xf:label>
+        <xf:value>measles</xf:value>
+      </xf:item>
+      <xf:item id="7">
+        <xf:label>IPTi</xf:label>
+        <xf:value>ipti</xf:value>
+      </xf:item>
+      <xf:item id="8">
+        <xf:label>Vitamin A</xf:label>
+        <xf:value>vitamina</xf:value>
+      </xf:item>
+      <xf:item id="9">
+        <xf:label>Dewormer</xf:label>
+        <xf:value>dewormer</xf:value>
+      </xf:item>
+    </xf:select>
     <xf:select1 bind="opvdose">
       <xf:label>OPV</xf:label>
-      <xf:item id="NA">
-        <xf:label>None given</xf:label>
-        <xf:value>NA</xf:value>
-      </xf:item>
-     <xf:item id="0">
+      <xf:item id="0">
         <xf:label>OPV 0</xf:label>
         <xf:value>1</xf:value>
       </xf:item>
@@ -120,10 +121,6 @@
     </xf:select1>
     <xf:select1 bind="pentadose">
       <xf:label>Penta</xf:label>
-      <xf:item id="NA">
-        <xf:label>None given</xf:label>
-        <xf:value>NA</xf:value>
-      </xf:item>
       <xf:item id="1">
         <xf:label>Penta 1</xf:label>
         <xf:value>1</xf:value>
@@ -137,45 +134,8 @@
         <xf:value>3</xf:value>
       </xf:item>
     </xf:select1>
-    <xf:select1 bind="yellowfever">
-      <xf:label>Yellow Fever</xf:label>
-      <xf:item id="Y">
-        <xf:label>Yes</xf:label>
-        <xf:value>Y</xf:value>
-      </xf:item>
-      <xf:item id="N">
-        <xf:label>No</xf:label>
-        <xf:value>N</xf:value>
-      </xf:item>
-    </xf:select1>
-    <xf:select1 bind="csm">
-      <xf:label>CSM</xf:label>
-      <xf:item id="Y">
-        <xf:label>Yes</xf:label>
-        <xf:value>Y</xf:value>
-      </xf:item>
-      <xf:item id="N">
-        <xf:label>No</xf:label>
-        <xf:value>N</xf:value>
-      </xf:item>
-    </xf:select1>
-    <xf:select1 bind="measles">
-      <xf:label>Measles</xf:label>
-      <xf:item id="Y">
-        <xf:label>Yes</xf:label>
-        <xf:value>Y</xf:value>
-      </xf:item>
-      <xf:item id="N">
-        <xf:label>No</xf:label>
-        <xf:value>N</xf:value>
-      </xf:item>
-    </xf:select1>
     <xf:select1 bind="iptidose">
       <xf:label>IPTi</xf:label>
-      <xf:item id="NA">
-        <xf:label>None given</xf:label>
-        <xf:value>NA</xf:value>
-      </xf:item>
       <xf:item id="1">
         <xf:label>IPTi 1</xf:label>
         <xf:value>1</xf:value>
@@ -187,28 +147,6 @@
       <xf:item id="3">
         <xf:label>IPTi 3</xf:label>
         <xf:value>3</xf:value>
-      </xf:item>
-    </xf:select1>
-    <xf:select1 bind="vitaminA">
-      <xf:label>Vitamin A</xf:label>
-      <xf:item id="Y">
-        <xf:label>Yes</xf:label>
-        <xf:value>Y</xf:value>
-      </xf:item>
-      <xf:item id="N">
-        <xf:label>No</xf:label>
-        <xf:value>N</xf:value>
-      </xf:item>
-    </xf:select1>
-    <xf:select1 bind="dewormer">
-      <xf:label>Dewormer</xf:label>
-      <xf:item id="Y">
-        <xf:label>Yes</xf:label>
-        <xf:value>Y</xf:value>
-      </xf:item>
-      <xf:item id="N">
-        <xf:label>No</xf:label>
-        <xf:value>N</xf:value>
       </xf:item>
     </xf:select1>
     <xf:input bind="weight">
