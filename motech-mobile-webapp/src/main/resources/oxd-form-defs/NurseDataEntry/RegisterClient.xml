@@ -1644,7 +1644,7 @@
                     <value>nan</value>
                 </item>
                 <item id="fan" parent="PERS_VOICE">
-                    <label>Fanti</label>
+                    <label>Fante</label>
                     <value>fan</value>
                 </item>
                 <item id="en" parent="PERS_TEXT">
@@ -1664,7 +1664,7 @@
                     <value>nan</value>
                 </item>
                 <item id="fan" parent="HSE_VOICE">
-                    <label>Fanti</label>
+                    <label>Fante</label>
                     <value>fan</value>
                 </item>
                 <item id="en" parent="HSE_TEXT">
@@ -1684,7 +1684,7 @@
                     <value>nan</value>
                 </item>
                 <item id="fan" parent="PUB_VOICE">
-                    <label>Fanti</label>
+                    <label>Fante</label>
                     <value>fan</value>
                 </item>
             </dynamiclist>
