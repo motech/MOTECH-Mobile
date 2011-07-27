@@ -1,28 +1,48 @@
 package org.motechproject.mobile.web;
 
 import org.junit.Test;
+import org.motechproject.ws.Response;
+import org.motechproject.ws.SMS;
+import org.motechproject.ws.server.RegistrarService;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
 
+import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class IncomingMessageControllerTest  {
 
     @Test
     public void shouldRedirectToOpenMRS() throws UnsupportedEncodingException {
-        InboundMessage message = new InboundMessage();
-        message.setCode("1982");
-        message.setKey("SUPPORT");
-        message.setNumber("+233123456789");
-        message.setText("Hi");
-        message.setTime("2011-03-03 10:10:10");
+        RegistrarService registrarService = createMock(RegistrarService.class);
         IncomingMessageController messageController = new IncomingMessageController();
-        messageController.setRedirectionURL("http://localhost:8080/openmrs/module/motechmodule/incomingmessage");
-        String redirection = messageController.sendMail(message);
-        assertEquals
-          ("redirect:http://localhost:8080/openmrs/module/motechmodule/incomingmessage" +
-                  "?text=Hi&number=%2B233123456789&key=SUPPORT&time=2011-03-03+10%3A10%3A10&code=1982"
-                  ,redirection);
+        messageController.setRegistrarService(registrarService);
+
+        SMS sms = sms();
+        expect(registrarService.processSMS(sms)).andReturn(new Response("OK.Tested"));
+
+        replay(registrarService);
+
+        ModelAndView modelAndView = messageController.processSMS(sms);
+
+        verify(registrarService);
+
+        assertNotNull(modelAndView);
+        assertEquals("sms_response",modelAndView.getViewName());
+        assertEquals("OK.Tested",modelAndView.getModel().get("response"));
+
+    }
+
+    private SMS sms() {
+        SMS sms = new SMS();
+        sms.setCode("1982");
+        sms.setKey("SUPPORT");
+        sms.setNumber("+233123456789");
+        sms.setText("Hi");
+        sms.setTime("2011-03-03 10:10:10");
+        return sms;
     }
 
 }
