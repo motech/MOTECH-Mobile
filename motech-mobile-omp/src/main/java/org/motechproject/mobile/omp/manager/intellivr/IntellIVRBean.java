@@ -187,8 +187,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
             boolean isErrorCondition = recipientID == null || phone == null || gatewayRequest.getMessageRequest().getMessageType() == MessageType.TEXT;
             if (isErrorCondition) {
                 status = StatusType.ERROR.value();
-            }
-            else {
+            } else {
                 String phoneType = gatewayRequest.getMessageRequest().getPhoneNumberType();
                 if (phoneType.equalsIgnoreCase("PERSONAL") || phoneType.equalsIgnoreCase("HOUSEHOLD")) {
                     Language language = gatewayRequest.getMessageRequest().getLanguage();
@@ -202,8 +201,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
                         session.getMessageRequests().add(gatewayRequest.getMessageRequest());
                         ivrDao.saveIVRCallSession(session);
                         log.debug("Created session " + session);
-                    }
-                    else {
+                    } else {
                         existingSessions.get(0).getMessageRequests().add(gatewayRequest.getMessageRequest());
                         log.debug("Using session " + existingSessions.get(0));
                     }
@@ -327,7 +325,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
                     notificationIDs.append("|");
                 }
                 requestIds.append(mRequest.getId());
-                notificationIDs.append(mRequest.getNotificationType().getId().toString());
+                String notificationTypeId = (mRequest.getNotificationType() != null)
+                                                ? mRequest.getNotificationType().getId().toString()
+                                                : "NULL";
+                notificationIDs.append(notificationTypeId);
             }
 
             StringBuilder reminders = new StringBuilder();
@@ -404,6 +405,11 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
         MessageRequest infoRequest = null;
         List<String> reminderMessages = new ArrayList<String>();
         for (MessageRequest messageRequest : messageRequests) {
+
+            if (messageRequest.getNotificationType() == null) {
+                log.info("Notification type not found for message request id :" + messageRequest.getId());
+                continue;
+            }
 
             long notificationId = messageRequest.getNotificationType().getId();
 
