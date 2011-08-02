@@ -70,9 +70,10 @@
 
     <changeSet context="update" id="1000000000000-70" author="ThoughtWorks">
         <comment>CWC form changes</comment>
-        <delete tableName="incoming_message_form_parameter_definition">
+        <update tableName="incoming_message_form_parameter_definition">
+            <column name="required" valueBoolean="false"></column>
             <where>id in(10000000000908,10000000000911,10000000000912,10000000000913,10000000000915,10000000000916)</where>
-        </delete>
+        </update>
         <insert tableName="incoming_message_form_parameter_definition">
             <column name="id" valueNumeric="10000000000922"/>
             <column name="obj_vesion" valueNumeric="0"/>
