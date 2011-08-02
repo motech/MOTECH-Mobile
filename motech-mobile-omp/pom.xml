@@ -3,13 +3,13 @@
     <groupId>org.motechproject.mobile</groupId>
     <artifactId>motech-mobile-omp</artifactId>
     <packaging>jar</packaging>
-    <version>1.3.2</version>
+    <version>1.3.3-SNAPSHOT</version>
     <name>MoTeCH Mobile OMP</name>
     <url>https://motech.rcg.usm.maine.edu/redmine</url>
     <parent>
         <groupId>org.motechproject</groupId>
         <artifactId>motech-mobile</artifactId>
-        <version>1.3.2</version>
+        <version>1.3.3-SNAPSHOT</version>
     </parent>
     <build>
         <plugins>
