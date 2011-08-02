@@ -3,13 +3,13 @@
     <groupId>org.motechproject.mobile</groupId>
     <artifactId>motech-mobile-webapp</artifactId>
     <packaging>war</packaging>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.3.2</version>
     <name>MoTeCH Mobile WebApp</name>
     <url>http://maven.apache.org</url>
     <parent>
         <groupId>org.motechproject</groupId>
         <artifactId>motech-mobile</artifactId>
-        <version>1.3.2-SNAPSHOT</version>
+        <version>1.3.2</version>
     </parent>
     <dependencies>
 
