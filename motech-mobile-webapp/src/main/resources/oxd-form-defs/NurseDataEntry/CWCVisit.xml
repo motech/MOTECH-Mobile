@@ -63,6 +63,10 @@
     </xf:input>
     <xf:select bind="immunizations">
       <xf:label>Immunizations</xf:label>
+      <xf:item id="0">
+        <xf:label>None given</xf:label>
+        <xf:value>nonegiven</xf:value>
+      </xf:item>
       <xf:item id="1">
         <xf:label>BCG</xf:label>
         <xf:value>bcg</xf:value>
