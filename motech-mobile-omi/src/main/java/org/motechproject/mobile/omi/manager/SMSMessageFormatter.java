@@ -142,6 +142,19 @@ public class SMSMessageFormatter {
         return ("Defaulter Alerts" + result).trim();
     }
 
+    public String formatOverdueDeliveriesMessage(Patient[] patients){
+        return formatDeliveriesMessage("overdue", patients);
+    }
+
+    public String formatRecentDeliveriesMessage(Patient[] patients){
+        return formatDeliveriesMessage("recent", patients);
+    }
+
+    public String formatUpcomingDeliveriesMessage(Patient[] patients){
+        return formatDeliveriesMessage("upcoming", patients);
+    }
+
+
     public String formatDeliveriesMessage(String type, Patient[] patients) {
         int num = 0;
         String edd;
