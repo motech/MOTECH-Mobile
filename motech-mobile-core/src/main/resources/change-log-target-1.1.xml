@@ -50,7 +50,7 @@
         <update tableName="incoming_message_form_parameter_definition">
             <column name="required" valueBoolean="false"/>
             <where>id=10000000001021</where>
-        </update>                                                                                      cd logs
+        </update>
 
     </changeSet>
 

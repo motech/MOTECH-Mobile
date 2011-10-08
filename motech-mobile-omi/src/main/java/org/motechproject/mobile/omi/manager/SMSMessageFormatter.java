@@ -97,6 +97,11 @@ public class SMSMessageFormatter {
         return message;
     }
 
+
+    public String formatDefaulterMessage(Care[] cares) {
+        return formatDefaulterMessage(cares, CareMessageGroupingStrategy.NONE);
+    }
+
     public String formatDefaulterMessage(Care[] cares, CareMessageGroupingStrategy groupingStrategy) {
         String result = "";
 
@@ -142,15 +147,15 @@ public class SMSMessageFormatter {
         return ("Defaulter Alerts" + result).trim();
     }
 
-    public String formatOverdueDeliveriesMessage(Patient[] patients){
+    public String formatOverdueDeliveriesMessage(Patient[] patients) {
         return formatDeliveriesMessage("overdue", patients);
     }
 
-    public String formatRecentDeliveriesMessage(Patient[] patients){
+    public String formatRecentDeliveriesMessage(Patient[] patients) {
         return formatDeliveriesMessage("recent", patients);
     }
 
-    public String formatUpcomingDeliveriesMessage(Patient[] patients){
+    public String formatUpcomingDeliveriesMessage(Patient[] patients) {
         return formatDeliveriesMessage("upcoming", patients);
     }
 
