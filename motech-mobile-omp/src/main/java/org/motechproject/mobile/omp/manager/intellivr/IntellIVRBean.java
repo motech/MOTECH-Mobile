@@ -326,8 +326,8 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
                 }
                 requestIds.append(mRequest.getId());
                 String notificationTypeId = (mRequest.getNotificationType() != null)
-                                                ? mRequest.getNotificationType().getId().toString()
-                                                : "NULL";
+                        ? mRequest.getNotificationType().getId().toString()
+                        : "NULL";
                 notificationIDs.append(notificationTypeId);
             }
 
@@ -575,7 +575,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
                             firstRequest = false;
                         else
                             notificationIDs.append("|");
-                        notificationIDs.append(messageRequest.getNotificationType().getId().toString());
+                        NotificationType notificationType = messageRequest.getNotificationType();
+                        if (notificationType != null)
+                            notificationIDs.append(notificationType.getId().toString());
                     }
 
                     StringBuilder reminders = new StringBuilder();
