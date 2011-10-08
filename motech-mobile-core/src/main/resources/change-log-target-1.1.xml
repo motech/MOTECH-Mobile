@@ -34,7 +34,7 @@
         </update>
     </changeSet>
 
-    <changeSet context="setup" author="ThoughtWorks" id="1000000000000-54">
+    <changeSet context="update" author="ThoughtWorks" id="1000000000000-54">
         <loadData encoding="UTF-8" file="data/notification_type_child_week_5_to_52.csv" tableName="notification_type">
             <column header="id" type="NUMERIC"/>
             <column header="name" type="STRING"/>
@@ -50,10 +50,11 @@
         <update tableName="incoming_message_form_parameter_definition">
             <column name="required" valueBoolean="false"/>
             <where>id=10000000001021</where>
-        </update>
+        </update>                                                                                      cd logs
+
     </changeSet>
 
-    <changeSet context="setup" author="ThoughtWorks" id="1000000000000-56">
+    <changeSet context="update" author="ThoughtWorks" id="1000000000000-56">
         <loadData encoding="UTF-8" file="data/message_template_first_year_content.csv" tableName="message_template">
             <column header="id" type="NUMERIC"/>
             <column header="obj_vesion" type="NUMERIC"/>
