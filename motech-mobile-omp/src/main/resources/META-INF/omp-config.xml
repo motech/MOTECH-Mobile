@@ -275,27 +275,8 @@
         <property name="ivrCallRequester" ref="intellivrBean"/>
     </bean>
     
-   	<bean id="processOpenIvrSessionsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-  		<property name="targetObject" ref="intellivrBean"/>
-  		<property name="targetMethod" value="processOpenSessions" />
-  		<property name="concurrent" value="false" />
-	</bean>
-
-    <bean id="processWaitingIvrSessionsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-  		<property name="targetObject" ref="intellivrBean"/>
-  		<property name="targetMethod" value="processWaitingSessions" />
-  		<property name="concurrent" value="false" />
-	</bean>
+   
 	
-	<bean id="processOpenIvrSessionsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="processOpenIvrSessionsJob"/>
-        <property name="cronExpression" value="15/30 * * * * ?"/>
-    </bean>
-	
-	<bean id="processWaitingIvrSessionsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="processWaitingIvrSessionsJob"/>
-        <property name="cronExpression" value="0/30 * * * * ?"/>
-    </bean>
 
     <bean id="compositeHandler" class="org.motechproject.mobile.omp.manager.CompositeGatewayMessageHandler">
         <property name="textHandler" ref="dummyHandler"/>
@@ -334,6 +315,18 @@
         <property name="name" value="OMP Message Sending Service" />
         <property name="concurrent" value="false" />
     </bean>
+    
+    <bean id="processWaitingIvrSessionsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="intellivrBean"/>
+        <property name="targetMethod" value="processWaitingSessions" />
+        <property name="concurrent" value="false" />
+    </bean>
+    
+    <bean id="processOpenIvrSessionsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="intellivrBean"/>
+        <property name="targetMethod" value="processOpenSessions" />
+        <property name="concurrent" value="false" />
+    </bean>
 
     <bean id="gatewayStatusUpdater" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="smsService"/>
@@ -356,10 +349,20 @@
         <property name="jobDetail" ref="sendMessageUpdater"/>
         <property name="cronExpression" value="0 * * * * ?"/>
     </bean>
+    
+    <bean id="processOpenIvrSessionsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="processOpenIvrSessionsJob"/>
+        <property name="cronExpression" value="15/10 * * * * ?"/>
+    </bean>
+    
+    <bean id="processWaitingIvrSessionsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="processWaitingIvrSessionsJob"/>
+        <property name="cronExpression" value="59 * * * * ?"/>
+    </bean>
 
     <bean id="gatewayStatusUpdaterTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="gatewayStatusUpdater"/>
-        <property name="cronExpression" value="0 * * * * ?"/>
+        <property name="cronExpression" value="5 * * * * ?"/>
     </bean>
     <!--End Of Triggers-->
 
@@ -377,6 +380,12 @@
             <list>
                 <ref bean="ompJobExecLogger"/>
             </list>
+        </property>
+        <property name="quartzProperties">
+            <value>
+              <!-- configure Quartz to expose mbean to the JMX MbeanServer -->
+              org.quartz.scheduler.jmx.properties=true
+            </value>
         </property>
     </bean>
     <!--End Of scheduler Factory-->
