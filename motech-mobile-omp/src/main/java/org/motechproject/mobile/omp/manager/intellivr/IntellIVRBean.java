@@ -635,15 +635,16 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
     public ResponseType handleReport(ReportType report) {
         log.info("Received call report: " + report.toString());
 
-        List<String> messages = formatReportLogMessages(report);
-        for (String message : messages)
+        List<String> logMessages = formatReportLogMessages(report);
+        for (String message : logMessages)
             reportLog.info(message);
 
         //private field contains the external id specified in the original request
         String externalId = report.getPrivate();
 
-        if (externalId == null)
+        if (externalId == null){
             log.error("Unable to identify call in report: " + externalId);
+        }
         else {
 
             //look up the call
@@ -682,7 +683,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
                     /*
                           * Retry if necessary
                           */
-                    if (report.getStatus() == ReportStatusType.COMPLETED && callExceedsThreshold(session, report)) {
+                    
+                    //TODO: Fix bug and Turn onthe Below Threshold Check
+                    //if (report.getStatus() == ReportStatusType.COMPLETED && callExceedsThreshold(session, report)) {
+                    if (report.getStatus() == ReportStatusType.COMPLETED && true) {
                         //Success.  Call was complete and over the required call time threshold.
                         session.setState(IVRCallSession.CLOSED);
                     } else {
@@ -716,13 +720,16 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
                                 if (session.getDays() < this.maxDays) {
 
                                     //have not exhausted days.  try again tomorrow
+                                    session.setNextAttempt(addToDate(session.getCreated(), GregorianCalendar.DAY_OF_MONTH, session.getDays()));
+                                    
                                     //acceletateRetries is a debug option to speed up next day retries to the same day
-                                    if (accelerateRetries)
-                                        session.setNextAttempt(addToDate(new Date(), GregorianCalendar.MINUTE, 1));
-                                    else
-                                        session.setNextAttempt(addToDate(session.getCreated(), GregorianCalendar.DAY_OF_MONTH, 1));
+//                                    if (accelerateRetries){
+//                                        session.setNextAttempt(addToDate(new Date(), GregorianCalendar.MINUTE, 1));
+//                                    else{
+//                                        session.setNextAttempt(addToDate(session.getCreated(), GregorianCalendar.DAY_OF_MONTH, 1));
+//                                    }
 
-                                } else {
+                                }else {
                                     //all attempts for all days have been exhausted
                                     session.setState(IVRCallSession.CLOSED);
                                     status = "MAXATTEMPTS";
@@ -803,7 +810,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
 
         if (firstInfoEntry == null)//did not find first non-reminder
             if (shouldHaveInformationalMessage)//there should have been one
-                effectiveCallTime = 0;//insure it is below threshold
+                effectiveCallTime = 0;//ensure it is below threshold
             else if (reminderCount > 0)//no info message expected but no reminders play either
                 effectiveCallTime = callCompletedThreshold;//say it was over threshold
             else

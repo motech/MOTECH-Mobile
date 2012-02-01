@@ -74,6 +74,5 @@
         <property name="contexts" value="${contexts}"/>
     </bean>
 
+    <!--  End of liquibase settings  -->
 </beans>
-
-        <!--  End of liquibase settings  -->
