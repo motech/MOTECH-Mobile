@@ -73,8 +73,8 @@ public class IntellIVRBeanTest {
 	String n2IvrEntityName = "reminder_message1.wav";
 	long n3Id = 3;
 	String n3IvrEntityName = "reminder_message2.wav";
-	String primaryInfoRecordingName = "primary_informational_message.wav";
-	String secondaryInfoRecordingName = "secondary_informational_message.wav";
+	String primaryInfoRecordingName = "grameengh_pregnancy_week_11StartingMenuesPwd";
+	String secondaryInfoRecordingName = "grameengh_TertiaryMessagep_wk11b";
 	String recipientId1 = "1234567";
 	String phone1 = "5555551";
 	List<ErrorCodeType> fatalServerErrorCodes = new ArrayList<ErrorCodeType>();

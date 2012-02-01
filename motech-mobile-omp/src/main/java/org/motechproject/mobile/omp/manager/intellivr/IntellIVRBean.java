@@ -684,9 +684,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
                           * Retry if necessary
                           */
                     
-                    //TODO: Fix bug and Turn onthe Below Threshold Check
-                    //if (report.getStatus() == ReportStatusType.COMPLETED && callExceedsThreshold(session, report)) {
-                    if (report.getStatus() == ReportStatusType.COMPLETED && true) {
+                    
+                    if (report.getStatus() == ReportStatusType.COMPLETED && callExceedsThreshold(session, report)) {
+                    
                         //Success.  Call was complete and over the required call time threshold.
                         session.setState(IVRCallSession.CLOSED);
                     } else {
@@ -802,12 +802,15 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
         List<IvrEntryType> entries = report.getINTELLIVREntry();
 
         //iterate.  increment counter for reminder messages.  identify the first non-reminder
-        for (IvrEntryType entry : entries)
-            if (ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("break") || entry.getMenu().equalsIgnoreCase(welcomeMessageRecordingName))
+        for (IvrEntryType entry : entries){
+            if (ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("break") || entry.getMenu().equalsIgnoreCase(welcomeMessageRecordingName)){
                 reminderCount++;
-            else if (firstInfoEntry == null && (session.getCallDirection().equalsIgnoreCase(IVRCallSession.OUTBOUND) || reminderCount > 0))
+            } else if (firstInfoEntry == null && (session.getCallDirection().equalsIgnoreCase(IVRCallSession.OUTBOUND) || reminderCount > 0)){
+                if (entry.menu.contains("StartingMenu") || entry.menu.contains("TertiaryMessage"))
                 firstInfoEntry = entry;
-
+            }
+        }
+    
         if (firstInfoEntry == null)//did not find first non-reminder
             if (shouldHaveInformationalMessage)//there should have been one
                 effectiveCallTime = 0;//ensure it is below threshold
