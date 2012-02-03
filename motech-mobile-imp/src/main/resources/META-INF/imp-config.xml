@@ -138,6 +138,7 @@
                     <value>${imp.oxd.oxdFormDefsResource1}</value>
                     <value>${imp.oxd.oxdFormDefsResource2}</value>
                     <value>${imp.oxd.oxdFormDefsResource3}</value>
+                    <value>${imp.oxd.oxdFormDefsResource4}</value>
                 </list>
             </property>
             <property name="passwordEncoder">

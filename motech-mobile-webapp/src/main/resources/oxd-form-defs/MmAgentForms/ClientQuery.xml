@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="21">
+  <xf:model>
+    <xf:instance id="pat-query">
+      <pat-query id="21" name="Client Query">
+        <chpsid/>
+        <facilityid/>
+        <formname/>
+        <motechid/>
+        <firstname/>
+        <lastname/>
+        <PreferredName/>
+        <dob/>
+        <nhis/>
+        <phonenumber/>
+        <sender/>
+        <ownership/>
+        <regPhone/>
+        <formtype>query</formtype>
+      </pat-query>
+    </xf:instance>
+    <xf:bind id="chpsid" nodeset="/pat-query/chpsid" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityid" nodeset="/pat-query/facilityid" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="formname" nodeset="/pat-query/formname" required="true()" type="xsd:string"/>
+    <xf:bind action="show" id="motechid" nodeset="/pat-query/motechid" relevant="/pat-query/formname = 'upcomingcare-jf' or /pat-query/formname = 'viewpatient-jf' or /pat-query/formname = 'registerforrct-jf' " required="true()" type="xsd:int" visible="false()" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind action="show" id="firstname" nodeset="/pat-query/firstname" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="lastname" nodeset="/pat-query/lastname" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="PreferredName" nodeset="/pat-query/PreferredName" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" constraint=". &lt;= 'today()'" id="dob" message="Invalid date: date specified is in the future" nodeset="/pat-query/dob" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:date" visible="false()" required="false()"/>
+    <xf:bind action="show" id="nhis" nodeset="/pat-query/nhis" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:string" visible="false()" required="false()"/>
+    <xf:bind action="show" id="phonenumber" nodeset="/pat-query/phonenumber" relevant="/pat-query/formname = 'findmotechid-jf'" type="xsd:int" visible="false()" constraint=". &lt;= 999999999" message="Number too large. It should be 10 digits long" required="false()"/>
+    <xf:bind id="sender" constraint=". &lt;= 999999999" message="Number too large. It should be 10 digits long" nodeset="/pat-query/sender" required="true()" type="xsd:int"/>
+    <xf:bind action="show" id="ownership" nodeset="/pat-query/ownership" relevant="/pat-query/formname = 'registerforrct-jf'" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind action="show" id="regPhone" nodeset="/pat-query/regPhone" relevant="/pat-query/ownership = 'PERSONAL' or /pat-query/ownership = 'HOUSEHOLD'" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. It should be 10 digits long"/>
+    <xf:bind id="formtype" nodeset="/pat-query/formtype" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page2</xf:label>
+    <xf:input bind="chpsid">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityid">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:select1 bind="formname">
+      <xf:label>Query type</xf:label>
+      <xf:item id="upcomingcare-jf">
+        <xf:label>Upcoming care</xf:label>
+        <xf:value>upcomingcare-jf</xf:value>
+      </xf:item>
+      <xf:item id="viewpatient-jf">
+        <xf:label>Client details</xf:label>
+        <xf:value>viewpatient-jf</xf:value>
+      </xf:item>
+      <xf:item id="findmotechid-jf">
+        <xf:label>Find client ID</xf:label>
+        <xf:value>findmotechid-jf</xf:value>
+      </xf:item>
+	  <xf:item id="registerforrct-jf">
+        <xf:label>Reg-RCT</xf:label>
+        <xf:value>registerforrct-jf</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="motechid">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="firstname">
+      <xf:label>First name</xf:label>
+    </xf:input>
+    <xf:input bind="lastname">
+      <xf:label>Last name</xf:label>
+    </xf:input>
+    <xf:input bind="PreferredName">
+      <xf:label>Preferred name</xf:label>
+    </xf:input>
+    <xf:input bind="dob">
+      <xf:label>Birth date</xf:label>
+    </xf:input>
+    <xf:input bind="nhis">
+      <xf:label>NHIS number</xf:label>
+    </xf:input>
+    <xf:input bind="phonenumber">
+      <xf:label>Client phone number</xf:label>
+    </xf:input>
+    <xf:input bind="sender">
+      <xf:label>Response phone number</xf:label>
+    </xf:input>
+    <xf:select1 bind="ownership">
+      <xf:label>Phone ownership</xf:label>
+      <xf:item id="PERSONAL">
+        <xf:label>Personal phone</xf:label>
+        <xf:value>PERSONAL</xf:value>
+      </xf:item>
+      <xf:item id="HOUSEHOLD">
+        <xf:label>Household phone</xf:label>
+        <xf:value>HOUSEHOLD</xf:value>
+      </xf:item>
+      <xf:item id="PUBLIC">
+        <xf:label>Public phone</xf:label>
+        <xf:value>PUBLIC</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="regPhone">
+      <xf:label>Phone number</xf:label>
+    </xf:input>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>

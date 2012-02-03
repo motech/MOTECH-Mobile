@@ -1,0 +1,2902 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="13">
+    <xf:model>
+        <xf:instance id="patientRegistration">
+            <patientRegistration id="13" name="Reg-Client">
+                <staffId/>
+                <facilityId/>
+                <date/>
+                <registrationMode/>
+                <motechId/>
+                <sender/>
+                <registrantType/>
+                <firstName/>
+                <middleName/>
+                <lastName/>
+                <prefferedName/>
+                <dateOfBirth/>
+                <estimatedBirthDate/>
+                <sex>F</sex>
+                <insured/>
+                <nhis/>
+                <nhisExpires/>
+                <motherMotechId/>
+                <region/>
+                <district/>
+                <subDistrict/>
+                <community/>
+                <address/>
+                <phoneNumber/>
+                <cwcRegNumber/>
+                <cwcRegDateToday/>
+                <cwcRegDate/>
+                <ancRegNumber/>
+                <ancRegDateToday/>
+                <ancRegDate/>
+                <height/>
+                <gravida/>
+                <parity/>
+                <addHistory/>
+                <addChildHistory/>
+                <addMotherHistory/>
+                <lastIPT/>
+                <lastIPTDate/>
+                <lastTT/>
+                <lastTTDate/>
+                <bcgDate/>
+                <lastOPV/>
+                <lastOPVDate/>
+                <lastPenta/>
+                <lastPentaDate/>
+                <measlesDate/>
+                <yellowFeverDate/>
+                <lastIPTI/>
+                <lastIPTIDate/>
+                <lastVitaminADate/>
+                <whyNoHistory/>
+                <expDeliveryDate/>
+                <deliveryDateConfirmed/>
+                <enroll/>
+                <consent/>
+                <ownership/>
+                <regPhone/>
+                <format/>
+                <language/>
+                <dayOfWeek/>
+                <timeOfDay/>
+                <reason/>
+                <howLearned/>
+                <messageStartWeek/>
+                <formtype>data_entry</formtype>
+                <formname>registerPatient-jf</formname>
+            </patientRegistration>
+        </xf:instance>
+        <xf:instance id="district">
+            <dynamiclist>
+                <item id="upper_east" parent="ue">
+                    <label>KND</label>
+                    <value>knd</value>
+                </item>
+                <item id="kassena_nakana_west" parent="ue">
+                    <label>KNW</label>
+                    <value>kassena_nakana_west</value>
+                </item>
+                <item id="ue_other" parent="ue">
+                    <label>Other</label>
+                    <value>Other</value>
+                </item>
+                <item id="awutu_senya" parent="cen">
+                    <label>Awutu Senya</label>
+                    <value>awutu_senya</value>
+                </item>
+                <item id="cen_other" parent="cen">
+                    <label>Other</label>
+                    <value>Other</value>
+                </item>
+            </dynamiclist>
+        </xf:instance>
+        <xf:instance id="subDistrict">
+            <dynamiclist>
+                <item id="ce" parent="knd">
+                    <label>Central East</label>
+                    <value>ce</value>
+                </item>
+                <item id="cnv" parent="knd">
+                    <label>Central Navrongo</label>
+                    <value>cnv</value>
+                </item>
+                <item id="cn" parent="knd">
+                    <label>Central North</label>
+                    <value>cn</value>
+                </item>
+                <item id="cne" parent="knd">
+                    <label>Central North East</label>
+                    <value>cne</value>
+                </item>
+                <item id="cs" parent="knd">
+                    <label>Central South</label>
+                    <value>cs</value>
+                </item>
+                <item id="cw" parent="knd">
+                    <label>Central West</label>
+                    <value>cw</value>
+                </item>
+                <item id="nav" parent="kassena_nakana_west">
+                    <label>Navio</label>
+                    <value>nav</value>
+                </item>
+                <item id="kna" parent="kassena_nakana_west">
+                    <label>Katiu-Nakong</label>
+                    <value>kna</value>
+                </item>
+                <item id="kay" parent="kassena_nakana_west">
+                    <label>Kayoro</label>
+                    <value>kay</value>
+                </item>
+                <item id="cha" parent="kassena_nakana_west">
+                    <label>Chiana</label>
+                    <value>cha</value>
+                </item>
+                <item id="kanku" parent="kassena_nakana_west">
+                    <label>Kandiga-Kuguru</label>
+                    <value>kanku</value>
+                </item>
+                <item id="sir" parent="kassena_nakana_west">
+                    <label>Sirigu</label>
+                    <value>sir</value>
+                </item>
+                <item id="pac" parent="kassena_nakana_west">
+                    <label>Paga Central</label>
+                    <value>pac</value>
+                </item>
+                <item id="mir" parent="kassena_nakana_west">
+                    <label>Mirigu</label>
+                    <value>mir</value>
+                </item>
+
+                <item id="awutu" parent="awutu_senya">
+                    <label>Awutu</label>
+                    <value>awutu</value>
+                </item>
+                <item id="bawjiase" parent="awutu_senya">
+                    <label>Bawjiase</label>
+                    <value>bawjiase</value>
+                </item>
+                <item id="bontrase" parent="awutu_senya">
+                    <label>Bontrase</label>
+                    <value>bontrase</value>
+                </item>
+                <item id="kasoa" parent="awutu_senya">
+                    <label>Kasoa</label>
+                    <value>kasoa</value>
+                </item>
+                <item id="senya" parent="awutu_senya">
+                    <label>Senya</label>
+                    <value>senya</value>
+                </item>
+
+            </dynamiclist>
+        </xf:instance>
+        <xf:instance id="community">
+            <dynamiclist>
+                <item id="12321" parent="ce">
+                    <label>Abempingu A</label>
+                    <value>12321</value>
+                </item>
+                <item id="12322" parent="ce">
+                    <label>Abempingu B</label>
+                    <value>12322</value>
+                </item>
+                <item id="12323" parent="ce">
+                    <label>Akanrugh Daboo</label>
+                    <value>12323</value>
+                </item>
+                <item id="12325" parent="ce">
+                    <label>Akuka</label>
+                    <value>12325</value>
+                </item>
+                <item id="12324" parent="ce">
+                    <label>Akukonguro</label>
+                    <value>12324</value>
+                </item>
+                <item id="12334" parent="ce">
+                    <label>Akannaluw</label>
+                    <value>12334</value>
+                </item>
+                <item id="12332" parent="ce">
+                    <label>Anyayadoanii</label>
+                    <value>12332</value>
+                </item>
+                <item id="12311" parent="ce">
+                    <label>Badania</label>
+                    <value>12311</value>
+                </item>
+                <item id="12333" parent="ce">
+                    <label>Gayingo</label>
+                    <value>12333</value>
+                </item>
+                <item id="12335" parent="ce">
+                    <label>Gindigadinia</label>
+                    <value>12335</value>
+                </item>
+                <item id="12312" parent="ce">
+                    <label>Karama / Yibanabia</label>
+                    <value>12312</value>
+                </item>
+                <item id="12331" parent="ce">
+                    <label>Korugh Kandaa</label>
+                    <value>12331</value>
+                </item>
+                <item id="12314" parent="ce">
+                    <label>Kungwania</label>
+                    <value>12314</value>
+                </item>
+                <item id="12315" parent="ce">
+                    <label>Tankuna</label>
+                    <value>12315</value>
+                </item>
+                <item id="12313" parent="ce">
+                    <label>Yitunia</label>
+                    <value>12313</value>
+                </item>
+                <item id="12512" parent="cnv">
+                    <label>Bodenia</label>
+                    <value>12512</value>
+                </item>
+                <item id="12511" parent="cnv">
+                    <label>Gongnia</label>
+                    <value>12511</value>
+                </item>
+                <item id="12513" parent="cnv">
+                    <label>Nagalikinia</label>
+                    <value>12513</value>
+                </item>
+                <item id="12624" parent="cn">
+                    <label>Bawiu</label>
+                    <value>12624</value>
+                </item>
+                <item id="12615" parent="cn">
+                    <label>Bavugnia</label>
+                    <value>12615</value>
+                </item>
+                <item id="12622" parent="cn">
+                    <label>Bavugnia</label>
+                    <value>12622</value>
+                </item>
+                <item id="12611" parent="cn">
+                    <label>Demsasenia</label>
+                    <value>12611</value>
+                </item>
+                <item id="12626" parent="cn">
+                    <label>Kwania</label>
+                    <value>12626</value>
+                </item>
+                <item id="12612" parent="cn">
+                    <label>Lower Telania</label>
+                    <value>12612</value>
+                </item>
+                <item id="12616" parent="cn">
+                    <label>Manchoro</label>
+                    <value>12616</value>
+                </item>
+                <item id="12623" parent="cn">
+                    <label>Nyangua</label>
+                    <value>12623</value>
+                </item>
+                <item id="12613" parent="cn">
+                    <label>Punyoro 1</label>
+                    <value>12613</value>
+                </item>
+                <item id="12614" parent="cn">
+                    <label>Punyoro 2</label>
+                    <value>12614</value>
+                </item>
+                <item id="12617" parent="cn">
+                    <label>Tekuru</label>
+                    <value>12617</value>
+                </item>
+                <item id="12625" parent="cn">
+                    <label>Upper Telania</label>
+                    <value>12625</value>
+                </item>
+                <item id="12621" parent="cn">
+                    <label>Wasonguru</label>
+                    <value>12621</value>
+                </item>
+                <item id="12114" parent="cne">
+                    <label>Aforibisi</label>
+                    <value>12114</value>
+                </item>
+                <item id="12121" parent="cne">
+                    <label>Akumbisi</label>
+                    <value>12121</value>
+                </item>
+                <item id="12111" parent="cne">
+                    <label>Atigizi Bifi</label>
+                    <value>12111</value>
+                </item>
+                <item id="12113" parent="cne">
+                    <label>Barigabisi</label>
+                    <value>12113</value>
+                </item>
+                <item id="12136" parent="cne">
+                    <label>Benyim</label>
+                    <value>12136</value>
+                </item>
+                <item id="12132" parent="cne">
+                    <label>Chilla</label>
+                    <value>12132</value>
+                </item>
+                <item id="12133" parent="cne">
+                    <label>Dansesi</label>
+                    <value>12133</value>
+                </item>
+                <item id="12123" parent="cne">
+                    <label>Dazongo</label>
+                    <value>12123</value>
+                </item>
+                <item id="121310" parent="cne">
+                    <label>Deadaa</label>
+                    <value>121310</value>
+                </item>
+                <item id="12124" parent="cne">
+                    <label>Fabisi</label>
+                    <value>12124</value>
+                </item>
+                <item id="12122" parent="cne">
+                    <label>Gerebifi</label>
+                    <value>12122</value>
+                </item>
+                <item id="12115" parent="cne">
+                    <label>Gingerrringo Tinoringo</label>
+                    <value>12115</value>
+                </item>
+                <item id="121311" parent="cne">
+                    <label>Gumongo</label>
+                    <value>121311</value>
+                </item>
+                <item id="12131" parent="cne">
+                    <label>Gware</label>
+                    <value>12131</value>
+                </item>
+                <item id="12135" parent="cne">
+                    <label>Kupella</label>
+                    <value>12135</value>
+                </item>
+                <item id="12125" parent="cne">
+                    <label>Nyogsi</label>
+                    <value>12125</value>
+                </item>
+                <item id="12137" parent="cne">
+                    <label>Saforo</label>
+                    <value>12137</value>
+                </item>
+                <item id="12138" parent="cne">
+                    <label>Sakunia</label>
+                    <value>12138</value>
+                </item>
+                <item id="12112" parent="cne">
+                    <label>Tarebieri</label>
+                    <value>12112</value>
+                </item>
+                <item id="12139" parent="cne">
+                    <label>Wanjagnia</label>
+                    <value>12139</value>
+                </item>
+                <item id="12414" parent="cs">
+                    <label>Chaaba</label>
+                    <value>12414</value>
+                </item>
+                <item id="12426" parent="cs">
+                    <label>Consa</label>
+                    <value>12426</value>
+                </item>
+                <item id="12424" parent="cs">
+                    <label>Dofimdosinbema</label>
+                    <value>12424</value>
+                </item>
+                <item id="12428" parent="cs">
+                    <label>Jaagu</label>
+                    <value>12428</value>
+                </item>
+                <item id="12423" parent="cs">
+                    <label>Kapania</label>
+                    <value>12423</value>
+                </item>
+                <item id="12421" parent="cs">
+                    <label>Kodene</label>
+                    <value>12421</value>
+                </item>
+                <item id="12427" parent="cs">
+                    <label>Kondalsa</label>
+                    <value>12427</value>
+                </item>
+                <item id="12415" parent="cs">
+                    <label>Kungongo</label>
+                    <value>12415</value>
+                </item>
+                <item id="12412" parent="cs">
+                    <label>Nyanbifi</label>
+                    <value>12412</value>
+                </item>
+                <item id="12425" parent="cs">
+                    <label>Sensa</label>
+                    <value>12425</value>
+                </item>
+                <item id="12422" parent="cs">
+                    <label>Tapolia</label>
+                    <value>12422</value>
+                </item>
+                <item id="12411" parent="cs">
+                    <label>Thoo</label>
+                    <value>12411</value>
+                </item>
+                <item id="12413" parent="cs">
+                    <label>Tikrongo</label>
+                    <value>12413</value>
+                </item>
+                <item id="12416" parent="cs">
+                    <label>Tindana</label>
+                    <value>12416</value>
+                </item>
+                <item id="12224" parent="cw">
+                    <label>Bagania</label>
+                    <value>12224</value>
+                </item>
+                <item id="12213" parent="cw">
+                    <label>Bonia</label>
+                    <value>12213</value>
+                </item>
+                <item id="12232" parent="cw">
+                    <label>Gaani</label>
+                    <value>12232</value>
+                </item>
+                <item id="12231" parent="cw">
+                    <label>Janania</label>
+                    <value>12231</value>
+                </item>
+                <item id="12223" parent="cw">
+                    <label>Jamaga</label>
+                    <value>12223</value>
+                </item>
+                <item id="12216" parent="cw">
+                    <label>Korania</label>
+                    <value>12216</value>
+                </item>
+                <item id="12221" parent="cw">
+                    <label>Kwosongo</label>
+                    <value>12221</value>
+                </item>
+                <item id="12214" parent="cw">
+                    <label>Nangalikinia</label>
+                    <value>12214</value>
+                </item>
+                <item id="12222" parent="cw">
+                    <label>Nangwoa</label>
+                    <value>12222</value>
+                </item>
+                <item id="12215" parent="cw">
+                    <label>Nawognia</label>
+                    <value>12215</value>
+                </item>
+                <item id="12241" parent="cw">
+                    <label>Pindaa</label>
+                    <value>12241</value>
+                </item>
+                <item id="12242" parent="cw">
+                    <label>Pinda gua 1</label>
+                    <value>12242</value>
+                </item>
+                <item id="12243" parent="cw">
+                    <label>Pinda gua 2</label>
+                    <value>12243</value>
+                </item>
+                <item id="11111" parent="nav">
+                    <label>Badonu</label>
+                    <value>11111</value>
+                </item>
+                <item id="11117" parent="nav">
+                    <label>Bagtua</label>
+                    <value>11117</value>
+                </item>
+                <item id="11119" parent="nav">
+                    <label>Bayono</label>
+                    <value>11119</value>
+                </item>
+                <item id="11114" parent="nav">
+                    <label>Kasili</label>
+                    <value>11114</value>
+                </item>
+                <item id="11115" parent="nav">
+                    <label>Kazugu</label>
+                    <value>11115</value>
+                </item>
+                <item id="11112" parent="nav">
+                    <label>Sakaa</label>
+                    <value>11112</value>
+                </item>
+                <item id="11113" parent="nav">
+                    <label>Sawuni</label>
+                    <value>11113</value>
+                </item>
+                <item id="111110" parent="nav">
+                    <label>Navio</label>
+                    <value>111110</value>
+                </item>
+                <item id="11116" parent="nav">
+                    <label>Tazika</label>
+                    <value>11116</value>
+                </item>
+                <item id="11118" parent="nav">
+                    <label>Tigakuri</label>
+                    <value>11118</value>
+                </item>
+                <item id="112210" parent="kna">
+                    <label>Achinia</label>
+                    <value>112210</value>
+                </item>
+                <item id="11221" parent="kna">
+                    <label>Adabania</label>
+                    <value>11221</value>
+                </item>
+                <item id="11223" parent="kna">
+                    <label>Afania</label>
+                    <value>11223</value>
+                </item>
+                <item id="11222" parent="kna">
+                    <label>Asasong</label>
+                    <value>11222</value>
+                </item>
+                <item id="11214" parent="kna">
+                    <label>Atinia</label>
+                    <value>11214</value>
+                </item>
+                <item id="11213" parent="kna">
+                    <label>Awenia</label>
+                    <value>11213</value>
+                </item>
+                <item id="11215" parent="kna">
+                    <label>Fulani settlement 1</label>
+                    <value>11215</value>
+                </item>
+                <item id="11216" parent="kna">
+                    <label>Fulani settlement 2</label>
+                    <value>11216</value>
+                </item>
+                <item id="11228" parent="kna">
+                    <label>Katiu</label>
+                    <value>11228</value>
+                </item>
+                <item id="11224" parent="kna">
+                    <label>Katiu-Saboro</label>
+                    <value>11224</value>
+                </item>
+                <item id="11212" parent="kna">
+                    <label>Kawenia/Saboro</label>
+                    <value>11212</value>
+                </item>
+                <item id="11229" parent="kna">
+                    <label>Kawurania/Atiasong</label>
+                    <value>11229</value>
+                </item>
+                <item id="11217" parent="kna">
+                    <label>Nakong</label>
+                    <value>11217</value>
+                </item>
+                <item id="11211" parent="kna">
+                    <label>New Nakong</label>
+                    <value>11211</value>
+                </item>
+                <item id="11225" parent="kna">
+                    <label>Saa-Bayao</label>
+                    <value>11225</value>
+                </item>
+                <item id="11226" parent="kna">
+                    <label>Saa-Bonania</label>
+                    <value>11226</value>
+                </item>
+                <item id="11317" parent="kay">
+                    <label>Akaa/Achasong</label>
+                    <value>11317</value>
+                </item>
+                <item id="11315" parent="kay">
+                    <label>Akania/Bunyiu</label>
+                    <value>11315</value>
+                </item>
+                <item id="11316" parent="kay">
+                    <label>Aneo/Adungu</label>
+                    <value>11316</value>
+                </item>
+                <item id="113110" parent="kay">
+                    <label>Baliu</label>
+                    <value>113110</value>
+                </item>
+                <item id="11318" parent="kay">
+                    <label>Kabaa/Kachela</label>
+                    <value>11318</value>
+                </item>
+                <item id="11312" parent="kay">
+                    <label>Kadania/Agwongo</label>
+                    <value>11312</value>
+                </item>
+                <item id="113111" parent="kay">
+                    <label>Kayoro</label>
+                    <value>113111</value>
+                </item>
+                <item id="11314" parent="kay">
+                    <label>Kayoro-Saboro</label>
+                    <value>11314</value>
+                </item>
+                <item id="11313" parent="kay">
+                    <label>Kumbulu</label>
+                    <value>11313</value>
+                </item>
+                <item id="11311" parent="kay">
+                    <label>Wombeo</label>
+                    <value>11311</value>
+                </item>
+                <item id="11431" parent="cha">
+                    <label>Aboenia</label>
+                    <value>11431</value>
+                </item>
+                <item id="11423" parent="cha">
+                    <label>Abulu</label>
+                    <value>11423</value>
+                </item>
+                <item id="11434" parent="cha">
+                    <label>Achonia</label>
+                    <value>11434</value>
+                </item>
+                <item id="11435" parent="cha">
+                    <label>Awenia</label>
+                    <value>11435</value>
+                </item>
+                <item id="11432" parent="cha">
+                    <label>Gugoro</label>
+                    <value>11432</value>
+                </item>
+                <item id="11411" parent="cha">
+                    <label>Gwenia/Vonia</label>
+                    <value>11411</value>
+                </item>
+                <item id="1300201" parent="cha">
+                    <label>Wurania</label>
+                    <value>1300201</value>
+                </item>
+                <item id="1300217" parent="cha">
+                    <label>Pinkwalakwaga</label>
+                    <value>1300217</value>
+                </item>
+                <item id="130229" parent="cha">
+                    <label>Adognia</label>
+                    <value>1300229</value>
+                </item>
+                <item id="1300238" parent="cha">
+                    <label>Chiana-Saboro</label>
+                    <value>1300238</value>
+                </item>
+                <item id="1300240" parent="cha">
+                    <label>Asunia</label>
+                    <value>1300240</value>
+                </item>
+                <item id="1300255" parent="cha">
+                    <label>Kafania</label>
+                    <value>1300255</value>
+                </item>
+                <item id="1300264" parent="cha">
+                    <label>Yidania</label>
+                    <value>1300264</value>
+                </item>
+                <item id="1300272" parent="cha">
+                    <label>Adasong</label>
+                    <value>1300272</value>
+                </item>
+                <item id="11515" parent="kanku">
+                    <label>Agandaa</label>
+                    <value>11515</value>
+                </item>
+                <item id="11514" parent="kanku">
+                    <label>Akamo</label>
+                    <value>11514</value>
+                </item>
+                <item id="115110" parent="kanku">
+                    <label>Anisore</label>
+                    <value>115110</value>
+                </item>
+                <item id="11513" parent="kanku">
+                    <label>Atiyorum</label>
+                    <value>11513</value>
+                </item>
+                <item id="11519" parent="kanku">
+                    <label>Azaasi</label>
+                    <value>11519</value>
+                </item>
+                <item id="11516" parent="kanku">
+                    <label>Azeaduma</label>
+                    <value>11516</value>
+                </item>
+                <item id="11517" parent="kanku">
+                    <label>Azuridone</label>
+                    <value>11517</value>
+                </item>
+                <item id="11512" parent="kanku">
+                    <label>Kaasi</label>
+                    <value>11512</value>
+                </item>
+                <item id="1300286" parent="kanku">
+                    <label>Bembisi</label>
+                    <value>1300286</value>
+                </item>
+                <item id="1300293" parent="kanku">
+                    <label>Longo</label>
+                    <value>1300293</value>
+                </item>
+                <item id="1300303" parent="kanku">
+                    <label>Azeaduma</label>
+                    <value>1300303</value>
+                </item>
+                <item id="1300319" parent="kanku">
+                    <label>Azaasi</label>
+                    <value>1300319</value>
+                </item>
+                <item id="1300326" parent="kanku">
+                    <label>Agandaa</label>
+                    <value>1300326</value>
+                </item>
+                <item id="1300335" parent="kanku">
+                    <label>Anisore</label>
+                    <value>1300335</value>
+                </item>
+                <item id="1300342" parent="kanku">
+                    <label>Nindongo</label>
+                    <value>1300342</value>
+                </item>
+                <item id="1300357" parent="kanku">
+                    <label>Tindongo</label>
+                    <value>1300357</value>
+                </item>
+                <item id="1300361" parent="kanku">
+                    <label>Nabango</label>
+                    <value>1300361</value>
+                </item>
+                <item id="11614" parent="sir">
+                    <label>Amutanga</label>
+                    <value>11614</value>
+                </item>
+                <item id="11616" parent="sir">
+                    <label>Amuntanga</label>
+                    <value>11616</value>
+                </item>
+                <item id="11613" parent="sir">
+                    <label>Basengo-moo</label>
+                    <value>11613</value>
+                </item>
+                <item id="11611" parent="sir">
+                    <label>Busongo</label>
+                    <value>11611</value>
+                </item>
+                <item id="11617" parent="sir">
+                    <label>Nyangoligo</label>
+                    <value>11617</value>
+                </item>
+                <item id="11612" parent="sir">
+                    <label>Nyangonlingo</label>
+                    <value>11612</value>
+                </item>
+                <item id="1300008" parent="sir">
+                    <label>Abillatae</label>
+                    <value>1300008</value>
+                </item>
+                <item id="1300012" parent="sir">
+                    <label>Dazongo</label>
+                    <value>1300012</value>
+                </item>
+                <item id="1300020" parent="sir">
+                    <label>Wugingo</label>
+                    <value>1300020</value>
+                </item>
+                <item id="1300031" parent="sir">
+                    <label>Basengo</label>
+                    <value>1300031</value>
+                </item>
+                <item id="1300049" parent="sir">
+                    <label>Tangasia</label>
+                    <value>1300049</value>
+                </item>
+                <item id="1300054" parent="sir">
+                    <label>Tindongo</label>
+                    <value>1300054</value>
+                </item>
+                <item id="1300065" parent="sir">
+                    <label>Gunwoko</label>
+                    <value>1300065</value>
+                </item>
+                <item id="1300077" parent="sir">
+                    <label>Puwelingo</label>
+                    <value>1300077</value>
+                </item>
+                <item id="1300083" parent="sir">
+                    <label>Azugzingo</label>
+                    <value>1300083</value>
+                </item>
+                <item id="1300096" parent="sir">
+                    <label>Tutumbisi</label>
+                    <value>1300096</value>
+                </item>
+                <item id="11714" parent="pac">
+                    <label>Aliabolo</label>
+                    <value>11714</value>
+                </item>
+                <item id="11711" parent="pac">
+                    <label>Kajelo</label>
+                    <value>11711</value>
+                </item>
+                <item id="11713" parent="pac">
+                    <label>Kayilo/Baloo</label>
+                    <value>11713</value>
+                </item>
+                <item id="11712" parent="pac">
+                    <label>Nabio/Batiu</label>
+                    <value>11712</value>
+                </item>
+                <item id="1300106" parent="pac">
+                    <label>Chania</label>
+                    <value>1300106</value>
+                </item>
+                <item id="1300110" parent="pac">
+                    <label>Border</label>
+                    <value>1300110</value>
+                </item>
+                <item id="1300123" parent="pac">
+                    <label>Gwaru</label>
+                    <value>1300123</value>
+                </item>
+                <item id="1300134" parent="pac">
+                    <label>Nania</label>
+                    <value>1300134</value>
+                </item>
+                <item id="1300147" parent="pac">
+                    <label>Zenga</label>
+                    <value>1300147</value>
+                </item>
+                <item id="1300152" parent="pac">
+                    <label>Kakungu</label>
+                    <value>1300152</value>
+                </item>
+                <item id="1300168" parent="pac">
+                    <label>Bisau</label>
+                    <value>1300168</value>
+                </item>
+                <item id="1300175" parent="pac">
+                    <label>Nyania</label>
+                    <value>1300175</value>
+                </item>
+                <item id="1300181" parent="pac">
+                    <label>Kanponga</label>
+                    <value>1300181</value>
+                </item>
+                <item id="1300199" parent="pac">
+                    <label>Babile</label>
+                    <value>1300199</value>
+                </item>
+                <item id="11811" parent="mir">
+                    <label>Aburewasa</label>
+                    <value>11811</value>
+                </item>
+                <item id="11815" parent="mir">
+                    <label>Abugizedone</label>
+                    <value>11815</value>
+                </item>
+                <item id="11812" parent="mir">
+                    <label>Alembila</label>
+                    <value>11812</value>
+                </item>
+                <item id="11813" parent="mir">
+                    <label>Apia-Gomongo</label>
+                    <value>11813</value>
+                </item>
+                <item id="118122" parent="mir">
+                    <label>Apibisi</label>
+                    <value>118122</value>
+                </item>
+                <item id="11814" parent="mir">
+                    <label>Azinzoka</label>
+                    <value>11814</value>
+                </item>
+                <item id="11816" parent="mir">
+                    <label>Chengo</label>
+                    <value>11816</value>
+                </item>
+                <item id="11817" parent="mir">
+                    <label>Dosun</label>
+                    <value>11817</value>
+                </item>
+                <item id="11818" parent="mir">
+                    <label>Gayingo</label>
+                    <value>11818</value>
+                </item>
+                <item id="11819" parent="mir">
+                    <label>Gonum A</label>
+                    <value>11819</value>
+                </item>
+                <item id="118110" parent="mir">
+                    <label>Gonum B</label>
+                    <value>118110</value>
+                </item>
+                <item id="118111" parent="mir">
+                    <label>Kansam</label>
+                    <value>118111</value>
+                </item>
+                <item id="118112" parent="mir">
+                    <label>Kasalingo</label>
+                    <value>118112</value>
+                </item>
+                <item id="118113" parent="mir">
+                    <label>Kumbusingo</label>
+                    <value>118113</value>
+                </item>
+                <item id="118114" parent="mir">
+                    <label>Mirigu-Nayire</label>
+                    <value>118114</value>
+                </item>
+                <item id="118121" parent="mir">
+                    <label>Nabango</label>
+                    <value>118121</value>
+                </item>
+                <item id="118115" parent="mir">
+                    <label>Nyongo</label>
+                    <value>118115</value>
+                </item>
+                <item id="118116" parent="mir">
+                    <label>Pingo</label>
+                    <value>118116</value>
+                </item>
+                <item id="118117" parent="mir">
+                    <label>Pumbisi</label>
+                    <value>118117</value>
+                </item>
+                <item id="118118" parent="mir">
+                    <label>Tikongo</label>
+                    <value>118118</value>
+                </item>
+                <item id="11227" parent="kna">
+                    <label>Sazona</label>
+                    <value>11227</value>
+                </item>
+                <item id="118119" parent="mir">
+                    <label>Waligu</label>
+                    <value>118119</value>
+                </item>
+                <item id="118120" parent="mir">
+                    <label>Zampengo</label>
+                    <value>118120</value>
+                </item>
+                <item id="11319" parent="kay">
+                    <label>Wura</label>
+                    <value>11319</value>
+                </item>
+                <item id="11425" parent="cha">
+                    <label>Kabanga</label>
+                    <value>11425</value>
+                </item>
+                <item id="11436" parent="cha">
+                    <label>Kalvio</label>
+                    <value>11436</value>
+                </item>
+                <item id="11424" parent="cha">
+                    <label>Kanania</label>
+                    <value>11424</value>
+                </item>
+                <item id="11426" parent="cha">
+                    <label>Korania</label>
+                    <value>11426</value>
+                </item>
+                <item id="11413" parent="cha">
+                    <label>Nyangania</label>
+                    <value>11413</value>
+                </item>
+                <item id="12134" parent="cne">
+                    <label>Wura</label>
+                    <value>12134</value>
+                </item>
+                <item id="12233" parent="cw">
+                    <label>Vunania</label>
+                    <value>12233</value>
+                </item>
+                <item id="12211" parent="cw">
+                    <label>Wuru</label>
+                    <value>12211</value>
+                </item>
+                <item id="12212" parent="cw">
+                    <label>Yogbaniat Yiswania</label>
+                    <value>12212</value>
+                </item>
+                <item id="11511" parent="kanku">
+                    <label>Kurugu</label>
+                    <value>11511</value>
+                </item>
+                <item id="11518" parent="kanku">
+                    <label>Longo</label>
+                    <value>11518</value>
+                </item>
+                <item id="11615" parent="sir">
+                    <label>Wogingo</label>
+                    <value>11615</value>
+                </item>
+            </dynamiclist>
+        </xf:instance>
+        <xf:instance id="community">
+            <dynamiclist>
+                <item id="12311" parent="kndce">
+                    <label>Badania</label>
+                    <value>12311</value>
+                </item>
+                <item id="12312" parent="kndce">
+                    <label>Karama / Yibanabia</label>
+                    <value>12312</value>
+                </item>
+                <item id="12313" parent="kndce">
+                    <label>Yitunia</label>
+                    <value>12313</value>
+                </item>
+                <item id="12314" parent="kndce">
+                    <label>Kungwania</label>
+                    <value>12314</value>
+                </item>
+                <item id="12315" parent="kndce">
+                    <label>Tankuna</label>
+                    <value>12315</value>
+                </item>
+                <item id="12321" parent="kndce">
+                    <label>Abempingu A</label>
+                    <value>12321</value>
+                </item>
+                <item id="12322" parent="kndce">
+                    <label>Abempingu B</label>
+                    <value>12322</value>
+                </item>
+                <item id="12323" parent="kndce">
+                    <label>Akanrugh Daboo</label>
+                    <value>12323</value>
+                </item>
+                <item id="12324" parent="kndce">
+                    <label>Akukonguro</label>
+                    <value>12324</value>
+                </item>
+                <item id="12325" parent="kndce">
+                    <label>Akuka</label>
+                    <value>12325</value>
+                </item>
+                <item id="12331" parent="kndce">
+                    <label>Korugh Kandaa</label>
+                    <value>12331</value>
+                </item>
+                <item id="12332" parent="kndce">
+                    <label>Anyayadoanii</label>
+                    <value>12332</value>
+                </item>
+                <item id="12333" parent="kndce">
+                    <label>Gayingo</label>
+                    <value>12333</value>
+                </item>
+                <item id="12334" parent="kndce">
+                    <label>Akannaluw</label>
+                    <value>12334</value>
+                </item>
+                <item id="12335" parent="kndce">
+                    <label>Gindigadinia</label>
+                    <value>12335</value>
+                </item>
+                <item id="12511" parent="kndcnav">
+                    <label>Gongnia</label>
+                    <value>12511</value>
+                </item>
+                <item id="12512" parent="kndcnav">
+                    <label>Bodenia</label>
+                    <value>12512</value>
+                </item>
+                <item id="12513" parent="kndcnav">
+                    <label>Nagalikinia</label>
+                    <value>12513</value>
+                </item>
+                <item id="12611" parent="kndcn">
+                    <label>Demsasenia</label>
+                    <value>12611</value>
+                </item>
+                <item id="12612" parent="kndcn">
+                    <label>Lower Telania</label>
+                    <value>12612</value>
+                </item>
+                <item id="12613" parent="kndcn">
+                    <label>Punyoro 1</label>
+                    <value>12613</value>
+                </item>
+                <item id="12614" parent="kndcn">
+                    <label>Punyoro 2</label>
+                    <value>12614</value>
+                </item>
+                <item id="12615" parent="kndcn">
+                    <label>Bavugnia</label>
+                    <value>12615</value>
+                </item>
+                <item id="12616" parent="kndcn">
+                    <label>Manchoro</label>
+                    <value>12616</value>
+                </item>
+                <item id="12617" parent="kndcn">
+                    <label>Tekuru</label>
+                    <value>12617</value>
+                </item>
+                <item id="12621" parent="kndcn">
+                    <label>Wasonguru</label>
+                    <value>12621</value>
+                </item>
+                <item id="12622" parent="kndcn">
+                    <label>Bavugnia</label>
+                    <value>12622</value>
+                </item>
+                <item id="12623" parent="kndcn">
+                    <label>Nyangua</label>
+                    <value>12623</value>
+                </item>
+                <item id="12624" parent="kndcn">
+                    <label>Bawiu</label>
+                    <value>12624</value>
+                </item>
+                <item id="12625" parent="kndcn">
+                    <label>Upper Telania</label>
+                    <value>12625</value>
+                </item>
+                <item id="12626" parent="kndcn">
+                    <label>Kwania</label>
+                    <value>12626</value>
+                </item>
+                <item id="12111" parent="kndcne">
+                    <label>Atigizi Bifi</label>
+                    <value>12111</value>
+                </item>
+                <item id="12112" parent="kndcne">
+                    <label>Tarebieri</label>
+                    <value>12112</value>
+                </item>
+                <item id="12113" parent="kndcne">
+                    <label>Barigabisi</label>
+                    <value>12113</value>
+                </item>
+                <item id="12114" parent="kndcne">
+                    <label>Aforibisi</label>
+                    <value>12114</value>
+                </item>
+                <item id="12115" parent="kndcne">
+                    <label>Gingerrringo Tinoringo</label>
+                    <value>12115</value>
+                </item>
+                <item id="12121" parent="kndcne">
+                    <label>Akumbisi</label>
+                    <value>12121</value>
+                </item>
+                <item id="12122" parent="kndcne">
+                    <label>Gerebifi</label>
+                    <value>12122</value>
+                </item>
+                <item id="12123" parent="kndcne">
+                    <label>Dazongo</label>
+                    <value>12123</value>
+                </item>
+                <item id="12124" parent="kndcne">
+                    <label>Fabisi</label>
+                    <value>12124</value>
+                </item>
+                <item id="12125" parent="kndcne">
+                    <label>Nyogsi</label>
+                    <value>12125</value>
+                </item>
+                <item id="12131" parent="kndcne">
+                    <label>Gware</label>
+                    <value>12131</value>
+                </item>
+                <item id="12132" parent="kndcne">
+                    <label>Chilla</label>
+                    <value>12132</value>
+                </item>
+                <item id="12133" parent="kndcne">
+                    <label>Dansesi</label>
+                    <value>12133</value>
+                </item>
+                <item id="12134" parent="kndcne">
+                    <label>Wura</label>
+                    <value>12134</value>
+                </item>
+                <item id="12135" parent="kndcne">
+                    <label>Kupella</label>
+                    <value>12135</value>
+                </item>
+                <item id="12136" parent="kndcne">
+                    <label>Benyim</label>
+                    <value>12136</value>
+                </item>
+                <item id="12137" parent="kndcne">
+                    <label>Saforo</label>
+                    <value>12137</value>
+                </item>
+                <item id="12138" parent="kndcne">
+                    <label>Sakunia</label>
+                    <value>12138</value>
+                </item>
+                <item id="12139" parent="kndcne">
+                    <label>Wanjagnia</label>
+                    <value>12139</value>
+                </item>
+                <item id="121310" parent="kndcne">
+                    <label>Deadaa</label>
+                    <value>121310</value>
+                </item>
+                <item id="121311" parent="kndcne">
+                    <label>Gumongo</label>
+                    <value>121311</value>
+                </item>
+                <item id="12411" parent="kndcs">
+                    <label>Thoo</label>
+                    <value>12411</value>
+                </item>
+                <item id="12412" parent="kndcs">
+                    <label>Nyanbifi</label>
+                    <value>12412</value>
+                </item>
+                <item id="12413" parent="kndcs">
+                    <label>Tikrongo</label>
+                    <value>12413</value>
+                </item>
+                <item id="12414" parent="kndcs">
+                    <label>Chaaba</label>
+                    <value>12414</value>
+                </item>
+                <item id="12415" parent="kndcs">
+                    <label>Kungongo</label>
+                    <value>12415</value>
+                </item>
+                <item id="12416" parent="kndcs">
+                    <label>Tindana</label>
+                    <value>12416</value>
+                </item>
+                <item id="12421" parent="kndcs">
+                    <label>Kodene</label>
+                    <value>12421</value>
+                </item>
+                <item id="12422" parent="kndcs">
+                    <label>Tapolia</label>
+                    <value>12422</value>
+                </item>
+                <item id="12423" parent="kndcs">
+                    <label>Kapania</label>
+                    <value>12423</value>
+                </item>
+                <item id="12424" parent="kndcs">
+                    <label>Dofimdosinbema</label>
+                    <value>12424</value>
+                </item>
+                <item id="12425" parent="kndcs">
+                    <label>Sensa</label>
+                    <value>12425</value>
+                </item>
+                <item id="12426" parent="kndcs">
+                    <label>Consa</label>
+                    <value>12426</value>
+                </item>
+                <item id="12427" parent="kndcs">
+                    <label>Kondalsa</label>
+                    <value>12427</value>
+                </item>
+                <item id="12428" parent="kndcs">
+                    <label>Jaagu</label>
+                    <value>12428</value>
+                </item>
+                <item id="12211" parent="kndcw">
+                    <label>Wuru</label>
+                    <value>12211</value>
+                </item>
+                <item id="12212" parent="kndcw">
+                    <label>Yogbaniat Yiswania</label>
+                    <value>12212</value>
+                </item>
+                <item id="12213" parent="kndcw">
+                    <label>Bonia</label>
+                    <value>12213</value>
+                </item>
+                <item id="12214" parent="kndcw">
+                    <label>Nangalikinia</label>
+                    <value>12214</value>
+                </item>
+                <item id="12215" parent="kndcw">
+                    <label>Nawognia</label>
+                    <value>12215</value>
+                </item>
+                <item id="12216" parent="kndcw">
+                    <label>Korania</label>
+                    <value>12216</value>
+                </item>
+                <item id="12221" parent="kndcw">
+                    <label>Kwosongo</label>
+                    <value>12221</value>
+                </item>
+                <item id="12222" parent="kndcw">
+                    <label>Nangwoa</label>
+                    <value>12222</value>
+                </item>
+                <item id="12223" parent="kndcw">
+                    <label>Jamaga</label>
+                    <value>12223</value>
+                </item>
+                <item id="12224" parent="kndcw">
+                    <label>Bagania</label>
+                    <value>12224</value>
+                </item>
+                <item id="12231" parent="kndcw">
+                    <label>Janania</label>
+                    <value>12231</value>
+                </item>
+                <item id="12232" parent="kndcw">
+                    <label>Gaani</label>
+                    <value>12232</value>
+                </item>
+                <item id="12233" parent="kndcw">
+                    <label>Vunania</label>
+                    <value>12233</value>
+                </item>
+                <item id="12241" parent="kndcw">
+                    <label>Pindaa</label>
+                    <value>12241</value>
+                </item>
+                <item id="12242" parent="kndcw">
+                    <label>Pinda gua 1</label>
+                    <value>12242</value>
+                </item>
+                <item id="12243" parent="kndcw">
+                    <label>Pinda gua 2</label>
+                    <value>12243</value>
+                </item>
+                <item id="11111" parent="kndwn">
+                    <label>Navio - Samwo</label>
+                    <value>11111</value>
+                </item>
+                <item id="11112" parent="kndwn">
+                    <label>Navio - Kazugu</label>
+                    <value>11112</value>
+                </item>
+                <item id="11113" parent="kndwn">
+                    <label>Navio - Kasile</label>
+                    <value>11113</value>
+                </item>
+                <item id="11114" parent="kndwn">
+                    <label>Navio - Tigakuri</label>
+                    <value>11114</value>
+                </item>
+                <item id="11115" parent="kndwn">
+                    <label>Navio - Bagtua</label>
+                    <value>11115</value>
+                </item>
+                <item id="11116" parent="kndwn">
+                    <label>Sakaa</label>
+                    <value>11116</value>
+                </item>
+                <item id="11117" parent="kndwn">
+                    <label>Tazika</label>
+                    <value>11117</value>
+                </item>
+                <item id="11118" parent="kndwn">
+                    <label>Badunu</label>
+                    <value>11118</value>
+                </item>
+                <item id="11211" parent="kndwkn">
+                    <label>Saboro</label>
+                    <value>11211</value>
+                </item>
+                <item id="11212" parent="kndwkn">
+                    <label>Adabania</label>
+                    <value>11212</value>
+                </item>
+                <item id="11213" parent="kndwkn">
+                    <label>Atinia/Awenia</label>
+                    <value>11213</value>
+                </item>
+                <item id="11214" parent="kndwkn">
+                    <label>Asasong</label>
+                    <value>11214</value>
+                </item>
+                <item id="11215" parent="kndwkn">
+                    <label>Sasong</label>
+                    <value>11215</value>
+                </item>
+                <item id="11216" parent="kndwkn">
+                    <label>Atinia/Awonia</label>
+                    <value>11216</value>
+                </item>
+                <item id="11221" parent="kndwkn">
+                    <label>Kawenia</label>
+                    <value>11221</value>
+                </item>
+                <item id="11222" parent="kndwkn">
+                    <label>Bawah</label>
+                    <value>11222</value>
+                </item>
+                <item id="11223" parent="kndwkn">
+                    <label>Afania</label>
+                    <value>11223</value>
+                </item>
+                <item id="11224" parent="kndwkn">
+                    <label>Bungnia</label>
+                    <value>11224</value>
+                </item>
+                <item id="11225" parent="kndwkn">
+                    <label>Bayog</label>
+                    <value>11225</value>
+                </item>
+                <item id="11311" parent="kndwk">
+                    <label>Wombio</label>
+                    <value>11311</value>
+                </item>
+                <item id="11312" parent="kndwk">
+                    <label>Akaa</label>
+                    <value>11312</value>
+                </item>
+                <item id="11313" parent="kndwk">
+                    <label>Kabaa/Kachala</label>
+                    <value>11313</value>
+                </item>
+                <item id="11314" parent="kndwk">
+                    <label>Sabaro</label>
+                    <value>11314</value>
+                </item>
+                <item id="11315" parent="kndwk">
+                    <label>Akania</label>
+                    <value>11315</value>
+                </item>
+                <item id="11316" parent="kndwk">
+                    <label>Anio/Adongo</label>
+                    <value>11316</value>
+                </item>
+                <item id="11317" parent="kndwk">
+                    <label>Kadania</label>
+                    <value>11317</value>
+                </item>
+                <item id="11318" parent="kndwk">
+                    <label>Konbulu</label>
+                    <value>11318</value>
+                </item>
+                <item id="11411" parent="kndwc">
+                    <label>Nyangania 1</label>
+                    <value>11411</value>
+                </item>
+                <item id="11412" parent="kndwc">
+                    <label>Nyangania 2</label>
+                    <value>11412</value>
+                </item>
+                <item id="11421" parent="kndwc">
+                    <label>Kanenia 1</label>
+                    <value>11421</value>
+                </item>
+                <item id="11422" parent="kndwc">
+                    <label>Kanenia 2</label>
+                    <value>11422</value>
+                </item>
+                <item id="11431" parent="kndwc">
+                    <label>Kalvio Gugoro</label>
+                    <value>11431</value>
+                </item>
+                <item id="11432" parent="kndwc">
+                    <label>Kalvio Aboenia</label>
+                    <value>11432</value>
+                </item>
+                <item id="11511" parent="kndwkk">
+                    <label>Kurugu A</label>
+                    <value>11511</value>
+                </item>
+                <item id="11512" parent="kndwkk">
+                    <label>Kurugu B</label>
+                    <value>11512</value>
+                </item>
+                <item id="11513" parent="kndwkk">
+                    <label>Atiyorum</label>
+                    <value>11513</value>
+                </item>
+                <item id="11514" parent="kndwkk">
+                    <label>Azuure-done</label>
+                    <value>11514</value>
+                </item>
+                <item id="11611" parent="kndws">
+                    <label>Bugsongo 1</label>
+                    <value>11611</value>
+                </item>
+                <item id="11612" parent="kndws">
+                    <label>Bugsongo 2</label>
+                    <value>11612</value>
+                </item>
+                <item id="11711" parent="kndwpc">
+                    <label>Kayilo</label>
+                    <value>11711</value>
+                </item>
+                <item id="11712" parent="kndwpc">
+                    <label>Baloo</label>
+                    <value>11712</value>
+                </item>
+                <item id="11713" parent="kndwpc">
+                    <label>Nabio</label>
+                    <value>11713</value>
+                </item>
+                <item id="11714" parent="kndwpc">
+                    <label>Batiu</label>
+                    <value>11714</value>
+                </item>
+                <item id="11715" parent="kndwpc">
+                    <label>Kejelo</label>
+                    <value>11715</value>
+                </item>
+                <item id="11811" parent="kndwm">
+                    <label>Aburiwaasa</label>
+                    <value>11811</value>
+                </item>
+                <item id="11812" parent="kndwm">
+                    <label>Gayingo</label>
+                    <value>11812</value>
+                </item>
+                <item id="11813" parent="kndwm">
+                    <label>Nyongo</label>
+                    <value>11813</value>
+                </item>
+                <item id="11814" parent="kndwm">
+                    <label>Kumbuingo</label>
+                    <value>11814</value>
+                </item>
+                <item id="11815" parent="kndwm">
+                    <label>Pungobisi</label>
+                    <value>11815</value>
+                </item>
+                <item id="11816" parent="kndwm">
+                    <label>Zampengo</label>
+                    <value>11816</value>
+                </item>
+                <item id="11817" parent="kndwm">
+                    <label>Gumongo</label>
+                    <value>11817</value>
+                </item>
+                <item id="11818" parent="kndwm">
+                    <label>Gonum B</label>
+                    <value>11818</value>
+                </item>
+                <item id="11819" parent="kndwm">
+                    <label>Alembilla</label>
+                    <value>11819</value>
+                </item>
+                <item id="118110" parent="kndwm">
+                    <label>Abugziodone</label>
+                    <value>118110</value>
+                </item>
+                <item id="118111" parent="kndwm">
+                    <label>Cheego</label>
+                    <value>118111</value>
+                </item>
+                <item id="118112" parent="kndwm">
+                    <label>Mirigu Nayire</label>
+                    <value>118112</value>
+                </item>
+                <item id="118113" parent="kndwm">
+                    <label>Tikongo</label>
+                    <value>118113</value>
+                </item>
+                <item id="118114" parent="kndwm">
+                    <label>Kansaam</label>
+                    <value>118114</value>
+                </item>
+                <item id="118115" parent="kndwm">
+                    <label>Azinzoka</label>
+                    <value>118115</value>
+                </item>
+                <item id="118116" parent="kndwm">
+                    <label>Kassalingo</label>
+                    <value>118116</value>
+                </item>
+                <item id="118117" parent="kndwm">
+                    <label>Gonum A</label>
+                    <value>118117</value>
+                </item>
+                <item id="118118" parent="kndwm">
+                    <label>Mirigu/Dosum</label>
+                    <value>118118</value>
+                </item>
+            </dynamiclist>
+        </xf:instance>
+        <xf:instance id="format">
+            <dynamiclist>
+                <item id="PERS_VOICE" parent="PERSONAL">
+                    <label>Voice</label>
+                    <value>PERS_VOICE</value>
+                </item>
+                <item id="PERS_TEXT" parent="PERSONAL">
+                    <label>SMS</label>
+                    <value>PERS_TEXT</value>
+                </item>
+                <item id="HSE_VOICE" parent="HOUSEHOLD">
+                    <label>Voice</label>
+                    <value>HSE_VOICE</value>
+                </item>
+                <item id="HSE_TEXT" parent="HOUSEHOLD">
+                    <label>SMS</label>
+                    <value>HSE_TEXT</value>
+                </item>
+                <item id="PUB_VOICE" parent="PUBLIC">
+                    <label>Voice</label>
+                    <value>PUB_VOICE</value>
+                </item>
+            </dynamiclist>
+        </xf:instance>
+        <xf:instance id="language">
+            <dynamiclist>
+                <item id="en" parent="PERS_VOICE">
+                    <label>English</label>
+                    <value>en</value>
+                </item>
+                <item id="kas" parent="PERS_VOICE">
+                    <label>Kassim</label>
+                    <value>kas</value>
+                </item>
+                <item id="nan" parent="PERS_VOICE">
+                    <label>Nankam</label>
+                    <value>nan</value>
+                </item>
+                <item id="fan" parent="PERS_VOICE">
+                    <label>Fante</label>
+                    <value>fan</value>
+                </item>
+                <item id="en" parent="PERS_TEXT">
+                    <label>English</label>
+                    <value>en</value>
+                </item>
+                <item id="en" parent="HSE_VOICE">
+                    <label>English</label>
+                    <value>en</value>
+                </item>
+                <item id="kas" parent="HSE_VOICE">
+                    <label>Kassim</label>
+                    <value>kas</value>
+                </item>
+                <item id="nan" parent="HSE_VOICE">
+                    <label>Nankam</label>
+                    <value>nan</value>
+                </item>
+                <item id="fan" parent="HSE_VOICE">
+                    <label>Fante</label>
+                    <value>fan</value>
+                </item>
+                <item id="en" parent="HSE_TEXT">
+                    <label>English</label>
+                    <value>en</value>
+                </item>
+                <item id="en" parent="PUB_VOICE">
+                    <label>English</label>
+                    <value>en</value>
+                </item>
+                <item id="kas" parent="PUB_VOICE">
+                    <label>Kassim</label>
+                    <value>kas</value>
+                </item>
+                <item id="nan" parent="PUB_VOICE">
+                    <label>Nankam</label>
+                    <value>nan</value>
+                </item>
+                <item id="fan" parent="PUB_VOICE">
+                    <label>Fante</label>
+                    <value>fan</value>
+                </item>
+            </dynamiclist>
+        </xf:instance>
+        <xf:bind id="staffId" nodeset="/patientRegistration/staffId" required="true()" type="xsd:int"
+                 constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+        <xf:bind id="facilityId" nodeset="/patientRegistration/facilityId" required="true()" type="xsd:int"
+                 constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+        <xf:bind constraint=". &lt;= 'today()'" id="date"
+                 message="Invalid date: date specified is in the future" nodeset="/patientRegistration/date"
+                 required="true()" type="xsd:date"/>
+        <xf:bind id="registrationMode" nodeset="/patientRegistration/registrationMode" required="true()"
+                 type="xsd:string"/>
+        <xf:bind action="show" id="motechId" nodeset="/patientRegistration/motechId"
+                 relevant="/patientRegistration/registrationMode = 'USE_PREPRINTED_ID'" required="true()"
+                 type="xsd:int" visible="false()" constraint=". &gt; 999999 and . &lt; 10000000"
+                 message="MoTeCH ID must be 7 digits long"/>
+        <xf:bind action="show" constraint=". &lt;= 999999999" id="sender"
+                 message="Number too large. It should be 10 digits long" nodeset="/patientRegistration/sender"
+                 relevant="/patientRegistration/registrationMode = 'AUTO_GENERATE_ID'" required="true()"
+                 type="xsd:int" visible="false()"/>
+        <xf:bind id="registrantType" nodeset="/patientRegistration/registrantType" required="true()"
+                 type="xsd:string"/>
+        <xf:bind id="firstName" nodeset="/patientRegistration/firstName" required="true()"
+                 type="xsd:string"/>
+        <xf:bind id="middleName" nodeset="/patientRegistration/middleName" type="xsd:string"/>
+        <xf:bind id="lastName" nodeset="/patientRegistration/lastName" required="true()" type="xsd:string"/>
+        <xf:bind id="prefferedName" nodeset="/patientRegistration/prefferedName" type="xsd:string"/>
+        <xf:bind constraint=". &lt;= 'today()'" id="dateOfBirth"
+                 message="Invalid date: date entered is in the future"
+                 nodeset="/patientRegistration/dateOfBirth"
+                 required="true()" type="xsd:date"/>
+        <xf:bind id="estimatedBirthDate" nodeset="/patientRegistration/estimatedBirthDate" required="true()"
+                 type="xsd:string"/>
+        <xf:bind action="show" id="sex" nodeset="/patientRegistration/sex"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' or /patientRegistration/registrantType =
+            'OTHER'"
+                 required="true()" type="xsd:string" visible="false()"/>
+        <xf:bind id="insured" nodeset="/patientRegistration/insured" required="true()" type="xsd:string"/>
+        <xf:bind action="show" id="nhis" nodeset="/patientRegistration/nhis"
+                 relevant="/patientRegistration/insured = 'Y'" type="xsd:string" visible="false()"
+                 required="false()"/>
+        <xf:bind action="show" id="nhisExpires" nodeset="/patientRegistration/nhisExpires"
+                 relevant="/patientRegistration/insured = 'Y'" type="xsd:date" visible="false()"
+                 required="false()"/>
+        <xf:bind action="show" id="motherMotechId" nodeset="/patientRegistration/motherMotechId"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" type="xsd:int"
+                 visible="false()" constraint=". &gt; 999999 and . &lt; 10000000"
+                 message="MoTeCH ID must be 7 digits long" required="false()"/>
+        <xf:bind id="region" nodeset="/patientRegistration/region" type="xsd:string" required="true()"
+                 visible="true()"/>
+        <xf:bind action="show" id="district" nodeset="/patientRegistration/district"
+                 relevant="/patientRegistration/region = 'ue' or /patientRegistration/region = 'cen'" visible="false()"
+                 required="true()" type="xsd:string"/>
+        <xf:bind id="subDistrict" nodeset="/patientRegistration/subDistrict" type="xsd:string" action="show"
+                 relevant="/patientRegistration/district = 'knd' or /patientRegistration/district = 'kassena_nakana_west' or /patientRegistration/district = 'awutu_senya'"
+                 visible="false()" required="true()"/>
+        <xf:bind id="community" nodeset="/patientRegistration/community" required="true()"
+                 type="xsd:string" action="show"
+                 relevant="/patientRegistration/region = 'ue' and /patientRegistration/district != 'Other'"
+                 visible="false()"/>
+        <xf:bind id="address" nodeset="/patientRegistration/address" required="true()" type="xsd:string"/>
+        <xf:bind id="phoneNumber" nodeset="/patientRegistration/phoneNumber" type="xsd:int"
+                 constraint=". &lt;= 999999999" message="Number too large. It should be 10 digits long"/>
+        <xf:bind action="show" id="cwcRegNumber" nodeset="/patientRegistration/cwcRegNumber"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'"
+                 type="xsd:string" visible="false()"/>
+        <xf:bind action="show" id="cwcRegDateToday" nodeset="/patientRegistration/cwcRegDateToday"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE'" required="true()"
+                 type="xsd:string" visible="false()"/>
+        <xf:bind action="show" constraint=". &lt;= 'today()'" id="cwcRegDate"
+                 message="Invalid date: date entered is in the future"
+                 nodeset="/patientRegistration/cwcRegDate"
+                 relevant="/patientRegistration/cwcRegDateToday = 'N'" visible="false()" required="true()"
+                 type="xsd:date"/>
+        <xf:bind action="show" id="ancRegNumber" nodeset="/patientRegistration/ancRegNumber"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'"
+                 type="xsd:string" visible="false()"/>
+        <xf:bind action="show" id="ancRegDateToday" nodeset="/patientRegistration/ancRegDateToday"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
+                 type="xsd:string" visible="false()"/>
+        <xf:bind action="show" constraint=". &lt;= 'today()'" id="ancRegDate"
+                 message="Invalid date: date entered is in the future"
+                 nodeset="/patientRegistration/ancRegDate"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/ancRegDateToday != '0'" visible="false()" required="true()"
+                 type="xsd:date"/>
+        <xf:bind action="show" constraint=". &gt;= 60 and . &lt;= 200" id="height"
+                 message="Value out of range: must be between 60 and 200"
+                 nodeset="/patientRegistration/height"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
+                 type="xsd:decimal" visible="false()"/>
+        <xf:bind action="show" constraint=". &gt;= 1 and . &lt;= 20" id="gravida"
+                 message="Value out of range: must be between 1 and 20"
+                 nodeset="/patientRegistration/gravida"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
+                 type="xsd:int"
+                 visible="false()"/>
+        <xf:bind action="show" constraint=". &gt;= 0 and . &lt;= 20" id="parity"
+                 message="Value out of range: must be between 0 and 20"
+                 nodeset="/patientRegistration/parity"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
+                 type="xsd:int"
+                 visible="false()"/>
+        <xf:bind id="addHistory" nodeset="/patientRegistration/addHistory"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' or /patientRegistration/registrantType =
+            'PREGNANT_MOTHER'"
+                 type="xsd:string" visible="false()" action="show" required="true()"/>
+        <xf:bind id="addChildHistory" nodeset="/patientRegistration/addChildHistory"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addHistory =
+            '1'"
+                 type="xsd:string" visible="false()" action="show" required="true()"/>
+        <xf:bind id="addMotherHistory" nodeset="/patientRegistration/addMotherHistory"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/addHistory = '1'"
+                 type="xsd:string" visible="false()" action="show" required="true()"/>
+        <xf:bind id="lastIPT" nodeset="/patientRegistration/lastIPT" type="xsd:string" visible="false()"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/addMotherHistory
+            = '1' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()"/>
+        <xf:bind id="lastIPTDate" nodeset="/patientRegistration/lastIPTDate" type="xsd:date"
+                 visible="false()"
+                 constraint=". &lt;= 'today()'" message="Invalid date: date specified is in the future"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/addMotherHistory
+            = '1' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()"/>
+        <xf:bind id="lastTT" nodeset="/patientRegistration/lastTT" type="xsd:string" visible="false()"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/addMotherHistory
+            = '2' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()"/>
+        <xf:bind id="lastTTDate" nodeset="/patientRegistration/lastTTDate" type="xsd:date" visible="false()"
+                 action="show" constraint=". &lt;= 'today()'"
+                 message="Invalid date: date specified is in the future"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER' and /patientRegistration/addMotherHistory
+            = '2' and /patientRegistration/addHistory = '1'"
+                 required="true()"/>
+        <xf:bind id="bcgDate" nodeset="/patientRegistration/bcgDate" type="xsd:date" visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '5' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
+                 message="Invalid date: date specified is in the future"/>
+        <xf:bind id="lastOPV" nodeset="/patientRegistration/lastOPV" type="xsd:string" visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '6' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()"/>
+        <xf:bind id="lastOPVDate" nodeset="/patientRegistration/lastOPVDate" type="xsd:date"
+                 visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '6' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
+                 message="Invalid date: date specified is in the future"/>
+        <xf:bind id="lastPenta" nodeset="/patientRegistration/lastPenta" type="xsd:string" visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '7' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()"/>
+        <xf:bind id="lastPentaDate" nodeset="/patientRegistration/lastPentaDate" type="xsd:date"
+                 visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '7' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
+                 message="Invalid date: date specified is in the future"/>
+        <xf:bind id="measlesDate" nodeset="/patientRegistration/measlesDate" type="xsd:date"
+                 visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '8' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
+                 message="Invalid date: date specified is in the future"/>
+        <xf:bind id="yellowFeverDate" nodeset="/patientRegistration/yellowFeverDate" type="xsd:date"
+                 visible="false()" constraint=". &lt;= 'today()'"
+                 message="Invalid date: date specified is in the future"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '9' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()"/>
+        <xf:bind id="lastIPTI" nodeset="/patientRegistration/lastIPTI" type="xsd:string" visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '4' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()"/>
+        <xf:bind id="lastIPTIDate" nodeset="/patientRegistration/lastIPTIDate" type="xsd:date"
+                 visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '4' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
+                 message="Invalid date: date specified is in the future"/>
+        <xf:bind id="lastVitaminADate" nodeset="/patientRegistration/lastVitaminADate" type="xsd:date"
+                 visible="false()"
+                 relevant="/patientRegistration/registrantType = 'CHILD_UNDER_FIVE' and /patientRegistration/addChildHistory
+            = '3' and /patientRegistration/addHistory = '1'"
+                 action="show" required="true()" constraint=". &lt;= 'today()'"
+                 message="Invalid date: date specified is in the future"/>
+        <xf:bind action="show" id="whyNoHistory" nodeset="/patientRegistration/whyNoHistory"
+                 relevant="/patientRegistration/addHistory = '0' and /patientRegistration/registrantType = 'CHILD_UNDER_FIVE'
+            and /patientRegistration/registrantType = 'PREGNANT_MOTHER'"
+                 required="true()" visible="false()" type="xsd:int"/>
+        <xf:bind action="show" id="expDeliveryDate" nodeset="/patientRegistration/expDeliveryDate"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
+                 type="xsd:date" visible="false()"/>
+        <xf:bind action="show" id="deliveryDateConfirmed"
+                 nodeset="/patientRegistration/deliveryDateConfirmed"
+                 relevant="/patientRegistration/registrantType = 'PREGNANT_MOTHER'" required="true()"
+                 type="xsd:string" visible="false()"/>
+        <xf:bind id="enroll" nodeset="/patientRegistration/enroll" required="true()" type="xsd:string"/>
+        <xf:bind action="show" id="consent" nodeset="/patientRegistration/consent"
+                 relevant="/patientRegistration/enroll = 'Y'" required="true()" type="xsd:string"
+                 visible="false()"/>
+        <xf:bind action="show" id="ownership" nodeset="/patientRegistration/ownership"
+                 relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string"
+                 visible="false()"/>
+        <xf:bind action="show" id="regPhone" nodeset="/patientRegistration/regPhone"
+                 relevant="/patientRegistration/ownership = 'PERSONAL' or /patientRegistration/ownership = 'HOUSEHOLD'"
+                 required="true()" type="xsd:int" constraint=". &lt;= 999999999"
+                 message="Number too large. It should be 10 digits long"/>
+        <xf:bind action="show" id="format" nodeset="/patientRegistration/format"
+                 relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string"
+                 visible="false()"/>
+        <xf:bind action="show" id="language" nodeset="/patientRegistration/language"
+                 relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string"
+                 visible="false()"/>
+        <xf:bind action="show" id="dayOfWeek" nodeset="/patientRegistration/dayOfWeek"
+                 relevant="/patientRegistration/format = 'PERS_VOICE' or /patientRegistration/format = 'HSE_VOICE'"
+                 required="true()" type="xsd:string" visible="false()"/>
+        <xf:bind action="show" id="timeOfDay" nodeset="/patientRegistration/timeOfDay"
+                 relevant="/patientRegistration/format = 'PERS_VOICE' or /patientRegistration/format = 'HSE_VOICE'"
+                 required="true()" type="xsd:time" visible="false()"/>
+        <xf:bind action="show" id="reason" nodeset="/patientRegistration/reason"
+                 relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y' and
+            /patientRegistration/registrantType = 'OTHER'"
+                 required="true()" type="xsd:string" visible="false()"/>
+        <xf:bind action="show" id="howLearned" nodeset="/patientRegistration/howLearned"
+                 relevant="/patientRegistration/consent = 'Y'" required="true()" type="xsd:string"
+                 visible="false()"/>
+        <xf:bind action="show" id="messageStartWeek" nodeset="/patientRegistration/messageStartWeek"
+                 relevant="/patientRegistration/enroll = 'Y' and /patientRegistration/consent = 'Y' and
+            /patientRegistration/registrantType = 'OTHER'"
+                 required="true()" type="xsd:string" visible="false()"/>
+        <xf:bind id="formtype" nodeset="/patientRegistration/formtype" required="true()" type="xsd:string"
+                 visible="false()"/>
+        <xf:bind id="formname" nodeset="/patientRegistration/formname" required="true()" type="xsd:string"
+                 visible="false()"/>
+    </xf:model>
+    <xf:group id="1">
+        <xf:label>Page1</xf:label>
+        <xf:input bind="staffId">
+            <xf:label>Staff ID</xf:label>
+        </xf:input>
+        <xf:input bind="facilityId">
+            <xf:label>Facility ID</xf:label>
+        </xf:input>
+        <xf:input bind="date">
+            <xf:label>Reg. date</xf:label>
+        </xf:input>
+        <xf:select1 bind="registrationMode">
+            <xf:label>Reg. mode</xf:label>
+            <xf:item id="USE_PREPRINTED_ID">
+                <xf:label>Pre-printed ID</xf:label>
+                <xf:value>USE_PREPRINTED_ID</xf:value>
+            </xf:item>
+            <xf:item id="AUTO_GENERATE_ID">
+                <xf:label>Auto-generated ID</xf:label>
+                <xf:value>AUTO_GENERATE_ID</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="motechId">
+            <xf:label>MoTeCH ID</xf:label>
+        </xf:input>
+        <xf:input bind="sender">
+            <xf:label>Response phone number</xf:label>
+        </xf:input>
+        <xf:select1 bind="registrantType">
+            <xf:label>Client type</xf:label>
+            <xf:item id="PREGNANT_MOTHER">
+                <xf:label>Pregnant mother</xf:label>
+                <xf:value>PREGNANT_MOTHER</xf:value>
+            </xf:item>
+            <xf:item id="CHILD_UNDER_FIVE">
+                <xf:label>Child Under 5</xf:label>
+                <xf:value>CHILD_UNDER_FIVE</xf:value>
+            </xf:item>
+            <xf:item id="OTHER">
+                <xf:label>Other</xf:label>
+                <xf:value>OTHER</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="firstName">
+            <xf:label>First name</xf:label>
+        </xf:input>
+        <xf:input bind="middleName">
+            <xf:label>Middle name</xf:label>
+        </xf:input>
+        <xf:input bind="lastName">
+            <xf:label>Last name</xf:label>
+        </xf:input>
+        <xf:input bind="prefferedName">
+            <xf:label>Preferred name</xf:label>
+        </xf:input>
+        <xf:input bind="dateOfBirth">
+            <xf:label>Date of birth</xf:label>
+        </xf:input>
+        <xf:select1 bind="estimatedBirthDate">
+            <xf:label>Estimated DOB</xf:label>
+            <xf:item id="Y">
+                <xf:label>Estimated DOB</xf:label>
+                <xf:value>Y</xf:value>
+            </xf:item>
+            <xf:item id="N">
+                <xf:label>Exact DOB</xf:label>
+                <xf:value>N</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="sex">
+            <xf:label>Sex</xf:label>
+            <xf:item id="M">
+                <xf:label>Male</xf:label>
+                <xf:value>M</xf:value>
+            </xf:item>
+            <xf:item id="F">
+                <xf:label>Female</xf:label>
+                <xf:value>F</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="insured">
+            <xf:label>Insured?</xf:label>
+            <xf:item id="Y">
+                <xf:label>Yes</xf:label>
+                <xf:value>Y</xf:value>
+            </xf:item>
+            <xf:item id="N">
+                <xf:label>No</xf:label>
+                <xf:value>N</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="nhis">
+            <xf:label>NHIS Number</xf:label>
+        </xf:input>
+        <xf:input bind="nhisExpires">
+            <xf:label>NHIS Expiry Date</xf:label>
+        </xf:input>
+        <xf:input bind="motherMotechId">
+            <xf:label>Mother's MoTeCH ID</xf:label>
+        </xf:input>
+        <xf:select1 bind="region">
+            <xf:label>Region</xf:label>
+            <xf:item id="ue">
+                <xf:label>Upper East</xf:label>
+                <xf:value>ue</xf:value>
+            </xf:item>
+            <xf:item id="cen">
+                <xf:label>Central</xf:label>
+                <xf:value>cen</xf:value>
+            </xf:item>
+            <xf:item id="ash">
+                <xf:label>Ashanti</xf:label>
+                <xf:value>ash</xf:value>
+            </xf:item>
+            <xf:item id="ba">
+                <xf:label>Brong Ahafo</xf:label>
+                <xf:value>ba</xf:value>
+            </xf:item>
+            <xf:item id="eas">
+                <xf:label>Eastern</xf:label>
+                <xf:value>eas</xf:value>
+            </xf:item>
+            <xf:item id="ga">
+                <xf:label>Greater Accra</xf:label>
+                <xf:value>ga</xf:value>
+            </xf:item>
+            <xf:item id="nor">
+                <xf:label>Northern</xf:label>
+                <xf:value>nor</xf:value>
+            </xf:item>
+            <xf:item id="uw">
+                <xf:label>Upper West</xf:label>
+                <xf:value>uw</xf:value>
+            </xf:item>
+            <xf:item id="wes">
+                <xf:label>Western</xf:label>
+                <xf:value>wes</xf:value>
+            </xf:item>
+            <xf:item id="vol">
+                <xf:label>Volta</xf:label>
+                <xf:value>vol</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="district">
+            <xf:label>District</xf:label>
+            <xf:itemset
+                    nodeset="instance('district')/item[@parent=instance('patientRegistration')/region]">
+                <xf:label ref="label"/>
+                <xf:value ref="value"/>
+            </xf:itemset>
+        </xf:select1>
+        <xf:select1 bind="subDistrict">
+            <xf:label>Sub-district</xf:label>
+            <xf:itemset
+                    nodeset="instance('subDistrict')/item[@parent=instance('patientRegistration')/district]">
+                <xf:label ref="label"/>
+                <xf:value ref="value"/>
+            </xf:itemset>
+            <xf:item id="kndce">
+                <xf:label>KND - Central East</xf:label>
+                <xf:value>kndce</xf:value>
+            </xf:item>
+            <xf:item id="kndcnav">
+                <xf:label>KND - Central Navrongo</xf:label>
+                <xf:value>kndcnav</xf:value>
+            </xf:item>
+            <xf:item id="kndcn">
+                <xf:label>KND - Central North</xf:label>
+                <xf:value>kndcn</xf:value>
+            </xf:item>
+            <xf:item id="kndcne">
+                <xf:label>KND - Central North East</xf:label>
+                <xf:value>kndcne</xf:value>
+            </xf:item>
+            <xf:item id="kndcs">
+                <xf:label>KND - Central South</xf:label>
+                <xf:value>kndcs</xf:value>
+            </xf:item>
+            <xf:item id="kndcw">
+                <xf:label>KND - Central West</xf:label>
+                <xf:value>kndcw</xf:value>
+            </xf:item>
+            <xf:item id="kndwn">
+                <xf:label>KNDW - Navio</xf:label>
+                <xf:value>kndwn</xf:value>
+            </xf:item>
+            <xf:item id="kndwkn">
+                <xf:label>KNDW - Katiu-Nakong</xf:label>
+                <xf:value>kndwkn</xf:value>
+            </xf:item>
+            <xf:item id="kndwk">
+                <xf:label>KNDW - Kayoro</xf:label>
+                <xf:value>kndwk</xf:value>
+            </xf:item>
+            <xf:item id="kndwc">
+                <xf:label>KNDW - Chiana</xf:label>
+                <xf:value>kndwc</xf:value>
+            </xf:item>
+            <xf:item id="kndwkk">
+                <xf:label>KNDW - Kandiga-Kuguru</xf:label>
+                <xf:value>kndwkk</xf:value>
+            </xf:item>
+            <xf:item id="kndws">
+                <xf:label>KNDW - Sirigu</xf:label>
+                <xf:value>kndws</xf:value>
+            </xf:item>
+            <xf:item id="kndwpc">
+                <xf:label>KNDW - Paga Central</xf:label>
+                <xf:value>kndwpc</xf:value>
+            </xf:item>
+            <xf:item id="kndwm">
+                <xf:label>KNDW - Mirigu</xf:label>
+                <xf:value>kndwm</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="community">
+            <xf:label>Community</xf:label>
+            <xf:itemset
+                    nodeset="instance('community')/item[@parent=instance('patientRegistration')/subDistrict]">
+                <xf:label ref="label"/>
+                <xf:value ref="value"/>
+            </xf:itemset>
+        </xf:select1>
+        <xf:input bind="address">
+            <xf:label>Address</xf:label>
+        </xf:input>
+        <xf:input bind="phoneNumber">
+            <xf:label>Contact phone no.</xf:label>
+        </xf:input>
+        <xf:input bind="cwcRegNumber">
+            <xf:label>CWC Serial Number</xf:label>
+        </xf:input>
+        <xf:select1 bind="cwcRegDateToday">
+            <xf:label>CWC Registration Today?</xf:label>
+            <xf:item id="Y">
+                <xf:label>Today</xf:label>
+                <xf:value>Y</xf:value>
+            </xf:item>
+            <xf:item id="N">
+                <xf:label>In the past</xf:label>
+                <xf:value>N</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="cwcRegDate">
+            <xf:label>CWC Registraton Date</xf:label>
+        </xf:input>
+        <xf:input bind="ancRegNumber">
+            <xf:label>ANC Serial Number</xf:label>
+        </xf:input>
+        <xf:select1 bind="ancRegDateToday">
+            <xf:label>ANC Registration Today?</xf:label>
+            <xf:item id="0">
+                <xf:label>Today</xf:label>
+                <xf:value>0</xf:value>
+            </xf:item>
+            <xf:item id="1">
+                <xf:label>In the past</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>In the past in other facility</xf:label>
+                <xf:value>2</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="ancRegDate">
+            <xf:label>ANC Registraton Date</xf:label>
+        </xf:input>
+        <xf:input bind="height">
+            <xf:label>Height (cm)</xf:label>
+        </xf:input>
+        <xf:input bind="gravida">
+            <xf:label>Gravida</xf:label>
+        </xf:input>
+        <xf:input bind="parity">
+            <xf:label>Parity</xf:label>
+        </xf:input>
+        <xf:select1 bind="addHistory">
+            <xf:label>Add History</xf:label>
+            <xf:item id="1">
+                <xf:label>Yes</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>No</xf:label>
+                <xf:value>0</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select bind="addMotherHistory">
+            <xf:label>Add Care History</xf:label>
+            <xf:item id="1">
+                <xf:label>IPT</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>TT</xf:label>
+                <xf:value>2</xf:value>
+            </xf:item>
+        </xf:select>
+        <xf:select bind="addChildHistory">
+            <xf:label>Add Care History</xf:label>
+            <xf:item id="3">
+                <xf:label>Vit A (Ch)</xf:label>
+                <xf:value>3</xf:value>
+            </xf:item>
+            <xf:item id="4">
+                <xf:label>IPTi (Ch)</xf:label>
+                <xf:value>4</xf:value>
+            </xf:item>
+            <xf:item id="5">
+                <xf:label>BCG</xf:label>
+                <xf:value>5</xf:value>
+            </xf:item>
+            <xf:item id="6">
+                <xf:label>OPV</xf:label>
+                <xf:value>6</xf:value>
+            </xf:item>
+            <xf:item id="7">
+                <xf:label>Penta</xf:label>
+                <xf:value>7</xf:value>
+            </xf:item>
+            <xf:item id="8">
+                <xf:label>Measles</xf:label>
+                <xf:value>8</xf:value>
+            </xf:item>
+            <xf:item id="9">
+                <xf:label>YF</xf:label>
+                <xf:value>9</xf:value>
+            </xf:item>
+        </xf:select>
+        <xf:select1 bind="lastIPT">
+            <xf:label>Last IPT</xf:label>
+            <xf:item id="1">
+                <xf:label>IPT 1</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>IPT 2</xf:label>
+                <xf:value>2</xf:value>
+            </xf:item>
+            <xf:item id="3">
+                <xf:label>IPT 3</xf:label>
+                <xf:value>3</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="lastIPTDate">
+            <xf:label>Last IPT date</xf:label>
+        </xf:input>
+        <xf:select1 bind="lastTT">
+            <xf:label>Last TT</xf:label>
+            <xf:item id="1">
+                <xf:label>TT 1</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>TT 2</xf:label>
+                <xf:value>2</xf:value>
+            </xf:item>
+            <xf:item id="3">
+                <xf:label>TT 3</xf:label>
+                <xf:value>3</xf:value>
+            </xf:item>
+            <xf:item id="4">
+                <xf:label>TT 4</xf:label>
+                <xf:value>4</xf:value>
+            </xf:item>
+            <xf:item id="5">
+                <xf:label>TT 5</xf:label>
+                <xf:value>5</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="lastTTDate">
+            <xf:label>Last TT Date</xf:label>
+        </xf:input>
+        <xf:input bind="bcgDate">
+            <xf:label>BCG date</xf:label>
+        </xf:input>
+        <xf:select1 bind="lastOPV">
+            <xf:label>Last OPV</xf:label>
+            <xf:item id="0">
+                <xf:label>OPV 0</xf:label>
+                <xf:value>0</xf:value>
+            </xf:item>
+            <xf:item id="1">
+                <xf:label>OPV 1</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>OPV 2</xf:label>
+                <xf:value>2</xf:value>
+            </xf:item>
+            <xf:item id="3">
+                <xf:label>OPV 3</xf:label>
+                <xf:value>3</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="lastOPVDate">
+            <xf:label>Last OPV date</xf:label>
+        </xf:input>
+        <xf:select1 bind="lastPenta">
+            <xf:label>Last Penta</xf:label>
+            <xf:item id="1">
+                <xf:label>Penta 1</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>Penta 2</xf:label>
+                <xf:value>2</xf:value>
+            </xf:item>
+            <xf:item id="3">
+                <xf:label>Penta 3</xf:label>
+                <xf:value>3</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="lastPentaDate">
+            <xf:label>Last Penta date</xf:label>
+        </xf:input>
+        <xf:input bind="measlesDate">
+            <xf:label>Measles date</xf:label>
+        </xf:input>
+        <xf:input bind="yellowFeverDate">
+            <xf:label>YF date</xf:label>
+        </xf:input>
+        <xf:select1 bind="lastIPTI">
+            <xf:label>Last IPTi</xf:label>
+            <xf:item id="1">
+                <xf:label>IPTi 1</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>IPTi 2</xf:label>
+                <xf:value>2</xf:value>
+            </xf:item>
+            <xf:item id="3">
+                <xf:label>IPTi 3</xf:label>
+                <xf:value>3</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="lastIPTIDate">
+            <xf:label>Last IPTi date</xf:label>
+        </xf:input>
+        <xf:input bind="lastVitaminADate">
+            <xf:label>Last Vit A date</xf:label>
+        </xf:input>
+        <xf:select1 bind="whyNoHistory">
+            <xf:label>Why no history</xf:label>
+            <xf:item id="1">
+                <xf:label>No care received yet</xf:label>
+                <xf:value>1</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>Misplaced health card</xf:label>
+                <xf:value>2</xf:value>
+            </xf:item>
+            <xf:item id="3">
+                <xf:label>No known record</xf:label>
+                <xf:value>3</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="expDeliveryDate">
+            <xf:label>Expected delivery date</xf:label>
+        </xf:input>
+        <xf:select1 bind="deliveryDateConfirmed">
+            <xf:label>Delivery date confirmed by CHW</xf:label>
+            <xf:item id="Y">
+                <xf:label>Yes</xf:label>
+                <xf:value>Y</xf:value>
+            </xf:item>
+            <xf:item id="N">
+                <xf:label>No</xf:label>
+                <xf:value>N</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="enroll">
+            <xf:label>Join Mobile Midwife?</xf:label>
+            <xf:item id="Y">
+                <xf:label>Yes</xf:label>
+                <xf:value>Y</xf:value>
+            </xf:item>
+            <xf:item id="N">
+                <xf:label>No</xf:label>
+                <xf:value>N</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="consent">
+            <xf:label>Consent?</xf:label>
+            <xf:item id="Y">
+                <xf:label>Yes</xf:label>
+                <xf:value>Y</xf:value>
+            </xf:item>
+            <xf:item id="N">
+                <xf:label>No</xf:label>
+                <xf:value>N</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="ownership">
+            <xf:label>Phone ownership</xf:label>
+            <xf:item id="PERSONAL">
+                <xf:label>Personal phone</xf:label>
+                <xf:value>PERSONAL</xf:value>
+            </xf:item>
+            <xf:item id="HOUSEHOLD">
+                <xf:label>Household phone</xf:label>
+                <xf:value>HOUSEHOLD</xf:value>
+            </xf:item>
+            <xf:item id="PUBLIC">
+                <xf:label>Public phone</xf:label>
+                <xf:value>PUBLIC</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="regPhone">
+            <xf:label>Phone number</xf:label>
+        </xf:input>
+        <xf:select1 bind="format">
+            <xf:label>Message format</xf:label>
+            <xf:itemset
+                    nodeset="instance('format')/item[@parent=instance('patientRegistration')/ownership]">
+                <xf:label ref="label"/>
+                <xf:value ref="value"/>
+            </xf:itemset>
+        </xf:select1>
+        <xf:select1 bind="language">
+            <xf:label>Message language</xf:label>
+            <xf:itemset nodeset="instance('language')/item[@parent=instance('patientRegistration')/format]">
+                <xf:label ref="label"/>
+                <xf:value ref="value"/>
+            </xf:itemset>
+        </xf:select1>
+        <xf:select1 bind="dayOfWeek">
+            <xf:label>Day of week to receive messages</xf:label>
+            <xf:item id="MONDAY">
+                <xf:label>Monday</xf:label>
+                <xf:value>MONDAY</xf:value>
+            </xf:item>
+            <xf:item id="TUESDAY">
+                <xf:label>Tuesday</xf:label>
+                <xf:value>TUESDAY</xf:value>
+            </xf:item>
+            <xf:item id="WEDNESDAY">
+                <xf:label>Wednesday</xf:label>
+                <xf:value>WEDNESDAY</xf:value>
+            </xf:item>
+            <xf:item id="THURSDAY">
+                <xf:label>Thursday</xf:label>
+                <xf:value>THURSDAY</xf:value>
+            </xf:item>
+            <xf:item id="FRIDAY">
+                <xf:label>Friday</xf:label>
+                <xf:value>FRIDAY</xf:value>
+            </xf:item>
+            <xf:item id="SATURDAY">
+                <xf:label>Saturday</xf:label>
+                <xf:value>SATURDAY</xf:value>
+            </xf:item>
+            <xf:item id="SUNDAY">
+                <xf:label>Sunday</xf:label>
+                <xf:value>SUNDAY</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="timeOfDay">
+            <xf:label>Time of day to receive messages</xf:label>
+        </xf:input>
+        <xf:select1 bind="reason">
+            <xf:label>Reason for interest in Mobile Midwife</xf:label>
+            <xf:item id="CURRENTLY_PREGNANT">
+                <xf:label>Currently pregnant</xf:label>
+                <xf:value>CURRENTLY_PREGNANT</xf:value>
+            </xf:item>
+            <xf:item id="RECENTLY_DELIVERED">
+                <xf:label>Recently delivered</xf:label>
+                <xf:value>RECENTLY_DELIVERED</xf:value>
+            </xf:item>
+            <xf:item id="FAMILY_FRIEND_PREGNANT">
+                <xf:label>Family/friend pregnant</xf:label>
+                <xf:value>FAMILY_FRIEND_PREGNANT</xf:value>
+            </xf:item>
+            <xf:item id="FAMILY_FRIEND_DELIVERED">
+                <xf:label>Family/friend recently delivered</xf:label>
+                <xf:value>FAMILY_FRIEND_DELIVERED</xf:value>
+            </xf:item>
+            <xf:item id="PLANNING_PREGNANCY_INFO">
+                <xf:label>Thinking of getting pregnant</xf:label>
+                <xf:value>PLANNING_PREGNANCY_INFO</xf:value>
+            </xf:item>
+            <xf:item id="KNOW_MORE_PREGNANCY_CHILDBIRTH">
+                <xf:label>Want to know more about pregnancy and child birth</xf:label>
+                <xf:value>KNOW_MORE_PREGNANCY_CHILDBIRTH</xf:value>
+            </xf:item>
+            <xf:item id="WORK_WITH_WOMEN_NEWBORNS">
+                <xf:label>Work with pregnant women or newborns</xf:label>
+                <xf:value>WORK_WITH_WOMEN_NEWBORNS</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="howLearned">
+            <xf:label>How learned of Mobile Midwife</xf:label>
+            <xf:item id="GHS_NURSE">
+                <xf:label>GHS Nurse</xf:label>
+                <xf:value>GHS_NURSE</xf:value>
+            </xf:item>
+            <xf:item id="MOTECH_FIELD_AGENT">
+                <xf:label>MoTeCH field agent</xf:label>
+                <xf:value>MOTECH_FIELD_AGENT</xf:value>
+            </xf:item>
+            <xf:item id="FRIEND">
+                <xf:label>Friend</xf:label>
+                <xf:value>FRIEND</xf:value>
+            </xf:item>
+            <xf:item id="POSTERS_ADS">
+                <xf:label>Posters/ads</xf:label>
+                <xf:value>POSTERS_ADS</xf:value>
+            </xf:item>
+            <xf:item id="RADIO">
+                <xf:label>Radio</xf:label>
+                <xf:value>RADIO</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:select1 bind="messageStartWeek">
+            <xf:label>Week to begin messages</xf:label>
+            <xf:item id="5">
+                <xf:label>Pregnancy-week 5</xf:label>
+                <xf:value>5</xf:value>
+            </xf:item>
+            <xf:item id="6">
+                <xf:label>Pregnancy-week 6</xf:label>
+                <xf:value>6</xf:value>
+            </xf:item>
+            <xf:item id="7">
+                <xf:label>Pregnancy-week 7</xf:label>
+                <xf:value>7</xf:value>
+            </xf:item>
+            <xf:item id="8">
+                <xf:label>Pregnancy-week 8</xf:label>
+                <xf:value>8</xf:value>
+            </xf:item>
+            <xf:item id="9">
+                <xf:label>Pregnancy-week 9</xf:label>
+                <xf:value>9</xf:value>
+            </xf:item>
+            <xf:item id="10">
+                <xf:label>Pregnancy-week 10</xf:label>
+                <xf:value>10</xf:value>
+            </xf:item>
+            <xf:item id="11">
+                <xf:label>Pregnancy-week 11</xf:label>
+                <xf:value>11</xf:value>
+            </xf:item>
+            <xf:item id="12">
+                <xf:label>Pregnancy-week 12</xf:label>
+                <xf:value>12</xf:value>
+            </xf:item>
+            <xf:item id="13">
+                <xf:label>Pregnancy-week 13</xf:label>
+                <xf:value>13</xf:value>
+            </xf:item>
+            <xf:item id="14">
+                <xf:label>Pregnancy-week 14</xf:label>
+                <xf:value>14</xf:value>
+            </xf:item>
+            <xf:item id="15">
+                <xf:label>Pregnancy-week 15</xf:label>
+                <xf:value>15</xf:value>
+            </xf:item>
+            <xf:item id="16">
+                <xf:label>Pregnancy-week 16</xf:label>
+                <xf:value>16</xf:value>
+            </xf:item>
+            <xf:item id="17">
+                <xf:label>Pregnancy-week 17</xf:label>
+                <xf:value>17</xf:value>
+            </xf:item>
+            <xf:item id="18">
+                <xf:label>Pregnancy-week 18</xf:label>
+                <xf:value>18</xf:value>
+            </xf:item>
+            <xf:item id="19">
+                <xf:label>Pregnancy-week 19</xf:label>
+                <xf:value>19</xf:value>
+            </xf:item>
+            <xf:item id="20">
+                <xf:label>Pregnancy-week 20</xf:label>
+                <xf:value>20</xf:value>
+            </xf:item>
+            <xf:item id="21">
+                <xf:label>Pregnancy-week 21</xf:label>
+                <xf:value>21</xf:value>
+            </xf:item>
+            <xf:item id="22">
+                <xf:label>Pregnancy-week 22</xf:label>
+                <xf:value>22</xf:value>
+            </xf:item>
+            <xf:item id="23">
+                <xf:label>Pregnancy-week 23</xf:label>
+                <xf:value>23</xf:value>
+            </xf:item>
+            <xf:item id="24">
+                <xf:label>Pregnancy-week 24</xf:label>
+                <xf:value>24</xf:value>
+            </xf:item>
+            <xf:item id="25">
+                <xf:label>Pregnancy-week 25</xf:label>
+                <xf:value>25</xf:value>
+            </xf:item>
+            <xf:item id="26">
+                <xf:label>Pregnancy-week 26</xf:label>
+                <xf:value>26</xf:value>
+            </xf:item>
+            <xf:item id="27">
+                <xf:label>Pregnancy-week 27</xf:label>
+                <xf:value>27</xf:value>
+            </xf:item>
+            <xf:item id="28">
+                <xf:label>Pregnancy-week 28</xf:label>
+                <xf:value>28</xf:value>
+            </xf:item>
+            <xf:item id="29">
+                <xf:label>Pregnancy-week 29</xf:label>
+                <xf:value>29</xf:value>
+            </xf:item>
+            <xf:item id="30">
+                <xf:label>Pregnancy-week 30</xf:label>
+                <xf:value>30</xf:value>
+            </xf:item>
+            <xf:item id="31">
+                <xf:label>Pregnancy-week 31</xf:label>
+                <xf:value>31</xf:value>
+            </xf:item>
+            <xf:item id="32">
+                <xf:label>Pregnancy-week 32</xf:label>
+                <xf:value>32</xf:value>
+            </xf:item>
+            <xf:item id="33">
+                <xf:label>Pregnancy-week 33</xf:label>
+                <xf:value>33</xf:value>
+            </xf:item>
+            <xf:item id="34">
+                <xf:label>Pregnancy-week 34</xf:label>
+                <xf:value>34</xf:value>
+            </xf:item>
+            <xf:item id="35">
+                <xf:label>Pregnancy-week 35</xf:label>
+                <xf:value>35</xf:value>
+            </xf:item>
+            <xf:item id="36">
+                <xf:label>Pregnancy-week 36</xf:label>
+                <xf:value>36</xf:value>
+            </xf:item>
+            <xf:item id="37">
+                <xf:label>Pregnancy-week 37</xf:label>
+                <xf:value>37</xf:value>
+            </xf:item>
+            <xf:item id="38">
+                <xf:label>Pregnancy-week 38</xf:label>
+                <xf:value>38</xf:value>
+            </xf:item>
+            <xf:item id="39">
+                <xf:label>Pregnancy-week 39</xf:label>
+                <xf:value>39</xf:value>
+            </xf:item>
+            <xf:item id="40">
+                <xf:label>Pregnancy-week 40</xf:label>
+                <xf:value>40</xf:value>
+            </xf:item>
+            <xf:item id="1">
+                <xf:label>Baby-week 1</xf:label>
+                <xf:value>41</xf:value>
+            </xf:item>
+            <xf:item id="2">
+                <xf:label>Baby-week 2</xf:label>
+                <xf:value>42</xf:value>
+            </xf:item>
+            <xf:item id="3">
+                <xf:label>Baby-week 3</xf:label>
+                <xf:value>43</xf:value>
+            </xf:item>
+            <xf:item id="4">
+                <xf:label>Baby-week 4</xf:label>
+                <xf:value>44</xf:value>
+            </xf:item>
+            <xf:item id="5">
+                <xf:label>Baby-week 5</xf:label>
+                <xf:value>45</xf:value>
+            </xf:item>
+            <xf:item id="6">
+                <xf:label>Baby-week 6</xf:label>
+                <xf:value>46</xf:value>
+            </xf:item>
+            <xf:item id="7">
+                <xf:label>Baby-week 7</xf:label>
+                <xf:value>47</xf:value>
+            </xf:item>
+            <xf:item id="8">
+                <xf:label>Baby-week 8</xf:label>
+                <xf:value>48</xf:value>
+            </xf:item>
+            <xf:item id="9">
+                <xf:label>Baby-week 9</xf:label>
+                <xf:value>49</xf:value>
+            </xf:item>
+            <xf:item id="10">
+                <xf:label>Baby-week 10</xf:label>
+                <xf:value>50</xf:value>
+            </xf:item>
+            <xf:item id="11">
+                <xf:label>Baby-week 11</xf:label>
+                <xf:value>51</xf:value>
+            </xf:item>
+            <xf:item id="12">
+                <xf:label>Baby-week 12</xf:label>
+                <xf:value>52</xf:value>
+            </xf:item>
+            <xf:item id="13">
+                <xf:label>Baby-week 13</xf:label>
+                <xf:value>53</xf:value>
+            </xf:item>
+            <xf:item id="14">
+                <xf:label>Baby-week 14</xf:label>
+                <xf:value>54</xf:value>
+            </xf:item>
+            <xf:item id="15">
+                <xf:label>Baby-week 15</xf:label>
+                <xf:value>55</xf:value>
+            </xf:item>
+            <xf:item id="16">
+                <xf:label>Baby-week 16</xf:label>
+                <xf:value>56</xf:value>
+            </xf:item>
+            <xf:item id="17">
+                <xf:label>Baby-week 17</xf:label>
+                <xf:value>57</xf:value>
+            </xf:item>
+            <xf:item id="18">
+                <xf:label>Baby-week 18</xf:label>
+                <xf:value>58</xf:value>
+            </xf:item>
+            <xf:item id="19">
+                <xf:label>Baby-week 19</xf:label>
+                <xf:value>59</xf:value>
+            </xf:item>
+            <xf:item id="20">
+                <xf:label>Baby-week 20</xf:label>
+                <xf:value>60</xf:value>
+            </xf:item>
+            <xf:item id="21">
+                <xf:label>Baby-week 21</xf:label>
+                <xf:value>61</xf:value>
+            </xf:item>
+            <xf:item id="22">
+                <xf:label>Baby-week 22</xf:label>
+                <xf:value>62</xf:value>
+            </xf:item>
+            <xf:item id="23">
+                <xf:label>Baby-week 23</xf:label>
+                <xf:value>63</xf:value>
+            </xf:item>
+            <xf:item id="24">
+                <xf:label>Baby-week 24</xf:label>
+                <xf:value>64</xf:value>
+            </xf:item>
+            <xf:item id="25">
+                <xf:label>Baby-week 25</xf:label>
+                <xf:value>65</xf:value>
+            </xf:item>
+            <xf:item id="26">
+                <xf:label>Baby-week 26</xf:label>
+                <xf:value>66</xf:value>
+            </xf:item>
+            <xf:item id="27">
+                <xf:label>Baby-week 27</xf:label>
+                <xf:value>67</xf:value>
+            </xf:item>
+            <xf:item id="28">
+                <xf:label>Baby-week 28</xf:label>
+                <xf:value>68</xf:value>
+            </xf:item>
+            <xf:item id="29">
+                <xf:label>Baby-week 29</xf:label>
+                <xf:value>69</xf:value>
+            </xf:item>
+            <xf:item id="30">
+                <xf:label>Baby-week 30</xf:label>
+                <xf:value>70</xf:value>
+            </xf:item>
+            <xf:item id="31">
+                <xf:label>Baby-week 31</xf:label>
+                <xf:value>71</xf:value>
+            </xf:item>
+            <xf:item id="32">
+                <xf:label>Baby-week 32</xf:label>
+                <xf:value>72</xf:value>
+            </xf:item>
+            <xf:item id="33">
+                <xf:label>Baby-week 33</xf:label>
+                <xf:value>73</xf:value>
+            </xf:item>
+            <xf:item id="34">
+                <xf:label>Baby-week 34</xf:label>
+                <xf:value>74</xf:value>
+            </xf:item>
+            <xf:item id="35">
+                <xf:label>Baby-week 35</xf:label>
+                <xf:value>75</xf:value>
+            </xf:item>
+            <xf:item id="36">
+                <xf:label>Baby-week 36</xf:label>
+                <xf:value>76</xf:value>
+            </xf:item>
+            <xf:item id="37">
+                <xf:label>Baby-week 37</xf:label>
+                <xf:value>77</xf:value>
+            </xf:item>
+            <xf:item id="38">
+                <xf:label>Baby-week 38</xf:label>
+                <xf:value>78</xf:value>
+            </xf:item>
+            <xf:item id="39">
+                <xf:label>Baby-week 39</xf:label>
+                <xf:value>79</xf:value>
+            </xf:item>
+            <xf:item id="40">
+                <xf:label>Baby-week 40</xf:label>
+                <xf:value>80</xf:value>
+            </xf:item>
+            <xf:item id="41">
+                <xf:label>Baby-week 41</xf:label>
+                <xf:value>81</xf:value>
+            </xf:item>
+            <xf:item id="42">
+                <xf:label>Baby-week 42</xf:label>
+                <xf:value>82</xf:value>
+            </xf:item>
+            <xf:item id="43">
+                <xf:label>Baby-week 43</xf:label>
+                <xf:value>83</xf:value>
+            </xf:item>
+            <xf:item id="44">
+                <xf:label>Baby-week 44</xf:label>
+                <xf:value>84</xf:value>
+            </xf:item>
+            <xf:item id="45">
+                <xf:label>Baby-week 45</xf:label>
+                <xf:value>85</xf:value>
+            </xf:item>
+            <xf:item id="46">
+                <xf:label>Baby-week 46</xf:label>
+                <xf:value>86</xf:value>
+            </xf:item>
+            <xf:item id="47">
+                <xf:label>Baby-week 47</xf:label>
+                <xf:value>87</xf:value>
+            </xf:item>
+            <xf:item id="48">
+                <xf:label>Baby-week 48</xf:label>
+                <xf:value>88</xf:value>
+            </xf:item>
+            <xf:item id="49">
+                <xf:label>Baby-week 49</xf:label>
+                <xf:value>89</xf:value>
+            </xf:item>
+            <xf:item id="50">
+                <xf:label>Baby-week 50</xf:label>
+                <xf:value>90</xf:value>
+            </xf:item>
+            <xf:item id="51">
+                <xf:label>Baby-week 51</xf:label>
+                <xf:value>91</xf:value>
+            </xf:item>
+            <xf:item id="52">
+                <xf:label>Baby-week 52</xf:label>
+                <xf:value>92</xf:value>
+            </xf:item>
+        </xf:select1>
+        <xf:input bind="formtype">
+            <xf:label>formType</xf:label>
+        </xf:input>
+        <xf:input bind="formname">
+            <xf:label>formName</xf:label>
+        </xf:input>
+    </xf:group>
+</xf:xforms>

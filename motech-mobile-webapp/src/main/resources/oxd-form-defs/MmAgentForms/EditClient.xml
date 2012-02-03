@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="5">
+  <xf:model>
+    <xf:instance id="editpatient">
+      <editpatient id="5" name="Edit Client">
+        <staffId/>
+        <facilityId/>
+        <date/>
+        <motechId/>
+        <firstName/>
+        <middleName/>
+        <lastName/>
+        <preferredName/>
+        <phoneNumber/>
+        <phoneOwnership/>
+        <nhis/>
+        <nhisExpires/>
+        <mothersMotechId/>
+        <edd/>
+        <stopEnrollment/>
+        <formtype>data_entry</formtype>
+        <formname>editPatient-jf</formname>
+      </editpatient>
+    </xf:instance>
+    <xf:bind id="staffId" nodeset="/editpatient/staffId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind id="facilityId" nodeset="/editpatient/facilityId" required="true()" type="xsd:int" constraint=". &lt; 2147483647" message="Number too large. Keep under 2147483647"/>
+    <xf:bind constraint=". &lt;= 'today()'" id="date" message="Invalid date: date specified is in the future" nodeset="/editpatient/date" required="true()" type="xsd:date"/>
+    <xf:bind id="motechId" nodeset="/editpatient/motechId" required="true()" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="firstName" nodeset="/editpatient/firstName" required="false()" type="xsd:string"/>
+    <xf:bind id="middleName" nodeset="/editpatient/middleName" required="false()" type="xsd:string"/>
+    <xf:bind id="lastName" nodeset="/editpatient/lastName" required="false()" type="xsd:string"/>
+    <xf:bind id="preferredName" nodeset="/editpatient/preferredName" required="false()" type="xsd:string"/>
+    <xf:bind id="phoneNumber" nodeset="/editpatient/phoneNumber" type="xsd:int" constraint=". &lt;= 999999999" message="Number too large. It should be 10 digits long"/>
+    <xf:bind id="phoneOwnership" nodeset="/editpatient/phoneOwnership" type="xsd:string"/>
+    <xf:bind id="nhis" nodeset="/editpatient/nhis" type="xsd:string"/>
+    <xf:bind id="nhisExpires" nodeset="/editpatient/nhisExpires" type="xsd:date"/>
+    <xf:bind id="mothersMotechId" nodeset="/editpatient/mothersMotechId" type="xsd:int" constraint=". &gt; 999999 and . &lt; 10000000" message="MoTeCH ID must be 7 digits long"/>
+    <xf:bind id="edd" nodeset="/editpatient/edd" required="false()" type="xsd:date"/>
+    <xf:bind id="stopEnrollment" nodeset="/editpatient/stopEnrollment" type="xsd:string"/>
+    <xf:bind id="formtype" nodeset="/editpatient/formtype" required="true()" type="xsd:string" visible="false()"/>
+    <xf:bind id="formname" nodeset="/editpatient/formname" required="true()" type="xsd:string" visible="false()"/>
+  </xf:model>
+  <xf:group id="1">
+    <xf:label>Page8</xf:label>
+    <xf:input bind="staffId">
+      <xf:label>Staff ID</xf:label>
+    </xf:input>
+    <xf:input bind="facilityId">
+      <xf:label>Facility ID</xf:label>
+    </xf:input>
+    <xf:input bind="date">
+      <xf:label>Date</xf:label>
+    </xf:input>
+    <xf:input bind="motechId">
+      <xf:label>MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="firstName">
+      <xf:label>First Name</xf:label>
+    </xf:input>
+    <xf:input bind="middleName">
+      <xf:label>Middle Name</xf:label>
+    </xf:input>
+    <xf:input bind="lastName">
+      <xf:label>Last Name</xf:label>
+    </xf:input>
+    <xf:input bind="preferredName">
+      <xf:label>Preferred Name</xf:label>
+    </xf:input>
+    <xf:input bind="phoneNumber">
+      <xf:label>Phone number</xf:label>
+    </xf:input>
+    <xf:select1 bind="phoneOwnership">
+      <xf:label>Phone Ownership?</xf:label>
+      <xf:item id="PERSONAL">
+        <xf:label>Personal phone</xf:label>
+        <xf:value>PERSONAL</xf:value>
+      </xf:item>
+      <xf:item id="HOUSEHOLD">
+        <xf:label>Owned by household</xf:label>
+        <xf:value>HOUSEHOLD</xf:value>
+      </xf:item>
+      <xf:item id="PUBLIC">
+        <xf:label>Public phone</xf:label>
+        <xf:value>PUBLIC</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="nhis">
+      <xf:label>NHIS Number</xf:label>
+    </xf:input>
+    <xf:input bind="nhisExpires">
+      <xf:label>NHIS expiry date</xf:label>
+    </xf:input>
+    <xf:input bind="mothersMotechId">
+      <xf:label>Mother's MoTeCH ID</xf:label>
+    </xf:input>
+    <xf:input bind="edd">
+      <xf:label>Expected Delivery Date</xf:label>
+    </xf:input>
+    <xf:select1 bind="stopEnrollment">
+      <xf:label>Stop enrollment</xf:label>
+      <xf:item id="Y">
+        <xf:label>Yes</xf:label>
+        <xf:value>Y</xf:value>
+      </xf:item>
+      <xf:item id="N">
+        <xf:label>No</xf:label>
+        <xf:value>N</xf:value>
+      </xf:item>
+    </xf:select1>
+    <xf:input bind="formtype">
+      <xf:label>formType</xf:label>
+    </xf:input>
+    <xf:input bind="formname">
+      <xf:label>formName</xf:label>
+    </xf:input>
+  </xf:group>
+</xf:xforms>
