@@ -806,7 +806,7 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
             if (ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("break") || entry.getMenu().equalsIgnoreCase(welcomeMessageRecordingName)){
                 reminderCount++;
             } else if (firstInfoEntry == null && (session.getCallDirection().equalsIgnoreCase(IVRCallSession.OUTBOUND) || reminderCount > 0)){
-                if (entry.menu.contains("StartingMenu") || entry.menu.contains("TertiaryMessage"))
+                if (entry.menu.toLowerCase().contains("start") || entry.menu.contains("TertiaryMessage"))
                 firstInfoEntry = entry;
             }
         }
