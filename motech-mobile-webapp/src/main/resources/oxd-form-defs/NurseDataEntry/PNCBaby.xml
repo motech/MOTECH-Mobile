@@ -2,7 +2,7 @@
 <xf:xforms xmlns:xf="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="8">
   <xf:model>
     <xf:instance id="pncbaby">
-      <pncbaby id="8" name="PNC (baby)">
+      <pncbaby id="8" name="PNC (child)">
         <staffId/>
         <facilityId/>
         <date/>
