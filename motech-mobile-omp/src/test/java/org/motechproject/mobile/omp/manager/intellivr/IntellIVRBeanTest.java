@@ -576,11 +576,17 @@ public class IntellIVRBeanTest {
 		e2.setEntrytime(toXMLGregorianCalendar(addToDate(threeMinutesAgo, GregorianCalendar.SECOND, 15)));
 		e2.setMenu(primaryInfoRecordingName);
 		
+		IvrEntryType e3 = new IvrEntryType();
+        e3.setDuration(30);
+        e3.setEntrytime(toXMLGregorianCalendar(addToDate(threeMinutesAgo, GregorianCalendar.SECOND, 5)));
+        e3.setMenu(secondaryInfoRecordingName);
+		
 		report.getINTELLIVREntry().add(e1);
 		report.getINTELLIVREntry().add(e2);
+		report.getINTELLIVREntry().add(e3);
 		
 		report.setINTELLIVREntryCount(report.getINTELLIVREntryCount() + 2);
-		report.setDuration(report.getDuration() + e1.getDuration() + e2.getDuration());
+		report.setDuration(report.getDuration() + e1.getDuration() + e2.getDuration() + e3.getDuration());
 		
 		ResponseType expectedResponse = new ResponseType();
 		expectedResponse.setStatus(StatusType.OK);
@@ -608,7 +614,7 @@ public class IntellIVRBeanTest {
 		assertEquals(IVRCallStatus.COMPLETED, call.getStatus());
 		assertEquals("", call.getStatusReason());
 		
-		assertEquals(4, call.getMenus().size());
+		assertEquals(5, call.getMenus().size());
 		
 		assertEquals(IVRCallSession.CLOSED, session.getState());
 		assertEquals(1, session.getAttempts());
