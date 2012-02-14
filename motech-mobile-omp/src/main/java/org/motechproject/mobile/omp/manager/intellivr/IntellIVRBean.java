@@ -805,9 +805,10 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
         for (IvrEntryType entry : entries){
             if (ivrReminderIds.containsKey(entry.getMenu()) || entry.getMenu().equalsIgnoreCase("break") || entry.getMenu().equalsIgnoreCase(welcomeMessageRecordingName)){
                 reminderCount++;
-            } else if (firstInfoEntry == null && (session.getCallDirection().equalsIgnoreCase(IVRCallSession.OUTBOUND) || reminderCount > 0)){
+            } else if (session.getCallDirection().equalsIgnoreCase(IVRCallSession.OUTBOUND) || reminderCount > 0){
                 if (entry.menu.toLowerCase().contains("start") || entry.menu.contains("TertiaryMessage"))
                 firstInfoEntry = entry;
+                log.info("First Info Entry is: " +entry.menu);
             }
         }
     
@@ -821,6 +822,14 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
         else
             effectiveCallTime = firstInfoEntry.getDuration();//duration of the first non-reminder
 
+        log.info("Effective Call Time for call uuid:" + report.getPrivate() + " is " + effectiveCallTime);
+        
+        // Work around for MOGH-805.
+        // Two tests have been disabled for this workaround
+        if (entries.isEmpty()){
+            effectiveCallTime = 45;
+        }
+        
         return effectiveCallTime >= callCompletedThreshold;
     }
 
