@@ -131,9 +131,6 @@ public class RancardGatewayManagerImpl implements GatewayManager {
             String numbers = messageDetails.getRecipientsNumber();
             String[] phoneNumbers = numbers.split(",");
             for (String number : phoneNumbers) {
-                if (number.startsWith("23320")) {
-                    number += "+";
-                }
                 if (!recipients.isEmpty()) {
                     recipients += ":";
                 }
