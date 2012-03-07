@@ -195,9 +195,9 @@ public class IntellIVRBean implements GatewayManager, GetIVRConfigRequestHandler
                     List<IVRCallSession> existingSessions = ivrDao.loadIVRCallSessions(recipientID, phone, language.getName(), openState, 0, 0, IVRCallSession.OUTBOUND);
 
                     if (existingSessions.size() == 0) {
-                        Date now = new Date();
-                        Date bundlingExpiration = addToDate(now, GregorianCalendar.MILLISECOND, (int) bundlingDelay);
-                        IVRCallSession session = new IVRCallSession(recipientID, phone, language.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, now, bundlingExpiration);
+                        Date callTime = gatewayRequest.getDateFrom();
+                        Date bundlingExpiration = addToDate(callTime, GregorianCalendar.MILLISECOND, (int) bundlingDelay);
+                        IVRCallSession session = new IVRCallSession(recipientID, phone, language.getName(), IVRCallSession.OUTBOUND, 0, 0, IVRCallSession.OPEN, callTime, bundlingExpiration);
                         session.getMessageRequests().add(gatewayRequest.getMessageRequest());
                         ivrDao.saveIVRCallSession(session);
                         log.debug("Created session " + session);
