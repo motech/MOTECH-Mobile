@@ -43,6 +43,8 @@ import org.motechproject.mobile.omp.manager.utils.PostData;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -69,20 +71,20 @@ public class RancardGatewayManagerImpl implements GatewayManager {
     }
 
     public Set<GatewayResponse> sendMessage(GatewayRequest messageDetails) {
-        PostData postData = getPostData(messageDetails);
+        URL url = getURL(messageDetails);
         URLConnection urlConnection = openURLConnection();
-        String gatewayResponse = sendMessageAndCaptureGatewayResponse(messageDetails, postData, urlConnection);
+        String gatewayResponse = sendMessageAndCaptureGatewayResponse(messageDetails, url.toString().split("\\?")[1], urlConnection);
         return messageHandler.parseMessageResponse(messageDetails, gatewayResponse);
     }
 
-    private String sendMessageAndCaptureGatewayResponse(GatewayRequest messageDetails, PostData postData, URLConnection urlConnection) {
+    private String sendMessageAndCaptureGatewayResponse(GatewayRequest messageDetails, String postData, URLConnection urlConnection) {
         BufferedReader inBufferedReader;
         String data;
         String gatewayResponse = "";
         try {
             urlConnection.setDoOutput(true);
             OutputStreamWriter connectionOutputStream = new OutputStreamWriter(urlConnection.getOutputStream());
-            connectionOutputStream.write(postData.toString());
+            connectionOutputStream.write(postData);
             connectionOutputStream.flush();
             inBufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             while ((data = inBufferedReader.readLine()) != null) {
@@ -116,32 +118,56 @@ public class RancardGatewayManagerImpl implements GatewayManager {
         return urlConnection;
     }
 
-    private PostData getPostData(GatewayRequest messageDetails) {
-        PostData postData = new PostData();
+    private URL getURL(GatewayRequest messageDetails) {
+        URI serviceURI = null;
         try {
-            String msg = (messageDetails.getMessage().length() <= 459) ? messageDetails.getMessage() : messageDetails.getMessage().substring(0, 455) + "...";
-
-            postData.add("username",user);
-            postData.add("password",password);
-            postData.add("text", URLEncoder.encode(msg, "UTF-8"));
-            postData.add("from",sender);
-            postData.add("concat",String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()));
-
-            String recipients = "";
-            String numbers = messageDetails.getRecipientsNumber();
-            String[] phoneNumbers = numbers.split(",");
-            for (String number : phoneNumbers) {
-                if (!recipients.isEmpty()) {
-                    recipients += ":";
-                }
-                recipients += number;
-            }
-            postData.add("to",recipients);
-            logger.debug("Post Data:\n"+postData.without("username","password"));
-        } catch (UnsupportedEncodingException ex) {
-            logger.fatal("Error building request params: invalid encoding", ex);
+             serviceURI = new URI(serviceURL);
+        } catch (URISyntaxException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         }
-        return postData;
+        
+        URI uri = null;
+        URL url = null;
+        String recipients = "";
+        String numbers = messageDetails.getRecipientsNumber();
+        String msg = (messageDetails.getMessage().length() <= 459) ? messageDetails.getMessage() : messageDetails.getMessage().substring(0, 455) + "...";
+        String[] phoneNumbers = numbers.split(",");
+        for (String number : phoneNumbers) {
+            if (!recipients.isEmpty()) {
+                recipients += ":";
+            }
+            recipients += number;
+        }            
+            
+            try {
+                uri = new URI(
+                        serviceURI.getScheme(), 
+                        serviceURI.getAuthority(), 
+                        serviceURI.getPath(),
+                        "username=" +user+
+                        "&password="+password+
+                        "&from="+ sender + 
+                        "&to=" +recipients +
+                        "&text=" + msg +
+                        "&concat=" + String.valueOf(messageDetails.getGatewayRequestDetails().getNumberOfPages()), 
+                        null);
+
+                String request = uri.toString();
+                System.out.println(request);
+                System.out.println(uri.getQuery());
+                url = uri.toURL();
+                logger.debug("Post Data:\n"+uri.getSchemeSpecificPart());
+
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+       
+        return url;
     }
 
     public String getMessageStatus(GatewayResponse response) {
